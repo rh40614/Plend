@@ -24,7 +24,6 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	<!-- 인코딩 -->
 	<filter> 
 	    <filter-name>encodingFilter</filter-name> 
 	    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class> 
@@ -37,12 +36,13 @@
 	       <param-value>true</param-value> 
 	    </init-param> 
 	 </filter> 
-	
+
 	 <filter-mapping> 
 	    <filter-name>encodingFilter</filter-name> 
 	    <url-pattern>/*</url-pattern> 
-	 </filter-mapping>
-		
+	 </filter-mapping> 
+	 
+	 	
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
