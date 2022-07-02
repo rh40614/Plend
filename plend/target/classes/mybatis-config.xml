@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0/EN"
+				"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<typeAliases>
+		<!-- mapper에서 사용할 vo의 별칭을 등록해두는 곳입니다. -->
+        <!-- typeAlias type="edu.study.vo.BoardVO" alias="boardVO"/-->
+        <!-- <typeAlias type="three.people.vo.UserVO" alias="userVO"/>
+        <typeAlias type="three.people.vo.BoardVO" alias="boardVO"/>
+        <typeAlias type="three.people.vo.SearchVO" alias="searchVO"/> -->
+    </typeAliases>
+
+</configuration>
