@@ -9,6 +9,7 @@
         <!-- <typeAlias type="three.people.vo.UserVO" alias="userVO"/>
         <typeAlias type="three.people.vo.BoardVO" alias="boardVO"/>
         <typeAlias type="three.people.vo.SearchVO" alias="searchVO"/> -->
+
     </typeAliases>
 
 </configuration>

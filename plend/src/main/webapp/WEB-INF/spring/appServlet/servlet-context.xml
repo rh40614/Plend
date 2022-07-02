@@ -24,6 +24,9 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="three.people.controller" />
+	<context:component-scan base-package="three.people.service" />
+	<context:component-scan base-package="three.people.dao" />
+
 	
 	<!--  spring-upload -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
