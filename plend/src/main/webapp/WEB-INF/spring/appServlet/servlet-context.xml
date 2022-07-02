@@ -23,9 +23,9 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="edu.board.controller" />
-	<context:component-scan base-package="edu.board.service" />
-	<context:component-scan base-package="edu.board.dao" />
+	<context:component-scan base-package="three.people.controller" />
+	<context:component-scan base-package="three.people.service" />
+	<context:component-scan base-package="three.people.dao" />
 	
 	<!--  spring-upload -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
