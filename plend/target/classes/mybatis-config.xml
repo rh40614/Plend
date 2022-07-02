@@ -5,9 +5,13 @@
 
 	<typeAliases>
 		<!-- mapper에서 사용할 vo의 별칭을 등록해두는 곳입니다. -->
+
 <!--         <typeAlias type="edu.board.vo.UserVO" alias="userVO"/>
         <typeAlias type="edu.board.vo.BoardVO" alias="boardVO"/>
         <typeAlias type="edu.board.vo.SearchVO" alias="searchVO"/> -->
+
+
+
     </typeAliases>
 
 </configuration>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="three.people.mapper.mypageMapper">
+	
+	<select id="userInfo" resultType="UserVO" parameterType="UserVO"></select>
+	<update id="userModify" parameterType="int"></update>
+	<update id="userWithdraw"  parameterType="int"></update>
+	<select id="bookList" resultType="BookVO" parameterType="UserVO"></select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
