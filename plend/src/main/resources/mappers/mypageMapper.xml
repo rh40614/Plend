@@ -6,10 +6,14 @@
 <mapper namespace="three.people.mapper.mypageMapper">
 	
 	<select id="userInfo" resultType="UserVO" parameterType="UserVO"></select>
-	<update id="userModify" parameterType="int"></update>
-	<update id="userWithdraw"  parameterType="int"></update>
+	<update id="userModify" parameterType="UserVO"></update>
+	<update id="userWithdraw"  parameterType="UserVO"></update>
 	<select id="bookList" resultType="BookVO" parameterType="UserVO"></select>
-	
+	<!-- <insert id="insertReview" parameterType="ReviewVO"></insert> -->
+	<select id="likeList" resultType="PlaceVO" parameterType="UserVO"></select>
+	<select id="myReview" resultType="ReviewVO" parameterType="UserVO"></select>
+
+
 </mapper>
 
 
