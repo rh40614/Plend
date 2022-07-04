@@ -6,6 +6,7 @@
 	<typeAliases>
 		<!-- mapper에서 사용할 vo의 별칭을 등록해두는 곳입니다. -->
 
+
         <typeAlias type="three.people.vo.UserVO" alias="userVO"/>
         <typeAlias type="three.people.vo.ApprovalVO" alias="ApporvalVO"/>
         <typeAlias type="three.people.vo.BlockVO" alias="BlockVO"/>
@@ -15,6 +16,7 @@
         <typeAlias type="three.people.vo.PlaceVO" alias="PlaceVO"/>
       
       
+
     </typeAliases>
 
 </configuration>

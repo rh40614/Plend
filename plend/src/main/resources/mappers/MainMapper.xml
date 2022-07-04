@@ -5,7 +5,7 @@
  
 <mapper namespace="three.people.mapper.mainMapper">
 
-	<select id="noticeAll" resultType="NoticeVO" parameterType="NoticeVO"></select>
+	<!-- <select id="noticeAll" resultType="NoticeVO" parameterType="NoticeVO"></select>
 	<select id="faqAll" resultType="FaqVO" parameterType="FaqVO"></select>
 	<insert id="insertNotice" parameterType="NoticeVO"></insert>
 	<insert id="insertFaq" parameterType="FaqVO"></insert>
@@ -15,7 +15,7 @@
 	<update id="faqDelete" parameterType="FaqVO"></update>
 	<select id="randomPlace" resultType="PlaceVO"></select>
 	<select id="eventPlace" resultType="PlaceVO"></select>
-	<!-- <select id="reviweALl" resultType="ReviewVO"></select> -->
+	<select id="reviweALl" resultType="ReviewVO"></select> -->
 	
 	
 </mapper>

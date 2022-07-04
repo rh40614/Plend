@@ -11,7 +11,7 @@
 	<select id="bookList" resultType="BookVO" parameterType="UserVO"></select>
 	<!-- <insert id="insertReview" parameterType="ReviewVO"></insert> -->
 	<select id="likeList" resultType="PlaceVO" parameterType="UserVO"></select>
-	<select id="myReview" resultType="ReviewVO" parameterType="UserVO"></select>
+	<!-- <select id="myReview" resultType="ReviewVO" parameterType="UserVO"></select> -->
 
 
 </mapper>
