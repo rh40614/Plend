@@ -12,6 +12,8 @@ public class NaverVO {
 	private String service_provider;
 	private String token_type;
 	private String expires_in;
+	private String redirect_uri;
+	private String apiURL;
 	
 	
 	public String getToken_type() {

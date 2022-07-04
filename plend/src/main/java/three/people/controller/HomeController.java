@@ -55,7 +55,11 @@ public class HomeController {
 	public String test() {
 		return "test";
 	}
-	
+
+	@RequestMapping(value="testGet.do")
+	public String testGet(){
+		return "redirect:http://www.naver.com";
+	}
 	
 	@RequestMapping(value="callback.do")
 	public String callback(NaverVO navervo, Model model, HttpServletRequest request) throws UnsupportedEncodingException {
@@ -68,8 +72,8 @@ public class HomeController {
 		 * System.out.println("navervo.getRefresh_token()"+navervo.getRefresh_token());
 		 * System.out.println("navervo.getState()"+navervo.getState());
 		 */
-	    String clientId = "yuDMbMbNqBLt1ltRxtOG";//¾ÖÇÃ¸®ÄÉÀÌ¼Ç Å¬¶óÀÌ¾ðÆ® ¾ÆÀÌµð°ª";
-	    String clientSecret = "xCVm9skXrf";//¾ÖÇÃ¸®ÄÉÀÌ¼Ç Å¬¶óÀÌ¾ðÆ® ½ÃÅ©¸´°ª";
+	    String clientId = "yuDMbMbNqBLt1ltRxtOG";//ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ® ï¿½ï¿½ï¿½Ìµï¿½";
+	    String clientSecret = "xCVm9skXrf";//ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ® ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½";
 	    String code = request.getParameter("code");
 	    String state = request.getParameter("state");
 	    String redirectURI = URLEncoder.encode("http://localhost:8090/controller/callback.do", "UTF-8");
@@ -91,9 +95,9 @@ public class HomeController {
 	      int responseCode = con.getResponseCode();
 	      BufferedReader br;
 	      System.out.print("responseCode="+responseCode);
-	      if(responseCode==200) { // Á¤»ó È£Ãâ
+	      if(responseCode==200) { // ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
 	        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-	      } else {  // ¿¡·¯ ¹ß»ý
+	      } else {  // ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½
 	        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 	      }
 	      String inputLine;
