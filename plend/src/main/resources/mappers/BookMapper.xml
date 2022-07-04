@@ -5,6 +5,7 @@
  
 <mapper namespace="three.people.mapper.bookMapper">
 	
+	
 	<insert id="insertBook" parameterType="BookVO"></insert>
 	<select id="bookOne" resultType="BookVO" parameterType="BookVO"></select>
 	<update id="bookModify" parameterType="BookVO"></update>
