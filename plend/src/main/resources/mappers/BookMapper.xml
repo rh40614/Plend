@@ -12,5 +12,3 @@
 	<update id="bookCancel" parameterType="BookVO"></update>
 	
 </mapper>
-
-
