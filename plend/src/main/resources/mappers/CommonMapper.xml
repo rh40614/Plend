@@ -5,7 +5,34 @@
  
 <mapper namespace="three.people.mapper.commonMapper">
 	
-	<insert id="insertUser" parameterType="UserVO"></insert>
+	<insert id="insertUser" parameterType="UserVO">
+	<!-- 일단 유저만 -->
+		INSERT INTO user(
+			 id
+			,password
+			,name
+			,nickName
+			,birth
+			,userPhone
+			,email
+			,gender
+			,addr
+			,regnum
+			,role
+		) VALUES (
+			 #{id}
+			,#{password}
+			,#{name}
+			,#{nickName}
+			,#{birth}
+			,#{userPhone}
+			,#{email}
+			,#{gender}
+			,#{addr}
+			,#{regnum}
+			,#{role}
+		)
+	</insert>
 	<select id="login" resultType="UserVO" parameterType="UserVO"></select>
 	<select id="selectId" resultType="UserVO" parameterType="UserVO"></select>
 	<select id="selectPwd" resultType="UserVO" parameterType="UserVO"></select>
