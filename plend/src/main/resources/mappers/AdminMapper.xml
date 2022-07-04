@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
+
 <mapper namespace="three.people.mapper.adminMapper">
 	
 	<select id="userList" resultType="UserVO"></select>
@@ -12,8 +13,6 @@
 	<update id="approvalYN" parameterType="PlaceVO"></update>
 	<select id="BlockUser" resultType="BlockVO"></select>
 	<update id="eventYN" parameterType="PlaceVO"></update>
+
 	
 </mapper>
-
-
-
