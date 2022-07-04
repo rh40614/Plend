@@ -9,7 +9,7 @@
 	<select id="login" resultType="UserVO" parameterType="UserVO"></select>
 	<select id="selectId" resultType="UserVO" parameterType="UserVO"></select>
 	<select id="selectPwd" resultType="UserVO" parameterType="UserVO"></select>
-	 
+	
 	
 	
 </mapper>
