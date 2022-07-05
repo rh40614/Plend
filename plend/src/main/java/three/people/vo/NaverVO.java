@@ -1,10 +1,12 @@
 package three.people.vo;
 
+import java.net.URLEncoder;
+
 public class NaverVO {
 
+	private String client_id = "yuDMbMbNqBLt1ltRxtOG";
+	private String client_secret = "xCVm9skXrf";
 	private String grant_type;
-	private String client_id;
-	private String client_secret;
 	private String code;
 	private String state;
 	private String refresh_token;
@@ -12,10 +14,22 @@ public class NaverVO {
 	private String service_provider;
 	private String token_type;
 	private String expires_in;
-	private String redirect_uri;
+	private String redirect_uri = "http://localhost:8080/controller/callback.do";
 	private String apiURL;
 	
 	
+	public String getRedirect_uri() {
+		return redirect_uri;
+	}
+	public void setRedirect_uri(String redirect_uri) {
+		this.redirect_uri = redirect_uri;
+	}
+	public String getApiURL() {
+		return apiURL;
+	}
+	public void setApiURL(String apiURL) {
+		this.apiURL = apiURL;
+	}
 	public String getToken_type() {
 		return token_type;
 	}
