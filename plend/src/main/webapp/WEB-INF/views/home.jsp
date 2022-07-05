@@ -11,5 +11,14 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}.</P>
+
+
+<a href="headerWithoutCate.do">headerWithoutCate.do</a><br>
+<a href="headerWithCate.do">headerWithCate.do</a>
+
 </body>
 </html>
+
+
+
+

@@ -36,4 +36,25 @@ public class HomeController {
 		return "home";
 	}
 	
+	
+	@RequestMapping(value="headerWithoutCate.do")
+	public String headerWithoutCate() {
+		return "headerWithoutCate";
+	}
+	
+	@RequestMapping(value="headerWithCate.do")
+	public String headerWithCate() {
+		return "headerWithCate";
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
