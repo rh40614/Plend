@@ -47,6 +47,11 @@ public class HomeController {
 		return "headerWithCate";
 	}
 	
+	@RequestMapping(value="login.do")
+	public String Login() {
+		return "common/login";
+	}
+	
 }
 
 

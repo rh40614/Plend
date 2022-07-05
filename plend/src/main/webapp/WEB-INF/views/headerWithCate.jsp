@@ -49,6 +49,7 @@
         }
       }
       
+           
       /* 07.04 김연희 : 검색창 클릭했을때 테두리 안나오게 설정  */
       input:focus{outline:none;}
       
@@ -153,9 +154,9 @@
 
 
 <footer class="text-muted py-5" style="background: rgba(217, 217, 217, 0.43);">
-  <div class="container" style="display:flex;">
+  <div class="container" style="display:flex; align-items: flex-end; flex-direction: row; justify-content: space-around;">
     
-   	<div>
+   	<div >
    	<img alt="logo" src="./resources/image/plend.png">
     <p class="mb-1">welcome to Plend! We offer you very special experiences! </p>
     <p class="mb-1">github: https://github.com/rh40614/Plend</p>
@@ -166,9 +167,6 @@
     	<p class="mb-0">대표연락처: 010-0000-0000</p>
     </div>
     <div>
-    	<p class="float-end mb-1">
-     	 <a href="#">Back to top</a>
-    	</p>
   		<p>ⓒCopyrights Plend. All rights reserved.</p>
   	</div>
     
