@@ -84,6 +84,9 @@ public class HomeController {
 		return "callback";
 	}
 
-
+	@RequestMapping(value="headerWithCate.do")
+	public String headerWithCate() {
+		return "headerWithCate";
+	}
 	
 }
