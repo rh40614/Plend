@@ -14,5 +14,8 @@
 <a href="test.do">test</a>
 <a href="testGet.do"> testGet </a>
 <a href="headerWithCate.do">headerWithCate</a>
+<a href="sns/redirect.do">kakao</a>
+<a href="sns/googleRedirect.do">google</a>
+<a href="sns/googlelogin.do">googlelogin</a>
 </body>
 </html>
