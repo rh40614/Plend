@@ -86,7 +86,7 @@ public class HomeController {
 
 	@RequestMapping(value="headerWithCate.do")
 	public String headerWithCate() {
-		return "headerWithCate";
+		return "developerHeader";
 	}
 	
 }

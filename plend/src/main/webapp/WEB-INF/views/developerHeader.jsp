@@ -53,9 +53,11 @@
       input:focus{outline:none;}
       
     </style>
+    <!-- 07.06 김영민 대분류 클릭했을 경우 색상 변경 -->
 	<style type="text/css">
-		.active {
-		  background-color: green !important;
+		.active2 {
+		  background-color: #2F506D !important;
+		  border-color: #2F506D !important;
 		}
 	</style>
   </head>
@@ -80,34 +82,22 @@
     </div>
     </div>
     <!-- 하단 nav -->
-    <!-- 김영민 07-05 color : #2F506D-->
+    <!-- 김영민 07.05 color : #2F506D-->
+    <!-- 대분류 -->
     <div class="container d-block mt-5 p-0 mw-100">
-    	<div id="classification_level" class="d-flex flex-row  mw-100">
-    		<a class="btn btn-primary flex-fill rounded-0" style="background-color: #2F506D; border-color: #2F506D">take1</a>
-    		<a class="btn btn-primary flex-fill rounded-0" style="background-color: #2F506D; border-color: #2F506D">take2</a>
+    	<div id="classification_level" class="d-flex flex-row  mw-100" style="height: 50px">
+    		<a class="btn btn-primary flex-fill rounded-0 active2" style="background-color: #D9D9D9 ; border-color: #D9D9D9 ">회원관리</a>
+    		<a class="btn btn-primary flex-fill rounded-0" style="background-color: #D9D9D9 ; border-color: #D9D9D9 ">업체관리</a>
     	</div>
     </div>
+    <!-- 소분류 -->
     <div class="container d-block m-0 p-0 mw-100">
-    	<div class="d-flex flex-row  mw-100">
-    		<a class="btn btn-primary flex-fill rounded-0" style="background-color: #2F506D; border-color: #2F506D">take1</a>
+    	<div id="classification_category" class="d-flex flex-row  mw-100">
+    		<a class="btn btn-primary flex-fill rounded-0 fw-bold" style="background-color: #2F506D; border-color: #2F506D">take1</a>
     		<a class="btn btn-primary flex-fill rounded-0" style="background-color: #2F506D; border-color: #2F506D">take2</a>
     		<a class="btn btn-primary flex-fill rounded-0" style="background-color: #2F506D; border-color: #2F506D">take3</a>
     	</div>
     </div>
-    <!-- <div class="container">
-	    <div class="d-flex justify-content-center py-3">
-	      <ul class="nav nav-pills btn-group row">
-	        <li class="nav-item btn btn-primary col-6"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-	        <li class="nav-item btn btn-primary col-6"><a href="#" class="nav-link">Features</a></li>
-	      </ul>
-	    </div>
-  	</div> -->
-  	<script>
-	  	$("#classification_level").children("a").click(function(){
-	  		$("#classification_level").children("a").removeClass("active");
-	  	  $(this).addClass("active");
-	  	});
-  	</script>
     <!-- 오른쪽 캔버스  -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header" style="background: #364F6B; height: 250px; flex-direction: column">
@@ -196,7 +186,19 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
   </div>
-   
+  	<!-- 대분류/ 소분류 클릭함수 -->
+   	<script>
+  		// 네비 대분류 선택 함수
+	  	$("#classification_level").children("a").click(function(){
+	  		$("#classification_level").children("a").removeClass("active2");
+	  	  $(this).addClass("active2");
+	  	});
+  		// 네비 소분류 선택함수
+  		$("#classification_category").children("a").click(function(){
+	  		$("#classification_category").children("a").removeClass("fw-bold");
+	  	  $(this).addClass("fw-bold");
+	  	});
+  	</script>
   </body>
   
   
