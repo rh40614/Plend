@@ -13,6 +13,7 @@ local.properties
 .loadpath
 .recommenders
 .target
+/target/
 plend/.classpath
 plend/.project
 plend/.settings/org.eclipse.jdt.core.prefs
@@ -56,3 +57,4 @@ plend/target/classes/three/people/vo/NaverProfileVO$InnerNaverProfileVO.class
 plend/target/classes/three/people/vo/NaverVO.class
 plend/target/classes/three/people/vo/NaverProfileVO.class
 plend/target/classes/three/people/service/NaverService.class
+
