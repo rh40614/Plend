@@ -37,7 +37,7 @@ public class CommonController {
 	@Autowired
 	UserService userService;
 
-	//�ּ�â�� �ִ� code �Ķ���� �� �����ͼ� ��ū�߱޹ޱ�
+	//카카오 로그인 
 	@RequestMapping(value="/kakaoLogin")
 	public String login(@RequestParam("code") String code , HttpServletRequest request, HttpSession session) throws IOException {
 		
