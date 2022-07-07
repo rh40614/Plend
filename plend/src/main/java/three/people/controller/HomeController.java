@@ -52,6 +52,10 @@ public class HomeController {
 		return "common/login";
 	}
 	
+	@RequestMapping(value="footer.do")
+	public String footer() {
+		return "footer";
+	}
 }
 
 

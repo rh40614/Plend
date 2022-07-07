@@ -2,6 +2,7 @@ package three.people.vo;
 
 public class KakaoVO {
 
+	private Long kakaoId;
 	private String nickname;
 	private String account_email;
 	private String gender;
@@ -39,6 +40,12 @@ public class KakaoVO {
 	}
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
+	}
+	public Long getKakaoId() {
+		return kakaoId;
+	}
+	public void setKakaoId(Long kakaoId) {
+		this.kakaoId = kakaoId;
 	}
 	
 }

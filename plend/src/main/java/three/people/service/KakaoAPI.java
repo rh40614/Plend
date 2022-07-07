@@ -25,10 +25,11 @@ public class KakaoAPI {
 	//컨트롤러에서 사용할 메서드 만들기 
 	//화면에서 파라미터로 넘겨준 code값을 받아오고 POST로 요청을 보내서 토큰을 발급받기 
 	 public String getAccessToken (String authorize_code) {
-	     
+	     System.out.println("----------------------------토큰발급---------------------------");
 		 String access_Token = "";
 	     String refresh_Token = "";
-	       
+	     String id_token ="";
+	     
 	     //토큰발급 요청을 보낼 주소
 	     String reqURL = "https://kauth.kakao.com/oauth/token";
 	        
@@ -71,9 +72,11 @@ public class KakaoAPI {
 	            
 	            access_Token = element.getAsJsonObject().get("access_token").getAsString();
 	            refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
+	            id_token = element.getAsJsonObject().get("id_token").getAsString();
 	            
 	            System.out.println("access_token : " + access_Token);
 	            System.out.println("refresh_token : " + refresh_Token);
+	            System.out.println("id_token: "+ id_token);
 	            
 	            br.close();
 	            bw.close();
@@ -89,10 +92,11 @@ public class KakaoAPI {
 	 
 	 
 	 
-	 	//회원정보 요청
-	 	public HashMap<String, Object> userInfo(String access_Token) throws IOException {
-	 			 		
-	 		HashMap<String, Object> userInfo = new HashMap<String, Object>();
+	 	//회원정보 요청, 사용자 정보 보기 
+	 	public KakaoVO userInfo(String access_Token) throws IOException {
+	 		System.out.println("-------------------------사용자 정보 보기---------------------------");	 		
+	 		//HashMap<String, Object> userInfo = new HashMap<String, Object>();
+	 		KakaoVO userInfo = new KakaoVO();
 	 		
 	 		//토큰을 이용하여 카카오에 회원의 정보를 요청한다. // v1을 통한 '사용자 정보 요청'은 만료되었다. 
 	 		String reqURl = "https://kapi.kakao.com/v2/user/me";
@@ -135,29 +139,40 @@ public class KakaoAPI {
 	            JsonParser parser = new JsonParser();
 	            JsonElement element = parser.parse(result);
 	            
-	            //JsonElement.getAsJsonObject().get("key value").getAsString(); 의 형태로 파싱한다. 
-	           	JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+	            //System.out.println(element.getAsJsonObject().get("id").getAsLong());
+	            //JsonElement.getAsJsonObject().get("key value").getAs타입(); 의 형태로 파싱한다. 
+	           	//응답데이터(JSON)
+	            JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 	            JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+	            Long id = element.getAsJsonObject().get("id").getAsLong();
 	            
 	            //파싱된 json데이터를 string에 담기
+	            //properties
 	            String nickname = properties.getAsJsonObject().get("nickname").getAsString();
+	          
+	            //kakao_account
 	            String email = kakao_account.getAsJsonObject().get("email").getAsString();
 	            String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
 	            String birthday = kakao_account.getAsJsonObject().get("birthday").getAsString();
 	            String age_range = kakao_account.getAsJsonObject().get("age_range").getAsString();
 	            
+	            System.out.println("id: "+ id);
+	            System.out.println("nickname: "+nickname);
 	            
-	            //System.out.println("nickname"+nickname);
 	            //setter이용하여 KakaoVO에 담기 
-	            //userInfo.setNickname(nickname);
-	            //userInfo.setAccount_email(email);
+	            userInfo.setKakaoId(id);
+	            userInfo.setNickname(nickname);
+	            userInfo.setAccount_email(email);
+	            userInfo.setAge_range(age_range);
+	            userInfo.setGender(gender);
+	            userInfo.setBirthday(birthday);
 	            
 	            //HashMap에 담기
-	            userInfo.put("nickname", nickname);
-	            userInfo.put("email", email);
-	            userInfo.put("gender", gender);
-	            userInfo.put("birthday", birthday);
-	            userInfo.put("age_range", age_range);
+//	            userInfo.put("nickname", nickname);
+//	            userInfo.put("email", email);
+//	            userInfo.put("gender", gender);
+//	            userInfo.put("birthday", birthday);
+//	            userInfo.put("age_range", age_range);
 	            
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
@@ -170,10 +185,15 @@ public class KakaoAPI {
 	 	}
 	 	
 	 	
+	 
 	 	
-	 	public void kakaoLogout(String access_Token) throws IOException {
+	 	
+	 	public void kakaoLogout(String access_Token, Long KakaoId ) throws IOException {
+	 		System.out.println("----------------------------로그아웃---------------------------");
 	 		//연결을 요청할 경로 주소에 담기
 	 		String reqURl = "https://kapi.kakao.com/v1/user/logout";
+	 		String KakaoAK ="82ee6c3c0d09a5994f67a32f32867738";
+	 		
 	 		//URL객체 생성해서 HttpURLConnection 인스턴스 생성해서 이용하기 
 	 		URL url;
 	 		
@@ -181,11 +201,26 @@ public class KakaoAPI {
 				url = new URL(reqURl);
 				HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 				conn.setRequestMethod("POST");
-				conn.setRequestProperty("Authorization", "Bearer" + access_Token);
+				//기본값이 false이므로 true로 바꿔줘야한다.
+				conn.setDoOutput(true);
+				//H: 
+				conn.setRequestProperty("Authorization", "KakaoAK " + KakaoAK);
+				conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded ");
 				
+				
+				//d:  POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
+	            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+	            StringBuilder sb = new StringBuilder();
+	            sb.append("target_id_type=user_id");
+	            sb.append("&target_id="+KakaoId);
+	            
+	            bw.write(sb.toString());
+	            bw.flush();
 				//응답 확인
 				int responseCode = conn.getResponseCode();
 				System.out.println("responseCode: "+ responseCode);
+				
+				
 				
 				
 				//데이터열 읽기	// 데이터 인코딩 
@@ -212,8 +247,7 @@ public class KakaoAPI {
 	 	
 	 	
 	 	
-	 	
-	 	
+	 
 	 	
 	 	
 	 	
