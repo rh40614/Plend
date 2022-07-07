@@ -21,6 +21,7 @@
 	
 	<h1>Hello world! </h1>
 
+
 	<P>  The time on the server is ${serverTime}.</P>
 	<a href="test.do">test</a>
 	<a href="testGet.do"> testGet </a>
@@ -29,9 +30,18 @@
 	<a href="sns/googleRedirect.do">google</a>
 	<a href="sns/googlelogin.do">googlelogin</a>
 	<a href="signUp.do"> signup</a>
-	
+	<a href="login.do">kakkaoLogin</a>
 	<footer id="footer"></footer>
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+
+
+
+
 </body>
 </html>
+
+
+
+
