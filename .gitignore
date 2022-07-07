@@ -51,3 +51,8 @@ plend/target/classes/mappers/mypageMapper.xml
 plend/target/classes/mappers/PlaceMapper.xml
 plend/target/classes/mappers/BookMapper.xml
 plend/bin/src/main/resources/mybatis-config.xml
+plend/target/classes/three/people/api/ApiExamMemberProfile.class
+plend/target/classes/three/people/vo/NaverProfileVO$InnerNaverProfileVO.class
+plend/target/classes/three/people/vo/NaverVO.class
+plend/target/classes/three/people/vo/NaverProfileVO.class
+plend/target/classes/three/people/service/NaverService.class
