@@ -1,7 +1,7 @@
 package three.people.controller;
 
 import java.io.IOException;
-
+import java.util.Base64;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,11 +11,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonParseException;
+
 import three.people.service.KakaoAPI;
+import three.people.service.UserService;
+import three.people.vo.GoogleInfoVO;
 import three.people.vo.KakaoVO;
+import three.people.vo.UserVO;
 
 
 @RequestMapping(value="/common")
@@ -25,7 +34,7 @@ public class CommonController {
 	// ���� ��ü���� �ޱ�
 	@Autowired 
     private KakaoAPI kakaoService;
-		@Autowired
+	@Autowired
 	UserService userService;
 
 	//�ּ�â�� �ִ� code �Ķ���� �� �����ͼ� ��ū�߱޹ޱ�
