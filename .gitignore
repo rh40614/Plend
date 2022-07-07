@@ -60,45 +60,4 @@ plend/target/classes/three/people/service/NaverService.class
 
 plend/target/classes/three/people/service/KakaoAPI.class
 plend/target/classes/three/people/vo/KakaoVO.class
-.metadata/.log
-.metadata/.plugins/org.eclipse.core.resources/.projects/plend/.indexes/7/e4/b9/db/52/history.index
-.metadata/.plugins/org.eclipse.core.resources/.projects/plend/.indexes/af/history.index
-.metadata/.plugins/org.eclipse.core.resources/.projects/plend/.indexes/e4/b9/db/52/history.index
-.metadata/.plugins/org.eclipse.core.resources/.projects/plend/.indexes/properties.index
-.metadata/.plugins/org.eclipse.core.resources/.projects/plend/.markers.snap
-.metadata/.plugins/org.eclipse.core.resources/.projects/plend/.syncinfo.snap
-.metadata/.plugins/org.eclipse.core.resources/.projects/Servers/.markers.snap
-.metadata/.plugins/org.eclipse.core.resources/.projects/Servers/.syncinfo.snap
-.metadata/.plugins/org.eclipse.core.resources/.root/.markers.snap
-.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
-.metadata/.plugins/org.eclipse.jdt.core/savedIndexNames.txt
-.metadata/.plugins/org.eclipse.jdt.core/variablesAndContainers.dat
-.metadata/.plugins/org.eclipse.jdt.launching/.install.xml
-.metadata/.plugins/org.eclipse.m2e.core/plend.lifecyclemapping
-.metadata/.plugins/org.eclipse.m2e.core/workspacestate.properties
-.metadata/.plugins/org.eclipse.m2e.core/workspaceState.ser
 .metadata/.plugins/org.eclipse.m2e.logback.configuration/0.log
-.metadata/.plugins/org.eclipse.wst.jsdt.core/externalLibsTimeStamps
-.metadata/.plugins/org.eclipse.wst.jsdt.core/variablesAndContainers.dat
-.metadata/.plugins/org.springsource.ide.eclipse.dashboard.ui/feeds/dashboard.feeds.update/-1223306788.xml
-plend/.classpath
-plend/.settings/org.eclipse.jdt.core.prefs
-plend/.settings/org.eclipse.wst.common.component
-plend/.settings/org.eclipse.wst.common.project.facet.core.xml
-plend/target/classes/three/people/controller/HostController.class
-plend/target/classes/three/people/dao/CommonDAO.class
-plend/target/classes/three/people/service/UserService.class
-plend/target/classes/three/people/service/UserServieImpl.class
-plend/target/classes/three/people/vo/GoogleInfoVO.class
-plend/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
-plend/target/m2e-wtp/web-resources/META-INF/maven/three.people/controller/pom.properties
-plend/target/m2e-wtp/web-resources/META-INF/maven/three.people/controller/pom.xml
-Servers/.settings/org.eclipse.wst.server.core.prefs
-Servers/Tomcat v8.5 Server at localhost-config/catalina.policy
-Servers/Tomcat v8.5 Server at localhost-config/catalina.properties
-Servers/Tomcat v8.5 Server at localhost-config/context.xml
-Servers/Tomcat v8.5 Server at localhost-config/server.xml
-Servers/Tomcat v8.5 Server at localhost-config/tomcat-users.xml
-Servers/Tomcat v8.5 Server at localhost-config/web.xml
-Servers/.settings/org.eclipse.wst.server.core.prefs
-Servers/Tomcat v9.0 Server at localhost-config/server.xml
