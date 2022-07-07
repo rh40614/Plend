@@ -17,4 +17,8 @@ public class CommonDAO {
 		
 		return result;
 	}
+	
+	public UserVO login(UserVO vo) {
+		return sqlSession.selectOne("three.people.mapper.commonMapper.login", vo);
+	}
 }

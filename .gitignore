@@ -36,3 +36,15 @@ plend/target/classes/mappers/MainMapper.xml
 plend/target/classes/mappers/mypageMapper.xml
 plend/target/classes/mappers/PlaceMapper.xml
 plend/target/classes/mappers/BookMapper.xml
+plend/src/main/webapp/resources/image/StarUML Setup 5.0.2.exe
+plend/target/m2e-wtp/web-resources/META-INF/maven/three.people/controller/pom.xml
+plend/target/m2e-wtp/web-resources/META-INF/maven/three.people/controller/pom.properties
+plend/target/classes/three/people/vo/GoogleInfoVO.class
+plend/target/classes/three/people/service/UserService.class
+plend/target/classes/three/people/dao/CommonDAO.class
+plend/target/classes/three/people/controller/HostController.class
+plend/target/m2e-wtp/web-resources/META-INF/maven/three.people/controller/pom.xml
+plend/target/m2e-wtp/web-resources/META-INF/maven/three.people/controller/pom.properties
+plend/target/classes/three/people/service/UserServieImpl.class
+plend/target/classes/three/people/service/UserService.class
+plend/target/classes/three/people/dao/CommonDAO.class

@@ -33,7 +33,16 @@
 			,#{role}
 		)
 	</insert>
-	<select id="login" resultType="UserVO" parameterType="UserVO"></select>
+	
+	<select id="login" resultType="UserVO" parameterType="UserVO">
+		SELECT 
+			 id
+			,password
+		FROM user 
+	   WHERE id = #{id}
+	     AND password = #{password}	
+	</select>
+	
 	<select id="selectId" resultType="UserVO" parameterType="UserVO"></select>
 	<select id="selectPwd" resultType="UserVO" parameterType="UserVO"></select>
 	

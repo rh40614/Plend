@@ -18,4 +18,10 @@ public class UserServieImpl implements UserService {
 		return result;
 	}
 
+	@Override
+	public UserVO login(UserVO vo) {
+		
+		return commonDao.login(vo);
+	}
+
 }
