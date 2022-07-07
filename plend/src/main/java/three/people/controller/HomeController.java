@@ -59,6 +59,8 @@ public class HomeController {
 		return "home";
 	}
 	
+
+
 	@RequestMapping(value="test.do")
 	public String test(Model model, HttpServletRequest request, HttpSession session) throws UnsupportedEncodingException {
 		
@@ -95,4 +97,23 @@ public class HomeController {
 		return "signUp";
 	}
 	
+
+	
+	
+	@RequestMapping(value="login.do")
+	public String Login() {
+		return "common/login";
+	}
+	
+
 }
+
+
+
+
+
+
+
+
+
+

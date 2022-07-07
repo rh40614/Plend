@@ -109,7 +109,7 @@ public class NaverService {
                 return readBody(con.getErrorStream());
             }
         } catch (IOException e) {
-            throw new RuntimeException("API 요청과 응답 실패", e);
+            throw new RuntimeException("API �슂泥�怨� �쓳�떟 �떎�뙣", e);
         } finally {
             con.disconnect();
         }
@@ -119,8 +119,13 @@ public class NaverService {
         InputStreamReader streamReader = new InputStreamReader(body);
         NaverProfileVO naverprofilevo = new NaverProfileVO();
 
-        try (BufferedReader lineReader = new BufferedReader(streamReader)) {
-            String line;
+        
+       
+        try (
+        		
+        	BufferedReader lineReader = new BufferedReader(streamReader)) {
+            
+        	String line;
             while ((line = lineReader.readLine()) != null) {
             	System.out.println("line: "+ line.toString());
             	ObjectMapper mapper = new ObjectMapper();
@@ -130,7 +135,7 @@ public class NaverService {
 
             return naverprofilevo;
         } catch (IOException e) {
-            throw new RuntimeException("API 응답을 읽는데 실패했습니다..", e);
+            throw new RuntimeException("API �쓳�떟�쓣 �씫�뒗�뜲 �떎�뙣�뻽�뒿�땲�떎..", e);
         }
     }
 	

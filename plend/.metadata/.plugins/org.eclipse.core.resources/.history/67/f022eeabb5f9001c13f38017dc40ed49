@@ -1,0 +1,19 @@
+package three.people.vo;
+
+public class PlaceVO extends UserVO {
+
+	private int pidx;
+	private String category;
+	private String title;
+	private String eventYN;
+	private String placeDetail;
+	private String guide;
+	private String tag;
+	private String placeImg;
+	private String paddr;
+	private String option1;
+	private String option2;
+	private int price;
+	private String delYN;
+	private String approvalYN;
+}

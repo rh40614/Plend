@@ -1,0 +1,1 @@
+let code_Name = new URL(window.location.href).searchParams.get('code');
