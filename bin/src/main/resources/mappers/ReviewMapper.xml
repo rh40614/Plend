@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="three.people.mapper.reviewMapper">
+	
+	<!-- <select id="reviewALl" parameterType="ReviewVO"></select>
+	<update id="reviewModify" parameterType="ReviewVO"></update>
+	<insert id="insertReview" parameterType="ReviewVO"></insert>
+	<select id="reviewOne" resultType="ReviewVO" parameterType="ReviewVO"></select> 
+	<update id="reviewDelete" parameterType="ReviewVO"></update>
+	<insert id="insertReviewReport" parameterType="ReviewVO"></insert> -->
+	
+	
+	
+</mapper>
+
+
+

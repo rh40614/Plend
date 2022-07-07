@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>로그인</title>
 <style>
 button{
@@ -16,6 +17,13 @@ button{
 
 
 <button type="button" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=ab7da9e9cfc38c18cc1cac5e5ddc71f0&redirect_uri=http://localhost:8090/controller/common/kakaoLogin&response_type=code'"><img alt="카카오 로그인" src="<%=request.getContextPath()%>/resources/image/kakao_login_medium_narrow.png"></button>
+
+
+<form action = "login.do" method = "post">
+	아이디 : <input type = "text" name = "id">
+	비밀번호 : <input type = "password" name = "password">
+	<input type = "submit" value = "확인">
+</form>
 
 </body>
 </html>

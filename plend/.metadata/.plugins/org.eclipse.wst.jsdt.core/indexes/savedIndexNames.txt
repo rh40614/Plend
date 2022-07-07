@@ -1,0 +1,8 @@
+INDEX VERSION 1.4+C:\Users\778\Documents\GitHub\Plend\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3846964980.index
+36997261.index
+1070524240.index
+3715326117.index
+36997261.index
+3096559345.index
+3648262360.index
