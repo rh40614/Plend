@@ -50,3 +50,4 @@ plend/target/classes/mappers/MainMapper.xml
 plend/target/classes/mappers/mypageMapper.xml
 plend/target/classes/mappers/PlaceMapper.xml
 plend/target/classes/mappers/BookMapper.xml
+plend/bin/src/main/resources/mybatis-config.xml
