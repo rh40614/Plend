@@ -20,35 +20,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import three.people.vo.NaverProfileVO;
 import three.people.vo.NaverVO;
+import three.people.vo.SnsProfileVO;
+import three.people.vo.SnsVO;
 
 @Service
-public class NaverService {
+public class NaverService implements SnsService {
 
-	NaverVO vo = new NaverVO();
-	
-	public NaverVO loginApiURL() throws UnsupportedEncodingException {
-	
-		vo.setRedirect_uri(URLEncoder.encode(vo.getRedirect_uri(), "UTF-8"));
-		SecureRandom random = new SecureRandom();
-	    vo.setState(new BigInteger(130, random).toString());
-	    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-	    apiURL += "&client_id=" + vo.getClient_id();
-	    apiURL += "&redirect_uri=" + vo.getRedirect_uri();
-	    apiURL += "&state=" + vo.getState();
-	    
-	    vo.setApiURL(apiURL);
-		
-		return vo;
-	}
-	
-	public NaverVO getAccessToken(NaverVO navervo) {
+	@Override
+	public SnsVO getAccessToken(SnsVO snsVO) {
 		String apiURL;
 	    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
-	    apiURL += "client_id=" + navervo.getClient_id();
-	    apiURL += "&client_secret=" + navervo.getClient_secret();
-	    apiURL += "&redirect_uri=" + navervo.getRedirect_uri();
-	    apiURL += "&code=" + navervo.getCode();
-	    apiURL += "&state=" + navervo.getState();
+	    apiURL += "client_id=" + snsVO.getNaver_client_id();
+	    apiURL += "&client_secret=" + snsVO.getNaver_client_secret();
+	    apiURL += "&redirect_uri=" + snsVO.getNaver_redirect_uri();
+	    apiURL += "&code=" + snsVO.getCode();
+	    apiURL += "&state=" + snsVO.getState();
 		
 	    try {
 		      URL url = new URL(apiURL);
@@ -66,77 +52,21 @@ public class NaverService {
 		      String inputLine;
 		      while ((inputLine = br.readLine()) != null) {
 		    	ObjectMapper mapper = new ObjectMapper();
-			    navervo = mapper.readValue(inputLine, NaverVO.class);
+			    snsVO = mapper.readValue(inputLine, SnsVO.class);
 		      }
 		      br.close();
 		    } catch (Exception e) {
 		      System.out.println(e);
 		    }
-		return navervo;
+		return snsVO;
 	}
-	
-	public NaverProfileVO getProfile(NaverVO navervo) throws IOException {
-		NaverProfileVO nprofile = new NaverProfileVO();
-		
-		String token = navervo.getAccess_token(); 
-        String header = "Bearer " + token; 
-        String apiURL = "https://openapi.naver.com/v1/nid/me";
 
-        Map<String, String> requestHeaders = new HashMap<String, String>();
-        requestHeaders.put("Authorization", header);
-        
-        nprofile = get(apiURL, requestHeaders);
-        
-        
-		return nprofile;
+	@Override
+	public SnsProfileVO getUserProfile(SnsProfileVO profileVO) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	
-	private static NaverProfileVO get(String apiUrl, Map<String, String> requestHeaders) throws IOException{
-		URL url = new URL(apiUrl);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        
-        try {
-            con.setRequestMethod("GET");
-            for(Map.Entry<String, String> header :requestHeaders.entrySet()) {
-                con.setRequestProperty(header.getKey(), header.getValue());
-            }
-
-
-            int responseCode = con.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) { 
-                return readBody(con.getInputStream());
-            } else { 
-                return readBody(con.getErrorStream());
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("API �슂泥�怨� �쓳�떟 �떎�뙣", e);
-        } finally {
-            con.disconnect();
-        }
-    }
-	
-	private static NaverProfileVO readBody(InputStream body){
-        InputStreamReader streamReader = new InputStreamReader(body);
-        NaverProfileVO naverprofilevo = new NaverProfileVO();
-
-        
-       
-        try (
-        		
-        	BufferedReader lineReader = new BufferedReader(streamReader)) {
-            
-        	String line;
-            while ((line = lineReader.readLine()) != null) {
-            	System.out.println("line: "+ line.toString());
-            	ObjectMapper mapper = new ObjectMapper();
-            	mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            	naverprofilevo = mapper.readValue(line, NaverProfileVO.class);
-            }
-
-            return naverprofilevo;
-        } catch (IOException e) {
-            throw new RuntimeException("API �쓳�떟�쓣 �씫�뒗�뜲 �떎�뙣�뻽�뒿�땲�떎..", e);
-        }
-    }
 	
 }
