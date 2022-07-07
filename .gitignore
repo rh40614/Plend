@@ -58,3 +58,5 @@ plend/target/classes/three/people/vo/NaverVO.class
 plend/target/classes/three/people/vo/NaverProfileVO.class
 plend/target/classes/three/people/service/NaverService.class
 
+plend/target/classes/three/people/service/KakaoAPI.class
+plend/target/classes/three/people/vo/KakaoVO.class
