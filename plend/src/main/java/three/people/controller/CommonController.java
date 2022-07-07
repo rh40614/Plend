@@ -74,7 +74,7 @@ public class CommonController {
 		Long kakaoId = (Long)session.getAttribute("kakaoId");
 		
 		//·Î±×¾Æ¿ô
-		kakaoService.kakaoLogout((String)session.getAttribute("access_Token"), kakaoId);
+		kakaoService.logout((String)session.getAttribute("access_Token"), kakaoId);
 		session.removeAttribute("access_Token");
 		session.removeAttribute("nickname");
 		session.removeAttribute("kakaoId");

@@ -20,7 +20,7 @@ import three.people.vo.KakaoVO;
 
 
 @Service
-public class KakaoAPI {
+public class KakaoAPI  {
 
 	//컨트롤러에서 사용할 메서드 만들기 
 	//화면에서 파라미터로 넘겨준 code값을 받아오고 POST로 요청을 보내서 토큰을 발급받기 
@@ -188,7 +188,7 @@ public class KakaoAPI {
 	 
 	 	
 	 	
-	 	public void kakaoLogout(String access_Token, Long KakaoId ) throws IOException {
+	 	public void logout(String access_Token, Long KakaoId ) throws IOException {
 	 		System.out.println("----------------------------로그아웃---------------------------");
 	 		//연결을 요청할 경로 주소에 담기
 	 		String reqURl = "https://kapi.kakao.com/v1/user/logout";

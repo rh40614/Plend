@@ -16,7 +16,7 @@
 <a href="headerWithoutCate.do">headerWithoutCate.do</a><br>
 <a href="headerWithCate.do">headerWithCate.do</a>
 <a href="login.do">kakkaoLogin</a>
-<a href="footer.do">kakkaoLogin</a>
+<a href="footer.do">푸터</a>
 </body>
 </html>
 
