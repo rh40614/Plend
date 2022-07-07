@@ -1,64 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="<%=request.getContextPath() %>/resources/js/jquery-3.6.0.min.js">
-    
-    </script>
-    <title>header</title>
-	<meta charset="UTF-8">
-
-    <link rel="canonical" href="https://getbootstrap.kr/docs/5.1/examples/album/">
-
-    <!-- Bootstrap core CSS -->
-<!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <style>
-      /* footer 하단고정 */
-       #wrap {
-  
+<style>
+	#wrap {
 	  display: flex;
-	  min-height: 100vh;
+	  min-height: 280px;
 	  flex-direction: column; 
    	  justify-content: flex-end;
 	  
-	  }
-	  
-	 
-	 html,body{
-	 margin: 0px;
 	 }
-
-      @media (max-width: 1000px) {
-        #searchBar {
-         display:none;
-        }
-      }
-      
-      @media (max-width: 576px) {
-        #category {
-         display:none;
-        }
-      }
-      
-      /* 07.04 김연희 : 검색창 클릭했을때 테두리 안나오게 설정  */
-      input:focus{outline:none;}
-      
-    </style>
-    <!-- 07.06 김영민 대분류 클릭했을 경우 색상 변경 -->
-	<style type="text/css">
-		.active2 {
-		  background-color: #2F506D !important;
-		  border-color: #2F506D !important;
-		}
-	</style>
-  </head>
-  <body>
-  <div id="wrap">
+</style>
+<div id="wrap">
 <header>
  
   <nav class="navbar navbar-light shadow-sm fixed-top mt-4">
@@ -134,9 +85,6 @@
     </div>
 </nav>
 </header>
-    <!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
   </div>
   	<!-- 대분류/ 소분류 클릭함수 -->
    	<script>
@@ -151,11 +99,6 @@
 	  	  $(this).addClass("fw-bold");
 	  	});
   	</script>
-  </body>
-  
-  
-  
-</html>
 
 
   
