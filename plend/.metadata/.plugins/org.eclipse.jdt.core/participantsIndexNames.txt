@@ -1,3 +1,0 @@
-INDEX VERSION 1.131
-C:\Users\778\Documents\GitHub\Plend\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\36997261.index
-\plend\src\main\java
