@@ -82,7 +82,7 @@ public class NaverService {
         String header = "Bearer " + token; 
         String apiURL = "https://openapi.naver.com/v1/nid/me";
 
-        Map<String, String> requestHeaders = new HashMap<>();
+        Map<String, String> requestHeaders = new HashMap<String, String>();
         requestHeaders.put("Authorization", header);
         
         nprofile = get(apiURL, requestHeaders);
@@ -103,9 +103,9 @@ public class NaverService {
 
 
             int responseCode = con.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 호출
+            if (responseCode == HttpURLConnection.HTTP_OK) { 
                 return readBody(con.getInputStream());
-            } else { // 에러 발생
+            } else { 
                 return readBody(con.getErrorStream());
             }
         } catch (IOException e) {
@@ -130,7 +130,7 @@ public class NaverService {
 
             return naverprofilevo;
         } catch (IOException e) {
-            throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);
+            throw new RuntimeException("API 응답을 읽는데 실패했습니다..", e);
         }
     }
 	
