@@ -61,3 +61,14 @@ plend/target/classes/three/people/service/NaverService.class
 plend/target/classes/three/people/service/KakaoAPI.class
 plend/target/classes/three/people/vo/KakaoVO.class
 .metadata/.plugins/org.eclipse.m2e.logback.configuration/0.log
+.metadata/.log
+.metadata/.plugins/org.eclipse.core.resources/.projects/Servers/.syncinfo.snap
+.metadata/.plugins/org.eclipse.core.resources/.root/.markers.snap
+.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
+.metadata/.plugins/org.eclipse.jdt.core/savedIndexNames.txt
+.metadata/.plugins/org.eclipse.m2e.core/workspacestate.properties
+.metadata/.plugins/org.eclipse.m2e.logback.configuration/0.log
+.metadata/.plugins/org.eclipse.wst.validation/dep.index
+plend/.classpath
+plend/.settings/org.eclipse.jdt.core.prefs
+plend/target/m2e-wtp/web-resources/META-INF/maven/three.people/controller/pom.properties
