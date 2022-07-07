@@ -12,7 +12,7 @@ public class UserVO {
 	private String gender;
 	private String addr;
 	private String regnum;
-	private String role;
+	private int role;
 	private String delYN;
 	
 	public int getUidx() {
@@ -81,10 +81,10 @@ public class UserVO {
 	public void setRegnum(String regnum) {
 		this.regnum = regnum;
 	}
-	public String getRole() {
+	public int getRole() {
 		return role;
 	}
-	public void setRole(String role) {
+	public void setRole(int role) {
 		this.role = role;
 	}
 	public String getDelYN() {

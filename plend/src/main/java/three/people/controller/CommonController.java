@@ -1,6 +1,7 @@
 package three.people.controller;
 
 import java.io.IOException;
+
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,18 +22,20 @@ import three.people.vo.KakaoVO;
 @Controller
 public class CommonController {
 	
-	// ¼­ºñ½º °´Ã¼ÁÖÀÔ ¹Þ±â
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½Þ±ï¿½
 	@Autowired 
     private KakaoAPI kakaoService;
+		@Autowired
+	UserService userService;
 
-	//ÁÖ¼ÒÃ¢¿¡ ÀÖ´Â code ÆÄ¶ó¹ÌÅÍ °ª °¡Á®¿Í¼­ ÅäÅ«¹ß±Þ¹Þ±â
+	//ï¿½Ö¼ï¿½Ã¢ï¿½ï¿½ ï¿½Ö´ï¿½ code ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ ï¿½ï¿½Å«ï¿½ß±Þ¹Þ±ï¿½
 	@RequestMapping(value="/kakaoLogin")
 	public String login(@RequestParam("code") String code , HttpServletRequest request, HttpSession session) throws IOException {
 		
-		//ÅäÅ« ¹ß±Þ
+		//ï¿½ï¿½Å« ï¿½ß±ï¿½
 		String access_Token = kakaoService.getAccessToken(code);
 		
-		//»ç¿ëÀÚ Á¤º¸ °¡Á®¿À±â
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		//HashMap<String, Object> userInfo = kakaoService.userInfo(access_Token);
 		KakaoVO userInfo = kakaoService.userInfo(access_Token);
 		
@@ -42,12 +45,12 @@ public class CommonController {
 		System.out.println("accessToken: "+access_Token);
 		System.out.println("code:"+ code);
 		System.out.println("Common Controller:"+ userInfo);
-		System.out.println("´Ð³×ÀÓ: "+ userInfo.getNickname());
-		System.out.println("ÀÌ¸ÞÀÏ: "+ userInfo.getAccount_email());
-		System.out.println("¼ºº°: "+ userInfo.getGender());
+		System.out.println("ï¿½Ð³ï¿½ï¿½ï¿½: "+ userInfo.getNickname());
+		System.out.println("ï¿½Ì¸ï¿½ï¿½ï¿½: "+ userInfo.getAccount_email());
+		System.out.println("ï¿½ï¿½ï¿½ï¿½: "+ userInfo.getGender());
 		
 		
-		//Å¬¶óÀÌ¾ðÆ®ÀÇ ´Ð³×ÀÓÀÌ Á¸ÀçÇÏ¸é ¼¼¼Ç¿¡ ´Ð³×ÀÓ°ú ÅäÅ« µî·Ï
+		//Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½Ð³ï¿½ï¿½Ó°ï¿½ ï¿½ï¿½Å« ï¿½ï¿½ï¿½
 		if (userInfo.getNickname() != null) {
 		     session.setAttribute("nickname", userInfo.getNickname());
 		     session.setAttribute("access_Token", access_Token);
@@ -60,20 +63,20 @@ public class CommonController {
 	
 	
 	
-	//·Î±×¾Æ¿ô
+	//ï¿½Î±×¾Æ¿ï¿½
 	@RequestMapping(value="/logout")
 	public String logout(HttpSession session ) throws IOException {
-		//È¸¿ø ¾ÆÀÌµð °¡Áö°í¿À±â - ÀÌ·¸°ÔÇÏ¸é °¡Áö°í ¿À´Â°Ô ¾Æ´Ï¶ó »õ·Î ¸¸µé°Ô µÇ´Â °Í
+		//È¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ì·ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Æ´Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½
 		//KakaoVO id = new KakaoVO();
 		//Long KakaoId = id.getKakaoId();
 		
 		//System.out.println(session.getAttribute("access_Token"));
 		//System.out.println(KakaoId);
 		
-		//»ç¿ëÀÚ Á¤º¸¸¦ º¼¶§ ¼¼¼Ç¿¡ idµµ ´ã±â(³Ñ°ÜÁÖ±â À§ÇØ)
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¿ï¿½ idï¿½ï¿½ ï¿½ï¿½ï¿½(ï¿½Ñ°ï¿½ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½)
 		Long kakaoId = (Long)session.getAttribute("kakaoId");
 		
-		//·Î±×¾Æ¿ô
+		//ï¿½Î±×¾Æ¿ï¿½
 		kakaoService.logout((String)session.getAttribute("access_Token"), kakaoId);
 		session.removeAttribute("access_Token");
 		session.removeAttribute("nickname");
@@ -82,6 +85,94 @@ public class CommonController {
 		return "redirect:/";
 	}
 	
+
+	@RequestMapping(value= "/join.do", method = RequestMethod.GET)
+	public String join() {
+		return "common/join";
+	}
 	
+	@RequestMapping(value = "/join.do", method = RequestMethod.POST)
+	public String join(UserVO vo) {
+		int result = userService.insertUser(vo);
+		return "redirect:/";
+	}
 	
+	@RequestMapping(value = "/googleLogin.do")
+	public String google() {
+		
+		return "common/googleLogin";
+	}
+	
+	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
+	public String login() {
+		return "common/login";
+	}
+	
+	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
+	public String login(UserVO vo, HttpServletRequest request, HttpSession session) {
+		
+		UserVO user = userService.login(vo);
+		
+		if (user != null) {
+			session = request.getSession();
+			
+			UserVO login = new UserVO();
+			login.setId(user.getId());
+			login.setPassword(user.getPassword());
+			
+			session.setAttribute("login", login);
+			return "redirect:/";
+					
+		} else {
+			return "common/login";
+		}
+		
+		
+	}
+	@RequestMapping(value = "/logout.do")
+	public String logout(HttpServletRequest request, HttpSession session) {
+		
+		request.getSession();
+		session.invalidate();
+		
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/googleloginGo.do") 
+	public String googleloginGo(@RequestParam("credential") String token,GoogleInfoVO vo, HttpSession session, HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException {
+		
+		session = request.getSession();
+		
+		System.out.println("token = " + token);
+		
+		String[] chunks = token.split("\\.");
+		
+		Base64.Decoder decoder = Base64.getUrlDecoder();
+		//"UTF-8"ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ö¾ï¿½ï¿½ ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		String header = new String (decoder.decode(chunks[0]),"UTF-8");
+		String payload = new String (decoder.decode(chunks[1]),"UTF-8");
+		//json parse ï¿½Ç´ï¿½ï¿½ï¿½ ï¿½Ë¾Æºï¿½ï¿½ï¿½
+		//objectmapper ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ö´Â°ï¿½ ï¿½Ë¾Æºï¿½ï¿½ï¿½
+		System.out.println("payload = " + payload );
+		
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		
+		vo = mapper.readValue(payload, GoogleInfoVO.class);
+		
+		GoogleInfoVO info = new GoogleInfoVO();
+		
+		info.setAud(vo.getAud());
+		info.setEmail(vo.getEmail());
+		info.setName(vo.getName());
+		info.setSub(vo.getSub());
+		
+		session.setAttribute("info", info);
+		
+		System.out.println("vo = " + vo);
+		
+		
+		return "common/googleloginGo";
+	
+	}
 }
