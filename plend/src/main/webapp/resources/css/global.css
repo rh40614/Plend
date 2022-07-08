@@ -1,36 +1,66 @@
-/* commonheader */
+/* commonHeader */
 	/* 07.04 김연희 : 검색창 클릭했을때 테두리 안나오게 설정  */
     input:focus{outline:none;}
+    /* 07.07 김연희 : 메인페이지 헤더영역이 자동으로 지정이 안되서 200으로 잡아줌*/
+    #header{
+    height: 200px;
     
-/* developerheader */
+    }
+/* section : 장소 4개를 한줄로 지정해 두었습니다.*/
+	/*07.08 김연희 : 하이퍼링크 설정 */
+	a{
+	text-decoration: none;
+	}
+	a:link{
+	color: black;
+	}
+	a:visited{
+	color: black;
+	}
+	a:hover{
+	color: #6e6e6e;
+	}
+	a:active{
+	color: #6e6e6e;
+	}
+    
+    
+/* developerHeader */
     /* 07.06 김영민 대분류 클릭했을 경우 색상 변경 */
 	.active2 {
 		  background-color: #2F506D !important;
 		  border-color: #2F506D !important;
 		}
 
-html,body {
-	 margin: 0px;
-	 }
+	html,body {
+		margin: 0px;
+	}
 
-      @media (max-width: 1000px) {
-        #searchBar {
+    @media (max-width: 1000px) {
+    	#searchBar {
          display:none;
         }
-      }
+    }
       
-      @media (max-width: 576px) {
-        #category {
+    @media (max-width: 576px) {
+		#category {
          display:none;
         }
-      }
+    }
+
 
 
 /* footer */
-#footer{
-			width: 100%;
-			bottom: 0;
-			left: 0;
-			position: absolute;
-		}
+	#footer{
+		width: 100%;
+		
+	}
+/* 07.07 김연희 :footer를 absolute로 할 경우 부모요소를 무시  */	
+	
+	#wrap {
+	    display: flex;
+	  	min-height: 100px;
+	  	flex-direction: column; 
+   	  	justify-content: flex-end;
+	}
 		
