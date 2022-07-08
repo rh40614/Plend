@@ -88,7 +88,7 @@ public class HomeController {
 
 	@RequestMapping(value="headerWithCate.do")
 	public String headerWithCate() {
-		return "developerHeader";
+		return "article/headerwithCate";
 	}
 	
 	@RequestMapping(value="signUp.do")
@@ -106,6 +106,11 @@ public class HomeController {
 	}
 	
 
+	//юс╫ц
+	@RequestMapping(value="insertPlace.do")
+	public String insertPlace() {
+		return "host/insertPlace";
+	}
 
 
 }
