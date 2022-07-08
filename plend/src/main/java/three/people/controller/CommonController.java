@@ -20,10 +20,15 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import three.people.service.GoogleService;
 import three.people.service.KakaoAPI;
+import three.people.service.KakaoService;
+import three.people.service.SnsService;
 import three.people.service.UserService;
 import three.people.vo.GoogleInfoVO;
 import three.people.vo.KakaoVO;
+import three.people.vo.SnsProfileVO;
+import three.people.vo.SnsVO;
 import three.people.vo.UserVO;
 
 
@@ -31,38 +36,28 @@ import three.people.vo.UserVO;
 @Controller
 public class CommonController {
 	
-	// 占쏙옙占쏙옙 占쏙옙체占쏙옙占쏙옙 占쌨깍옙
-	@Autowired 
-    private KakaoAPI kakaoService;
-
-	//占쌍쇽옙창占쏙옙 占쌍댐옙 code 占식띰옙占쏙옙占� 占쏙옙 占쏙옙占쏙옙占싶쇽옙 占쏙옙큰占쌩급받깍옙
+	@Autowired
+	private KakaoService kakaoService;
+	@Autowired
+	private GoogleService googleService;
+	
 	@RequestMapping(value="/kakaoLogin")
-	public String login(@RequestParam("code") String code , HttpServletRequest request, HttpSession session) throws IOException {
+	public String login(SnsVO snsvo , HttpServletRequest request, HttpSession session) throws IOException {
 		
-		//占쏙옙큰 占쌩깍옙
-		String access_Token = kakaoService.getAccessToken(code);
-		
-		//占쏙옙占쏙옙占� 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙
-		//HashMap<String, Object> userInfo = kakaoService.userInfo(access_Token);
-		KakaoVO userInfo = kakaoService.userInfo(access_Token);
-		
-		
-		session = request.getSession();
-		
-		System.out.println("accessToken: "+access_Token);
-		System.out.println("code:"+ code);
-		System.out.println("Common Controller:"+ userInfo);
-		System.out.println("占싻놂옙占쏙옙: "+ userInfo.getNickname());
-		System.out.println("占싱몌옙占쏙옙: "+ userInfo.getAccount_email());
-		System.out.println("占쏙옙占쏙옙: "+ userInfo.getGender());
-		
-		
-		//클占쏙옙占싱억옙트占쏙옙 占싻놂옙占쏙옙占쏙옙 占쏙옙占쏙옙占싹몌옙 占쏙옙占실울옙 占싻놂옙占쌈곤옙 占쏙옙큰 占쏙옙占�
-		if (userInfo.getNickname() != null) {
-		     session.setAttribute("nickname", userInfo.getNickname());
-		     session.setAttribute("access_Token", access_Token);
-		     session.setAttribute("kakaoId", userInfo.getKakaoId());
-		   }
+		snsvo = kakaoService.getAccessToken(snsvo);
+
+		SnsProfileVO snsProfile = kakaoService.getUserProfile(snsvo);
+	
+		System.out.println("accessToken: "+snsvo.getAccess_token());
+		System.out.println("refresh_token: "+snsvo.getRefresh_token());
+		System.out.println("code:"+ snsvo.getCode());
+		System.out.println("name: "+ snsProfile.getName() );
+		System.out.println("gender: "+ snsProfile.getGender());
+		System.out.println("birtday: "+ snsProfile.getBirthday());
+		System.out.println("age_range: "+ snsProfile.getAge_range());
+		System.out.println("email: "+ snsProfile.getEmail());
+		System.out.println("id: "+ snsProfile.getId());
+		System.out.println("nickname: "+snsProfile.getNickname());
 		
 		
 		return "common/kakao";
@@ -70,21 +65,18 @@ public class CommonController {
 	
 	
 	
-	//占싸그아울옙
+	
 	@RequestMapping(value="/logout")
 	public String logout(HttpSession session ) throws IOException {
-		//회占쏙옙 占쏙옙占싱듸옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 - 占싱뤄옙占쏙옙占싹몌옙 占쏙옙占쏙옙占쏙옙 占쏙옙占승곤옙 占싣니띰옙 占쏙옙占쏙옙 占쏙옙占쏙옙占� 占실댐옙 占쏙옙
 		//KakaoVO id = new KakaoVO();
 		//Long KakaoId = id.getKakaoId();
 		
 		//System.out.println(session.getAttribute("access_Token"));
 		//System.out.println(KakaoId);
 		
-		//占쏙옙占쏙옙占� 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占실울옙 id占쏙옙 占쏙옙占�(占싼곤옙占쌍깍옙 占쏙옙占쏙옙)
 		Long kakaoId = (Long)session.getAttribute("kakaoId");
 		
-		//占싸그아울옙
-		kakaoService.logout((String)session.getAttribute("access_Token"), kakaoId);
+//		kakaoService.logout((String)session.getAttribute("access_Token"), kakaoId);
 		session.removeAttribute("access_Token");
 		session.removeAttribute("nickname");
 		session.removeAttribute("kakaoId");
@@ -148,39 +140,14 @@ public class CommonController {
 	}
 	
 	@RequestMapping(value = "/googleloginGo.do") 
-	public String googleloginGo(@RequestParam("credential") String token,GoogleInfoVO vo, HttpSession session, HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException {
+	public String googleloginGo(SnsVO snsvo, HttpSession session, HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException {
 		
-		session = request.getSession();
-		
-		System.out.println("token = " + token);
-		
-		String[] chunks = token.split("\\.");
-		
-		Base64.Decoder decoder = Base64.getUrlDecoder();
-		//"UTF-8"占쏙옙 占쌍억옙占쌍억옙占� 占쏙옙占쌘곤옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
-		String header = new String (decoder.decode(chunks[0]),"UTF-8");
-		String payload = new String (decoder.decode(chunks[1]),"UTF-8");
-		//json parse 占실댐옙占쏙옙 占싯아븝옙占쏙옙
-		//objectmapper 占싱몌옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙체占쏙옙 占쌍억옙占쌍는곤옙 占싯아븝옙占쏙옙
-		System.out.println("payload = " + payload );
-		
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
-		
-		vo = mapper.readValue(payload, GoogleInfoVO.class);
-		
-		GoogleInfoVO info = new GoogleInfoVO();
-		
-		info.setAud(vo.getAud());
-		info.setEmail(vo.getEmail());
-		info.setName(vo.getName());
-		info.setSub(vo.getSub());
-		
-		session.setAttribute("info", info);
-		
-		System.out.println("vo = " + vo);
-		
-		
+		SnsProfileVO snsProfile =  googleService.getUserProfile(snsvo);
+		System.out.println("aud: "+snsProfile.getAud());
+		System.out.println("sub: "+snsProfile.getSub());
+		System.out.println("name: "+snsProfile.getName());
+		System.out.println("email: "+snsProfile.getEmail());
+			
 		return "common/googleloginGo";
 	}
 

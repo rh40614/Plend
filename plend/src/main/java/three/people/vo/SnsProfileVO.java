@@ -1,15 +1,20 @@
 package three.people.vo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
+
 public class SnsProfileVO extends SnsVO {
+	
 	//kakao
-	private String properties;
-	private String kakao_account;
+	private JsonNode properties;
+	private JsonNode kakao_account;
 	private Long kakaoid;
 	
 	//naver
 	private String resultcode;
 	private String message;
-	private String response; // 하위에 속성들이 있음 클래스로 만들어야함
+	@JsonProperty
+	private JsonNode response; 
 	private String age;
 	private String birthyear;
 	private String mobile;
@@ -28,16 +33,17 @@ public class SnsProfileVO extends SnsVO {
 	private String age_range;
 	
 	
-	public String getProperties() {
+	
+	public JsonNode getProperties() {
 		return properties;
 	}
-	public void setProperties(String properties) {
+	public void setProperties(JsonNode properties) {
 		this.properties = properties;
 	}
-	public String getKakao_account() {
+	public JsonNode getKakao_account() {
 		return kakao_account;
 	}
-	public void setKakao_account(String kakao_account) {
+	public void setKakao_account(JsonNode kakao_account) {
 		this.kakao_account = kakao_account;
 	}
 	public Long getKakaoid() {
@@ -58,10 +64,12 @@ public class SnsProfileVO extends SnsVO {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public String getResponse() {
+	
+	
+	public JsonNode getResponse() {
 		return response;
 	}
-	public void setResponse(String response) {
+	public void setResponse(JsonNode response) {
 		this.response = response;
 	}
 	public String getAge() {

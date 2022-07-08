@@ -28,7 +28,7 @@
 
 
 	<P>  The time on the server is ${serverTime}.</P>
-	<a href="test.do">test</a>
+	<a href="test.do">네이버 로그인 test</a>
 	<a href="testGet.do"> testGet </a>
 	<a href="headerWithCate.do">headerWithCate</a>
 	<a href="sns/redirect.do">kakao</a>

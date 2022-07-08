@@ -18,14 +18,29 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import three.people.vo.NaverProfileVO;
-import three.people.vo.NaverVO;
 import three.people.vo.SnsProfileVO;
 import three.people.vo.SnsVO;
 
 @Service
 public class NaverService implements SnsService {
-
+	
+	SnsVO vo = new SnsProfileVO();
+	
+	public SnsVO loginApiURL() throws UnsupportedEncodingException {
+		
+		vo.setNaver_redirect_uri(URLEncoder.encode(vo.getNaver_redirect_uri(), "UTF-8"));
+		SecureRandom random = new SecureRandom();
+	    vo.setState(new BigInteger(130, random).toString());
+	    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+	    apiURL += "&client_id=" + vo.getNaver_client_id();
+	    apiURL += "&redirect_uri=" + vo.getNaver_redirect_uri();
+	    apiURL += "&state=" + vo.getState();
+	    
+	    vo.setApiURL(apiURL);
+		
+		return vo;
+	}
+	
 	@Override
 	public SnsVO getAccessToken(SnsVO snsVO) {
 		String apiURL;
@@ -62,11 +77,109 @@ public class NaverService implements SnsService {
 	}
 
 	@Override
-	public SnsProfileVO getUserProfile(SnsProfileVO profileVO) {
-		// TODO Auto-generated method stub
-		return null;
+	public SnsProfileVO getUserProfile(SnsVO snsVO) throws IOException {
+		SnsProfileVO snsProfile = new SnsProfileVO();
+		
+		String token = snsVO.getAccess_token();
+		String header = "Bearer " + token;
+		String apiURL = "https://openapi.naver.com/v1/nid/me";
+		
+		Map<String, String> requestHeaders = new HashMap<String, String>();
+		requestHeaders.put("Authorization", header);
+		
+		snsProfile = get(apiURL, requestHeaders);
+		return snsProfile;
+	}
+	
+	private static SnsProfileVO get(String apiURL, Map<String,String> requestHeaders) throws IOException {
+		URL url = new URL(apiURL);
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		
+		try {
+			con.setRequestMethod("GET");
+			for(Map.Entry<String, String> header : requestHeaders.entrySet()) {
+				con.setRequestProperty(header.getKey(), header.getValue());
+			}
+			int responseCode = con.getResponseCode();
+			if(responseCode == HttpURLConnection.HTTP_OK) {
+				return readyBody(con.getInputStream());
+			}else {
+				return readyBody(con.getErrorStream());
+			}
+		}catch(IOException e){
+			throw new RuntimeException("API Error", e);
+		}finally {
+			con.disconnect();
+		}
+	}
+	
+	private static SnsProfileVO readyBody(InputStream body) {
+		InputStreamReader streamReader = new InputStreamReader(body);
+		SnsProfileVO snsProfile = new SnsProfileVO();
+		
+		try(BufferedReader lineReader = new BufferedReader(streamReader)){
+			String line;
+			while((line = lineReader.readLine()) != null) {
+				System.out.println("line: +" + line.toString());
+				ObjectMapper mapper = new ObjectMapper();
+				mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+				snsProfile = mapper.readValue(line, SnsProfileVO.class);
+				snsProfile = mapper.readValue(snsProfile.getResponse().toString(), SnsProfileVO.class);
+				
+			}
+			return snsProfile;
+		}catch(IOException e) {
+			throw new RuntimeException("API bufferedReader error", e);
+		}
 	}
 
+	@Override
+	public void userSignOut(SnsVO snsVO) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

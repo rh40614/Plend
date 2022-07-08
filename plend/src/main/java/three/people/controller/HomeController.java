@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import three.people.service.NaverService;
 import three.people.vo.NaverProfileVO;
 import three.people.vo.NaverVO;
+import three.people.vo.SnsProfileVO;
+import three.people.vo.SnsVO;
 
 
 /**
@@ -55,7 +57,7 @@ public class HomeController {
 		
 		 session = request.getSession();
 		 
-		 NaverVO navervo = naverservice.loginApiURL(); 
+		 SnsVO navervo = naverservice.loginApiURL(); 
 		 session.setAttribute("state",navervo.getState()); 
 		 model.addAttribute("navervo", navervo);
 		  
@@ -68,10 +70,10 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="callback.do")
-	public String callback(NaverVO navervo, Model model, HttpServletRequest request) throws IOException {
+	public String callback(SnsVO snsvo, Model model, HttpServletRequest request) throws IOException {
 		System.out.println("callback success");
-		navervo = naverservice.getAccessToken(navervo);
-		NaverProfileVO nprofile = naverservice.getProfile(navervo);
+		snsvo = naverservice.getAccessToken(snsvo);
+		SnsProfileVO snsProfile = naverservice.getUserProfile(snsvo);
 		return "callback";
 	}
 
