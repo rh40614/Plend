@@ -112,7 +112,17 @@
 		margin:auto;
 	}
 	
-
+	input[type=radio]{
+		display: none;
+	}
+	
+	
+	
+	
+	.frmTitle{
+		text-align: center;
+	
+	}
 
 
 
