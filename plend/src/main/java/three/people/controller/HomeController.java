@@ -1,6 +1,5 @@
 package three.people.controller;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.util.Date;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import three.people.service.GoogleService;
 import three.people.service.KakaoService;
 import three.people.service.NaverService;
-import three.people.vo.SnsProfileVO;
 import three.people.vo.SnsVO;
 
 
@@ -32,6 +30,7 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
+
 	@Autowired
 	private NaverService naverservice;
 	@Autowired
@@ -61,11 +60,24 @@ public class HomeController {
 		return "home";
 	}
 	
+
+
+
+
+	
+	
 	@RequestMapping(value="login.do")
 	public String Login() {
 		return "common/login";
 	}
 	
+
+
+	@RequestMapping(value="insertPlace.do")
+	public String insertPlace() {
+		return "host/insertPlace";
+	}
+
 
 }
 
