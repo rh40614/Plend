@@ -9,5 +9,5 @@ public interface SnsService {
 
 	public SnsVO getAccessToken(SnsVO snsVO);
 	public SnsProfileVO getUserProfile(SnsVO snsVO) throws IOException;
-	public void userSignOut(SnsVO snsVO);
+	
 }

@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>naver callback</title>
 </head>
 <body>
-	<h4>kakao</h4>
+	<h2>naver callback</h2>
 </body>
 </html>

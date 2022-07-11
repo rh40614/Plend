@@ -11,7 +11,7 @@ public class SnsVO {
 	//naver
 	private String naver_client_id = "yuDMbMbNqBLt1ltRxtOG";
 	private String naver_client_secret = "xCVm9skXrf";
-	private String naver_redirect_uri = "http://localhost:8090/controller/callback.do";
+	private String naver_redirect_uri = "http://localhost:8090/controller/common/naverLogin.do";
 	
 	//google
 	private String google_client_id = "6376522390-jl2ldl1oicg3v38pq83n8d6q5fe781of.apps.googleusercontent.com";

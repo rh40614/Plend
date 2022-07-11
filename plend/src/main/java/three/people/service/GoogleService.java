@@ -37,10 +37,6 @@ public class GoogleService implements SnsService{
 	}
 
 
-	@Override
-	public void userSignOut(SnsVO snsVO) {
-		// TODO Auto-generated method stub
-		
-	}
 
+		
 }
