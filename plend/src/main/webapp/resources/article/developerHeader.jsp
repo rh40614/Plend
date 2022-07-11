@@ -3,7 +3,7 @@
 <style>
 	#wrap {
 	  display: flex;
-	  min-height: 280px;
+	  min-height: 300px;
 	  flex-direction: column; 
    	  justify-content: flex-end;
 	  
@@ -16,11 +16,11 @@
  
   <div class="container" style="align-items: center; flex-wrap: wrap; justify-content: center;">
   	<div style=" display: flex; flex-direction: row; align-items: center; width: 100%;">
-    <a class="navbar-brand" style=" margin-right:auto; " href="#"><img src="./resources/image/plend.png" alt="logo not found"></a>
+    <a class="navbar-brand" style=" margin-right:auto; " href="#"><img src="<%=request.getContextPath()%>/resources/image/plend.png" alt="logo not found"></a>
     <div id="searchBar" style="border: 3px solid grey; border-radius: 10px; height: 47px; width: 750px;">
     	<form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="원하는 장소를 검색해보세요!" aria-label="Search" style="border: none;">
-          <button class="btn " type="submit" style="border:none;" ><img alt="searchBtn" src="./resources/image/searchBtn.png" ></button>
+          <button class="btn " type="submit" style="border:none;" ><img alt="searchBtn" src="<%=request.getContextPath()%>/resources/image/searchBtn.png" ></button>
         </form> 			
     </div>
     <button class="navbar-toggler" type="button" style="border: none; margin-left:auto;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -39,10 +39,17 @@
     </div>
     <!-- 소분류 -->
     <div class="container d-block m-0 p-0 mw-100">
-    	<div id="classification_category" class="d-flex flex-row  mw-100">
-    		<a class="btn btn-primary flex-fill rounded-0 fw-bold" style="background-color: #2F506D; border-color: #2F506D">take1</a>
-    		<a class="btn btn-primary flex-fill rounded-0" style="background-color: #2F506D; border-color: #2F506D">take2</a>
-    		<a class="btn btn-primary flex-fill rounded-0" style="background-color: #2F506D; border-color: #2F506D">take3</a>
+    	<div id="classification_category1" class="d-flex flex-row  mw-100 classification_category">
+    		<a class="btn btn-primary flex-fill rounded-0 fw-bold" style="background-color: #2F506D; border-color: #2F506D">회원리스트</a>
+    		<a class="btn btn-primary flex-fill rounded-0" style="background-color: #2F506D; border-color: #2F506D">신고관리</a>
+    		<a class="btn btn-primary flex-fill rounded-0" style="background-color: #2F506D; border-color: #2F506D">이벤트 관리</a>
+    	</div>
+    </div>
+    <div class="container d-block m-0 p-0 mw-100">
+    	<div id="classification_category2" class="d-none flex-row  mw-100 classification_category">
+    		<a class="btn btn-primary flex-fill rounded-0 fw-bold" style="background-color: #2F506D; border-color: #2F506D">업체리스트</a>
+    		<a class="btn btn-primary flex-fill rounded-0" style="background-color: #2F506D; border-color: #2F506D">업체장소등록 승인</a>
+    		<a class="btn btn-primary flex-fill rounded-0" style="background-color: #2F506D; border-color: #2F506D">사용자 블랙리스트</a>
     	</div>
     </div>
     <!-- 오른쪽 캔버스  -->
@@ -92,10 +99,20 @@
 	  	$("#classification_level").children("a").click(function(){
 	  		$("#classification_level").children("a").removeClass("active2");
 	  	  $(this).addClass("active2");
+	  	  if($(this).text() == "회원관리"){
+	  		$("#classification_category1").removeClass("d-none");
+	  		$("#classification_category1").addClass("d-flex");
+	  		$("#classification_category2").addClass("d-none");
+	  		  
+	  	  }else{
+	  		$("#classification_category2").removeClass("d-none");
+	  		$("#classification_category2").addClass("d-flex");
+	  		$("#classification_category1").addClass("d-none");
+	  	  }
 	  	});
   		// 네비 소분류 선택함수
-  		$("#classification_category").children("a").click(function(){
-	  		$("#classification_category").children("a").removeClass("fw-bold");
+  		$(".classification_category").children("a").click(function(){
+	  		$(".classification_category").children("a").removeClass("fw-bold");
 	  	  $(this).addClass("fw-bold");
 	  	});
   	</script>
