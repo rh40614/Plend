@@ -7,6 +7,6 @@
 ### 링크
 Notion
 * 팀 대시보드 
-* => https://jealous-gasoline-34d.notion.site/238f743c7343490081d1364f1e1eeb20
+* => 
 
 
