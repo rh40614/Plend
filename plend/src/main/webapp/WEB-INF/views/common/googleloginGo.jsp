@@ -11,10 +11,10 @@
 <body>
 
 aud : ${info.aud} <br>
-sub : ${sub} <br>
+sub : ${info.sub} <br>
 name : ${info.name} <br>
 email : ${info.email}
-<button onclick="location.href='rebork.do'">연결해제</button>
+
 
 
 </body>
