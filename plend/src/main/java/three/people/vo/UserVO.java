@@ -6,7 +6,7 @@ public class UserVO {
 	private String password;
 	private String name;
 	private String nickName;
-	private String birth;
+	private int birth;
 	private String userPhone;
 	private String email;
 	private String gender;
@@ -45,10 +45,10 @@ public class UserVO {
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
-	public String getBirth() {
+	public int getBirth() {
 		return birth;
 	}
-	public void setBirth(String birth) {
+	public void setBirth(int birth) {
 		this.birth = birth;
 	}
 	public String getUserPhone() {

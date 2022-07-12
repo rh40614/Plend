@@ -43,31 +43,10 @@
 	     AND password = #{password}	
 	</select>
 	
-	<select id="selectId" resultType="UserVO" parameterType="UserVO">
-		SELECT
-			 name
-			,email
-			,id
-		FROM user 
-	   WHERE name = #{name}
-	     AND email = #{email}
-	</select>
-	<select id="selectPwd" resultType = "int">
-		
-	</select>
+	<select id="selectId" resultType="UserVO" parameterType="UserVO"></select>
+	<select id="selectPwd" resultType="UserVO" parameterType="UserVO"></select>
 	
-	<select id="idCheck" parameterType="String" resultType="Integer">
-		SELECT 
-			 count(*)
-		  FROM user
-		 WHERE id = #{id} 
-	</select>
-	<select id="nickNameCheck" parameterType="String" resultType="Integer">
-		SELECT 
-			 count(*)
-		  FROM user
-		 WHERE nickName = #{nickName}
-	</select>
+	
 	
 </mapper>
 
