@@ -64,3 +64,17 @@ plend/target/classes/three/people/vo/KakaoVO.class
 
 plend/target/classes/three/people/vo/KakaoVO.class
 
+Servers/.project
+plend/.classpath
+plend/.settings/org.eclipse.jdt.core.prefs
+plend/.settings/org.eclipse.wst.common.component
+plend/.settings/org.eclipse.wst.common.project.facet.core.xml
+plend/.springBeans
+plend/bin/src/main/resources/mappers/BookMapper.xml
+plend/bin/src/main/resources/mappers/CommonMapper.xml
+plend/bin/src/main/resources/mappers/BookMapper.xml
+plend/bin/src/main/resources/mappers/CommonMapper.xml
+plend/target/classes/three/people/controller/PlaceController.class
+plend/target/classes/three/people/service/HostService.class
+plend/target/m2e-wtp/web-resources/META-INF/maven/three.people/controller/pom.properties
+plend/target/m2e-wtp/web-resources/META-INF/maven/three.people/controller/pom.properties

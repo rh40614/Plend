@@ -1,36 +1,72 @@
-/* commonheader */
-	/* 07.04 ±è¿¬Èñ : °Ë»öÃ¢ Å¬¸¯ÇßÀ»¶§ Å×µÎ¸® ¾È³ª¿À°Ô ¼³Á¤  */
+/* commonHeader */
+	/* 07.04 ï¿½è¿¬ï¿½ï¿½ : ï¿½Ë»ï¿½Ã¢ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×µÎ¸ï¿½ ï¿½È³ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½  */
     input:focus{outline:none;}
+    /* 07.07 ï¿½è¿¬ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ¼ï¿½ 200ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½*/
+    #header{
+    height: 200px;
     
-/* developerheader */
-    /* 07.06 ±è¿µ¹Î ´ëºÐ·ù Å¬¸¯ÇßÀ» °æ¿ì »ö»ó º¯°æ */
+    }
+/* section : ï¿½ï¿½ï¿½ 4ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.*/
+	/*07.08 ï¿½è¿¬ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½Å© ï¿½ï¿½ï¿½ï¿½ */
+	a{
+	text-decoration: none;
+	}
+	a:link{
+	color: black;
+	}
+	a:visited{
+	color: black;
+	}
+	a:hover{
+	color: #6e6e6e;
+	}
+	a:active{
+	color: #6e6e6e;
+	}
+    
+    
+/* developerHeader */
+    /* 07.06 ï¿½è¿µï¿½ï¿½ ï¿½ï¿½Ð·ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 	.active2 {
 		  background-color: #2F506D !important;
 		  border-color: #2F506D !important;
 		}
 
-html,body {
-	 margin: 0px;
-	 }
+	html,body {
+		margin: 0px;
+	}
 
-      @media (max-width: 1000px) {
-        #searchBar {
+    @media (max-width: 1000px) {
+    	#searchBar {
          display:none;
         }
-      }
+    }
       
-      @media (max-width: 576px) {
-        #category {
+    @media (max-width: 576px) {
+		#category {
          display:none;
         }
-      }
+    }
 
 
+
+
+
+/* 07.07 ï¿½è¿¬ï¿½ï¿½ :footerï¿½ï¿½ absoluteï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Î¸ï¿½ï¿½Ò¸ï¿½ ï¿½ï¿½ï¿½ï¿½  */	
+	
+	#wrap {
+	    display: flex;
+	  	min-height: 100px;
+	  	flex-direction: column; 
+   	  	justify-content: flex-end;
+	}
 /* footer */
+
 #footer{
 			width: 100%;
 			bottom: 0;
 			left: 0;
 			/*position: absolute;*/
 		}
+
 		
