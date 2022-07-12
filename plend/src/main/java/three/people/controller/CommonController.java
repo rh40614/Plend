@@ -49,7 +49,7 @@ public class CommonController {
 	@Autowired
 	UserService userService;
 
-
+	
 	@RequestMapping(value="/naverLogin.do")
 	public String naverLogin(SnsVO snsvo, Model model, HttpServletRequest request) throws IOException {
 		System.out.println("callback success");
@@ -57,17 +57,62 @@ public class CommonController {
 		SnsProfileVO snsProfile = naverService.getUserProfile(snsvo);
 		return "common/naverCallback";
 	}
-
-
+	 
+	
 	@RequestMapping(value="/kakaoLogin")
 	public String login(SnsVO snsvo , HttpServletRequest request, HttpSession session) throws IOException {
+		
+		snsvo = kakaoService.getAccessToken(snsvo);
+		SnsProfileVO snsProfile = kakaoService.getUserProfile(snsvo);
+	
+		return "common/kakao";
+	}
+	
+	@RequestMapping(value = "/googleloginGo.do") 
+	public String googleloginGo(SnsVO snsvo, HttpSession session, HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException {
+		
+		session = request.getSession();		
+		SnsProfileVO snsProfile =  googleService.getUserProfile(snsvo);
+		session.setAttribute("sub", snsProfile.getSub());
+		
+		return "common/googleloginGo";
+	}
 
-	// 占쏙옙占쏙옙 占쏙옙체占쏙옙占쏙옙 占쌨깍옙
-	@Autowired
-    private KakaoAPI kakaoService;
-	@Autowired
-	UserService userService;
-
+	@RequestMapping(value= "/join.do", method = RequestMethod.GET)
+	public String join() {
+		return "common/join";
+	}
+	
+	@RequestMapping(value = "/join.do", method = RequestMethod.POST)
+	public String join(UserVO vo) {
+		int result = userService.insertUser(vo);
+		return "redirect:/";
+	}
+	
+	/*
+	 * @RequestMapping(value="/logout") public String logout(HttpSession session )
+	 * throws IOException { //KakaoVO id = new KakaoVO(); //Long KakaoId =
+	 * id.getKakaoId();
+	 * 
+	 * //System.out.println(session.getAttribute("access_Token"));
+	 * //System.out.println(KakaoId);
+	 * 
+	 * Long kakaoId = (Long)session.getAttribute("kakaoId");
+	 * 
+	 * // kakaoService.logout((String)session.getAttribute("access_Token"),
+	 * kakaoId); session.removeAttribute("access_Token");
+	 * session.removeAttribute("nickname"); session.removeAttribute("kakaoId");
+	 * 
+	 * return "redirect:/"; }
+	 */
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value="signUp.do", method = RequestMethod.GET)
 	public String signUp() {
 
@@ -147,13 +192,6 @@ public class CommonController {
 
 	}
 
-
-	@RequestMapping(value = "/join.do", method = RequestMethod.POST)
-	public String join(UserVO vo) {
-		int result = userService.insertUser(vo);
-		return "redirect:/";
-	}
-
 	@RequestMapping(value = "/searchId.do", method = RequestMethod.GET)
 	public String searchId() {
 
@@ -190,102 +228,9 @@ public class CommonController {
 		return "common/searchPwd";
 	}
 
-	//�뼱�뼡 留먯쓣�븯怨좎떢�뼱�븯�뀭�뒗吏�;
-	//移댁뭅�삤 濡쒓렇�씤
-	@RequestMapping(value="/kakaoLogin")
-	public String login(@RequestParam("code") String code , HttpServletRequest request, HttpSession session) throws IOException {
-
-		//占쏙옙큰 占쌩깍옙
-		String access_Token = kakaoService.getAccessToken(code);
-
-		//占쏙옙占쏙옙占� 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙
-		//HashMap<String, Object> userInfo = kakaoService.userInfo(access_Token);
-		KakaoVO userInfo = kakaoService.userInfo(access_Token);
-
-
-		session = request.getSession();
-
-		System.out.println("accessToken: "+access_Token);
-		System.out.println("code:"+ code);
-		System.out.println("Common Controller:"+ userInfo);
-		System.out.println("占싻놂옙占쏙옙: "+ userInfo.getNickname());
-		System.out.println("占싱몌옙占쏙옙: "+ userInfo.getAccount_email());
-		System.out.println("占쏙옙占쏙옙: "+ userInfo.getGender());
-
-
-		//클占쏙옙占싱억옙트占쏙옙 占싻놂옙占쏙옙占쏙옙 占쏙옙占쏙옙占싹몌옙 占쏙옙占실울옙 占싻놂옙占쌈곤옙 占쏙옙큰 占쏙옙占�
-		if (userInfo.getNickname() != null) {
-		     session.setAttribute("nickname", userInfo.getNickname());
-		     session.setAttribute("access_Token", access_Token);
-		     session.setAttribute("kakaoId", userInfo.getKakaoId());
-		   }
-
-
-
-		snsvo = kakaoService.getAccessToken(snsvo);
-		SnsProfileVO snsProfile = kakaoService.getUserProfile(snsvo);
-
-		return "common/kakao";
-	}
-
-
-	@RequestMapping(value = "/googleloginGo.do")
-	public String googleloginGo(SnsVO snsvo, HttpSession session, HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException {
-
-
-
-	//占싸그아울옙
-	@RequestMapping(value="/logout")
-	public String logout(HttpSession session ) throws IOException {
-		//회占쏙옙 占쏙옙占싱듸옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 - 占싱뤄옙占쏙옙占싹몌옙 占쏙옙占쏙옙占쏙옙 占쏙옙占승곤옙 占싣니띰옙 占쏙옙占쏙옙 占쏙옙占쏙옙占� 占실댐옙 占쏙옙
-		//KakaoVO id = new KakaoVO();
-		//Long KakaoId = id.getKakaoId();
-
-
-		session = request.getSession();
-		SnsProfileVO snsProfile =  googleService.getUserProfile(snsvo);
-		session.setAttribute("sub", snsProfile.getSub());
-
-
-		return "common/googleloginGo";
-
-		//占쏙옙占쏙옙占� 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占실울옙 id占쏙옙 占쏙옙占�(占싼곤옙占쌍깍옙 占쏙옙占쏙옙)
-		Long kakaoId = (Long)session.getAttribute("kakaoId");
-
-		//占싸그아울옙
-		kakaoService.logout((String)session.getAttribute("access_Token"), kakaoId);
-		session.removeAttribute("access_Token");
-		session.removeAttribute("nickname");
-		session.removeAttribute("kakaoId");
-
-		return "redirect:/";
+	
 
 	}
-
-	@RequestMapping(value= "/join.do", method = RequestMethod.GET)
-	public String join() {
-		return "common/join";
-	}
-
-
-
-
-	/*
-	 * @RequestMapping(value="/logout") public String logout(HttpSession session )
-	 * throws IOException { //KakaoVO id = new KakaoVO(); //Long KakaoId =
-	 * id.getKakaoId();
-	 *
-	 * //System.out.println(session.getAttribute("access_Token"));
-	 * //System.out.println(KakaoId);
-	 *
-	 * Long kakaoId = (Long)session.getAttribute("kakaoId");
-	 *
-	 * // kakaoService.logout((String)session.getAttribute("access_Token"),
-	 * kakaoId); session.removeAttribute("access_Token");
-	 * session.removeAttribute("nickname"); session.removeAttribute("kakaoId");
-	 *
-	 * return "redirect:/"; }
-	 */
 
 
 	@RequestMapping(value = "/googleLogin.do")
