@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page session="true" %>
 
 <html>
 <head>
@@ -47,6 +47,8 @@
 	<main>
 	<br>
 	<a href="insertPlace.do">장소등록 </a>
+	<a href="developer/userList.do">유저리스트 </a>
+	
 	
   	<div class="container" style="width: 1100px;">
     	<span class="navbar-brand">| 추천 장소</span>
