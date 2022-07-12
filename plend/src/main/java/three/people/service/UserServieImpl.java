@@ -27,4 +27,24 @@ public class UserServieImpl implements UserService {
 		return commonDao.login(vo);
 	}
 
+	@Override
+	public UserVO searchID(UserVO vo) {
+		
+		return commonDao.searchId(vo);
+	}
+
+	@Override
+	public int idCheck(String id) {
+		
+		int result = commonDao.idCheck(id);
+		
+		return result;
+	}
+
+	@Override
+	public int nickNameCheck(String nickName) {
+		int result = commonDao.nickNameCheck(nickName);
+		return result;
+	}
+
 }
