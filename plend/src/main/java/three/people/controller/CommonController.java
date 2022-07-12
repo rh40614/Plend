@@ -229,7 +229,7 @@ public class CommonController {
 	}
 
 
-	@RequestMap<<<<<<< HEADping(value = "/googleloginGo.do")
+	@RequestMapping(value = "/googleloginGo.do")
 	public String googleloginGo(SnsVO snsvo, HttpSession session, HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException {
 
 
