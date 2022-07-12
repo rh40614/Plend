@@ -13,6 +13,11 @@ public class DeveloperController {
 		return "developer/userList";
 	}
 	
+	@RequestMapping(value="/userModify.do", method=RequestMethod.GET)
+	public String userModify() {
+		return "developer/userModify";
+	}
+	
 	
 	
 	

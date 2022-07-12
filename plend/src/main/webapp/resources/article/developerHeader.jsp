@@ -1,18 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<style>
-	#wrap {
-	  display: flex;
-	  min-height: 300px;
-	  flex-direction: column; 
-   	  justify-content: flex-end;
-	  
-	 }
-</style>
-<div id="wrap">
-<header>
- 
-  <nav class="navbar navbar-light shadow-sm fixed-top mt-4">
+  <nav class="navbar navbar-light shadow-sm mt-4">
  
   <div class="container" style="align-items: center; flex-wrap: wrap; justify-content: center;">
   	<div style=" display: flex; flex-direction: row; align-items: center; width: 100%;">
@@ -91,8 +79,7 @@
       </div>
     </div>
 </nav>
-</header>
-  </div>
+
   	<!-- 대분류/ 소분류 클릭함수 -->
    	<script>
   		// 네비 대분류 선택 함수

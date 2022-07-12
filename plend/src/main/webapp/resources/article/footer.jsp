@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<footer class="text-muted py-5" style="background: rgba(217, 217, 217, 0.43);">
+<footer class="text-muted py-5 " style="background: rgba(217, 217, 217, 0.43);">
   <div class="container" style="display:flex;">
    	<div>
    	<img alt="logo" src="<%=request.getContextPath()%>/resources/image/plend.png">
