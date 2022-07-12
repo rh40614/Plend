@@ -63,6 +63,23 @@ public class HomeController {
 
 
 
+	@RequestMapping(value="testGet.do")
+	public String testGet(){
+		return "redirect:http://www.naver.com";
+	}
+	
+	@RequestMapping(value="callback.do")
+	public String callback(NaverVO navervo, Model model, HttpServletRequest request) throws IOException {
+		System.out.println("callback success");
+		navervo = naverservice.getAccessToken(navervo);
+		NaverProfileVO nprofile = naverservice.getProfile(navervo);
+		return "callback";
+	}
+
+	@RequestMapping(value="headerWithCate.do")
+	public String headerWithCate() {
+		return "developerHeader";
+	}
 
 	
 	
@@ -80,13 +97,5 @@ public class HomeController {
 
 
 }
-
-
-
-
-
-
-
-
 
 
