@@ -8,21 +8,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HostController {
 
-	@RequestMapping(value = "/host.do")
-	public String host() {
+	@RequestMapping(value = "/insertPlace.do")
+	public String insertplace() {
 		
-		return "host/host";
+		
+		
+		
+		
+		return "host/managePlace.do";
 	}
 	
-	@RequestMapping(value = "/host2.do")
-	public String host2() {
-		
-		return "host/host2";
-	}
-	
-	@RequestMapping(value = "/host3.do")
-	public String host3() {
-		
-		return "host/host3";
-	}
 }

@@ -7,7 +7,32 @@
 
 	<select id="totalBook" resultType="int" parameterType="UserVO"></select>
 	<select id="tatalName" resultType="int" parameterType="UserVO"></select>
-	<insert id="insertPlace" parameterType="PlaceVO"></insert>
+	<insert id="insertPlace" parameterType="PlaceVO">
+	
+	INSERT INTO Place(
+			uidx,
+			category,
+			title,
+			
+			placedetail,
+			guide,
+			tag,
+			placeimg,
+			paddr,
+			option1,
+			option2,
+			price,
+			
+	
+	
+	
+	)VALUES(
+	
+	
+	)
+	
+	
+	</insert>
 	<update id="placeModify" parameterType="PlaceVO"></update>
 	<update id="placeDelete" parameterType="PlaceVO"></update>
 	
