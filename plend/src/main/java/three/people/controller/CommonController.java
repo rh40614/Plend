@@ -17,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -25,9 +27,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import three.people.service.GoogleService;
 import three.people.service.KakaoService;
 import three.people.service.NaverService;
-
-import ch.qos.logback.classic.Logger;
-import three.people.service.KakaoAPI;
 
 import three.people.service.UserService;
 import three.people.vo.SnsProfileVO;
@@ -228,11 +227,6 @@ public class CommonController {
 		return "common/searchPwd";
 	}
 
-	
-
-	}
-
-
 	@RequestMapping(value = "/googleLogin.do")
 	public String google() {
 
@@ -274,42 +268,5 @@ public class CommonController {
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/googleloginGo.do")
-	public String googleloginGo(@RequestParam("credential") String token,GoogleInfoVO vo, HttpSession session, HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException {
-
-		session = request.getSession();
-
-		System.out.println("token = " + token);
-
-		String[] chunks = token.split("\\.");
-
-		Base64.Decoder decoder = Base64.getUrlDecoder();
-		//"UTF-8"占쏙옙 占쌍억옙占쌍억옙占� 占쏙옙占쌘곤옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
-		String header = new String (decoder.decode(chunks[0]),"UTF-8");
-		String payload = new String (decoder.decode(chunks[1]),"UTF-8");
-		//json parse 占실댐옙占쏙옙 占싯아븝옙占쏙옙
-		//objectmapper 占싱몌옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙체占쏙옙 占쌍억옙占쌍는곤옙 占싯아븝옙占쏙옙
-		System.out.println("payload = " + payload );
-
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
-
-		vo = mapper.readValue(payload, GoogleInfoVO.class);
-
-		GoogleInfoVO info = new GoogleInfoVO();
-
-		info.setAud(vo.getAud());
-		info.setEmail(vo.getEmail());
-		info.setName(vo.getName());
-		info.setSub(vo.getSub());
-
-		session.setAttribute("info", info);
-
-		System.out.println("vo = " + vo);
-
-
-		return "common/googleloginGo";
-
-	}
 
 }
