@@ -18,7 +18,10 @@ public class DeveloperController {
 		return "developer/userModify";
 	}
 	
-	
+	@RequestMapping(value="/event.do", method=RequestMethod.GET)
+	public String event() {
+		return "developer/event";
+	}
 	
 	
 	

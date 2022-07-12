@@ -1,3 +1,4 @@
+/* 07.12 김영민 css제작 */
 /* userList */
 .container-fluid {
 	padding: 0;
@@ -7,7 +8,7 @@
 	--bs-gutter-x: 0;
 }
 
-.table {
+.table-hover {
 	margin-left: 250px;
 	margin-right: 250px;
 	margin-top: 50px;
@@ -20,4 +21,10 @@
 	background-color: #2F506D !important;
   	border-color: #2F506D !important;
   	color: white !important;
+}
+
+/* userModify */
+.modify-div {
+	margin-left: 250px;
+	margin-right: 250px;
 }

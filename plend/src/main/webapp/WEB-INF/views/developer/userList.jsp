@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
-
+<!-- 07.12 김영민 뷰제작 -->
 <html>
 <head>
 	<meta charset="UTF-8">

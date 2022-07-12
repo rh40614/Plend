@@ -48,6 +48,7 @@
 	<br>
 	<a href="insertPlace.do">장소등록 </a>
 	<a href="developer/userList.do">유저리스트 </a>
+	<a href="emailCheck.do?email=dudals1545@naver.com">이메일체크 </a>
 	
 	
   	<div class="container" style="width: 1100px;">
