@@ -98,7 +98,7 @@
 
 	}
 
-
+/* ------------------------section----------------------------------------- */
 
 	section{
 		display: flex;
@@ -108,27 +108,32 @@
 	} 
 	
 	
-	.m-auto{
-		margin:auto;
-	}
 	
 	input[type=radio]{
 		display: none;
 	}
 	
 	
-	
-	
 	.frmTitle{
-		text-align: center;
+	/* span 태그들에 설정 */
 	
+    display: inline-block;
+    margin: 20px 0px 10px 0px;
+    vertical-align: top;
+    font-size: 16px;
+    font-weight: bold;
+	}
+
+	
+	.ta{
+		resize: none;
 	}
 
 
-
-
-
-
+	.horison{
+	 	border: solid 1px black;
+	 	margin: 20px 0px 20px 0px;
+	}
 
 
 

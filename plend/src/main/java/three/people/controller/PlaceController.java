@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping(value="/place")
 @Controller
 public final class PlaceController {
-
+	
+	
 	
 
 }
