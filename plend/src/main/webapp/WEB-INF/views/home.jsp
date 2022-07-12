@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page session="true" %>
 
 <html>
 <head>
@@ -26,6 +26,9 @@
 	
 	<header id="header"></header> <br>
 	
+	<c:if test = "${login != null }">
+		${login.id}님 환영합니당!
+	</c:if> 
 	<h1>Hello world! </h1>
 
 
@@ -36,7 +39,9 @@
 	<a href="sns/redirect.do">kakao</a>
 	<a href="sns/googleRedirect.do">google</a>
 	<a href="sns/googlelogin.do">googlelogin</a>
-	<a href="signUp.do"> signup</a>
+	<a href="common/signIn.do">signIn</a>
+	<a href="common/signOut.do">signOut</a>
+	<a href="common/signUp.do"> signup</a>
 	<a href="login.do">kakkaoLogin</a>
 	<footer id="footer"></footer>
 	<!-- JavaScript Bundle with Popper -->
@@ -55,7 +60,6 @@
 <a href = "host/host.do">호스트메인</a>
 <a href = "host/host3.do">호스트화면</a>
 <a href = "common/googleLogin.do">구글 로그인</a>
-<a href = "common/logout.do">로그아웃</a>
 
 </body>
 </html>

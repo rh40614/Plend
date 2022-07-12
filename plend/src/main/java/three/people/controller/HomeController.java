@@ -91,11 +91,6 @@ public class HomeController {
 		return "developerHeader";
 	}
 	
-	@RequestMapping(value="signUp.do")
-	public String signUp() {
-		
-		return "signUp";
-	}
 	
 
 	
@@ -109,13 +104,5 @@ public class HomeController {
 
 
 }
-
-
-
-
-
-
-
-
 
 
