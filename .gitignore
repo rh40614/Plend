@@ -78,4 +78,24 @@ plend/target/classes/three/people/controller/PlaceController.class
 plend/target/classes/three/people/service/HostService.class
 plend/target/m2e-wtp/web-resources/META-INF/maven/three.people/controller/pom.properties
 plend/target/m2e-wtp/web-resources/META-INF/maven/three.people/controller/pom.properties
+
 .metadata/.plugins/org.eclipse.m2e.logback.configuration/0.log
+
+plend/src/main/webapp/META-INF/MANIFEST.MF
+plend/target/classes/three/people/controller/HostController.class
+plend/target/classes/three/people/dao/CommonDAO.class
+plend/target/classes/three/people/service/GoogleService.class
+plend/target/classes/three/people/service/KakaoService.class
+plend/target/classes/three/people/service/SnsService.class
+plend/target/classes/three/people/service/UserService.class
+plend/target/classes/three/people/service/UserServieImpl.class
+plend/target/classes/three/people/vo/SnsProfileVO.class
+plend/target/classes/three/people/vo/SnsVO.class
+Servers/Tomcat v8.5 Server at localhost-config/catalina.policy
+Servers/Tomcat v8.5 Server at localhost-config/catalina.properties
+Servers/Tomcat v8.5 Server at localhost-config/context.xml
+Servers/Tomcat v8.5 Server at localhost-config/server.xml
+Servers/Tomcat v8.5 Server at localhost-config/tomcat-users.xml
+Servers/Tomcat v8.5 Server at localhost-config/web.xml
+plend/target/classes/three/people/controller/DeveloperController.class
+
