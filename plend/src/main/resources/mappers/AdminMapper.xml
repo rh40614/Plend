@@ -5,7 +5,23 @@
  
 <mapper namespace="three.people.mapper.adminMapper">
 	
-	<!-- <select id="userList" resultType="UserVO"></select>
+	<select id="userList" resultType="UserVO">
+		SELECT uidx,
+			   id,
+			   password,
+			   name,
+			   nickname,
+			   birth,
+			   userphone,
+			   email,
+			   gender,
+			   addr,
+			   regnum,
+			   role,
+			   delyn
+		  FROM user
+	</select>
+	<!-- 
 	<update id="userInfo" parameterType="UserVO"></update>
 	<select id="reportList" resultType="ReportVO"></select> 
 	<update id="reviewBlind" parameterType="ReviewVO"></update>

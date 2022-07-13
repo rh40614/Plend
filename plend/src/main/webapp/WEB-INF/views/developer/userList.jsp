@@ -45,7 +45,11 @@
 			  <tbody>
 			    <tr>
 			      <th scope="row">1</th>
-			      <td>Mark</td>
+			      <td>
+			      	<c:forEach var="user" items="${userList}" >
+			      		${user.uidx }
+			      	</c:forEach>
+			      </td>
 			      <td>Otto</td>
 			      <td><a class="btn btn-primary btn-sm rounded-3" href="userModify.do" role="button">수정</a></td>
 			    </tr>
