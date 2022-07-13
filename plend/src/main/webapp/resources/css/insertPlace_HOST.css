@@ -1,5 +1,7 @@
 @charset "UTF-8";
-
+	
+	/* 해쉬태그 */
+	
 	#tag-list{
 		position: relative;
     	list-style-type: none;
@@ -28,3 +30,6 @@
 	.del-btn:hover{
 		cursor: pointer;
 	}
+	
+	
+	
