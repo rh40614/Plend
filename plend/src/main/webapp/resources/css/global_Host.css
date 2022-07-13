@@ -117,18 +117,24 @@
 	.frmTitle{
 	/* span 태그들에 설정 */
 	
-    display: inline-block;
-    margin: 20px 0px 10px 0px;
-    vertical-align: top;
-    font-size: 16px;
-    font-weight: bold;
+    	display: inline-block;
+    	margin: 20px 0px 10px 0px;
+    	vertical-align: top;
+    	font-size: 16px;
+    	font-weight: bold;
 	}
 
+
+
+	.frmSemiTitle{
+	   display: inline-block;
+    	margin: 20px 0px 10px 0px;
+    	vertical-align: top;
+    	font-size: 14px;
+    	font-weight: bold;
+	}
 	
-	.ta{
-		resize: none;
-	}
-
+	
 
 	.horison{
 	 	border: solid 1px black;
@@ -136,6 +142,18 @@
 	}
 
 
+	input[type=text]{
+		border: 1px solid #8c8c8c;
+		border-radius: 5px;
+		height: 35px;
+	
+	}
+	
+	textarea{
+		border: 1px solid #8c8c8c;
+		border-radius: 5px;
+		resize: none;
+	}
 
 
 		 
