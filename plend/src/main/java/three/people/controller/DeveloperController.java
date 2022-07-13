@@ -23,14 +23,29 @@ public class DeveloperController {
 		return "developer/event";
 	}
 	
+	@RequestMapping(value="reportList.do", method=RequestMethod.GET)
+	public String reportList() {
+		return "developer/reportList";
+	}
 	
+	@RequestMapping(value="enterList.do", method=RequestMethod.GET)
+	public String enterList() {
+		return "developer/enterList";
+	}
 	
+	@RequestMapping(value="enterModify.do", method=RequestMethod.GET)
+	public String enterModify() {
+		return "developer/enterModify";
+	}
 	
+	@RequestMapping(value="enterConfirm.do", method=RequestMethod.GET)
+	public String enterConfirm() {
+		return "developer/enterConfirm";
+	}
 	
-	
-	
-	
-	
-	
+	@RequestMapping(value="enterBlock.do", method=RequestMethod.GET)
+	public String enterBlock() {
+		return "developer/enterBlock";
+	}
 	
 }

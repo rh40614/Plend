@@ -28,16 +28,17 @@
     <!-- 소분류 -->
     <div class="container d-block m-0 p-0 mw-100">
     	<div id="classification_category1" class="d-flex flex-row  mw-100 classification_category">
-    		<a class="btn btn-primary flex-fill rounded-0 fw-bold" style="background-color: #2F506D; border-color: #2F506D">회원리스트</a>
-    		<a class="btn btn-primary flex-fill rounded-0" style="background-color: #2F506D; border-color: #2F506D">신고관리</a>
-    		<a href="event.do" class="btn btn-primary flex-fill rounded-0" style="background-color: #2F506D; border-color: #2F506D; color:white;">이벤트 관리</a>
+    		<a href="userList.do" class="btn btn-primary flex-fill rounded-0 fw-bold text-white" style="background-color: #2F506D; border-color: #2F506D">회원리스트</a>
+    		<a href="reportList.do" class="btn btn-primary flex-fill rounded-0 text-white" style="background-color: #2F506D; border-color: #2F506D">신고관리</a>
+    		<a href="event.do" class="btn btn-primary flex-fill rounded-0 text-white" style="background-color: #2F506D; border-color: #2F506D;">이벤트 관리</a>
     	</div>
     </div>
+    <!-- 07.13 김영민 주소 수정-->
     <div class="container d-block m-0 p-0 mw-100">
     	<div id="classification_category2" class="d-none flex-row  mw-100 classification_category">
-    		<a class="btn btn-primary flex-fill rounded-0 fw-bold" style="background-color: #2F506D; border-color: #2F506D">업체리스트</a>
-    		<a class="btn btn-primary flex-fill rounded-0" style="background-color: #2F506D; border-color: #2F506D">업체장소등록 승인</a>
-    		<a class="btn btn-primary flex-fill rounded-0" style="background-color: #2F506D; border-color: #2F506D">사용자 블랙리스트</a>
+    		<a href="enterList.do" class="btn btn-primary flex-fill rounded-0 fw-bold text-white" style="background-color: #2F506D; border-color: #2F506D">업체리스트</a>
+    		<a href="enterConfirm.do" class="btn btn-primary flex-fill rounded-0 text-white" style="background-color: #2F506D; border-color: #2F506D">업체장소 등록승인</a>
+    		<a href="enterBlock.do" class="btn btn-primary flex-fill rounded-0 text-white" style="background-color: #2F506D; border-color: #2F506D">사용자 블랙리스트</a>
     	</div>
     </div>
     <!-- 오른쪽 캔버스  -->
@@ -80,29 +81,44 @@
     </div>
 </nav>
 
-  	<!-- 대분류/ 소분류 클릭함수 -->
-   	<script>
-  		// 네비 대분류 선택 함수
-	  	$("#classification_level").children("a").click(function(){
-	  		$("#classification_level").children("a").removeClass("active2");
-	  	  $(this).addClass("active2");
-	  	  if($(this).text() == "회원관리"){
-	  		$("#classification_category1").removeClass("d-none");
-	  		$("#classification_category1").addClass("d-flex");
-	  		$("#classification_category2").addClass("d-none");
-	  		  
-	  	  }else{
-	  		$("#classification_category2").removeClass("d-none");
-	  		$("#classification_category2").addClass("d-flex");
-	  		$("#classification_category1").addClass("d-none");
-	  	  }
-	  	});
-  		// 네비 소분류 선택함수
-  		$(".classification_category").children("a").click(function(){
-	  		$(".classification_category").children("a").removeClass("fw-bold");
-	  	  $(this).addClass("fw-bold");
-	  	});
-  	</script>
-
-
+<!-- 대분류/ 소분류 클릭함수 -->
+<script>
+	// 네비 대분류 선택 함수
+ 	$("#classification_level").children("a").click(function(){
+ 		$("#classification_level").children("a").removeClass("active2");
+ 	  	$(this).addClass("active2");
+ 	  if($(this).text() == "회원관리"){
+ 		$("#classification_category1").removeClass("d-none");
+ 		$("#classification_category1").addClass("d-flex");
+ 		$("#classification_category2").addClass("d-none");  
+ 	  }else{
+ 		$("#classification_category2").removeClass("d-none");
+ 		$("#classification_category2").addClass("d-flex");
+ 		$("#classification_category1").addClass("d-none");
+ 	  }
+ 	});
+</script>
+<!-- 07.13 김영민 스크립트 추가  -->
+<!-- 대분류 상황에 맞게 고정 -->
+<script>
+	var categoryTitle = $(".category-title").text();
+	if(categoryTitle.match("업체")) {
+		$("#classification_category2").removeClass("d-none");
+ 		$("#classification_category2").addClass("d-flex");
+ 		$("#classification_category1").addClass("d-none");
+ 		
+ 		$("#classification_level").children("a").toggleClass("active2");
+	}
+</script>
+<!-- 소분류 상황에 맞게 고정 -->
+<script>
+ 	var title = $("title").text();
+	var category = $(".classification_category").children("a");
+	category.each(function(){
+		if($(this).text().match(title)){
+			$(".classification_category").children("a").removeClass("fw-bold");
+			$(this).addClass("fw-bold");
+		}
+	})
+</script>
   

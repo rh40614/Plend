@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
-<!-- 07.12 김영민 뷰제작 -->
+<!-- 07.13 김영민 뷰제작 -->
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>회원리스트</title>
+	<title>신고관리</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
@@ -29,79 +29,101 @@
 		<br><br>
 		<div class="row mt-3">
 			<div class="col category">
-				<p class="h5 fw-bold category-title"> 회원리스트 </p>
+				<p class="h5 fw-bold category-title"> 회원신고리스트 </p>
 			</div>
 		</div>
 		<section class="row px-1">
 			<table class="col table text-center table-hover">
 			  <thead class="table-light">
 			    <tr>
-			      <th scope="col">회원번호</th>
-			      <th scope="col">아이디</th>
-			      <th scope="col">이름</th>
+			      <th scope="col">신고번호</th>
+			      <th scope="col">신고항목</th>
+			      <th scope="col">신고내용</th>
+			      <th scope="col">신고자</th>
+			      <th scope="col">신고일자</th>
 			      <th scope="col">관리</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			    <tr>
 			      <th scope="row">1</th>
-			      <td>Mark</td>
-			      <td>Otto</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="userModify.do" role="button">수정</a></td>
+			      <td>욕설/비방</td>
+			      <td>**이라고 했어요. 삭제해주세요</td>
+			      <td>김연희</td>
+			      <td>2022-06-24</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
 			    </tr>
 			    <tr>
 			      <th scope="row">2</th>
-			      <td>Jacob</td>
-			      <td>Thornton</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="#" role="button">수정</a></td>
+			      <td>욕설/비방</td>
+			      <td>**이라고 했어요. 삭제해주세요</td>
+			      <td>김연희</td>
+			      <td>2022-06-24</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
 			    </tr>
 			    <tr>
 			      <th scope="row">3</th>
-			      <td>Larry</td>
-			      <td>the Bird</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="#" role="button">수정</a></td>
+			      <td>욕설/비방</td>
+			      <td>**이라고 했어요. 삭제해주세요</td>
+			      <td>김연희</td>
+			      <td>2022-06-24</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
 			    </tr>
 			    <tr>
 			      <th scope="row">4</th>
-			      <td>Mark</td>
-			      <td>Otto</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="#" role="button">수정</a></td>
+			      <td>욕설/비방</td>
+			      <td>**이라고 했어요. 삭제해주세요</td>
+			      <td>김연희</td>
+			      <td>2022-06-24</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
 			    </tr>
 			    <tr>
 			      <th scope="row">5</th>
-			      <td>Jacob</td>
-			      <td>Thornton</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="#" role="button">수정</a></td>
+			      <td>욕설/비방</td>
+			      <td>**이라고 했어요. 삭제해주세요</td>
+			      <td>김연희</td>
+			      <td>2022-06-24</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
 			    </tr>
 			    <tr>
 			      <th scope="row">6</th>
-			      <td>Larry</td>
-			      <td>the Bird</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="#" role="button">수정</a></td>
+			      <td>욕설/비방</td>
+			      <td>**이라고 했어요. 삭제해주세요</td>
+			      <td>김연희</td>
+			      <td>2022-06-24</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
 			    </tr>
 			    <tr>
 			      <th scope="row">7</th>
-			      <td>Mark</td>
-			      <td>Otto</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="#" role="button">수정</a></td>
+			      <td>욕설/비방</td>
+			      <td>**이라고 했어요. 삭제해주세요</td>
+			      <td>김연희</td>
+			      <td>2022-06-24</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
 			    </tr>
 			    <tr>
 			      <th scope="row">8</th>
-			      <td>Jacob</td>
-			      <td>Thornton</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="#" role="button">수정</a></td>
+			      <td>욕설/비방</td>
+			      <td>**이라고 했어요. 삭제해주세요</td>
+			      <td>김연희</td>
+			      <td>2022-06-24</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
 			    </tr>
 			    <tr>
 			      <th scope="row">9</th>
-			      <td>Larry</td>
-			      <td>the Bird</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="#" role="button">수정</a></td>
+			      <td>욕설/비방</td>
+			      <td>**이라고 했어요. 삭제해주세요</td>
+			      <td>김연희</td>
+			      <td>2022-06-24</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
 			    </tr>
 			    <tr>
 			      <th scope="row">10</th>
-			      <td>Larry</td>
-			      <td>the Bird</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="#" role="button">수정</a></td>
+			      <td>욕설/비방</td>
+			      <td>**이라고 했어요. 삭제해주세요</td>
+			      <td>김연희</td>
+			      <td>2022-06-24</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
 			    </tr>
 			  </tbody>
 			</table>
