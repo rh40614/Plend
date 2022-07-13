@@ -1,0 +1,58 @@
+#searchBar {
+			width : 500px;
+			height : 38px;
+			border-radius:15px;
+			border : 3px solid #2F506D;
+			margin-right : 25px;
+		}
+		#searchBut {
+			border-radius : 20px;
+			color : white;
+			background : #2F506D;
+			border : 1px solid #2F506D;
+			width : 70px;
+			height : 38px;
+			font-size : 13px;
+		}
+		
+		#searhBtn:hover {
+			border : 0px;
+			background-color:#3FC1C9;
+		}
+	
+		#tab {
+			width:60%;
+			margin:auto;
+		}
+		table tr th {
+			width:5%;
+		}
+		#title {
+			width:40%;
+			text-align:center;
+		}
+		#write {
+			width : 15%;
+			text-align : center;
+		}
+		
+		#hit{
+			width:10%;
+			text-align:center;
+		}
+		#noticeReg{
+			width : 100px;
+			height : 30px;
+			float : right;
+			background : #2F506D;
+			border-radius:15px;
+			border : 3px solid #2F506D;
+			color : white
+			
+		}
+		
+		#noticeReg:hover {
+			border : 0px;
+			background-color:#3FC1C9;
+		}
+		

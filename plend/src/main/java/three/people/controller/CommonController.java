@@ -105,20 +105,13 @@ public class CommonController {
 	 * return "redirect:/"; }
 	 */
 	
-	
-	
-	
-	
-	
-	
-	
-	@RequestMapping(value="signUp.do", method = RequestMethod.GET)
+	@RequestMapping(value="/signUp.do", method = RequestMethod.GET)
 	public String signUp() {
 
 		return "common/signUp";
 	}
 
-	@RequestMapping(value="signUp.do", method = RequestMethod.POST)
+	@RequestMapping(value="/signUp.do", method = RequestMethod.POST)
 	public String signUp(UserVO vo) {
 		int result = userService.insertUser(vo);
 		return "redirect:/";
@@ -176,6 +169,7 @@ public class CommonController {
 
 			UserVO login = new UserVO();
 			login.setUidx(user.getUidx());
+			System.out.println(user.getUidx());
 			login.setId(user.getId());
 			login.setPassword(user.getPassword());
 

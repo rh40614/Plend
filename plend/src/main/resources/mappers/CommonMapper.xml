@@ -36,7 +36,8 @@
 	
 	<select id="login" resultType="UserVO" parameterType="UserVO">
 		SELECT 
-			 id
+			 uidx
+			,id
 			,password
 		FROM user 
 	   WHERE id = #{id}

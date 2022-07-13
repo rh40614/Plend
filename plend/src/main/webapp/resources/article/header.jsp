@@ -16,11 +16,11 @@
  
   <div class="container" style="align-items: center; flex-wrap: wrap; justify-content: center;">
   	<div style=" display: flex; flex-direction: row; align-items: center; width: 100%;">
-    <a class="navbar-brand" style=" margin-right:auto; " href="#"><img src="./resources/image/plend.png" alt="logo not found"></a>
+    <a class="navbar-brand" style=" margin-right:auto; " href="#"><img src="<%=request.getContextPath()%>/resources/image/plend.png" alt="logo not found"></a>
     <div id="searchBar" style="border: 3px solid grey; border-radius: 10px; height: 47px; width: 750px;">
     	<form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="원하는 장소를 검색해보세요!" aria-label="Search" style="border: none;">
-          <button class="btn " type="submit" style="border:none;" ><img alt="searchBtn" src="./resources/image/searchBtn.png" ></button>
+          <button class="btn " type="submit" style="border:none;" ><img alt="searchBtn" src="<%=request.getContextPath()%>/resources/image/searchBtn.png" ></button>
         </form> 			
     </div>
     <button class="navbar-toggler" type="button" style="border: none; margin-left:auto;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
