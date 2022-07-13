@@ -20,18 +20,18 @@
     
     <div class="mt-5 row" id="category">
     	<div class="col-lg-12 col-sm-10 col-xs-8">
-    	<button style="border:none; background:none; "><img src="./resources/image/category/i_partyRoom.png" alt="파티룸" ></button> 
-    	<button style="border:none; background:none; "><img src="./resources/image/category/i_dancePractice.png" alt="춤연습실" ></button> 
-    	<button style="border:none; background:none; "><img src="./resources/image/category/i_homeGim.png" alt="운동시설" ></button> 
-    	<button style="border:none; background:none; "><img src="./resources/image/category/i_meeting.png" alt="회의실" ></button> 
-    	<button style="border:none; background:none; "><img src="./resources/image/category/i_office.png" alt="독립 오피스" ></button> 
-    	<button style="border:none; background:none; "><img src="./resources/image/category/i_officeShare.png" alt="공유오피스" ></button> 
-    	<button style="border:none; background:none; "><img src="./resources/image/category/i_recording.png" alt="녹음실" ></button> 
-    	<button style="border:none; background:none; "><img src="./resources/image/category/i_singPractice.png" alt="노래연습실" ></button>
-    	<button style="border:none; background:none; "><img src="./resources/image/category/i_smallWedding.png" alt="스몰웨딩" ></button> 
-    	<button style="border:none; background:none; "><img src="./resources/image/category/i_studio.png" alt="스튜디오" ></button> 
-    	<button style="border:none; background:none; "><img src="./resources/image/category/i_gallery.png" alt="갤러리" ></button> 
-    	<button style="border:none; background:none; "><img src="./resources/image/category/i_shareKitchen.png" alt="공유주방" ></button>
+    	<button style="border:none; background:none; "><img src="<%=request.getContextPath()%>/resources/image/category/i_partyRoom.png" alt="파티룸" ></button> 
+    	<button style="border:none; background:none; "><img src="<%=request.getContextPath()%>/resources/image/category/i_dancePractice.png" alt="춤연습실" ></button> 
+    	<button style="border:none; background:none; "><img src="<%=request.getContextPath()%>/resources/image/category/i_homeGim.png" alt="운동시설" ></button> 
+    	<button style="border:none; background:none; "><img src="<%=request.getContextPath()%>/resources/image/category/i_meeting.png" alt="회의실" ></button> 
+    	<button style="border:none; background:none; "><img src="<%=request.getContextPath()%>/resources/image/category/i_office.png" alt="독립 오피스" ></button> 
+    	<button style="border:none; background:none; "><img src="<%=request.getContextPath()%>/resources/image/category/i_officeShare.png" alt="공유오피스" ></button> 
+    	<button style="border:none; background:none; "><img src="<%=request.getContextPath()%>/resources/image/category/i_recording.png" alt="녹음실" ></button> 
+    	<button style="border:none; background:none; "><img src="<%=request.getContextPath()%>/resources/image/category/i_singPractice.png" alt="노래연습실" ></button>
+    	<button style="border:none; background:none; "><img src="<%=request.getContextPath()%>/resources/image/category/i_smallWedding.png" alt="스몰웨딩" ></button> 
+    	<button style="border:none; background:none; "><img src="<%=request.getContextPath()%>/resources/image/category/i_studio.png" alt="스튜디오" ></button> 
+    	<button style="border:none; background:none; "><img src="<%=request.getContextPath()%>/resources/image/category/i_gallery.png" alt="갤러리" ></button> 
+    	<button style="border:none; background:none; "><img src="<%=request.getContextPath()%>/resources/image/category/i_shareKitchen.png" alt="공유주방" ></button>
     	</div>
     </div>
     
@@ -42,16 +42,16 @@
       <div class="offcanvas-header" style="background: #364F6B; height: 250px; flex-direction: column">
       	
         <button type="button" class="btn-close text-reset" style="margin-left: auto;" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
-     
+
         <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: white; font-size:20px;">Plend</h5>
+
         
-        
-        <button type="button" class="btn-primary btn-lg mb-4" style="background: #FC5185; color: white; border-radius: 50px; border: none; ">로그인/회원가입</button>
+        <button type="button" class="btn-primary btn-lg mb-4" style="background: #FC5185; color: white; border-radius: 50px; border: none; "onclick="location.href='common/signIn.do' ">로그인/회원가입</button>
       </div>
       <div class="offcanvas-body" style="background:#E5E5E5;">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">공지사항</a>
+            <a class="nav-link active" aria-current="page" href="main/notice.do">공지사항</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">FAQ</a>

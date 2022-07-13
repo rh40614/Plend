@@ -5,9 +5,34 @@
  
 <mapper namespace="three.people.mapper.mainMapper">
 
-	<!-- <select id="noticeAll" resultType="NoticeVO" parameterType="NoticeVO"></select>
+	<select id="noticeAll" resultType="NoticeVO" parameterType="NoticeVO">
+		SELECT 
+			 nidx
+			,title
+			,nickName
+			,a.date
+			,hit
+		FROM notice a
+  INNER JOIN user b
+  		  ON a.uidx = b.uidx 
+  	ORDER BY nidx desc
+	</select>	
 	<select id="faqAll" resultType="FaqVO" parameterType="FaqVO"></select>
-	<insert id="insertNotice" parameterType="NoticeVO"></insert>
+	<insert id="insertNotice" parameterType="NoticeVO">
+		INSERT INTO notice (
+			 uidx
+			,category
+			,title
+			,content
+			,fileName
+		) VALUES (
+			 #{uidx}
+			,#{category}
+			,#{title}
+			,#{content}
+			,#{fileName}
+		)
+	</insert>
 	<insert id="insertFaq" parameterType="FaqVO"></insert>
 	<update id="noticeModify" parameterType="NoticeVO"></update>
 	<update id="faqModify" parameterType="FaqVO"></update>
@@ -15,9 +40,7 @@
 	<update id="faqDelete" parameterType="FaqVO"></update>
 	<select id="randomPlace" resultType="PlaceVO"></select>
 	<select id="eventPlace" resultType="PlaceVO"></select>
-	<select id="reviweALl" resultType="ReviewVO"></select> -->
-	
-	
+	<!-- <select id="reviweALl" resultType="ReviewVO"></select> -->
 </mapper>
 
 

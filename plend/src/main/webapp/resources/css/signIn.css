@@ -1,0 +1,40 @@
+.hr-sect {
+        display: flex;
+        flex-basis: 100%;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.35);
+        font-size: 15px;
+        margin: 8px 0px;
+      }
+      .hr-sect::before,
+      .hr-sect::after {
+        content: "";
+        flex-grow: 1;
+        background: rgba(0, 0, 0, 0.35);
+        height: 1px;
+        font-size: 0px;
+        line-height: 0px;
+        margin: 0px 16px;
+      }
+      .textbox{
+		border :2px solid;
+		border-radius:5px;
+		width : 550px;
+		height : 35px;
+		background: transparent;
+	}
+	#signBtn{
+		border :0px;
+		background-color :#2F506D;
+		color:white;
+		padding: 8px 250px 8px 250px;
+		border-radius:5px;
+	}
+	#signBtn:hover {
+		border : 0px;
+		background-color:#3FC1C9;
+	}
+	a{
+		text-decoration : none;
+		color : black;
+	}

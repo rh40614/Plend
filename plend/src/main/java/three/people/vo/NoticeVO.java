@@ -9,7 +9,18 @@ public class NoticeVO extends UserVO {
 	private String date;
 	private String delYN;
 	private int hit;
+	private String fileName;
+	private int uidx;
 	
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFile(String fileName) {
+		this.fileName = fileName;
+	}
 	public int getNidx() {
 		return nidx;
 	}
