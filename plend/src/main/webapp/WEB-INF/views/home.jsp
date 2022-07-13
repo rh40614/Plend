@@ -47,7 +47,7 @@
 	<main>
 	<br>
 
-	<a href="insertPlace.do">장소등록 </a>
+	<a href="host/insertPlace.do">장소등록 </a>
 
 	<a href="developer/userList.do">유저리스트 </a>
 

@@ -7,25 +7,38 @@
 
 	<select id="totalBook" resultType="int" parameterType="UserVO"></select>
 	<select id="tatalName" resultType="int" parameterType="UserVO"></select>
+	
+	
 	<insert id="insertPlace" parameterType="PlaceVO">
 	
-	INSERT INTO Place(
-			uidx,
-			category,
-			title,
-			placedetail,
-			guide,
-			tag,
-			placeimg,
-			paddr,
-			option1,
-			option2,
-			price,
-			AvailableTime,
-			intervalTime
-	)VALUES(
-	
-	
+		INSERT INTO Place(
+					uidx,
+					category,
+					placeName,
+					placeDetail,
+					guide,
+					tag,
+					placeImg,
+					address,
+					option1,
+					option2,
+					price,
+					AvailableTime,
+					intervalTime
+			)VALUES(
+		  			#{uidx},
+		  			#{category},
+		  			#{placeName},
+		  			#{placeDetail},
+		  			#{guide},
+		  			#{tag},
+		  			#{placeImg},
+		  			#{address},
+		  			#{option1},
+		  			#{option2},
+		  			#{AvailableTime},
+		  			#{intervalTime},
+		  			#{price}
 	)
 	
 	
