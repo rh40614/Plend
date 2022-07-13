@@ -222,7 +222,7 @@
 							<br>
 							<label class="mt-3">
 								<span class=" frmTitle">공간 이미지 </span><br>	
-								<input type="file" name="placeImg" id="placeImg">
+								<input type="file" name="placeImg" id="placeImg" multiple="multiple">
 							</label>
 							<br>
 							<label class="mt-3">

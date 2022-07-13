@@ -7,20 +7,24 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import three.people.service.HostService;
 import three.people.vo.PlaceVO;
 
-import three.people.service.MainService;
+
 
 @RequestMapping(value = "/host")
 @Controller
 public class HostController {
 
+	@Autowired
+	HostService hostService;
+	
 	
 	@RequestMapping(value = "/insertPlace.do", method = RequestMethod.GET )
 	public String insertPlace() {  
@@ -32,6 +36,7 @@ public class HostController {
 	
 	@RequestMapping(value = "/insertPlace.do", method = RequestMethod.POST )
 	public String insertPlace(PlaceVO placeVO, MultipartFile file, HttpServletRequest request) throws IllegalStateException, IOException {
+		
 		System.out.println("장소등록POST");
 		
 		
@@ -50,6 +55,8 @@ public class HostController {
 			System.out.println("업로드할 파일이 존재하지 않습니다.");
 		}
 		
+		
+		hostService.insertPlace(placeVO);
 		
 		
 		return "redirect:/host/managePlace.do";
