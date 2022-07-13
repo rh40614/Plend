@@ -77,7 +77,7 @@
 				<div class="horison"></div>
 					<div>
 						<!-- form 태그 시작 -->			
-						<form name="frm" id="frm"  method="POST" enctype="multipart/form-data">
+						<form name="frm" id="frm" method="POST" enctype="multipart/form-data">
 							<!-- 카테고리 히든으로 받기  -->
 							<input type="hidden" name="category" id="cate" >
 					

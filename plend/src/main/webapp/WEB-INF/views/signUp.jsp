@@ -4,7 +4,7 @@
 <html>
 <head>
 	<title>회원가입</title>
-	<!-- 07.07 김영민 헤더,푸터 로드사용 -->
+	<!-- 07.07 김하진 : 김영민 헤더,푸터 로드사용 -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<link href="resources/css/global.css" rel="stylesheet">
 	<script src="resources/js/jquery-3.6.0.min.js"></script>
