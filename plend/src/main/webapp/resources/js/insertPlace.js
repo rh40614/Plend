@@ -256,7 +256,7 @@
 				alert("장소의 영업시작 시각을 입력해주세요");
 				$("#kt_datepicker_1").focus();
 				
-			}else if($("#kt_datepicker_2").val() == ""){
+  			}else if($("#kt_datepicker_2").val() == ""){
 				alert("장소의 영업종료 시각을 입력해주세요");
 				$("#kt_datepicker_2").focus();
 				
@@ -269,12 +269,13 @@
 				$("#price").focus();
 				
 			}else{
-			
-				$("#frm").action ="<%=request.getContextPath()%>/host/insertPlace.do";
+				alert("알려주세요");
+				
+				$("#frm").action ="host/insertPlace.do";
 				$("#frm").method ="post";
-				$("#frm").submit(function(){
-					alert("정상 등록되었습니다.");
-				});
+				$("#frm").submit();			
+				
+				
 			
 			
 			}

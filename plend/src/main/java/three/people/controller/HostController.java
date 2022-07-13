@@ -1,6 +1,10 @@
 package three.people.controller;
 
 
+import java.io.File;
+import java.io.IOException;
+
+
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -27,9 +31,24 @@ public class HostController {
 	
 	
 	@RequestMapping(value = "/insertPlace.do", method = RequestMethod.POST )
-	public String insertPlace(PlaceVO placeVO, MultipartFile file, HttpServletRequest request) {
+	public String insertPlace(PlaceVO placeVO, MultipartFile file, HttpServletRequest request) throws IllegalStateException, IOException {
 		System.out.println("장소등록POST");
 		
+		
+		//사진이 저장될 경로
+		String path = request.getSession().getServletContext().getRealPath("/resources/upload/placeImg");
+		
+		System.out.println(path);
+		File dir = new File(path);
+		if(!dir.exists()) {	//위치가 존재하는지 확인
+			 dir.mkdirs();	//위치가 존재하지 않는경우 위치를 생성
+		 }
+		
+		if(!file.getOriginalFilename().isEmpty()) {	//화면에서 넘어온 파일이 존재한다면
+			file.transferTo(new File(path,file.getOriginalFilename()));		//error는 throw	//화면에서 넘어온 파일을 path위치에 새로쓰는 로직
+		}else {
+			System.out.println("업로드할 파일이 존재하지 않습니다.");
+		}
 		
 		
 		
