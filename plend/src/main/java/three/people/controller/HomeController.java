@@ -15,9 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import three.people.service.GoogleService;
 import three.people.service.KakaoService;
+import three.people.service.MailSendService;
 import three.people.service.NaverService;
 import three.people.vo.SnsVO;
 
@@ -61,10 +63,16 @@ public class HomeController {
 	}
 	
 
+	@Autowired
+	private MailSendService mailSend;
 
-
-
-	
+	@RequestMapping(value="emailCheck.do")
+	@ResponseBody
+	public void emailCheck(String email) {
+		System.out.println("email: "+email);
+		String result = mailSend.joinEmail(email);
+		System.out.println(result);
+	}
 	
 	@RequestMapping(value="login.do")
 	public String Login() {
