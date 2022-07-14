@@ -14,7 +14,6 @@
         <typeAlias type="three.people.vo.NoticeVO" alias="NoticeVO"/>
         <typeAlias type="three.people.vo.FaqVO" alias="FaqVO"/>
         <typeAlias type="three.people.vo.PlaceVO" alias="PlaceVO"/>
-        <typeAlias type="three.people.vo.SearchVO" alias="SearchVO"/>
       
       
     </typeAliases>

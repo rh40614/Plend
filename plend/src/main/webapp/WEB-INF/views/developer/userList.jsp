@@ -24,7 +24,7 @@
 </head>
 
 <body>
-	<div id="wrap" class="container-fluid overflow-auto">	
+	<div id="wrap" class="container-fluid h-100">	
 		<header id="header" class="row"></header>
 		<br><br>
 		<div class="row mt-3">
@@ -43,54 +43,97 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			  	<!-- 07.14 김영민 데이터반영 표 만들기 -->
-			  	<c:forEach var="user" items="${userList}">
-			  		<tr>
-				      <th scope="row">${user.uidx}</th>
-				      <td>${user.id}</td>
-				      <td>${user.name}</td>
-				      <td><a class="btn btn-primary btn-sm rounded-3" href="userModify.do?uidx=${user.uidx}" role="button">수정</a></td>
-			    	</tr>
-			  	</c:forEach>
+			    <tr>
+			      <th scope="row">1</th>
+			      <td>
+			      	<c:forEach var="user" items="${userList}" >
+			      		${user.uidx }
+			      	</c:forEach>
+			      </td>
+			      <td>Otto</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="userModify.do" role="button">수정</a></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">2</th>
+			      <td>Jacob</td>
+			      <td>Thornton</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="#" role="button">수정</a></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">3</th>
+			      <td>Larry</td>
+			      <td>the Bird</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="#" role="button">수정</a></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">4</th>
+			      <td>Mark</td>
+			      <td>Otto</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="#" role="button">수정</a></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">5</th>
+			      <td>Jacob</td>
+			      <td>Thornton</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="#" role="button">수정</a></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">6</th>
+			      <td>Larry</td>
+			      <td>the Bird</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="#" role="button">수정</a></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">7</th>
+			      <td>Mark</td>
+			      <td>Otto</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="#" role="button">수정</a></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">8</th>
+			      <td>Jacob</td>
+			      <td>Thornton</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="#" role="button">수정</a></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">9</th>
+			      <td>Larry</td>
+			      <td>the Bird</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="#" role="button">수정</a></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">10</th>
+			      <td>Larry</td>
+			      <td>the Bird</td>
+			      <td><a class="btn btn-primary btn-sm rounded-3" href="#" role="button">수정</a></td>
+			    </tr>
 			  </tbody>
 			</table>
 		</section>
 		<nav id="pagenation" class="row">
 		  <ul class="pagination justify-content-center">
-		  	<c:if test="${pagenation.startPage > 5}">
-			    <li class="page-item">
-			      <a class="page-link" href="userList.do?nowPage=4">&laquo;</a>
-			    </li>
-		  	</c:if>
-		  	<c:forEach begin="${pagenation.startPage }" end="${pagenation.endPage }" var="p">
-				<c:choose>
-					<c:when test="${p == pagenation.nowPage }">
-						<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" href="userList.do?nowPage=${p}">${p}</a></li>
-					</c:when>
-					<c:when test="${p != pagenation.nowPage }">
-						<li class="page-item"><a class="page-link" href="userList.do?nowPage=${p}">${p}</a></li>
-					</c:when>
-				</c:choose>
-			</c:forEach>
-		    <c:if test="${pagenation.endPage != pagenation.lastPage}">
-			    <li class="page-item">
-			      <a class="page-link" href="userList.do?nowPage=${pagenation.endPage +1}">&raquo;</a>
-			    </li>
-		    </c:if>
+		    <li class="page-item disabled">
+		      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
+		    </li>
+		    <li class="page-item"><a class="page-link" href="#">1</a></li>
+		    <li class="page-item"><a class="page-link" href="#">2</a></li>
+		    <li class="page-item"><a class="page-link" href="#">3</a></li>
+		    <li class="page-item">
+		      <a class="page-link" href="#">&raquo;</a>
+		    </li>
 		  </ul>
 		</nav>
-		<form action="userList.do" method="get">
-			<div class="row search-form mb-5">
-				<div class="input-group justify-content-center">
-					<select class="form-select-sm" name="searchType">
-						<option value="name">이름</option>
-	  					<option value="id">아이디</option>
-					</select>
-					<input name="searchValue">
-					<button class="btn btn-primary btn-sm">검색</button>
-				</div>
+		<div class="row search-form mb-5">
+			<div class="input-group justify-content-center">
+				<select class="form-select-sm">
+					<option value="1">One</option>
+  					<option value="2">Two</option>
+  					<option value="3">Three</option>
+				</select>
+				<input>
+				<button class="btn btn-primary btn-sm">검색</button>
 			</div>
-		</form>
+		</div>
 		<div class="flex-grow-1"></div>
 		<footer id="footer" class="row"></footer>
 	</div>

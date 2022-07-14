@@ -1,6 +1,11 @@
 package three.people.controller;
 
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,35 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import three.people.service.AdminService;
-import three.people.service.CommonService;
-import three.people.vo.SearchVO;
+import three.people.vo.UserVO;
 
-// 07.13 김영민 페이지 이동 제작
 @RequestMapping(value="/developer")
 @Controller
 public class DeveloperController {
 
 	@Autowired
 	AdminService adminService;
-	@Autowired
-	CommonService commonService;
 	
 	@RequestMapping(value="/userList.do", method = RequestMethod.GET)
-	public String userList(SearchVO searchvo,Model model) {
-		if(searchvo.getNowPage() == 0 && searchvo.getCntPerPage() == 0) {
-			searchvo.setNowPage(1);
-			searchvo.setCntPerPage(10);
-		}else if(searchvo.getCntPerPage() == 0) {
-			searchvo.setCntPerPage(10);
-		}else if(searchvo.getNowPage() == 0) {
-			searchvo.setNowPage(1);
-		}
-		
-		int total = commonService.totalCountUser(2);
-		searchvo.calPaging(total);
-		
-		model.addAttribute("pagenation", searchvo);
-		model.addAttribute("userList", adminService.userList(searchvo));
+	public String userList(Model model, HttpServletRequest request, HttpSession session) {
+		session = request.getSession();
+		model.addAttribute("userList", adminService.userList());
 		
 		return "developer/userList";
 	}

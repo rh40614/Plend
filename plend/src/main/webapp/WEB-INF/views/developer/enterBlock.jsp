@@ -27,8 +27,7 @@
 	</script>
 </head>
 <body>
-	<!-- h-100을 제거하면 푸터가 올라오고...고쳐야함 -->
-	<div id="wrap" class="container-fluid h-100 overflow-auto">	
+	<div id="wrap" class="container-fluid h-100">	
 		<header id="header" class="row"></header>
 		<br><br>
 		<div class="row mt-3">
