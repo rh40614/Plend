@@ -33,4 +33,8 @@ public class CommonDAO {
 	public int nickNameCheck(String nickName) {
 		return sqlSession.selectOne("three.people.mapper.commonMapper.nickNameCheck", nickName);
 	}
+	
+	public int totalCountUser(int role) {
+		return sqlSession.selectOne("three.people.mapper.commonMapper.totalCountUser", role);
+	}
 }

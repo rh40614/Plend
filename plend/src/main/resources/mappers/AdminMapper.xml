@@ -5,21 +5,30 @@
  
 <mapper namespace="three.people.mapper.adminMapper">
 	
-	<select id="userList" resultType="UserVO">
-		SELECT uidx,
-			   id,
-			   password,
-			   name,
-			   nickname,
-			   birth,
-			   userphone,
-			   email,
-			   gender,
-			   addr,
-			   regnum,
-			   role,
-			   delyn
-		  FROM user
+	<select id="userList" parameterType="SearchVO" resultType="UserVO">
+		SELECT u.*(
+			SELECT uidx,
+				   id,
+				   password,
+				   name,
+				   nickname,
+				   birth,
+				   userphone,
+				   email,
+				   gender,
+				   addr,
+				   regnum,
+				   role,
+				   delyn
+			  FROM user
+			 WHERE role = 2
+			 <if test='searchType != null and searchType.equals("name")'>
+			   AND name like CONCAT('%',#{searchValue},'%')
+			 </if>
+			 <if test='searchType != null and searchType.equals("id")'>
+			   AND id like CONCAT('%',#{searchValue},'%')
+			 </if>) u  
+		 LIMIT #{start}, #{cntPerPage}
 	</select>
 	<!-- 
 	<update id="userInfo" parameterType="UserVO"></update>

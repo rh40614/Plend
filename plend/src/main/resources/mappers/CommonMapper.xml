@@ -69,6 +69,12 @@
 		  FROM user
 		 WHERE nickName = #{nickName}
 	</select>
+	<!-- 07.14 김영민: 회원구분별 총 인원 구하기 -->
+	<select id="totalCountUser" parameterType="Integer" resultType="Integer">
+		SELECT count(*)
+		  FROM user
+		 WHERE role = #{role}
+	</select>
 	
 </mapper>
 
