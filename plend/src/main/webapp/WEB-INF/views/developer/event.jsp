@@ -24,7 +24,7 @@
 </head>
 
 <body>
-	<div id="wrap" class="container-fluid h-100">	
+	<div id="wrap" class="container-fluid">	
 		<header id="header" class="row"></header>
 		<br><br>
 		<div class="row mt-3">
