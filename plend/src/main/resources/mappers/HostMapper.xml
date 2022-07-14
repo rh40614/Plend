@@ -22,9 +22,9 @@
 					address,
 					option1,
 					option2,
-					price,
-					AvailableTime,
-					intervalTime
+					availableTime,
+					intervalTime,
+					price
 			)VALUES(
 		  			#{uidx},
 		  			#{category},
@@ -36,13 +36,31 @@
 		  			#{address},
 		  			#{option1},
 		  			#{option2},
-		  			#{AvailableTime},
+		  			#{availTimeValue},
 		  			#{intervalTime},
 		  			#{price}
-	)
+		)
 	
 	
 	</insert>
+	
+	<insert id="insertPlaceImg" parameterType="ImageVO">
+		INSERT INTO image(
+					path,
+					originFileName,
+					realFileName,
+					pidx	
+			)VALUES(
+					#{path},
+					#{originFileName},
+					#{realFileName},
+					#{pidx}
+		 )
+	</insert>
+	
+	
+	
+	
 	<update id="placeModify" parameterType="PlaceVO"></update>
 	<update id="placeDelete" parameterType="PlaceVO"></update>
 	

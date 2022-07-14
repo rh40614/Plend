@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="true" %>
 
     
 <header>
@@ -10,8 +12,15 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse text-white" id="navbarCollapse" style = "margin-right:50px;justify-content: flex-end;">
+      <div class="collapse navbar-collapse text-white" id="navbarCollapse" style = "margin-right:50px; justify-content: flex-end;">
+       
+        <c:if test="${login == null }">
+        <!-- 인터셉터로 막기  -->
+        <span>세션없음</span>
+        </c:if>
+        <c:if test="${login != null }">
         [<a href = "" id = "header">로그아웃</a>&nbsp|&nbsp<a href = "" id = "header">마이페이지</a>]
+        </c:if>
       </div>
     </div>
   </nav>

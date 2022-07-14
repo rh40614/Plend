@@ -34,7 +34,45 @@
 			$("#header").load("<%=request.getContextPath()%>/resources/article/hostHeaderWithNav.jsp");
 		})
 	</script>
+	
 		
+<!-- 	<script>
+	
+	//file 태그는 따로 전송해서 등록하기 
+		$(function(){
+			//이미지는 따로 변화를 감지하여 등록이 되도록 설정한다. 
+			$("input[type='file']").change(function(e){
+				//비어있는 상태
+				var formData = new FormData();
+				var inputFiles = $("input[name='placeImg']");
+				var files = inputFiles[0].files;
+			
+					for(var i =0; i<files.length <i++;){
+						//기존에 값이 있다면 뒤로 추가 없으면 그냥 추가 (key and value)
+						formData.append("placeImg",files[i]);
+					};
+					
+				$.ajax({
+					url: "placeImgUP.do",
+					processData: false,
+					contentType: false,
+					data: "formData:" + formData,
+					type: "POST",
+					//dataType: json,
+					success: function(result){
+						console.log(result);					
+					},
+					error: function(){
+						console.log("파일 업로드 실패입니다. - ajax")
+						
+					}
+				
+					
+				}); //ajax
+			});
+		});
+	 
+	</script>-->
 </head>
 
 <body>
@@ -76,12 +114,13 @@
 				
 				<div class="horison"></div>
 					<div>
-						<!-- form 태그 시작 -->			
+						<!-- 장소등록 form 태그 시작 -->			
 						<form name="frm" id="frm" method="POST" enctype="multipart/form-data">
 							<!-- 카테고리 히든으로 받기  -->
 							<input type="hidden" name="category" id="cate" >
-					
+							
 							<h5 style="font-weight: bold; margin-top:80px;">1. 공간</h5>
+							
 							
 							<label class="mt-3">
 								<span class="frmTitle">공간명칭 </span><br>
@@ -101,10 +140,16 @@
            						</div>
            					
 							</div>
-							
-							
-							
 							<br>
+							
+							<!-- 사진 등록 -->
+							<label class="mt-3">
+								<span class=" frmTitle">공간 이미지 </span><br>	
+								<input type="file" name="placeImgs" id="placeImgs" multiple="multiple">
+							</label>
+							<!-- 사진 미리보기 이후 구현 -->
+							<br>
+							
 							<label class="mt-3">
 								<span class="frmTitle">공간소개 </span><br>
 								<textarea cols="100" rows="5" name="placeDetail" id="placeDetail" placeholder="등록할 공간을 소개해주세요 :-) "></textarea>
@@ -221,17 +266,14 @@
 							</label>
 							<br>
 							<label class="mt-3">
-								<span class=" frmTitle">공간 이미지 </span><br>	
-								<input type="file" name="placeImg" id="placeImg" multiple="multiple">
-							</label>
-							<br>
-							<label class="mt-3">
 								<span class="frmTitle">주소 : </span><br>
 								<input type="text" id="postcode" placeholder="우편번호">
 								<input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
 								<input type="text" name="address" id="address" size="50" placeholder="주소" class="mt-2"><br>
 								<input type="text" name="detailAddress" id="detailAddress"  size="50"placeholder="상세주소" class="mt-2">
 								<input type="text" name="extraAddress" id="extraAddress"  size="50"placeholder="참고항목" class="mt-2">
+								
+								<!-- <input type="hidden" name="address" id="addre" > -->
 							</label>
 					
 						<div class="horison"></div>
@@ -242,13 +284,13 @@
 								<span class="frmTitle">이용가능시간</span><br>
 					
 								<span class="frmSemiTitle">영업시작 시각</span>
-									<input class="form-control form-control-solid flatpickr-input" placeholder="영업 시작" id="kt_datepicker_1" type="text" name="avaliableTime1">
+									<input class="form-control form-control-solid flatpickr-input" placeholder="영업 시작" id="kt_datepicker_1" type="checkbox" name="availTime">
 								<span class="frmSemiTitle">영업종료 시각</span>
-									<input class="form-control form-control-solid flatpickr-input" placeholder="영업 종료" id="kt_datepicker_2" type="text" name="avaliableTime2">
+									<input class="form-control form-control-solid flatpickr-input" placeholder="영업 종료" id="kt_datepicker_2" type="checkbox" name="availTime">
 							</label>
 							<br>
 							<label class="mt-3">
-								<input type="checkbox" name="avaliableTime" id="avaliableTime" value="24hours" class="mr-3">24시간 이용가능한 공간입니다.<br>
+								<input type="checkbox" name="availTime" id="avaliableTime" value="24hours" class="mr-3">24시간 이용가능한 공간입니다.<br>
 							</label>
 							<br>
 							<label class="mt-3">
