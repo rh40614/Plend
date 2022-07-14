@@ -21,7 +21,7 @@
 			   delyn
 		  FROM user
 		 WHERE role = 2
-		 	<include refid="search"></include>
+		 	<include refid="search"></include> 
 	 	 LIMIT #{start}, #{cntPerPage}
 	</select>
 	
@@ -35,6 +35,23 @@
 		 	</if>		
 		</if>
 	</sql>
+	<select id="userOne" parameterType="UserVO" resultType="UserVO">
+		SELECT uidx,
+			   id,
+			   password,
+			   name,
+			   nickname,
+			   birth,
+			   userphone,
+			   email,
+			   gender,
+			   addr,
+			   regnum,
+			   role,
+			   delyn
+		  FROM user
+		 WHERE uidx = #{uidx} 
+	</select> 
 	 
 	<!-- 
 	<update id="userInfo" parameterType="UserVO"></update>

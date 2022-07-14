@@ -29,31 +29,31 @@
 	<div id="wrap" class="container-fluid">	
 		<header id="header" class="row"></header>
 		<br><br>
-		<div class="row mt-3">
+		<div class="row" style="margin-top: 80px;">
 			<div class="col category">
 				<p class="h5 fw-bold category-title"> 회원정보수정 </p>
 			</div>
 		</div>
-		<section class="row px-1">
+		<section class="row px-1" style="margin-bottom: 80px;">
 			<div class="modify-div col me-5 mt-5">
 				<p class="blockquote-footer mt-1"> 회원기본정보 </p>
 				<table class="col table border-top border-dark">
 				  <tbody>
 				    <tr>
 				      <td scope="row" class="align-middle text-center">아이디</td>
-				      <td> <input type="text" class="form-control"> </td>
+				      <td> <input type="text" class="form-control" value="${user.id}"> </td>
 				    </tr>
 				    <tr>
 				      <td scope="row" class="align-middle text-center">비밀번호</td>
-				      <td> <input type="text" class="form-control"></td>
+				      <td> <input type="text" class="form-control" value="${user.password}"></td>
 				    </tr>
 				    <tr>
 				      <td scope="row" class="align-middle text-center">이름</td>
-				      <td> <input type="text" class="form-control"></td>
+				      <td> <input type="text" class="form-control" value="${user.name}"></td>
 				    </tr>
 				    <tr>
 				      <td scope="row" class="align-middle text-center">이메일</td>
-				      <td> <input type="text" class="form-control"></td>
+				      <td> <input type="text" class="form-control" value="${user.email}"></td>
 				    </tr>
 				  </tbody>
 			   </table>
@@ -65,7 +65,7 @@
 						<input type="text" class="form-control mt-1" id="postcode" placeholder="우편번호">
 						<input type="button" class="form-control ms-1 mt-1 find-addr" onclick="DaumPostcode()" value="우편번호 찾기">
 					</div>
-					<input type="text" class="form-control mt-1" name="address" id="address" placeholder="주소">
+					<input type="text" class="form-control mt-1" name="address" id="address" placeholder="주소" value="${user.addr}">
 					<input type="text" class="form-control mt-1" name="detailAddress" id="detailAddress" placeholder="상세주소">
 					<input type="text" class="form-control mt-1" name="extraAddress" id="extraAddress" placeholder="참고항목">
 				</div>
@@ -73,15 +73,15 @@
 				  <tbody>
 				    <tr>
 				      <td scope="row" class="align-middle text-center">생년월일</td>
-				      <td><input type="text" class="form-control"></td>
+				      <td><input type="text" class="form-control" value="${user.birth}"></td>
 				    </tr>
 				    <tr>
 				      <td scope="row" class="align-middle text-center">닉네임</td>
-				      <td><input type="text" class="form-control"></td>
+				      <td><input type="text" class="form-control" value="${user.nickName}"></td>
 				    </tr>
 				    <tr>
 				      <td scope="row" class="align-middle text-center">연락처</td>
-				      <td><input type="text" class="form-control"></td>
+				      <td><input type="text" class="form-control" value="${user.userPhone}"></td>
 				    </tr>
 				  </tbody>
 				</table>

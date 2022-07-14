@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import three.people.service.AdminService;
 import three.people.service.CommonService;
 import three.people.vo.SearchVO;
+import three.people.vo.UserVO;
 
 // 07.13 김영민 페이지 이동 제작
 @RequestMapping(value="/developer")
@@ -42,7 +43,8 @@ public class DeveloperController {
 	}
 	
 	@RequestMapping(value="/userModify.do", method=RequestMethod.GET)
-	public String userModify() {
+	public String userModify(UserVO uservo, Model model) {
+		model.addAttribute("user", adminService.userOne(uservo));
 		return "developer/userModify";
 	}
 	

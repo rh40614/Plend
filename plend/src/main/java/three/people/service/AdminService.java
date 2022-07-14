@@ -7,5 +7,6 @@ import three.people.vo.UserVO;
 
 public interface AdminService {
 		
-		List<UserVO> userList(SearchVO searchvo);
+	List<UserVO> userList(SearchVO searchvo);
+	UserVO userOne(UserVO uservo);
 }

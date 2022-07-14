@@ -44,6 +44,11 @@
 			  </thead>
 			  <tbody>
 			  	<!-- 07.14 김영민 데이터반영 표 만들기 -->
+			  	<c:if test="${empty userList}">
+			  		<tr>
+						<td colspan="4"> 결과와 맞는 유저가 없습니다. </td>
+			  		</tr>
+			  	</c:if>
 			  	<c:forEach var="user" items="${userList}">
 			  		<tr>
 				      <th scope="row">${user.uidx}</th>
@@ -55,30 +60,32 @@
 			  </tbody>
 			</table>
 		</section>
-		<nav id="pagenation" class="row">
-		  <ul class="pagination justify-content-center">
-		  	<c:if test="${pagenation.startPage > 5}">
-			    <li class="page-item">
-			      <a class="page-link" href="userList.do?nowPage=4">&laquo;</a>
-			    </li>
-		  	</c:if>
-		  	<c:forEach begin="${pagenation.startPage }" end="${pagenation.endPage }" var="p">
-				<c:choose>
-					<c:when test="${p == pagenation.nowPage }">
-						<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" href="userList.do?nowPage=${p}">${p}</a></li>
-					</c:when>
-					<c:when test="${p != pagenation.nowPage }">
-						<li class="page-item"><a class="page-link" href="userList.do?nowPage=${p}">${p}</a></li>
-					</c:when>
-				</c:choose>
-			</c:forEach>
-		    <c:if test="${pagenation.endPage != pagenation.lastPage}">
-			    <li class="page-item">
-			      <a class="page-link" href="userList.do?nowPage=${pagenation.endPage +1}">&raquo;</a>
-			    </li>
-		    </c:if>
-		  </ul>
-		</nav>
+		<c:if test="${ not empty userList}">
+			<nav id="pagenation" class="row">
+			  <ul class="pagination justify-content-center">
+			  	<c:if test="${pagenation.startPage > 5}">
+				    <li class="page-item">
+				      <a class="page-link" href="userList.do?nowPage=4">&laquo;</a>
+				    </li>
+			  	</c:if>
+			  	<c:forEach begin="${pagenation.startPage }" end="${pagenation.endPage }" var="p">
+					<c:choose>
+						<c:when test="${p == pagenation.nowPage }">
+							<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" href="userList.do?nowPage=${p}">${p}</a></li>
+						</c:when>
+						<c:when test="${p != pagenation.nowPage }">
+							<li class="page-item"><a class="page-link" href="userList.do?nowPage=${p}">${p}</a></li>
+						</c:when>
+					</c:choose>
+				</c:forEach>
+			    <c:if test="${pagenation.endPage != pagenation.lastPage}">
+				    <li class="page-item">
+				      <a class="page-link" href="userList.do?nowPage=${pagenation.endPage +1}">&raquo;</a>
+				    </li>
+			    </c:if>
+			  </ul>
+			</nav>
+		</c:if>
 		<form action="userList.do" method="get">
 			<div class="row search-form mb-5">
 				<div class="input-group justify-content-center">

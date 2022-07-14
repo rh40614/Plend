@@ -15,7 +15,12 @@ public class AdminDAO {
 	@Autowired
 	SqlSession sqlSession;
 	
+//	07.14 김영민 유저 총인원/ 개별인원 검색 DAO
 	public List<UserVO> userList(SearchVO searchvo){
 		return sqlSession.selectList("three.people.mapper.adminMapper.userList", searchvo);
+	}
+	
+	public UserVO userOne(UserVO uservo) {
+		return sqlSession.selectOne("three.people.mapper.adminMapper.userOne", uservo);
 	}
 }
