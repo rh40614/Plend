@@ -35,44 +35,7 @@
 		})
 	</script>
 	
-		
-<!-- 	<script>
-	
-	//file 태그는 따로 전송해서 등록하기 
-		$(function(){
-			//이미지는 따로 변화를 감지하여 등록이 되도록 설정한다. 
-			$("input[type='file']").change(function(e){
-				//비어있는 상태
-				var formData = new FormData();
-				var inputFiles = $("input[name='placeImg']");
-				var files = inputFiles[0].files;
-			
-					for(var i =0; i<files.length <i++;){
-						//기존에 값이 있다면 뒤로 추가 없으면 그냥 추가 (key and value)
-						formData.append("placeImg",files[i]);
-					};
-					
-				$.ajax({
-					url: "placeImgUP.do",
-					processData: false,
-					contentType: false,
-					data: "formData:" + formData,
-					type: "POST",
-					//dataType: json,
-					success: function(result){
-						console.log(result);					
-					},
-					error: function(){
-						console.log("파일 업로드 실패입니다. - ajax")
-						
-					}
-				
-					
-				}); //ajax
-			});
-		});
-	 
-	</script>-->
+
 </head>
 
 <body>

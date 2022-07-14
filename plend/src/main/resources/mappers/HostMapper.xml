@@ -40,11 +40,17 @@
 		  			#{intervalTime},
 		  			#{price}
 		)
+		
+		<!-- keyProperty: 이 쿼리가 실행 되면 결과를 어디에 담을거냐. 현재 insert에 사용한 중에 어느 컬럼에 담을거냐. order after이므로 앞으쿼리가 실행된후 실행하겠다.  -->	
+		<selectKey resultType="int" keyProperty="pidx" order="AFTER">
+			SELECT max(pidx) FROM place 
+		</selectKey>
 	
 	
 	</insert>
 	
 	<insert id="insertPlaceImg" parameterType="ImageVO">
+		
 		INSERT INTO image(
 					path,
 					originFileName,
@@ -56,6 +62,8 @@
 					#{realFileName},
 					#{pidx}
 		 )
+		 
+		 
 	</insert>
 	
 	
