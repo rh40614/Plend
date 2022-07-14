@@ -75,7 +75,7 @@ public class HostController {
 			
 			}else {
 				availTimeValue += time;
-				System.out.println("availTimeValue: "+availTimeValue);
+				//System.out.println("availTimeValue: "+availTimeValue);
 				placeVO.setAvailTimeValue(availTimeValue);
 			}
 		}
@@ -93,6 +93,8 @@ public class HostController {
 		
 		if(result ==1) {
 			System.out.println("장소 등록 성공");
+			
+			
 			System.out.println("pidx: "+placeVO.getPidx());
 			
 			//사진이 저장될 경로
@@ -144,7 +146,7 @@ public class HostController {
 					}
 					
 				//response를 이용해서 script를 띄우면 redirect가 먹지않기 때문에 script를 이용해서 화면을 이동시켜주어야한다. 
-				pw.append("<script>alert('정상적으로 등록되었습니다.');location.href='/managePlace.do?';</script>");
+				pw.append("<script>alert('정상적으로 등록되었습니다.');location.href='"+request.getContextPath()+"/host/managePlace.do';</script>");
 				
 				}
 			

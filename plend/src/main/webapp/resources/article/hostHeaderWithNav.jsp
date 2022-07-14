@@ -40,7 +40,7 @@
  		 <li><a href="#">공지사항</a></li>
  		
  		
- 		 <li><a href="#" style = "font-size:13px; margin-top: 500px;">판매자 정보</a></li>
+ 		 <li><a href="#" style = "font-size:13px; margin-top: 300px;">판매자 정보</a></li>
  		 <li><a href="#" style = "font-size:13px;">운영자 문의</a></li>
 	    </ul>
       </div>

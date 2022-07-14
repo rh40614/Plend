@@ -4,18 +4,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Hostcenter-장소등록</title>
-	<link href="resources/css/global_Host.css" rel="stylesheet">
-	<script src="resources/js/jquery-3.6.0.min.js"></script>
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<title>Hostcenter-장소 관리</title>
+
+	<link href="<%=request.getContextPath()%>/resources/css/global_Host.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/resources/css/insertPlace_HOST.css" rel="stylesheet">
+	
+	<!-- jQuery -->
+	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+	
+	<!-- JavaScript Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	
+	<!-- bootstrap  -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	
-
+	<!--  fontAwesome -->
+	<script src="https://kit.fontawesome.com/f5807db9d4.js" crossorigin="anonymous"></script>
+	
+	
 	<script type="text/javascript">
 	//프론트 디자인
 		$(function(){
-			$("#header").load("resources/article/hostHeaderWithNav.jsp");
-			
+			$("#header").load("<%=request.getContextPath()%>/resources/article/hostHeaderWithNav.jsp");
 		})
 	</script>
 		
@@ -38,8 +48,9 @@
 		
 	</main>
 	<div style="margin:300px;"></div>
-	<!-- JavaScript Bundle with Popper -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+	
+	
+	
+	
 </body>
 </html>
