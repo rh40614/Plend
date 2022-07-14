@@ -1,21 +1,51 @@
 package three.people.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class PlaceVO extends UserVO {
 
 	private int pidx;
 	private String category;
+	private String placeName;
 	private String title;
 	private String eventYN;
 	private String placeDetail;
 	private String guide;
 	private String tag;
 	private String placeImg;
-	private String paddr;
+	private MultipartFile[] placeImgs;
+	//2022.07.13 김연희: paddr->address
+	private String address;
 	private String option1;
 	private String option2;
 	private int price;
 	private String delYN;
 	private String approvalYN;
+	private String intervalTime;
+	//2022.07.14 김연희 : 시간 availTime으로 가지고 와서 availTimeValue로 정리해서 DB의 availableTime에 담기
+	private String[] availTime;
+	private String availTimeValue;
+	
+	
+	
+	public String getAvailTimeValue() {
+		return availTimeValue;
+	}
+	public void setAvailTimeValue(String availTimeValue) {
+		this.availTimeValue = availTimeValue;
+	}
+	public String getIntervalTime() {
+		return intervalTime;
+	}
+	public void setIntervalTime(String intervalTime) {
+		this.intervalTime = intervalTime;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	
 	public int getPidx() {
 		return pidx;
@@ -65,12 +95,7 @@ public class PlaceVO extends UserVO {
 	public void setPlaceImg(String placeImg) {
 		this.placeImg = placeImg;
 	}
-	public String getPaddr() {
-		return paddr;
-	}
-	public void setPaddr(String paddr) {
-		this.paddr = paddr;
-	}
+	
 	public String getOption1() {
 		return option1;
 	}
@@ -101,6 +126,23 @@ public class PlaceVO extends UserVO {
 	public void setApprovalYN(String approvalYN) {
 		this.approvalYN = approvalYN;
 	}
-	
+	public MultipartFile[] getPlaceImgs() {
+		return placeImgs;
+	}
+	public void setPlaceImgs(MultipartFile[] placeImgs) {
+		this.placeImgs = placeImgs;
+	}
+	public String getPlaceName() {
+		return placeName;
+	}
+	public void setPlaceName(String placeName) {
+		this.placeName = placeName;
+	}
+	public String[] getAvailTime() {
+		return availTime;
+	}
+	public void setAvailTime(String[] availTime) {
+		this.availTime = availTime;
+	}
 	
 }

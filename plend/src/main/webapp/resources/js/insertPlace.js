@@ -221,10 +221,7 @@
     		dateFormat: "H:i",
 		});
 
-
 	
-	
-
 	//장소 등록
 		function check(){
 			
@@ -240,9 +237,9 @@
 				alert("장소에 대한 설명을 입력해주세요.");
 				$("#placeDetail").focus();
 				
-			}else if($("#placeImg").val() == ""){
-				alert("공간에 대한 사진을 등록해주세요.");
-				$("#placeImg").focus();
+			//}else if($("#placeImg").val() == ""){
+			//	alert("공간에 대한 사진을 등록해주세요.");
+			//	$("#placeImg").focus();
 				
 			}else if($("#guide").val() == ""){
 				alert("시설 이용정보를 작성해주세요.");
@@ -269,19 +266,17 @@
 				$("#price").focus();
 				
 			}else{
-				alert("알려주세요");
+				
+				alert("장소등록하기");
 				
 				$("#frm").action ="host/insertPlace.do";
 				$("#frm").method ="post";
 				$("#frm").submit();			
 				
-				
-			
-			
 			}
 			
 			
 			
 	}
-
+	
 	
