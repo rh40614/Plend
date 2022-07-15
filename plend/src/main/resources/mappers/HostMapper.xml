@@ -22,7 +22,7 @@
 					address,
 					option1,
 					option2,
-					availableTime,
+					availTimeValue,
 					intervalTime,
 					price
 			)VALUES(

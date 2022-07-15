@@ -232,11 +232,11 @@
 								<span class="frmTitle">주소 : </span><br>
 								<input type="text" id="postcode" placeholder="우편번호">
 								<input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
-								<input type="text" name="address" id="address" size="50" placeholder="주소" class="mt-2"><br>
-								<input type="text" name="detailAddress" id="detailAddress"  size="50"placeholder="상세주소" class="mt-2">
-								<input type="text" name="extraAddress" id="extraAddress"  size="50"placeholder="참고항목" class="mt-2">
+								<input type="text"  id="address" size="50" placeholder="주소" class="mt-2"><br>
+								<input type="text"  id="detailAddress"  size="50"placeholder="상세주소" class="mt-2">
+								<input type="text"  id="extraAddress"  size="50"placeholder="참고항목" class="mt-2">
 								
-								<!-- <input type="hidden" name="address" id="addre" > -->
+								<input type="hidden" name="address" id="addr" >
 							</label>
 					
 						<div class="horison"></div>

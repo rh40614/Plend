@@ -5,7 +5,10 @@
  
 <mapper namespace="three.people.mapper.placeMapper">
 	
-	<select id="placeAll" resultType="PlaceVO" parameterType="PlaceVO"></select>
+	<select id="selectPlaceAll" resultType="PlaceVO" parameterType="PlaceVO">
+		SELECT * FROM place
+	
+	</select>
 	<select id="placeOne" resultType="PlaceVO" parameterType="PlaceVO"></select>
 	<select id="randomPlace" resultType="PlaceVO"></select>
 	

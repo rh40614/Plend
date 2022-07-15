@@ -155,5 +155,24 @@
 		resize: none;
 	}
 
-
+	.btnDefault{
+		background:#364F6B;
+		color: white;
+		border-radius: 10px;
+		border:none;
+		width: 60px;
+		height: 30px;
+	
+	}
+	
+	
+	.btnBig{
+		background:#364F6B;
+		color: white;
+		border-radius: 10px;
+		border:none;
+		width: 130px;
+		height: 40px;
+	
+	}
 		 

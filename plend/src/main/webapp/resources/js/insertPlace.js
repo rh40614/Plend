@@ -184,7 +184,17 @@
         }).open();
     }
 
+	//주소합치기 
+		$(function(){
 	
+			var a = $("#address").val();
+			var b = $("#detailAddress").val();
+			var addr =  a+b;
+		
+			$("#addr").val(addr);
+		});
+		
+
 
 	//이용가능 시간대 설정
 	
@@ -267,7 +277,7 @@
 				
 			}else{
 				
-				alert("장소등록하기");
+				confirm("등록하시겠습니까?");
 				
 				$("#frm").action ="host/insertPlace.do";
 				$("#frm").method ="post";

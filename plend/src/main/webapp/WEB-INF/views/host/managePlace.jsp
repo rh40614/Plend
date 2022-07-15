@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +38,39 @@
 	
 	<main>
 		<section style="margin-left:250px;">
-		
+			<span class="frmTitle ">플레이스 리스트</span>
+			
+				
+				<div class=".table-responsive container flex-row-reverse " style="margin-left: 100px;" >
+					<button class="mb-3 mt-3 btnBig" onclick="location.href='<%=request.getContextPath()%>/host/insertPlace.do'">플레이스 등록</button>
+					<table class="table table-hover text-center clearfix" >
+						<thead class="table-dark">
+							<tr style="text-al">
+								<td>번호</td><td>플레이스명</td><td>태그</td><td>소개</td><td>승인여부</td><td>수정</td>
+							</tr>
+						<thead>
+						<tbody>
+							<c:if test="${list_p.size() == 0}">	
+								<tr>
+									<td colspan="6">등록된 장소가 없습니다.</td>
+								</tr>
+							</c:if>
+							<!--  -->
+							<c:if test="${list_p.size() > 0}">
+								<c:forEach var="pv" items="${list_p}">
+									<tr >
+										<td>${pv.pidx}</td>
+										<td>${pv.placeName}</td>
+										<td>${pv.tag}</td>
+										<td>${pv.placeDetail}</td>
+										<td>${pv.approvalYN}</td>
+										<td><button class="btnDefault" type="button" onclick="location.href='/host/placeDetail.do'">수정</button></td>
+									</tr>
+								</c:forEach>
+							</c:if>
+						</tbody>
+					</table>
+				</div>
 		</section>
 		
 		<div>

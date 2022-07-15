@@ -33,7 +33,7 @@
      	<ul style="margin-top: 40px;">
      	<!-- 나중에 해당링크 들어간 곳 글씨 진하게하는 css 추가하기 -->
  		 <li><a href="#">매출 관리</a></li>
- 		 <li><a href="#">장소 관리</a></li>
+ 		 <li><a href="<%=request.getContextPath()%>/host/managePlace.do">장소 관리</a></li>
   		 <li><a href="#">문의 관리</a></li>
  		 <li><a href="#">쿠폰</a></li>
  		 <li><a href="#">제휴 혜택</a></li>
