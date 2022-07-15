@@ -22,7 +22,7 @@ public class PlaceVO extends UserVO {
 	private String delYN;
 	private String approvalYN;
 	private String intervalTime;
-	//2022.07.14 김연희 : 시간 availTime으로 가지고 와서 availTimeValue로 정리해서 DB의 availableTime에 담기
+	//2022.07.14 김연희 : 시간 availTime으로 가지고 와서 availTimeValue로 정리해서 담음
 	private String[] availTime;
 	private String availTimeValue;
 	

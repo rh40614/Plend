@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,12 +14,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import three.people.service.HostService;
+import three.people.service.PlaceService;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.UserVO;
@@ -31,6 +34,10 @@ public class HostController {
 
 	@Autowired
 	HostService hostService;
+	
+	@Autowired
+	PlaceService placeService;
+	
 	
 	
 	@RequestMapping(value = "/insertPlace.do", method = RequestMethod.GET )
@@ -163,14 +170,26 @@ public class HostController {
 	}
 
 	
-	
-	
-	
+
 	
 	
 	@RequestMapping(value="/managePlace.do", method = RequestMethod.GET)
-	public String managePlace() {
+	public String managePlace(PlaceVO placeVO, Model model) {
 		System.out.println("장소관리 페이지 ");
+		
+		List<PlaceVO> list_p = placeService.selectPlaceAll(placeVO);
+		
+		for(PlaceVO place :	list_p ) {
+			place.getPlaceDetail().substring(0, 35);
+			
+			list_p.add(place);
+		}
+		
+		
+		
+		model.addAttribute("list_p", list_p);
+		
+		
 		
 		return "host/managePlace";
 	}
