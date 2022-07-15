@@ -44,20 +44,21 @@
 	  #header:active {
  		 color : gray;
 	  }
-	  
-	ul {
+/* 2022.07.15 김연희 : ul로 스타일 부여하던것 클래스로 변경  */	  
+	.H_ul {
  		 list-style-type: none;
  		 margin: 0;
  		 margin-top : 40px;
  		 padding: 0;
  		 width: 11%;
  		 background-color: #242424;
- 		 position: fixed; left : 0;
+ 		 position: fixed; 
+ 		 left : 0;
  		 height: 100%;
  		 overflow: auto;
 	}
 
-	li a {
+	.H_ul li a {
   		display: block;
   		color: white;
   		padding: 8px 16px;
@@ -66,7 +67,7 @@
   		margin-top : 30px;
   		text-align:center;
 	}
-	li a:before{
+	.H_ul li a:before{
 		content: '';
     	position: absolute; /*부모 요소에는 position: relative를 주어야 함*/
     	background-color: white;
@@ -79,10 +80,10 @@
     	right:0;
 	}
 
-	li a:hover:before{
+	.H_ul > li a:hover:before{
 		width: 100%;
 	}
-	li a:hover{
+	.H_ul >li a:hover{
 		color:white;	
 	}
 
@@ -113,6 +114,15 @@
 		display: none;
 	}
 	
+	.headTitle{
+	/* span 태그들에 설정 */
+	
+    	display: inline-block;
+    	margin: 20px 0px 10px 110px;
+    	vertical-align: top;
+    	font-size: 20px;
+    	font-weight: bold;
+	}
 	
 	.frmTitle{
 	/* span 태그들에 설정 */
@@ -120,10 +130,11 @@
     	display: inline-block;
     	margin: 20px 0px 10px 0px;
     	vertical-align: top;
-    	font-size: 16px;
+    	font-size: 20px;
     	font-weight: bold;
 	}
-
+	
+	
 
 
 	.frmSemiTitle{
