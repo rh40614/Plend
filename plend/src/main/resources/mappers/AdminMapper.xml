@@ -18,20 +18,36 @@
 			   addr,
 			   regnum,
 			   role,
-			   delyn
+			   delyn,
+			   jdate
 		  FROM user
-		 WHERE role = 2
-		 	<include refid="search"></include> 
+		 WHERE role = #{role}
+		 <if test="role == 2">
+		 	<include refid="searchUser"></include> 
+		 </if>
+		 <if test="role == 3">
+		 	<include refid="searchEnter"></include>
+		 </if>
 	 	 LIMIT #{start}, #{cntPerPage}
 	</select>
 	
-	<sql id="search">
+	<sql id="searchUser">
 		<if test="searchType != null">
 			<if test='searchType.equals("name")'>
 		   		AND (name LIKE CONCAT('%',#{searchValue},'%'))
 		 	</if>
 		 	<if test='searchType.equals("id")'>
 		   		AND (id LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>		
+		</if>
+	</sql>
+	<sql id="searchEnter">
+		<if test="searchType != null">
+			<if test='searchType.equals("name")'>
+		   		AND (name LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>
+		 	<if test='searchType.equals("nickName")'>
+		   		AND (nickname LIKE CONCAT('%',#{searchValue},'%'))
 		 	</if>		
 		</if>
 	</sql>
@@ -48,13 +64,26 @@
 			   addr,
 			   regnum,
 			   role,
-			   delyn
+			   delyn,
+			   jdate
 		  FROM user
 		 WHERE uidx = #{uidx} 
 	</select> 
-	 
+	
+	<!-- 07.15 김영민 매퍼생성 --> 
+	<update id="userInfo" parameterType="UserVO">
+		UPDATE user
+		   SET id = #{id},
+		       password = #{password},
+		       name = #{name},
+		       email = #{email},
+		       addr = #{addr},
+		       birth = #{birth},
+		       nickname = #{nickName},
+		       userphone = #{userPhone}
+		 WHERE uidx = #{uidx}      
+	</update>
 	<!-- 
-	<update id="userInfo" parameterType="UserVO"></update>
 	<select id="reportList" resultType="ReportVO"></select> 
 	<update id="reviewBlind" parameterType="ReviewVO"></update>
 	<update id="approvalYN" parameterType="PlaceVO"></update>

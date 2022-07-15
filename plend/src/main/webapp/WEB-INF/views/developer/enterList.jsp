@@ -47,133 +47,65 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr>
-			      <th scope="row">10</th>
-			      <td><a href="enterModify.do">jjangjjangEnter</a></td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>333-22-5555</td>
-			      <td>2022-07-13</td>
-			      <td>Y</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="enterDelete.do" role="button">삭제</a></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">9</th>
-			      <td>jjangjjangEnter</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>333-22-5555</td>
-			      <td>2022-07-13</td>
-			      <td>Y</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="enterDelete.do" role="button">삭제</a></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">8</th>
-			      <td>jjangjjangEnter</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>333-22-5555</td>
-			      <td>2022-07-13</td>
-			      <td>Y</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="enterDelete.do" role="button">삭제</a></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">7</th>
-			      <td>jjangjjangEnter</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>333-22-5555</td>
-			      <td>2022-07-13</td>
-			      <td>Y</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="enterDelete.do" role="button">삭제</a></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">6</th>
-			      <td>jjangjjangEnter</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>333-22-5555</td>
-			      <td>2022-07-13</td>
-			      <td>Y</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="enterDelete.do" role="button">삭제</a></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">5</th>
-			      <td>jjangjjangEnter</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>333-22-5555</td>
-			      <td>2022-07-13</td>
-			      <td>Y</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="enterDelete.do" role="button">삭제</a></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">4</th>
-			      <td>jjangjjangEnter</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>333-22-5555</td>
-			      <td>2022-07-13</td>
-			      <td>Y</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="enterDelete.do" role="button">삭제</a></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">3</th>
-			      <td>jjangjjangEnter</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>333-22-5555</td>
-			      <td>2022-07-13</td>
-			      <td>Y</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="enterDelete.do" role="button">삭제</a></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">2</th>
-			      <td>jjangjjangEnter</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>333-22-5555</td>
-			      <td>2022-07-13</td>
-			      <td>Y</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="enterDelete.do" role="button">삭제</a></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">1</th>
-			      <td>jjangjjangEnter</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>333-22-5555</td>
-			      <td>2022-07-13</td>
-			      <td>Y</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="enterDelete.do" role="button">삭제</a></td>
-			    </tr>
+			  	<!-- 07.15 김영민: 데이터 반영 업체리스트 -->
+			  	<c:if test="${empty enterList }">
+			  		<tr>
+			  			<td colspan="8"> 결과와 맞는 업체가 없습니다. </td>
+			  		</tr>
+			  	</c:if>
+			  	<c:forEach var="enter" items="${enterList}">
+			  		<tr>
+					  <th scope="row">${enter.uidx}</th>
+				      <td><a href="enterModify.do?uidx=${enter.uidx}">${enter.nickName}</a></td>
+				      <td>${enter.name}</td>
+				      <td>${enter.userPhone}</td>
+				      <td>${enter.regnum}</td>
+				      <td>${enter.jdate}</td>
+				      <td>${enter.delYN}</td>
+				      <td><a class="btn btn-primary btn-sm rounded-3" href="enterDelete.do" role="button">삭제</a></td>			  			
+			  		</tr>
+			  	</c:forEach>
 			  </tbody>
 			</table>
 		</section>
-		<nav id="pagenation" class="row">
-		  <ul class="pagination justify-content-center">
-		    <li class="page-item disabled">
-		      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
-		    </li>
-		    <li class="page-item"><a class="page-link" href="#">1</a></li>
-		    <li class="page-item"><a class="page-link" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		    <li class="page-item">
-		      <a class="page-link" href="#">&raquo;</a>
-		    </li>
-		  </ul>
-		</nav>
-		<div class="row search-form mb-5">
-			<div class="input-group justify-content-center">
-				<select class="form-select-sm">
-					<option value="1">One</option>
-  					<option value="2">Two</option>
-  					<option value="3">Three</option>
-				</select>
-				<input>
-				<button class="btn btn-primary btn-sm">검색</button>
+		<c:if test="${not empty enterList}">
+			<nav id="pagenation" class="row">
+			  <ul class="pagination justify-content-center">
+			  	<c:if test="${pagenation.startPage > 5}">
+				    <li class="page-item">
+				      <a class="page-link" href="enterList.do?nowPage=4">&laquo;</a>
+				    </li>
+			  	</c:if>
+			  	<c:forEach begin="${pagenation.startPage }" end="${pagenation.endPage }" var="p">
+					<c:choose>
+						<c:when test="${p == pagenation.nowPage }">
+							<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" href="enterList.do?nowPage=${p}">${p}</a></li>
+						</c:when>
+						<c:when test="${p != pagenation.nowPage }">
+							<li class="page-item"><a class="page-link" href="enterList.do?nowPage=${p}">${p}</a></li>
+						</c:when>
+					</c:choose>
+				</c:forEach>
+			    <c:if test="${pagenation.endPage != pagenation.lastPage}">
+				    <li class="page-item">
+				      <a class="page-link" href="enterList.do?nowPage=${pagenation.endPage +1}">&raquo;</a>
+				    </li>
+			    </c:if>
+			  </ul>
+			</nav>
+		</c:if>
+		<form action="enterList.do" method="get">
+			<div class="row search-form mb-5">
+				<div class="input-group justify-content-center">
+					<select class="form-select-sm" name="searchType">
+						<option value="name">대표자명</option>
+	  					<option value="nickName">업체명</option>
+					</select>
+					<input name="searchValue">
+					<button class="btn btn-primary btn-sm">검색</button>
+				</div>
 			</div>
-		</div>
+		</form>
 		<div class="flex-grow-1"></div>
 		<footer id="footer" class="row"></footer>
 	</div>

@@ -4,7 +4,8 @@ public class SearchVO extends PagingVO {
 
 	private String searchType;
 	private String searchValue;
-	
+	private int role;
+
 	public void calPaging(int total) {
 		setTotal(total);
 		calcLastPage(getTotal(), getCntPerPage());
@@ -23,5 +24,12 @@ public class SearchVO extends PagingVO {
 	}
 	public void setSearchValue(String searchValue) {
 		this.searchValue = searchValue;
+	}
+	public int getRole() {
+		return role;
+	}
+
+	public void setRole(int role) {
+		this.role = role;
 	}
 }

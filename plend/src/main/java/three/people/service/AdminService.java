@@ -9,4 +9,5 @@ public interface AdminService {
 		
 	List<UserVO> userList(SearchVO searchvo);
 	UserVO userOne(UserVO uservo);
+	int userInfo(UserVO uservo);
 }

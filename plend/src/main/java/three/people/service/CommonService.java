@@ -1,6 +1,8 @@
 package three.people.service;
 
+import three.people.vo.SearchVO;
+
 public interface CommonService {
 	
-	int totalCountUser(int role);
+	int totalCountUser(SearchVO searchvo);
 }

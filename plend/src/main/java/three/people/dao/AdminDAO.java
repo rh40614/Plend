@@ -23,4 +23,8 @@ public class AdminDAO {
 	public UserVO userOne(UserVO uservo) {
 		return sqlSession.selectOne("three.people.mapper.adminMapper.userOne", uservo);
 	}
+//	07.15 김영민: 유저 정보수정
+	public int userInfo(UserVO uservo) {
+		return sqlSession.update("three.people.mapper.adminMapper.userInfo", uservo);
+	}
 }

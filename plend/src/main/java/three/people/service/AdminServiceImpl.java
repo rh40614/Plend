@@ -26,4 +26,9 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.userOne(uservo);
 	}
 
+	@Override
+	public int userInfo(UserVO uservo) {
+		return adminDAO.userInfo(uservo);
+	}
+
 }

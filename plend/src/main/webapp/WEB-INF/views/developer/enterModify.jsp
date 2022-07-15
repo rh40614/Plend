@@ -41,19 +41,19 @@
 				  <tbody>
 				    <tr>
 				      <td scope="row" class="align-middle text-center">아이디</td>
-				      <td> <input type="text" class="form-control"> </td>
+				      <td> <input type="text" class="form-control" value="${enter.id}"> </td>
 				    </tr>
 				    <tr>
 				      <td scope="row" class="align-middle text-center">비밀번호</td>
-				      <td> <input type="text" class="form-control"></td>
+				      <td> <input type="text" class="form-control" value="${enter.password}"></td>
 				    </tr>
 				    <tr>
 				      <td scope="row" class="align-middle text-center">대표자명</td>
-				      <td> <input type="text" class="form-control"></td>
+				      <td> <input type="text" class="form-control" value="${enter.name}"></td>
 				    </tr>
 				    <tr>
 				      <td scope="row" class="align-middle text-center">이메일</td>
-				      <td> <input type="text" class="form-control"></td>
+				      <td> <input type="text" class="form-control" value="${enter.email}"></td>
 				    </tr>
 				  </tbody>
 			   </table>
@@ -89,7 +89,7 @@
 						<input type="text" class="form-control mt-1" id="postcode" placeholder="우편번호">
 						<input type="button" class="form-control ms-1 mt-1 find-addr" onclick="DaumPostcode()" value="우편번호 찾기">
 					</div>
-					<input type="text" class="form-control mt-1" name="address" id="address" placeholder="주소">
+					<input type="text" class="form-control mt-1" value="${enter.addr}" name="address" id="address" placeholder="주소">
 					<input type="text" class="form-control mt-1" name="detailAddress" id="detailAddress" placeholder="상세주소">
 					<input type="text" class="form-control mt-1" name="extraAddress" id="extraAddress" placeholder="참고항목">
 				</div>
@@ -97,15 +97,15 @@
 				  <tbody>
 				    <tr>
 				      <td scope="row" class="align-middle text-center">사업자번호</td>
-				      <td><input type="text" class="form-control"></td>
+				      <td><input type="text" class="form-control" value="${enter.regnum}"></td>
 				    </tr>
 				    <tr>
 				      <td scope="row" class="align-middle text-center">업체명</td>
-				      <td><input type="text" class="form-control"></td>
+				      <td><input type="text" class="form-control" value="${enter.nickName}"></td>
 				    </tr>
 				    <tr>
 				      <td scope="row" class="align-middle text-center">연락처</td>
-				      <td><input type="text" class="form-control"></td>
+				      <td><input type="text" class="form-control" value="${enter.userPhone}"></td>
 				    </tr>
 				  </tbody>
 				</table>

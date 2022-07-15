@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
 @Repository
@@ -34,7 +35,7 @@ public class CommonDAO {
 		return sqlSession.selectOne("three.people.mapper.commonMapper.nickNameCheck", nickName);
 	}
 	
-	public int totalCountUser(int role) {
-		return sqlSession.selectOne("three.people.mapper.commonMapper.totalCountUser", role);
+	public int totalCountUser(SearchVO searchvo) {
+		return sqlSession.selectOne("three.people.mapper.commonMapper.totalCountUser", searchvo);
 	}
 }

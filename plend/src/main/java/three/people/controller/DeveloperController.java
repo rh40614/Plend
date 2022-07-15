@@ -22,6 +22,7 @@ public class DeveloperController {
 	@Autowired
 	CommonService commonService;
 	
+	// 회원 리스트로 이동
 	@RequestMapping(value="/userList.do", method = RequestMethod.GET)
 	public String userList(SearchVO searchvo,Model model) {
 		if(searchvo.getNowPage() == 0 && searchvo.getCntPerPage() == 0) {
@@ -33,7 +34,8 @@ public class DeveloperController {
 			searchvo.setNowPage(1);
 		}
 		
-		int total = commonService.totalCountUser(2);
+		searchvo.setRole(2);
+		int total = commonService.totalCountUser(searchvo);
 		searchvo.calPaging(total);
 		
 		model.addAttribute("pagenation", searchvo);
@@ -42,10 +44,22 @@ public class DeveloperController {
 		return "developer/userList";
 	}
 	
+	//회원 수정 페이지로 이동
 	@RequestMapping(value="/userModify.do", method=RequestMethod.GET)
 	public String userModify(UserVO uservo, Model model) {
 		model.addAttribute("user", adminService.userOne(uservo));
 		return "developer/userModify";
+	}
+	
+	//회원 수정 로직 실행
+	@RequestMapping(value="/userModify.do", method=RequestMethod.POST)
+	public String userModify(UserVO uservo) {
+		int result = adminService.userInfo(uservo);
+		if(result == 1) {
+			return "redirect:/developer/userList.do";
+		}else {
+			return "redirect:/developer/userModify.do?uidx=" + uservo.getUidx();
+		}
 	}
 	
 	@RequestMapping(value="/event.do", method=RequestMethod.GET)
@@ -58,13 +72,32 @@ public class DeveloperController {
 		return "developer/reportList";
 	}
 	
+	//업체 리스트 페이지로 이동
 	@RequestMapping(value="enterList.do", method=RequestMethod.GET)
-	public String enterList() {
+	public String enterList(SearchVO searchvo, Model model) {
+		if(searchvo.getNowPage() == 0 && searchvo.getCntPerPage() == 0) {
+			searchvo.setNowPage(1);
+			searchvo.setCntPerPage(10);
+		}else if(searchvo.getCntPerPage() == 0) {
+			searchvo.setCntPerPage(10);
+		}else if(searchvo.getNowPage() == 0) {
+			searchvo.setNowPage(1);
+		}
+		
+		searchvo.setRole(3);
+		int total = commonService.totalCountUser(searchvo);
+		searchvo.calPaging(total);
+		model.addAttribute("pagenation", searchvo);
+		model.addAttribute("enterList", adminService.userList(searchvo));
+		
 		return "developer/enterList";
 	}
 	
+	//업체 수정페이지로 이동
+	//해당 업체 데이터도 넘겨주기
 	@RequestMapping(value="enterModify.do", method=RequestMethod.GET)
-	public String enterModify() {
+	public String enterModify(UserVO uservo, Model model) {
+		model.addAttribute("enter", adminService.userOne(uservo));
 		return "developer/enterModify";
 	}
 	
