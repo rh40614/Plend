@@ -82,7 +82,7 @@
 							<!-- 카테고리 히든으로 받기  -->
 							<input type="hidden" name="category" id="cate" >
 							
-							<h5 style="font-weight: bold; margin-top:80px;">1. 공간</h5>
+							<h5 style="font-weight: bolder; margin-top:80px;">1. 공간</h5>
 							
 							
 							<label class="mt-3">
@@ -95,7 +95,7 @@
 							<div class=" mt-3" >
 								<span class="frmTitle">태그 </span><br>
        					    	<div class="form-group">
-           							<input type="hidden" value="" name="tag" id="rdTag" />
+           							<input type="hidden"  name="tag" id="rdTag" />
           				  		</div>
              					<ul id="tag-list" style=""></ul>
             					<div class="form-group">

@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -72,6 +74,7 @@ public class HostController {
 //		System.out.println("getOption2: "+ placeVO.getOption2());
 //		System.out.println("getPlaceName: "+ placeVO.getPlaceName());
 
+		System.out.println("tag: "+placeVO.getTag());
 		
 		String availTimeValue= "";
 		
@@ -90,7 +93,6 @@ public class HostController {
 
 		//장소 등록
 		int result = hostService.insertPlace(placeVO);
-		
 		
 	
 		//화면응답
@@ -174,28 +176,23 @@ public class HostController {
 	
 	
 	@RequestMapping(value="/managePlace.do", method = RequestMethod.GET)
-	public String managePlace(PlaceVO placeVO, Model model) {
+	public <E> String managePlace(PlaceVO placeVO, Model model) {
 		System.out.println("장소관리 페이지 ");
 		
 		List<PlaceVO> list_p = placeService.selectPlaceAll(placeVO);
 		
-		for(PlaceVO place :	list_p ) {
-			place.getPlaceDetail().substring(0, 35);
-			
-			list_p.add(place);
-		}
 		
-		
+			for(PlaceVO place: list_p) {
+				if(place.getPlaceDetail().length() > 35) {
+					String pd =place.getPlaceDetail().substring(0, 35);
+					place.setPlaceDetail(pd);
+				}
+			}
 		
 		model.addAttribute("list_p", list_p);
 		
-		
-		
 		return "host/managePlace";
 	}
-	
-	
-	
 	
 	
 }

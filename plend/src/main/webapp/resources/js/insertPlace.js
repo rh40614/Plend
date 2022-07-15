@@ -88,12 +88,12 @@
         	}
     
         	// 서버에 제공
-        	$("#tag-form").on("submit", function (e) {
-        		var value = marginTag(); // return array
-            	$("#rdTag").val(value); 
-
-            	$(this).submit();
-        	});
+        	//$("#tag-form").on("submit", function (e) {
+        	//	var value = marginTag(); // return array
+            //	$("#rdTag").val(value); 
+//
+            //	$(this).submit();
+        	//});
 
         	$("#tag").on("keypress", function (e) {
             	var self = $(this);
@@ -132,8 +132,7 @@
             	$(this).parent().remove();
         	});
 		})
-
-
+	
 
 	//주소
     function DaumPostcode() {
@@ -192,6 +191,9 @@
 			var addr =  a+b;
 		
 			$("#addr").val(addr);
+			
+			
+		
 		});
 		
 

@@ -6,7 +6,7 @@
 <mapper namespace="three.people.mapper.placeMapper">
 	
 	<select id="selectPlaceAll" resultType="PlaceVO" parameterType="PlaceVO">
-		SELECT * FROM place
+		SELECT * FROM place order by pidx desc LIMIT 0,5
 	
 	</select>
 	<select id="placeOne" resultType="PlaceVO" parameterType="PlaceVO"></select>
