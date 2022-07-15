@@ -87,6 +87,7 @@
 					    </tr>
 					  </tbody>
 					</table>
+					<input type="hidden" name="role" value="${user.role}">
 					<div class="float-end">
 						<button class="btn btn-primary btn-sm" type="submit">저장</button>
 					</div>
@@ -143,7 +144,7 @@
         }).open();
     }
 	</script>
-	<!-- submit -->
+	<!-- submit 할 때  주소 합쳐 보내기-->
 	<script type="text/javascript">
 		function modifySubmit(){
 			var address = $("#address").val();

@@ -47,19 +47,35 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr>
-			      <th scope="row">1</th>
-			      <td>파티룸</td>
-			      <td>jjangjjangEnter</td>
-			      <td>504호</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>2022-07-13</td>
-			      <td>
-			      	<a class="btn btn-primary btn-sm rounded-3 confirm" href="#" role="button">승인</a>
-			      	<a class="btn btn-primary btn-sm rounded-3 reject" href="#" role="button">반려</a>
-			      </td>
-			    </tr>
+			  	<!-- 07.15 김영민: 데이터 반영 업체리스트 -->
+			  	<c:if test="${empty placeList }">
+			  		<tr>
+			  			<td colspan="8"> 결과와 맞는 업체가 없습니다. </td>
+			  		</tr>
+			  	</c:if>
+			  	<c:forEach var="place" items="${placeList}">
+				  	<c:choose>
+				  		<c:when test="${place.approvalYN eq '승인대기'}">
+				  			<tr>
+						      <th scope="row">${place.pidx} </th>
+						      <td>${place.category}</td>
+						      <td>${place.nickName}</td>
+						      <td>${place.placeName}</td>
+						      <td>${place.name}</td>
+						      <td>${place.userPhone}</td>
+						      <td>2022-07-13</td>
+						      <td>
+						      	<a class="btn btn-primary btn-sm rounded-3 confirm" href="#" role="button">승인</a>
+						      	<a class="btn btn-primary btn-sm rounded-3 reject" href="#" role="button">반려</a>
+						      </td>
+						    </tr>
+				  		</c:when>
+				  		<c:when test="${place.approvalYN eq '승인거절'}">
+				  		</c:when>
+				  		<c:when test="${place.approvalYN eq '승인'}">
+				  		</c:when>	
+			  		</c:choose>
+			  	</c:forEach>
 			    <tr>
 			      <th scope="row">2</th>
 			      <td>파티룸</td>

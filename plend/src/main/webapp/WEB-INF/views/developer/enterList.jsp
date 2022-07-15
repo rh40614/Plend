@@ -53,17 +53,34 @@
 			  			<td colspan="8"> 결과와 맞는 업체가 없습니다. </td>
 			  		</tr>
 			  	</c:if>
+	  			<!-- 삭제된 업체의 버튼은 회색으로 -->
 			  	<c:forEach var="enter" items="${enterList}">
-			  		<tr>
-					  <th scope="row">${enter.uidx}</th>
-				      <td><a href="enterModify.do?uidx=${enter.uidx}">${enter.nickName}</a></td>
-				      <td>${enter.name}</td>
-				      <td>${enter.userPhone}</td>
-				      <td>${enter.regnum}</td>
-				      <td>${enter.jdate}</td>
-				      <td>${enter.delYN}</td>
-				      <td><a class="btn btn-primary btn-sm rounded-3" href="enterDelete.do" role="button">삭제</a></td>			  			
-			  		</tr>
+			  		<c:choose>
+			  			<c:when test="${enter.delYN eq 'Y' }">
+					  		<tr>
+							  <th scope="row">${enter.uidx}</th>
+						      <td><a href="enterModify.do?uidx=${enter.uidx}">${enter.nickName}</a></td>
+						      <td>${enter.name}</td>
+						      <td>${enter.userPhone}</td>
+						      <td>${enter.regnum}</td>
+						      <td>${enter.jdate.substring(0,10)}</td>
+						      <td>${enter.delYN}</td>
+						      <td><a class="btn btn-primary btn-sm rounded-3" style="background-color: gray !important; border-color: gray !important;" role="button">삭제</a></td>			  			
+					  		</tr>
+			  			</c:when>
+			  			<c:when test="${enter.delYN eq 'N' }">
+				  			<tr>
+							  <th scope="row">${enter.uidx}</th>
+						      <td><a href="enterModify.do?uidx=${enter.uidx}">${enter.nickName}</a></td>
+						      <td>${enter.name}</td>
+						      <td>${enter.userPhone}</td>
+						      <td>${enter.regnum}</td>
+						      <td>${enter.jdate.substring(0,10)}</td>
+						      <td>${enter.delYN}</td>
+						      <td><a class="btn btn-primary btn-sm rounded-3" href="enterDelete.do?uidx=${enter.uidx}" role="button">삭제</a></td>			  			
+					  		</tr>
+			  			</c:when>
+			  		</c:choose>
 			  	</c:forEach>
 			  </tbody>
 			</table>

@@ -98,11 +98,25 @@ public class DeveloperController {
 	@RequestMapping(value="enterModify.do", method=RequestMethod.GET)
 	public String enterModify(UserVO uservo, Model model) {
 		model.addAttribute("enter", adminService.userOne(uservo));
+		model.addAttribute("placeList", adminService.enterPlace(uservo));
 		return "developer/enterModify";
+	}
+	//업체정보 수정하기
+	@RequestMapping(value="enterModify.do", method=RequestMethod.POST)
+	public String enterModify(UserVO uservo) {
+		adminService.userInfo(uservo);
+		return "redirect:/developer/enterList.do";
+	}
+	
+	@RequestMapping(value="enterDelete.do", method=RequestMethod.GET)
+	public String deleteEnter(UserVO uservo) {
+		adminService.deleteEnter(uservo);
+		return "redirect:/developer/enterList.do";
 	}
 	
 	@RequestMapping(value="enterConfirm.do", method=RequestMethod.GET)
-	public String enterConfirm() {
+	public String enterConfirm(SearchVO searchvo, Model model) {
+		model.addAttribute("placeList", adminService.apPlace(searchvo));
 		return "developer/enterConfirm";
 	}
 	
