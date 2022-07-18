@@ -47,174 +47,118 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr>
-			      <th scope="row">1</th>
-			      <td>파티룸</td>
-			      <td>jjangjjangEnter</td>
-			      <td>504호</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>2022-07-13</td>
-			      <td>
-			      	<a class="btn btn-primary btn-sm rounded-3 confirm" href="#" role="button">승인</a>
-			      	<a class="btn btn-primary btn-sm rounded-3 reject" href="#" role="button">반려</a>
-			      </td>
-			    </tr>
-			    <tr>
-			      <th scope="row">2</th>
-			      <td>파티룸</td>
-			      <td>jjangjjangEnter</td>
-			      <td>504호</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>2022-07-13</td>
-			      <td>
-			      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">승인</a>
-			      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">반려</a>
-			      </td>
-			    </tr>
-			    <tr>
-			      <th scope="row">3</th>
-			      <td>파티룸</td>
-			      <td>jjangjjangEnter</td>
-			      <td>504호</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>2022-07-13</td>
-			      <td>
-			      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">승인</a>
-			      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">반려</a>
-			      </td>
-			    </tr>
-			    <tr>
-			      <th scope="row">4</th>
-			      <td>파티룸</td>
-			      <td>jjangjjangEnter</td>
-			      <td>504호</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>2022-07-13</td>
-			      <td>
-			      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">승인</a>
-			      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">반려</a>
-			      </td>
-			    </tr>
-			    <tr>
-			      <th scope="row">5</th>
-			      <td>파티룸</td>
-			      <td>jjangjjangEnter</td>
-			      <td>504호</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>2022-07-13</td>
-			      <td>
-			      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">승인</a>
-			      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">반려</a>
-			      </td>
-			    </tr>
-			    <tr>
-			      <th scope="row">6</th>
-			      <td>파티룸</td>
-			      <td>jjangjjangEnter</td>
-			      <td>504호</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>2022-07-13</td>
-			      <td>
-			      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">승인</a>
-			      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">반려</a>
-			      </td>
-			    </tr>
-			    <tr>
-			      <th scope="row">7</th>
-			      <td>파티룸</td>
-			      <td>jjangjjangEnter</td>
-			      <td>504호</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>2022-07-13</td>
-			      <td>
-			      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">승인</a>
-			      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">반려</a>
-			      </td>
-			    </tr>
-			    <tr>
-			      <th scope="row">8</th>
-			      <td>파티룸</td>
-			      <td>jjangjjangEnter</td>
-			      <td>504호</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>2022-07-13</td>
-			      <td>
-			      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">승인</a>
-			      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">반려</a>
-			      </td>
-			    </tr>
-			    <tr>
-			      <th scope="row">9</th>
-			      <td>파티룸</td>
-			      <td>jjangjjangEnter</td>
-			      <td>504호</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>2022-07-13</td>
-			      <td>
-			      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">승인</a>
-			      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">반려</a>
-			      </td>
-			    </tr>
-			    <tr>
-			      <th scope="row">10</th>
-			      <td>파티룸</td>
-			      <td>jjangjjangEnter</td>
-			      <td>504호</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			      <td>2022-07-13</td>
-			      <td>
-			      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">승인</a>
-			      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">반려</a>
-			      </td>
-			    </tr>
+			  	<!-- 07.15 김영민: 데이터 반영 업체리스트-->
+			  	<!-- 07.16 김영민: pagination, search, 승인 여부에 따라 색상변경 -->
+			  	<c:if test="${empty placeList }">
+			  		<tr>
+			  			<td colspan="8"> 결과와 맞는 업체가 없습니다. </td>
+			  		</tr>
+			  	</c:if>
+			  	<c:forEach var="place" items="${placeList}">
+				  	<c:choose>
+				  		<c:when test="${place.approvalYN eq '승인대기'}">
+				  			<tr>
+						      <th scope="row">${place.pidx} </th>
+						      <td>${place.category}</td>
+						      <td>${place.nickName}</td>
+						      <td>${place.placeName}</td>
+						      <td>${place.name}</td>
+						      <td>${place.userPhone}</td>
+						      <td>2022-07-13</td>
+						      <td>
+						      	<a class="btn btn-primary btn-sm rounded-3 confirm" href="confirm.do?pidx=${place.pidx}&approvalYN=승인" role="button">승인</a>
+						      	<a class="btn btn-primary btn-sm rounded-3 reject" href="confirm.do?pidx=${place.pidx}&approvalYN=승인거절" role="button">반려</a>
+						      </td>
+						    </tr>
+				  		</c:when>
+				  		<c:when test="${place.approvalYN eq '승인거절'}">
+				  			<tr style="color: red !important;">
+						      <th scope="row">${place.pidx} </th>
+						      <td>${place.category}</td>
+						      <td>${place.nickName}</td>
+						      <td>${place.placeName}</td>
+						      <td>${place.name}</td>
+						      <td>${place.userPhone}</td>
+						      <td>2022-07-13</td>
+						      <td>
+						      	<a class="btn btn-primary btn-sm rounded-3" style="background-color: gray !important; border-color: gray !important;" >승인</a>
+						      	<a class="btn btn-primary btn-sm rounded-3" >반려</a>
+						      </td>
+						    </tr>
+				  		</c:when>
+				  		<c:when test="${place.approvalYN eq '승인'}">
+				  			<tr style="color: graytext !important;">
+						      <th scope="row">${place.pidx} </th>
+						      <td>${place.category}</td>
+						      <td>${place.nickName}</td>
+						      <td>${place.placeName}</td>
+						      <td>${place.name}</td>
+						      <td>${place.userPhone}</td>
+						      <td>2022-07-13</td>
+						      <td>
+						      	<a class="btn btn-primary btn-sm rounded-3">승인</a>
+						      	<a class="btn btn-primary btn-sm rounded-3" style="background-color: gray !important; border-color: gray !important;">반려</a>
+						      </td>
+						    </tr>
+				  		</c:when>	
+			  		</c:choose>
+			  	</c:forEach>
 			  </tbody>
 			</table>
 		</section>
-		<nav id="pagenation" class="row">
-		  <ul class="pagination justify-content-center">
-		    <li class="page-item disabled">
-		      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
-		    </li>
-		    <li class="page-item"><a class="page-link" href="#">1</a></li>
-		    <li class="page-item"><a class="page-link" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		    <li class="page-item">
-		      <a class="page-link" href="#">&raquo;</a>
-		    </li>
-		  </ul>
-		</nav>
-		<div class="row search-form mb-5">
-			<div class="input-group justify-content-center">
-				<select class="form-select-sm">
-					<option value="1">One</option>
-  					<option value="2">Two</option>
-  					<option value="3">Three</option>
-				</select>
-				<input>
-				<button class="btn btn-primary btn-sm">검색</button>
+		<c:if test="${not empty placeList}">
+			<nav id="pagenation" class="row">
+			  <ul class="pagination justify-content-center">
+			  	<c:if test="${pagenation.startPage > 5}">
+				    <li class="page-item">
+				      <a class="page-link" href="enterConfirm.do?nowPage=4">&laquo;</a>
+				    </li>
+			  	</c:if>
+			  	<c:forEach begin="${pagenation.startPage }" end="${pagenation.endPage }" var="p">
+					<c:choose>
+						<c:when test="${p == pagenation.nowPage }">
+							<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" href="enterConfirm.do?nowPage=${p}">${p}</a></li>
+						</c:when>
+						<c:when test="${p != pagenation.nowPage }">
+							<li class="page-item"><a class="page-link" href="enterConfirm.do?nowPage=${p}">${p}</a></li>
+						</c:when>
+					</c:choose>
+				</c:forEach>
+			    <c:if test="${pagenation.endPage != pagenation.lastPage}">
+				    <li class="page-item">
+				      <a class="page-link" href="enterConfirm.do?nowPage=${pagenation.endPage +1}">&raquo;</a>
+				    </li>
+			    </c:if>
+			  </ul>
+			</nav>
+		</c:if>
+		<form action="enterConfirm.do" method="get">
+			<div class="row search-form mb-5">
+				<div class="input-group justify-content-center">
+					<select class="form-select-sm" name="searchType">
+						<option value="name">대표자명</option>
+	  					<option value="nickName">업체명</option>
+					</select>
+					<input name="searchValue">
+					<button class="btn btn-primary btn-sm">검색</button>
+				</div>
 			</div>
-		</div>
+		</form>
 		<div class="flex-grow-1"></div>
 		<footer id="footer" class="row"></footer>
 	</div>
 	<!-- 승인/반려 버튼 클릭 이벤트 -->
 	<script type="text/javascript">
 		$(".confirm").click(function(){
-			$(this).closest("tr").css("color","#BDBDBD");
+			if(!window.confirm("승인 하시겠습니까?")) {
+				return false;
+			}
 		})
 		
 		$(".reject").click(function(){
-			$(this).closest("tr").css("color","#FF0000");
+			if(!window.confirm("반려 하시겠습니까?")) {
+				return false;
+			}
 		})
 	</script>	
 	<!-- JavaScript Bundle with Popper -->

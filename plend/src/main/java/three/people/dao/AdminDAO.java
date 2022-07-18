@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import three.people.vo.PlaceVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
@@ -27,4 +28,25 @@ public class AdminDAO {
 	public int userInfo(UserVO uservo) {
 		return sqlSession.update("three.people.mapper.adminMapper.userInfo", uservo);
 	}
+//	07.15 김영민: 업체 삭제
+	public int deleteEnter(UserVO uservo) {
+		return sqlSession.update("three.people.mapper.adminMapper.enterDelete", uservo);
+	}
+// 07.15 김영민: 한 업체의 장소	
+	public List<PlaceVO> enterPlace(UserVO uservo){
+		return sqlSession.selectList("three.people.mapper.adminMapper.enterPlace", uservo);
+	}
+// 07.15 김영민: 승인여부 업체 리스트
+	public List<PlaceVO> apPlace(SearchVO searchvo){
+		return sqlSession.selectList("three.people.mapper.adminMapper.approvalPlace", searchvo);
+	}
+// 07.16 김영민: 업체 장소 총 갯수
+	public int totalPlace(SearchVO searchvo) {
+		return sqlSession.selectOne("three.people.mapper.adminMapper.totalPlace", searchvo);
+	}
+// 07.16 김영민: 업체장소 승인여부 변경
+	public int approvalYN(PlaceVO placevo) {
+		return sqlSession.update("three.people.mapper.adminMapper.approvalYN", placevo);
+	}
+	
 }

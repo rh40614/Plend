@@ -70,7 +70,7 @@
 		 WHERE uidx = #{uidx} 
 	</select> 
 	
-	<!-- 07.15 김영민 매퍼생성 --> 
+	<!-- 07.15 김영민: 유저 정보수정하기 --> 
 	<update id="userInfo" parameterType="UserVO">
 		UPDATE user
 		   SET id = #{id},
@@ -78,15 +78,94 @@
 		       name = #{name},
 		       email = #{email},
 		       addr = #{addr},
-		       birth = #{birth},
 		       nickname = #{nickName},
-		       userphone = #{userPhone}
+		       userphone = #{userPhone},
+	       <if test="role == 2">
+		       birth = #{birth}
+	       </if>
+	       <if test="role == 3">
+		       regnum = #{regnum}
+	       </if>
 		 WHERE uidx = #{uidx}      
+	</update>
+	<!-- 07.15 김영민: 업체 삭제 -->
+	<update id="enterDelete" parameterType="UserVO">
+		UPDATE user
+		   SET delyn = 'Y'
+	     WHERE uidx = #{uidx}
+	</update>
+	<!-- 07.15 김영민: 해당하는 업체 리스트 -->
+	<select id="enterPlace" parameterType="UserVO" resultType="PlaceVO">
+		SELECT placename
+		  FROM place
+		 WHERE uidx = #{uidx}
+	</select>
+	<!-- 07.16 김영민: 업체 장소 승인여부 리스트 -->
+	<select id="approvalPlace" parameterType="SearchVO" resultType="PlaceVO">
+		SELECT u.uidx,
+			   u.id,
+			   u.name,
+			   u.nickname,
+			   u.userphone,
+			   u.email,
+			   u.addr,
+			   u.regnum,
+			   u.role,
+			   u.delyn,
+			   u.jdate,
+			   p.pidx,
+			   p.category,
+			   p.placeName,
+			   p.eventYN,
+			   p.placeDetail,
+			   p.guide,
+			   p.tag,
+			   p.placeImg,
+			   p.address,
+			   p.option1,
+			   p.option2,
+			   p.price,
+			   p.delYN,
+			   p.approvalYN,
+			   p.intervalTime,
+			   p.availTimeValue
+		  FROM user u
+		  JOIN place p
+		    ON u.uidx = p.uidx
+		    <if test="searchType != null">
+				<if test='searchType.equals("name")'>
+			   		WHERE (u.name LIKE CONCAT('%',#{searchValue},'%'))
+			 	</if>
+			 	<if test='searchType.equals("nickName")'>
+			   		WHERE (u.nickname LIKE CONCAT('%',#{searchValue},'%'))
+			 	</if>		
+			</if>
+   	  ORDER BY p.pidx DESC
+		 LIMIT #{start}, #{cntPerPage}
+	</select>
+	<!-- 07.16 김영민: 업체 장소 리스트 총 갯수 -->
+	<select id="totalPlace" parameterType="SearchVO" resultType="Integer">
+		SELECT count(*)
+		  FROM user u
+		  JOIN place p
+		    ON u.uidx = p.uidx
+		  <if test="searchType != null">
+			<if test='searchType.equals("name")'>
+		   		WHERE (u.name LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>
+		 	<if test='searchType.equals("nickName")'>
+		   		WHERE (u.nickname LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>		
+		  </if> 
+	</select>
+	<update id="approvalYN" parameterType="PlaceVO">
+		UPDATE place
+		   SET approvalyn = #{approvalYN}
+	     WHERE pidx = #{pidx}
 	</update>
 	<!-- 
 	<select id="reportList" resultType="ReportVO"></select> 
 	<update id="reviewBlind" parameterType="ReviewVO"></update>
-	<update id="approvalYN" parameterType="PlaceVO"></update>
 	<select id="BlockUser" resultType="BlockVO"></select>
 	<update id="eventYN" parameterType="PlaceVO"></update> -->
 	
