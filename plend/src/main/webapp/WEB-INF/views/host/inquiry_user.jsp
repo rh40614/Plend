@@ -5,10 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Hostcenter-장소 관리</title>
+<title>Hostcenter-문의 관리</title>
 
 	<link href="<%=request.getContextPath()%>/resources/css/global_Host.css" rel="stylesheet">
-	<link href="<%=request.getContextPath()%>/resources/css/insertPlace_HOST.css" rel="stylesheet">
 	
 	<!-- jQuery -->
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
@@ -27,6 +26,7 @@
 	//프론트 디자인
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/hostHeaderWithNav.jsp");
+			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
 	
@@ -38,8 +38,8 @@
 	<header id="header"></header>
 	
 	<main>
-		<section style="margin-left:300px;">
-			<span class="frmTitle">문의관리</span>
+		<section style="margin-top: 100px;">
+			<span class="title1">문의관리</span>
 			
 				
 				<div class=".table-responsive container " style="margin: 80px 0px 0px 100px;" >
@@ -99,7 +99,7 @@
 
 	</main>
 	<div style="margin:300px;"></div>
-	
+	<footer id="footer"></footer>
 	
 	
 	

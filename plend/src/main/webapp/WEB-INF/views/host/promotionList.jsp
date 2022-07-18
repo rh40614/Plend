@@ -28,7 +28,7 @@
 	//프론트 디자인
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/hostHeaderWithNav.jsp");
-			
+			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
 	
@@ -96,7 +96,8 @@
 	<!-- header -->
 	<header id="header"></header>
 	<!-- main -->
-	<main style="margin-top:40px;">
+	<!-- 2022.07.18 김연희: main에 margin top150dl 기본으로 되어있으나 배너 부분은  딱맞게 시작하게 설정 -->
+	<main style="margin-top: 85px;" >
 	
 		<!-- 슬라이드 배너  -->
 		<div class="banner-container">
@@ -119,57 +120,55 @@
 		<!--section  -->
 		<section>
 			<!-- 제목 -->
-			<span class="frmTitle mb-5" style="margin-top:100px;">프로모션 리스트</span>
-		
+			<span class="title1 mb-5" style="margin-top:100px; margin-left:0px;">프로모션 리스트</span>
+			<!-- 버튼 그룹 -->
 			<div class="btn-group" role="group" id="btnGroup" >
 				<button class="btnBig" id="promotionON" onclick="btn(this)">진행중</button>	
 				<button class="btnBig btnDisabled" id="promotionOFF" onclick="btn(this)">진행 종료</button>	
 			</div>
 		
 		
-		<!--  -->
-		<article>
-		
-			<div class="card mt-3 me-5"  style="width: 18rem;">
-			  <img src="<%=request.getContextPath()%>/resources/image/promotion/promotion.png" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'">
-			  <div class="card-body">
-			    <p class="card-text">전 카테고리 10% 할인 </p>
-			  </div>
-			</div>
-			
-			<div class="card mt-3 me-5" style="width: 18rem;">
-			  <img src="<%=request.getContextPath()%>/resources/image/promotion/promotion.png" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'">
-			  <div class="card-body">
-			    <p class="card-text">전 카테고리 10% 할인 </p>
-			  </div>
-			</div>
-			
-			<div class="card mt-3 me-5" style="width: 18rem;">
-			  <img src="<%=request.getContextPath()%>/resources/image/promotion/promotion.png" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'">
-			  <div class="card-body">
-			    <p class="card-text">전 카테고리 10% 할인 </p>
-			  </div>
-			</div>
-			 
-			<div class="card mt-3 me-5" style="width: 18rem;">
-			  <img src="<%=request.getContextPath()%>/resources/image/promotion/promotion.png" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'">
-			  <div class="card-body">
-			    <p class="card-text">전 카테고리 10% 할인 </p>
-			  </div>
-			</div> 
-		
-		
-		
-		
-		</article>
-		
+				<!-- 프로모션 -->
+				<article>
+				
+					<div class="card mt-3 me-5"  style="width: 18rem;">
+					  <img src="<%=request.getContextPath()%>/resources/image/promotion/promotion.png" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'">
+					  <div class="card-body">
+					    <p class="card-text">전 카테고리 10% 할인 </p>
+					  </div>
+					</div>
+					
+					<div class="card mt-3 me-5" style="width: 18rem;">
+					  <img src="<%=request.getContextPath()%>/resources/image/promotion/promotion.png" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'">
+					  <div class="card-body">
+					    <p class="card-text">전 카테고리 10% 할인 </p>
+					  </div>
+					</div>
+					
+					<div class="card mt-3 me-5" style="width: 18rem;">
+					  <img src="<%=request.getContextPath()%>/resources/image/promotion/promotion.png" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'">
+					  <div class="card-body">
+					    <p class="card-text">전 카테고리 10% 할인 </p>
+					  </div>
+					</div>
+					 
+					<div class="card mt-3 me-5" style="width: 18rem;">
+					  <img src="<%=request.getContextPath()%>/resources/image/promotion/promotion.png" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'">
+					  <div class="card-body">
+					    <p class="card-text">전 카테고리 10% 할인 </p>
+					  </div>
+					</div> 
+				
+				
+				</article>
+				
 		
 		
 		</section>
 
 	</main>
 	<div style="margin:300px;"></div>
-	
+	<footer id="footer"></footer>
 	
 
 </body>
