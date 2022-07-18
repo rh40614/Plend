@@ -7,7 +7,7 @@
 <title>Hostcenter-장소등록</title>
 
 	<link href="<%=request.getContextPath()%>/resources/css/global_Host.css" rel="stylesheet">
-	<link href="<%=request.getContextPath()%>/resources/css/insertPlace_HOST.css" rel="stylesheet">
+	
 	<!-- 2022.07.13 김연희 : js 파일은 가장 아래쪽에 있음 -->
 	<!-- jQuery -->
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
@@ -43,8 +43,8 @@
 	<header id="header"></header>
 	
 	<main>
-		<section style="margin-left:250px;">
-			<span class="title">플레이스 등록</span>
+		<section>
+			<span class="frmTitle">플레이스 등록</span>
 			<div style="margin: auto;">
 				<div class="btn-group-lg mt-5" role="group" aria-label="Basic example">
   					<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px;" value ="gallery" onclick="cate(this)">갤러리</button>
@@ -82,7 +82,7 @@
 							<!-- 카테고리 히든으로 받기  -->
 							<input type="hidden" name="category" id="cate" >
 							
-							<h5 style="font-weight: bold; margin-top:80px;">1. 공간</h5>
+							<h5 style="font-weight: bolder; margin-top:80px;">1. 공간</h5>
 							
 							
 							<label class="mt-3">
@@ -95,7 +95,7 @@
 							<div class=" mt-3" >
 								<span class="frmTitle">태그 </span><br>
        					    	<div class="form-group">
-           							<input type="hidden" value="" name="tag" id="rdTag" />
+           							<input type="hidden"  name="tag" id="rdTag" />
           				  		</div>
              					<ul id="tag-list" style=""></ul>
             					<div class="form-group">

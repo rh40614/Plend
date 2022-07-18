@@ -37,12 +37,13 @@
 	<header id="header"></header>
 	
 	<main>
-		<section style="margin-left:250px;">
-			<span class="frmTitle ">플레이스 리스트</span>
-			
-				
-				<div class=".table-responsive container flex-row-reverse " style="margin-left: 100px;" >
-					<button class="mb-3 mt-3 btnBig" onclick="location.href='<%=request.getContextPath()%>/host/insertPlace.do'">플레이스 등록</button>
+		<section>
+		<div style="display: flex;">
+			<span class="frmTitle" style="margin-left: 120px;">플레이스 리스트</span>
+			<button class="mb-3  btnBig" style="float: right;" onclick="location.href='<%=request.getContextPath()%>/host/insertPlace.do'">플레이스 등록</button>
+		</div>		
+				<div class=".table-responsive container " style="margin-left: 100px;" >
+					
 					<table class="table table-hover text-center clearfix" >
 						<thead class="table-dark">
 							<tr style="text-al">
@@ -62,7 +63,7 @@
 										<td>${pv.pidx}</td>
 										<td>${pv.placeName}</td>
 										<td>${pv.tag}</td>
-										<td>${pv.placeDetail}</td>
+										<td style="text-align: left;">${pv.placeDetail}</td>
 										<td>${pv.approvalYN}</td>
 										<td><button class="btnDefault" type="button" onclick="location.href='/host/placeDetail.do'">수정</button></td>
 									</tr>
@@ -70,15 +71,146 @@
 							</c:if>
 						</tbody>
 					</table>
-				</div>
+					
+				<nav aria-label="Page navigation example" class="m-auto">
+				  <ul class="pagination justify-content-center " >
+				    <li class="page-item text-secondary">
+				      <a class="page-link text-secondary" href="#" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">1</a></li>
+				    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">2</a></li>
+				    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">3</a></li>
+				    <li class="page-item text-secondary">
+				      <a class="page-link text-secondary" href="#" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+				  </ul>
+				</nav>
+			</div>
+				
 		</section>
 		
-		<div>
+		<section>
+			<span class="frmTitle " style="margin-left: 120px;">예약 현황</span>
+			
+				
+				<div class=".table-responsive container " style="margin-left: 100px;" >
+					
+					<table class="table table-hover text-center clearfix" >
+						<thead class="table-dark">
+							<tr style="text-al">
+								<td>번호</td><td>장소</td><td>기간</td><td>인원</td><td>예약자</td><td>승인여부</td><td>승인</td>
+							</tr>
+						<thead>
+						<tbody>
+							<c:if test="${list_p.size() == 0}">	
+								<tr>
+									<td colspan="6">등록된 장소가 없습니다.</td>
+								</tr>
+							</c:if>
+							<!--  -->
+							<c:if test="${list_p.size() > 0}">
+								<c:forEach var="pv" items="${list_p}">
+									<tr >
+										<td>${pv.pidx}</td>
+										<td>${pv.placeName}</td>
+										<td>2022.07.15 12:00 ~ 2022.07.15 15:00</td>
+										<td>3명</td>
+										<td>김영민</td>
+										<td>${pv.approvalYN}</td>
+										<td><button class="btnDefault" type="button" onclick="location.href='/host/placeDetail.do'">확인</button></td>
+										<!-- 2022.07.15 김연희:
+										 확인 버튼 누르면 예약정보 상세창이 팝업으로 뜨고  승인, 거절 버튼이 주어지고 
+										 승인을 누르면 approval값 변경. 
+										 승인 거절을 누르면 ajax로 팝업 화면을 변경해서
+										 승인거절 항목(selectbox) 선택할 수 있도록하고 
+										 승인 사유 적도록하기 
+										 취소하기, 등록하기 버튼을 제공하고 등록을 누르면  
+										 approval 변경 및 db에 승인 거절 사유 등록
+										 취소를 누르면 예약정보 상세창이 뜨도록 하기  -->
+									</tr>
+								</c:forEach>
+							</c:if>
+						</tbody>
+					</table>
+					
+					<nav aria-label="Page navigation example" class="m-auto">
+					  <ul class="pagination justify-content-center " >
+					    <li class="page-item text-secondary">
+					      <a class="page-link text-secondary" href="#" aria-label="Previous">
+					        <span aria-hidden="true">&laquo;</span>
+					      </a>
+					    </li>
+					    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">1</a></li>
+					    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">2</a></li>
+					    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">3</a></li>
+					    <li class="page-item text-secondary">
+					      <a class="page-link text-secondary" href="#" aria-label="Next">
+					        <span aria-hidden="true">&raquo;</span>
+					      </a>
+					    </li>
+					  </ul>
+					</nav>
+				</div>
+		</section>		
 		
-		
-		</div>
-		
-		
+		<section>
+			<span class="frmTitle" style="margin-left: 120px;">후기</span>
+			
+				
+				<div class=".table-responsive container " style="margin-left: 100px;" >
+					
+					<table class="table table-hover text-center clearfix" >
+						<thead class="table-dark">
+							<tr style="text-al">
+								<td>번호</td><td>장소</td><td>평점</td><td>후기</td><td>아이디</td><td>작성일</td>
+							</tr>
+						<thead>
+						<tbody>
+							<c:if test="${list_p.size() == 0}">	
+								<tr>
+									<td colspan="6">등록된 장소가 없습니다.</td>
+								</tr>
+							</c:if>
+							<!--  -->
+							<c:if test="${list_p.size() > 0}">
+								<c:forEach var="pv" items="${list_p}">
+									<tr >
+										<td>${pv.pidx}</td>
+										<td>${pv.placeName}</td>
+										<td><i class="fa-regular fa-star"> 9.5</i>${pv.tag}</td>
+										<td style="text-align: left;">${pv.placeDetail}</td>
+										<td>김하진</td>
+										<td><button class="btnDefault" type="button" onclick="location.href='/host/placeDetail.do'">수정</button></td>
+									</tr>
+								</c:forEach>
+							</c:if>
+						</tbody>
+					</table>
+					
+					<nav aria-label="Page navigation example" class="m-auto">
+					  <ul class="pagination justify-content-center " >
+					    <li class="page-item text-secondary">
+					      <a class="page-link text-secondary" href="#" aria-label="Previous">
+					        <span aria-hidden="true">&laquo;</span>
+					      </a>
+					    </li>
+					    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">1</a></li>
+					    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">2</a></li>
+					    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">3</a></li>
+					    <li class="page-item text-secondary">
+					      <a class="page-link text-secondary" href="#" aria-label="Next">
+					        <span aria-hidden="true">&raquo;</span>
+					      </a>
+					    </li>
+					  </ul>
+					</nav>
+				</div>
+		</section>	
+
 	</main>
 	<div style="margin:300px;"></div>
 	

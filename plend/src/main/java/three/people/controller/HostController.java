@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -72,6 +74,7 @@ public class HostController {
 //		System.out.println("getOption2: "+ placeVO.getOption2());
 //		System.out.println("getPlaceName: "+ placeVO.getPlaceName());
 
+		System.out.println("tag: "+placeVO.getTag());
 		
 		String availTimeValue= "";
 		
@@ -90,7 +93,6 @@ public class HostController {
 
 		//장소 등록
 		int result = hostService.insertPlace(placeVO);
-		
 		
 	
 		//화면응답
@@ -179,21 +181,44 @@ public class HostController {
 		
 		List<PlaceVO> list_p = placeService.selectPlaceAll(placeVO);
 		
-		for(PlaceVO place :	list_p ) {
-			place.getPlaceDetail().substring(0, 35);
-			
-			list_p.add(place);
-		}
 		
-		
+			for(PlaceVO place: list_p) {
+				if(place.getPlaceDetail().length() > 35) {
+					String pd =place.getPlaceDetail().substring(0, 35);
+					place.setPlaceDetail(pd);
+				}
+			}
 		
 		model.addAttribute("list_p", list_p);
-		
-		
 		
 		return "host/managePlace";
 	}
 	
+	
+	
+	@RequestMapping(value="/inquiry_user.do", method= RequestMethod.GET)
+	public String userInquiry() {
+		System.out.println("이용자 문의 사항 관리 페이지");
+		return "host/inquiry_user";
+	}
+	
+	
+	@RequestMapping(value="/promotionList.do", method= RequestMethod.GET)
+	public String promotionList() {
+		return "host/promotionList";
+	}
+	
+	
+	@RequestMapping(value="/promotionView.do", method= RequestMethod.GET)
+	public String promotionView() {
+		return "host/promotionView";
+	}
+	
+	
+	@RequestMapping(value="/notice_dev.do", method= RequestMethod.GET)
+	public String notice_dev() {
+		return "host/notice_dev";
+	}
 	
 	
 	
