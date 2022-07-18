@@ -47,4 +47,14 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.apPlace(searchvo);
 	}
 
+	@Override
+	public int totalPlace(SearchVO searchvo) {
+		return adminDAO.totalPlace(searchvo);
+	}
+
+	@Override
+	public int approvalYN(PlaceVO placevo) {
+		return adminDAO.approvalYN(placevo);
+	}
+
 }

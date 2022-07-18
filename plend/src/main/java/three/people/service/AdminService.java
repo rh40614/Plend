@@ -14,4 +14,6 @@ public interface AdminService {
 	int deleteEnter(UserVO uservo);
 	List<PlaceVO> enterPlace(UserVO uservo);
 	List<PlaceVO> apPlace(SearchVO searchvo);
+	int totalPlace(SearchVO searchvo);
+	int approvalYN(PlaceVO placevo);
 }

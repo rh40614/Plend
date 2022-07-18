@@ -74,16 +74,31 @@
 		SELECT count(*)
 		  FROM user
 		 WHERE role = #{role}
-		 <include refid="search"></include>
+		 <if test="role == 2">
+		 	<include refid="searchUser"></include> 
+		 </if>
+		 <if test="role == 3">
+		 	<include refid="searchEnter"></include>
+		 </if>
 	</select>
 	
-	<sql id="search">
+	<sql id="searchUser">
 		<if test="searchType != null">
 			<if test='searchType.equals("name")'>
 		   		AND (name LIKE CONCAT('%',#{searchValue},'%'))
 		 	</if>
 		 	<if test='searchType.equals("id")'>
 		   		AND (id LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>		
+		</if>
+	</sql>
+	<sql id="searchEnter">
+		<if test="searchType != null">
+			<if test='searchType.equals("name")'>
+		   		AND (name LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>
+		 	<if test='searchType.equals("nickName")'>
+		   		AND (nickname LIKE CONCAT('%',#{searchValue},'%'))
 		 	</if>		
 		</if>
 	</sql>

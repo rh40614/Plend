@@ -40,4 +40,13 @@ public class AdminDAO {
 	public List<PlaceVO> apPlace(SearchVO searchvo){
 		return sqlSession.selectList("three.people.mapper.adminMapper.approvalPlace", searchvo);
 	}
+// 07.16 김영민: 업체 장소 총 갯수
+	public int totalPlace(SearchVO searchvo) {
+		return sqlSession.selectOne("three.people.mapper.adminMapper.totalPlace", searchvo);
+	}
+// 07.16 김영민: 업체장소 승인여부 변경
+	public int approvalYN(PlaceVO placevo) {
+		return sqlSession.update("three.people.mapper.adminMapper.approvalYN", placevo);
+	}
+	
 }

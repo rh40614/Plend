@@ -16,11 +16,8 @@ public class PagingVO {
 		if(nowPage == 0) {
 			setStartPage(1);
 		}else {
-			if((int)Math.floorDiv(nowPage,cntPage)+1 > 1) {
-				setStartPage((int)Math.floorDiv(nowPage,cntPage)+cntPage);
-			}else {
-				setStartPage((int)Math.floorDiv(nowPage,cntPage)+1);
-			}
+			nowPage += 1;
+			setStartPage(1+5*(((int)Math.ceil((double)nowPage/cntPage))-1));
 		}
 		
 		setEndPage(getStartPage()-1 + cntPage);
