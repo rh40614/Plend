@@ -7,7 +7,7 @@
 <title>Hostcenter-장소등록</title>
 
 	<link href="<%=request.getContextPath()%>/resources/css/global_Host.css" rel="stylesheet">
-	<link href="<%=request.getContextPath()%>/resources/css/insertPlace_HOST.css" rel="stylesheet">
+	
 	<!-- 2022.07.13 김연희 : js 파일은 가장 아래쪽에 있음 -->
 	<!-- jQuery -->
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
@@ -43,8 +43,8 @@
 	<header id="header"></header>
 	
 	<main>
-		<section style="margin-left:250px;">
-			<span class="title">플레이스 등록</span>
+		<section>
+			<span class="frmTitle">플레이스 등록</span>
 			<div style="margin: auto;">
 				<div class="btn-group-lg mt-5" role="group" aria-label="Basic example">
   					<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px;" value ="gallery" onclick="cate(this)">갤러리</button>
