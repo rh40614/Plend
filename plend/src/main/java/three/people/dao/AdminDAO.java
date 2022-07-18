@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import three.people.vo.EventVO;
+import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
@@ -44,9 +46,23 @@ public class AdminDAO {
 	public int totalPlace(SearchVO searchvo) {
 		return sqlSession.selectOne("three.people.mapper.adminMapper.totalPlace", searchvo);
 	}
-// 07.16 김영민: 업체장소 승인여부 변경
+// 07.18 김영민: 업체장소 승인여부 변경
 	public int approvalYN(PlaceVO placevo) {
 		return sqlSession.update("three.people.mapper.adminMapper.approvalYN", placevo);
 	}
-	
+// 07.18 김영민: 이벤트 등록
+	public int insertEvent(EventVO eventvo) {
+		return sqlSession.insert("three.people.mapper.adminMapper.insertEvent", eventvo);
+	}
+// 07.18 김영민: 이벤트 이미지 등록
+	public int eventImg(ImageVO imagevo) {
+		return sqlSession.insert("three.people.mapper.adminMapper.eventImg", imagevo);
+	}
+// 07.18 김영민: 이벤트 리스트 불러오기/ 이벤트 게시글 총 갯수
+	public List<EventVO> eventList(SearchVO searchvo){
+		return sqlSession.selectList("three.people.mapper.adminMapper.eventList", searchvo);
+	}
+	public int totalEvent() {
+		return sqlSession.selectOne("three.people.mapper.adminMapper.totalEvent");
+	}
 }

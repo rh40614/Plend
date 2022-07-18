@@ -2,6 +2,8 @@ package three.people.service;
 
 import java.util.List;
 
+import three.people.vo.EventVO;
+import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
@@ -16,4 +18,8 @@ public interface AdminService {
 	List<PlaceVO> apPlace(SearchVO searchvo);
 	int totalPlace(SearchVO searchvo);
 	int approvalYN(PlaceVO placevo);
+	int insertEvent(EventVO eventvo);
+	int eventImg(ImageVO imagevo);
+	List<EventVO> eventList(SearchVO searchvo);
+	int totalEvent();
 }

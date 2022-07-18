@@ -1,15 +1,25 @@
 package three.people.controller;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import three.people.service.AdminService;
 import three.people.service.CommonService;
 import three.people.vo.EventVO;
+import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
@@ -65,21 +75,53 @@ public class DeveloperController {
 	}
 	
 	@RequestMapping(value="/event.do", method=RequestMethod.GET)
-	public String event() {
+	public String event(SearchVO searchvo, Model model ) {
+		if(searchvo.getNowPage() == 0) {
+			searchvo.setNowPage(1);
+		}
+		searchvo.setCntPerPage(5);
+		searchvo.calPaging(adminService.totalEvent());
+		System.out.println(searchvo.getTotal());
+		
+		model.addAttribute("pagenation", searchvo);
+		model.addAttribute("eventList", adminService.eventList(searchvo));
 		return "developer/event";
 	}
 	
-	// 이벤트 등록
+//	 이벤트 등록
 	@RequestMapping(value="/event.do", method=RequestMethod.POST)
-	public String event(EventVO eventvo) {
-		System.out.println("category: "+eventvo.getCategory());
-		System.out.println("conditions: "+eventvo.getConditions());
-		System.out.println("content: "+eventvo.getContent());
-		System.out.println("edate: "+eventvo.getEdate());
-		System.out.println("eventimg: "+eventvo.getEventImg());
-		System.out.println("semititle: "+eventvo.getSemiTitle());
-		System.out.println("startEnd: "+eventvo.getStartEnd());
-		System.out.println("title: "+eventvo.getTitle());
+	public String event(EventVO eventvo, HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {
+		// 이벤트 등록 후 이벤트 인덱스를 받아와 이미지를 등록함
+		int result = adminService.insertEvent(eventvo);
+		if(result == 1) {
+			String path = request.getSession().getServletContext().getRealPath("/resources/upload/event");
+			File dir = new File(path);
+			if(!dir.exists()) {
+				dir.mkdirs();
+			}
+			MultipartFile file = eventvo.getEventImg();
+			if(!file.getOriginalFilename().isEmpty()) {
+				file.transferTo(new File(path, file.getOriginalFilename()));
+				String originFileName = file.getOriginalFilename();
+				
+				Date now = new Date();
+				SimpleDateFormat simple = new SimpleDateFormat("SSS");
+				String distinct = simple.format(now);
+				
+				String realFileName = originFileName + distinct;
+				
+				ImageVO imagevo = new ImageVO();
+				imagevo.setEidx(eventvo.getEidx());
+				imagevo.setPath(path);
+				imagevo.setOriginFileName(originFileName);
+				imagevo.setRealFileName(realFileName);
+				
+				adminService.eventImg(imagevo);
+			}
+			
+		}else {
+			System.out.println("failed");
+		}
 		return "redirect:/developer/event.do";
 	}
 	@RequestMapping(value="reportList.do", method=RequestMethod.GET)

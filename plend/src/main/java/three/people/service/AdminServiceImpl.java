@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import three.people.dao.AdminDAO;
+import three.people.vo.EventVO;
+import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
@@ -55,6 +57,26 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int approvalYN(PlaceVO placevo) {
 		return adminDAO.approvalYN(placevo);
+	}
+
+	@Override
+	public int insertEvent(EventVO eventvo) {
+		return adminDAO.insertEvent(eventvo);
+	}
+
+	@Override
+	public int eventImg(ImageVO imagevo) {
+		return adminDAO.eventImg(imagevo);
+	}
+
+	@Override
+	public List<EventVO> eventList(SearchVO searchvo) {
+		return adminDAO.eventList(searchvo);
+	}
+
+	@Override
+	public int totalEvent() {
+		return adminDAO.totalEvent();
 	}
 
 }
