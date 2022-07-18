@@ -232,6 +232,9 @@ public class HostController {
 	}
 	
 	
-	
+	@RequestMapping(value="/inquiry_host.do", method= RequestMethod.GET)
+	public String inquiry_host() {
+		return "host/inquiry_host";
+	}
 	
 }
