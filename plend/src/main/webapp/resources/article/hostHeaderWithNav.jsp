@@ -4,9 +4,9 @@
 <%@ page session="true" %>
 
     
-<header>
-  <!-- Fixed navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top" style = "background-color:#2F506D;">
+
+  <!-- Header -->
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top" style ="background-color:#2F506D; height: 100px;">
     <div class="container-fluid">
       <a class="navbar-brand" href="#" style = "margin-left:50px;">HOSTING CENTER</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,13 +24,13 @@
       </div>
     </div>
   </nav>
-</header>
 
+<!-- nav -->
 <div class="container"> 
   <div class="row">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-black sidebar collapse fixed">
       <div class="position-sticky pt-3">
-     	<ul class="H_ul" style="margin-top: 40px;">
+     	<ul class="H_ul" style="margin-top: 80px;">
      	<!-- 나중에 해당링크 들어간 곳 글씨 진하게하는 css 추가하기 -->
  		 <!-- <li><a href="#">매출 관리</a></li> -->
  		 <li><a href="<%=request.getContextPath()%>/host/managePlace.do">장소 관리</a></li>
@@ -40,10 +40,11 @@
  		
  		
  		 <li><a href="#" style = "font-size:13px; margin-top: 300px;">판매자 정보</a></li>
- 		 <li><a href="<%=request.getContextPath()%>/host/inquiry_dev.do" style = "font-size:13px;">운영자 문의</a></li>
+ 		 <li><a href="<%=request.getContextPath()%>/host/inquiry_FAQ.do" style = "font-size:13px;">운영자 문의</a></li>
 	    </ul>
       </div>
     </nav>
    </div>
 </div>
+
 

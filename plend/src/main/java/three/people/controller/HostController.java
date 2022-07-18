@@ -221,6 +221,17 @@ public class HostController {
 	}
 	
 	
+	@RequestMapping(value="/noticeView.do", method= RequestMethod.GET)
+	public String noticeView() {
+		return "host/noticeView";
+	}
+	
+	@RequestMapping(value="/inquiry_FAQ.do", method= RequestMethod.GET)
+	public String inquiry_FAQ() {
+		return "host/inquiry_FAQ";
+	}
+	
+	
 	
 	
 }

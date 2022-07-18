@@ -8,7 +8,7 @@
 <title>Hostcenter-장소 관리</title>
 
 	<link href="<%=request.getContextPath()%>/resources/css/global_Host.css" rel="stylesheet">
-	<link href="<%=request.getContextPath()%>/resources/css/insertPlace_HOST.css" rel="stylesheet">
+	
 	
 	<!-- jQuery -->
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
@@ -27,6 +27,7 @@
 	//프론트 디자인
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/hostHeaderWithNav.jsp");
+			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
 		
@@ -38,9 +39,9 @@
 	
 	<main>
 		<section>
-		<div style="display: flex;">
-			<span class="frmTitle" style="margin-left: 120px;">플레이스 리스트</span>
-			<button class="mb-3  btnBig" style="float: right;" onclick="location.href='<%=request.getContextPath()%>/host/insertPlace.do'">플레이스 등록</button>
+		<div class="container" style="display: flex;  justify-content: space-between; align-items: baseline; margin-left: 100px;">
+			<span class="title1" style="margin:0px;">플레이스 리스트</span>
+			<button class="mb-3 btnBig " onclick="location.href='<%=request.getContextPath()%>/host/insertPlace.do'">플레이스 등록</button>
 		</div>		
 				<div class=".table-responsive container " style="margin-left: 100px;" >
 					
@@ -94,7 +95,7 @@
 		</section>
 		
 		<section>
-			<span class="frmTitle " style="margin-left: 120px;">예약 현황</span>
+			<span class="title1 " style="margin-left: 120px;">예약 현황</span>
 			
 				
 				<div class=".table-responsive container " style="margin-left: 100px;" >
@@ -158,7 +159,7 @@
 		</section>		
 		
 		<section>
-			<span class="frmTitle" style="margin-left: 120px;">후기</span>
+			<span class="title1" style="margin-left: 120px;">후기</span>
 			
 				
 				<div class=".table-responsive container " style="margin-left: 100px;" >
@@ -212,10 +213,7 @@
 		</section>	
 
 	</main>
-	<div style="margin:300px;"></div>
-	
-	
-	
-	
+
+	<footer id="footer"></footer>
 </body>
 </html>

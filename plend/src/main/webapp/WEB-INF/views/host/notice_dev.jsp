@@ -5,10 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Hostcenter-장소 관리</title>
+<title>Hostcenter-공지사항</title>
 
 	<link href="<%=request.getContextPath()%>/resources/css/global_Host.css" rel="stylesheet">
-	<link href="<%=request.getContextPath()%>/resources/css/insertPlace_HOST.css" rel="stylesheet">
 	
 	<!-- jQuery -->
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
@@ -27,6 +26,7 @@
 	//프론트 디자인
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/hostHeaderWithNav.jsp");
+			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
 		
@@ -36,38 +36,49 @@
 
 	<header id="header"></header>
 	
-	<main>
-		<section style="margin-left:300px;">
-			<span class="frmTitle">플레이스 리스트</span>
-			
-				
-				<div class=".table-responsive container " style="margin-left: 100px;" >
-					<button class="mb-3  btnBig" style="float: right;" onclick="location.href='<%=request.getContextPath()%>/host/insertPlace.do'">플레이스 등록</button>
+<main>
+		<section style="margin-top: 100px;">
+			<span class="title1">공지사항</span>
+		
+				<div class=".table-responsive container " style="margin: 20px 0px 0px 100px;" >
+					
+					<!-- 검색폼 -->
+						<form action=".do" method="get">
+							<div class="row search-form mb-5" style="float:right;">
+								<div class="input-group justify-content-center">
+									<select class="form-select-sm" name="searchType">
+										<option value="">이름</option>
+					  					<option value="">아이디</option>
+									</select>
+									<input name="searchValue" class="mx-1">
+									<button class="btnDefault">검색</button>
+								</div>
+							</div>
+						</form>
+					
 					<table class="table table-hover text-center clearfix" >
 						<thead class="table-dark">
 							<tr style="text-al">
-								<td>번호</td><td>플레이스명</td><td>태그</td><td>소개</td><td>승인여부</td><td>수정</td>
+								<td>번호</td><td>제목</td><td>작성일</td>
 							</tr>
 						<thead>
 						<tbody>
 							<c:if test="${list_p.size() == 0}">	
 								<tr>
-									<td colspan="6">등록된 장소가 없습니다.</td>
+									<td colspan="6">등록된 문의가 없습니다.</td>
 								</tr>
 							</c:if>
 							<!--  -->
-							<c:if test="${list_p.size() > 0}">
-								<c:forEach var="pv" items="${list_p}">
+							<%-- <c:if test="${list_p.size() > 0}">
+								<c:forEach var="pv" items="${list_p}"> --%>
 									<tr >
-										<td>${pv.pidx}</td>
-										<td>${pv.placeName}</td>
-										<td>${pv.tag}</td>
-										<td style="text-align: left;">${pv.placeDetail}</td>
-										<td>${pv.approvalYN}</td>
-										<td><button class="btnDefault" type="button" onclick="location.href='/host/placeDetail.do'">수정</button></td>
+										<td>1</td>
+										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/noticeView.do">공지사항 제목입니다.</a></td>
+										<td>작성일</td>
+										
 									</tr>
-								</c:forEach>
-							</c:if>
+							<%-- 	</c:forEach>
+							</c:if> --%>
 						</tbody>
 					</table>
 					
@@ -98,7 +109,7 @@
 
 	</main>
 	<div style="margin:300px;"></div>
-	
+	<footer id="footer"></footer>
 	
 	
 	

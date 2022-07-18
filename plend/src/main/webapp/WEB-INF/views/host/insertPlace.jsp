@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Hostcenter-장소등록</title>
+<title>Hostcenter-장소 등록</title>
 
 	<link href="<%=request.getContextPath()%>/resources/css/global_Host.css" rel="stylesheet">
 	
@@ -32,6 +32,7 @@
 	//프론트 디자인
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/hostHeaderWithNav.jsp");
+			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
 	
@@ -44,8 +45,8 @@
 	
 	<main>
 		<section>
-			<span class="frmTitle">플레이스 등록</span>
-			<div style="margin: auto;">
+			<span class="title1">플레이스 등록</span>
+			<div style="margin-left: 10%;">
 				<div class="btn-group-lg mt-5" role="group" aria-label="Basic example">
   					<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px;" value ="gallery" onclick="cate(this)">갤러리</button>
   					<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px;" value ="shareKitchen" onclick="cate(this)">공유주방</button>
@@ -82,18 +83,18 @@
 							<!-- 카테고리 히든으로 받기  -->
 							<input type="hidden" name="category" id="cate" >
 							
-							<h5 style="font-weight: bolder; margin-top:80px;">1. 공간</h5>
+							<h5 class="title2" >1. 공간</h5>
 							
-							
+							<br>
 							<label class="mt-3">
-								<span class="frmTitle">공간명칭 </span><br>
+								<span class="title3">공간명칭 </span><br>
 								<input type="text" name="placeName" id="placeName" size="30" placeholder="어떤 공간을 가지고 계신가요?">
 							</label>
 							<br>
 							
 							<!-- 해쉬태그 -->
 							<div class=" mt-3" >
-								<span class="frmTitle">태그 </span><br>
+								<span class="title3">태그 </span><br>
        					    	<div class="form-group">
            							<input type="hidden"  name="tag" id="rdTag" />
           				  		</div>
@@ -107,24 +108,24 @@
 							
 							<!-- 사진 등록 -->
 							<label class="mt-3">
-								<span class=" frmTitle">공간 이미지 </span><br>	
+								<span class=" title3">공간 이미지 </span><br>	
 								<input type="file" name="placeImgs" id="placeImgs" multiple="multiple">
 							</label>
 							<!-- 사진 미리보기 이후 구현 -->
 							<br>
 							
 							<label class="mt-3">
-								<span class="frmTitle">공간소개 </span><br>
+								<span class="title3">공간소개 </span><br>
 								<textarea cols="100" rows="5" name="placeDetail" id="placeDetail" placeholder="등록할 공간을 소개해주세요 :-) "></textarea>
 							</label>
 							<br>
 							<label class="mt-3">
-								<span class="frmTitle">시설정보</span><br>
+								<span class="title3">시설정보</span><br>
 								<textarea cols="100" rows="5" name="guide" id="guide"  placeholder="사용자가 이용할 시설에 대한 안내를 적어 주세요."></textarea>
 							</label>
 							<br>
 							<div class="mt-3" >
-								<span class="frmTitle">플레이스 옵션(선택) </span><br>
+								<span class="title3">플레이스 옵션(선택) </span><br>
 								<!-- 갤러리 옵션 -->
 								<div id="option_gallery" class="option1" style="display: none">
 								<label><input type="checkbox" name="option1" value="playStation" > 플레이 스테이션 </label>
@@ -224,12 +225,12 @@
 							</div>
 						
 							<label class="mt-3">
-								<span class=" frmTitle">플레이스 옵션2(선택)</span><br>	
+								<span class=" title3">플레이스 옵션2(선택)</span><br>	
 								<textarea  class="ta" cols="100" rows="5" name="option2" placeholder="위 항목 이외에 추가 하실 항목이 있으시다면 작성해주세요 . 관리자의 검토 후 추가하겠습니다." ></textarea>
 							</label>
 							<br>
 							<label class="mt-3">
-								<span class="frmTitle">주소 : </span><br>
+								<span class="title3">주소 : </span><br>
 								<input type="text" id="postcode" placeholder="우편번호">
 								<input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
 								<input type="text"  id="address" size="50" placeholder="주소" class="mt-2"><br>
@@ -241,14 +242,14 @@
 					
 						<div class="horison"></div>
 					
-							<h5 style="font-weight: bold;">2. 이용가능 시각 및 금액</h5>
-					
+							<h5 class="title2">2. 이용가능 시각 및 금액</h5>
+							<br>
 							<label class="mt-3">
-								<span class="frmTitle">이용가능시간</span><br>
+								<span class="title3">이용가능시간을 입력해주십시오</span><br>
 					
-								<span class="frmSemiTitle">영업시작 시각</span>
+								<span class="title3">영업시작 시각</span>
 									<input class="form-control form-control-solid flatpickr-input" placeholder="영업 시작" id="kt_datepicker_1" type="checkbox" name="availTime">
-								<span class="frmSemiTitle">영업종료 시각</span>
+								<span class="title3">영업종료 시각</span>
 									<input class="form-control form-control-solid flatpickr-input" placeholder="영업 종료" id="kt_datepicker_2" type="checkbox" name="availTime">
 							</label>
 							<br>
@@ -257,7 +258,7 @@
 							</label>
 							<br>
 							<label class="mt-3">
-								<span class="frmTitle">예약시간 단위 </span><br>
+								<span class="title3">예약시간 단위 </span><br>
 								<span>고객이용가능 시간이 30분일 경우 30분 단위로 예약을 여는 것을 추천합니다.</span><br>
 									<select name="intervalTime" id="intervalTime" class="mt-3" required>
 										<option value="" disabled selected >예약단위</option>
@@ -271,7 +272,7 @@
 							</label>
 							<br>
 							<label class="mt-3">
-								<span class="frmTitle">가격 </span><br>
+								<span class="title3">가격 </span><br>
 								시간 당 <input type="text" name="price" id="price" placeholder="ex) 10000">원으로 으로 책정합니다.
 							</label>
 							<br>
@@ -301,6 +302,7 @@
 		
 	</main>
 	<div style="margin:300px;"></div>
-	<script script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/insertPlace.js"></script>
+	<footer id="footer"></footer>
+	<script src="<%=request.getContextPath()%>/resources/js/insertPlace.js"></script>
 </body>
 </html>

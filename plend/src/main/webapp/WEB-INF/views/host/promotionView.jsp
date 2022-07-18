@@ -28,6 +28,7 @@
 	//프론트 디자인
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/hostHeaderWithNav.jsp");
+			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 			
 		})
 	</script>
@@ -96,7 +97,8 @@
 
 	<header id="header"></header>
 	
-	<main style="margin-top:40px;">
+	<!-- 2022.07.18 김연희: main에 margin top150dl 기본으로 되어있으나 배너 부분은  딱맞게 시작하게 설정 -->
+	<main style="margin-top: 85px;" >
 	
 		<!-- 슬라이드 배너  -->
 		<div class="banner-container">
@@ -118,28 +120,30 @@
 	
 		<!--제목  -->
 		<section>
-			<span class="frmTitle mb-5" style="margin-top:100px;">프로모션 리스트</span>
+			<span class="title1 mb-5" style="margin-top:100px; margin-left: 30px;">프로모션 리스트</span>
 		
 			<div class="promotionViewDIV">
 			
 			<table class="promotionTable" id="promotionTable">
 				<tr>
-					<td colspan="3" class="frmSemiTitle">제목</td>
+					<td colspan="3" class="title2">여름 맞이 특가 찬스!!</td>
 				</tr>
 				<tr>
-					<td rowspan="4"><img style="width: 100%; height: 80%;" src="<%=request.getContextPath()%>/resources/image/promotion/promotionM.png" alt="프로모션 이미지"></td><td>부제목: </td><td>10% 상설 할인</td>
+					<td rowspan="4" ><img style="width: 100%; height: 80%;" src="<%=request.getContextPath()%>/resources/image/promotion/promotionM.png" alt="프로모션 이미지"></td>
+					<td class="promotionTD">부제목: </td>
+					<td class="promotionTD2">10% 상설 할인</td>
 				</tr>
 				<tr>
-					<td>기간: </td>
-					<td>2022.07.12~2022.08.12</td>
+					<td class="promotionTD">기간: </td>
+					<td class="promotionTD2">2022.07.12~2022.08.12</td>
 				</tr>
 				<tr>
-					<td>내용: </td>
-					<td>여름을 맞이하여 제휴  업체들에게는 10% 할인 쿠폰을 제공합니다.5000원 이상 구매시 사용가능업체당 100매</td>
+					<td class="promotionTD">내용: </td>
+					<td class="promotionTD2">여름을 맞이하여 제휴  업체들에게는 10% 할인 쿠폰을 제공합니다.5000원 이상 구매시 사용가능업체당 100매</td>
 				</tr>
 				<tr>
-					<td>약관(조건):</td>
-					<td></td>
+					<td class="promotionTD">약관(조건):</td>
+					<td class="promotionTD2"></td>
 				</tr>
 			
 			
@@ -159,9 +163,8 @@
 		</section>
 
 	</main>
-	<div style="margin:300px;"></div>
-	
-	
+		<div style="margin:200px;"></div>	
+	<footer id="footer"></footer>
 
 </body>
 </html>
