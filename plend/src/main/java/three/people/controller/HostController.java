@@ -176,7 +176,7 @@ public class HostController {
 	
 	
 	@RequestMapping(value="/managePlace.do", method = RequestMethod.GET)
-	public <E> String managePlace(PlaceVO placeVO, Model model) {
+	public String managePlace(PlaceVO placeVO, Model model) {
 		System.out.println("장소관리 페이지 ");
 		
 		List<PlaceVO> list_p = placeService.selectPlaceAll(placeVO);
@@ -193,6 +193,34 @@ public class HostController {
 		
 		return "host/managePlace";
 	}
+	
+	
+	
+	@RequestMapping(value="/inquiry_user.do", method= RequestMethod.GET)
+	public String userInquiry() {
+		System.out.println("이용자 문의 사항 관리 페이지");
+		return "host/inquiry_user";
+	}
+	
+	
+	@RequestMapping(value="/promotionList.do", method= RequestMethod.GET)
+	public String promotionList() {
+		return "host/promotionList";
+	}
+	
+	
+	@RequestMapping(value="/promotionView.do", method= RequestMethod.GET)
+	public String promotionView() {
+		return "host/promotionView";
+	}
+	
+	
+	@RequestMapping(value="/notice_dev.do", method= RequestMethod.GET)
+	public String notice_dev() {
+		return "host/notice_dev";
+	}
+	
+	
 	
 	
 }

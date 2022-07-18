@@ -44,6 +44,7 @@
 	  #header:active {
  		 color : gray;
 	  }
+	  
 /* 2022.07.15 김연희 : ul로 스타일 부여하던것 클래스로 변경  */	  
 	.H_ul {
  		 list-style-type: none;
@@ -99,15 +100,27 @@
 
 	}
 
-/* ------------------------section----------------------------------------- */
+/* ----------------------------body----------------------------------------- */
+	main{
+	margin-left: 11%;
+	}
 
 	section{
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
     	justify-content: center;
+    	margin-left: 4%;
 	} 
 	
+	article{
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+    	justify-content: center;
+    	/* margin-left: 18%; */
+    	
+	} 
 	
 	
 	input[type=radio]{
@@ -184,6 +197,77 @@
 		border:none;
 		width: 130px;
 		height: 40px;
+		margin: 5px;
+	}
+	
+	.btnDisabled{
+		background: #A3AEBB;
+		color: white;
 	
 	}
-		 
+	
+
+	/* 해쉬태그 */
+	
+	#tag-list{
+		position: relative;
+    	list-style-type: none;
+    	background: white;
+   	 	height: 100%;
+    	overflow: visible;
+    	padding-left: 0px;
+	}
+	
+	.tag-item{
+		background: #AECDFF;
+		border-radius: 20px;
+		padding: 8px 20px 0px 20px;
+	    margin: 5px;
+	    width: max-content;
+	    height: 40px;
+		
+	}
+
+	.del-btn{
+		color: grey;
+		margin-left: 5px; 
+		
+	}
+	
+	.del-btn:hover{
+		cursor: pointer;
+	}
+	
+	
+	/* promotion */
+	
+	
+	.promotionViewDIV {
+		border: 1px solid grey;
+		margin: 30px;
+		width: 80%;
+		hight: 400px;
+		padding: 30px 50px 30px 50px;
+	}
+	
+	.promotionTable{
+		
+		width: 100%;
+		height: 
+	
+	}
+	
+	#promotionTable > tbody > tr >td {
+	
+		vertical-align: top;
+		padding-left: 30px;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	

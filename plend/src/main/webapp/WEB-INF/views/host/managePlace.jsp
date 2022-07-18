@@ -37,12 +37,13 @@
 	<header id="header"></header>
 	
 	<main>
-		<section style="margin-left:300px;">
-			<span class="frmTitle">플레이스 리스트</span>
-			
-				
+		<section>
+		<div style="display: flex;">
+			<span class="frmTitle" style="margin-left: 120px;">플레이스 리스트</span>
+			<button class="mb-3  btnBig" style="float: right;" onclick="location.href='<%=request.getContextPath()%>/host/insertPlace.do'">플레이스 등록</button>
+		</div>		
 				<div class=".table-responsive container " style="margin-left: 100px;" >
-					<button class="mb-3  btnBig" style="float: right;" onclick="location.href='<%=request.getContextPath()%>/host/insertPlace.do'">플레이스 등록</button>
+					
 					<table class="table table-hover text-center clearfix" >
 						<thead class="table-dark">
 							<tr style="text-al">
@@ -92,8 +93,8 @@
 				
 		</section>
 		
-		<section style="margin-left:300px;">
-			<span class="frmTitle ">예약 현황</span>
+		<section>
+			<span class="frmTitle " style="margin-left: 120px;">예약 현황</span>
 			
 				
 				<div class=".table-responsive container " style="margin-left: 100px;" >
@@ -156,8 +157,8 @@
 				</div>
 		</section>		
 		
-		<section style="margin-left:300px;">
-			<span class="frmTitle ">후기</span>
+		<section>
+			<span class="frmTitle" style="margin-left: 120px;">후기</span>
 			
 				
 				<div class=".table-responsive container " style="margin-left: 100px;" >
