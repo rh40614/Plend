@@ -37,7 +37,7 @@
         <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: white; font-size:20px;">Plend</h5>
         
         
-        <button type="button" class="btn-primary btn-lg mb-4" style="background: #FC5185; color: white; border-radius: 50px; border: none; ">로그인/회원가입</button>
+        <button type="button" class="btn-primary btn-lg mb-4" style="background: #FC5185; color: white; border-radius: 50px; border: none; "onclick="location.href='common/signIn.do'">로그인/회원가입</button>
       </div>
       <div class="offcanvas-body" style="background:#E5E5E5;">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">

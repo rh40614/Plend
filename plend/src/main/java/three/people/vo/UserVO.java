@@ -14,7 +14,14 @@ public class UserVO {
 	private String regnum;
 	private int role;
 	private String delYN;
+	private String jdate;
 	
+	public String getJdate() {
+		return jdate;
+	}
+	public void setJdate(String jdate) {
+		this.jdate = jdate;
+	}
 	public int getUidx() {
 		return uidx;
 	}

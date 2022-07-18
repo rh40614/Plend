@@ -69,7 +69,24 @@
 		  FROM user
 		 WHERE nickName = #{nickName}
 	</select>
+	<!-- 07.14 김영민: 회원구분별 총 인원 구하기 -->
+	<select id="totalCountUser" parameterType="SearchVO" resultType="Integer">
+		SELECT count(*)
+		  FROM user
+		 WHERE role = #{role}
+		 <include refid="search"></include>
+	</select>
 	
+	<sql id="search">
+		<if test="searchType != null">
+			<if test='searchType.equals("name")'>
+		   		AND (name LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>
+		 	<if test='searchType.equals("id")'>
+		   		AND (id LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>		
+		</if>
+	</sql>
 </mapper>
 
 
