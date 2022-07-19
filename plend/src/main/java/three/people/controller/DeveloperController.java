@@ -1,14 +1,27 @@
 package three.people.controller;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import three.people.service.AdminService;
 import three.people.service.CommonService;
+import three.people.vo.EventVO;
+import three.people.vo.ImageVO;
+import three.people.vo.PlaceVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
@@ -63,15 +76,102 @@ public class DeveloperController {
 	}
 	
 	@RequestMapping(value="/event.do", method=RequestMethod.GET)
-	public String event() {
+	public String event(SearchVO searchvo, Model model ) {
+		if(searchvo.getNowPage() == 0) {
+			searchvo.setNowPage(1);
+		}
+		searchvo.setCntPerPage(5);
+		searchvo.calPaging(adminService.totalEvent());
+		
+		model.addAttribute("pagenation", searchvo);
+		model.addAttribute("eventList", adminService.eventList(searchvo));
 		return "developer/event";
 	}
 	
-	@RequestMapping(value="reportList.do", method=RequestMethod.GET)
-	public String reportList() {
-		return "developer/reportList";
+//	 이벤트 등록
+	@RequestMapping(value="/event.do", method=RequestMethod.POST)
+	public String event(EventVO eventvo, HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {
+		// 이벤트 등록 후 이벤트 인덱스를 받아와 이미지를 등록함
+		int result = adminService.insertEvent(eventvo);
+		if(result == 1) {
+			String path = request.getSession().getServletContext().getRealPath("/resources/upload/event");
+			File dir = new File(path);
+			if(!dir.exists()) {
+				dir.mkdirs();
+			}
+			MultipartFile file = eventvo.getEventImg();
+			if(!file.getOriginalFilename().isEmpty()) {
+				file.transferTo(new File(path, file.getOriginalFilename()));
+				String originFileName = file.getOriginalFilename();
+				
+				Date now = new Date();
+				SimpleDateFormat simple = new SimpleDateFormat("SSS");
+				String distinct = simple.format(now);
+				
+				String realFileName = originFileName + distinct;
+				
+				ImageVO imagevo = new ImageVO();
+				imagevo.setEidx(eventvo.getEidx());
+				imagevo.setPath(path);
+				imagevo.setOriginFileName(originFileName);
+				imagevo.setRealFileName(realFileName);
+				
+				adminService.eventImg(imagevo);
+			}
+			
+		}else {
+			System.out.println("failed");
+		}
+		return "redirect:/developer/event.do";
 	}
 	
+	// 이벤트 수정 ajax요청에 대한 응답
+	@RequestMapping(value="/modifyEvent.do", method=RequestMethod.GET)
+	public String modifyEvent(EventVO eventvo, Model model) {
+		model.addAttribute("eventvo", adminService.eventOne(eventvo));
+		return "developer/eventModify";
+	}
+	// 실제 이벤트 수정
+	@RequestMapping(value="/modifyEvent.do", method=RequestMethod.POST)
+	public String modifyEvent(EventVO eventvo, HttpServletRequest request) throws IllegalStateException, IOException {
+		int result = adminService.updateEvent(eventvo);
+		if(result == 1) {
+			String path = request.getSession().getServletContext().getRealPath("/resources/upload/event");
+			File dir = new File(path);
+			if(!dir.exists()) {
+				dir.mkdirs();
+			}
+			MultipartFile file = eventvo.getEventImg();
+			if(!file.getOriginalFilename().isEmpty()) {
+				file.transferTo(new File(path, file.getOriginalFilename()));
+				String originFileName = file.getOriginalFilename();
+				
+				Date now = new Date();
+				SimpleDateFormat simple = new SimpleDateFormat("SSS");
+				String distinct = simple.format(now);
+				
+				String realFileName = originFileName + distinct;
+				
+				ImageVO imagevo = new ImageVO();
+				imagevo.setEidx(eventvo.getEidx());
+				imagevo.setPath(path);
+				imagevo.setOriginFileName(originFileName);
+				imagevo.setRealFileName(realFileName);
+				
+				int rs = adminService.updateImg(imagevo);
+			}
+			
+		}else {
+			System.out.println("failed");
+		}
+		return "redirect:/developer/event.do";
+	}
+	// 이벤트 삭제
+	@RequestMapping(value="/deleteEvent.do")
+	public String deleteEvent(EventVO eventvo) {
+		adminService.deleteEvent(eventvo);
+		return "redirect:/developer/event.do";
+	}
 	//업체 리스트 페이지로 이동
 	@RequestMapping(value="enterList.do", method=RequestMethod.GET)
 	public String enterList(SearchVO searchvo, Model model) {
@@ -98,12 +198,51 @@ public class DeveloperController {
 	@RequestMapping(value="enterModify.do", method=RequestMethod.GET)
 	public String enterModify(UserVO uservo, Model model) {
 		model.addAttribute("enter", adminService.userOne(uservo));
+		model.addAttribute("placeList", adminService.enterPlace(uservo));
 		return "developer/enterModify";
 	}
+	//업체정보 수정하기
+	@RequestMapping(value="enterModify.do", method=RequestMethod.POST)
+	public String enterModify(UserVO uservo) {
+		adminService.userInfo(uservo);
+		return "redirect:/developer/enterList.do";
+	}
+	//업체 삭제
+	@RequestMapping(value="enterDelete.do", method=RequestMethod.GET)
+	public String deleteEnter(UserVO uservo) {
+		adminService.deleteEnter(uservo);
+		return "redirect:/developer/enterList.do";
+	}
 	
+	
+	//업체 장소 등록 승인 페이지
 	@RequestMapping(value="enterConfirm.do", method=RequestMethod.GET)
-	public String enterConfirm() {
+	public String enterConfirm(SearchVO searchvo, Model model) {
+		if(searchvo.getNowPage() == 0 && searchvo.getCntPerPage() == 0) {
+			searchvo.setNowPage(1);
+			searchvo.setCntPerPage(10);
+		}else if(searchvo.getCntPerPage() == 0) {
+			searchvo.setCntPerPage(10);
+		}else if(searchvo.getNowPage() == 0) {
+			searchvo.setNowPage(1);
+		}
+		
+		int total = adminService.totalPlace(searchvo);
+		searchvo.calPaging(total);
+		model.addAttribute("pagenation", searchvo);
+		model.addAttribute("placeList", adminService.apPlace(searchvo));
 		return "developer/enterConfirm";
+	}
+	
+	@RequestMapping(value="confirm.do", method=RequestMethod.GET)
+	public String confirm(PlaceVO placevo) {
+		adminService.approvalYN(placevo);
+		return "redirect:/developer/enterConfirm.do";
+	}
+	
+	@RequestMapping(value="reportList.do", method=RequestMethod.GET)
+	public String reportList() {
+		return "developer/reportList";
 	}
 	
 	@RequestMapping(value="enterBlock.do", method=RequestMethod.GET)

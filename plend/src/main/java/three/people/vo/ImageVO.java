@@ -7,7 +7,15 @@ public class ImageVO extends PlaceVO {
 	private String originFileName;
 	private String realFileName;
 	private int pidx;
+	private int eidx;
 	
+	
+	public int getEidx() {
+		return eidx;
+	}
+	public void setEidx(int eidx) {
+		this.eidx = eidx;
+	}
 	public int getImidex() {
 		return imidex;
 	}
