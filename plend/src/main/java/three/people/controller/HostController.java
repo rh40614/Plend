@@ -26,6 +26,7 @@ import three.people.service.HostService;
 import three.people.service.PlaceService;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
+import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
 
@@ -176,20 +177,42 @@ public class HostController {
 	
 	
 	@RequestMapping(value="/managePlace.do", method = RequestMethod.GET)
-	public String managePlace(PlaceVO placeVO, Model model) {
+	public String managePlace(PlaceVO pidx, Model model, SearchVO searchVO) {
 		System.out.println("장소관리 페이지 ");
 		
-		List<PlaceVO> list_p = placeService.selectPlaceAll(placeVO);
 		
 		
-			for(PlaceVO place: list_p) {
-				if(place.getPlaceDetail().length() > 35) {
-					String pd =place.getPlaceDetail().substring(0, 35);
-					place.setPlaceDetail(pd);
-				}
+		//페이징
+		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
+			searchVO.setNowPage(1);
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getCntPerPage() == 0) {
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getNowPage() == 0) {
+			searchVO.setNowPage(1);
+		}
+		
+		//토탈 갯수
+		int total = placeService.cntPlace(pidx);
+		searchVO.calPaging(total);
+		System.out.println(total);
+		List<PlaceVO> list_p = placeService.selectPlaceAll(searchVO);
+		
+		//장소 소개 35자 이상 자르기
+		for(PlaceVO place: list_p) {
+			if(place.getPlaceDetail().length() > 35) {
+				String pd =place.getPlaceDetail().substring(0, 35);
+				place.setPlaceDetail(pd);
 			}
-		
+		}
+	
+		System.out.println("list_p: "+list_p);
+		System.out.println("pagenation: "+searchVO.getStartPage());
+		System.out.println("pagenation: "+searchVO.getEndPage());
+	
+		//화면단으로 옮기기
 		model.addAttribute("list_p", list_p);
+		model.addAttribute("pagenation", searchVO);
 		
 		return "host/managePlace";
 	}
@@ -231,6 +254,21 @@ public class HostController {
 		return "host/inquiry_FAQ";
 	}
 	
+	
+	@RequestMapping(value="/inquiry_dev.do", method= RequestMethod.GET)
+	public String inquiry_dev() {
+		return "host/inquiry_dev";
+	}
+	
+	@RequestMapping(value="/inquiryView_dev.do", method= RequestMethod.GET)
+	public String inquiryView_dev() {
+		return "host/inquiryView_dev";
+	}
+	
+	@RequestMapping(value="/placeView.do", method= RequestMethod.GET)
+	public String placeView() {
+		return "host/placeView";
+	}
 	
 	
 	

@@ -55,7 +55,8 @@
 								</div>
 							</div>
 						</form>
-					
+						
+					<!-- 공지사항 -->
 					<table class="table table-hover text-center clearfix" >
 						<thead class="table-dark">
 							<tr style="text-al">
