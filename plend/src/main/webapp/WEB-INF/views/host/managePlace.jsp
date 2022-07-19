@@ -39,7 +39,7 @@
 	
 	<main>
 		<section>
-		<div class="container" style="display: flex;  justify-content: space-between; align-items: baseline; margin-left: 100px;">
+		<div class="container" style=" margin-left: 100px; display: flex;  justify-content: space-between; align-items: baseline; margin-left: 100px;">
 			<span class="title1" style="margin:0px;">플레이스 리스트</span>
 			<button class="mb-3 btnBig " onclick="location.href='<%=request.getContextPath()%>/host/insertPlace.do'">플레이스 등록</button>
 		</div>		
@@ -66,30 +66,48 @@
 										<td>${pv.tag}</td>
 										<td style="text-align: left;">${pv.placeDetail}</td>
 										<td>${pv.approvalYN}</td>
-										<td><button class="btnDefault" type="button" onclick="location.href='/host/placeDetail.do'">수정</button></td>
+										<td><button class="btnDefault" type="button" onclick="location.href='/host/placeView.do'">수정</button></td>
 									</tr>
 								</c:forEach>
 							</c:if>
 						</tbody>
 					</table>
-					
+			
+			<!-- 페이징 -->
+			<c:if test="${not empty list_p}">
 				<nav aria-label="Page navigation example" class="m-auto">
 				  <ul class="pagination justify-content-center " >
-				    <li class="page-item text-secondary">
-				      <a class="page-link text-secondary" href="#" aria-label="Previous">
-				        <span aria-hidden="true">&laquo;</span>
-				      </a>
-				    </li>
-				    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">1</a></li>
-				    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">2</a></li>
-				    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">3</a></li>
-				    <li class="page-item text-secondary">
-				      <a class="page-link text-secondary" href="#" aria-label="Next">
-				        <span aria-hidden="true">&raquo;</span>
-				      </a>
-				    </li>
+				  	
+					<c:if test="${pagenation.startPage > 5}">
+						<li class="page-item">
+				      		<a class="page-link" href="managePlace.do?nowPage=4">&laquo;</a>
+				    	</li>
+				    </c:if>
+				    
+					<c:forEach begin="${pagenation.startPage}" end="${pagenation.endPage}" var="p">
+						<c:choose>
+							<c:when test="${p == pagenation.nowPage }">
+								 <li class="page-item text-secondary">
+								 <a class="page-link text-secondary" href="managePlace.do?nowPage=${p}">${p}</a></li>
+							</c:when>
+							<c:when test="${p != pagenation.nowPage }">
+								<li class="page-item text-secondary">
+								 <a class="page-link text-secondary" href="managePlace.do?nowPage=${p}">${p}</a></li>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+				
+			    	<c:if test="${pagenation.endPage != pagenation.lastPage}">
+					    <li class="page-item">
+					      <a class="page-link" href="managePlace.do?nowPage=${pagenation.endPage +1}">&raquo;</a>
+					    </li>
+			    	</c:if>
 				  </ul>
 				</nav>
+			</c:if> 
+			
+			
+		
 			</div>
 				
 		</section>

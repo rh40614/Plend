@@ -5,10 +5,39 @@
  
 <mapper namespace="three.people.mapper.placeMapper">
 	
-	<select id="selectPlaceAll" resultType="PlaceVO" parameterType="PlaceVO">
-		SELECT * FROM place order by pidx desc LIMIT 0,5
+	<select id="selectPlaceAll" resultType="PlaceVO" parameterType="SearchVO">
+			
+			SELECT
+				  pidx
+				 ,uidx
+				 ,category
+				 ,placeName
+				 ,eventYN
+				 ,placeDetail
+				 ,guide
+				 ,tag
+				 ,placeImg
+				 ,address
+				 ,option1
+				 ,option2
+				 ,price
+				 ,delYN
+				 ,approvalYN
+				 ,availTimeValue
+				 ,intervalTime 
+			FROM place
+		ORDER BY pidx DESC
+		   LIMIT #{start},#{cntPerPage}
 	
 	</select>
+	<!-- 2022.07.19 김연희: 페이징 처리 위해 만듬 -->
+	<select id="cntPlace" parameterType="PlaceVO" resultType="int">
+		SELECT
+			   COUNT(pidx)
+		  FROM place 
+		 WHERE delYN ='N'
+	</select>
+	
 	<select id="placeOne" resultType="PlaceVO" parameterType="PlaceVO"></select>
 	<select id="randomPlace" resultType="PlaceVO"></select>
 	

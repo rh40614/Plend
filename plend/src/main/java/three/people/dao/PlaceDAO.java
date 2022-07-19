@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
+import three.people.vo.SearchVO;
 
 
 @Repository
@@ -18,9 +19,15 @@ public class PlaceDAO {
 	
 	String namespace="three.people.mapper.placeMapper";
 	
-	public List<PlaceVO> selectPlaceAll(PlaceVO placeVO) {
-		List<PlaceVO> result = sqlSession.selectList(namespace+".selectPlaceAll", placeVO);
+	public List<PlaceVO> selectPlaceAll(SearchVO searchVO) {
+		List<PlaceVO> result = sqlSession.selectList(namespace+".selectPlaceAll", searchVO);
 		return result;
+	}
+	
+	public int cntPlace(PlaceVO pidx) {
+		int result = sqlSession.selectOne(namespace+".cntPlace", pidx);
+		return result;
+		
 	}
 	
 	

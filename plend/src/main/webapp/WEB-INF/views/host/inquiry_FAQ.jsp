@@ -40,9 +40,7 @@
 			
 				$(obj).removeClass("btnDisabled");	 
 				$(obj).addClass("btnBig");
-				
 			}
-			
 		}
 			
 	</script>
@@ -57,7 +55,7 @@
 		<section style="margin-top: 100px;">
 			<span class="title1">FAQ</span>
 			
-			<div style="display: flex; ">
+			<div style="display: flex; align-items: center; ">
 			<!-- 카테고리 -->
 				<div class="btn-group spaceL" role="group" id="btnGroup" >
 					<button type="button" class="btnBig me-3" onclick="btn(this)">플레이스 등록</button>
@@ -66,23 +64,26 @@
 					<button type="button" class="btnBig me-3 btnDisabled"  onclick="btn(this)">신고</button>
 				</div>
 			
-			<!-- 검색폼 -->
-						<form action=".do" method="get">
-							<div class="row search-form mb-5" style="float:right;">
-								<div class="input-group justify-content-center">
-									<select class="form-select-sm" name="searchType">
-										<option value="">이름</option>
-					  					<option value="">아이디</option>
-									</select>
-									<input name="searchValue" class="mx-1">
-									<button class="btnDefault">검색</button>
-								</div>
+				<!-- 검색폼 -->
+				<div class="mt-5 ms-5">
+					<form action=".do" method="get">
+						<div class="row search-form mb-5" style="float:right;">
+							<div class="input-group justify-content-center">
+								<select class="form-select-sm" name="searchType">
+									<option value="">이름</option>
+				  					<option value="">아이디</option>
+								</select>
+								
+								<input name="searchValue" class="mx-1">
+								<button class="btnDefault">검색</button>
 							</div>
-						</form>
-						
+						</div>
+					</form>
+				</div>			
 			</div>
+			
 			<!-- Faq -->
-				<div class="accordion accordion-flush spaceL mt-5" id="accordionFlushExample">
+				<div class="accordion accordion-flush spaceL mt-5 w-75" id="accordionFlushExample">
 				  
 				  <div class="accordion-item ">
 				    <h2 class="accordion-header FAQ" id="flush-headingOne">
@@ -91,7 +92,7 @@
 				      </button>
 				    </h2>
 				    
-				    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+				    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" >
 				      <div class="accordion-body">안녕하세요. P:)end입니다. 이용 중 불편을 드려 죄송합니다. <br>장소등록이 되지않을 경우 새로고침 이후 다시 시도해주시길바랍니다. 새로 고침이후에도 장소가 등록되지않는다면 고객센터로 연락 부탁드립니다. 감사합니다.</div>
 				    </div>
 				  </div>
@@ -102,7 +103,7 @@
 				        Accordion Item #2
 				      </button>
 				    </h2>
-				    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+				    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" >
 				      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
 				    </div>
 				  </div>
@@ -112,19 +113,19 @@
 				        Accordion Item #3
 				      </button>
 				    </h2>
-				    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+				    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" >
 				      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
 				    </div>
 				  </div>
 				</div>
 				
-				
-				
-				<a  class="ms-auto" href="<%=request.getContextPath()%>/host/inquiry_host.do">원하는 답변이 없어요. 운영자에게 질문하러 가기</a>
 		</section>
-		
-		
-		
+				
+				<!-- a 태그는 inline-block이라 text-align 안먹음 -->
+				<div style="text-align: center;" class="mt-5">
+					<a href="<%=request.getContextPath()%>/host/inquiry_dev.do">원하는 답변이 없어요. 운영자에게 질문하러 가기</a>
+				</div>
+				
 		
 		
 
