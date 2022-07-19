@@ -1,5 +1,7 @@
 package three.people.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class NoticeVO extends UserVO {
 	
 	private int nidx;
@@ -9,17 +11,55 @@ public class NoticeVO extends UserVO {
 	private String date;
 	private String delYN;
 	private int hit;
-	private String fileName;
 	private int uidx;
+	private  MultipartFile file;
+	private String fileName;
+	private int pre;
+	private int next;
+	private String preTitle;
+	private String nextTitle;
 	
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public String getPreTitle() {
+		return preTitle;
+	}
+	public void setPreTitle(String preTitle) {
+		this.preTitle = preTitle;
+	}
+	public String getNextTitle() {
+		return nextTitle;
+	}
+	public void setNextTitle(String nextTitle) {
+		this.nextTitle = nextTitle;
+	}
+	public int getPre() {
+		return pre;
+	}
+	public void setPre(int pre) {
+		this.pre = pre;
+	}
+	public int getNext() {
+		return next;
+	}
+	public void setNext(int next) {
+		this.next = next;
 	}
 	public String getFileName() {
 		return fileName;
 	}
-	public void setFile(String fileName) {
+	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+	public int getUidx() {
+		return uidx;
+	}
+	public void setUidx(int uidx) {
+		this.uidx = uidx;
+	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 	public int getNidx() {
 		return nidx;

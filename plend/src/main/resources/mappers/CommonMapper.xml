@@ -39,7 +39,7 @@
 			 uidx
 			,id
 			,password
-		FROM user 
+		FROM user
 	   WHERE id = #{id}
 	     AND password = #{password}	
 	</select>

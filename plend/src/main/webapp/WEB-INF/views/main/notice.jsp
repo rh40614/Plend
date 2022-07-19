@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page session="true" %>
 
 <html>
@@ -37,7 +38,6 @@
 	}
 	
 	</script>
-	
 </head>
 
 <body>
@@ -47,6 +47,7 @@
 	<br>
 	<div style = "text-align:center;">
 		<input type = "text" id = "searchBar"> <button type = "button" id = "searchBut">검색</button> 
+		<!-- 나중에 검색 기능 추가할 것 -->
 	</div>
 	<br>
 	<br>
@@ -70,37 +71,50 @@
   	<c:forEach var = "vo" items = "${list}">
     <tr>
       <td scope="row">${vo.nidx}</td>
-      <td id = "title">${vo.title}</td>
+      <td id = "title"><a href = "noticeView.do?nidx=${vo.nidx}">${vo.title}</a></td>
       <td id = "write">${vo.nickName}</td>
-      <td id = "write">${vo.date}</td>
+      <td id = "write">${vo.date.substring(0,10)}</td>
       <td id = "hit">${vo.hit}</td>
     </tr>
     </c:forEach>
   </c:if>
   </tbody>
-</table>
-<br>
-<nav aria-label="Page navigation example" style = "margin-left:20%;margin-right:20%;">
-  <ul class="pagination" style = "justify-content: center;margin-left:40%;margin-right:40%;">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-  <c:if test="${login != null}">
-  <input type = "button" id = "noticeReg" value = "등록하기" onclick="location.href='noticeReg.do' ">
-  </c:if>
-  <c:if test="${login == null}">
-  </c:if>
+  </table>
+  <br>
+  <div style = "margin-left:20%;margin-right:20%;float:right;">
+	  <c:if test="${login != null}">
+	  <input type = "button" id = "noticeReg" value = "등록하기" onclick="location.href='noticeReg.do' ">
+	  </c:if>
+	  <c:if test="${login == null}">
+	  </c:if>
+  </div>
+  <br>
+  <c:if test="${not empty list}">
+			<nav id="pagenation" class="row">
+			  <ul class="pagination justify-content-center">
+			  	<c:if test="${pagenation.startPage > 5}">
+				    <li class="page-item">
+				      <a class="page-link" href="notice.do?nowPage=4">&laquo;</a>
+				    </li>
+			  	</c:if>
+			  	<c:forEach begin="${pagenation.startPage }" end="${pagenation.endPage }" var="p">
+					<c:choose>
+						<c:when test="${p == pagenation.nowPage }">
+							<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" href="notice.do?nowPage=${p}">${p}</a></li>
+						</c:when>
+						<c:when test="${p != pagenation.nowPage }">
+							<li class="page-item"><a class="page-link" href="notice.do?nowPage=${p}">${p}</a></li>
+						</c:when>
+					</c:choose>
+				</c:forEach>
+			    <c:if test="${pagenation.endPage != pagenation.lastPage}">
+				    <li class="page-item">
+				      <a class="page-link" href="notice.do?nowPage=${pagenation.endPage +1}">&raquo;</a>
+				    </li>
+			    </c:if>
+			  </ul>
+			</nav>
+		</c:if>
 </nav>
 <footer id="footer" class="mt-5"></footer>
 	<!-- JavaScript Bundle with Popper -->

@@ -15,7 +15,7 @@
 	<script src="../resources/js/jquery-3.6.0.min.js"></script>
 	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/home.css" rel="stylesheet">
-	<link href="<%=request.getContextPath()%>/resources/css/noticeReg.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/resources/css/faqReg.css" rel="stylesheet">
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	<!-- include libraries(jQuery, bootstrap) -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -50,44 +50,39 @@
 		  });
 		});
 	</script>
-	
-	
+		
 	<script>
-	//파일추가 할 때 이름 가져오는 스크립트
-	$(document).ready(function(){
-  var fileTarget = $('.filebox .upload-hidden');
-
-    fileTarget.on('change', function(){
-        if(window.FileReader){
-            var filename = $(this)[0].files[0].name;
-        } else {
-            var filename = $(this).val().split('/').pop().split('\\').pop();
-        }
-
-        $(this).siblings('.upload-name').val(filename);
-    });
-}); 
-	</script>
-	
-	<script>
-		function noticeReg(){
+		function faqReg(){
 			
 			var frm = document.frm;
 			
-			if (frm.title.value == ""){
-				alert("제목을 입력해주세요.");
+			if ($('select[name=category] option:selected').val() == "" ){
+				alert("카테고리를 선택해주세요.");
 				return;
-			} else if (frm.content.value == "") {
-				alert("내용을 입력해주세요.");
+			} else if (frm.question.value == ""){
+				alert("질문을 입력해주세요.");
+				return;
+			} else if (frm.answer.value == "") {
+				alert("답을 입력해주세요.");
 				return;
 			} else {
 				frm.submit();
 			}
-		}
+		}	
 	
 	</script>
 	
 	<style>
+		select {
+			width : 90px;
+			height : 30px;
+			color : white;
+			background : #2F506D;
+			-webkit-appearance: none;
+			border-radius : 5px;
+			text-align:center;
+		}
+		
 		#regBtn{
 			float:right;
 			border-radius:15px;
@@ -101,6 +96,13 @@
 			border : 0px;
 			background-color:#3FC1C9;
 		}
+		
+		input[name=question]{
+		width : 100%;
+		height : 37px;
+		border : 0;
+		background : #F3F3F3;
+			}
 	
 	</style>
 </head>
@@ -109,24 +111,26 @@
 <div id="wrap">	
 	<header id="header"></header>
 	<br>
-	<form action = "noticeReg.do" method = "post" enctype = "multipart/form-data" name = "frm">
-		<input type = "hidden" value = "1" name = "category">
+	<form action = "faqReg.do" method = "post" name = "frm">
+		<input type = "hidden" value = "1" name = "role">
 		<div style="margin-left:23%;margin-right:23%;">
-			<h2 >| 공지사항 등록</h2>
+			<h2 >| FAQ 등록</h2>
+			<br>
+			<select name = "category">
+				<option value = "">- 카테고리 -</option>
+				<option value = "book">예약</option>
+				<option value = "use">이용</option>
+				<option value = "coupon">쿠폰</option>
+				<option value = "sue">신고</option>
+			</select>
 			<br>
 			<br>
-			<input type = "text" name = "title" placeholder = "제목을 입력해주세요.">
+			<input type = "text" name = "question" placeholder = "질문을 입력해주세요.">
 			<br>
 			<br>
-			<textarea id="summernote" name="content" placeholder = "내용을 입력해주세요."></textarea>
+			<textarea id="summernote" name="answer" placeholder = "답을 입력해주세요."></textarea>
 			<br>
-			<div class="filebox bs3-primary">
-				<label for="ex_filename">업로드</label> 
-        	    <input class="upload-name" value="파일선택" disabled="disabled">
-        	    <input type="file" id="ex_filename" class="upload-hidden" name = "file"> 
-			</div>
-			<br>
-			<input type = "button" value = "등록하기" onclick = "noticeReg()" id = "regBtn">
+			<input type = "button" value = "등록하기" onclick = "faqReg()" id = "regBtn">
 		</div>
 	</form>
 	<footer id="footer" class="mt-5"></footer>

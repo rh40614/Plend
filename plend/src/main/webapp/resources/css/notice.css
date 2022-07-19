@@ -1,4 +1,4 @@
-#searchBar {
+	#searchBar {
 			width : 500px;
 			height : 38px;
 			border-radius:15px;
@@ -56,3 +56,10 @@
 			background-color:#3FC1C9;
 		}
 		
+		a:link{
+			color: blue;
+		}
+		
+		a:visited{
+			color : blue;
+		}
