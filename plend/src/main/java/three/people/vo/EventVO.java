@@ -1,5 +1,7 @@
 package three.people.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class EventVO {
 	
 	private int eidx;
@@ -9,10 +11,16 @@ public class EventVO {
 	private String conditions;
 	private String edate;
 	private String startEnd;
-	private String eventImg;
+	private MultipartFile eventImg;
 	private String category;
 	
-	
+
+	public MultipartFile getEventImg() {
+		return eventImg;
+	}
+	public void setEventImg(MultipartFile eventImg) {
+		this.eventImg = eventImg;
+	}
 	public String getCategory() {
 		return category;
 	}
@@ -61,12 +69,7 @@ public class EventVO {
 	public void setStartEnd(String startEnd) {
 		this.startEnd = startEnd;
 	}
-	public String getEventImg() {
-		return eventImg;
-	}
-	public void setEventImg(String eventImg) {
-		this.eventImg = eventImg;
-	}
+
 	
 	
 }
