@@ -79,4 +79,29 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.totalEvent();
 	}
 
+	@Override
+	public EventVO eventOne(EventVO eventvo) {
+		return adminDAO.eventOne(eventvo);
+	}
+
+	@Override
+	public int updateEvent(EventVO eventvo) {
+		return adminDAO.updateEvent(eventvo);
+	}
+
+	@Override
+	public int updateImg(ImageVO imagevo) {
+		int result = adminDAO.checkImg(imagevo);
+		if(result == 1) {
+			return adminDAO.updateImg(imagevo);
+		}else {
+			return adminDAO.eventImg(imagevo);
+		}
+	}
+
+	@Override
+	public int deleteEvent(EventVO eventvo) {
+		return adminDAO.deleteEvent(eventvo);
+	}
+
 }

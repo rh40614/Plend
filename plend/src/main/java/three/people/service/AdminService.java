@@ -22,4 +22,8 @@ public interface AdminService {
 	int eventImg(ImageVO imagevo);
 	List<EventVO> eventList(SearchVO searchvo);
 	int totalEvent();
+	EventVO eventOne(EventVO eventvo);
+	int updateEvent(EventVO eventvo);
+	int updateImg(ImageVO imagevo);
+	int deleteEvent(EventVO eventvo);
 }

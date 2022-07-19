@@ -65,4 +65,36 @@ public class AdminDAO {
 	public int totalEvent() {
 		return sqlSession.selectOne("three.people.mapper.adminMapper.totalEvent");
 	}
+	// 07.19 김영민: 한 이벤트 정보 불러오기
+	public EventVO eventOne(EventVO eventvo) {
+		return sqlSession.selectOne("three.people.mapper.adminMapper.eventOne", eventvo);
+	}
+	// 07.19 김영민: 이벤트 수정하기 / 이미지 수정 / 이미지 유무
+	public int updateEvent(EventVO eventvo) {
+		return sqlSession.update("three.people.mapper.adminMapper.updateEvent", eventvo);
+	}
+	public int updateImg(ImageVO imagevo) {
+		return sqlSession.update("three.people.mapper.adminMapper.updateImg", imagevo);
+	}
+	public int checkImg(ImageVO imagevo) {
+		return sqlSession.selectOne("three.people.mapper.adminMapper.checkImg", imagevo);
+	}
+	// 07.19 김영민: 이벤트 삭제
+	public int deleteEvent(EventVO eventvo) {
+		return sqlSession.delete("three.people.mapper.adminMapper.deleteEvent", eventvo);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

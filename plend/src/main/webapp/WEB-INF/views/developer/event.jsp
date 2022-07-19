@@ -61,8 +61,8 @@
 				      <td>${event.title}</td>
 				      <td>${event.edate.replace("to","~")}</td>
 				      <td>
-				      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">수정</a>
-				      	<a class="btn btn-primary btn-sm rounded-3" href="#" role="button">삭제</a>
+				      	<button class="btn btn-primary btn-sm rounded-3" onclick="modifyEvent(${event.eidx})">수정</button>
+				      	<a class="btn btn-primary btn-sm rounded-3" href="deleteEvent.do?eidx=${event.eidx}" >삭제</a>
 			      	  </td>
 				    </tr>
 			  	</c:forEach>
@@ -100,76 +100,78 @@
 				<p class="h5 fw-bold category-title"> 이벤트 정보 입력 </p>
 			</div>
 		</div>
-		<form action="event.do" method="POST" enctype="multipart/form-data">
-		<section class="row px-1">
-			<table class="col table text-center table-hover">
-			  <tbody>
-				<tr class="border-top"> 
-					<td scope="row">진행여부</td>
-					<td>
-						<div class="form-check form-check-inline">
-						  <input class="form-check-input" value="start" type="radio" name="startEnd" id="radio1">
-						  <label class="form-check-label" for="radio1">진행</label>
-						</div>
-						<div class="form-check form-check-inline">
-						  <input class="form-check-input" value="end" type="radio" name="startEnd" id="radio2" checked>
-						  <label class="form-check-label" for="radio2">미진행</label>
-						</div>
-					</td>
-				</tr>
-				<tr> 
-					<td class="align-middle text-center">카테고리</td>
-					<td>
-						<select class="form-select" name="category">
-						  <option value="gallery" selected>갤러리</option>
-						  <option value="shareKitchen">공유주방</option>
-						  <option value="recording">녹음실</option>
-						  <option value="singPractice">노래 연습실</option>
-						  <option value="shareOffice">공유 오피스</option>
-						  <option value="office">독립 오피스</option>
-						  <option value="smallWedding">스몰웨딩</option>
-						  <option value="homeGym">운동시설</option>
-						  <option value="studio">촬영 스튜디오</option>
-						  <option value="dancePractice">춤 연습실</option>
-						  <option value="partyRoom">파티룸</option>
-						  <option value="meeting">회의실</option>
-						</select>
-					</td>
-				</tr>
-				<tr> 
-					<td class="align-middle text-center">이벤트 기간</td>
-					<td><input name="edate" type="date" class="form-control edate"> </td>
-				</tr>
-				<tr> 
-					<td class="align-middle text-center">제목</td>
-					<td><input name="title" type="text" class="form-control"> </td>
-				</tr>
-				<tr> 
-					<td class="align-middle text-center">상세내용</td>
-					<td><input name="semiTitle" type="text" class="form-control"> </td>
-				</tr>
-				<tr> 
-					<td class="align-middle text-center">이벤트 설명</td>
-					<td><input name="content" type="text" class="form-control"> </td>
-				</tr>
-				<tr> 
-					<td class="align-middle text-center">이용조건</td>
-					<td><input name="conditions" type="text" class="form-control"> </td>
-				</tr>
-				<tr> 
-					<td class="align-middle text-center">파일 등록 </td>
-					<td><input name="eventImg" class="form-control" type="file" id="formFile"> </td>
-				</tr>
-			  </tbody>
-			</table>
-		</section>
-		<div class="row">
-			<div class="col text-center mb-5">
-				<a class="btn btn-primary btn-sm rounded-pill formReset" role="button">초기화</a>
-		      	<button class="btn btn-primary btn-sm rounded-pill">이벤트 등록</button>
+		<div id="formPosition">
+			<form action="event.do" method="POST" enctype="multipart/form-data">
+			<section class="row px-1">
+				<table class="col table text-center table-hover">
+				  <tbody>
+					<tr class="border-top"> 
+						<td scope="row">진행여부</td>
+						<td>
+							<div class="form-check form-check-inline">
+							  <input class="form-check-input" value="start" type="radio" name="startEnd" id="radio1">
+							  <label class="form-check-label" for="radio1">진행</label>
+							</div>
+							<div class="form-check form-check-inline">
+							  <input class="form-check-input" value="end" type="radio" name="startEnd" id="radio2" checked>
+							  <label class="form-check-label" for="radio2">미진행</label>
+							</div>
+						</td>
+					</tr>
+					<tr> 
+						<td class="align-middle text-center">카테고리</td>
+						<td>
+							<select class="form-select" name="category">
+							  <option value="gallery" selected>갤러리</option>
+							  <option value="shareKitchen">공유주방</option>
+							  <option value="recording">녹음실</option>
+							  <option value="singPractice">노래 연습실</option>
+							  <option value="shareOffice">공유 오피스</option>
+							  <option value="office">독립 오피스</option>
+							  <option value="smallWedding">스몰웨딩</option>
+							  <option value="homeGym">운동시설</option>
+							  <option value="studio">촬영 스튜디오</option>
+							  <option value="dancePractice">춤 연습실</option>
+							  <option value="partyRoom">파티룸</option>
+							  <option value="meeting">회의실</option>
+							</select>
+						</td>
+					</tr>
+					<tr> 
+						<td class="align-middle text-center">이벤트 기간</td>
+						<td><input name="edate" type="date" class="form-control edate"> </td>
+					</tr>
+					<tr> 
+						<td class="align-middle text-center">제목</td>
+						<td><input name="title" type="text" class="form-control"> </td>
+					</tr>
+					<tr> 
+						<td class="align-middle text-center">상세내용</td>
+						<td><input name="semiTitle" type="text" class="form-control"> </td>
+					</tr>
+					<tr> 
+						<td class="align-middle text-center">이벤트 설명</td>
+						<td><input name="content" type="text" class="form-control"> </td>
+					</tr>
+					<tr> 
+						<td class="align-middle text-center">이용조건</td>
+						<td><input name="conditions" id="conditions" type="text" class="form-control"> </td>
+					</tr>
+					<tr> 
+						<td class="align-middle text-center">파일 등록 </td>
+						<td><input name="eventImg" class="form-control" type="file" id="formFile"> </td>
+					</tr>
+				  </tbody>
+				</table>
+			</section>
+			<div class="row">
+				<div class="col text-center mb-5">
+					<a class="btn btn-primary btn-sm rounded-pill formReset" role="button">초기화</a>
+			      	<button class="btn btn-primary btn-sm rounded-pill">이벤트 등록</button>
+				</div>
 			</div>
+			</form>
 		</div>
-		</form>
 		<div class="flex-grow-1"></div>
 		<footer id="footer" class="row"></footer>
 	</div>
@@ -184,6 +186,17 @@
 		$(".formReset").click(function(){
 			$(this).closest("form")[0].reset();
 		})
+	</script>
+	<!-- ajax이용 수정페이지 불러오기 -->
+	<script>
+		function modifyEvent(eidx){
+			$.ajax({
+				url:"modifyEvent.do?eidx=" + eidx,
+				success: function(result){
+					$("#formPosition").html(result);
+				}
+			});
+		}
 	</script>
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

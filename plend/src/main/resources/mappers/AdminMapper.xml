@@ -221,6 +221,50 @@
 		SELECT count(*)
 		  FROM event
 	</select>
+	<!-- 07.19 김영민: 한 이벤트 정보 가져오기 -->
+	<select id="eventOne" parameterType="EventVO" resultType="EventVO">
+		SELECT eidx,
+			   title,
+			   semititle,
+			   content,
+			   conditions,
+			   edate,
+			   startend,
+			   eventimg,
+			   category
+		  FROM event
+		 WHERE eidx = #{eidx}
+	</select>
+	<!-- 07.19 이벤트 수정 -->
+	<update id="updateEvent" parameterType="EventVO">
+		UPDATE event
+		   SET title = #{title},
+		   	   semititle = #{semiTitle},
+		   	   content = #{content},
+		   	   conditions = #{conditions},
+		   	   edate = #{edate},
+		   	   startend = #{startEnd},
+		   	   category = #{category}
+		 WHERE eidx  = #{eidx}  
+	</update>
+	<update id="updateImg" parameterType="ImageVO">
+		UPDATE image
+		   SET path = #{path},
+			   originfilename = #{originFileName},
+               realfilename = #{realFileName}
+         WHERE eidx = #{eidx}
+	</update>
+	<!-- img가 있는지 확인 -->
+	<select id="checkImg" parameterType="ImageVO" resultType="Integer">
+		SELECT count(*)
+		  FROM image
+		 WHERE eidx = #{eidx}
+	</select>
+	<!-- 이벤트 삭제 -->
+	<delete id="deleteEvent" parameterType="EventVO">
+		DELETE FROM event
+		      WHERE eidx = #{eidx}
+	</delete>
 	<!-- 
 	<select id="reportList" resultType="ReportVO"></select> 
 	<update id="reviewBlind" parameterType="ReviewVO"></update>

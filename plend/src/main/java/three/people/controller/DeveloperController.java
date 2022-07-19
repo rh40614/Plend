@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import three.people.service.AdminService;
@@ -81,7 +82,6 @@ public class DeveloperController {
 		}
 		searchvo.setCntPerPage(5);
 		searchvo.calPaging(adminService.totalEvent());
-		System.out.println(searchvo.getTotal());
 		
 		model.addAttribute("pagenation", searchvo);
 		model.addAttribute("eventList", adminService.eventList(searchvo));
@@ -124,11 +124,54 @@ public class DeveloperController {
 		}
 		return "redirect:/developer/event.do";
 	}
-	@RequestMapping(value="reportList.do", method=RequestMethod.GET)
-	public String reportList() {
-		return "developer/reportList";
-	}
 	
+	// 이벤트 수정 ajax요청에 대한 응답
+	@RequestMapping(value="/modifyEvent.do", method=RequestMethod.GET)
+	public String modifyEvent(EventVO eventvo, Model model) {
+		model.addAttribute("eventvo", adminService.eventOne(eventvo));
+		return "developer/eventModify";
+	}
+	// 실제 이벤트 수정
+	@RequestMapping(value="/modifyEvent.do", method=RequestMethod.POST)
+	public String modifyEvent(EventVO eventvo, HttpServletRequest request) throws IllegalStateException, IOException {
+		int result = adminService.updateEvent(eventvo);
+		if(result == 1) {
+			String path = request.getSession().getServletContext().getRealPath("/resources/upload/event");
+			File dir = new File(path);
+			if(!dir.exists()) {
+				dir.mkdirs();
+			}
+			MultipartFile file = eventvo.getEventImg();
+			if(!file.getOriginalFilename().isEmpty()) {
+				file.transferTo(new File(path, file.getOriginalFilename()));
+				String originFileName = file.getOriginalFilename();
+				
+				Date now = new Date();
+				SimpleDateFormat simple = new SimpleDateFormat("SSS");
+				String distinct = simple.format(now);
+				
+				String realFileName = originFileName + distinct;
+				
+				ImageVO imagevo = new ImageVO();
+				imagevo.setEidx(eventvo.getEidx());
+				imagevo.setPath(path);
+				imagevo.setOriginFileName(originFileName);
+				imagevo.setRealFileName(realFileName);
+				
+				int rs = adminService.updateImg(imagevo);
+			}
+			
+		}else {
+			System.out.println("failed");
+		}
+		return "redirect:/developer/event.do";
+	}
+	// 이벤트 삭제
+	@RequestMapping(value="/deleteEvent.do")
+	public String deleteEvent(EventVO eventvo) {
+		adminService.deleteEvent(eventvo);
+		return "redirect:/developer/event.do";
+	}
 	//업체 리스트 페이지로 이동
 	@RequestMapping(value="enterList.do", method=RequestMethod.GET)
 	public String enterList(SearchVO searchvo, Model model) {
@@ -164,7 +207,7 @@ public class DeveloperController {
 		adminService.userInfo(uservo);
 		return "redirect:/developer/enterList.do";
 	}
-	
+	//업체 삭제
 	@RequestMapping(value="enterDelete.do", method=RequestMethod.GET)
 	public String deleteEnter(UserVO uservo) {
 		adminService.deleteEnter(uservo);
@@ -195,6 +238,11 @@ public class DeveloperController {
 	public String confirm(PlaceVO placevo) {
 		adminService.approvalYN(placevo);
 		return "redirect:/developer/enterConfirm.do";
+	}
+	
+	@RequestMapping(value="reportList.do", method=RequestMethod.GET)
+	public String reportList() {
+		return "developer/reportList";
 	}
 	
 	@RequestMapping(value="enterBlock.do", method=RequestMethod.GET)
