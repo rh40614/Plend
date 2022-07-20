@@ -72,6 +72,21 @@
 	<update id="placeModify" parameterType="PlaceVO"></update>
 	<update id="placeDelete" parameterType="PlaceVO"></update>
 	
+	
+	<select id="eventList" parameterType="SearchVO" resultType="EventVO">
+		select 
+			 title
+			,semiTitle
+			,content
+			,conditions
+			,edate
+			,startend
+			,category
+	    FROM event e
+	    INNER JOIN image i
+	    ON e.eidx = i.eidx
+	</select>
+	
 </mapper>
 
 

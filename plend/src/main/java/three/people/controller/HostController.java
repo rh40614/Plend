@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import three.people.service.HostService;
 import three.people.service.PlaceService;
+import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.SearchVO;
@@ -226,15 +227,24 @@ public class HostController {
 	}
 	
 	
-	@RequestMapping(value="/promotionList.do", method= RequestMethod.GET)
-	public String promotionList() {
-		return "host/promotionList";
+	@RequestMapping(value="/eventList.do", method= RequestMethod.GET)
+	public String eventList(Model model, SearchVO searchVO) {
+		
+		List<EventVO> list_e = hostService.eventList(searchVO);
+		
+		model.addAttribute("list_e",list_e);
+		
+		return "host/eventList";
 	}
 	
 	
-	@RequestMapping(value="/promotionView.do", method= RequestMethod.GET)
-	public String promotionView() {
-		return "host/promotionView";
+	@RequestMapping(value="/eventView.do", method= RequestMethod.GET)
+	public String eventView(Model model, SearchVO searchVO) {
+		
+		List<EventVO> list_e = hostService.eventList(searchVO);
+		
+		model.addAttribute("list_e",list_e);
+		return "host/eventView";
 	}
 	
 	
