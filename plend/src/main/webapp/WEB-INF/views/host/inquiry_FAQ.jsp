@@ -29,9 +29,11 @@
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
-	
+
+
+<!-- 버튼 -->	
 	<script>
-	//버튼
+
 			
 		function btn(obj){
 			
@@ -41,8 +43,36 @@
 				$(obj).removeClass("btnDisabled");	 
 				$(obj).addClass("btnBig");
 			}
+			
+			
+			if($(obj).val() == 'place'){
+				$("#place").css("display","block");
+				$("#payment").css("display","none");
+				$("#refund").css("display","none");
+				$("#report").css("display","none");
+				
+			}else if($(obj).val() == 'payment'){
+				$("#place").css("display","none");
+				$("#payment").css("display","block");
+				$("#refund").css("display","none");
+				$("#report").css("display","none");
+			}else if($(obj).val() == 'refund'){
+				$("#place").css("display","none");
+				$("#payment").css("display","none");
+				$("#refund").css("display","block");
+				$("#report").css("display","none");
+				
+			}else if($(obj).val() == 'report'){
+				$("#place").css("display","none");
+				$("#payment").css("display","none");
+				$("#report").css("display","block");
+				$("#refund").css("display","none");
+			}
 		}
 			
+		
+	
+	
 	</script>
 	
 
@@ -58,10 +88,10 @@
 			<div style="display: flex; align-items: center; ">
 			<!-- 카테고리 -->
 				<div class="btn-group spaceL" role="group" id="btnGroup" >
-					<button type="button" class="btnBig me-3" onclick="btn(this)">플레이스 등록</button>
-					<button type="button" class="btnBig me-3 btnDisabled"  onclick="btn(this)">결제</button>
-					<button type="button" class="btnBig me-3 btnDisabled"  onclick="btn(this)">환불</button>
-					<button type="button" class="btnBig me-3 btnDisabled"  onclick="btn(this)">신고</button>
+					<button type="button" class="btnBig me-3" onclick="btn(this)" value="place">플레이스 등록</button>
+					<button type="button" class="btnBig me-3 btnDisabled"  onclick="btn(this)" value="payment">결제</button>
+					<button type="button" class="btnBig me-3 btnDisabled"  onclick="btn(this)" value="refund">환불</button>
+					<button type="button" class="btnBig me-3 btnDisabled"  onclick="btn(this)" value="report">신고</button>
 				</div>
 			
 				<!-- 검색폼 -->
@@ -70,8 +100,10 @@
 						<div class="row search-form mb-5" style="float:right;">
 							<div class="input-group justify-content-center">
 								<select class="form-select-sm" name="searchType">
-									<option value="">이름</option>
-				  					<option value="">아이디</option>
+									<option value="place">플레이스</option>
+				  					<option value="payment">결제</option>
+				  					<option value="refund">환불</option>
+				  					<option value="refort">신고</option>
 								</select>
 								
 								<input name="searchValue" class="mx-1">
@@ -82,8 +114,8 @@
 				</div>			
 			</div>
 			
-			<!-- Faq -->
-				<div class="accordion accordion-flush spaceL mt-5 w-75" id="accordionFlushExample">
+			<!-- Faq:플레이스 등록 -->
+				<div class="accordion accordion-flush spaceL mt-5 w-75" id="place" >
 				  
 				  <div class="accordion-item ">
 				    <h2 class="accordion-header FAQ" id="flush-headingOne">
@@ -119,6 +151,119 @@
 				  </div>
 				</div>
 				
+				
+				
+				<!-- Faq: 결제 -->
+				<div class="accordion accordion-flush spaceL mt-5 w-75" id="payment"  style="display:none">
+				  
+				  <div class="accordion-item ">
+				    <h2 class="accordion-header FAQ" id="flush-headingOne">
+				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+				        Q. 결제
+				      </button>
+				    </h2>
+				    
+				    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" >
+				      <div class="accordion-body">안녕하세요. P:)end입니다. 이용 중 불편을 드려 죄송합니다. <br>장소등록이 되지않을 경우 새로고침 이후 다시 시도해주시길바랍니다. 새로 고침이후에도 장소가 등록되지않는다면 고객센터로 연락 부탁드립니다. 감사합니다.</div>
+				    </div>
+				  </div>
+				  
+				  <div class="accordion-item">
+				    <h2 class="accordion-header" id="flush-headingTwo">
+				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+				        Accordion Item #2
+				      </button>
+				    </h2>
+				    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" >
+				      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+				    </div>
+				  </div>
+				  <div class="accordion-item">
+				    <h2 class="accordion-header" id="flush-headingThree">
+				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+				        Accordion Item #3
+				      </button>
+				    </h2>
+				    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" >
+				      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+				    </div>
+				  </div>
+				</div>
+				
+				
+				<!-- Faq: 환불 -->
+				<div class="accordion accordion-flush spaceL mt-5 w-75" id="refund"  style="display:none">
+				  
+				  <div class="accordion-item ">
+				    <h2 class="accordion-header FAQ" id="flush-headingOne">
+				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+				        Q. 환불
+				      </button>
+				    </h2>
+				    
+				    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" >
+				      <div class="accordion-body">안녕하세요. P:)end입니다. 이용 중 불편을 드려 죄송합니다. <br>장소등록이 되지않을 경우 새로고침 이후 다시 시도해주시길바랍니다. 새로 고침이후에도 장소가 등록되지않는다면 고객센터로 연락 부탁드립니다. 감사합니다.</div>
+				    </div>
+				  </div>
+				  
+				  <div class="accordion-item">
+				    <h2 class="accordion-header" id="flush-headingTwo">
+				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+				        Accordion Item #2
+				      </button>
+				    </h2>
+				    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" >
+				      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+				    </div>
+				  </div>
+				  <div class="accordion-item">
+				    <h2 class="accordion-header" id="flush-headingThree">
+				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+				        Accordion Item #3
+				      </button>
+				    </h2>
+				    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" >
+				      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+				    </div>
+				  </div>
+				</div>
+				
+				<!-- Faq: 신고 -->
+				<div class="accordion accordion-flush spaceL mt-5 w-75" id="report" style="display:none">
+				  
+				  <div class="accordion-item ">
+				    <h2 class="accordion-header FAQ" id="flush-headingOne">
+				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+				        Q. 신고
+				      </button>
+				    </h2>
+				    
+				    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" >
+				      <div class="accordion-body">안녕하세요. P:)end입니다. 이용 중 불편을 드려 죄송합니다. <br>장소등록이 되지않을 경우 새로고침 이후 다시 시도해주시길바랍니다. 새로 고침이후에도 장소가 등록되지않는다면 고객센터로 연락 부탁드립니다. 감사합니다.</div>
+				    </div>
+				  </div>
+				  
+				  <div class="accordion-item">
+				    <h2 class="accordion-header" id="flush-headingTwo">
+				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+				        Accordion Item #2
+				      </button>
+				    </h2>
+				    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" >
+				      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+				    </div>
+				  </div>
+				  <div class="accordion-item">
+				    <h2 class="accordion-header" id="flush-headingThree">
+				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+				        Accordion Item #3
+				      </button>
+				    </h2>
+				    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" >
+				      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+				    </div>
+				  </div>
+				</div>
 		</section>
 				
 				<!-- a 태그는 inline-block이라 text-align 안먹음 -->

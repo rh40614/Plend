@@ -35,7 +35,7 @@
  		 <!-- <li><a href="#">매출 관리</a></li> -->
  		 <li><a href="<%=request.getContextPath()%>/host/managePlace.do">장소 관리</a></li>
   		 <li><a href="<%=request.getContextPath()%>/host/inquiry_user.do">문의 관리</a></li>
- 		 <li><a href="<%=request.getContextPath()%>/host/eventList.do">이벤트</a></li>
+ 		 <li><a href="<%=request.getContextPath()%>/host/eventList.do?startEnd=start">이벤트</a></li>
  		 <li><a href="<%=request.getContextPath()%>/host/notice_dev.do">공지사항</a></li>
  		
  		

@@ -12,6 +12,9 @@ public interface HostService {
 
 	public int insertPlace(PlaceVO placeVO);
 	public int insertPlaceImg(ImageVO imageVO);
-	public List<EventVO> eventList(SearchVO searchVO);
-	
+	public List<EventVO> eventList(EventVO eventVO);
+//	public List<ImageVO> eventImageList(EventVO eventVO);
+	public EventVO eventOne(EventVO eventVO);
+	public ImageVO eventImage(EventVO eventVO);
+
 }

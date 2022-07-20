@@ -72,10 +72,46 @@
 	<update id="placeModify" parameterType="PlaceVO"></update>
 	<update id="placeDelete" parameterType="PlaceVO"></update>
 	
+	<!-- 2022.07.20 김연희 이벤트 리스트 호출 -->
+	<select id="eventList" parameterType="EventVO" resultType="EventVO">
+		SELECT 
+			 e.eidx
+			,title
+			,semiTitle
+			,content
+			,conditions
+			,edate
+			,startEnd
+			,category
+	    FROM event e
+	    INNER JOIN image i
+	    ON e.eidx = i.eidx
+	    WHERE startEnd = #{startEnd}
+	    
+	</select>
 	
-	<select id="eventList" parameterType="SearchVO" resultType="EventVO">
-		select 
-			 title
+	<!-- 2022.07.20 김연희 : 이벤트 이미지  -->
+	<select id="eventImage" parameterType="EventVO" resultType="ImageVO">
+		SELECT
+			imidex
+			,path
+			,originFileName
+			,realFileName
+			,e.eidx
+		FROM image i 
+		JOIN event e 
+		ON i.eidx = e.eidx
+		WHERE i.eidx = #{eidx}
+		
+	</select>
+	
+	
+	
+	<!-- 2022.07.20 김연희 이벤트하나 호출 -->
+	<select id="eventOne" parameterType="EventVO" resultType="EventVO">
+		SELECT 
+			e.eidx
+			,title
 			,semiTitle
 			,content
 			,conditions
@@ -85,7 +121,12 @@
 	    FROM event e
 	    INNER JOIN image i
 	    ON e.eidx = i.eidx
+	    WHERE e.eidx = #{eidx}
 	</select>
+	
+	<!-- 2022.07.20 김연희 : 운영자 문의 사항 등록 -->
+	
+	
 	
 </mapper>
 
