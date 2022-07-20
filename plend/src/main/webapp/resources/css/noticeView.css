@@ -1,0 +1,49 @@
+#back {
+			margin-left : 20%;
+			margin-right : 20%;
+			height : 680px;
+			background : #F3F3F3;
+			
+		}
+		
+		h2{
+			padding-left : 30px;
+		
+		}
+		
+		#info {
+			padding-left : 60px;
+			font-family : Arial;
+		}
+		
+		#content {
+			margin-left : 30px;
+			margin-right : 30px;
+			
+		}
+		
+		input[type=button]{
+			width : 80px;
+			height : 25px;
+			float : right;
+			background : #2F506D;
+			border-radius:15px;
+			border : 3px solid #2F506D;
+			color : white;
+			border : 0px;
+			
+		}
+		
+		input[type=button]:hover {
+			border : 0px;
+			background-color:#3FC1C9;
+		}
+		#btns {
+			margin-left : 20%;
+			margin-right : 20%;
+			text-align:center;
+		}
+		#prenext {
+			margin-left : 20%;
+			margin-right : 20%;
+		}

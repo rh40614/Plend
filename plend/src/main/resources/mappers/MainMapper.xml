@@ -5,7 +5,7 @@
  
 <mapper namespace="three.people.mapper.mainMapper">
 
-	<select id="noticeAll" resultType="NoticeVO" parameterType="NoticeVO">
+	<select id="noticeAll" parameterType="SearchVO" resultType="NoticeVO">
 		SELECT 
 			 nidx
 			,title
@@ -14,10 +14,83 @@
 			,hit
 		FROM notice a
   INNER JOIN user b
-  		  ON a.uidx = b.uidx 
+  		  ON a.uidx = b.uidx
+  	   WHERE a.delyn = 'N' 
   	ORDER BY nidx desc
+  	   LIMIT #{start}, #{cntPerPage}
 	</select>	
-	<select id="faqAll" resultType="FaqVO" parameterType="FaqVO"></select>
+	<select id = "noticeTotal" parameterType = "SearchVO" resultType = "Integer">
+		SELECT count(*) 
+		  FROM notice
+		 WHERE delyn = 'N'
+	</select>
+	<select id = "prevNextTitle" resultType = "NoticeVO" parameterType="int">
+		select * from (
+			select nidx, LAG(title,1,-1) OVER (order by nidx) AS preTitle, 
+			LEAD(title) OVER(order by nidx) AS nextTitle 
+			FROM notice 
+			where delyn = 'N' group by nidx) A 
+			where nidx = #{nidx};
+		
+	</select>
+	<select id = "prevNextNidx" resultType = "NoticeVO" parameterType="int">
+		select * from (
+			select nidx, LAG(nidx,1,-1) OVER (order by nidx) AS pre, 
+			LEAD(nidx) OVER(order by nidx) AS next 
+			FROM notice 
+			where delyn = 'N' group by nidx) A 
+			where nidx = #{nidx};
+		
+	</select>
+	<select id = "noticeOne" resultType ="NoticeVO" parameterType = "int">
+		SELECT 
+			 nidx
+			,b.uidx
+			,title
+			,content
+			,nickName
+			,a.date
+			,hit
+		FROM notice a
+  INNER JOIN user b
+  		  ON a.uidx = b.uidx 
+  		 AND a.nidx = #{nidx}
+	</select>
+	<update id = "hitPlus" parameterType = "int">
+		UPDATE notice
+		  SET hit = hit + 1
+		WHERE nidx = #{nidx}
+	</update>
+	<select id="faqAll" resultType="FaqVO" parameterType="FaqVO">
+		SELECT 
+			 fidx
+			,question
+			,answer
+			,category
+			,a.role
+			,a.uidx
+		FROM faq a
+  INNER JOIN user b
+  		  ON a.uidx = b.uidx
+  		  <if test='category != null'>
+  	   WHERE category = #{category}
+  	   	  </if>
+  	   	  <if test = 'category == null'>
+  	   	  </if>
+  	ORDER BY fidx desc
+	</select>
+	<select id = "faqOne" resultType ="faqVO" parameterType = "int">
+		SELECT 
+			 fidx
+			,a.uidx
+			,question
+			,answer
+			,category
+		FROM faq a
+  INNER JOIN user b
+  		  ON a.uidx = b.uidx 
+  		 AND fidx = #{fidx}
+	</select>
 	<insert id="insertNotice" parameterType="NoticeVO">
 		INSERT INTO notice (
 			 uidx
@@ -33,10 +106,41 @@
 			,#{fileName}
 		)
 	</insert>
-	<insert id="insertFaq" parameterType="FaqVO"></insert>
-	<update id="noticeModify" parameterType="NoticeVO"></update>
-	<update id="faqModify" parameterType="FaqVO"></update>
-	<update id="noticeDelete" parameterType="NoticeVO"></update>
+	<insert id="insertFaq" parameterType="FaqVO">
+		INSERT INTO faq (
+			 uidx
+			,role		
+			,category
+			,question
+			,answer
+		) VALUES (
+			 #{uidx}
+			,#{role}
+			,#{category}
+			,#{question}
+			,#{answer}
+		)		
+	</insert>
+	<update id="noticeModify" parameterType="NoticeVO">
+		UPDATE notice 
+		   SET title = #{title}
+		      ,content = #{content}
+		      ,fileName = #{fileName}
+		 WHERE nidx = #{nidx}  
+	
+	</update>
+	<update id="faqModify" parameterType="FaqVO">
+		UPDATE faq
+		   SET question = #{question}
+		      ,answer = #{answer}
+		      ,category = #{category}
+		 WHERE fidx = #{fidx}  
+	</update>
+	<update id="noticeDelete" parameterType="int">
+		UPDATE notice
+		  SET delyn = 'Y'
+		WHERE nidx = #{nidx}
+	</update>
 	<update id="faqDelete" parameterType="FaqVO"></update>
 	<select id="randomPlace" resultType="PlaceVO"></select>
 	<select id="eventPlace" resultType="PlaceVO"></select>

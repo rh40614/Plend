@@ -68,57 +68,22 @@
     });
 }); 
 	</script>
-	
-	<script>
-		function noticeReg(){
-			
-			var frm = document.frm;
-			
-			if (frm.title.value == ""){
-				alert("제목을 입력해주세요.");
-				return;
-			} else if (frm.content.value == "") {
-				alert("내용을 입력해주세요.");
-				return;
-			} else {
-				frm.submit();
-			}
-		}
-	
-	</script>
-	
-	<style>
-		#regBtn{
-			float:right;
-			border-radius:15px;
-			border : 1px solid #2F506D;
-			background : #2F506D;
-			color : white;
-			width : 100px;
-			height : 35px;
-		}
-		#regBtn:hover{
-			border : 0px;
-			background-color:#3FC1C9;
-		}
-	
-	</style>
 </head>
 
 <body>
 <div id="wrap">	
 	<header id="header"></header>
 	<br>
-	<form action = "noticeReg.do" method = "post" enctype = "multipart/form-data" name = "frm">
+	<form action = "noticeModify.do?nidx=${vo.nidx}" method = "post" enctype = "multipart/form-data">
 		<input type = "hidden" value = "1" name = "category">
 		<div style="margin-left:23%;margin-right:23%;">
-			<h2 >| 공지사항 등록</h2>
+			<h2 >| 공지사항 수정</h2>
 			<br>
 			<br>
-			<input type = "text" name = "title" placeholder = "제목을 입력해주세요.">
+			<input type = "text" name = "title" value = "${vo.title}">
 			<br>
 			<br>
-			<textarea id="summernote" name="content" placeholder = "내용을 입력해주세요."></textarea>
+			<textarea id="summernote" name="content">${vo.content}</textarea>
 			<br>
 			<div class="filebox bs3-primary">
 				<label for="ex_filename">업로드</label> 
@@ -126,7 +91,7 @@
         	    <input type="file" id="ex_filename" class="upload-hidden" name = "file"> 
 			</div>
 			<br>
-			<input type = "button" value = "등록하기" onclick = "noticeReg()" id = "regBtn">
+			<input type = "submit" value = "수정하기">
 		</div>
 	</form>
 	<footer id="footer" class="mt-5"></footer>

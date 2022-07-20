@@ -15,7 +15,7 @@
 	<script src="../resources/js/jquery-3.6.0.min.js"></script>
 	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/home.css" rel="stylesheet">
-	<link href="<%=request.getContextPath()%>/resources/css/noticeReg.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/resources/css/faqModify.css" rel="stylesheet">
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	<!-- include libraries(jQuery, bootstrap) -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -68,39 +68,50 @@
     });
 }); 
 	</script>
-	
 	<script>
-		function noticeReg(){
-			
-			var frm = document.frm;
-			
-			if (frm.title.value == ""){
-				alert("제목을 입력해주세요.");
-				return;
-			} else if (frm.content.value == "") {
-				alert("내용을 입력해주세요.");
-				return;
-			} else {
-				frm.submit();
-			}
-		}
 	
+	function faqReg(){
+		
+		var frm = document.frm;
+		
+		if ($('select[name=category] option:selected').val() == "" ){
+			alert("카테고리를 선택해주세요.");
+			return;
+		} else if (frm.question.value == ""){
+			alert("질문을 입력해주세요.");
+			return;
+		} else if (frm.answer.value == "") {
+			alert("답을 입력해주세요.");
+			return;
+		} else {
+			frm.submit();
+		}
+	}	
 	</script>
-	
 	<style>
-		#regBtn{
-			float:right;
-			border-radius:15px;
-			border : 1px solid #2F506D;
-			background : #2F506D;
-			color : white;
-			width : 100px;
-			height : 35px;
-		}
-		#regBtn:hover{
-			border : 0px;
-			background-color:#3FC1C9;
-		}
+	select {
+		width : 90px;
+		height : 30px;
+		color : white;
+		background : #2F506D;
+		-webkit-appearance: none;
+		border-radius : 5px;
+		text-align:center;
+	}
+		
+	input[type=button] {
+		float:right;
+		border-radius:15px;
+		border : 1px solid #2F506D;
+		background : #2F506D;
+		color : white;
+		width : 100px;
+		height : 35px;
+	}
+	input[type=button]:hover{
+		border : 0px;
+		background-color:#3FC1C9;
+	}
 	
 	</style>
 </head>
@@ -109,24 +120,26 @@
 <div id="wrap">	
 	<header id="header"></header>
 	<br>
-	<form action = "noticeReg.do" method = "post" enctype = "multipart/form-data" name = "frm">
-		<input type = "hidden" value = "1" name = "category">
+	<form action = "faqModify.do?fidx=${vo.fidx}" method = "post" name = "frm">
 		<div style="margin-left:23%;margin-right:23%;">
-			<h2 >| 공지사항 등록</h2>
+			<h2 >| FAQ 수정</h2>
+			<br>
+			<select name = "category">
+				<option value = "">- 카테고리 -</option>
+				<option value = "book">예약</option>
+				<option value = "use">이용</option>
+				<option value = "coupon">쿠폰</option>
+				<option value = "sue">신고</option>
+			</select>
 			<br>
 			<br>
-			<input type = "text" name = "title" placeholder = "제목을 입력해주세요.">
+			<input type = "text" name = "question" value = "${vo.question}">
 			<br>
 			<br>
-			<textarea id="summernote" name="content" placeholder = "내용을 입력해주세요."></textarea>
+			<textarea id="summernote" name="answer">${vo.answer}</textarea>
 			<br>
-			<div class="filebox bs3-primary">
-				<label for="ex_filename">업로드</label> 
-        	    <input class="upload-name" value="파일선택" disabled="disabled">
-        	    <input type="file" id="ex_filename" class="upload-hidden" name = "file"> 
-			</div>
-			<br>
-			<input type = "button" value = "등록하기" onclick = "noticeReg()" id = "regBtn">
+			
+			<input type = "button" value = "수정하기" onclick = "faqReg()">
 		</div>
 	</form>
 	<footer id="footer" class="mt-5"></footer>

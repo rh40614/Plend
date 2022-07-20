@@ -22,6 +22,7 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
+		
 		<load-on-startup>1</load-on-startup>
 		
 		<!-- 파일을 업로드할때 설정정보를 담는 설정(최대사이즈 등) -->		

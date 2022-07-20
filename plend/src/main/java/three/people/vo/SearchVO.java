@@ -12,7 +12,7 @@ public class SearchVO extends PagingVO {
 		calcStartEndPage(getNowPage()-1, getCntPage());
 		calcStartEnd(getNowPage()-1, getCntPerPage());
 	}
-	
+
 	public String getSearchType() {
 		return searchType;
 	}

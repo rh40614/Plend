@@ -2,10 +2,13 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0/EN"
 				"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-
+	<settings>
+		<setting name = "cacheEnabled" value = "false"/>
+		<setting name = "jdbcTypeForNull" value = "NULL"/>
+	</settings>
 	<typeAliases>
 		<!-- mapper에서 사용할 vo의 별칭을 등록해두는 곳입니다. -->
-	
+
      <typeAlias type="three.people.vo.UserVO" alias="userVO"/>
         <typeAlias type="three.people.vo.ApprovalVO" alias="ApporvalVO"/>
         <typeAlias type="three.people.vo.BlockVO" alias="BlockVO"/>
@@ -18,8 +21,9 @@
         <typeAlias type="three.people.vo.SearchVO" alias="SearchVO"/>
         <typeAlias type="three.people.vo.EventVO" alias="EventVO"/>
 
-      
-      
+
+
     </typeAliases>
+
 
 </configuration>

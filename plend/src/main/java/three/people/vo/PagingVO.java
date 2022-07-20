@@ -2,12 +2,12 @@ package three.people.vo;
 
 public class PagingVO {
 
-	private int nowPage = 0; 
+	private int nowPage = 0;
 	private int startPage, endPage, total;
 	private int cntPerPage = 0;
 	private int lastPage, start, end;
 	private int cntPage = 5;
-	
+
 	public void calcLastPage(int total, int cntPerPage) {
 		setLastPage((int) Math.ceil((double)total / (double)cntPerPage));
 	}
@@ -19,7 +19,7 @@ public class PagingVO {
 			nowPage += 1;
 			setStartPage(1+5*(((int)Math.ceil((double)nowPage/cntPage))-1));
 		}
-		
+
 		setEndPage(getStartPage()-1 + cntPage);
 		if(getLastPage() <= getEndPage()) {
 			setEndPage(getLastPage());
@@ -102,6 +102,6 @@ public class PagingVO {
 	public void setCntPage(int cntPage) {
 		this.cntPage = cntPage;
 	}
-	
-	
+
+
 }

@@ -1,6 +1,6 @@
 package three.people.vo;
 
-public class UserVO {
+public class UserVO{
 	private int uidx;
 	private String id;
 	private String password;
