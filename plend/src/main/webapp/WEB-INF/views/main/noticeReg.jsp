@@ -74,7 +74,12 @@
 			
 			var frm = document.frm;
 			
-			if (frm.title.value == ""){
+			if ($('select[name=category] option:selected').val() == "" ){
+				
+				alert("카테고리를 선택해주세요.");
+				return;
+				
+			} else if (frm.title.value == ""){
 				alert("제목을 입력해주세요.");
 				return;
 			} else if (frm.content.value == "") {
@@ -101,7 +106,15 @@
 			border : 0px;
 			background-color:#3FC1C9;
 		}
-	
+		select {
+			width : 90px;
+			height : 30px;
+			color : white;
+			background : #2F506D;
+			-webkit-appearance: none;
+			border-radius : 5px;
+			text-align: center;
+		}
 	</style>
 </head>
 
@@ -110,9 +123,14 @@
 	<header id="header"></header>
 	<br>
 	<form action = "noticeReg.do" method = "post" enctype = "multipart/form-data" name = "frm">
-		<input type = "hidden" value = "1" name = "category">
 		<div style="margin-left:23%;margin-right:23%;">
 			<h2 >| 공지사항 등록</h2>
+			<br>
+			<select name = "category">
+				<option value = "">- 선택 -</option>
+				<option value = "1">유저</option>
+				<option value = "2">호스트</option>
+			</select>
 			<br>
 			<br>
 			<input type = "text" name = "title" placeholder = "제목을 입력해주세요.">
