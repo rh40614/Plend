@@ -5,8 +5,26 @@
  
 <mapper namespace="three.people.mapper.mypageMapper">
 	
-	<select id="userInfo" resultType="UserVO" parameterType="UserVO"></select>
-	<update id="userModify" parameterType="UserVO"></update>
+	<select id="userInfo" resultType="UserVO" parameterType="UserVO">
+		SELECT 
+			 uidx
+			,id
+			,nickName
+			,userPhone
+			,email
+			,addr
+			,birth
+		FROM user
+	   WHERE uidx = #{uidx}
+	</select>
+	<update id="userModify" parameterType="UserVO">
+		UPDATE user
+		   SET userPhone = #{userPhone}
+		   	  ,email = #{email}
+		   	  ,addr = #{addr}
+		   	  ,birth = #{birth}
+		 WHERE uidx = #{uidx}
+	</update>
 	<update id="userWithdraw"  parameterType="UserVO"></update>
 	<select id="bookList" resultType="BookVO" parameterType="UserVO"></select>
 	<!-- <insert id="insertReview" parameterType="ReviewVO"></insert> -->

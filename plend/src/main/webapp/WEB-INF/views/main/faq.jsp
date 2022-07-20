@@ -15,6 +15,7 @@
 	<script src="../resources/js/jquery-3.6.0.min.js"></script>
 	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/home.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/resources/css/faq.css" rel="stylesheet">
 
 	
 	<script type="text/javascript">
@@ -39,95 +40,6 @@
 	
 	</script>
 	
-<style>
-	#searchBar {
-			width : 500px;
-			height : 38px;
-			border-radius:15px;
-			border : 3px solid #2F506D;
-			margin-right : 25px;
-		}
-		#searchBut {
-			border-radius : 20px;
-			color : white;
-			background : #2F506D;
-			border : 1px solid #2F506D;
-			width : 70px;
-			height : 38px;
-			font-size : 13px;
-		}
-		
-		#searhBtn:hover {
-			border : 0px;
-			background-color:#3FC1C9;
-		}
-		
-		input[type=button] {
-			width : 200px;
-			margin-right: -5px;
-			background : #2F506D;
-			color : white;
-			border : 0px;
-			border-right : 1px solid white;
-			border-left : 1px solid white;
-		}
-		
-		input[type=button]:hover {
-			background-color:#3FC1C9;
-		}
-		
-		#faqReg {
-			width : 100px;
-			border-radius : 15px;
-			color : white;
-			background : #2F506D;
-			float:right;
-			border : 0px;
-		}
-		
-		#faqReg:hover {
-			border : 0px;
-			background-color:#3FC1C9;
-		}
-		
-		#modiBtn {
-			width : 50px;
-			border-radius : 15px;
-			color : white;
-			background : #2F506D;
-			float:right;
-			border : 0px;
-			margin-right:10px;
-		}
-		
-		#modiBtn:hover {
-			border : 0px;
-			background-color:#3FC1C9;
-		}
-		
-		.panel-faq-container {
-			margin-bottom: -16px;
-		}
-		.panel-faq-title {
-			color: black;
-			text-align : left;
-			cursor: pointer;
-		}
-		.panel-faq-answer {
-			height: 0;
-			overflow: hidden;
-			text-align:left;
-		  /* 변화가 시작되는 쪽에다가 transition 적용해준다 0 -> 300px 
-		  왜? 닫기 버튼을 누를 때 변화가 티남 */
-		  	transition: all 1s;
-		}
-		
-		.active {
-			display: block;
-		  /* 높이를 정해줘야지만 transition이 적용됨 */
-			height: 120px;
-		}
-	</style>
 </head>
 
 <body>

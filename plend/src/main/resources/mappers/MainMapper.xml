@@ -16,6 +16,7 @@
   INNER JOIN user b
   		  ON a.uidx = b.uidx
   	   WHERE a.delyn = 'N' 
+  	     AND category = '1'
   	ORDER BY nidx desc
   	   LIMIT #{start}, #{cntPerPage}
 	</select>	
@@ -25,7 +26,7 @@
 		 WHERE delyn = 'N'
 	</select>
 	<select id = "prevNextTitle" resultType = "NoticeVO" parameterType="int">
-		select * from (
+		SELECT * FROM (
 			select nidx, LAG(title,1,-1) OVER (order by nidx) AS preTitle, 
 			LEAD(title) OVER(order by nidx) AS nextTitle 
 			FROM notice 
@@ -34,7 +35,7 @@
 		
 	</select>
 	<select id = "prevNextNidx" resultType = "NoticeVO" parameterType="int">
-		select * from (
+		SELECT * FROM (
 			select nidx, LAG(nidx,1,-1) OVER (order by nidx) AS pre, 
 			LEAD(nidx) OVER(order by nidx) AS next 
 			FROM notice 
@@ -94,16 +95,18 @@
 	<insert id="insertNotice" parameterType="NoticeVO">
 		INSERT INTO notice (
 			 uidx
-			,category
+			,role
 			,title
 			,content
 			,fileName
+			,category
 		) VALUES (
 			 #{uidx}
-			,#{category}
+			,#{role}
 			,#{title}
 			,#{content}
 			,#{fileName}
+			,#{category}
 		)
 	</insert>
 	<insert id="insertFaq" parameterType="FaqVO">
