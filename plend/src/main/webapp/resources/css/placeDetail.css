@@ -1,0 +1,19 @@
+.row {
+	--bs-gutter-x:0;
+}
+
+.btn-sm {
+    background-color: #2F506D !important;
+    border-color: #2F506D !important;
+    color: white !important;
+}
+
+.nav-scroller{
+	background-color: #D9D9D9;
+	border-color: #D9D9D9;
+}
+
+.link-secondary {
+	vertical-align: middle;
+	text-align: center;
+}
