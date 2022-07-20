@@ -14,16 +14,16 @@
 	<script src="resources/js/jquery-3.6.0.min.js"></script>
 	<link href="resources/css/global.css" rel="stylesheet">
 	<link href="resources/css/home.css" rel="stylesheet">
-	
+
 	<script type="text/javascript">
 		$(function(){
 			$("#header").load("resources/article/headerwithCate.jsp");
 			$("#footer").load("resources/article/footer.jsp");
 		})
 	</script>
-	
+
 	<script>
-	
+
 	function like (obj){
 		if($(obj).hasClass("fa-regular") == true){
 			$(obj).removeClass("fa-regular");
@@ -32,29 +32,27 @@
 			$(obj).removeClass("fa-solid");
 			$(obj).addClass("fa-regular");
 		}
-		
+
 	}
-	
+
 	</script>
-	
+
 </head>
 
 <body>
-<div id="wrap">	
+<div id="wrap">
 	<header id="header"></header>
 	<br>
-	
+
 	<main>
 	<br>
+	<a href="insertPlace.do">장소등록 </a>
+	<a href="myPage/myInfo.do">마이페이지</a>
+  <a href="developer/userList.do">유저리스트 </a>
 
-	<a href="host/managePlace.do">장소관리 </a>
-
-	<a href="developer/userList.do">유저리스트 </a>
-
-	
   	<div class="container" style="width: 1100px;">
     	<span class="navbar-brand">| 추천 장소</span>
-    	<span style="float: right; margin-right: 20px;">더보기 <i class="fa-solid fa-play"></i></span> 
+    	<span style="float: right; margin-right: 20px;">더보기 <i class="fa-solid fa-play"></i></span>
   	</div>
 	<section>
 		<div class="card " style="width: 16rem; margin-right: 10px;">
@@ -66,10 +64,10 @@
  				<p class="card-text">가격</p>
  				<i class="fa-regular fa-star" style="float:right">별점</i>
  				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
- 				
+
   			</div>
 		</div>
-	
+
 		<div class="card " style="width: 16rem; margin-right: 10px;">
   				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
   				<i class="fa-solid fa-bolt bolt"></i>
@@ -79,10 +77,10 @@
  				<p class="card-text">가격</p>
  				<i class="fa-regular fa-star" style="float:right">별점</i>
  				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
- 				
+
   			</div>
 		</div>
-	
+
 	<div class="card " style="width: 16rem; margin-right: 10px;">
   				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
   				<i class="fa-solid fa-bolt bolt"></i>
@@ -92,10 +90,10 @@
  				<p class="card-text">가격</p>
  				<i class="fa-regular fa-star" style="float:right">별점</i>
  				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
- 				
+
   			</div>
 		</div>
-	
+
 	<div class="card " style="width: 16rem; margin-right: 10px;">
   				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
   				<i class="fa-solid fa-bolt bolt"></i>
@@ -105,14 +103,14 @@
  				<p class="card-text">가격</p>
  				<i class="fa-regular fa-star" style="float:right">별점</i>
  				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
- 				
+
   			</div>
 		</div>
 	</section>
-	
-	
-	
-	
+
+
+
+
 	<br>
 	<div class="container" style="width: 1100px;">
     	<h3 class="navbar-brand">| 프로모션</h3>
@@ -127,10 +125,10 @@
  				<p class="card-text">가격</p>
  				<i class="fa-regular fa-star" style="float:right">별점</i>
  				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
- 				
+
   			</div>
 		</div>
-	
+
 		<div class="card " style="width: 16rem; margin-right: 10px;">
   				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
   				<i class="fa-solid fa-bolt bolt"></i>
@@ -140,10 +138,10 @@
  				<p class="card-text">가격</p>
  				<i class="fa-regular fa-star" style="float:right">별점</i>
  				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
- 				
+
   			</div>
 		</div>
-	
+
 	<div class="card " style="width: 16rem; margin-right: 10px;">
   				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
   				<i class="fa-solid fa-bolt bolt"></i>
@@ -153,10 +151,10 @@
  				<p class="card-text">가격</p>
  				<i class="fa-regular fa-star" style="float:right">별점</i>
  				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
- 				
+
   			</div>
 		</div>
-	
+
 	<div class="card " style="width: 16rem; margin-right: 10px;">
   				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
   				<i class="fa-solid fa-bolt bolt"></i>
@@ -166,16 +164,16 @@
  				<p class="card-text">가격</p>
  				<i class="fa-regular fa-star" style="float:right">별점</i>
  				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
- 				
+
   			</div>
 		</div>
 	</section>
-  	
-  	
-  	
-  	
-	
-	
+
+
+
+
+
+
 	<br>
 	<div class="container" style="width: 1100px;">
     	<h3 class="navbar-brand">| 리뷰존</h3>
@@ -190,10 +188,10 @@
  				<p class="card-text">가격</p>
  				<i class="fa-regular fa-star" style="float:right">별점</i>
  				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
- 				
+
   			</div>
 		</div>
-	
+
 		<div class="card " style="width: 16rem; margin-right: 10px;">
   				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
   				<i class="fa-solid fa-bolt bolt"></i>
@@ -203,10 +201,10 @@
  				<p class="card-text">가격</p>
  				<i class="fa-regular fa-star" style="float:right">별점</i>
  				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
- 				
+
   			</div>
 		</div>
-	
+
 	<div class="card " style="width: 16rem; margin-right: 10px;">
   				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
   				<i class="fa-solid fa-bolt bolt"></i>
@@ -216,10 +214,10 @@
  				<p class="card-text">가격</p>
  				<i class="fa-regular fa-star" style="float:right">별점</i>
  				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
- 				
+
   			</div>
 		</div>
-	
+
 	<div class="card " style="width: 16rem; margin-right: 10px;">
   				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
   				<i class="fa-solid fa-bolt bolt"></i>
@@ -229,13 +227,13 @@
  				<p class="card-text">가격</p>
  				<i class="fa-regular fa-star" style="float:right">별점</i>
  				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
- 				
+
   			</div>
 		</div>
 	</section>
-  	
-	
-	
+
+
+
 
 
 </main>
@@ -247,7 +245,3 @@
 </div>
 </body>
 </html>
-
-
-
-
