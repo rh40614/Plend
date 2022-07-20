@@ -32,16 +32,16 @@
 	<link href="<%=request.getContextPath()%>/resources/css/global_Host.css" rel="stylesheet">
 		
 	
+	<!-- 프론트 디자인 -->
 	<script type="text/javascript">
-	//프론트 디자인
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/hostHeaderWithNav.jsp");
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
 	
+	<!-- 썸머노트 -->
 	<script type="text/javascript">
-	//썸머노트
 		$(document).ready(function() {
  			$('#summernote').summernote({
  				width: 1250,
@@ -56,7 +56,9 @@
 
 	</script>
 
-</head>
+
+	
+	</head>
 <body>
 
 	<header id="header"></header>
@@ -70,7 +72,18 @@
 			<p class="spaceL">문의해주셔서 감사합니다. 문의하시기 전에 FAQ를 참고 해주시길 바랍니다. 자주 묻는 질문은 FAQ에 올라와있습니다. <br> 질문을 하실때 화면을 캡쳐해서 이미지와 함께 올려주시면 더 빠른 해결이 가능합니다. </p>
 			<!-- 썸머노트 -->
 			<div class="spaceL mt-2">
-				<div id="summernote"></div> 
+				<form action="inquiry_dev.do" method="POST" name="frm">
+				<select name="">
+					<option value="place">장소</option>
+					<option value="payment">결제</option>
+					<option value="refund">환불</option>
+					<option value="refort">신고</option>
+					
+				</select>
+					<span>문의제목 </span><input type="text" name="title" size="50" required>
+					<textarea id="summernote" name="question" required></textarea> 
+					<button type="submit" class="btnBig" onclick="insert()">문의 등록</button>
+				</form>
 			</div>
 		</section >
 			

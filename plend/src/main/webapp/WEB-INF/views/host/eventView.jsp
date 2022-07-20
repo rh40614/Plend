@@ -24,8 +24,8 @@
 	<script src="https://kit.fontawesome.com/f5807db9d4.js" crossorigin="anonymous"></script>
 	
 	
+<!-- 프론트 디자인 -->
 	<script type="text/javascript">
-	//프론트 디자인
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/hostHeaderWithNav.jsp");
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
@@ -33,8 +33,8 @@
 		})
 	</script>
 	
+<!--슬라이드 배너 -->
 	<script>
-	//슬라이드 배너
 		let interval;
 		let activeIndex = 1;
 	
@@ -73,8 +73,8 @@
 	
 	</script>
 	
+<!--이벤트 버튼 -->
 	<script>
-	//이벤트 버튼
 			
 		function btn(obj){
 			
@@ -124,10 +124,7 @@
 		
 			<div class="promotionViewDIV">
 			
-			<table class="promotionTable" id="promotionTable">
-				
-				
-				<c:forEach var="e" items="${list_e}">
+				<table class="promotionTable" id="promotionTable">
 					<tr>
 						<td colspan="3" class="title2">${e.title}</td>
 					</tr>
@@ -149,20 +146,11 @@
 						<td class="promotionTD">약관(조건):</td>
 						<td class="promotionTD2">${e.conditions}</td>
 					</tr>
-					</c:forEach>
-				
-			</table>
-			
-			
-			
-			
-			
+				</table>
+			<br>
 			</div>
-		
-		
-		
-		
-		
+			
+			<button class="btnBig" onclick="location.href='<%=request.getContextPath()%>/host/eventList.do?startEnd=start'" >목록</button>
 		
 		</section>
 

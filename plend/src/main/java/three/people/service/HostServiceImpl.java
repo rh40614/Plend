@@ -37,10 +37,28 @@ public class HostServiceImpl implements HostService {
 
 
 	@Override
-	public List<EventVO> eventList(SearchVO searchVO) {
-		List<EventVO> result = hostDAO.eventList(searchVO);
+	public List<EventVO> eventList(EventVO eventVO) {
+		List<EventVO> result = hostDAO.eventList(eventVO);
 		return result;
 	}
+
+	@Override
+	public EventVO eventOne(EventVO eventVO) {
+		EventVO result = hostDAO.eventOne(eventVO);
+		return result;
+	}
+
+
+//	@Override
+//	public List<ImageVO> eventImageList(EventVO eventVO) {
+//		List<ImageVO> result = hostDAO.eventImageList(eventVO);
+//		return result;
+//	}
 	
+	@Override
+	public ImageVO eventImage(EventVO eventVO) {
+		ImageVO result = hostDAO.eventImage(eventVO);
+		return result;
+	}
 	
 }

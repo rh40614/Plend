@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import three.people.service.HostService;
+import three.people.service.MainService;
 import three.people.service.PlaceService;
 import three.people.vo.EventVO;
+import three.people.vo.FaqVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.SearchVO;
@@ -41,6 +43,9 @@ public class HostController {
 	
 	@Autowired
 	PlaceService placeService;
+	
+	@Autowired
+	MainService mainService;
 	
 	
 	
@@ -226,24 +231,85 @@ public class HostController {
 		return "host/inquiry_user";
 	}
 	
+
 	
 	@RequestMapping(value="/eventList.do", method= RequestMethod.GET)
-	public String eventList(Model model, SearchVO searchVO) {
+	public String eventList(Model model, EventVO eventVO) {
+		System.out.println("이벤트 리스트 페이지 ");
 		
-		List<EventVO> list_e = hostService.eventList(searchVO);
+		List<EventVO> list = hostService.eventList(eventVO);
 		
-		model.addAttribute("list_e",list_e);
 		
+		//semiTitle 자르기
+		for(EventVO event : list) {
+			if(event.getSemiTitle().length() >19) {
+				String semi = event.getSemiTitle().substring(0,19);
+				event.setSemiTitle(semi);
+			}
+			
+			
+		}
+		model.addAttribute("list",list);
+
 		return "host/eventList";
 	}
 	
 	
+	@ResponseBody
+	@RequestMapping(value="/eventImage.do", method= RequestMethod.GET)
+	public ImageVO eventImage(EventVO eventVO) {
+	System.out.println("이미지 로딩");
+		//사진 가지고 오기
+		ImageVO image = hostService.eventImage(eventVO);
+		
+		//사진이 저장된 경로 
+		String path = image.getPath();
+		String real = image.getRealFileName();
+		//String origin =image.getOriginFileName();
+		String p = path+"\\"+ real;
+		//String p = path+"/"+ origin;
+		
+		image.setPath(p);
+		
+		System.out.println("im: "+image.getPath());
+		System.out.println("imageList: "+image);
+		
+		
+		return image;
+	}
+	
+	
+	
+	//이벤트 리스트 (파라미터에 따라 출력)
+	@RequestMapping(value="/startList.do", method= RequestMethod.GET)
+	public String startList(Model model, EventVO eventVO) {
+		
+		List<EventVO> list = hostService.eventList(eventVO);
+		
+		//semiTitle 자르기
+		for(EventVO event : list) {
+			if(event.getSemiTitle().length() >19) {
+				String semi = event.getSemiTitle().substring(0,19);
+				event.setSemiTitle(semi);
+			}
+		}
+		//사진 가지고 오기
+		
+		model.addAttribute("list",list);
+		
+		return "host/startList";
+	}
+	
+	
 	@RequestMapping(value="/eventView.do", method= RequestMethod.GET)
-	public String eventView(Model model, SearchVO searchVO) {
+	public String eventView(Model model, EventVO eventVO) {
+		System.out.println("이벤트 상세 보기 페이지");
 		
-		List<EventVO> list_e = hostService.eventList(searchVO);
+		EventVO event = hostService.eventOne(eventVO);
 		
-		model.addAttribute("list_e",list_e);
+		System.out.println("eidx: "+event.getEidx());
+		
+		model.addAttribute("e",event);
 		return "host/eventView";
 	}
 	
@@ -267,6 +333,32 @@ public class HostController {
 	
 	@RequestMapping(value="/inquiry_dev.do", method= RequestMethod.GET)
 	public String inquiry_dev() {
+		return "host/inquiry_dev";
+	}
+	
+	@RequestMapping(value="/inquiry_dev.do", method= RequestMethod.POST)
+	public String inquiry_dev(FaqVO faqVO, HttpServletResponse response) throws IOException {
+		System.out.println("운영자에게 문의등록");
+		
+		int result = mainService.insertFaq(faqVO);
+		
+		response.setContentType("text/html;charset=utf-8");
+		
+		PrintWriter pw = response.getWriter();
+		
+		if(result <= 0) { 
+			System.out.println("운영자에게 문의 정상 등록");
+			pw.append("<script>alert('문의가 등록되지않았습니다. 다시 시도해주시길 바랍니다. ');location.href = 'inquiry_dev.do'</script>");
+			
+			pw.flush();
+		} else {
+			System.out.println("운영자에게 문의 등록 실패");
+			pw.append("<script>alert('문의가 정상적으로 등록이 되었습니다.');location.href = 'inquiry_dev.do'</script>");
+			
+			pw.flush();
+		}
+		
+		
 		return "host/inquiry_dev";
 	}
 	
