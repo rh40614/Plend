@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Hostcenter-프로모션</title>
+<title>Hostcenter-이벤트</title>
 
 	<link href="<%=request.getContextPath()%>/resources/css/global_Host.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/slideBanner_HOST.css" rel="stylesheet">
@@ -29,7 +29,6 @@
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/hostHeaderWithNav.jsp");
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
-			
 		})
 	</script>
 	
@@ -74,7 +73,7 @@
 	</script>
 	
 	<script>
-	//프로모션 버튼
+	//이벤트 버튼
 			
 		function btn(obj){
 			
@@ -94,9 +93,9 @@
 
 </head>
 <body>
-
+	<!-- header -->
 	<header id="header"></header>
-	
+	<!-- main -->
 	<!-- 2022.07.18 김연희: main에 margin top150dl 기본으로 되어있으나 배너 부분은  딱맞게 시작하게 설정 -->
 	<main style="margin-top: 85px;" >
 	
@@ -104,9 +103,9 @@
 		<div class="banner-container">
 		  <div class="banner">
 		    <div data-index=1><img src="<%=request.getContextPath()%>/resources/image/slideBanner/slideBanner.png" alt="슬라이드 1" onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'"></div>
-		    <div data-index=2><img src="<%=request.getContextPath()%>/resources/image/slideBanner/slideBanner.png" alt="슬라이드 2"></div>
-		    <div data-index=3><img src="<%=request.getContextPath()%>/resources/image/slideBanner/slideBanner.png" alt="슬라이드 3"></div>
-		    <div data-index=4><img src="<%=request.getContextPath()%>/resources/image/slideBanner/slideBanner.png" alt="슬라이드 4"></div>
+		    <div data-index=2><img src="<%=request.getContextPath()%>/resources/image/slideBanner/slideBanner.png" alt="슬라이드 2" onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'"></div>
+		    <div data-index=3><img src="<%=request.getContextPath()%>/resources/image/slideBanner/slideBanner.png" alt="슬라이드 3" onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'"></div>
+		    <div data-index=4><img src="<%=request.getContextPath()%>/resources/image/slideBanner/slideBanner.png" alt="슬라이드 4" onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'"></div>
 		  </div>
 		</div>
 		<div class="list-button">
@@ -114,57 +113,76 @@
 		  <span class="list-button-item"></span> 
 		  <span class="list-button-item"></span> 
 		  <span class="list-button-item"></span> 
-		</div>  
+		</div> 
 	
 	
 	
-		<!--제목  -->
+		<!--section  -->
 		<section>
-			<span class="title1 mb-5" style="margin-top:100px; margin-left: 30px;">프로모션 리스트</span>
-		
-			<div class="promotionViewDIV">
-			
-			<table class="promotionTable" id="promotionTable">
-				<tr>
-					<td colspan="3" class="title2">여름 맞이 특가 찬스!!</td>
-				</tr>
-				<tr>
-					<td rowspan="4" ><img style="width: 100%; height: 80%;" src="<%=request.getContextPath()%>/resources/image/promotion/promotionM.png" alt="프로모션 이미지"></td>
-					<td class="promotionTD">부제목: </td>
-					<td class="promotionTD2">10% 상설 할인</td>
-				</tr>
-				<tr>
-					<td class="promotionTD">기간: </td>
-					<td class="promotionTD2">2022.07.12~2022.08.12</td>
-				</tr>
-				<tr>
-					<td class="promotionTD">내용: </td>
-					<td class="promotionTD2">여름을 맞이하여 제휴  업체들에게는 10% 할인 쿠폰을 제공합니다.5000원 이상 구매시 사용가능업체당 100매</td>
-				</tr>
-				<tr>
-					<td class="promotionTD">약관(조건):</td>
-					<td class="promotionTD2"></td>
-				</tr>
-			
-			
-			</table>
-			
-			
-			
-			
-			
+			<!-- 제목 -->
+			<span class="title1 mb-5" style="margin-top:100px; margin-left:0px;">이벤트 리스트</span>
+			<!-- 버튼 그룹 -->
+			<div class="btn-group" role="group" id="btnGroup" >
+				<button class="btnBig" id="promotionON" onclick="btn(this)">진행중</button>	
+				<button class="btnBig btnDisabled" id="promotionOFF" onclick="btn(this)">진행 종료</button>	
 			</div>
 		
 		
-		
-		
+				<!-- 이벤트 -->
+				<article>
+				<c:if test="${list_e.size() == 0}">
+				
+					<div class="card mt-3 me-5"  style="width: 18rem;">
+					  <img src="" class="card-img-top" alt="현재 진행되는 이벤트가 없습니다. " onclick="">
+					  <div class="card-body">
+					    <p class="card-text">현재 진행 이벤트가 없습니다. </p>
+					  </div>
+					</div>
+				</c:if>
+				
+				<c:if test="${not empty list_e}">
+				<c:forEach var="event" items="${list_e}">
+					<div class="card mt-3 me-5"  style="width: 18rem;">
+					  <img src="<%=request.getContextPath()%>/resources/image/promotion/promotion.png" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${event.eidx}">
+					  <div class="card-body">
+					    <p class="card-text">${event.semiTitle}</p>
+					  </div>
+					</div>
+					
+					<div class="card mt-3 me-5" style="width: 18rem;">
+					  <img src="<%=request.getContextPath()%>/resources/image/promotion/promotion.png" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/eventView.do'">
+					  <div class="card-body">
+					    <p class="card-text">전 카테고리 10% 할인 </p>
+					  </div>
+					</div>
+					
+					<div class="card mt-3 me-5" style="width: 18rem;">
+					  <img src="<%=request.getContextPath()%>/resources/image/promotion/promotion.png" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/eventView.do'">
+					  <div class="card-body">
+					    <p class="card-text">전 카테고리 10% 할인 </p>
+					  </div>
+					</div>
+					 
+					<div class="card mt-3 me-5" style="width: 18rem;">
+					  <img src="<%=request.getContextPath()%>/resources/image/promotion/promotion.png" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/eventView.do'">
+					  <div class="card-body">
+					    <p class="card-text">전 카테고리 10% 할인 </p>
+					  </div>
+					</div> 
+				
+					</c:forEach>
+				</c:if>
+				
+				</article>
+				
 		
 		
 		</section>
 
 	</main>
-		<div style="margin:200px;"></div>	
+	<div style="margin:300px;"></div>
 	<footer id="footer"></footer>
+	
 
 </body>
 </html>
