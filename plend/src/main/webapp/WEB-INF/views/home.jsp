@@ -47,6 +47,7 @@
 	<main>
 	<br>
 	<a href="insertPlace.do">장소등록 </a>
+	<a href="myPage/myInfo.do">마이페이지</a>
 	
   	<div class="container" style="width: 1100px;">
     	<span class="navbar-brand">| 추천 장소</span>

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page session="true" %>
 <style>
 	#wrap {
 	  display: flex;
@@ -34,19 +37,28 @@
       	
         <button type="button" class="btn-close text-reset" style="margin-left: auto;" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
      
+        <c:if test="${login == null}">
         <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: white; font-size:20px;">Plend</h5>
+
         
+        <button type="button" class="btn-primary btn-lg mb-4" style="background: #FC5185; color: white; border-radius: 50px; border: none; "onclick="location.href='<%=request.getContextPath()%>/common/signIn.do' ">로그인/회원가입</button>
+     	</c:if>
+     	
+     	<c:if test = "${login != null }">
+     		<h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: white; font-size:20px;">${vo.nickName} 환영합니다.</h5>
+
         
-        <button type="button" class="btn-primary btn-lg mb-4" style="background: #FC5185; color: white; border-radius: 50px; border: none; ">로그인/회원가입</button>
+       		<button type="button" class="btn-primary btn-lg mb-4" style="background: #FC5185; color: white; border-radius: 50px; border: none; "onclick="location.href='<%=request.getContextPath()%>/common/signOut.do' ">로그아웃</button>
+     	</c:if>
       </div>
       <div class="offcanvas-body" style="background:#E5E5E5;">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">공지사항</a>
+            <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/main/notice.do">공지사항</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">FAQ</a>
-          </li>
+            <a class="nav-link" href="<%=request.getContextPath()%>/main/faq.do">FAQ</a>
+          </li>>
           <li class="nav-item">
             <a class="nav-link" href="#">1:1 문의</a>
           </li>
