@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
+import three.people.vo.InquiryVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.SearchVO;
 
@@ -37,17 +38,12 @@ public class HostDAO {
 		return result;
 	}
 	
-//	//이벤트 이미지 리스트 
-//	public List<ImageVO> eventImageList(EventVO eventVO) {
-//		List<ImageVO> result = sqlSession.selectList(namespace+".eventImage", eventVO);
-//		return result;
-//		
-//	}
-	//이벤트 하나
-	public EventVO eventOne(EventVO eventVO) {
-		EventVO result= sqlSession.selectOne(namespace+".eventOne", eventVO);
+	//이벤트 사진 리스트 
+	public List<ImageVO> eventImageList(EventVO eventVO) {
+		List<ImageVO> result = sqlSession.selectList(namespace+".eventImage", eventVO);
 		return result;
-	}
+		
+	}	
 	
 	//사진 하나 
 	public ImageVO eventImage(EventVO eventVO) {
@@ -55,6 +51,17 @@ public class HostDAO {
 		return result;
 		
 	}
+		
 	
+	//이벤트 하나
+	public EventVO eventOne(EventVO eventVO) {
+		EventVO result= sqlSession.selectOne(namespace+".eventOne", eventVO);
+		return result;
+	}
+	
+	public int insertInquiry_dev(InquiryVO inquiryVO) {
+		int result = sqlSession.insert(namespace+".insertInquiry_dev", inquiryVO);
+		return result;
+	} 
 	
 }

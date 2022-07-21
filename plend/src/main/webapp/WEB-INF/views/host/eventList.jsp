@@ -140,26 +140,27 @@
 	<script>
 	$(function(){
 		
-		$.ajax({
+		 /* $.ajax({
 			url: "eventImage.do",
 			type: "GET",
 			data: "eidx="+ $("#eidx").val(),
 			success: function(image){
 				console.log("사진성공");
 				var html ="";
-				html = "<a href='javascript:eventView?eidx="+image.eidx+"'><img src='"+image.path+"' class='card-img-top' alt='사진이 안뜨네요'></a>";
+				html = "<a href='javascript:eventView("+image.eidx+");'><img src='"+image.path+"' class='card-img-top' alt='사진이 안뜨네요'></a>";
 				
-				$("#im").html(html);
+				$("#image").html(html);
 			},
 			error: function(){
 				console.log("사진실패");
 			}
 			
-		});
-		
+		}); 
+		 */
 	});
 		
 	</script>
+	
 	
 	
 </head>
@@ -204,21 +205,18 @@
 				
 				<c:if test="${list.size() == 0}">
 				
-					<div class="card mt-3 me-5"  style="width: 18rem;">
-					  <img src="" class="card-img-top" alt="현재 진행되는 이벤트가 없습니다. " onclick="">
-					  <div class="card-body">
-					    <p class="card-text">현재 진행 이벤트가 없습니다. </p>
-					  </div>
+					<div class=" mt-3 me-5"  style="width: 18rem;">
+					    <p class="title2 ms-auto">현재 진행 이벤트가 없습니다. </p>
 					</div>
 				</c:if>
 				
 				<c:if test="${not empty list}">
 					<c:forEach var="event" items="${list}">
 						<div class="card mt-3 me-5"  style="width: 18rem;">
-						<div id="im"></div>
-						 <%--  <img src="${image.path} " class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${event.eidx}"> --%>
+							<!-- <div id="image"></div> -->
+							 	<img src="../imgs/${event.path}" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${event.eidx}">
 							  <div class="card-body">
-							    <p class="card-text">${event.semiTitle}</p>
+							    <p class="card-text"  onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${event.eidx}">${event.semiTitle}</p>
 							  </div>
 						</div>
 						<input type="hidden" value="${event.eidx}" id="eidx">

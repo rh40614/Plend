@@ -103,12 +103,27 @@ public class DeveloperController {
 			if(!file.getOriginalFilename().isEmpty()) {
 				file.transferTo(new File(path, file.getOriginalFilename()));
 				String originFileName = file.getOriginalFilename();
+//				
+//				Date now = new Date();
+//				SimpleDateFormat simple = new SimpleDateFormat("SSS");
+//				String distinct = simple.format(now);
+//				
+//				String realFileName = originFileName + distinct;
 				
-				Date now = new Date();
+				
+				//2022.07.21  김연희 : 사진 호출을 위해 사진 저장 이름 변경(사진이름SSS.확장자)
+				//확장자 추출(이후 호출 할때 확장자가 두번 붙어버림) 
+				String extention = originFileName.substring(originFileName.lastIndexOf("."));
+				//확장자를 제거한 파일 이름
+				String origin = originFileName.replace(extention, "");
+				
+				Date now =new Date();
 				SimpleDateFormat simple = new SimpleDateFormat("SSS");
 				String distinct = simple.format(now);
 				
-				String realFileName = originFileName + distinct;
+				//서버에 저장될 이름(사진이름SSS.확장자)
+				String realFileName = origin + distinct+ extention ;
+				System.out.println("realFileName: "+realFileName);
 				
 				ImageVO imagevo = new ImageVO();
 				imagevo.setEidx(eventvo.getEidx());
