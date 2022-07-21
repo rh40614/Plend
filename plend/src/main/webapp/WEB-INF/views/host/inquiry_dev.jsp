@@ -73,7 +73,7 @@
 			<!-- 썸머노트 -->
 			<div class="spaceL mt-2">
 				<form action="inquiry_dev.do" method="POST" name="frm">
-				<select name="">
+				<select name="category">
 					<option value="place">장소</option>
 					<option value="payment">결제</option>
 					<option value="refund">환불</option>

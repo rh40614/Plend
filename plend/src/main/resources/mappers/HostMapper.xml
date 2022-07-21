@@ -101,12 +101,12 @@
 		FROM image i 
 		JOIN event e 
 		ON i.eidx = e.eidx
-		WHERE i.eidx = #{eidx}
+		WHERE e.eidx = #{eidx}
 		
 	</select>
 	
 	
-	
+
 	<!-- 2022.07.20 김연희 이벤트하나 호출 -->
 	<select id="eventOne" parameterType="EventVO" resultType="EventVO">
 		SELECT 
@@ -125,7 +125,28 @@
 	</select>
 	
 	<!-- 2022.07.20 김연희 : 운영자 문의 사항 등록 -->
+	<insert id="insertInquiry_dev" parameterType="InquiryVO">
+	INSERT INTO inquiry(
+					uidx
+					,category
+					,title
+					,content
+					,img
+					,originiqidx
+					,depth
+					,answerRate
+			)VALUES(
+					 #{uidx}
+					,#{category}
+					,#{title}
+					,#{content}
+					,#{img}
+					,#{originiqidx}
+					,#{depth}
+					,#{answerRate}
+			)
 	
+	</insert>
 	
 	
 </mapper>

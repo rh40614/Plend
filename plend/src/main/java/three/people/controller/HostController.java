@@ -28,6 +28,7 @@ import three.people.service.PlaceService;
 import three.people.vo.EventVO;
 import three.people.vo.FaqVO;
 import three.people.vo.ImageVO;
+import three.people.vo.InquiryVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
@@ -131,15 +132,18 @@ public class HostController {
 					//originName(사용자가 저장한 이름) 가지고 오기
 					String originFileName = files.getOriginalFilename();
 					
-					// 파일 이름 구분자로 사용하기 위해 현재 시각의 밀리 초반환 
+					//확장자 추출(이후 호출 할때 확장자가 두번 붙어버림) 
+					String extention = originFileName.substring(originFileName.lastIndexOf("."));
+					//확장자를 제거한 파일 이름
+					String origin = originFileName.replace(extention, "");
+					
 					Date now =new Date();
 					SimpleDateFormat simple = new SimpleDateFormat("SSS");
 					String distinct = simple.format(now);
 					
-					//서버에 저장될 이름
-					String realFileName = originFileName + distinct;
-					//파일이름 꺼내서 이름값으로 insert
-					
+					//서버에 저장될 이름(사진이름SSS.확장자)
+					String realFileName = origin + distinct+ extention ;
+					System.out.println("realFileName: "+realFileName);
 					
 					ImageVO imageVO = new ImageVO();
 					
@@ -172,10 +176,7 @@ public class HostController {
 			
 			pw.append("<script>alert('장소등록에 실패하였습니다. 다시 한번 시도해주시길 바랍니다. ');location.href='/insertPlace.do';</script>");
 		}
-		
-		
 	
-		
 	}
 
 	
@@ -233,26 +234,62 @@ public class HostController {
 	
 
 	
+	
 	@RequestMapping(value="/eventList.do", method= RequestMethod.GET)
 	public String eventList(Model model, EventVO eventVO) {
+		
 		System.out.println("이벤트 리스트 페이지 ");
 		
+		//화면 로딩시 파라미터가 start인것들만 가지고 옴
 		List<EventVO> list = hostService.eventList(eventVO);
+		System.out.println("list: "+ list);
 		
 		
-		//semiTitle 자르기
 		for(EventVO event : list) {
+			//semiTitle 자르기
 			if(event.getSemiTitle().length() >19) {
 				String semi = event.getSemiTitle().substring(0,19);
 				event.setSemiTitle(semi);
 			}
 			
-			
 		}
+		
+		//이벤트 index가지고 와서 넘겨줘야함
+		
+		//사진 가지고 오기
+		List<ImageVO> imageList = hostService.eventImageList(eventVO);
+		System.out.println("image: "+ imageList);
+			
+			for(ImageVO image :imageList) {
+				
+				//사진이 저장된 경로 
+				//String path = image.getPath();
+				String real = image.getRealFileName();
+				String origin =image.getOriginFileName();
+				//String p = path+"\\"+ origin;
+				
+				//확장자 추출
+				String extention = origin.substring(origin.lastIndexOf("."));
+				
+				//뒤에 붙은 밀리초
+				String SSS = real.substring(real.length()-7, real.length());
+				
+				//밀리초 떼고 확장자 붙이기
+				String fileName = real.replace(SSS, extention);
+				//최종 경로
+				//외부에 있는 파일은 경로를 mapping 해주어야해서 이름만 넘겨주기 
+			
+				System.out.println("파일이름: "+fileName);
+			
+				
+			}
+		
+		
 		model.addAttribute("list",list);
 
 		return "host/eventList";
 	}
+	
 	
 	
 	@ResponseBody
@@ -265,19 +302,61 @@ public class HostController {
 		//사진이 저장된 경로 
 		String path = image.getPath();
 		String real = image.getRealFileName();
-		//String origin =image.getOriginFileName();
-		String p = path+"\\"+ real;
-		//String p = path+"/"+ origin;
+		String origin =image.getOriginFileName();
+		//String p = path+"\\"+ origin;
 		
+		//확장자 추출
+		String extention = origin.substring(origin.lastIndexOf(".")+1);
+		
+		//뒤에 붙은 밀리초
+		String SSS = real.substring(real.length()-3, real.length());
+		
+		//밀리초 떼기
+		String fileName = real.replace(SSS, extention);
+		//최종 경로
+		String p = path+"\\"+ fileName;
 		image.setPath(p);
 		
 		System.out.println("im: "+image.getPath());
-		System.out.println("imageList: "+image);
-		
 		
 		return image;
 	}
 	
+	
+	
+	
+	//이미지 리스트로 가지고 오기
+//	@ResponseBody
+//	@RequestMapping(value="/eventImageList.do", method= RequestMethod.GET)
+//	public List<ImageVO> eventImageList(EventVO eventVO) {
+//	
+//	
+//		List<ImageVO> imageList = hostService.eventImageList(eventVO);
+//		
+//	
+//			for(ImageVO image :imageList ) {
+//				
+//				//사진이 저장된 경로 
+//				String path = image.getPath();
+//				String real = image.getRealFileName();
+//				String origin =image.getOriginFileName();
+//				//확장자 추출
+//				String extention = origin.substring(origin.lastIndexOf(".")+1);
+//				
+//				//뒤에 붙은 밀리초
+//				String SSS = real.substring(real.length()-3, real.length());
+//				//밀리초 떼기
+//				String fileName = real.replace(SSS, extention);
+//				//최종 경로
+//				String p = path+"\\"+ fileName;
+//				image.setPath(p);
+//					
+//				System.out.println("image경로 : "+p);
+//				}
+//			
+//			return imageList;	
+//			
+//	}
 	
 	
 	//이벤트 리스트 (파라미터에 따라 출력)
@@ -285,6 +364,8 @@ public class HostController {
 	public String startList(Model model, EventVO eventVO) {
 		
 		List<EventVO> list = hostService.eventList(eventVO);
+	
+	
 		
 		//semiTitle 자르기
 		for(EventVO event : list) {
@@ -294,6 +375,7 @@ public class HostController {
 			}
 		}
 		//사진 가지고 오기
+		
 		
 		model.addAttribute("list",list);
 		
@@ -337,27 +419,32 @@ public class HostController {
 	}
 	
 	@RequestMapping(value="/inquiry_dev.do", method= RequestMethod.POST)
-	public String inquiry_dev(FaqVO faqVO, HttpServletResponse response) throws IOException {
+	public String inquiry_dev(InquiryVO inquiryVO, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
 		System.out.println("운영자에게 문의등록");
 		
-		int result = mainService.insertFaq(faqVO);
+		//세션 형성해서 login정보 가지고 오기
+		session = request.getSession();
+		UserVO login = (UserVO)session.getAttribute("login");
 		
-		response.setContentType("text/html;charset=utf-8");
+		//세션에있는 회원의 uidx vo에 담기 
+		inquiryVO.setUidx(login.getUidx()); 
+		
+		//문의 등록
+		int result = hostService.insertInquiry_dev(inquiryVO);
 		
 		PrintWriter pw = response.getWriter();
+		response.setContentType("text/html;charset=utf-8");
 		
 		if(result <= 0) { 
 			System.out.println("운영자에게 문의 정상 등록");
-			pw.append("<script>alert('문의가 등록되지않았습니다. 다시 시도해주시길 바랍니다. ');location.href = 'inquiry_dev.do'</script>");
-			
+			pw.append("<script>alert('문의가 등록되지않았습니다. 다시 시도해주시길 바랍니다.');location.href = 'inquiry_dev.do'</script>");
 			pw.flush();
+			
 		} else {
 			System.out.println("운영자에게 문의 등록 실패");
 			pw.append("<script>alert('문의가 정상적으로 등록이 되었습니다.');location.href = 'inquiry_dev.do'</script>");
-			
 			pw.flush();
 		}
-		
 		
 		return "host/inquiry_dev";
 	}
