@@ -77,11 +77,11 @@
 					<option value="place">장소</option>
 					<option value="payment">결제</option>
 					<option value="refund">환불</option>
-					<option value="refort">신고</option>
+					<option value="report">신고</option>
 					
 				</select>
 					<span>문의제목 </span><input type="text" name="title" size="50" required>
-					<textarea id="summernote" name="question" required></textarea> 
+					<textarea id="summernote" name="content" required></textarea> 
 					<button type="submit" class="btnBig" onclick="insert()">문의 등록</button>
 				</form>
 			</div>
@@ -99,30 +99,28 @@
 							</tr>
 						<thead>
 						<tbody>
-							<c:if test="${list_p.size() == 0}">	 --%>
+							<c:if test="${list.size() == 0}">
 								<tr>
 									<td colspan="6">등록된 문의가 없습니다.</td>
 								</tr>
 							</c:if> 
 							
-							<%-- <c:if test="${list_p.size() > 0}">
-								<c:forEach var="pv" items="${list_p}"> --%>
+							<c:if test="${list.size() > 0}">
+								<c:forEach var="i" items="${list}">
 									<tr >
-										<td>1</td>
-										<td>장소등록</td>
-										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/inquiryView_dev.do">장소가 등록되지않습니다.</a></td>
-										<td>답변 대기</td>
-										<td>2022.07.25</td>
+										<td>${i.iqidx}</td>
+										<td>${i.category}</td>
+										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/inquiryView_dev.do?iqidx=${i.iqidx}">${i.title}</a></td>
+										<c:if test="${i.answerYN eq 'Y'}">
+											<td>답변 완료</td>
+										</c:if>
+										<c:if test="${i.answerYN eq 'N'}">
+											<td>답변 대기</td>
+										</c:if>
+										<td>${i.date}</td>
 									</tr>
-									<tr >
-										<td>1</td>
-										<td>장소등록</td>
-										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/inquiryView_dev.do">장소가 등록되지않습니다.</a></td>
-										<td>답변 대기</td>
-										<td>2022.07.25</td>
-									</tr>
-								<%-- </c:forEach>
-							</c:if> --%>
+								</c:forEach>
+							</c:if>
 						</tbody>
 					</table>
 					

@@ -40,72 +40,80 @@
 	<main>
 	<!-- 이전 문의 내역 -->
 		<section>	
-		
-			<div style="display: flex;  justify-content: space-between; align-items: baseline;  width: 75%">
-				<span class="title1 mt-2" >이전 문의내역</span>	
-				<!-- 문의 버튼 -->			
-				<button class="btnBig ms-auto" onclick="location.href='<%=request.getContextPath()%>/host/inquiry_dev.do'">문의하러가기</button>
-			</div>
+			<span class="title1 mt-5" >이전 문의내역</span>	
+				<div class=".table-responsive container " style="margin: 50px 0px 0px 100px;" >
 					
-				<div class=".table-responsive container " style="margin: 50px 0px 0px 100px; width: 75%" >
-					
-					<table class="table table-hover text-center clearfix table-striped " >
+					<table class="table table-hover text-center clearfix table-striped" >
 						<thead class="">
-							<tr>
+							<tr style="text-al">
 								<td>번호</td><td>유형</td><td>제목</td><td>답변여부</td><td>작성일</td>
 							</tr>
 						<thead>
 						<tbody>
-							<c:if test="${list_p.size() == 0}">	 --%>
+							<c:if test="${list.size() == 0}">
 								<tr>
 									<td colspan="6">등록된 문의가 없습니다.</td>
 								</tr>
 							</c:if> 
 							
-							<%-- <c:if test="${list_p.size() > 0}">
-								<c:forEach var="pv" items="${list_p}"> --%>
+							<c:if test="${list.size() > 0}">
+								<c:forEach var="i" items="${list}">
 									<tr >
-										<td>1</td>
-										<td>장소등록</td>
-										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/inquiryView_dev.do">장소가 등록되지않습니다.</a></td>
-										<td>답변 대기</td>
-										<td>2022.07.25</td>
+										<td>${i.iqidx}</td>
+										<td>${i.category}</td>
+										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/inquiryView_dev.do?iqidx=${i.iqidx}">${i.title}</a></td>
+										<c:if test="${i.answerYN eq 'Y'}">
+											<td>답변 완료</td>
+										</c:if>
+										<c:if test="${i.answerYN eq 'N'}">
+											<td>답변 대기</td>
+										</c:if>
+										<td>${i.date}</td>
 									</tr>
-									<tr >
-										<td>1</td>
-										<td>장소등록</td>
-										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/inquiryView_dev.do">장소가 등록되지않습니다.</a></td>
-										<td>답변 대기</td>
-										<td>2022.07.25</td>
-									</tr>
-								<%-- </c:forEach>
-							</c:if> --%>
+								</c:forEach>
+							</c:if>
 						</tbody>
 					</table>
 					
-					<!-- 페이징 -->	
-					<nav aria-label="Page navigation example" class="m-auto">
-					  <ul class="pagination justify-content-center " >
-					    <li class="page-item text-secondary">
-					      <a class="page-link text-secondary" href="#" aria-label="Previous">
-					        <span aria-hidden="true">&laquo;</span>
-					      </a>
+			<!-- 페이징 -->
+			<c:if test="${not empty list}">
+				<nav aria-label="Page navigation example" class="m-auto">
+				  <ul class="pagination justify-content-center " >
+				  	
+					<c:if test="${pagenation.startPage > 5}">
+						<li class="page-item">
+				      		<a class="page-link" href="inquiryView_dev.do?nowPage=4">&laquo;</a>
+				    	</li>
+				    </c:if>
+				    
+					<c:forEach begin="${pagenation.startPage}" end="${pagenation.endPage}" var="p">
+						<c:choose>
+							<c:when test="${p == pagenation.nowPage }">
+								 <li class="page-item text-secondary">
+								 <a class="page-link text-secondary" href="inquiryView_dev.do?nowPage=${p}">${p}</a></li>
+							</c:when>
+							<c:when test="${p != pagenation.nowPage }">
+								<li class="page-item text-secondary">
+								 <a class="page-link text-secondary" href="inquiryView_dev.do?nowPage=${p}">${p}</a></li>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+				
+			    	<c:if test="${pagenation.endPage != pagenation.lastPage}">
+					    <li class="page-item">
+					      <a class="page-link" href="inquiryView_dev.do?nowPage=${pagenation.endPage +1}">&raquo;</a>
 					    </li>
-					    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">1</a></li>
-					    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">2</a></li>
-					    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">3</a></li>
-					    <li class="page-item text-secondary">
-					      <a class="page-link text-secondary" href="#" aria-label="Next">
-					        <span aria-hidden="true">&raquo;</span>
-					      </a>
-					    </li>
-					  </ul>
-					</nav>
+			    	</c:if>
+				  </ul>
+				</nav>
+			</c:if>
 			</div>
 				
 		</section>
 		
-		
+		<div style="text-align: right;">
+			<button class="btnBig" onclick="location.href='<%=request.getContextPath()%>/host/inquiry_dev.do'">문의 작성하기</button>
+		</div>
 		
 		<hr class="w-75" style="margin-left:200px;">
 		
@@ -120,21 +128,25 @@
 			<table class="spaceL border border-3 rounded w-75" style="border-collapse: initial;" >
 				<tbody>
 					<tr>
-						<td colspan="2" class="fs-5"  style="padding: 30px;">문의는 고구마가 먹고싶은듸</td>
+						<td colspan="2" class="fs-5"  style="padding: 30px;">${inquiry.title}</td>
 					</tr>
 					<tr>
-						<td class="ps-4 pe-2" style="width: 80px;">유형 : </td><td>장소등록</td>
+						<td class="ps-4 pe-2" style="width: 80px;">유형 : </td>
+						<td>${inquiry.category}</td>
 					</tr>
 					<tr>
-						<td class="ps-4 pe-2" style="width: 80px;">제목 : </td><td>장소등록이 안되는데 어떠한 연유인지 궁금합니다.</td>
+						<td class="ps-4 pe-2" style="width: 80px;">제목 : </td>
+						<td>${inquiry.title}</td>
 					</tr>
 					<tr>
-						<td class="ps-4 pe-2 text-break" style="width: 80px;">내용 :</td><td>제목이 곧 내용이기는 하지만 장소등록이 안되니까 어떻게 해야할 지 모르겠습니다. 지금 너무 졸려요 어떻게하면 이 피곤함을 풀수있을까요 </td>
+						<td class="ps-4 pe-2 text-break" style="width: 100px; vertical-align: top;">내용 :</td>
+						<td>${inquiry.content}</td>
 					</tr>
 				</tbody>
 			</table>
 				<br>
-				<div class="btn-group spaceL" role="group" id="btnGroup" >
+				<p>답변이 달린 이후에는 수정 또는 삭제가 불가능합니다. </p>
+				<div class="btn-group spaceL" role="group" id="btnGroup" style="text-align: right;" >
 					<button class="btnDefault me-3" type="button" onclick="location.href='<%=request.getContextPath()%>/host/inquiryEdit_dev.do'">수정</button>
 					<button class="btnDefault" type="button" onclick="location.href='<%=request.getContextPath()%>/host/inquiryDelete_dev.do'">삭제</button>
 				</div>

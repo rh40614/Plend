@@ -64,4 +64,20 @@ public class HostDAO {
 		return result;
 	} 
 	
+	public List<InquiryVO> selectInquiry(InquiryVO inquiryVO) {
+		List<InquiryVO> result = sqlSession.selectList(namespace+".selectInquiry", inquiryVO);
+		return result;
+	} 
+	
+	public InquiryVO selectInquiryOne(InquiryVO inquiryVO) {
+		InquiryVO result = sqlSession.selectOne(namespace+".selectInquiryOne", inquiryVO);
+		return result;
+	} 
+	
+	public int cntIqidx(InquiryVO inquiryVO) {
+		int result = sqlSession.selectOne(namespace+".cntIqidx", inquiryVO);
+		return result;
+	}
+	
+	
 }

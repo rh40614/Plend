@@ -68,5 +68,27 @@ public class HostServiceImpl implements HostService {
 		int result = hostDAO.insertInquiry_dev(inquiryVO);
 		return result;
 	}
+
+
+	@Override
+	public List<InquiryVO> selectInquiry(InquiryVO inquiryVO) {
+		List<InquiryVO> result= hostDAO.selectInquiry(inquiryVO);
+		return result;
+	}
+
+
+	@Override
+	public InquiryVO selectInquiryOne(InquiryVO inquiryVO) {
+		InquiryVO result = hostDAO.selectInquiryOne(inquiryVO);
+		return result;
+	}
+
+
+	@Override
+	public int cntIqidx(InquiryVO inquiryVO) {
+		int result = hostDAO.cntIqidx(inquiryVO);
+		return result;
+	}
+	
 	
 }
