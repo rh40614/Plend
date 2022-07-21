@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import three.people.dao.PlaceDAO;
 import three.people.vo.PlaceVO;
+import three.people.vo.QnaVO;
 import three.people.vo.SearchVO;
 
 @Service
@@ -26,6 +27,21 @@ public class PlaceServiceIml implements PlaceService{
 	public int cntPlace(PlaceVO pidx) {
 		int result = placeDAO.cntPlace(pidx);
 		return result;
+	}
+
+	@Override
+	public PlaceVO placeOne(PlaceVO placevo) {
+		return placeDAO.placeOne(placevo);
+	}
+
+	@Override
+	public int insertQnA(QnaVO qnavo) {
+		return placeDAO.insertQnA(qnavo);
+	}
+
+	@Override
+	public List<QnaVO> selectQnA(PlaceVO placevo) {
+		return placeDAO.selectQnA(placevo);
 	}
 
 }

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<form id="frm" action="modifyEvent.do" method="POST" enctype="multipart/form-data">
+<form id="frm" action="modifyEvent.do" method="POST" enctype="multipart/form-data" onsubmit="return validation()">
 <section class="row px-1">
 	<table class="col table text-center table-hover">
 	  <tbody>
@@ -42,19 +42,19 @@
 		</tr>
 		<tr> 
 			<td class="align-middle text-center">제목</td>
-			<td><input name="title" type="text" class="form-control" value="${eventvo.title}"> </td>
+			<td><input name="title" type="text" class="form-control" value="${eventvo.title}" required> </td>
 		</tr>
 		<tr> 
 			<td class="align-middle text-center">상세내용</td>
-			<td><input name="semiTitle" type="text" class="form-control" value="${eventvo.semiTitle}"></td>
+			<td><input name="semiTitle" type="text" class="form-control" value="${eventvo.semiTitle}" required></td>
 		</tr>
 		<tr> 
 			<td class="align-middle text-center">이벤트 설명</td>
-			<td><input name="content" type="text" class="form-control" value="${eventvo.content}"> </td>
+			<td><input name="content" type="text" class="form-control" value="${eventvo.content}" required> </td>
 		</tr>
 		<tr> 
 			<td class="align-middle text-center">이용조건</td>
-			<td><input name="conditions" id="conditions" type="text" class="form-control" value="${eventvo.conditions}"> </td>
+			<td><input name="conditions" id="conditions" type="text" class="form-control" value="${eventvo.conditions}" required> </td>
 		</tr>
 		<tr> 
 			<td class="align-middle text-center">파일 등록 </td>
