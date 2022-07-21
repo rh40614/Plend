@@ -112,7 +112,13 @@
 	<header id="header"></header>
 	<br>
 	<form action = "faqReg.do" method = "post" name = "frm">
-		<input type = "hidden" value = "1" name = "role">
+		<select name = "category">
+				<option value = "">- 카테고리 -</option>
+				<option value = "book">예약</option>
+				<option value = "use">이용</option>
+				<option value = "coupon">쿠폰</option>
+				<option value = "sue">신고</option>
+			</select>
 		<div style="margin-left:23%;margin-right:23%;">
 			<h2 >| FAQ 등록</h2>
 			<br>

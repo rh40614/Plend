@@ -14,7 +14,6 @@
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/home.css" rel="stylesheet">
-	<link href="<%=request.getContextPath()%>/resources/css/myInfo.css" rel="stylesheet">
 	
 	<script type="text/javascript">
 		$(function(){
@@ -37,7 +36,100 @@
 	}
 	
 	</script>
+	<style>
+	ul {
+	  	float : left;
+		list-style-type: none;
+		margin-top :95px;
+		padding: 0;
+		width: 11%;
+		background-color: #CFCFCF;
+		position: fixed; left : 0;
+		overflow: auto;
+		padding-bottom:15px;
+		}
 	
+	li a {
+		display: block;
+		color: white;
+		padding: 8px 16px;
+		text-decoration: none;
+		position : relative;
+		margin-top : 20px;
+		text-align:center;
+		}
+	li a:before{
+		content: '';
+		position: absolute; /*부모 요소에는 position: relative를 주어야 함*/
+		background-color: #FF007F;
+		height: 50px;
+		width: 0; /*초기에 보이지 않도록*/
+		bottom: -5px; /*a태그 아래에 위치*/
+		transition: 0.7s; /*애니메이션 동작 실행 시간 정의*/
+		margin-left:30px;
+		left:0;
+		z-index : -1;
+		}
+		
+	li a:hover:before{
+		width: 84%;
+		}
+	li a:hover{
+		color:white;	
+		}
+		
+	#bookBox{
+		margin : 10% 0 0 37%;
+		float : right;
+		background: #F2F2F2;
+		width : 45%;
+		height: 100%;
+		text-align:center;
+	
+		}
+	table {
+		width : 400px;
+		margin-left:auto;
+		margin-right:auto;
+		
+		}
+	table,tr,td {
+		height : 40px;
+		text-align: center;
+		}
+		
+	#regBtn {
+		margin-right: 13px;
+		float:right;
+		border-radius:15px;
+		border : 1px solid #2F506D;
+		background : #2F506D;
+		color : white;
+		width : 90px;
+		height : 30px;
+		}
+	#regBtn:hover {
+		border : 0px;
+		background-color:#3FC1C9;
+		}
+		
+	#MyPageBox{
+		text-align:center;
+		color:white;
+		background:#2F506D;
+		padding-bottom: 10px;
+		padding-top: 10px;
+			
+		}
+	#infoText {
+		border : 0;
+		background : #D8D8D8;
+		width : 250px;
+		
+		
+		}
+	
+	</style>
 </head>
 
 <body>
@@ -53,9 +145,9 @@
      	</div>
      	<br>
      	<!-- 나중에 해당링크 들어간 곳 글씨 진하게하는 css 추가하기 -->
- 		 <li><a href="myInfo.do?uidx=${login.uidx}"><strong>내 정보</strong></a></li>
+ 		 <li><a href="myInfo.do?uidx=${login.uidx}">내 정보</a></li>
  		 <li><a href="#">쿠폰 등록</a></li>
-  		 <li><a href="bookStatus.do">예약 현황</a></li>
+  		 <li><a href="bookStatus.do?uidx=${login.uidx}"><strong>예약 현황</strong></a></li>
  		 <li><a href="#">찜 목록</a></li>
  		 <li><a href="#">마이 리뷰</a></li>
  		 <li><a href="#">회원 탈퇴</a></li>
@@ -70,7 +162,7 @@
       </div>
     </nav>
    </div>
-   <div id = "infoBox">
+   <div id = "bookBox">
    	<br>
 		<h4>내 정보</h4>
 		<hr>
