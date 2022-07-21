@@ -19,7 +19,7 @@
 
   <div class="container" style="align-items: center; flex-wrap: wrap; justify-content: center;">
   	<div style=" display: flex; flex-direction: row; align-items: center; width: 100%;">
-    <a class="navbar-brand" style=" margin-right:auto; " href="#"><img src="<%=request.getContextPath()%>/resources/image/plend.png" alt="logo not found"></a>
+    <a class="navbar-brand" style=" margin-right:auto; " href="/controller/"><img src="<%=request.getContextPath()%>/resources/image/plend.png" alt="logo not found"></a>
     <div id="searchBar" style="border: 3px solid grey; border-radius: 10px; height: 47px; width: 750px;">
     	<form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="원하는 장소를 검색해보세요!" aria-label="Search" style="border: none;">

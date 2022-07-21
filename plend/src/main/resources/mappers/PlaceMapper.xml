@@ -37,8 +37,67 @@
 		  FROM place 
 		 WHERE delYN ='N'
 	</select>
-	
-	<select id="placeOne" resultType="PlaceVO" parameterType="PlaceVO"></select>
+	<!-- 07.20 김영민: 장소하나 가져오는 쿼리 -->
+	<select id="placeOne" resultType="PlaceVO" parameterType="PlaceVO">
+		SELECT pidx,
+		       uidx,
+		       category,
+		       placename,
+		       eventyn,
+		       placedetail,
+		       guide,
+		       tag,
+		       placeimg,
+		       address,
+		       option1,
+		       option2,
+		       price,
+		       delyn,
+		       approvalyn,
+		       availTimeValue,
+		       intervalTime
+		  FROM place
+		 WHERE pidx = #{pidx}
+	</select>
+	<!-- QnA 데이터 입력하기 -->
+	<insert id="insertQnA" parameterType="QnaVO">
+		<selectKey keyProperty="originQidx" resultType="int" order="BEFORE">
+			<if test="originQidx == 0">
+				<![CDATA[
+				SELECT MAX(qidx)+1
+				  FROM qna
+				]]>
+			</if>
+		</selectKey>
+		INSERT INTO qna(
+		    pidx,
+		    content,
+		    uidx,
+		    originqidx,
+		    depth
+		)VALUES(
+			#{pidx},
+			#{content},
+			#{uidx},
+			#{originQidx},
+			#{depth}			
+		)
+	</insert>
+	<!-- QnA 데이터 불러오기 -->
+	<select id="selectQnA" parameterType="PlaceVO" resultType="QnaVO">
+		SELECT qidx,
+			   uidx,
+			   pidx,
+		       content,
+		       date,
+		       originqidx,
+		       depth,
+		       delyn
+		  FROM qna
+		 WHERE pidx = #{pidx}
+	  ORDER BY originqidx DESC,
+	           depth ASC
+	</select>
 	<select id="randomPlace" resultType="PlaceVO"></select>
 	
 </mapper>
