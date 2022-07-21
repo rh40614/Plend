@@ -103,7 +103,7 @@
 									<option value="place">플레이스</option>
 				  					<option value="payment">결제</option>
 				  					<option value="refund">환불</option>
-				  					<option value="refort">신고</option>
+				  					<option value="report">신고</option>
 								</select>
 								
 								<input name="searchValue" class="mx-1">
