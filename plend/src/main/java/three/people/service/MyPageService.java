@@ -1,5 +1,9 @@
 package three.people.service;
 
-public interface MyPageService {
+import three.people.vo.UserVO;
 
+public interface MyPageService {
+	
+	public UserVO userInfo(int uidx);
+	public int userModify(UserVO vo);
 }

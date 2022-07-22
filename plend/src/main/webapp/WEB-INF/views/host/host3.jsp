@@ -51,45 +51,45 @@
  		 color : gray;
 	  }
 	  ul {
-  list-style-type: none;
-  margin: 0;
-  margin-top : 40px;
-  padding: 0;
-  width: 11%;
-  background-color: #242424;
-  position: fixed; left : 0;
-  height: 100%;
-  overflow: auto;
-}
-
-li a {
-  display: block;
-  color: white;
-  padding: 8px 16px;
-  text-decoration: none;
-  position : relative;
-  margin-top : 20px;
-  text-align:center;
-}
-li a:before{
-	content: '';
-    position: absolute; /*부모 요소에는 position: relative를 주어야 함*/
-    background-color: white;
-    height: 1px;
-
-    width: 0; /*초기에 보이지 않도록*/
-    bottom: 0; /*a태그 아래에 위치*/
-    transition: 0.7s; /*애니메이션 동작 실행 시간 정의*/
-    margin-right:64px;
-    right:0;
-}
-
-li a:hover:before{
-width: 100%;
-}
-li a:hover{
-	color:white;	
-}
+		  list-style-type: none;
+		  margin: 0;
+		  margin-top : 40px;
+		  padding: 0;
+		  width: 11%;
+		  background-color: #242424;
+		  position: fixed; left : 0;
+		  height: 100%;
+		  overflow: auto;
+		}
+	
+		li a {
+		  display: block;
+		  color: white;
+		  padding: 8px 16px;
+		  text-decoration: none;
+		  position : relative;
+		  margin-top : 20px;
+		  text-align:center;
+		}
+		li a:before{
+			content: '';
+		    position: absolute; /*부모 요소에는 position: relative를 주어야 함*/
+		    background-color: white;
+		    height: 1px;
+		
+		    width: 0; /*초기에 보이지 않도록*/
+		    bottom: 0; /*a태그 아래에 위치*/
+		    transition: 0.7s; /*애니메이션 동작 실행 시간 정의*/
+		    margin-right:64px;
+		    right:0;
+		}
+		
+		li a:hover:before{
+			width: 100%;
+		}
+		li a:hover{
+			color:white;	
+	}
     </style>
 
     
