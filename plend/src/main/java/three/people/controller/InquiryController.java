@@ -192,10 +192,8 @@ public class InquiryController {
 	//수정저장
 	//url 요청 결과로 return값을 줄때는 응답데이터 이므로 responseBody. ajax가 요청하면서 넘긴 파라미터는(데이터는) RequestBody
 	@RequestMapping(value="/inquiryEdit_dev.do", method=RequestMethod.POST)
-	public String inquiryEdit_dev(@RequestBody String inquiryEdit, InquiryVO inquiryVO, Model model, HttpServletRequest request, HttpSession session) {
+	public String inquiryEdit(InquiryVO inquiryVO, Model model, HttpServletRequest request, HttpSession session) {
 	
-		System.out.println("inquiryEdit: "+inquiryEdit);
-		
 		//세션 형성해서 login정보 가지고 오기
 		session = request.getSession();
 		UserVO login = (UserVO)session.getAttribute("login");
@@ -205,9 +203,12 @@ public class InquiryController {
 		
 		//문의수정
 		int result = hostService.inquiryEdit_dev(inquiryVO);
+		InquiryVO inquiry = hostService.selectInquiryOne(inquiryVO);
+		
+		model.addAttribute("inquiry",inquiry);
 		System.out.println("result: "+result);
 		
-		return "host/inquiry_dev/inquiryView.do";
+		return "host/inquiry_dev/inquiryView";
 
 	}
 	
