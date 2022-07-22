@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
@@ -83,6 +84,7 @@ public class InquiryController {
 		
 		return "host/inquiry_dev/inquiry_dev";
 	}
+	
 	
 	@RequestMapping(value="/inquiry_dev.do", method= RequestMethod.POST)
 	public String inquiry_dev(InquiryVO inquiryVO, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
@@ -171,6 +173,8 @@ public class InquiryController {
 		return "host/inquiry_dev/inquiryView_dev";
 	}
 	
+	
+	
 	//수정화면 부분 JSP
 	@RequestMapping(value="/inquiryEdit_dev.do", method=RequestMethod.GET)
 	public String inquiryEdit_dev(InquiryVO inquiryVO, Model model, HttpServletRequest request, HttpSession session) {
@@ -230,5 +234,63 @@ public class InquiryController {
 
 		return "host/inquiry_dev/inquiryView";
 	}
+	
+	
+	
+	//문의 사항 답변 작성 JSP 칸 열기
+	@RequestMapping(value="/reply.do", method=RequestMethod.GET)
+	public String reply(InquiryVO inquiryVO, HttpSession session, HttpServletRequest request, Model model) {
+		
+		//혹시나해서 첨부 //답변을 작성하려는 사람의 uidx
+		session = request.getSession();
+		UserVO login = (UserVO)session.getAttribute("login");
+		inquiryVO.setUidx(login.getUidx()); 
+		
+		System.out.println("답변 작성칸");
+		//답변을 달 문의 사항에 대한 정보 
+		InquiryVO inquiry = hostService.selectInquiryOne(inquiryVO);
+		model.addAttribute("inquiry",inquiry);
+	
+		return "host/inquiry_dev/reply";
+	
+	}
+	
+	
+	
+	//답변 저장
+	@RequestMapping(value="/reply.do", method=RequestMethod.POST)
+	public String reply(@RequestBody String reply, InquiryVO inquiryVO, HttpSession session, HttpServletRequest request, Model model) {
+		
+		//혹시나해서 첨부 //답변을 작성하려는 사람의 uidx
+		session = request.getSession();
+		UserVO login = (UserVO)session.getAttribute("login");
+		inquiryVO.setUidx(login.getUidx()); 
+		
+		//원글 정보 
+		InquiryVO inquiry = hostService.selectInquiryOne(inquiryVO);
+		
+		//답변 달기
+		int result= hostService.reply(inquiryVO);
+			if(result == 1) {
+				model.addAttribute("reply",reply);
+			}else {
+				System.out.println("답변 달기 실패");
+			}
+	
+		return "host/inquiry_dev/replyAnswer";
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

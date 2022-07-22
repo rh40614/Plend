@@ -170,12 +170,6 @@
 	</select>
 
 
-	<!-- 페이징 
-	<select id="page" parameterType="HashMap" resultType="int">
-		LIMIT #{start}, #{cntPerPage}
-	</select>	
-	-->
-	
 	
 	<!--2022.07.21 김연희 : 문의 내역 하나 -->
 	<select id="selectInquiryOne" parameterType="InquiryVO" resultType="InquiryVO">
@@ -213,6 +207,45 @@
 			  ,category = #{category}
 		 WHERE iqidx = #{iqidx}
 	</insert>
+	
+	
+	<!-- 2022.07.22 김연희 : 답변-->
+	<insert id="reply" parameterType="InquiryVO">
+		INSERT inquiry(
+				uidx
+				,category
+				,title
+				,content
+				,originiqidx
+				,depth
+		)VALUES( 
+				 #{udix}
+				,#{category}
+				,#{title}
+				,#{content}
+				,#{iqidx}
+				,'1'
+		 )
+		
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper>
 

@@ -97,6 +97,13 @@ public class HostServiceImpl implements HostService {
 		int result = hostDAO.inquiryEdit_dev(inquiryVO);
 		return result;
 	}
+
+
+	@Override
+	public int reply(InquiryVO inquiryVO) {
+		int result = hostDAO.reply(inquiryVO);
+		return result;
+	}
 	
 	
 	

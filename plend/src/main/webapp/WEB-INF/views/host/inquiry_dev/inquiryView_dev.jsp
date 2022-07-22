@@ -52,6 +52,26 @@
 		}
 	</script>
 
+	<!-- 답변 달기 -->
+	<script>
+		function replyOpen(obj){
+			console.log("함수 호출");
+
+			$.ajax({
+				url: "reply.do",
+				type: "GET",
+				data: "iqidx="+ $(obj).val(),
+				success: function(html){
+					console.log("답변 달기");
+					$("#reply").html(html);
+				},
+				error: function(){
+					console.log("실패");
+				}
+			})
+		}
+		
+	</script>
 	
 	
 </head>
@@ -177,31 +197,32 @@
 		<hr class="w-75" style="margin-left:200px;">
 		
 		<!-- 답변 확인 -->
-		<section>
-		
-			<span class="title1 spaceL">답변 확인 </span>
-			<br>
-			<table class="spaceL border border-3 rounded w-75 h-75" style="border-collapse: initial;" >
-				<tbody>
+		<div id="reply">
+			<section>
+				<span class="title1 spaceL">답변 확인 </span>
+				<br>
+				<button type="button" onclick="replyOpen(this)" class="btnBig spaceL" value="${inquiry.iqidx}">답변작성</button>
+				
+				<table class="spaceL border border-3 rounded w-75 h-75" style="border-collapse: initial;" >
+					<tbody>
 					
-					<c:if test="">
+						<c:if test="">
+							<tr>
+								<td colspan="2" class="fs-5"  style="padding: 30px;">등록된 답변이 없습니다.</td>
+							</tr>
+						</c:if>
+					
 						<tr>
-							<td colspan="2" class="fs-5"  style="padding: 30px;">등록된 답변이 없습니다.</td>
+							<td class="ps-4 pe-2" style="width: 80px;">제목 : </td><td>RE: 장소등록이 안되는데 어떠한 연유인지 궁금합니다.</td>
 						</tr>
-					</c:if>
-					
-					<tr>
-						<td class="ps-4 pe-2" style="width: 80px;">제목 : </td><td>RE: 장소등록이 안되는데 어떠한 연유인지 궁금합니다.</td>
-					</tr>
-					<tr>
-						<td class="ps-4 pe-2 " style="width: 80px; vertical-align: top;">내용 :</td>
-						<td>문의해 주셔서 감사합니다. <br> 장소 등록이 되지 않는 이유는 저희가 막아놔서 그래요 메롱</td>
-						
-					</tr>
-				</tbody>
-			</table>
-		</section>
-
+						<tr>
+							<td class="ps-4 pe-2 " style="width: 80px; vertical-align: top;">내용 :</td>
+							<td>문의해 주셔서 감사합니다. <br> 장소 등록이 되지 않는 이유는 저희가 막아놔서 그래요 메롱</td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+		</div>
 	</main>
 	
 	<footer id="footer"></footer>
@@ -209,6 +230,6 @@
 	
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-	
+
 </body>
 </html>

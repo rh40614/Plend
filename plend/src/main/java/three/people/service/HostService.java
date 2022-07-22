@@ -27,4 +27,5 @@ public interface HostService {
 	public InquiryVO selectInquiryOne(InquiryVO inquiryVO);
 	public int cntIqidx(InquiryVO inquiryVO);
 	public int inquiryEdit_dev(InquiryVO inquiryVO);
+	public int reply(InquiryVO inquiryVO);
 }
