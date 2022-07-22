@@ -5,9 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,9 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import three.people.service.HostService;
+import three.people.service.MainService;
 import three.people.service.PlaceService;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
+import three.people.vo.InquiryVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
@@ -41,7 +41,6 @@ public class HostController {
 	
 	@Autowired
 	PlaceService placeService;
-	
 	
 	
 	@RequestMapping(value = "/insertPlace.do", method = RequestMethod.GET )
@@ -126,15 +125,18 @@ public class HostController {
 					//originName(사용자가 저장한 이름) 가지고 오기
 					String originFileName = files.getOriginalFilename();
 					
-					// 파일 이름 구분자로 사용하기 위해 현재 시각의 밀리 초반환 
+					//확장자 추출(이후 호출 할때 확장자가 두번 붙어버림) 
+					String extention = originFileName.substring(originFileName.lastIndexOf("."));
+					//확장자를 제거한 파일 이름
+					String origin = originFileName.replace(extention, "");
+					
 					Date now =new Date();
 					SimpleDateFormat simple = new SimpleDateFormat("SSS");
 					String distinct = simple.format(now);
 					
-					//서버에 저장될 이름
-					String realFileName = originFileName + distinct;
-					//파일이름 꺼내서 이름값으로 insert
-					
+					//서버에 저장될 이름(사진이름SSS.확장자)
+					String realFileName = origin + distinct+ extention ;
+					System.out.println("realFileName: "+realFileName);
 					
 					ImageVO imageVO = new ImageVO();
 					
@@ -167,10 +169,7 @@ public class HostController {
 			
 			pw.append("<script>alert('장소등록에 실패하였습니다. 다시 한번 시도해주시길 바랍니다. ');location.href='/insertPlace.do';</script>");
 		}
-		
-		
 	
-		
 	}
 
 	
@@ -226,24 +225,166 @@ public class HostController {
 		return "host/inquiry_user";
 	}
 	
+
+	
 	
 	@RequestMapping(value="/eventList.do", method= RequestMethod.GET)
-	public String eventList(Model model, SearchVO searchVO) {
+	public String eventList(Model model, EventVO eventVO) {
 		
-		List<EventVO> list_e = hostService.eventList(searchVO);
+		System.out.println("이벤트 리스트 페이지 ");
 		
-		model.addAttribute("list_e",list_e);
+		//화면 로딩시 파라미터가 start인것들만 가지고 옴
+		List<EventVO> list = hostService.eventList(eventVO);
+		System.out.println("list: "+ list);
 		
+		
+		for(EventVO event : list) {
+			//semiTitle 자르기
+			if(event.getSemiTitle().length() >19) {
+				String semi = event.getSemiTitle().substring(0,19);
+				event.setSemiTitle(semi);
+			}
+			
+		}
+		
+		//이벤트 index가지고 와서 넘겨줘야함
+		
+		//사진 가지고 오기
+		List<ImageVO> imageList = hostService.eventImageList(eventVO);
+		System.out.println("image: "+ imageList);
+			
+			for(ImageVO image :imageList) {
+				
+				//사진이 저장된 경로 
+				//String path = image.getPath();
+				String real = image.getRealFileName();
+				String origin =image.getOriginFileName();
+				//String p = path+"\\"+ origin;
+				
+				//확장자 추출
+				String extention = origin.substring(origin.lastIndexOf("."));
+				
+				//뒤에 붙은 밀리초
+				String SSS = real.substring(real.length()-7, real.length());
+				
+				//밀리초 떼고 확장자 붙이기
+				String fileName = real.replace(SSS, extention);
+				//최종 경로
+				//외부에 있는 파일은 경로를 mapping 해주어야해서 이름만 넘겨주기 
+			
+				System.out.println("파일이름: "+fileName);
+			
+				
+			}
+		
+		
+		model.addAttribute("list",list);
+
 		return "host/eventList";
 	}
 	
 	
+	
+	@ResponseBody
+	@RequestMapping(value="/eventImage.do", method= RequestMethod.GET)
+	public ImageVO eventImage(EventVO eventVO) {
+	System.out.println("이미지 로딩");
+		//사진 가지고 오기
+		ImageVO image = hostService.eventImage(eventVO);
+		
+		//사진이 저장된 경로 
+		String path = image.getPath();
+		String real = image.getRealFileName();
+		String origin =image.getOriginFileName();
+		//String p = path+"\\"+ origin;
+		
+		//확장자 추출
+		String extention = origin.substring(origin.lastIndexOf(".")+1);
+		
+		//뒤에 붙은 밀리초
+		String SSS = real.substring(real.length()-3, real.length());
+		
+		//밀리초 떼기
+		String fileName = real.replace(SSS, extention);
+		//최종 경로
+		String p = path+"\\"+ fileName;
+		image.setPath(p);
+		
+		System.out.println("im: "+image.getPath());
+		
+		return image;
+	}
+	
+	
+	
+	
+	//이미지 리스트로 가지고 오기
+//	@ResponseBody
+//	@RequestMapping(value="/eventImageList.do", method= RequestMethod.GET)
+//	public List<ImageVO> eventImageList(EventVO eventVO) {
+//	
+//	
+//		List<ImageVO> imageList = hostService.eventImageList(eventVO);
+//		
+//	
+//			for(ImageVO image :imageList ) {
+//				
+//				//사진이 저장된 경로 
+//				String path = image.getPath();
+//				String real = image.getRealFileName();
+//				String origin =image.getOriginFileName();
+//				//확장자 추출
+//				String extention = origin.substring(origin.lastIndexOf(".")+1);
+//				
+//				//뒤에 붙은 밀리초
+//				String SSS = real.substring(real.length()-3, real.length());
+//				//밀리초 떼기
+//				String fileName = real.replace(SSS, extention);
+//				//최종 경로
+//				String p = path+"\\"+ fileName;
+//				image.setPath(p);
+//					
+//				System.out.println("image경로 : "+p);
+//				}
+//			
+//			return imageList;	
+//			
+//	}
+	
+	
+	//이벤트 리스트 (파라미터에 따라 출력)
+	@RequestMapping(value="/startList.do", method= RequestMethod.GET)
+	public String startList(Model model, EventVO eventVO) {
+		
+		List<EventVO> list = hostService.eventList(eventVO);
+	
+	
+		
+		//semiTitle 자르기
+		for(EventVO event : list) {
+			if(event.getSemiTitle().length() >19) {
+				String semi = event.getSemiTitle().substring(0,19);
+				event.setSemiTitle(semi);
+			}
+		}
+		//사진 가지고 오기
+		
+		
+		model.addAttribute("list",list);
+		
+		return "host/startList";
+	}
+	
+	
 	@RequestMapping(value="/eventView.do", method= RequestMethod.GET)
-	public String eventView(Model model, SearchVO searchVO) {
+	public String eventView(Model model, EventVO eventVO) {
+		System.out.println("이벤트 상세 보기 페이지");
 		
-		List<EventVO> list_e = hostService.eventList(searchVO);
+		EventVO event = hostService.eventOne(eventVO);
 		
-		model.addAttribute("list_e",list_e);
+		System.out.println("eidx: "+event.getEidx());
+		
+		model.addAttribute("e",event);
 		return "host/eventView";
 	}
 	
@@ -266,14 +407,101 @@ public class HostController {
 	
 	
 	@RequestMapping(value="/inquiry_dev.do", method= RequestMethod.GET)
-	public String inquiry_dev() {
+	public String inquiry_dev(InquiryVO inquiryVO, Model model, HttpServletRequest request, HttpSession session) {
+		
+	
+		session = request.getSession();
+		UserVO login = (UserVO)session.getAttribute("login");
+		
+		inquiryVO.setUidx(login.getUidx()); 
+		
+		//이전 문의 내역 불러오기
+		List<InquiryVO> list = hostService.selectInquiry(inquiryVO);
+		
+		System.out.println("list"+list);
+		model.addAttribute("list",list);
+		
+		
 		return "host/inquiry_dev";
 	}
 	
+	@RequestMapping(value="/inquiry_dev.do", method= RequestMethod.POST)
+	public String inquiry_dev(InquiryVO inquiryVO, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
+		System.out.println("운영자에게 문의등록");
+		
+		//세션 형성해서 login정보 가지고 오기
+		session = request.getSession();
+		UserVO login = (UserVO)session.getAttribute("login");
+		
+		//세션에있는 회원의 uidx vo에 담기 
+		inquiryVO.setUidx(login.getUidx()); 
+		
+		//문의 등록
+		int result = hostService.insertInquiry_dev(inquiryVO);
+		
+		PrintWriter pw = response.getWriter();
+		response.setContentType("text/html;charset=utf-8");
+		
+			if(result == 1) { 
+				System.out.println("운영자에게 문의 등록 성공");
+				pw.append("<script>alert('문의가 정상적으로 등록이 되었습니다.');location.href = 'inquiry_dev.do'</script>");
+				pw.flush();
+				
+			} else {
+				System.out.println("운영자에게 문의 등록 실패");
+				pw.append("<script>alert('문의가 등록되지않았습니다. 다시 시도해주시길 바랍니다.');location.href = 'inquiry_dev.do'</script>");
+				pw.flush();
+				
+			}
+		
+		
+		return "host/inquiry_dev";
+	
+	}
+	
+	
+	
 	@RequestMapping(value="/inquiryView_dev.do", method= RequestMethod.GET)
-	public String inquiryView_dev() {
+	public String inquiryView_dev(InquiryVO inquiryVO, Model model, HttpServletRequest request, HttpSession session, SearchVO searchVO) {
+		
+		//로그인 정보 
+		session = request.getSession();
+		UserVO login = (UserVO)session.getAttribute("login");
+		inquiryVO.setUidx(login.getUidx()); 
+		
+		//이전 문의 내역 불러오기(리스트)
+		List<InquiryVO> list = hostService.selectInquiry(inquiryVO);
+		//문의 내역 (단건)
+		InquiryVO inquiry = hostService.selectInquiryOne(inquiryVO);
+		System.out.println("inquiry: "+inquiry);
+		
+		
+		//페이징
+		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
+			searchVO.setNowPage(1);
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getCntPerPage() == 0) {
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getNowPage() == 0) {
+			searchVO.setNowPage(1);
+		}
+		
+		//토탈 갯수
+		int total = hostService.cntIqidx(inquiryVO);
+		searchVO.calPaging(total);
+		System.out.println(total);
+		
+
+		
+		model.addAttribute("list",list);
+		model.addAttribute("inquiry",inquiry);
+		model.addAttribute("pagenation",searchVO);
+		
 		return "host/inquiryView_dev";
 	}
+	
+	
+	
 	
 	@RequestMapping(value="/placeView.do", method= RequestMethod.GET)
 	public String placeView() {

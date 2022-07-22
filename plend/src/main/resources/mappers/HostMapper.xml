@@ -72,10 +72,47 @@
 	<update id="placeModify" parameterType="PlaceVO"></update>
 	<update id="placeDelete" parameterType="PlaceVO"></update>
 	
+	<!-- 2022.07.20 김연희 이벤트 리스트 호출 -->
+	<select id="eventList" parameterType="EventVO" resultType="EventVO">
+		SELECT 
+			 e.eidx
+			,title
+			,semiTitle
+			,content
+			,conditions
+			,edate
+			,startEnd
+			,category
+	    FROM event e
+	    INNER JOIN image i
+	    ON e.eidx = i.eidx
+	    WHERE startEnd = #{startEnd}
+	    
+	</select>
 	
-	<select id="eventList" parameterType="SearchVO" resultType="EventVO">
-		select 
-			 title
+	<!-- 2022.07.20 김연희 : 이벤트 이미지  -->
+	<select id="eventImage" parameterType="EventVO" resultType="ImageVO">
+		
+		SELECT
+			imidex
+			,path
+			,originFileName
+			,realFileName
+			,e.eidx
+		FROM image i 
+		JOIN event e 
+		ON i.eidx = e.eidx
+		WHERE e.eidx = #{eidx}
+		
+	</select>
+	
+	
+
+	<!-- 2022.07.20 김연희 이벤트하나 호출 -->
+	<select id="eventOne" parameterType="EventVO" resultType="EventVO">
+		SELECT 
+			e.eidx
+			,title
 			,semiTitle
 			,content
 			,conditions
@@ -85,7 +122,83 @@
 	    FROM event e
 	    INNER JOIN image i
 	    ON e.eidx = i.eidx
+	    WHERE e.eidx = #{eidx}
 	</select>
+	
+	<!-- 2022.07.20 김연희 : 운영자 문의 사항 등록 -->
+	<insert id="insertInquiry_dev" parameterType="InquiryVO">
+	INSERT INTO inquiry(
+					uidx
+					,category
+					,title
+					,content
+					,img
+					,originiqidx
+					,depth
+					,answerRate
+			)VALUES(
+					 #{uidx}
+					,#{category}
+					,#{title}
+					,#{content}
+					,#{img}
+					,#{originiqidx}
+					,#{depth}
+					,#{answerRate}
+			)
+	
+	</insert>
+	<!-- 2022.07.21 김연희 : 문의 내역 전체 불러오기 -->
+	<select id="selectInquiry" parameterType="InquiryVO" resultType="InquiryVO">
+		SELECT 
+			iqidx
+			,uidx
+			,category
+			,title
+			,content
+			,date
+			,img
+			,answerYN
+			,originiqidx
+			,depth
+			,answerRate
+		FROM inquiry
+		WHERE uidx = #{uidx}
+		ORDER BY iqidx DESC
+	</select>
+	
+	<!--2022.07.21 김연희 : 문의 내역 하나 -->
+	<select id="selectInquiryOne" parameterType="InquiryVO" resultType="InquiryVO">
+		SELECT 
+			iqidx
+			,uidx
+			,category
+			,title
+			,content
+			,date
+			,img
+			,answerYN
+			,originiqidx
+			,depth
+			,answerRate
+		FROM inquiry
+		WHERE uidx = #{uidx}
+		AND iqidx = #{iqidx}
+		ORDER BY iqidx DESC
+	</select>
+	
+	<!-- 2022.07.21 김연희: 페이징 위한 문의 갯수 -->
+	<select id="cntIqidx" parameterType="InquiryVO" resultType="int">
+		SELECT
+			COUNT(iqidx)
+		FROM inquiry
+	</select>
+	
+	
+	<!-- 2022.07.21 김연희 : 문의 수정 -->
+	<insert id="inquiryEdit_dev" parameterType="InquiryVO" >
+		UPDATE inquiry
+	</insert>
 	
 </mapper>
 

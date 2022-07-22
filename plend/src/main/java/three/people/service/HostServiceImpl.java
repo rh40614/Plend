@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import three.people.dao.HostDAO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
+import three.people.vo.InquiryVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.SearchVO;
 
@@ -37,8 +38,55 @@ public class HostServiceImpl implements HostService {
 
 
 	@Override
-	public List<EventVO> eventList(SearchVO searchVO) {
-		List<EventVO> result = hostDAO.eventList(searchVO);
+	public List<EventVO> eventList(EventVO eventVO) {
+		List<EventVO> result = hostDAO.eventList(eventVO);
+		return result;
+	}
+
+	@Override
+	public EventVO eventOne(EventVO eventVO) {
+		EventVO result = hostDAO.eventOne(eventVO);
+		return result;
+	}
+
+	//사진 리스트
+	@Override
+	public List<ImageVO> eventImageList(EventVO eventVO) {
+		List<ImageVO> result = hostDAO.eventImageList(eventVO);
+		return result;
+	}
+	//사진 하나
+	@Override
+	public ImageVO eventImage(EventVO eventVO) {
+		ImageVO result = hostDAO.eventImage(eventVO);
+		return result;
+	}
+
+
+	@Override
+	public int insertInquiry_dev(InquiryVO inquiryVO) {
+		int result = hostDAO.insertInquiry_dev(inquiryVO);
+		return result;
+	}
+
+
+	@Override
+	public List<InquiryVO> selectInquiry(InquiryVO inquiryVO) {
+		List<InquiryVO> result= hostDAO.selectInquiry(inquiryVO);
+		return result;
+	}
+
+
+	@Override
+	public InquiryVO selectInquiryOne(InquiryVO inquiryVO) {
+		InquiryVO result = hostDAO.selectInquiryOne(inquiryVO);
+		return result;
+	}
+
+
+	@Override
+	public int cntIqidx(InquiryVO inquiryVO) {
+		int result = hostDAO.cntIqidx(inquiryVO);
 		return result;
 	}
 	

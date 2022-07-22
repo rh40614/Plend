@@ -12,7 +12,7 @@ public class NoticeVO extends UserVO {
 	private String delYN;
 	private int hit;
 	private int uidx;
-	private  MultipartFile file;
+	private MultipartFile file;
 	private String fileName;
 	private int pre;
 	private int next;

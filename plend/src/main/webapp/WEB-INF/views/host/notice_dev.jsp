@@ -73,9 +73,9 @@
 							<%-- <c:if test="${list_p.size() > 0}">
 								<c:forEach var="pv" items="${list_p}"> --%>
 									<tr >
-										<td>1</td>
-										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/noticeView.do">공지사항 제목입니다.</a></td>
-										<td>작성일</td>
+										<td></td>
+										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/noticeView.do"></a></td>
+										<td></td>
 										
 									</tr>
 							<%-- 	</c:forEach>
