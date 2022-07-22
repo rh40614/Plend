@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -196,6 +198,7 @@ public class HostController {
 		int total = placeService.cntPlace(pidx);
 		searchVO.calPaging(total);
 		System.out.println(total);
+		
 		List<PlaceVO> list_p = placeService.selectPlaceAll(searchVO);
 		
 		//장소 소개 35자 이상 자르기
@@ -400,107 +403,7 @@ public class HostController {
 		return "host/noticeView";
 	}
 	
-	@RequestMapping(value="/inquiry_FAQ.do", method= RequestMethod.GET)
-	public String inquiry_FAQ() {
-		return "host/inquiry_FAQ";
-	}
-	
-	
-	@RequestMapping(value="/inquiry_dev.do", method= RequestMethod.GET)
-	public String inquiry_dev(InquiryVO inquiryVO, Model model, HttpServletRequest request, HttpSession session) {
-		
-	
-		session = request.getSession();
-		UserVO login = (UserVO)session.getAttribute("login");
-		
-		inquiryVO.setUidx(login.getUidx()); 
-		
-		//이전 문의 내역 불러오기
-		List<InquiryVO> list = hostService.selectInquiry(inquiryVO);
-		
-		System.out.println("list"+list);
-		model.addAttribute("list",list);
-		
-		
-		return "host/inquiry_dev";
-	}
-	
-	@RequestMapping(value="/inquiry_dev.do", method= RequestMethod.POST)
-	public String inquiry_dev(InquiryVO inquiryVO, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
-		System.out.println("운영자에게 문의등록");
-		
-		//세션 형성해서 login정보 가지고 오기
-		session = request.getSession();
-		UserVO login = (UserVO)session.getAttribute("login");
-		
-		//세션에있는 회원의 uidx vo에 담기 
-		inquiryVO.setUidx(login.getUidx()); 
-		
-		//문의 등록
-		int result = hostService.insertInquiry_dev(inquiryVO);
-		
-		PrintWriter pw = response.getWriter();
-		response.setContentType("text/html;charset=utf-8");
-		
-			if(result == 1) { 
-				System.out.println("운영자에게 문의 등록 성공");
-				pw.append("<script>alert('문의가 정상적으로 등록이 되었습니다.');location.href = 'inquiry_dev.do'</script>");
-				pw.flush();
-				
-			} else {
-				System.out.println("운영자에게 문의 등록 실패");
-				pw.append("<script>alert('문의가 등록되지않았습니다. 다시 시도해주시길 바랍니다.');location.href = 'inquiry_dev.do'</script>");
-				pw.flush();
-				
-			}
-		
-		
-		return "host/inquiry_dev";
-	
-	}
-	
-	
-	
-	@RequestMapping(value="/inquiryView_dev.do", method= RequestMethod.GET)
-	public String inquiryView_dev(InquiryVO inquiryVO, Model model, HttpServletRequest request, HttpSession session, SearchVO searchVO) {
-		
-		//로그인 정보 
-		session = request.getSession();
-		UserVO login = (UserVO)session.getAttribute("login");
-		inquiryVO.setUidx(login.getUidx()); 
-		
-		//이전 문의 내역 불러오기(리스트)
-		List<InquiryVO> list = hostService.selectInquiry(inquiryVO);
-		//문의 내역 (단건)
-		InquiryVO inquiry = hostService.selectInquiryOne(inquiryVO);
-		System.out.println("inquiry: "+inquiry);
-		
-		
-		//페이징
-		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
-			searchVO.setNowPage(1);
-			searchVO.setCntPerPage(5);
-		}else if(searchVO.getCntPerPage() == 0) {
-			searchVO.setCntPerPage(5);
-		}else if(searchVO.getNowPage() == 0) {
-			searchVO.setNowPage(1);
-		}
-		
-		//토탈 갯수
-		int total = hostService.cntIqidx(inquiryVO);
-		searchVO.calPaging(total);
-		System.out.println(total);
-		
 
-		
-		model.addAttribute("list",list);
-		model.addAttribute("inquiry",inquiry);
-		model.addAttribute("pagenation",searchVO);
-		
-		return "host/inquiryView_dev";
-	}
-	
-	
 	
 	
 	@RequestMapping(value="/placeView.do", method= RequestMethod.GET)

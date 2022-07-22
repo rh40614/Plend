@@ -7,12 +7,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Hostcenter-운영자 문의</title>
+	<!-- summerNote 제이쿼리랑 부트스트랩이 포함되어있음-->
+	<!-- include libraries(jQuery, bootstrap) -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	
-	
+	<!-- include summerNote css/js -->
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 	
 		
-	<!-- jQuery -->
-	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+	<!-- jQuery --><!-- 2022.07.22 김연희 summernote랑 충돌 -->
+	<%-- <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script> --%>
 	
 	
 	<!-- bootstrap  -->
@@ -29,9 +36,24 @@
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
-	
-	
 
+	<!-- 수정하기 -->
+	<script>
+		function inquiryEdit_dev(obj){
+			$.ajax({
+				url:"inquiryEdit_dev.do",
+				type: "GET", 
+				data: "iqidx="+ $(obj).val(),
+				success: function(edit){
+					console.log($(obj).val());
+					$("#inquiryEdit_dev").html(edit);
+				}
+			});
+		}
+	</script>
+
+	
+	
 </head>
 <body>
 
@@ -61,7 +83,7 @@
 									<tr >
 										<td>${i.iqidx}</td>
 										<td>${i.category}</td>
-										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/inquiryView_dev.do?iqidx=${i.iqidx}">${i.title}</a></td>
+										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/inquiry_dev/inquiryView_dev.do?iqidx=${i.iqidx}">${i.title}</a></td>
 										<c:if test="${i.answerYN eq 'Y'}">
 											<td>답변 완료</td>
 										</c:if>
@@ -75,44 +97,43 @@
 						</tbody>
 					</table>
 					
-			<!-- 페이징 -->
-			<c:if test="${not empty list}">
-				<nav aria-label="Page navigation example" class="m-auto">
-				  <ul class="pagination justify-content-center " >
-				  	
-					<c:if test="${pagenation.startPage > 5}">
-						<li class="page-item">
-				      		<a class="page-link" href="inquiryView_dev.do?nowPage=4">&laquo;</a>
-				    	</li>
-				    </c:if>
-				    
-					<c:forEach begin="${pagenation.startPage}" end="${pagenation.endPage}" var="p">
-						<c:choose>
-							<c:when test="${p == pagenation.nowPage }">
-								 <li class="page-item text-secondary">
-								 <a class="page-link text-secondary" href="inquiryView_dev.do?nowPage=${p}">${p}</a></li>
-							</c:when>
-							<c:when test="${p != pagenation.nowPage }">
-								<li class="page-item text-secondary">
-								 <a class="page-link text-secondary" href="inquiryView_dev.do?nowPage=${p}">${p}</a></li>
-							</c:when>
-						</c:choose>
-					</c:forEach>
-				
-			    	<c:if test="${pagenation.endPage != pagenation.lastPage}">
-					    <li class="page-item">
-					      <a class="page-link" href="inquiryView_dev.do?nowPage=${pagenation.endPage +1}">&raquo;</a>
-					    </li>
-			    	</c:if>
-				  </ul>
-				</nav>
-			</c:if>
-			</div>
-				
+					<!-- 페이징 -->
+						<c:if test="${not empty list}">
+							<nav aria-label="Page navigation example" class="m-auto">
+							  <ul class="pagination justify-content-center " >
+							  	
+								<c:if test="${pagination.startPage > 5}">
+									<li class="page-item">
+							      		<a class="page-link" href=/inquiryView_dev.do?nowPage=4">&laquo;</a>
+							    	</li>
+							    </c:if>
+							    
+								<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="p">
+									<c:choose>
+										<c:when test="${p == pagination.nowPage }">
+											 <li class="page-item text-secondary active">
+											 <a class="page-link text-secondary" href=inquiryView_dev.do?nowPage=${p}">${p}</a></li>
+										</c:when>
+										<c:when test="${p != pagination.nowPage }">
+											<li class="page-item text-secondary">
+											 <a class="page-link text-secondary" href="inquiryView_dev.do?nowPage=${p}">${p}</a></li>
+										</c:when>
+									</c:choose>
+								</c:forEach>
+							
+						    	<c:if test="${pagination.endPage != pagination.lastPage}">
+								    <li class="page-item">
+								      <a class="page-link" href="inquiryView_dev.do?nowPage=${pagination.endPage +1}">&raquo;</a>
+								    </li>
+						    	</c:if>
+							  </ul>
+							</nav>
+						</c:if>
+					</div>
 		</section>
 		
 		<div style="text-align: right;">
-			<button class="btnBig" onclick="location.href='<%=request.getContextPath()%>/host/inquiry_dev.do'">문의 작성하기</button>
+			<button class="btnBig" onclick="location.href='<%=request.getContextPath()%>/inquiry_dev/inquiry_dev.do'">문의 작성하기</button>
 		</div>
 		
 		<hr class="w-75" style="margin-left:200px;">
@@ -121,6 +142,7 @@
 		
 		
 		<!-- 문의 내용 -->
+		<div id="inquiryEdit_dev">
 		<section>
 			<span class="title1 spaceL">문의 내용  </span>
 			<br>
@@ -145,13 +167,13 @@
 				</tbody>
 			</table>
 				<br>
-				<p>답변이 달린 이후에는 수정 또는 삭제가 불가능합니다. </p>
+				<span class="spaceL mb-5">답변이 달린 이후에는 수정이 불가능합니다. </span>
 				<div class="btn-group spaceL" role="group" id="btnGroup" style="text-align: right;" >
-					<button class="btnDefault me-3" type="button" onclick="location.href='<%=request.getContextPath()%>/host/inquiryEdit_dev.do'">수정</button>
-					<button class="btnDefault" type="button" onclick="location.href='<%=request.getContextPath()%>/host/inquiryDelete_dev.do'">삭제</button>
+					<button class="btnDefault me-3" type="button" onclick="inquiryEdit_dev(this)" value="${inquiry.iqidx}">수정</button>
+					<%-- <button class="btnDefault" type="button" onclick="location.href='<%=request.getContextPath()%>/inquiry_dev/inquiryDelete_dev.do'">삭제</button> --%>
 				</div>
 		</section>
-		
+		</div>
 		<hr class="w-75" style="margin-left:200px;">
 		
 		<!-- 답변 확인 -->

@@ -55,7 +55,8 @@
 		}); 
 
 	</script>
-
+	
+	
 
 	
 	</head>
@@ -69,7 +70,10 @@
 		<section style="margin-top: 100px;" >
 			<span class="title1">운영자 문의- 문의 등록하기 </span>
 			<br>
-			<p class="spaceL">문의해주셔서 감사합니다. 문의하시기 전에 FAQ를 참고 해주시길 바랍니다. 자주 묻는 질문은 FAQ에 올라와있습니다. <br> 질문을 하실때 화면을 캡쳐해서 이미지와 함께 올려주시면 더 빠른 해결이 가능합니다. </p>
+			<span class="spaceL">문의해주셔서 감사합니다. 
+			<br>문의하시기 전에 <a href="inquiry_FAQ.do">FAQ</a>를 참고 해주시길 바랍니다. 자주 묻는 질문은 <a href="inquiry_FAQ.do">FAQ</a>에 올라와있습니다. 
+			<br> 문의를 등록하신 이후에는 삭제가 불가능합니다. <a href="inquiry_FAQ.do">FAQ</a>를 먼저 확인해 주시길 바랍니다. 
+			</span>
 			<!-- 썸머노트 -->
 			<div class="spaceL mt-2">
 				<form action="inquiry_dev.do" method="POST" name="frm">
@@ -110,7 +114,7 @@
 									<tr >
 										<td>${i.iqidx}</td>
 										<td>${i.category}</td>
-										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/inquiryView_dev.do?iqidx=${i.iqidx}">${i.title}</a></td>
+										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/inquiry_dev/inquiryView_dev.do?iqidx=${i.iqidx}">${i.title}</a></td>
 										<c:if test="${i.answerYN eq 'Y'}">
 											<td>답변 완료</td>
 										</c:if>
@@ -123,26 +127,39 @@
 							</c:if>
 						</tbody>
 					</table>
+				<!-- 페이징 -->
+				<c:if test="${not empty list}">
+					<nav aria-label="Page navigation example" class="m-auto">
+					  <ul class="pagination justify-content-center " >
+					  	
+						<c:if test="${pagination.startPage > 5}">
+							<li class="page-item">
+					      		<a class="page-link" href="inquiry_dev.do?nowPage=4">&laquo;</a>
+					    	</li>
+					    </c:if>
+					    
+						<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="p">
+							<c:choose>
+								<c:when test="${p == pagination.nowPage }">
+									 <li class="page-item text-secondary active">
+									 <a class="page-link text-secondary" href="inquiry_dev.do?nowPage=${p}">${p}</a></li>
+								</c:when>
+								<c:when test="${p != pagination.nowPage }">
+									<li class="page-item text-secondary">
+									 <a class="page-link text-secondary" href="inquiry_dev.do?nowPage=${p}">${p}</a></li>
+								</c:when>
+							</c:choose>
+						</c:forEach>
 					
-				<nav aria-label="Page navigation example" class="m-auto">
-				  <ul class="pagination justify-content-center " >
-				    <li class="page-item text-secondary">
-				      <a class="page-link text-secondary" href="#" aria-label="Previous">
-				        <span aria-hidden="true">&laquo;</span>
-				      </a>
-				    </li>
-				    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">1</a></li>
-				    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">2</a></li>
-				    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">3</a></li>
-				    <li class="page-item text-secondary">
-				      <a class="page-link text-secondary" href="#" aria-label="Next">
-				        <span aria-hidden="true">&raquo;</span>
-				      </a>
-				    </li>
-				  </ul>
-				</nav>
+				    	<c:if test="${pagination.endPage != pagination.lastPage}">
+						    <li class="page-item">
+						      <a class="page-link" href="inquiry_dev.do?nowPage=${pagination.endPage +1}">&raquo;</a>
+						    </li>
+				    	</c:if>
+					  </ul>
+					</nav>
+				</c:if>
 			</div>
-				
 		</section>
 		
 		
