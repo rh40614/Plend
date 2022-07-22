@@ -42,4 +42,12 @@ public class PlaceDAO {
 	public List<QnaVO> selectQnA(PlaceVO placevo){
 		return sqlSession.selectList(namespace+".selectQnA", placevo);
 	}
+	// 07.22 김영민: qna 질문/답변 수정
+	public int qnaModify(QnaVO qnavo) {
+		return sqlSession.update(namespace+".qnaModify", qnavo);
+	}
+	// 07.22 김영민: qna 삭제
+	public int deleteQnA(QnaVO qnavo) {
+		return sqlSession.update(namespace+".deleteQnA", qnavo);
+	}
 }
