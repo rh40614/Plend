@@ -1,5 +1,6 @@
 package three.people.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import three.people.vo.EventVO;
@@ -19,9 +20,11 @@ public interface HostService {
 	
 	public List<ImageVO> eventImageList(EventVO eventVO);
 	public ImageVO eventImage(EventVO eventVO);
-	//유저  문의
+	
+	//운영자 문의
 	public int insertInquiry_dev(InquiryVO inquiryVO);
-	public List<InquiryVO> selectInquiry(InquiryVO inquiryVO);
+	public List<HashMap<String, Integer>> selectInquiry(HashMap<String, Integer> page);
 	public InquiryVO selectInquiryOne(InquiryVO inquiryVO);
 	public int cntIqidx(InquiryVO inquiryVO);
+	public int inquiryEdit_dev(InquiryVO inquiryVO);
 }

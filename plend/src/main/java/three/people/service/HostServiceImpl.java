@@ -1,5 +1,6 @@
 package three.people.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,7 @@ public class HostServiceImpl implements HostService {
 		return result;
 	}
 
-
+	//운영자 문의
 	@Override
 	public int insertInquiry_dev(InquiryVO inquiryVO) {
 		int result = hostDAO.insertInquiry_dev(inquiryVO);
@@ -71,8 +72,8 @@ public class HostServiceImpl implements HostService {
 
 
 	@Override
-	public List<InquiryVO> selectInquiry(InquiryVO inquiryVO) {
-		List<InquiryVO> result= hostDAO.selectInquiry(inquiryVO);
+	public List<HashMap<String, Integer>> selectInquiry(HashMap<String, Integer> page) {
+		List<HashMap<String, Integer>> result= hostDAO.selectInquiry(page);
 		return result;
 	}
 
@@ -89,6 +90,14 @@ public class HostServiceImpl implements HostService {
 		int result = hostDAO.cntIqidx(inquiryVO);
 		return result;
 	}
+
+
+	@Override
+	public int inquiryEdit_dev(InquiryVO inquiryVO) {
+		int result = hostDAO.inquiryEdit_dev(inquiryVO);
+		return result;
+	}
+	
 	
 	
 }

@@ -40,7 +40,7 @@
  		
  		
  		 <li><a href="#" style = "font-size:13px; margin-top: 300px;">판매자 정보</a></li>
- 		 <li><a href="<%=request.getContextPath()%>/host/inquiry_FAQ.do" style = "font-size:13px;">운영자 문의</a></li>
+ 		 <li><a href="<%=request.getContextPath()%>/inquiry_dev/inquiry_FAQ.do" style = "font-size:13px;">운영자 문의</a></li>
 	    </ul>
       </div>
     </nav>
