@@ -13,4 +13,6 @@ public interface PlaceService {
 	public PlaceVO placeOne(PlaceVO placevo);
 	public int insertQnA(QnaVO qnavo);
 	public List<QnaVO> selectQnA(PlaceVO placevo);
+	public int qnaModify(QnaVO qnavo);
+	public int deleteQnA(QnaVO qnavo);
 }
