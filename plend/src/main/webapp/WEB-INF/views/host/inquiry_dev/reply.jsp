@@ -2,11 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
 	
-	<!-- 문의하기 -->
+	<!-- 답변하기 -->
 	<section style="margin-top: 100px;" >
-		<span class="title1">문의 내용 수정 </span>
+		<span class="title1">답변 작성</span>
 		<br>
-		<span class="spaceL">문의에 대한 답변이 달린 이후에는 수정이 불가능합니다. </span>
+		<span class="spaceL">답변을 작성하실때는 업체 분들의 상황을 고려하여 작성해 주시길 바랍니다. </span>
 		<!-- 썸머노트 -->
 		<div class="spaceL mt-2">
 			<form name="frm">
@@ -18,9 +18,9 @@
 				<option value="report">신고</option>
 				
 			</select>
-				<span>문의제목 </span><input type="text" name="title" size="50"  value="${inquiry.title}" required>
-				<textarea id="summernote" name="content" required >${inquiry.content}</textarea> 
-				<button type="button" class="btnBig" onclick="save(this)" value="${inquiry.iqidx}">저장</button>
+				<span class="ms-5 me-1">답변제목</span><input type="text" name="title" size="50"  value="RE: ${inquiry.title}" required>
+				<textarea id="summernote" name="content" required ></textarea> 
+				<button type="button" class="btnBig" onclick="reply()">저장</button>
 			</form>
 		</div>
 	</section >
@@ -38,34 +38,24 @@
 			    lang: 'ko-KR'    
  			});
 		
-
 	</script>
 	
-	<!-- 운영자 문의 수정  -->
+	<!-- 답변 저장 -->
 	<script>
-		function save(obj){
-			
-			var inquiryEdit = $("form[name=frm]").serialize();
+		function reply(){
 			
 			$.ajax({
-				url: "inquiryEdit_dev.do", 
+				url: "reply.do",
 				type: "POST",
-				data: inquiryEdit,
-				dataType: "json",
-				complete: function(){
-					alert("정상적으로 수정되었습니다.");					
-						$.ajax({
-							url: "inquiryView.do",
-							type: "GET",
-							data: "iqidx="+$(obj).val(),
-							success: function(data){
-								$("#inquiryEdit_dev").html(data);
-							},
-							error: function(){
-								alert("수정 실패");
-							}
-						}); 
+				success: function(data){
+				/* 	console.log("data"); */
+				/* ㅈ어ㅏㅇ소 이동 */
 				}
-			});
+				
+				
+			})
+			
 		}
+	
+	
 	</script>
