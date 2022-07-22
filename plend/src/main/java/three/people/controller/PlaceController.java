@@ -57,7 +57,11 @@ public final class PlaceController {
 		placeService.deleteQnA(qnavo);
 		return "redirect:/place/view.do?pidx="+qnavo.getPidx();
 	}
-
+	
+	@RequestMapping(value="/calendar.do")
+	public String calendar() {
+		return "place/newCalendar";
+	}
 
 
 

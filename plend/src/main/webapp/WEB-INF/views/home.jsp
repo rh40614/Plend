@@ -73,7 +73,7 @@
   				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
   				<i class="fa-solid fa-bolt bolt"></i>
  			<div class="card-body">
- 				<h5 class="card-title"><a href="place/view.do?pidx=76" class="">장소이름</a></h5>
+ 				<h5 class="card-title"><a href="place/view.do?pidx=1" class="">장소이름</a></h5>
  				<p class="card-text">장소위치</p>
  				<p class="card-text">가격</p>
  				<i class="fa-regular fa-star" style="float:right">별점</i>

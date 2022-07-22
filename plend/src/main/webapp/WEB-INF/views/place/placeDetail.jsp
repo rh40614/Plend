@@ -39,7 +39,7 @@
 			<div class="nav-scroller mb-2">
 			    <nav class="nav d-flex row detailNav">
 			      <a class="p-2 col link-secondary text-white active2" href="#">공간 소개</a>
-			      <a class="p-2 col link-secondary text-white" href="#">편의 시설</a>
+			      <a class="p-2 col link-secondary text-white" href="calendar.do">편의 시설</a>
 			      <a class="p-2 col link-secondary text-white" href="#">유의사항</a>
 			      <a class="p-2 col link-secondary text-white" href="#QnA">QnA</a>
 			      <a class="p-2 col link-secondary text-white" href="#">이용후기</a>
