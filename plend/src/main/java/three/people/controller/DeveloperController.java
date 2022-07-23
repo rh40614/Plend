@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import three.people.service.AdminService;
@@ -103,13 +102,6 @@ public class DeveloperController {
 			if(!file.getOriginalFilename().isEmpty()) {
 				file.transferTo(new File(path, file.getOriginalFilename()));
 				String originFileName = file.getOriginalFilename();
-//				
-//				Date now = new Date();
-//				SimpleDateFormat simple = new SimpleDateFormat("SSS");
-//				String distinct = simple.format(now);
-//				
-//				String realFileName = originFileName + distinct;
-				
 				
 				//2022.07.21  김연희 : 사진 호출을 위해 사진 저장 이름 변경(사진이름SSS.확장자)
 				//확장자 추출(이후 호출 할때 확장자가 두번 붙어버림) 

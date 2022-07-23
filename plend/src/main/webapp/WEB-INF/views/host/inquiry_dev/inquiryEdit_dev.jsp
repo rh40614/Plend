@@ -54,24 +54,10 @@
 				url: "inquiryEdit_dev.do", 
 				type: "POST",
 				data: inquiryEdit,
-				dataType: "json",
 				success: function(data){
 					console.log(data);
+					$("#inquiryEdit_dev").html(data);
 				}
 			});
 		}
-	/* 	complete: function(){
-			alert("정상적으로 수정되었습니다.");					
-				$.ajax({
-					url: "inquiryView.do",
-					type: "GET",
-					data: "iqidx="+$(obj).val(),
-					success: function(data){
-						$("#inquiryEdit_dev").html(data);
-					},
-					error: function(){
-						alert("수정 실패");
-					}
-					
-				});  */
 	</script>
