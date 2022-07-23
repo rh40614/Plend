@@ -16,18 +16,19 @@
 	<!-- css -->
 	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/placeDetail.css" rel="stylesheet">
-	<!-- timePicker -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-	<!-- timePicker 한글화 -->
-	<script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
-	<script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
 	<!-- header/footer -->	
 	<script type="text/javascript">
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
-		})
+		});
+	</script>
+	<!-- calendar/ timeTable -->
+	<script>
+		$(function(){
+			$(".dateCalendar").load("<%=request.getContextPath()%>/resources/article/calendar.jsp");
+			$(".timeTable").load("<%=request.getContextPath()%>/resources/article/timeTable.jsp");
+		});
 	</script>
 </head>
 <body>
@@ -39,7 +40,7 @@
 			<div class="nav-scroller mb-2">
 			    <nav class="nav d-flex row detailNav">
 			      <a class="p-2 col link-secondary text-white active2" href="#">공간 소개</a>
-			      <a class="p-2 col link-secondary text-white" href="calendar.do">편의 시설</a>
+			      <a class="p-2 col link-secondary text-white" href="test.do">편의 시설</a>
 			      <a class="p-2 col link-secondary text-white" href="#">유의사항</a>
 			      <a class="p-2 col link-secondary text-white" href="#QnA">QnA</a>
 			      <a class="p-2 col link-secondary text-white" href="#">이용후기</a>
@@ -145,6 +146,8 @@
 		</section>
 		<div id="book" class="col-3 align-self-end text-center">
 			<div id="book_Timepiker" class="border-2 rounded-3 m-2 pt-4 pb-4 d-grid gap-1" style="border: solid var(--bs-gray-800);">
+				<div class="dateCalendar d-none"></div>
+				<div class="timeTable d-none"></div>
 				<a class="datePicker btn btn-sm ms-1 me-1"> <i class="fa-regular fa-calendar"></i> 예약날짜 </a>
 				<a class="timePicker btn btn-sm ms-1 me-1"> <i class="fa-regular fa-clock"></i> 예약시간 </a>
 				<a class="bookBtn btn btn-lg m-1" role="button">예약 하기</a>
@@ -174,6 +177,18 @@
 	function modifyToggle(obj){
 		$('.'+obj).toggleClass("d-none");
 	}
+</script>
+<!-- 예약 날짜/시간 보이기 클릭이벤트 -->
+<script>
+	$(".datePicker").click(function(){
+		$(".timeTable").addClass("d-none");
+		$(".dateCalendar").toggleClass("d-none");
+	})
+	
+	$(".timePicker").click(function(){
+		$(".dateCalendar").addClass("d-none");
+		$(".timeTable").toggleClass("d-none");
+	});
 </script>
 </body>
 </html>

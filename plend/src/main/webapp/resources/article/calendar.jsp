@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="true" %>
-<html>
-<head>
-<title>:: JavaScript 캘린더 ::</title>
 <style type="text/css">
     a { color:#000000;text-decoration:none; }
     .scriptCalendar { text-align:center; }
@@ -13,13 +8,31 @@
     .scriptCalendar > thead > tr:last-child > td { background-color:#90EE90; }
     .scriptCalendar > tbody > tr > td { width:50px;height:50px; }
 </style>
+<table class="scriptCalendar">
+    <thead>
+        <tr>
+            <td onClick="prevCalendar();" style="cursor:pointer;">&#60;&#60;</td>
+            <td colspan="5">
+                <span id="calYear">YYYY</span>년
+                <span id="calMonth">MM</span>월
+            </td>
+            <td onClick="nextCalendar();" style="cursor:pointer;">&#62;&#62;</td>
+        </tr>
+        <tr>
+            <td>일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 <script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function() {
-        buildCalendar();
-    });
-
-    var today = new Date(); // @param 전역 변수, 오늘 날짜 / 내 컴퓨터 로컬을 기준으로 today에 Date 객체를 넣어줌
-    var date = new Date();  // @param 전역 변수, today의 Date를 세어주는 역할
+    var localDate = new Date(); 
+	var utc = localDate.getTime() + (localDate.getTimezoneOffset() * 60 * 1000); 
+	var kstGap = 9 * 60 * 60 * 1000; 
+	var today = new Date(utc + kstGap);
+	var date = new Date(utc + kstGap); 
+    
+    //var today = new Date(); // @param 전역 변수, 오늘 날짜 / 내 컴퓨터 로컬을 기준으로 today에 Date 객체를 넣어줌
+    //var date = new Date();  // @param 전역 변수, today의 Date를 세어주는 역할
 
     /**
      * @brief   이전달 버튼 클릭
@@ -202,25 +215,6 @@
         }
         return num;
     }
-
+    
+    buildCalendar();
 </script>
-</head>
-<body>
-<table class="scriptCalendar">
-    <thead>
-        <tr>
-            <td onClick="prevCalendar();" style="cursor:pointer;">&#60;&#60;</td>
-            <td colspan="5">
-                <span id="calYear">YYYY</span>년
-                <span id="calMonth">MM</span>월
-            </td>
-            <td onClick="nextCalendar();" style="cursor:pointer;">&#62;&#62;</td>
-        </tr>
-        <tr>
-            <td>일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
-</body>
-</html>

@@ -58,11 +58,10 @@ public final class PlaceController {
 		return "redirect:/place/view.do?pidx="+qnavo.getPidx();
 	}
 	
-	@RequestMapping(value="/calendar.do")
-	public String calendar() {
-		return "place/newCalendar";
+	@RequestMapping(value="/test.do", method=RequestMethod.GET)
+	public String test() {
+		return "place/test";
 	}
-
 
 
 
