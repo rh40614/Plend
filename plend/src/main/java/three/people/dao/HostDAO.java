@@ -88,12 +88,17 @@ public class HostDAO {
 		int result =sqlSession.update(namespace+".updateAnswerYN",inquiryVO);
 		return result;
 	}
-	public List<PlaceVO> selectPidx(UserVO login) {
-		List<PlaceVO> result = sqlSession.selectList(namespace+".selectPidx", login);
+	public List<QnaVO> selectQna(HashMap<String, Integer> page) {
+		List<QnaVO> result = sqlSession.selectList(namespace+".selectQna", page);
 		return result;
 	}
-	public List<QnaVO> selectQna(PlaceVO placeVO) {
-		List<QnaVO> result = sqlSession.selectList(namespace+".selectQna", placeVO);
+	public List<QnaVO> qnaList(HashMap<String, Integer> page) {
+		List<QnaVO> result = sqlSession.selectList(namespace+".qnaList", page);
 		return result;
 	}
+	public int cntQidx(UserVO userVO) {
+		int result = sqlSession.selectOne(namespace+".cntQidx", userVO);
+		return result;
+	}
+	
 }

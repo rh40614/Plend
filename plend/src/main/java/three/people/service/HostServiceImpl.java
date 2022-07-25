@@ -123,15 +123,22 @@ public class HostServiceImpl implements HostService {
 
 
 	@Override
-	public List<QnaVO> selectQna(PlaceVO placeVO) {
-	  List<QnaVO> result = hostDAO.selectQna(placeVO);
+	public List<QnaVO> selectQna(HashMap<String, Integer> page) {
+		List<QnaVO> result = hostDAO.selectQna(page);
 		return result;
 	}
 
 
 	@Override
-	public List<PlaceVO> selectPidx(UserVO login) {
-		List<PlaceVO> result = hostDAO.selectPidx(login);
+	public int cntQidx(UserVO userVO) {
+	 int result = hostDAO.cntQidx(userVO);
+		return result;
+	}
+
+
+	@Override
+	public List<QnaVO> qnaList(HashMap<String, Integer> page) {
+		List<QnaVO> result = hostDAO.qnaList(page);
 		return result;
 	}
 	

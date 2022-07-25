@@ -32,6 +32,7 @@ public interface HostService {
 	public int reply(InquiryVO inquiryVO);
 	public InquiryVO selectReplyOne(InquiryVO inquiryVO);
 	public int updateAnswerYN(InquiryVO inquiryVO);
-	public List<PlaceVO> selectPidx(UserVO login);
-	public List<QnaVO> selectQna(PlaceVO placeVO);
+	public List<QnaVO> selectQna(HashMap<String, Integer> page);
+	public List<QnaVO> qnaList(HashMap<String, Integer> page);
+	public int cntQidx(UserVO userVO);
 }

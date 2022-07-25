@@ -5,10 +5,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,11 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import three.people.service.HostService;
-import three.people.service.MainService;
+
 import three.people.service.PlaceService;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
-import three.people.vo.InquiryVO;
+
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
 import three.people.vo.SearchVO;
@@ -224,26 +225,52 @@ public class HostController {
 	
 	
 	@RequestMapping(value="/inquiry_user.do", method= RequestMethod.GET)
-	public String userInquiry(HttpSession session, HttpServletRequest request, Model model) {
+	public String userInquiry(HttpSession session, HttpServletRequest request, Model model, SearchVO searchVO) {
 		System.out.println("이용자 문의 사항 관리 페이지");
 		//로그인 정보
 		session = request.getSession();
 		UserVO login = (UserVO) session.getAttribute("login");
 		
-		//qna 목록
-		List<PlaceVO> pidxList = hostService.selectPidx(login);
+		//페이징
+		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
+			searchVO.setNowPage(1);
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getCntPerPage() == 0) {
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getNowPage() == 0) {
+			searchVO.setNowPage(1);
+		}
 		
-			for(PlaceVO place : pidxList) {
-				place.getPidx();
-				
-				
-			}
 		
+		//파라미터 전달
+		HashMap<String, Integer> page = new HashMap<String, Integer>();
+		//cnt위한 param
+		int uidx = login.getUidx();
+		page.put("uidx", uidx);
+		//cnt
+		List<QnaVO> listForCnt = hostService.qnaList(page);
+		int size = listForCnt.size();
+		searchVO.calPaging(size);
 		
+		//page위한 parma
+		int start = searchVO.getStart();
+		int cntPerPage = searchVO.getCntPerPage(); 
+		page.put("start", start);
+		page.put("cntPerPage", cntPerPage);
 		
-		List<QnaVO> list = hostService.selectQna(placeVO);
+		//리스트
+		List<QnaVO> list = hostService.selectQna(page);
+		//페이지의 수를 limit 쿼리에서 size로 측정하게 되면 5개 가 총 갯수가 되어버림
+		//총 갯수를가져오는 쿼리.size()
+		//토탈 갯수
+		
+		System.out.println("size: "+size);
+		System.out.println("noqPage: "+ searchVO.getNowPage());
+		System.out.println("cntPerPage: "+searchVO.getCntPerPage());
+		System.out.println("start: "+searchVO.getStart());
 		
 		model.addAttribute("list", list);		
+		model.addAttribute("pagination" , searchVO);
 		
 		return "host/inquiry_user";
 	}
