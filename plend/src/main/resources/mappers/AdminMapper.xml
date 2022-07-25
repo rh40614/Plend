@@ -20,7 +20,7 @@
 			   role,
 			   delyn,
 			   jdate
-		  FROM user
+		  FROM user_plend
 		 WHERE role = #{role}
 		 <if test="role == 2">
 		 	<include refid="searchUser"></include> 
@@ -66,13 +66,13 @@
 			   role,
 			   delyn,
 			   jdate
-		  FROM user
+		  FROM user_plend
 		 WHERE uidx = #{uidx} 
 	</select> 
 	
 	<!-- 07.15 김영민: 유저 정보수정하기 --> 
 	<update id="userInfo" parameterType="UserVO">
-		UPDATE user
+		UPDATE user_plend
 		   SET id = #{id},
 		       password = #{password},
 		       name = #{name},
@@ -90,7 +90,7 @@
 	</update>
 	<!-- 07.15 김영민: 업체 삭제 -->
 	<update id="enterDelete" parameterType="UserVO">
-		UPDATE user
+		UPDATE user_plend
 		   SET delyn = 'Y'
 	     WHERE uidx = #{uidx}
 	</update>
@@ -129,7 +129,7 @@
 			   p.approvalYN,
 			   p.intervalTime,
 			   p.availTimeValue
-		  FROM user u
+		  FROM user_plend u
 		  JOIN place p
 		    ON u.uidx = p.uidx
 		    <if test="searchType != null">
@@ -146,7 +146,7 @@
 	<!-- 07.16 김영민: 업체 장소 리스트 총 갯수 -->
 	<select id="totalPlace" parameterType="SearchVO" resultType="Integer">
 		SELECT count(*)
-		  FROM user u
+		  FROM user_plend u
 		  JOIN place p
 		    ON u.uidx = p.uidx
 		  <if test="searchType != null">

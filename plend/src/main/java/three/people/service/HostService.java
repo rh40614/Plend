@@ -7,7 +7,9 @@ import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.InquiryVO;
 import three.people.vo.PlaceVO;
+import three.people.vo.QnaVO;
 import three.people.vo.SearchVO;
+import three.people.vo.UserVO;
 
 
 public interface HostService {
@@ -28,4 +30,8 @@ public interface HostService {
 	public int cntIqidx(InquiryVO inquiryVO);
 	public int inquiryEdit_dev(InquiryVO inquiryVO);
 	public int reply(InquiryVO inquiryVO);
+	public InquiryVO selectReplyOne(InquiryVO inquiryVO);
+	public int updateAnswerYN(InquiryVO inquiryVO);
+	public List<PlaceVO> selectPidx(UserVO login);
+	public List<QnaVO> selectQna(PlaceVO placeVO);
 }

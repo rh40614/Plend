@@ -7,7 +7,7 @@
 	
 	<insert id="insertUser" parameterType="UserVO">
 	<!-- 일단 유저만 -->
-		INSERT INTO user(
+		INSERT INTO user_plend(
 			 id
 			,password
 			,name
@@ -39,7 +39,7 @@
 			 uidx
 			,id
 			,password
-		FROM user
+		FROM user_plend
 	   WHERE id = #{id}
 	     AND password = #{password}	
 	</select>
@@ -49,7 +49,7 @@
 			 name
 			,email
 			,id
-		FROM user 
+		FROM user_plend 
 	   WHERE name = #{name}
 	     AND email = #{email}
 	</select>
@@ -60,19 +60,19 @@
 	<select id="idCheck" parameterType="String" resultType="Integer">
 		SELECT 
 			 count(*)
-		  FROM user
+		  FROM user_plend
 		 WHERE id = #{id} 
 	</select>
 	<select id="nickNameCheck" parameterType="String" resultType="Integer">
 		SELECT 
 			 count(*)
-		  FROM user
+		  FROM user_plend
 		 WHERE nickName = #{nickName}
 	</select>
 	<!-- 07.14 김영민: 회원구분별 총 인원 구하기 -->
 	<select id="totalCountUser" parameterType="SearchVO" resultType="Integer">
 		SELECT count(*)
-		  FROM user
+		  FROM user_plend
 		 WHERE role = #{role}
 		 <if test="role == 2">
 		 	<include refid="searchUser"></include> 

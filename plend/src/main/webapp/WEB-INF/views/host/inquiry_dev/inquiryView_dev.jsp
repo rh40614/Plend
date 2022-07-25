@@ -54,18 +54,18 @@
 	<!-- 답변 달기 -->
 	<script>
 		function replyOpen(obj){
-			console.log("함수 호출");
+			console.log("답변 창 오픈");
 
 			$.ajax({
 				url: "reply.do",
 				type: "GET",
 				data: "iqidx="+ $(obj).val(),
 				success: function(html){
-					console.log("답변 달기");
+					console.log("답변 창 오픈 성공");
 					$("#reply").html(html);
 				},
 				error: function(){
-					console.log("실패");
+					console.log("답변 창 오픈 실패");
 				}
 			})
 		}
@@ -188,8 +188,9 @@
 				<br>
 				<span class="spaceL mb-5">답변이 달린 이후에는 수정이 불가능합니다. </span>
 				<div class="btn-group spaceL" role="group" id="btnGroup" style="text-align: right;" >
-					<button class="btnDefault me-3" type="button" onclick="inquiryEdit_dev('${inquiry.iqidx}')">수정</button>
-					<%-- <button class="btnDefault" type="button" onclick="location.href='<%=request.getContextPath()%>/inquiry_dev/inquiryDelete_dev.do'">삭제</button> --%>
+					<c:if test="${inquiry.answerYN eq 'N'}">
+						<button class="btnDefault me-3" type="button" onclick="inquiryEdit_dev(this)" value="${inquiry.iqidx}">수정</button>
+					</c:if>
 				</div>
 		</section>
 		</div>
@@ -198,28 +199,31 @@
 		<!-- 답변 확인 -->
 		<div id="reply">
 			<section>
-				<span class="title1 spaceL">답변 확인 </span>
 				<br>
-				<button type="button" onclick="replyOpen(this)" class="btnBig spaceL" value="${inquiry.iqidx}">답변작성</button>
+				<c:choose>
+					<c:when test="${inquiry.answerYN eq 'N' && login.role == 1 }">
+						<button type="button" onclick="replyOpen(this)" class="btnBig spaceL" value="${inquiry.iqidx}">답변작성</button>
+					</c:when>
+					<c:when test="${inquiry.answerYN eq 'N' && login.role == 2 }">
+						<p >아직 답변이 작성되지 않았습니다.<br> 문의사항에 대한 답변은 평균 1-7일내에 관리자의 확인 후 확인하실 수 있습니다.<br> 더 궁금하신 점이 있다면 1588-0000번으로 문의 부탁드립니다. 감사합니다.</p>
+					</c:when>
+				</c:choose>
 				
-				<table class="spaceL border border-3 rounded w-75 h-75" style="border-collapse: initial;" >
-					<tbody>
-					
-						<c:if test="">
+				<c:if test="${inquiry.answerYN eq 'Y'}">
+					<span class="title1 spaceL">답변 확인 </span>
+					<span class="spaceL"> 추가적인 문의사항은 새로운 문의를 통하여 질문해 주시길 바랍니다.</span>
+					<table class="spaceL border border-3 rounded w-75 h-75" style="border-collapse: initial;" >
+						<tbody>
 							<tr>
-								<td colspan="2" class="fs-5"  style="padding: 30px;">등록된 답변이 없습니다.</td>
+								<td class="ps-4 pe-2" style="width: 80px;">제목 : </td><td>${answer.title}</td>
 							</tr>
-						</c:if>
-					
-						<tr>
-							<td class="ps-4 pe-2" style="width: 80px;">제목 : </td><td>RE: 장소등록이 안되는데 어떠한 연유인지 궁금합니다.</td>
-						</tr>
-						<tr>
-							<td class="ps-4 pe-2 " style="width: 80px; vertical-align: top;">내용 :</td>
-							<td>문의해 주셔서 감사합니다. <br> 장소 등록이 되지 않는 이유는 저희가 막아놔서 그래요 메롱</td>
-						</tr>
-					</tbody>
-				</table>
+							<tr>
+								<td class="ps-4 pe-2 " style="width: 80px; vertical-align: top;">내용 :</td>
+								<td>${answer.content}</td>
+							</tr>
+						</tbody>
+					</table>
+				</c:if>
 			</section>
 		</div>
 	</main>
