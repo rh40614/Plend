@@ -2,6 +2,7 @@ package three.people.service;
 
 import java.util.List;
 
+import three.people.vo.BookVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
 import three.people.vo.SearchVO;
@@ -15,4 +16,5 @@ public interface PlaceService {
 	public List<QnaVO> selectQnA(PlaceVO placevo);
 	public int qnaModify(QnaVO qnavo);
 	public int deleteQnA(QnaVO qnavo);
+	public int insertBook(BookVO bookvo);
 }

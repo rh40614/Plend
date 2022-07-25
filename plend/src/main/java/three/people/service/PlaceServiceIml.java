@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import three.people.dao.PlaceDAO;
+import three.people.vo.BookVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
 import three.people.vo.SearchVO;
@@ -52,6 +53,11 @@ public class PlaceServiceIml implements PlaceService{
 	@Override
 	public int deleteQnA(QnaVO qnavo) {
 		return placeDAO.deleteQnA(qnavo);
+	}
+
+	@Override
+	public int insertBook(BookVO bookvo) {
+		return placeDAO.insertBook(bookvo);
 	}
 
 }

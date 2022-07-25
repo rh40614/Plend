@@ -41,9 +41,8 @@
 	<script>
 		function inquiryEdit_dev(obj){
 			$.ajax({
-				url:"inquiryEdit_dev.do",
+				url:"inquiryEdit_dev.do?iqidx=" + obj,
 				type: "GET", 
-				data: "iqidx="+ $(obj).val(),
 				success: function(edit){
 					console.log($(obj).val());
 					$("#inquiryEdit_dev").html(edit);
@@ -189,7 +188,7 @@
 				<br>
 				<span class="spaceL mb-5">답변이 달린 이후에는 수정이 불가능합니다. </span>
 				<div class="btn-group spaceL" role="group" id="btnGroup" style="text-align: right;" >
-					<button class="btnDefault me-3" type="button" onclick="inquiryEdit_dev(this)" value="${inquiry.iqidx}">수정</button>
+					<button class="btnDefault me-3" type="button" onclick="inquiryEdit_dev('${inquiry.iqidx}')">수정</button>
 					<%-- <button class="btnDefault" type="button" onclick="location.href='<%=request.getContextPath()%>/inquiry_dev/inquiryDelete_dev.do'">삭제</button> --%>
 				</div>
 		</section>

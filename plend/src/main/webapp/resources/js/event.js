@@ -5,12 +5,12 @@ $(".edate").flatpickr({
 	mode: "range"
 });
 
-<!-- formReset -->
+// formReset
 $(".formReset").click(function(){
 	$(this).closest("form")[0].reset();
 })
 
-<!-- ajax이용 수정페이지 불러오기 -->
+// ajax이용 수정페이지 불러오기
 function modifyEvent(eidx){
 	$.ajax({
 		url:"modifyEvent.do?eidx=" + eidx,
@@ -20,7 +20,7 @@ function modifyEvent(eidx){
 	});
 }
 
-<!-- form submit 전 날짜 유효성 검사 -->
+// form submit 전 날짜 유효성 검사 
 function validation(){
 	console.log($(".edate").val());
 	if($(".edate").val() == ""){

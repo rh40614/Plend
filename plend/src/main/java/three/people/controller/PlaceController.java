@@ -1,5 +1,8 @@
 package three.people.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import three.people.service.PlaceService;
+import three.people.vo.BookVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
+import three.people.vo.UserVO;
 
 @RequestMapping(value="/place")
 @Controller
@@ -57,8 +62,22 @@ public final class PlaceController {
 		placeService.deleteQnA(qnavo);
 		return "redirect:/place/view.do?pidx="+qnavo.getPidx();
 	}
-
-
+	
+	// 예약하기
+	@RequestMapping(value="/book.do", method=RequestMethod.POST)
+	public String book(BookVO bookvo, Model model) {
+		
+		model.addAttribute("bookvo", bookvo);
+		model.addAttribute("placeOne", placeService.placeOne(bookvo));
+		
+		return "place/beforeBookDetail";
+	}
+	
+	
+	@RequestMapping(value="/test.do", method=RequestMethod.GET)
+	public String test() {
+		return "place/test";
+	}
 
 
 

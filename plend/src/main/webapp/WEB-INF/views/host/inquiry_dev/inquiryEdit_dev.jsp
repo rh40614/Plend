@@ -20,7 +20,7 @@
 			</select>
 				<span>문의제목 </span><input type="text" name="title" size="50"  value="${inquiry.title}" required>
 				<textarea id="summernote" name="content" required >${inquiry.content}</textarea> 
-				<button type="button" class="btnBig" onclick="save(this)" value="${inquiry.iqidx}">저장</button>
+				<button type="button" class="btnBig" onclick="saveContent('${inquiry.iqidx}')">저장</button>
 			</form>
 		</div>
 	</section >
@@ -43,8 +43,8 @@
 	
 	<!-- 운영자 문의 수정  -->
 	<script>
-		function save(obj){
-			
+		function saveContent(obj){
+			console.log("obj" + obj);
 			var inquiryEdit = $("form[name=frm]").serialize();
 			
 			$.ajax({
