@@ -62,7 +62,7 @@
 				      <td>${event.edate.replace("to","~")}</td>
 				      <td>
 				      	<button class="btn btn-primary btn-sm rounded-3" onclick="modifyEvent(${event.eidx})">수정</button>
-				      	<a class="btn btn-primary btn-sm rounded-3" href="deleteEvent.do?eidx=${event.eidx}" >삭제</a>
+				      	<a class="btn btn-primary btn-sm rounded-3" href="deleteEvent.do?eidx=${event.eidx}&category=${event.category}" >삭제</a>
 			      	  </td>
 				    </tr>
 			  	</c:forEach>

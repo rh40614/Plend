@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import three.people.vo.BookVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
@@ -49,5 +50,9 @@ public class PlaceDAO {
 	// 07.22 김영민: qna 삭제
 	public int deleteQnA(QnaVO qnavo) {
 		return sqlSession.update(namespace+".deleteQnA", qnavo);
+	}
+	// 07.25 김영민: 예약정보 추가
+	public int insertBook(BookVO bookvo) {
+		return sqlSession.insert(namespace+".insertBook", bookvo);
 	}
 }

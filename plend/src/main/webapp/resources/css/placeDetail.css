@@ -24,8 +24,9 @@
     color: white !important;
 }
 
-.timePicker, .datePicker {
+.timePicker, .datePicker, .peopleCnt {
 	background-color: white !important;
     border-color: black !important;
     color: black !important;
 }
+

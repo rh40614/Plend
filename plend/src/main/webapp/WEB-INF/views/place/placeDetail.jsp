@@ -145,13 +145,24 @@
 			</section>
 		</section>
 		<div id="book" class="col-3 align-self-end text-center">
-			<div id="book_Timepiker" class="border-2 rounded-3 m-2 pt-4 pb-4 d-grid gap-1" style="border: solid var(--bs-gray-800);">
-				<div class="dateCalendar d-none"></div>
-				<div class="timeTable d-none"></div>
-				<a class="datePicker btn btn-sm ms-1 me-1"> <i class="fa-regular fa-calendar"></i> 예약날짜 </a>
-				<a class="timePicker btn btn-sm ms-1 me-1"> <i class="fa-regular fa-clock"></i> 예약시간 </a>
-				<a class="bookBtn btn btn-lg m-1" role="button">예약 하기</a>
-			</div>
+			<form action="book.do" onsubmit="return calTime()" method="post">
+				<div id="book_Timepiker" class="border-2 rounded-3 m-2 pt-4 pb-4 d-grid gap-1" style="border: solid var(--bs-gray-800);">
+					<div class="dateCalendar d-none"></div>
+					<input type="hidden" class="selectDate">
+					<div class="timeTable d-none"></div>
+					<input type="hidden" class="selectTime">
+					<input type="hidden" name="useTime" class="useTime">
+					<div class="cntPeople d-none">
+						<div class="d-inline-flex">인원 선택</div>
+						<input name="cntPeople" type="number" class="d-inline-flex form-control m-1" style="width: auto;">
+					</div>
+					<a class="datePicker btn btn-sm ms-1 me-1"> <i class="fa-regular fa-calendar"></i> 예약날짜 </a>
+					<a class="timePicker btn btn-sm ms-1 me-1"> <i class="fa-regular fa-clock"></i> 예약시간 </a>
+					<a class="peopleCnt btn btn-sm ms-1 me-1"> <i class="fa-regular fa-clock"></i> 예약인원 </a>
+					<button class="bookBtn btn btn-lg m-1">예약 하기</button>
+					<input type="hidden" name="pidx" value="${placeOne.pidx}">
+				</div>
+			</form>
 		</div>
 	</main>
 
@@ -178,17 +189,51 @@
 		$('.'+obj).toggleClass("d-none");
 	}
 </script>
-<!-- 예약 날짜/시간 보이기 클릭이벤트 -->
+<!-- 예약 날짜/시간/인원 보이기 클릭이벤트 -->
 <script>
 	$(".datePicker").click(function(){
 		$(".timeTable").addClass("d-none");
+		$(".cntPeople").addClass("d-none");
 		$(".dateCalendar").toggleClass("d-none");
 	})
 	
 	$(".timePicker").click(function(){
 		$(".dateCalendar").addClass("d-none");
+		$(".cntPeople").addClass("d-none");
 		$(".timeTable").toggleClass("d-none");
 	});
+	
+	$(".peopleCnt").click(function(){
+		$(".dateCalendar").addClass("d-none");
+		$(".timeTable").addClass("d-none");
+		$(".cntPeople").toggleClass("d-none");
+	});
+</script>
+<!-- 예약전 예약시간 계산/ 빈값 유효성 검사 -->
+<script type="text/javascript">
+	function calTime(){
+		
+		if($(".selectDate").val()==""){
+			alert("날짜를 선택해주세요.");
+			return false;
+		}else if($(".selectTime").val()==""){
+			alert("시간을 선택해주세요");
+			return false;
+		}else if($("input[name='cntPeople']").val()==""){
+			alert("인원을 입력해주세요");
+			return false;
+		}else{
+			const selectDate = $(".selectDate").val().split(",");
+			const time = $(".selectTime").val().split(",");
+			let year = selectDate[0];
+			let month = selectDate[1];
+			let date = selectDate[2];
+			
+			var data = new Date();
+			var usetime = year+"-"+month+"-"+date+" "+time[0]+":00 ~ "+year+"-"+month+"-"+date+" "+time[1]+":00";
+			$(".useTime").val(usetime);
+		}
+	}
 </script>
 </body>
 </html>

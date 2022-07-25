@@ -64,7 +64,7 @@
 		<selectKey keyProperty="originQidx" resultType="int" order="BEFORE">
 			<if test="originQidx == 0">
 				<![CDATA[
-				SELECT MAX(qidx)+1
+				SELECT IF(MAX(qidx)+1 = null, MAX(qidx)+1, 1) as result
 				  FROM qna
 				]]>
 			</if>
@@ -111,12 +111,30 @@
 		       date = now()
 		 WHERE qidx = #{qidx}
 	</update>
+	
 	<!-- 07.22 김영민: QnA 글 삭제하기 -->
 	<update id="deleteQnA" parameterType="QnaVO">
 		UPDATE qna
 	       SET delyn = 'Y'
 		 WHERE qidx = #{qidx}
 	</update>
+	
+	<!-- 07.25 김영민: 예약정보 추가하기 -->
+	<insert id="insertBook" parameterType="BookVO">
+		INSERT INTO book(
+			pidx,
+			uidx,
+			usetime,
+			cntpeople,
+			option1
+		)VALUES(
+			#{pidx},
+			#{uidx},
+			#{useTime},
+			#{cntPeople},
+			#{option1}
+		)
+	</insert>
 	<select id="randomPlace" resultType="PlaceVO"></select>
 	
 </mapper>

@@ -201,6 +201,9 @@
 
         // @param 선택일 클래스명 변경
         column.classList.add("choiceDay");
+        // 선택날짜 값 받기
+        let chooseDate = "";
+        $(".selectDate").val(chooseDate.concat(today.getFullYear(),",",today.getMonth()+1, ",",$(".choiceDay").text()));
     }
 
     /**

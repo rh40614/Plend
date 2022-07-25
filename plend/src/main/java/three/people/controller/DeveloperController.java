@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -88,11 +89,16 @@ public class DeveloperController {
 	}
 	
 //	 이벤트 등록
+	@Transactional
 	@RequestMapping(value="/event.do", method=RequestMethod.POST)
 	public String event(EventVO eventvo, HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {
 		// 이벤트 등록 후 이벤트 인덱스를 받아와 이미지를 등록함
+		// 이벤트 틍록 후 장소에도 eventyn값 변경
 		int result = adminService.insertEvent(eventvo);
 		if(result == 1) {
+			if(eventvo.getStartEnd().equals("start")) {
+				adminService.placeEventUpdate(eventvo);
+			}
 			String path = request.getSession().getServletContext().getRealPath("/resources/upload/event");
 			File dir = new File(path);
 			if(!dir.exists()) {
@@ -139,10 +145,16 @@ public class DeveloperController {
 		return "developer/eventModify";
 	}
 	// 실제 이벤트 수정
+	@Transactional
 	@RequestMapping(value="/modifyEvent.do", method=RequestMethod.POST)
 	public String modifyEvent(EventVO eventvo, HttpServletRequest request) throws IllegalStateException, IOException {
 		int result = adminService.updateEvent(eventvo);
 		if(result == 1) {
+			if(eventvo.getStartEnd().equals("start")) {
+				adminService.placeEventUpdate(eventvo);
+			}else {
+				adminService.placeEventDone(eventvo);
+			}
 			String path = request.getSession().getServletContext().getRealPath("/resources/upload/event");
 			File dir = new File(path);
 			if(!dir.exists()) {
@@ -174,9 +186,11 @@ public class DeveloperController {
 		return "redirect:/developer/event.do";
 	}
 	// 이벤트 삭제
+	@Transactional
 	@RequestMapping(value="/deleteEvent.do")
 	public String deleteEvent(EventVO eventvo) {
 		adminService.deleteEvent(eventvo);
+		adminService.placeEventDone(eventvo);
 		return "redirect:/developer/event.do";
 	}
 	//업체 리스트 페이지로 이동
