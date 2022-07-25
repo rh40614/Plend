@@ -241,9 +241,9 @@ public class HostController {
 		
 		
 		
-		List<QnaVO> list = hostService.selectQna(placeVO);
+//		List<QnaVO> list = hostService.selectQna(placeVO);
 		
-		model.addAttribute("list", list);		
+//		model.addAttribute("list", list);		
 		
 		return "host/inquiry_user";
 	}

@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
-
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -36,19 +35,39 @@
 	<header class="row" id="header"></header>
 	<br>
 	<main class="row">
+		<section id="placeHeader" class="col-9">
+			<section id="placeImg">
+				<%-- <img class="card-img-bottom d-block" src="<%=request.getContextPath() %>/resources/upload/placeImg/20210606＿003554.jpg" alt="Card image cap"> --%>
+				<img class="card-img-bottom d-block" src="/imgs/20210606＿003554.jpg" alt="Card image cap"/>
+				<!-- 참고해보자 https://kim-jong-hyun.tistory.com/28 -->
+			</section>
+			<section id="placeTitle">
+				<div class="d-flex place_name">특가 진행중</div>
+				<div class="d-flex place_addr">주소</div>
+				<div class="d-flex place_tag">태그</div>
+				<div class="icon d-flex">
+					<i class="fa-solid fa-link"></i>
+					<i class="fa-regular fa-heart" style="color: red;"></i>
+					<i class="fa-regular fa-star" style="float:right"></i>
+				</div>
+			</section>
+		</section>
 		<section id="viewNav" class="col-9">
 			<div class="nav-scroller mb-2">
 			    <nav class="nav d-flex row detailNav">
-			      <a class="p-2 col link-secondary text-white active2" href="#">공간 소개</a>
-			      <a class="p-2 col link-secondary text-white" href="test.do">편의 시설</a>
-			      <a class="p-2 col link-secondary text-white" href="#">유의사항</a>
+			      <a class="p-2 col link-secondary text-white active2" href="#explanation_place">공간 소개</a>
+			      <a class="p-2 col link-secondary text-white" href="#facilities">편의 시설</a>
+			      <a class="p-2 col link-secondary text-white" href="#notice">유의사항</a>
 			      <a class="p-2 col link-secondary text-white" href="#QnA">QnA</a>
-			      <a class="p-2 col link-secondary text-white" href="#">이용후기</a>
+			      <a class="p-2 col link-secondary text-white" href="#review">이용후기</a>
 			    </nav>
 			</div>
+			<section id="explanation_place"></section>
+			<section id="facilities"></section>
+			<section id="notice"></section>
 			<section id="QnA">
 				<table class="table caption-top">
-					<caption class="ms-4 text-black">QnA</caption>
+					<caption class="ms-4 text-black"> <i class="fa-solid fa-circle-question"> QnA</i></caption>
 					<tbody>
 						<c:forEach var="qna" items="${QnaList}" varStatus="status">
 							<!-- QnA 질문 표시 -->
@@ -143,6 +162,7 @@
 					</div>
 				</c:if>
 			</section>
+			<section id="review"></section>
 		</section>
 		<div id="book" class="col-3 align-self-end text-center">
 			<form action="book.do" onsubmit="return calTime()" method="post">
@@ -165,7 +185,6 @@
 			</form>
 		</div>
 	</main>
-
 </div>
 <footer id="footer" class="row mt-5"></footer>
 <!-- JavaScript Bundle with Popper -->
