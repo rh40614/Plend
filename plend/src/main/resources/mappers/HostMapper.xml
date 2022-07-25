@@ -263,33 +263,62 @@
 	</select>
 	
 	
-	<!-- 업체가 등록한 장소 가지고 오기 -->
-	<select id="selectPidx"  resultType="PlaceVO" parameterType="UserVO">
-		SELECT pidx 
-		FROM place 
-		WHERE uidx = #{uidx}; 
-	
-	</select>
-	
-	
-	
 	<!-- 2022.07.25 김연희	: 장소에 대한 qna 가지고 오기 -->
-	<select id="selectQna" resultType="QnaVO" parameterType="PlaceVO">
-	 SELECT
-			 qidx
-			 ,pidx
-			 ,title
-			 ,content
-			 ,date
-			 ,originqidx
-			 ,depth
-			 ,delyn
-			 ,uidx
-	  FROM qna 
-	  WHERE pidx =#{pidx}
+	<select id="selectQna" resultType="QnaVO" parameterType="HashMap">
+		SELECT
+				qidx
+				,p.pidx
+				,title
+				,content
+				,originQidx
+				,p.category
+				,p.placeName
+				,q.date
+				,depth
+				,p.delYN
+				,q.delYN
+				,q.uidx
+			FROM place p
+			JOIN qna q
+			ON p.pidx = q.pidx
+		 WHERE p.uidx = #{uidx}
+		 AND p.delYN = 'N'
+		 AND q.delYN = 'N'
+		 LIMIT #{start},#{cntPerPage}
 	</select>
 	
-
+	
+	<select id="qnaList" resultType="QnaVO" parameterType="HashMap">
+		SELECT
+				qidx
+				,p.pidx
+				,title
+				,content
+				,originQidx
+				,p.category
+				,p.placeName
+				,q.date
+				,depth
+				,p.delYN
+				,q.delYN
+				,q.uidx
+			FROM place p
+			JOIN qna q
+			ON p.pidx = q.pidx
+		 WHERE p.uidx = #{uidx}
+		 AND p.delYN = 'N'
+		 AND q.delYN = 'N'
+	</select>
+	
+	
+	<select id="cntQidx" parameterType="UserVO" resultType="int">
+		SELECT
+			COUNT(qidx)
+		FROM qna
+		JOIN place p
+		WHERE p.uidx = #{uidx}
+	</select>
+	
 	
 	
 	
