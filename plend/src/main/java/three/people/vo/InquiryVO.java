@@ -12,7 +12,15 @@ public class InquiryVO extends UserVO {
 	private int originiqidx;
 	private int depth;
 	private float answerRate;
+	private int uidx;
 	
+	
+	public int getUidx() {
+		return uidx;
+	}
+	public void setUidx(int uidx) {
+		this.uidx = uidx;
+	}
 	public int getIqidx() {
 		return iqidx;
 	}

@@ -51,7 +51,6 @@
 				url: "inquiryEdit_dev.do", 
 				type: "POST",
 				data: inquiryEdit,
-<<<<<<< HEAD
 				success: function(data){
 						console.log("수정 성공");
 						$("#inquiryEdit_dev").html(data);
@@ -59,24 +58,4 @@
 					
 				});
 			}
-	
-=======
-				dataType: "json",
-				complete: function(){
-					alert("정상적으로 수정되었습니다.");					
-						$.ajax({
-							url: "inquiryView.do",
-							type: "GET",
-							data: "iqidx="+$(obj).val(),
-							success: function(data){
-								$("#inquiryEdit_dev").html(data);
-							},
-							error: function(){
-								alert("수정 실패");
-							}
-						}); 
-				}
-			});
-		}
->>>>>>> 544bbf04da39b9d5ef06536e76a037f9f626c992
 	</script>

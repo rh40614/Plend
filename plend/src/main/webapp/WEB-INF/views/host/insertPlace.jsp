@@ -262,15 +262,19 @@
 								<span>고객이용가능 시간이 30분일 경우 30분 단위로 예약을 여는 것을 추천합니다.</span><br>
 									<select name="intervalTime" id="intervalTime" class="mt-3" required>
 										<option value="" disabled selected >예약단위</option>
-										<option value="1" >30분</option>
-										<option value="2" >1시간</option>
-										<option value="3" >2시간</option>
+										<!-- <option value="1" >30분</option> -->
+										<option value="1" >1시간</option>
+										<option value="2" >2시간</option>
 										<option value="4" >4시간</option>
-										<option value="5" >6시간</option>
+										<option value="6" >6시간</option>
 									</select>
 							
 							</label>
 							<br>
+							
+							<!-- 최대 수용가능 인원-->
+							
+							
 							<label class="mt-3">
 								<span class="title3">가격 </span><br>
 								시간 당 <input type="text" name="price" id="price" placeholder="ex) 10000">원으로 으로 책정합니다.

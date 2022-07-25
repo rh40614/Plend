@@ -163,7 +163,7 @@
 			,depth
 			,answerRate
 		FROM inquiry
-		WHERE uidx = #{uidx}
+		WHERE depth = '0'
 		ORDER BY iqidx DESC
 		LIMIT #{start},#{cntPerPage}
 		
@@ -174,7 +174,7 @@
 	<!--2022.07.21 김연희 : 문의 내역 하나 -->
 	<select id="selectInquiryOne" parameterType="InquiryVO" resultType="InquiryVO">
 		SELECT 
-			iqidx
+			 iqidx
 			,uidx
 			,category
 			,title
@@ -189,6 +189,7 @@
 		WHERE uidx = #{uidx}
 		AND iqidx = #{iqidx}
 		ORDER BY iqidx DESC
+		
 	</select>
 	
 	<!-- 2022.07.21 김연희: 페이징 위한 문의 갯수 -->
@@ -209,7 +210,7 @@
 	</insert>
 	
 	
-	<!-- 2022.07.22 김연희 : 답변-->
+	<!-- 2022.07.22 김연희 : 답변(트랜젝션)-->
 	<insert id="reply" parameterType="InquiryVO">
 		INSERT inquiry(
 				uidx
@@ -219,22 +220,76 @@
 				,originiqidx
 				,depth
 		)VALUES( 
-				 #{udix}
+				 #{uidx}
 				,#{category}
 				,#{title}
 				,#{content}
-				,#{iqidx}
+				,#{iqidx} <!-- 원글의 idx를 origin으로 넣기 -->
 				,'1'
 		 )
-		
+		 
+		<!-- 답변의 iqidx
+		<selectKey resultType="int" keyProperty="iqidx" order="AFTER">
+			SELECT max(iqidx) FROM inquiry
+		</selectKey> -->
 	</insert>
 	
+	<!-- 원글의 YN 변경(트랜젝션) -->
+	<update id="updateAnswerYN" parameterType="InquiryVO" >
+		UPDATE inquiry 
+		   SET answerYN ='Y' 
+		 WHERE iqidx =#{iqidx}
+	</update>
 	
 	
 	
+	<!-- 답변 출력 -->
+	<select id="selectReplyOne" parameterType="InquiryVO" resultType="InquiryVO">
+		SELECT 
+			iqidx
+			,uidx
+			,category
+			,title
+			,content
+			,date
+			,img
+			,answerYN
+			,originiqidx
+			,depth
+			,answerRate
+		FROM inquiry
+	   WHERE originiqidx = #{iqidx}
+	   AND depth ='1'
+	</select>
+	
+	
+	<!-- 업체가 등록한 장소 가지고 오기 -->
+	<select id="selectPidx"  resultType="PlaceVO" parameterType="UserVO">
+		SELECT pidx 
+		FROM place 
+		WHERE uidx = #{uidx}; 
+	
+	</select>
 	
 	
 	
+	<!-- 2022.07.25 김연희	: 장소에 대한 qna 가지고 오기 -->
+	<select id="selectQna" resultType="QnaVO" parameterType="PlaceVO">
+	 SELECT
+			 qidx
+			 ,pidx
+			 ,title
+			 ,content
+			 ,date
+			 ,originqidx
+			 ,depth
+			 ,delyn
+			 ,uidx
+	  FROM qna 
+	  WHERE pidx =#{pidx}
+	</select>
+	
+
 	
 	
 	

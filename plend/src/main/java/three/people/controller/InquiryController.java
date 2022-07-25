@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -165,10 +166,20 @@ public class InquiryController {
 		InquiryVO inquiry = hostService.selectInquiryOne(inquiryVO);
 		System.out.println("inquiry_View: "+inquiry);
 
+		//답변이 달린글이 있다면 답변 가지고 오기 
+		System.out.println("answerYN: "+ inquiry.getAnswerYN());
+			 if(inquiry.getAnswerYN().equals("Y")) {
+				 
+				 InquiryVO answer = hostService.selectReplyOne(inquiry);
+				 System.out.println("answer: "+answer.getIqidx());
+				 model.addAttribute("answer",answer);
+			 }
 		
 		model.addAttribute("list",list);
 		model.addAttribute("inquiry",inquiry);
 		model.addAttribute("pagination", searchVO);
+		
+
 		
 		return "host/inquiry_dev/inquiryView_dev";
 	}
@@ -216,32 +227,13 @@ public class InquiryController {
 		
 		model.addAttribute("inquiry", inquiry);
 		
-		return "host/inquiry_dev/inquiryView.do";
+		return "host/inquiry_dev/inquiryView";
 
 	}
 	
 	
 	
-//	//수정 완료 후 이동
-//	@RequestMapping(value="/inquiryView.do", method=RequestMethod.GET)
-//	public String inquiryView(InquiryVO inquiryVO, Model model, HttpServletRequest request, HttpSession session) {
-//		
-//		System.out.println("바뀌는 화면 : "+inquiryVO.getIqidx());
-//		//수정하려고하는 사람 udix
-//		session = request.getSession();
-//		UserVO login = (UserVO)session.getAttribute("login");
-//		inquiryVO.setUidx(login.getUidx()); 
-//		
-//		//문의 내역 (단건)
-//		InquiryVO inquiry = hostService.selectInquiryOne(inquiryVO);
-//		
-//		model.addAttribute("inquiry",inquiry);
-//
-//		return "host/inquiry_dev/inquiryView";
-//	}
-	
-	
-	
+
 	//문의 사항 답변 작성 JSP 칸 열기
 	@RequestMapping(value="/reply.do", method=RequestMethod.GET)
 	public String reply(InquiryVO inquiryVO, HttpSession session, HttpServletRequest request, Model model) {
@@ -263,24 +255,35 @@ public class InquiryController {
 	
 	
 	//답변 저장
+	@Transactional
 	@RequestMapping(value="/reply.do", method=RequestMethod.POST)
 	public String reply(@RequestBody String reply, InquiryVO inquiryVO, HttpSession session, HttpServletRequest request, Model model) {
+		System.out.println("답변 저장하기");
 		
-		//혹시나해서 첨부 //답변을 작성하려는 사람의 uidx
+		//답변을 작성하려는 사람의 uidx
 		session = request.getSession();
 		UserVO login = (UserVO)session.getAttribute("login");
 		inquiryVO.setUidx(login.getUidx()); 
 		
-		//원글 정보 
-		InquiryVO inquiry = hostService.selectInquiryOne(inquiryVO);
 		
-		//답변 달기
-		int result= hostService.reply(inquiryVO);
-			if(result == 1) {
-				model.addAttribute("reply",reply);
+		int result1= hostService.updateAnswerYN(inquiryVO);
+		//답변 달기//reply데이터에 원글의 iqidx 포함되어있음. reply의 데이터가 inquiryVO로 들어감
+		int result2= hostService.reply(inquiryVO);
+			
+			if(result2 == 1 && result1 == 1) {
+			System.out.println("답변 저장");
+			//저장 이후 내용 출력 
+			System.out.println("답변의 iqidx: "+ inquiryVO.getIqidx());
+			InquiryVO answer = hostService.selectReplyOne(inquiryVO);
+			
+			model.addAttribute("answer",answer);
+			
 			}else {
 				System.out.println("답변 달기 실패");
+				
 			}
+			
+		
 	
 		return "host/inquiry_dev/replyAnswer";
 	

@@ -51,21 +51,21 @@
 							</tr>
 						<thead>
 						<tbody>
-							<c:if test="${list_p.size() == 0}">	
+							<c:if test="${list.size() == 0}">	
 								<tr>
 									<td colspan="6">등록된 문의가 없습니다.</td>
 								</tr>
 							</c:if>
 							<!--  -->
-							<c:if test="${list_p.size() > 0}">
-								<c:forEach var="pv" items="${list_p}">
+							<c:if test="${list.size() > 0}">
+								<c:forEach var="q" items="${list}">
 									<tr >
-										<td>${pv.pidx}</td>
-										<td>${pv.placeName}</td>
-										<td>${pv.tag}</td>
-										<td style="text-align: left;">${pv.placeDetail}</td>
-										<td>${pv.approvalYN}</td>
-										<td><button class="btnDefault" type="button" onclick="location.href='/host/placeDetail.do'">수정</button></td>
+										<td>${q.qidx}</td>
+										<td>${q.category}</td>
+										<td>${q.placeName}</td>
+										<td style="text-align: left;">${q.title}</td>
+										<td>${q.nickName}</td>
+										<td>${q.date}</td>
 									</tr>
 								</c:forEach>
 							</c:if>

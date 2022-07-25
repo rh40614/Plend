@@ -29,6 +29,7 @@ import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.InquiryVO;
 import three.people.vo.PlaceVO;
+import three.people.vo.QnaVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
@@ -223,8 +224,27 @@ public class HostController {
 	
 	
 	@RequestMapping(value="/inquiry_user.do", method= RequestMethod.GET)
-	public String userInquiry() {
+	public String userInquiry(HttpSession session, HttpServletRequest request, Model model) {
 		System.out.println("이용자 문의 사항 관리 페이지");
+		//로그인 정보
+		session = request.getSession();
+		UserVO login = (UserVO) session.getAttribute("login");
+		
+		//qna 목록
+		List<PlaceVO> pidxList = hostService.selectPidx(login);
+		
+			for(PlaceVO place : pidxList) {
+				place.getPidx();
+				
+				
+			}
+		
+		
+		
+		List<QnaVO> list = hostService.selectQna(placeVO);
+		
+		model.addAttribute("list", list);		
+		
 		return "host/inquiry_user";
 	}
 	
