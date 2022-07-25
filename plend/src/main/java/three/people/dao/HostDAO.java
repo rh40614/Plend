@@ -11,7 +11,9 @@ import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.InquiryVO;
 import three.people.vo.PlaceVO;
+import three.people.vo.QnaVO;
 import three.people.vo.SearchVO;
+import three.people.vo.UserVO;
 
 
 @Repository
@@ -78,6 +80,20 @@ public class HostDAO {
 		int result =sqlSession.insert(namespace+".reply", inquiryVO);
 		return result;
 	}
-
-	
+	public InquiryVO selectReplyOne(InquiryVO inquiryVO) {
+		InquiryVO result =sqlSession.selectOne(namespace+".selectReplyOne", inquiryVO);
+		return result;
+	}
+	public int updateAnswerYN(InquiryVO inquiryVO) {
+		int result =sqlSession.update(namespace+".updateAnswerYN",inquiryVO);
+		return result;
+	}
+	public List<PlaceVO> selectPidx(UserVO login) {
+		List<PlaceVO> result = sqlSession.selectList(namespace+".selectPidx", login);
+		return result;
+	}
+	public List<QnaVO> selectQna(PlaceVO placeVO) {
+		List<QnaVO> result = sqlSession.selectList(namespace+".selectQna", placeVO);
+		return result;
+	}
 }

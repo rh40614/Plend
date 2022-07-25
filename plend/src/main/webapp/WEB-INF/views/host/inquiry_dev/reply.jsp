@@ -9,7 +9,7 @@
 		<span class="spaceL">답변을 작성하실때는 업체 분들의 상황을 고려하여 작성해 주시길 바랍니다. </span>
 		<!-- 썸머노트 -->
 		<div class="spaceL mt-2">
-			<form name="frm">
+			<form name="frm2">
 			<input type="hidden" value="${inquiry.iqidx}" name="iqidx">
 			<select name="category">
 				<option value="place">장소</option>
@@ -34,7 +34,7 @@
 			    minHeight: 450,		// 최소 높이값(null은 제한 없음)
 			    maxHeight: null,  	// 최대 높이값(null은 제한 없음)
 			    focus: true,          // 페이지가 열릴때 포커스를 지정함
-			    placeholder: '문의를 작성해주세요.',
+			    placeholder: '성심성의것 답변을 작성해 주시길 바랍니다.',
 			    lang: 'ko-KR'    
  			});
 		
@@ -44,12 +44,18 @@
 	<script>
 		function reply(){
 			
+			var replyContent = $("form[name=frm2]").serialize();
+			
 			$.ajax({
 				url: "reply.do",
 				type: "POST",
+				data: replyContent,
 				success: function(data){
-				/* 	console.log("data"); */
-				/* ㅈ어ㅏㅇ소 이동 */
+					console.log("답변 저장 성공");
+					$("#reply").html(data);
+				}, 
+				error: function(){
+					console.log("답변저장 실패");
 				}
 				
 				

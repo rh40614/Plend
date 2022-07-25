@@ -108,21 +108,22 @@
 									<td colspan="6">등록된 문의가 없습니다.</td>
 								</tr>
 							</c:if> 
-							
 							<c:if test="${list.size() > 0}">
 								<c:forEach var="i" items="${list}">
-									<tr >
-										<td>${i.iqidx}</td>
-										<td>${i.category}</td>
-										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/inquiry_dev/inquiryView_dev.do?iqidx=${i.iqidx}">${i.title}</a></td>
-										<c:if test="${i.answerYN eq 'Y'}">
-											<td>답변 완료</td>
-										</c:if>
-										<c:if test="${i.answerYN eq 'N'}">
-											<td>답변 대기</td>
-										</c:if>
-										<td>${i.date}</td>
-									</tr>
+									<c:if  test="${i.uidx == login.uidx }">
+										<tr >
+											<td>${i.iqidx}</td>
+											<td>${i.category}</td>
+											<td style="text-align: left;"><a href="<%=request.getContextPath()%>/inquiry_dev/inquiryView_dev.do?iqidx=${i.iqidx}">${i.title}</a></td>
+											<c:if test="${i.answerYN eq 'Y'}">
+												<td>답변 완료</td>
+											</c:if>
+											<c:if test="${i.answerYN eq 'N'}">
+												<td>답변 대기</td>
+											</c:if>
+											<td>${i.date}</td>
+										</tr>
+									</c:if>
 								</c:forEach>
 							</c:if>
 						</tbody>

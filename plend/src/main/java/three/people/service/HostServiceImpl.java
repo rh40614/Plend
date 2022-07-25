@@ -11,7 +11,9 @@ import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.InquiryVO;
 import three.people.vo.PlaceVO;
+import three.people.vo.QnaVO;
 import three.people.vo.SearchVO;
+import three.people.vo.UserVO;
 
 
 
@@ -102,6 +104,34 @@ public class HostServiceImpl implements HostService {
 	@Override
 	public int reply(InquiryVO inquiryVO) {
 		int result = hostDAO.reply(inquiryVO);
+		return result;
+	}
+
+
+	@Override
+	public InquiryVO selectReplyOne(InquiryVO inquiryVO) {
+		InquiryVO result = hostDAO.selectReplyOne(inquiryVO);
+		return result;
+	}
+
+
+	@Override
+	public int updateAnswerYN(InquiryVO inquiryVO) {
+		int result = hostDAO.updateAnswerYN(inquiryVO);
+		return result;
+	}
+
+
+	@Override
+	public List<QnaVO> selectQna(PlaceVO placeVO) {
+	  List<QnaVO> result = hostDAO.selectQna(placeVO);
+		return result;
+	}
+
+
+	@Override
+	public List<PlaceVO> selectPidx(UserVO login) {
+		List<PlaceVO> result = hostDAO.selectPidx(login);
 		return result;
 	}
 	
