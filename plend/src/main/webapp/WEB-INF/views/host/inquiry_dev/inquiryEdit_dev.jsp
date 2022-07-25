@@ -23,7 +23,7 @@
 			</select>
 				<span>문의제목 </span><input type="text" name="title" size="50"  value="${inquiry.title}" required>
 				<textarea id="summernote" name="content" required >${inquiry.content}</textarea> 
-				<button type="button" class="btnBig" onclick="save(this)" value="${inquiry.iqidx}">저장</button>
+				<button type="button" class="btnBig" onclick="saveContent()" >저장</button>
 			</form>
 		</div>
 	</section >
@@ -46,7 +46,7 @@
 	
 	<!-- 운영자 문의 수정  -->
 	<script>
-		function save(obj){
+		function saveContent(){
 			
 			var inquiryEdit = $("form[name=frm]").serialize();
 			
@@ -54,23 +54,12 @@
 				url: "inquiryEdit_dev.do", 
 				type: "POST",
 				data: inquiryEdit,
-				dataType: "json",
-				complete: function(){
-					alert("정상적으로 수정되었습니다.");					
-						$.ajax({
-							url: "inquiryView.do",
-							type: "GET",
-							data: "iqidx="+$(obj).val(),
-							success: function(data){
-								$("#inquiryEdit_dev").html(data);
-							},
-							error: function(){
-								alert("수정 실패");
-							}
-							
-						}); 
+				success: function(data){
+						console.log("수정 성공");
+						$("#inquiryEdit_dev").html(data);
+					}
 					
-				}
-			});
-		}
+				});
+			}
+	
 	</script>

@@ -7,7 +7,7 @@
 	
 	<insert id="insertUser" parameterType="UserVO">
 	<!-- 일단 유저만 -->
-		INSERT INTO user(
+		INSERT INTO user_plend(
 			 id
 			,password
 			,name
@@ -39,7 +39,7 @@
 			 uidx
 			,id
 			,password
-		FROM user
+		FROM user_plend
 	   WHERE id = #{id}
 	     AND password = #{password}	
 	</select>

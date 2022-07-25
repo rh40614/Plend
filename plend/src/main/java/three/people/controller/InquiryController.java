@@ -207,28 +207,33 @@ public class InquiryController {
 		int result = hostService.inquiryEdit_dev(inquiryVO);
 		System.out.println("result: "+result);
 		
+		//완료 후 단건 출력
+		InquiryVO inquiry = hostService.selectInquiryOne(inquiryVO);
+		
+		model.addAttribute("inquiry", inquiry);
+		
 		return "host/inquiry_dev/inquiryView.do";
 
 	}
 	
 	
 	
-	//수정 완료 후 이동
-	@RequestMapping(value="/inquiryView.do", method=RequestMethod.GET)
-	public String inquiryView(InquiryVO inquiryVO, Model model, HttpServletRequest request, HttpSession session) {
-		
-		System.out.println("바뀌는 화면 : "+inquiryVO.getIqidx());
-		//수정하려고하는 사람 udix
-		session = request.getSession();
-		UserVO login = (UserVO)session.getAttribute("login");
-		inquiryVO.setUidx(login.getUidx()); 
-		
-		//문의 내역 (단건)
-		InquiryVO inquiry = hostService.selectInquiryOne(inquiryVO);
-		
-		model.addAttribute("inquiry",inquiry);
-
-		return "host/inquiry_dev/inquiryView";
-	}
+//	//수정 완료 후 이동
+//	@RequestMapping(value="/inquiryView.do", method=RequestMethod.GET)
+//	public String inquiryView(InquiryVO inquiryVO, Model model, HttpServletRequest request, HttpSession session) {
+//		
+//		System.out.println("바뀌는 화면 : "+inquiryVO.getIqidx());
+//		//수정하려고하는 사람 udix
+//		session = request.getSession();
+//		UserVO login = (UserVO)session.getAttribute("login");
+//		inquiryVO.setUidx(login.getUidx()); 
+//		
+//		//문의 내역 (단건)
+//		InquiryVO inquiry = hostService.selectInquiryOne(inquiryVO);
+//		
+//		model.addAttribute("inquiry",inquiry);
+//
+//		return "host/inquiry_dev/inquiryView";
+//	}
 	
 }
