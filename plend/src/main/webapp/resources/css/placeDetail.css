@@ -17,3 +17,15 @@
 	vertical-align: middle;
 	text-align: center;
 }
+
+.bookBtn {
+	background-color: #2F506D !important;
+    border-color: black !important;
+    color: white !important;
+}
+
+.timePicker, .datePicker {
+	background-color: white !important;
+    border-color: black !important;
+    color: black !important;
+}

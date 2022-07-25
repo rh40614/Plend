@@ -74,6 +74,10 @@ public class HostDAO {
 		int result = sqlSession.update(namespace+".inquiryEdit_dev", inquiryVO);
 		return result;
 	}
-	
+	public int reply(InquiryVO inquiryVO) {
+		int result =sqlSession.insert(namespace+".reply", inquiryVO);
+		return result;
+	}
+
 	
 }

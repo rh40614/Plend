@@ -68,6 +68,11 @@
 				  FROM qna
 				]]>
 			</if>
+			<if test="originQidx != 0">
+				<![CDATA[
+				SELECT #{originQidx} FROM dual
+				]]>
+			</if>
 		</selectKey>
 		INSERT INTO qna(
 		    pidx,
@@ -83,7 +88,7 @@
 			#{depth}			
 		)
 	</insert>
-	<!-- QnA 데이터 불러오기 -->
+	<!-- 07.22 김영민: QnA 데이터 불러오기 -->
 	<select id="selectQnA" parameterType="PlaceVO" resultType="QnaVO">
 		SELECT qidx,
 			   uidx,
@@ -95,9 +100,23 @@
 		       delyn
 		  FROM qna
 		 WHERE pidx = #{pidx}
+		   AND delyn = 'N'
 	  ORDER BY originqidx DESC,
 	           depth ASC
 	</select>
+	<!-- 07.22 김영민: QnA 데이터 수정하기 -->
+	<update id="qnaModify" parameterType="QnaVO">
+		UPDATE qna
+		   SET content = #{content},
+		       date = now()
+		 WHERE qidx = #{qidx}
+	</update>
+	<!-- 07.22 김영민: QnA 글 삭제하기 -->
+	<update id="deleteQnA" parameterType="QnaVO">
+		UPDATE qna
+	       SET delyn = 'Y'
+		 WHERE qidx = #{qidx}
+	</update>
 	<select id="randomPlace" resultType="PlaceVO"></select>
 	
 </mapper>

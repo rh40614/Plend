@@ -44,4 +44,14 @@ public class PlaceServiceIml implements PlaceService{
 		return placeDAO.selectQnA(placevo);
 	}
 
+	@Override
+	public int qnaModify(QnaVO qnavo) {
+		return placeDAO.qnaModify(qnavo);
+	}
+
+	@Override
+	public int deleteQnA(QnaVO qnavo) {
+		return placeDAO.deleteQnA(qnavo);
+	}
+
 }
