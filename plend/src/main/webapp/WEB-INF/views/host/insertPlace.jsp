@@ -35,7 +35,7 @@
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
-	
+	<!-- 테스트 -->
 
 </head>
 
@@ -119,10 +119,55 @@
 								<textarea cols="100" rows="5" name="placeDetail" id="placeDetail" placeholder="등록할 공간을 소개해주세요 :-) "></textarea>
 							</label>
 							<br>
-							<label class="mt-3">
+							
+							<div>
 								<span class="title3">시설정보</span><br>
-								<textarea cols="100" rows="5" name="guide" id="guide"  placeholder="사용자가 이용할 시설에 대한 안내를 적어 주세요."></textarea>
-							</label>
+								<table class="table" > 
+									<tr>
+										<td>1.</td>
+										<td><input type="text" id="guide1" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+									<tr>
+										<td>2.</td>
+										<td><input type="text" id="guide2" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+									<tr>
+										<td>3.</td>
+										<td><input type="text" id="guide3" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+									<tr>
+										<td>4.</td>
+										<td><input type="text" id="guide4" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+									<tr>
+										<td>5.</td>
+										<td><input type="text" id="guide5" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+									<tr>
+										<td>6.</td>
+										<td><input type="text" id="guide6" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+									<tr>
+										<td>7.</td>
+										<td><input type="text" id="guide7" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+									<tr>
+										<td>8.</td>
+										<td><input type="text" id="guide8" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+									<tr>
+										<td>9.</td>
+										<td><input type="text" id="guide9" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+									<tr>
+										<td>10.</td>
+										<td><input type="text" id="guide10" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+								</table>
+								<input type="hidden" name="guide" id="guide">
+							</div>
+								<!-- <textarea cols="100" rows="5" name="guide" id="guide"  placeholder="사용자가 이용할 시설에 대한 안내를 적어 주세요."></textarea> -->
+							
 							<br>
 							<div class="mt-3" >
 								<span class="title3">플레이스 옵션(선택) </span><br>
@@ -273,33 +318,17 @@
 							<br>
 							
 							<!-- 최대 수용가능 인원-->
-							
-							
 							<label class="mt-3">
 								<span class="title3">가격 </span><br>
 								시간 당 <input type="text" name="price" id="price" placeholder="ex) 10000">원으로 으로 책정합니다.
 							</label>
 							<br>
-					
-						<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px; border-radius: 20px; float:right; " onclick="check()">장소 등록</button>
-				
+						<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px; border-radius: 20px; float:right; " onclick="check()" >장소 등록</button>
 				</form>
-				
-				
-				
-				
 				</div>
-				
-				
 			</div>
-			
-			
-
-
 		</section>
-		
 		<div>
-		
 		
 		</div>
 		

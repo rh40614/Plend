@@ -21,15 +21,23 @@
 	<!--  fontAwesome -->
 	<script src="https://kit.fontawesome.com/f5807db9d4.js" crossorigin="anonymous"></script>
 	
-	
+	<!-- 프론트 디자인 -->
 	<script type="text/javascript">
-	//프론트 디자인
+	
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/hostHeaderWithNav.jsp");
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
-		
+	<!-- 공지사항 삭제 -->	
+	<script>
+		function noticeDelete(pram){
+			console.log(pram);
+			confirm("공지사항을 삭제하시겠습니까?");
+			location.href="<%=request.getContextPath()%>/host/noticeDelete.do?nidx="+pram;
+		}
+	
+	</script>
 
 </head>
 <body>
@@ -42,34 +50,67 @@
 		
 		
 		<!-- 공지사항 내용 -->
-		<table class="noticeT">
-			<tr>
-				<td colspan="3" class="title2-1" style="padding: 30px 30px 10px 30px">공지사항 제목</td>
+		
+		<table class="table spaceL w-75 mt-5">
+		  <thead>
+		 	<tr>
+				<td colspan="10" class="">${notice.title}</td>
 			</tr>
 			<tr style="vertical-align: top; ">
-				<td class="noticeTD1">작성자 : </td>
-				<td class="noticeTD2">관리자</td>
-				<td class="noticeTD1">작성일 : </td>
-				<td class="noticeTD2">2022.07.18</td>
-				<td class="noticeTD1">조회수 : </td>
-				<td class="noticeTD2">23 </td>
+				<td class="text-left" style="width: 10%">글번호</td>
+				<td class="text-left" style="width: 10%">${notice.nidx}</td>
+				<td class="" style="width: 10%">조회수</td>
+				<td class="" style="width: 5%">${notice.hit}</td>
+				<td class="" style="width: 10%">작성자</td>
+				<td class="" style="width: 16.66%">${notice.nickName}</td>
+				<td class="" style="width: 10%">작성일</td>
+				<td class="" style="width: 16.66%">${notice.date}</td>
+			</tr>
+		  </thead>
+		  <tbody>
+		  	<tr>
+				<td colspan="10" class="noticeArea">${notice.content}</td>
+			</tr>
+		  </tbody>
+		  <tfoot>
+			<tr class="spaceL mt-5">
+				<c:choose>
+					<c:when test="${PN.pre eq '-1'}">
+						<td class="ps-5" >이전글  &blacktriangle; </td><td colspan="7"> 이전글이 없습니다.</td>
+					</c:when>
+					<c:when test="${PN.pre ne null}">
+						<td class="ps-5" style="width: 16.66%"><a href="<%=request.getContextPath()%>/host/noticeView.do?nidx=${PN.pre}">이전글 &blacktriangle;</a></td>
+						<td colspan="7"><a href="<%=request.getContextPath()%>/host/noticeView.do?nidx=${PN.pre}">${PNT.preTitle}</a></td>
+					</c:when>
+				</c:choose>
 			</tr>
 			<tr>
-				<td colspan="6" class="noticeArea">공지사항의 내용이 들어갈 공간입니다. 공지사항의 내용이 들어갈 공간입니다.공지사항의 내용이 들어갈 공간입니다.공지사항의 내용이 들어갈 공간입니다.공지사항의 내용이 들어갈 공간입니다.
-				공지사항의 내용이 들어갈 공간입니다.공지사항의 내용이 들어갈 공간입니다.공지사항의 내용이 들어갈 공간입니다.</td>
+				<c:choose>
+					<c:when test="${PN.next == ''}">
+						<td class="ps-5" >다음글 &blacktriangledown;</td><td colspan="7"> 다음글이 없습니다. </td>
+					</c:when>
+					<c:when test="${PN.next ne null}">
+						<td class="ps-5" style="width: 16.66%"><a href="<%=request.getContextPath()%>/host/noticeView.do?nidx=${PN.next}">다음글  &blacktriangledown; </a></td>
+						<td colspan="7" class="text-left"><a href="<%=request.getContextPath()%>/host/noticeView.do?nidx=${PN.next}">${PNT.nextTitle}</a></td>
+					</c:when>
+				</c:choose>
 			</tr>
+		  </tfoot>
 		</table>
 		
-		<div class="btn-group spaceL" role="group" id="btnGroup" >
-			<button type="button" class="btnDefault me-3 ms-3" >수정</button>
-			<button type="button" class="btnDefault me-3">삭제</button>
-			<button type="button" class="btnDefault">목록</button>
+		
+		
+
+		
+		<div class="btn-group spaceL w-75 d-flex justify-content-end" role="group" id="btnGroup" >
+			<%-- <c:if> --%>
+			<button type="button" class="btnDefault me-3 ms-3" onclick="location.href='noticeModify.do?nidx=${notice.nidx}'">수정</button>
+			<button type="button" class="btnDefault me-3" onclick="noticeDelete(${notice.nidx})" >삭제</button>
+			<%-- </c:if> --%>
+			<button type="button" class="btnDefault" onclick="location.href='notice_dev.do'">목록</button>
 		</div>
 		
-		<div class="spaceL mt-5">
-			<a href="<%=request.getContextPath()%>/host/noticeView.do?">이전글 | </a>	<br>	
-			<a href="<%=request.getContextPath()%>/host/noticeView.do?">다음글 | </a>	
-		</div>
+		
 		</section>
 
 	</main>

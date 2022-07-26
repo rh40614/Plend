@@ -320,7 +320,98 @@
 	</select>
 	
 	
+	<!-- 2022.07.26 김연희 : notice 쿼리 가져옴 -->
+	<select id="selectNoticeAll" parameterType="SearchVO" resultType="NoticeVO">
+			SELECT 
+				 nidx
+				,title
+				,n.date
+				,hit
+			FROM notice n
+	  INNER JOIN user_plend u
+	  		  ON n.uidx = u.uidx
+	  	   WHERE n.delyn = 'N' 
+	  	     AND category = '2'
+	  	     <if test="searchType =='title'">
+				AND title LIKE '%' #{searchValue}  '%'
+			</if>
+			 <if test="searchType =='content'">
+				AND content LIKE '%'  #{searchValue}  '%'
+			</if>
+	  	ORDER BY nidx desc
+	  	   LIMIT #{start}, #{cntPerPage}
+	</select>
 	
+	
+	
+	<select id ="cntNotice" parameterType = "SearchVO" resultType = "int">
+		SELECT count(*) 
+		  FROM notice
+		 WHERE delyn = 'N'
+		 AND category = '2'
+		 <if test="searchType =='title'">
+			AND title LIKE '%'  #{searchValue} '%'
+		</if>
+		<if test="searchType =='content'">
+			AND content LIKE '%' #{searchValue}  '%'
+		</if>
+	</select>
+	
+	<select id ="prevNextNidx" resultType = "NoticeVO" parameterType="NoticeVO">
+		SELECT * FROM (
+			SELECT nidx, 
+			LAG(nidx,1,-1) OVER (ORDER BY nidx) AS pre, 
+			LEAD(nidx) OVER(ORDER BY nidx) AS next 
+			FROM notice 
+			WHERE delyn = 'N' 
+			AND category = '2'
+			GROUP BY nidx) A 
+			WHERE nidx = #{nidx};
+		
+	</select>
+	
+	<select id ="prevNextTitle" resultType = "NoticeVO" parameterType="NoticeVO">
+		SELECT * FROM (
+			SELECT nidx, 
+			LAG(title,1,-1) OVER (order by nidx) AS preTitle, 
+			LEAD(title) OVER(ORDER BY nidx) AS nextTitle 
+			FROM notice 
+			WHERE delyn = 'N'
+			AND category = '2'
+			GROUP BY nidx) A 
+			WHERE nidx = #{nidx};
+		
+	</select>
+	
+	
+	<select id ="noticeOne" resultType ="NoticeVO" parameterType = "int">
+		SELECT 
+			 nidx
+			,u.uidx
+			,title
+			,content
+			,nickName
+			,n.date
+			,hit
+		FROM notice n
+  INNER JOIN user_plend u
+  		  ON n.uidx = u.uidx 
+  		 WHERE n.nidx = #{nidx}
+  		 AND category = '2'
+	</select>
+	
+	<!-- <update id ="hitUP" parameterType = "int">
+		UPDATE notice
+		  SET hit = hit + 1
+		WHERE nidx = #{nidx}
+	</update> -->
+	
+	<update id="deleteNotice" parameterType="NoticeVO" >
+		 UPDATE notice 
+		 	SET delYN ='Y'
+		  WHERE nidx =#{nidx}
+		  AND category = '2'
+	</update>
 	
 	
 	

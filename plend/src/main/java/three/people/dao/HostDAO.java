@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.InquiryVO;
+import three.people.vo.NoticeVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
 import three.people.vo.SearchVO;
@@ -100,5 +101,42 @@ public class HostDAO {
 		int result = sqlSession.selectOne(namespace+".cntQidx", userVO);
 		return result;
 	}
+	
+	//공지사항
+	public List<NoticeVO> selectNoticeAll (SearchVO searchVO){
+		List<NoticeVO> result = sqlSession.selectList(namespace+".selectNoticeAll", searchVO);
+		return result;
+	}
+	public int cntNotice (SearchVO searchVO){
+		int result = sqlSession.selectOne(namespace+".cntNotice", searchVO);
+		return result;
+	}
+	public NoticeVO prevNextNidx (NoticeVO noticeVO){
+		NoticeVO result = sqlSession.selectOne(namespace+".prevNextNidx", noticeVO);
+		return result;
+	}
+	public NoticeVO prevNextTitle (NoticeVO noticeVO){
+		NoticeVO result = sqlSession.selectOne(namespace+".prevNextTitle", noticeVO);
+		return result;
+	}
+	public NoticeVO noticeOne (NoticeVO noticeVO){
+		NoticeVO result = sqlSession.selectOne(namespace+".noticeOne", noticeVO);
+		return result;
+	}
+	public int deleteNotice(NoticeVO noticeVO) {
+		int result = sqlSession.update(namespace+".deleteNotice", noticeVO);
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
