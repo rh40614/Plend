@@ -29,7 +29,27 @@
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
+	<!-- 검색 -->	
+	<script>
+	function search(){
 		
+		var searchContent = $("form[name=frm]").serialize();
+		
+		$.ajax({
+			url:"noticeSearch.do",
+			type: "GET",
+			data: searchContent,
+			success: function(data){
+				console.log("검색성공");
+				$("#afterSearch").html(data);
+			},
+			error: function(){
+				console.log("검색실패");
+			}
+			
+		});
+	}
+	</script>
 
 </head>
 <body>
@@ -43,65 +63,86 @@
 				<div class=".table-responsive container " style="margin: 20px 0px 0px 100px;" >
 					
 					<!-- 검색폼 -->
-						<form action=".do" method="get">
+					
+						<form  name="frm">
 							<div class="row search-form mb-5" style="float:right;">
 								<div class="input-group justify-content-center">
 									<select class="form-select-sm" name="searchType">
-										<option value="">이름</option>
-					  					<option value="">아이디</option>
+										<option value="title">제목</option>
+					  					<option value="content">내용</option>
 									</select>
 									<input name="searchValue" class="mx-1">
-									<button class="btnDefault">검색</button>
+									<button type="button" class="btnDefault" onclick="search()">검색</button>
+									
+									<input type="hidden" value="${pagination.nowPage}">
+									<input type="hidden" value="${pagination.searchType}">
+									<input type="hidden" value="${pagination.searchValue}">
 								</div>
 							</div>
 						</form>
-						
+					
+				<div id=afterSearch>
 					<!-- 공지사항 -->
-					<table class="table table-hover text-center clearfix" >
+					<table class="table table-hover text-center clearfix " >
 						<thead class="table-dark">
 							<tr style="text-al">
-								<td>번호</td><td>제목</td><td>작성일</td>
+								<td>번호</td><td>제목</td><td style="width: 10%">조회수</td><td style="width: 10%">작성일</td>
 							</tr>
 						<thead>
 						<tbody>
-							<c:if test="${list_p.size() == 0}">	
+							<c:if test="${list.size() == 0}">	
 								<tr>
 									<td colspan="6">등록된 문의가 없습니다.</td>
 								</tr>
 							</c:if>
-							<!--  -->
-							<%-- <c:if test="${list_p.size() > 0}">
-								<c:forEach var="pv" items="${list_p}"> --%>
+							
+							<c:if test="${list.size() > 0}">
+								<c:forEach var="n" items="${list}">
 									<tr >
-										<td></td>
-										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/noticeView.do"></a></td>
-										<td></td>
-										
+										<td>${n.nidx}</td>
+										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/noticeView.do?nidx=${n.nidx}">${n.title}</a></td>
+										<td>${n.hit}</td>
+										<td>${n.date}</td>
 									</tr>
-							<%-- 	</c:forEach>
-							</c:if> --%>
+								</c:forEach>
+							</c:if> 
 						</tbody>
 					</table>
 					
-				<nav aria-label="Page navigation example" class="m-auto">
-				  <ul class="pagination justify-content-center " >
-				    <li class="page-item text-secondary">
-				      <a class="page-link text-secondary" href="#" aria-label="Previous">
-				        <span aria-hidden="true">&laquo;</span>
-				      </a>
-				    </li>
-				    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">1</a></li>
-				    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">2</a></li>
-				    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">3</a></li>
-				    <li class="page-item text-secondary">
-				      <a class="page-link text-secondary" href="#" aria-label="Next">
-				        <span aria-hidden="true">&raquo;</span>
-				      </a>
-				    </li>
-				  </ul>
-				</nav>
+				<!-- 페이징 -->
+				<c:if test="${not empty list}">
+					<nav aria-label="Page navigation example" class="m-auto">
+					  <ul class="pagination justify-content-center " >
+					  	
+						<c:if test="${pagination.startPage > 5}">
+							<li class="page-item">
+					      		<a class="page-link" href="notice_dev.do?nowPage=4">&laquo;</a>
+					    	</li>
+					    </c:if>
+					    
+						<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="p">
+							<c:choose>
+								<c:when test="${p == pagination.nowPage }">
+									 <li class="page-item text-secondary active">
+									 <a class="page-link text-secondary" href="noticeSearch.do?nowPage=${p}&searchType=${pagination.searchType}&searchValue=${pagination.searchValue}">${p}</a></li>
+								</c:when>
+								<c:when test="${p != pagination.nowPage }">
+									<li class="page-item text-secondary">
+									<a class="page-link text-secondary" href="noticeSearch.do?nowPage=${p}&searchType=${pagination.searchType}&searchValue=${pagination.searchValue}">${p}</a></li>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+					
+				    	<c:if test="${pagination.endPage != pagination.lastPage}">
+						    <li class="page-item">
+						      <a class="page-link" href="notice_dev.do?nowPage=${pagination.endPage +1}">&raquo;</a>
+						    </li>
+				    	</c:if>
+					  </ul>
+					</nav>
+				</c:if> 
 			</div>
-				
+		</div>	
 		</section>
 		
 		

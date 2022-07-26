@@ -69,8 +69,8 @@
 
 	
 
-	//해쉬태그
-    	$(document).ready(function () {
+	//해쉬태그	//js파일을 제일 아래에 둬서 ready 없이 사용
+    	//$(document).ready(function () {
        	 	var tag = {};
         	var counter = 0;
 
@@ -86,15 +86,11 @@
                 	return word !== "";
             	});
         	}
+   			
+   			 
+    		
     
-        	// 서버에 제공
-        	//$("#tag-form").on("submit", function (e) {
-        	//	var value = marginTag(); // return array
-            //	$("#rdTag").val(value); 
-//
-            //	$(this).submit();
-        	//});
-
+		
         	$("#tag").on("keypress", function (e) {
             	var self = $(this);
 
@@ -131,8 +127,16 @@
             	tag[index] = "";
             	$(this).parent().remove();
         	});
-		})
+	//	})
 	
+	
+			// 해쉬태그 서버에 제공
+   			 function hash(){
+   			 var value = marginTag(); // return array
+        		$("#rdTag").val(value); 
+        		
+				console.log($("#rdTag").val());
+   			 }
 
 	//주소
     function DaumPostcode() {
@@ -184,17 +188,42 @@
     }
 
 	//주소합치기 
-		$(function(){
-	
+		
+		function concatAddr(){
+		
 			var a = $("#address").val();
 			var b = $("#detailAddress").val();
 			var addr =  a+b;
 		
 			$("#addr").val(addr);
 			
+		}
 			
 		
-		});
+		
+		
+
+
+	//시설이용 정보 합치기 
+		function facilities(){
+
+			var g1 = $("#guide1").val();
+			var g2 = $("#guide2").val();
+			var g3 = $("#guide3").val();
+			var g4 = $("#guide4").val();
+			var g5 = $("#guide5").val();
+			var g6 = $("#guide6").val();
+			var g7 = $("#guide7").val();
+			var g8 = $("#guide8").val();
+			var g9 = $("#guide9").val();
+			var g10 = $("#guide10").val();
+			
+			var guide = g1+"/"+g2+"/"+g3+"/"+g4+"/"+g5+"/"+g6+"/"+g7+"/"+g8+"/"+g9+"/"+g10;
+			console.log(g1);
+			$("#guide").val(guide);
+			console.log($("#guide").val());
+			
+		}
 		
 
 
@@ -236,6 +265,11 @@
 	
 	//장소 등록
 		function check(){
+		
+		
+			hash();
+			concatAddr();
+			facilities();
 			
 			if($("#cate").val() == ""){
 				alert("장소 카테고리를 선택해 주세요.");
@@ -253,9 +287,17 @@
 			//	alert("공간에 대한 사진을 등록해주세요.");
 			//	$("#placeImg").focus();
 				
-			}else if($("#guide").val() == ""){
-				alert("시설 이용정보를 작성해주세요.");
-				$("#guide").focus();
+			}else if($("#guide1").val() == ""){
+				alert("시설 이용정보를 최소 3개이상 작성해주세요");
+				$("#guide1").focus();
+				
+			}else if($("#guide2").val() == ""){
+				alert("시설 이용정보를 최소 3개이상 작성해주세요");
+				$("#guide2").focus();
+				
+			}else if($("#guide3").val() == ""){
+				alert("시설 이용정보를 최소 3개이상 작성해주세요");
+				$("#guide3").focus();
 				
 			}else if($("#address").val() == ""){
 				alert("주소를 입력해 주세요");

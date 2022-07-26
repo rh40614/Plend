@@ -5,12 +5,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,17 +19,18 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import three.people.service.HostService;
-
+import three.people.service.MainService;
 import three.people.service.PlaceService;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
-
+import three.people.vo.NoticeVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
 import three.people.vo.SearchVO;
@@ -46,6 +48,8 @@ public class HostController {
 	@Autowired
 	PlaceService placeService;
 	
+	@Autowired
+	MainService mainService;
 	
 	@RequestMapping(value = "/insertPlace.do", method = RequestMethod.GET )
 	public String insertPlace() {  
@@ -69,11 +73,11 @@ public class HostController {
 		placeVO.setUidx(login.getUidx()); 
 		
 //		System.out.println("장소등록을 하는 사람: "+ placeVO.getUidx());
-//		System.out.println("주소: "+ placeVO.getAddress());
+		System.out.println("주소: "+ placeVO.getAddress());
 //		System.out.println("장소설명: "+ placeVO.getPlaceDetail());
 //		System.out.println("금액: "+ placeVO.getPrice());
 //		System.out.println("getCategory: "+ placeVO.getCategory());
-//		System.out.println("getGuide: "+ placeVO.getGuide());
+		System.out.println("getGuide: "+ placeVO.getGuide());
 //		System.out.println("getIntervalTime: "+ placeVO.getIntervalTime());
 //		System.out.println("getOption1: "+ placeVO.getOption1());
 //		System.out.println("getOption2: "+ placeVO.getOption2());
@@ -247,7 +251,7 @@ public class HostController {
 		//cnt위한 param
 		int uidx = login.getUidx();
 		page.put("uidx", uidx);
-		//cnt
+		//cnt//토탈 갯수
 		List<QnaVO> listForCnt = hostService.qnaList(page);
 		int size = listForCnt.size();
 		searchVO.calPaging(size);
@@ -258,16 +262,29 @@ public class HostController {
 		page.put("start", start);
 		page.put("cntPerPage", cntPerPage);
 		
-		//리스트
+		//page + 리스트
 		List<QnaVO> list = hostService.selectQna(page);
 		//페이지의 수를 limit 쿼리에서 size로 측정하게 되면 5개 가 총 갯수가 되어버림
 		//총 갯수를가져오는 쿼리.size()
-		//토탈 갯수
 		
-		System.out.println("size: "+size);
-		System.out.println("noqPage: "+ searchVO.getNowPage());
-		System.out.println("cntPerPage: "+searchVO.getCntPerPage());
-		System.out.println("start: "+searchVO.getStart());
+		
+		//title따로 안받았음. content 20자까지가 제목
+		for(QnaVO q : list) {
+			String con = q.getContent();
+			if(con.length() > 20) {
+				//System.out.println("content 길이"+ con.length());
+				String t =  con.substring(0,20);
+				q.setTitle(t);
+			}else {
+				q.setTitle(con);
+			}
+			//System.out.println("제목: "+q.getTitle());
+		}
+		
+//		System.out.println("size: "+size);
+//		System.out.println("noqPage: "+ searchVO.getNowPage());
+//		System.out.println("cntPerPage: "+searchVO.getCntPerPage());
+//		System.out.println("start: "+searchVO.getStart());
 		
 		model.addAttribute("list", list);		
 		model.addAttribute("pagination" , searchVO);
@@ -440,17 +457,217 @@ public class HostController {
 	
 	
 	@RequestMapping(value="/notice_dev.do", method= RequestMethod.GET)
-	public String notice_dev() {
-		return "host/notice_dev";
+	public String notice_dev(Model model, SearchVO searchVO, NoticeVO noticeVO) {
+		
+		//페이징
+		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
+			searchVO.setNowPage(1);
+			searchVO.setCntPerPage(10);
+		}else if(searchVO.getCntPerPage() == 0) {
+			searchVO.setCntPerPage(10);
+		}else if(searchVO.getNowPage() == 0) {
+			searchVO.setNowPage(1);
+		}
+		
+		//리스트 몇개씩 나눠야할지 계산
+		int total = hostService.cntNotice(searchVO);
+		searchVO.calPaging(total);		
+		System.out.println("total: "+total);
+		
+		System.out.println("검색 안할때 타입  : "+searchVO.getSearchType());
+		System.out.println("검색 안할때 키워드 : "+searchVO.getSearchValue());
+		
+		//리스트
+		List<NoticeVO> list = hostService.selectNoticeAll(searchVO);
+		//일자 자르기 
+		for(NoticeVO n: list) {
+			String d = n.getDate().substring(0,10);
+			n.setDate(d);
+		}
+		
+		
+		model.addAttribute("list",list);
+		model.addAttribute("pagination", searchVO);
+		
+
+			return "host/notice_dev";
+
+	}
+	
+	@RequestMapping(value="s", method= RequestMethod.GET)
+	public String notice_dev(@RequestBody String searchContent, Model model, SearchVO searchVO) {
+		System.out.println("검색jsp");
+		//페이징
+		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
+			searchVO.setNowPage(1);
+			searchVO.setCntPerPage(10);
+		}else if(searchVO.getCntPerPage() == 0) {
+			searchVO.setCntPerPage(10);
+		}else if(searchVO.getNowPage() == 0) {
+			searchVO.setNowPage(1);
+		}
+		
+		//리스트 몇개씩 나눠야할지 계산
+		int total = hostService.cntNotice(searchVO);
+		searchVO.calPaging(total);		
+		System.out.println("total: "+total);
+		
+		System.out.println("검색 타입 : "+searchVO.getSearchType());
+		System.out.println("검색 키워드 : "+searchVO.getSearchValue());
+		//리스트
+		List<NoticeVO> list = hostService.selectNoticeAll(searchVO);
+		//일자 자르기 
+		for(NoticeVO n: list) {
+			String d = n.getDate().substring(0,10);
+			n.setDate(d);
+		}
+		
+		model.addAttribute("list",list);
+		model.addAttribute("pagination", searchVO);
+		
+		
+	return "host/search/noticeSearch";
 	}
 	
 	
 	@RequestMapping(value="/noticeView.do", method= RequestMethod.GET)
-	public String noticeView() {
+	public String noticeView(NoticeVO noticeVO, Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		//조회수 중복방지
+		Cookie oldCookie = null;
+	    Cookie[] cookies = request.getCookies();
+		   
+	    if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	        	//postView라는 이름의 쿠키가 있는지 검사 (oldCookie = postView fh 만들기 )
+	            if (cookie.getName().equals("postView")) {
+	                oldCookie = cookie;
+	            }
+	        }
+	    }
+	    
+	    //index 값을 아이디로 사용
+	    int id = noticeVO.getNidx(); 
+	   
+	    if (oldCookie != null) {
+	    	//postView가 현재 게시글의 id를 가지고 있는지 검사. 없음면 if문 탑승
+	    	//Ex)101과 10번의 경우 특문이 없으면 동일하게 인식할 수있으므로 특수문자 넣어주기 
+	        if (!oldCookie.getValue().contains("[" + id + "]")) {
+	           //조회수 올리기 
+	        	mainService.hitPlus(id);
+	        	
+	            oldCookie.setValue(oldCookie.getValue() + "_[" + id + "]");
+	            oldCookie.setPath("/");
+	            oldCookie.setMaxAge(60 * 60 * 24); //24시간 유지
+	            response.addCookie(oldCookie);
+	        }
+	    //기존 쿠키가 없을 경우 
+	    } else {
+	    	//조회수 올리기 
+	    	mainService.hitPlus(id);
+	        Cookie newCookie = new Cookie("postView","[" + id + "]");
+	        newCookie.setPath("/");
+	        newCookie.setMaxAge(60 * 60 * 24);
+	        response.addCookie(newCookie);
+	    }
+		
+		
+		//공지 하나
+		NoticeVO notice = hostService.noticeOne(noticeVO);
+		//일자 자르기 
+		String date = notice.getDate().substring(0,10);
+		notice.setDate(date);
+		
+		model.addAttribute("notice",notice);
+		//이전글 다음글(nidx)
+		model.addAttribute("PN",hostService.prevNextNidx(noticeVO));
+		//이전글 다음글 (제목)
+		model.addAttribute("PNT",hostService.prevNextTitle(noticeVO));
+		
 		return "host/noticeView";
 	}
 	
 
+	@RequestMapping(value="/noticeDelete.do", method= RequestMethod.GET)
+	public String noticeDelete(NoticeVO noticeVO) {
+		System.out.println("nidx: "+noticeVO.getNidx());
+		hostService.deleteNotice(noticeVO);
+		//redirect:/ 경로에 띄어쓰기 있으면 안됨
+		return "redirect:/host/notice_dev.do";
+	}
+	
+	@RequestMapping(value = "/noticeModify.do", method = RequestMethod.GET)
+	public String noticeModify(Model model, NoticeVO noticeVO) {
+		
+		NoticeVO notice = hostService.noticeOne(noticeVO);
+		model.addAttribute("vo", notice);
+		
+		return "main/noticeModify";
+	}
+	
+	@RequestMapping(value = "noticeModify.do", method = RequestMethod.POST)
+	public void noticeModify(NoticeVO vo,HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
+		
+		session = request.getSession();
+		//파일 업로드시 파일명에 날짜 시간 넣기
+	
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmSS");
+		String time = dateFormat.format(cal.getTime());
+		
+		UserVO login = (UserVO) session.getAttribute("login");
+		String path = request.getSession().getServletContext().getRealPath("/resources/upload");
+		
+		File dir = new File(path);
+		vo.setUidx(login.getUidx());
+		vo.setFileName(vo.getFile().getOriginalFilename());
+		
+		System.out.println("제목 :"+vo.getTitle());
+		System.out.println("내용 :"+vo.getContent());
+		System.out.println("파일 이름 :"+vo.getFileName());
+		System.out.println("nidx : " +vo.getNidx());
+		
+		int result = mainService.noticeModify(vo);
+		System.out.println("result = "+ result);
+		response.setContentType("text/html;charset=utf-8");
+		
+		PrintWriter pw = response.getWriter();
+		
+		if(!dir.exists()) {
+			dir.mkdirs();
+		}
+		if(!vo.getFile().getOriginalFilename().isEmpty()) {
+			vo.getFile().transferTo(new File(path,time+"+"+vo.getFile().getOriginalFilename())); 
+		
+			if(result <= 0) {
+			pw.append("<script>alert('수정에 실패하였습니다.');location.href = 'noticeView.do?nidx="+vo.getNidx()+"'</script>");
+			
+			pw.flush();
+			
+			} else {
+			pw.append("<script>alert('수정에 성공하였습니다.');location.href = 'noticeView.do?nidx="+vo.getNidx()+"'</script>"); 
+			
+			pw.flush();
+			}
+		
+		}else {
+			if(result <= 0) {
+				pw.append("<script>alert('수정에 실패하였습니다.');location.href = 'noticeView.do?nidx="+vo.getNidx()+"'</script>");
+				
+				pw.flush();
+				
+			} else {
+				pw.append("<script>alert('수정에 성공하였습니다.');location.href = 'noticeView.do?nidx="+vo.getNidx()+"'</script>"); 
+				
+				pw.flush();
+				}
+		}
+	
+	}
+	
+	
+	
+	
 	
 	
 	@RequestMapping(value="/placeView.do", method= RequestMethod.GET)

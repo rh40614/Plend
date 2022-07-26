@@ -10,6 +10,7 @@ import three.people.dao.HostDAO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.InquiryVO;
+import three.people.vo.NoticeVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
 import three.people.vo.SearchVO;
@@ -139,6 +140,48 @@ public class HostServiceImpl implements HostService {
 	@Override
 	public List<QnaVO> qnaList(HashMap<String, Integer> page) {
 		List<QnaVO> result = hostDAO.qnaList(page);
+		return result;
+	}
+
+
+	@Override
+	public List<NoticeVO> selectNoticeAll(SearchVO searchVO) {
+		List<NoticeVO> result = hostDAO.selectNoticeAll(searchVO);
+		return result;
+	}
+
+
+	@Override
+	public int cntNotice(SearchVO searchVO) {
+		int result = hostDAO.cntNotice(searchVO);
+		return result;
+	}
+
+
+	@Override
+	public NoticeVO prevNextNidx(NoticeVO noticeVO) {
+		NoticeVO result = hostDAO.prevNextNidx(noticeVO);
+		return result;
+	}
+
+
+	@Override
+	public NoticeVO prevNextTitle(NoticeVO noticeVO) {
+		NoticeVO result = hostDAO.prevNextTitle(noticeVO);
+		return result;
+	}
+
+
+	@Override
+	public NoticeVO noticeOne(NoticeVO noticeVO) {
+		NoticeVO result = hostDAO.noticeOne(noticeVO);
+		return result;
+	}
+
+
+	@Override
+	public int deleteNotice(NoticeVO noticeVO) {
+		int result = hostDAO.deleteNotice(noticeVO);
 		return result;
 	}
 	

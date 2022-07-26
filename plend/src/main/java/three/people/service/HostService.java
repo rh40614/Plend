@@ -6,6 +6,7 @@ import java.util.List;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.InquiryVO;
+import three.people.vo.NoticeVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
 import three.people.vo.SearchVO;
@@ -35,4 +36,12 @@ public interface HostService {
 	public List<QnaVO> selectQna(HashMap<String, Integer> page);
 	public List<QnaVO> qnaList(HashMap<String, Integer> page);
 	public int cntQidx(UserVO userVO);
+	
+	//공지사항
+	public List<NoticeVO> selectNoticeAll (SearchVO searchVO);
+	public int cntNotice (SearchVO searchVO);
+	public NoticeVO prevNextNidx (NoticeVO noticeVO);
+	public NoticeVO prevNextTitle (NoticeVO noticeVO);
+	public NoticeVO noticeOne (NoticeVO noticeVO);
+	public int deleteNotice(NoticeVO noticeVO);
 }
