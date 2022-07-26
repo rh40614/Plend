@@ -145,7 +145,11 @@
 		WHERE nidx = #{nidx}
 	</update>
 	<update id="faqDelete" parameterType="FaqVO"></update>
-	<select id="randomPlace" resultType="PlaceVO"></select>
+	<select id="randomPlace" resultType="PlaceVO">
+	
+	
+	
+	</select>
 	<select id="eventPlace" resultType="PlaceVO"></select>
 	<!-- <select id="reviweALl" resultType="ReviewVO"></select> -->
 </mapper>

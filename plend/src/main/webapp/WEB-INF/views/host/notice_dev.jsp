@@ -31,10 +31,11 @@
 	</script>
 	<!-- 검색 -->	
 	<script>
-	function search(){
-		
+	function noticeSearch(){
+		console.log("진입");
 		var searchContent = $("form[name=frm]").serialize();
 		
+		console.log(searchContent);
 		$.ajax({
 			url:"noticeSearch.do",
 			type: "GET",
@@ -51,6 +52,7 @@
 	}
 	</script>
 
+
 </head>
 <body>
 
@@ -64,19 +66,38 @@
 					
 					<!-- 검색폼 -->
 					
-						<form  name="frm">
+						<form  name="frm" onsubmit="return false;">
 							<div class="row search-form mb-5" style="float:right;">
 								<div class="input-group justify-content-center">
-									<select class="form-select-sm" name="searchType">
-										<option value="title">제목</option>
-					  					<option value="content">내용</option>
-									</select>
-									<input name="searchValue" class="mx-1">
-									<button type="button" class="btnDefault" onclick="search()">검색</button>
+									<select class="form-select-sm" name="searchType" required>
+										<c:choose>
+											<c:when test="${pagination.searchType eq null}">
+												<option value="" disabled selected>카테고리</option>
+												<option value="title">제목</option>
+					  							<option value="content">내용</option>
+											</c:when>
+											<c:when test="${pagination.searchType eq 'title'}">
+												<option value="" disabled >카테고리</option>
+												<option value="title" selected >제목</option>
+					  							<option value="content">내용</option>
+											</c:when>
+											<c:when test="${pagination.searchType eq 'content'}">
+												<option value="" disabled >카테고리</option>
+												<option value="title" >제목</option>
+					  							<option value="content" selected >내용</option>
+											</c:when>
+										</c:choose>
 									
-									<input type="hidden" value="${pagination.nowPage}">
-									<input type="hidden" value="${pagination.searchType}">
-									<input type="hidden" value="${pagination.searchValue}">
+									</select>
+									<c:if test="${pagination.searchValue ne null}">
+										<input type="text" name="searchValue" class="mx-1" value="${pagination.searchValue}">
+									</c:if>
+									<c:if test="${pagination.searchValue eq null}">
+										<input type="text" name="searchValue" class="mx-1">
+									</c:if>
+									
+									<button type="button" id="searchbtn" class="btnDefault" onclick="noticeSearch()">검색</button>
+									
 								</div>
 							</div>
 						</form>
@@ -99,8 +120,8 @@
 							<c:if test="${list.size() > 0}">
 								<c:forEach var="n" items="${list}">
 									<tr >
-										<td>${n.nidx}</td>
-										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/noticeView.do?nidx=${n.nidx}">${n.title}</a></td>
+										<td style="width: 10%">${n.nidx}</td>
+										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/noticeView.do?nidx=${n.nidx}&searchType=${pagination.searchType}&searchValue=${pagination.searchValue}">${n.title}</a></td>
 										<td>${n.hit}</td>
 										<td>${n.date}</td>
 									</tr>
@@ -124,11 +145,11 @@
 							<c:choose>
 								<c:when test="${p == pagination.nowPage }">
 									 <li class="page-item text-secondary active">
-									 <a class="page-link text-secondary" href="noticeSearch.do?nowPage=${p}&searchType=${pagination.searchType}&searchValue=${pagination.searchValue}">${p}</a></li>
+									 <a class="page-link text-secondary" href="notice_dev.do?nowPage=${p}&searchType=${pagination.searchType}&searchValue=${pagination.searchValue}">${p}</a></li>
 								</c:when>
 								<c:when test="${p != pagination.nowPage }">
 									<li class="page-item text-secondary">
-									<a class="page-link text-secondary" href="noticeSearch.do?nowPage=${p}&searchType=${pagination.searchType}&searchValue=${pagination.searchValue}">${p}</a></li>
+									<a class="page-link text-secondary" href="notice_dev.do?nowPage=${p}&searchType=${pagination.searchType}&searchValue=${pagination.searchValue}">${p}</a></li>
 								</c:when>
 							</c:choose>
 						</c:forEach>
@@ -145,10 +166,6 @@
 		</div>	
 		</section>
 		
-		
-		
-		
-
 	</main>
 	<div style="margin:300px;"></div>
 	<footer id="footer"></footer>

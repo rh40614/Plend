@@ -107,7 +107,7 @@
 			<button type="button" class="btnDefault me-3 ms-3" onclick="location.href='noticeModify.do?nidx=${notice.nidx}'">수정</button>
 			<button type="button" class="btnDefault me-3" onclick="noticeDelete(${notice.nidx})" >삭제</button>
 			<%-- </c:if> --%>
-			<button type="button" class="btnDefault" onclick="location.href='notice_dev.do'">목록</button>
+			<button type="button" class="btnDefault" onclick="location.href='notice_dev.do?&searchType=${pagination.searchType}&searchValue=${pagination.searchValue}'">목록</button>
 		</div>
 		
 		
