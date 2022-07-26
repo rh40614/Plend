@@ -55,7 +55,7 @@
 				</tr>
 				<tr> 
 					<td>금액:</td>
-					<td> ${placeOne.price} </td>
+					<td class="price"></td>
 				</tr>
 				<tr> 
 					<td>옵션:</td>
@@ -69,8 +69,13 @@
 						</tr>
 						<tr> 
 							<td>최종 결제가:</td>
-							<td> <fmt:parseNumber value="${placeOne.price * 0.9}" integerOnly='true'/> </td>
+							<td class="realPrice"></td>
 						</tr>
+						<!-- 최종 결제 가격 구하기 -->
+						<script type="text/javascript">
+							let realPrice = ${placeOne.price} - parseInt(${placeOne.price} * 0.1);
+							$(".realPrice").text(new Intl.NumberFormat().format(realPrice));
+						</script>
 					</c:when>
 					<c:when test="${placeOne.eventYN eq 'N'}">
 						<tr> 
@@ -102,7 +107,10 @@
 <footer id="footer" class="row mt-5 fixed-bottom"></footer>
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+<!-- 금액 단위 표시하기 -->
+<script>
+	$(".price").text(new Intl.NumberFormat().format(${placeOne.price}));
+</script>
 </body>
 </html>
 
