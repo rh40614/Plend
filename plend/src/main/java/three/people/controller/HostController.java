@@ -189,7 +189,6 @@ public class HostController {
 		System.out.println("장소관리 페이지 ");
 		
 		
-		
 		//페이징
 		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
 			searchVO.setNowPage(1);
@@ -226,7 +225,46 @@ public class HostController {
 		return "host/managePlace";
 	}
 	
+	//managePlace내부 장소 리스트 ajax
+	@RequestMapping(value="/placeList.do", method = RequestMethod.GET)
+	public String placeList(PlaceVO pidx, Model model, SearchVO searchVO) {
+		System.out.println("장소 리스트 페이징 ");
+		
+		//페이징
+		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
+			searchVO.setNowPage(1);
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getCntPerPage() == 0) {
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getNowPage() == 0) {
+			searchVO.setNowPage(1);
+		}
+		
+		//토탈 갯수
+		int total = placeService.cntPlace(pidx);
+		searchVO.calPaging(total);
+		System.out.println(total);
+		
+		List<PlaceVO> list_p = placeService.selectPlaceAll(searchVO);
+		
+		//장소 소개 35자 이상 자르기
+		for(PlaceVO place: list_p) {
+			if(place.getPlaceDetail().length() > 35) {
+				String pd =place.getPlaceDetail().substring(0, 35);
+				place.setPlaceDetail(pd);
+			}
+		}
 	
+		System.out.println("list_p: "+list_p);
+		System.out.println("pagenation: "+searchVO.getStartPage());
+		System.out.println("pagenation: "+searchVO.getEndPage());
+	
+		//화면단으로 옮기기
+		model.addAttribute("list_p", list_p);
+		model.addAttribute("pagenation", searchVO);
+		
+		return "host/search/placeList";
+	}
 	
 	@RequestMapping(value="/inquiry_user.do", method= RequestMethod.GET)
 	public String userInquiry(HttpSession session, HttpServletRequest request, Model model, SearchVO searchVO) {
@@ -495,7 +533,7 @@ public class HostController {
 
 	}
 	
-	@RequestMapping(value="s", method= RequestMethod.GET)
+	@RequestMapping(value="noticeSearch.do", method= RequestMethod.GET)
 	public String notice_dev(@RequestBody String searchContent, Model model, SearchVO searchVO) {
 		System.out.println("검색jsp");
 		//페이징
@@ -532,7 +570,7 @@ public class HostController {
 	
 	
 	@RequestMapping(value="/noticeView.do", method= RequestMethod.GET)
-	public String noticeView(NoticeVO noticeVO, Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String noticeView(NoticeVO noticeVO, Model model, HttpServletRequest request, HttpServletResponse response, SearchVO searchVO) {
 		
 		//조회수 중복방지
 		Cookie oldCookie = null;
@@ -584,6 +622,8 @@ public class HostController {
 		model.addAttribute("PN",hostService.prevNextNidx(noticeVO));
 		//이전글 다음글 (제목)
 		model.addAttribute("PNT",hostService.prevNextTitle(noticeVO));
+		//검색어 유지
+		model.addAttribute("pagination",searchVO);
 		
 		return "host/noticeView";
 	}
