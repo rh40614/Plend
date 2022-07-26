@@ -34,7 +34,7 @@
 </head>
 <body>
 <div class="container">	
-	<header class="row" id="header" style="z-index: 1100;"></header>
+	<header class="row" id="header"></header>
 	<br>
 	<main class="row">
 		<section id="placeHeader" class="col-9 d-inline-flex mb-5">
@@ -77,7 +77,7 @@
 				<div class="d-flex place_tag me-5 mt-5 mb-5">${placeOne.tag}</div>
 				<div class="icon d-flex me-5 mt-5 mb-5">
 					<a class="me-2 ms-2" onclick="setClipboard()" style="cursor: pointer;"><i class="fa-solid fa-link"></i></a>
-					<a class="me-2 ms-2" onclick="" style="cursor: pointer;"><i class="fa-regular fa-heart" style="color: red;"></i></a>
+					<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this)" class="fa-regular fa-heart" style="color: red;"></i></a>
 					<i class="fa-regular fa-star me-2 ms-2" style="float:right"></i>
 				</div>
 			</section>
@@ -113,11 +113,11 @@
 				<table class="table caption-top">
 					<caption class="ms-4 text-black fw-bold fs-5">편의시설</caption>
 					<tbody style="border-top: none;">
+						<c:if test="${placeOne.option1 eq null}">
 							<tr> 
-								<td> 
-									${placeOne.guide}
-								</td>
+								<td style="text-align-last: center;"> 등록된 편의시설이 없습니다. </td>
 							</tr>		
+						</c:if>
 					</tbody>
 				</table>
 			</section>
@@ -125,10 +125,11 @@
 				<table class="table caption-top">
 					<caption class="ms-4 text-black fw-bold fs-5">유의사항</caption>
 					<tbody style="border-top: none;">
+						<c:if test="${placeOne.guide eq null}">
 							<tr> 
-								<td> 
-								</td>
-							</tr>		
+								<td style="text-align-last: center;"> 등록된 유의사항이 없습니다. </td>
+							</tr>
+						</c:if>
 					</tbody>
 				</table>
 			</section>
@@ -150,6 +151,11 @@
 				<table class="table caption-top">
 					<caption class="ms-4 text-black fw-bold fs-5"> QnA</caption>
 					<tbody>
+						<c:if test="${empty QnaList}">
+							<tr>
+								<td style="text-align-last: center;">등록된 QnA가 없습니다.</td>
+							</tr>
+						</c:if>
 						<c:forEach var="qna" items="${QnaList}" varStatus="status">
 							<!-- QnA 질문 표시 -->
 							<c:if test="${qna.depth eq 0}">
@@ -247,10 +253,11 @@
 				<table class="table caption-top">
 					<caption class="ms-4 text-black fw-bold fs-5">이용후기</caption>
 					<tbody style="border-top: none;">
+						<c:if test="">
 							<tr> 
-								<td> 
-								</td>
+								<td></td>
 							</tr>		
+						</c:if>
 					</tbody>
 				</table>
 			</section>
@@ -405,6 +412,20 @@
 	    map.setCenter(coords);
 		} 
 	});    
+</script>
+<!-- 좋아요 버튼 클릭시 찜목록에 들어감 -->
+<script>
+	function like(obj){
+		if($(obj).hasClass("fa-regular") == true){
+			$(obj).removeClass("fa-regular");
+			$(obj).addClass("fa-solid");
+			/* 요기가 찜 등록하는 곳 */
+		}else{
+			$(obj).removeClass("fa-solid");
+			$(obj).addClass("fa-regular");
+		}
+	
+	}
 </script>
 </body>
 </html>
