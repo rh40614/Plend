@@ -15,6 +15,8 @@
 	<!-- css -->
 	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/placeDetail.css" rel="stylesheet">
+	<!-- kakaoMap api -->
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b685739baf5af3ec44e96933a3116f08&libraries=services,clusterer,drawing"></script>
 	<!-- header/footer -->	
 	<script type="text/javascript">
 		$(function(){
@@ -61,8 +63,9 @@
 			      </div>
 			    </div>
 			</section>
+			<!-- 장소 이름/주소/짧은 기능 -->
 			<section id="placeTitle" class="col-5 ms-3">
-				<div class="d-flex place_name m-5 fs-5">
+				<div class="d-flex place_name me-5 mt-5 mb-5 fs-5">
 					<c:if test="${placeOne.eventYN eq 'Y'}">
 						[특가 진행중] ${placeOne.placeName}
 					</c:if>
@@ -70,35 +73,15 @@
 						${placeOne.placeName}
 					</c:if> 
 				</div>
-				<div class="d-flex place_addr m-5">${placeOne.address}</div>
-				<div class="d-flex place_tag m-5">${placeOne.tag}</div>
-				<div class="icon d-flex m-5">
-					<i class="fa-solid fa-link"></i>
-					<i class="fa-regular fa-heart" style="color: red;"></i>
-					<i class="fa-regular fa-star" style="float:right"></i>
+				<div class="d-flex place_addr me-5 mt-5 mb-5">${placeOne.address}</div>
+				<div class="d-flex place_tag me-5 mt-5 mb-5">${placeOne.tag}</div>
+				<div class="icon d-flex me-5 mt-5 mb-5">
+					<a class="me-2 ms-2" onclick="setClipboard()" style="cursor: pointer;"><i class="fa-solid fa-link"></i></a>
+					<a class="me-2 ms-2" onclick="" style="cursor: pointer;"><i class="fa-regular fa-heart" style="color: red;"></i></a>
+					<i class="fa-regular fa-star me-2 ms-2" style="float:right"></i>
 				</div>
 			</section>
 		</section>
-		<div id="book" class="col-3 sticky-top text-center">
-			<form action="book.do" onsubmit="return calTime()" method="post">
-				<div id="book_Timepiker" class="border-2 rounded-3 m-2 pt-4 pb-4 d-grid gap-1" style="border: solid var(--bs-gray-800);">
-					<div class="dateCalendar d-none"></div>
-					<input type="hidden" class="selectDate">
-					<div class="timeTable d-none"></div>
-					<input type="hidden" class="selectTime">
-					<input type="hidden" name="useTime" class="useTime">
-					<div class="cntPeople d-none">
-						<div class="d-inline-flex">인원 선택</div>
-						<input name="cntPeople" type="number" class="d-inline-flex form-control m-1" style="width: auto;">
-					</div>
-					<a class="datePicker btn btn-sm ms-1 me-1"> <i class="fa-regular fa-calendar"></i> 예약날짜 </a>
-					<a class="timePicker btn btn-sm ms-1 me-1"> <i class="fa-regular fa-clock"></i> 예약시간 </a>
-					<a class="peopleCnt btn btn-sm ms-1 me-1"> <i class="fa-regular fa-clock"></i> 예약인원 </a>
-					<button class="bookBtn btn btn-lg m-1">예약 하기</button>
-					<input type="hidden" name="pidx" value="${placeOne.pidx}">
-				</div>
-			</form>
-		</div>
 		<section id="viewNav" class="col-9">
 			<div class="nav-scroller mb-2">
 			    <nav class="nav d-flex row detailNav">
@@ -111,12 +94,12 @@
 			</div>
 			<section id="explanation_place">
 				<table class="table caption-top table-borderless">
-					<caption class="ms-4 text-black font-monospace fw-bold fs-5" >explanation</caption>
+					<caption class="ms-4 text-black fw-bold fs-5" >공간소개</caption>
 					<tbody>
 						<c:forEach var="img" items="${imageList}">
 							<tr> 
-								<td> 
-									<img width="50" height="50" alt="img" src="<%=request.getContextPath() %>/imageView.do?originFileName=${img.originFileName}"/>
+								<td style="padding: 0;"> 
+									<img width="800" height="400" alt="img" src="<%=request.getContextPath() %>/imageView.do?originFileName=${img.originFileName}"/>
 								</td>
 							</tr>		
 						</c:forEach>
@@ -128,7 +111,7 @@
 			</section>
 			<section id="facilities">
 				<table class="table caption-top">
-					<caption class="ms-4 text-black font-monospace fw-bold fs-5">facilities</caption>
+					<caption class="ms-4 text-black fw-bold fs-5">편의시설</caption>
 					<tbody style="border-top: none;">
 							<tr> 
 								<td> 
@@ -140,7 +123,7 @@
 			</section>
 			<section id="notice">
 				<table class="table caption-top">
-					<caption class="ms-4 text-black font-monospace fw-bold fs-5">notice</caption>
+					<caption class="ms-4 text-black fw-bold fs-5">유의사항</caption>
 					<tbody style="border-top: none;">
 							<tr> 
 								<td> 
@@ -149,9 +132,23 @@
 					</tbody>
 				</table>
 			</section>
+			<section id="kakaoMap">
+				<div style="width: 800; border-top: 1px var(--bs-gray-300)solid; background-color: var(--bs-gray-200);">
+					<p> ${placeOne.placeName} </p>
+					<p style="padding-bottom: 16px; margin-bottom: 0px;"> ${placeOne.address} </p> 	
+				</div>
+				<div class="map_wrap" style="border: 1px var(--bs-gray-300) solid;">
+				    <div id="map" style="width:800; height:400; position:relative; overflow:hidden;"></div> 
+				    <!-- 지도 확대, 축소 컨트롤 div 입니다 -->
+				    <div class="custom_zoomcontrol radius_border"> 
+				        <span onclick="zoomIn()"><i class="fa-solid fa-plus" style="margin-top: 12px;"></i></span>  
+				        <span onclick="zoomOut()"><i class="fa-solid fa-minus" style="margin-top: 12px;"></i></span>
+				    </div>
+				</div>
+			</section>
 			<section id="QnA">
 				<table class="table caption-top">
-					<caption class="ms-4 text-black font-monospace fw-bold fs-5"> QnA</caption>
+					<caption class="ms-4 text-black fw-bold fs-5"> QnA</caption>
 					<tbody>
 						<c:forEach var="qna" items="${QnaList}" varStatus="status">
 							<!-- QnA 질문 표시 -->
@@ -246,8 +243,38 @@
 					</div>
 				</c:if>
 			</section>
-			<section id="review"></section>
+			<section id="review">
+				<table class="table caption-top">
+					<caption class="ms-4 text-black fw-bold fs-5">이용후기</caption>
+					<tbody style="border-top: none;">
+							<tr> 
+								<td> 
+								</td>
+							</tr>		
+					</tbody>
+				</table>
+			</section>
 		</section>
+		<div id="book" class="bookSticky col-3 text-center">
+			<form action="book.do" onsubmit="return calTime()" method="post">
+				<div id="book_Timepiker" class="border-2 rounded-3 m-2 pt-4 pb-4 d-grid gap-1" style="border: solid var(--bs-gray-800);">
+					<div class="dateCalendar d-none"></div>
+					<input type="hidden" class="selectDate">
+					<div class="timeTable d-none"></div>
+					<input type="hidden" class="selectTime">
+					<input type="hidden" name="useTime" class="useTime">
+					<div class="cntPeople d-none">
+						<div class="d-inline-flex">인원 선택</div>
+						<input name="cntPeople" type="number" class="d-inline-flex form-control m-1" style="width: auto;">
+					</div>
+					<a class="datePicker btn btn-sm ms-1 me-1"> <i class="fa-regular fa-calendar"></i> 예약날짜 </a>
+					<a class="timePicker btn btn-sm ms-1 me-1"> <i class="fa-regular fa-clock"></i> 예약시간 </a>
+					<a class="peopleCnt btn btn-sm ms-1 me-1"> <i class="fa-regular fa-clock"></i> 예약인원 </a>
+					<button class="bookBtn btn btn-lg m-1">예약 하기</button>
+					<input type="hidden" name="pidx" value="${placeOne.pidx}">
+				</div>
+			</form>
+		</div>
 	</main>
 </div>
 <footer id="footer" class="row mt-5"></footer>
@@ -317,6 +344,67 @@
 			$(".useTime").val(usetime);
 		}
 	}
+</script>
+<!-- 클립보드 복사 -->
+<script type="text/javascript">
+	function setClipboard() {
+		const url = window.location.href; 
+	    const type = "text/plain";
+	    const blob = new Blob([url], {type});
+	    const data = [new ClipboardItem({ [type]: blob })];
+	
+	    navigator.clipboard.write(data).then(
+	        function () {
+	        	alert("클립보드에 복사하였습니다.");
+	        },
+	        function () {
+	        	alert("클립보드에 복사 실패했습니다.");
+	        }
+	    );
+	}
+</script>
+<!-- 지도생성 코드 -->
+<script type="text/javascript">
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	mapOption = {
+	    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	    level: 3 // 지도의 확대 레벨
+	};  
+	
+	//지도를 생성합니다    
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+	
+	// 지도 확대, 축소 컨트롤에서 확대 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+	function zoomIn() {
+	    map.setLevel(map.getLevel() - 1);
+	}
+
+	// 지도 확대, 축소 컨트롤에서 축소 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+	function zoomOut() {
+	    map.setLevel(map.getLevel() + 1);
+	}
+	
+	//주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+	
+	//주소로 좌표를 검색합니다
+	geocoder.addressSearch('${placeOne.address}', function(result, status) {
+	
+	// 정상적으로 검색이 완료됐으면 
+	 if (status === kakao.maps.services.Status.OK) {
+	
+	    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	
+	    // 결과값으로 받은 위치를 마커로 표시합니다
+	    var marker = new kakao.maps.Marker({
+	        map: map,
+	        position: coords
+	    });
+	
+	    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	    map.setCenter(coords);
+		} 
+	});    
 </script>
 </body>
 </html>
