@@ -16,8 +16,7 @@
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/js/**" location="/resources/js/" />
 	<resources mapping="/img/**" location="/resources/image/" />
-	<!-- <resources mapping="/imgs/**" location="file:///E:\devYeonHui\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\plend\resources\upload\event" /> -->
-	<resources mapping="/imgs/**" location="file:///C:\Users\12341853\Documents\workspace-sts-3.9.18.RELEASE\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\plend\resources\upload\placeImg" />
+	<resources mapping="/imgs/**" location="file:///E:\devYeonHui\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\plend\resources\upload\event" />
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

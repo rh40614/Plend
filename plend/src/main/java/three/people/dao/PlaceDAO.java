@@ -55,4 +55,8 @@ public class PlaceDAO {
 	public int insertBook(BookVO bookvo) {
 		return sqlSession.insert(namespace+".insertBook", bookvo);
 	}
+	// 07.26 김영민: 이미지정보 가져오기
+	public List<ImageVO> selectImage(PlaceVO placevo){
+		return sqlSession.selectList(namespace+".selectImage", placevo);
+	}
 }

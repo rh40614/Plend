@@ -26,6 +26,7 @@ public final class PlaceController {
 	// 한 장소의 상세보기 페이지
 	@RequestMapping(value="/view.do", method=RequestMethod.GET)
 	public String view(PlaceVO placevo, Model model) {
+		model.addAttribute("imageList", placeService.selectImage(placevo));
 		model.addAttribute("placeOne", placeService.placeOne(placevo));
 		model.addAttribute("QnaList", placeService.selectQnA(placevo));
 		return "place/placeDetail";

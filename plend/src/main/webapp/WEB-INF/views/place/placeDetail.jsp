@@ -32,26 +32,73 @@
 </head>
 <body>
 <div class="container">	
-	<header class="row" id="header"></header>
+	<header class="row" id="header" style="z-index: 1100;"></header>
 	<br>
 	<main class="row">
-		<section id="placeHeader" class="col-9">
-			<section id="placeImg">
-				<%-- <img class="card-img-bottom d-block" src="<%=request.getContextPath() %>/resources/upload/placeImg/20210606＿003554.jpg" alt="Card image cap"> --%>
-				<img class="card-img-bottom d-block" src="/imgs/20210606＿003554.jpg" alt="Card image cap"/>
-				<!-- 참고해보자 https://kim-jong-hyun.tistory.com/28 -->
+		<section id="placeHeader" class="col-9 d-inline-flex mb-5">
+			<!-- 이미지 불러오기 -->
+			<section id="placeImg" class="col-6">
+				<!-- image slide -->
+				<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+			      <div class="carousel-indicators">
+			      	<c:forEach var="img" items="${imageList}" varStatus="status">
+						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${status.index}" class="active" aria-current="true"></button>			      		
+			      	</c:forEach>
+			      </div>
+			      <div class="carousel-inner">
+	          		<c:forEach var="img" items="${imageList}" varStatus="status">
+				        <c:if test="${status.index eq 0 }">
+					        <div class="carousel-item active">
+								<img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" alt="img" src="<%=request.getContextPath() %>/imageView.do?originFileName=${img.originFileName}"/>
+					        </div>
+				        </c:if>
+				        <c:if test="${status.index ne 0 }">
+					        <div class="carousel-item">
+								<img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" alt="img" src="<%=request.getContextPath() %>/imageView.do?originFileName=${img.originFileName}"/>
+					        </div>
+				        </c:if>
+					</c:forEach>
+			      </div>
+			    </div>
 			</section>
-			<section id="placeTitle">
-				<div class="d-flex place_name">특가 진행중</div>
-				<div class="d-flex place_addr">주소</div>
-				<div class="d-flex place_tag">태그</div>
-				<div class="icon d-flex">
+			<section id="placeTitle" class="col-5 ms-3">
+				<div class="d-flex place_name m-5 fs-5">
+					<c:if test="${placeOne.eventYN eq 'Y'}">
+						[특가 진행중] ${placeOne.placeName}
+					</c:if>
+					<c:if test="${placeOne.eventYN ne 'Y'}">
+						${placeOne.placeName}
+					</c:if> 
+				</div>
+				<div class="d-flex place_addr m-5">${placeOne.address}</div>
+				<div class="d-flex place_tag m-5">${placeOne.tag}</div>
+				<div class="icon d-flex m-5">
 					<i class="fa-solid fa-link"></i>
 					<i class="fa-regular fa-heart" style="color: red;"></i>
 					<i class="fa-regular fa-star" style="float:right"></i>
 				</div>
 			</section>
 		</section>
+		<div id="book" class="col-3 sticky-top text-center">
+			<form action="book.do" onsubmit="return calTime()" method="post">
+				<div id="book_Timepiker" class="border-2 rounded-3 m-2 pt-4 pb-4 d-grid gap-1" style="border: solid var(--bs-gray-800);">
+					<div class="dateCalendar d-none"></div>
+					<input type="hidden" class="selectDate">
+					<div class="timeTable d-none"></div>
+					<input type="hidden" class="selectTime">
+					<input type="hidden" name="useTime" class="useTime">
+					<div class="cntPeople d-none">
+						<div class="d-inline-flex">인원 선택</div>
+						<input name="cntPeople" type="number" class="d-inline-flex form-control m-1" style="width: auto;">
+					</div>
+					<a class="datePicker btn btn-sm ms-1 me-1"> <i class="fa-regular fa-calendar"></i> 예약날짜 </a>
+					<a class="timePicker btn btn-sm ms-1 me-1"> <i class="fa-regular fa-clock"></i> 예약시간 </a>
+					<a class="peopleCnt btn btn-sm ms-1 me-1"> <i class="fa-regular fa-clock"></i> 예약인원 </a>
+					<button class="bookBtn btn btn-lg m-1">예약 하기</button>
+					<input type="hidden" name="pidx" value="${placeOne.pidx}">
+				</div>
+			</form>
+		</div>
 		<section id="viewNav" class="col-9">
 			<div class="nav-scroller mb-2">
 			    <nav class="nav d-flex row detailNav">
@@ -62,12 +109,49 @@
 			      <a class="p-2 col link-secondary text-white" href="#review">이용후기</a>
 			    </nav>
 			</div>
-			<section id="explanation_place"></section>
-			<section id="facilities"></section>
-			<section id="notice"></section>
+			<section id="explanation_place">
+				<table class="table caption-top table-borderless">
+					<caption class="ms-4 text-black font-monospace fw-bold fs-5" >explanation</caption>
+					<tbody>
+						<c:forEach var="img" items="${imageList}">
+							<tr> 
+								<td> 
+									<img width="50" height="50" alt="img" src="<%=request.getContextPath() %>/imageView.do?originFileName=${img.originFileName}"/>
+								</td>
+							</tr>		
+						</c:forEach>
+						<tr>
+							<td>${placeOne.placeDetail}</td>
+						</tr>						
+					</tbody>
+				</table>
+			</section>
+			<section id="facilities">
+				<table class="table caption-top">
+					<caption class="ms-4 text-black font-monospace fw-bold fs-5">facilities</caption>
+					<tbody style="border-top: none;">
+							<tr> 
+								<td> 
+									${placeOne.guide}
+								</td>
+							</tr>		
+					</tbody>
+				</table>
+			</section>
+			<section id="notice">
+				<table class="table caption-top">
+					<caption class="ms-4 text-black font-monospace fw-bold fs-5">notice</caption>
+					<tbody style="border-top: none;">
+							<tr> 
+								<td> 
+								</td>
+							</tr>		
+					</tbody>
+				</table>
+			</section>
 			<section id="QnA">
 				<table class="table caption-top">
-					<caption class="ms-4 text-black"> <i class="fa-solid fa-circle-question"> QnA</i></caption>
+					<caption class="ms-4 text-black font-monospace fw-bold fs-5"> QnA</caption>
 					<tbody>
 						<c:forEach var="qna" items="${QnaList}" varStatus="status">
 							<!-- QnA 질문 표시 -->
@@ -164,26 +248,6 @@
 			</section>
 			<section id="review"></section>
 		</section>
-		<div id="book" class="col-3 align-self-end text-center">
-			<form action="book.do" onsubmit="return calTime()" method="post">
-				<div id="book_Timepiker" class="border-2 rounded-3 m-2 pt-4 pb-4 d-grid gap-1" style="border: solid var(--bs-gray-800);">
-					<div class="dateCalendar d-none"></div>
-					<input type="hidden" class="selectDate">
-					<div class="timeTable d-none"></div>
-					<input type="hidden" class="selectTime">
-					<input type="hidden" name="useTime" class="useTime">
-					<div class="cntPeople d-none">
-						<div class="d-inline-flex">인원 선택</div>
-						<input name="cntPeople" type="number" class="d-inline-flex form-control m-1" style="width: auto;">
-					</div>
-					<a class="datePicker btn btn-sm ms-1 me-1"> <i class="fa-regular fa-calendar"></i> 예약날짜 </a>
-					<a class="timePicker btn btn-sm ms-1 me-1"> <i class="fa-regular fa-clock"></i> 예약시간 </a>
-					<a class="peopleCnt btn btn-sm ms-1 me-1"> <i class="fa-regular fa-clock"></i> 예약인원 </a>
-					<button class="bookBtn btn btn-lg m-1">예약 하기</button>
-					<input type="hidden" name="pidx" value="${placeOne.pidx}">
-				</div>
-			</form>
-		</div>
 	</main>
 </div>
 <footer id="footer" class="row mt-5"></footer>
