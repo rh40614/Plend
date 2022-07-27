@@ -1,4 +1,4 @@
-	#naviBar {
+		#naviBar {
 			list-style-type: none;
 			overflow: auto;
 			}
@@ -33,7 +33,7 @@
 			color:white;	
 			}
 		
-	#infoBox{
+	#withdrawBox{
 			margin : 10% 0 10% 26%;
 			float : right;
 			background: #F2F2F2;
@@ -42,17 +42,6 @@
 			text-align:center;
 	
 		}
-		table {
-			width : 400px;
-			margin-left:auto;
-			margin-right:auto;
-		
-		}
-		table,tr,td {
-			height : 40px;
-			text-align: center;
-		}
-		
 		
 	#MyPageBox{
 			text-align:center;
@@ -60,9 +49,8 @@
 			height:15%;
 			background:#2F506D;
 		}
-		#regBtn {
+		#withdrawBtn {
 			margin-right: 13px;
-			float:right;
 			border-radius:15px;
 			border : 1px solid #2F506D;
 			background : #2F506D;
@@ -70,12 +58,28 @@
 			width : 90px;
 			height : 30px;
 		}
-		#regBtn:hover{
+		#withdrawBtn:hover{
 			border : 0px;
 			background-color:#3FC1C9;
 		}
-		#infoText {
+		#pwdBox {
 			border : 0;
 			background : #D8D8D8;
 			width : 250px;
+			height:32px;
 		}
+		
+		#withdrawBtn2 {
+			margin-right: 13px;
+			border-radius:15px;
+			border : 1px solid #2F506D;
+			background : #2F506D;
+			color : white;
+			width : 150px;
+			height : 30px;
+		}
+		#withdrawBtn2:hover{
+			border : 0px;
+			background-color:#3FC1C9;
+		}
+	

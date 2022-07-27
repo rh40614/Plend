@@ -1,0 +1,85 @@
+	#naviBar {
+		list-style-type: none;
+		overflow: auto;
+		}
+	
+	#select {
+		display: block;
+		color: black;
+		padding: 8px 16px;
+		text-decoration: none;
+		position : relative;
+		margin-top : 20px;
+		text-align:center;
+		z-index:1;
+		}
+	#select:before{
+		content: '';
+		position: absolute; /*부모 요소에는 position: relative를 주어야 함*/
+		background-color: #FF007F;
+		height: 50px;
+		width: 0; /*초기에 보이지 않도록*/
+		bottom: -5px; /*a태그 아래에 위치*/
+		transition: 0.7s; /*애니메이션 동작 실행 시간 정의*/
+		margin-left:29px;
+		left:0;
+		z-index : -1;
+		}
+		
+	#select:hover:before{
+		width: 83%;
+		}
+	#select:hover{
+		color:white;	
+		}
+		
+	#bookBox{
+		margin : 10% 0 0 18%;
+		float : right;
+		width : 45%;
+		height: 100%;
+		}
+		
+	#MyPageBox{
+			text-align:center;
+			color:white;
+			height:115px;
+			background:#2F506D;
+		}
+	table tr th {
+		width : 15%;
+		text-align:center;
+	}
+	
+	table tr td{
+		width : 85%;
+	}
+	#modiBtn {
+		border : 1px solid #2F506D;
+		margin-right : 20px;
+		color : white;
+		height : 35px;
+		border-radius : 15px;
+		background : #2F506D;
+		width : 185px;
+	}
+	
+	#modiBtn:hover {
+		border : 1px solid #3FC1C9;
+		background:#3FC1C9;
+	}
+	
+	#canBtn {
+		border : 1px solid #2F506D;
+		margin-left : 20px;
+		color : white;
+		height : 35px;
+		border-radius : 15px;
+		background : #2F506D;
+		width : 185px;
+	}
+	
+	#canBtn:hover {
+		border : 1px solid #3FC1C9;
+		background:#3FC1C9;
+	}

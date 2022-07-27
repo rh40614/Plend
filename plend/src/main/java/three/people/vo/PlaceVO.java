@@ -25,9 +25,16 @@ public class PlaceVO extends UserVO {
 	//2022.07.14 김연희 : 시간 availTime으로 가지고 와서 availTimeValue로 정리해서 담음
 	private String[] availTime;
 	private String availTimeValue;
+	private String useTime;
 	
 	
 	
+	public String getUseTime() {
+		return useTime;
+	}
+	public void setUseTime(String useTime) {
+		this.useTime = useTime;
+	}
 	public String getAvailTimeValue() {
 		return availTimeValue;
 	}

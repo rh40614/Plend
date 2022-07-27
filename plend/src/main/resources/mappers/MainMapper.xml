@@ -129,6 +129,7 @@
 		   SET title = #{title}
 		      ,content = #{content}
 		      ,fileName = #{fileName}
+		      ,category = #{category}
 		 WHERE nidx = #{nidx}  
 	
 	</update>

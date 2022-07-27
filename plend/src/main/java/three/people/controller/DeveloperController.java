@@ -10,10 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,15 +30,19 @@ import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
 // 07.13 김영민 페이지 이동 제작
+// 07.27 김하진 비밀번호 수정시 암호화
 @RequestMapping(value="/developer")
 @Controller
+@Configuration
+@EnableWebSecurity
 public class DeveloperController {
 
 	@Autowired
 	AdminService adminService;
 	@Autowired
 	CommonService commonService;
-	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	// 회원 리스트로 이동
 	@RequestMapping(value="/userList.do", method = RequestMethod.GET)
 	public String userList(SearchVO searchvo,Model model) {
@@ -67,6 +75,8 @@ public class DeveloperController {
 	//회원 수정 로직 실행
 	@RequestMapping(value="/userModify.do", method=RequestMethod.POST)
 	public String userModify(UserVO uservo) {
+		String encodedPassword = passwordEncoder.encode(uservo.getPassword());
+		uservo.setPassword(encodedPassword);
 		int result = adminService.userInfo(uservo);
 		if(result == 1) {
 			return "redirect:/developer/userList.do";

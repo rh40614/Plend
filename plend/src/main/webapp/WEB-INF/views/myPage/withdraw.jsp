@@ -14,44 +14,72 @@
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/home.css" rel="stylesheet">
-	<link href="<%=request.getContextPath()%>/resources/css/myInfo.css" rel="stylesheet">
-	
+	<link href="<%=request.getContextPath()%>/resources/css/withdraw.css" rel="stylesheet">
 	<script type="text/javascript">
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
 		})
 	</script>
+	
 	<script>
-		function pwdChk(){
-			var frm = document.frm;
-			
-			if (frm.password.value == "") {
-				alert("비밀번호를 입력해주세요.");
-				return;
-			} else if (frm.pwdCheck.value == "") {
-				alert("비밀번호 확인을 입력해주세요.");
-				return;
-			} else if (frm.password.value != frm.pwdCheck.value) {
-				alert("비밀번호가 일치하지 않습니다.");
-				return;
-			} else if (frm.userPhone.value == "") {
-				alert("연락처를 입력해주세요. ex)010-7777-7777");
-				return;
-			} else if (frm.email.value == "") {
-				alert("이메일을 입력해주세요.");
-				return;
-			} else if (frm.birth.value == "") {
-				alert("생년월일을 입력해주세요. ex) 19940324");
-				return;
-			} else if (isNaN(frm.birth.value) == true) {
-				alert("생년월일은 숫자만 입력해주세요.");
-				return;
-			} else {
-				frm.submit();
-			}
-		}
+	//비밀번호 확인
+	function chk(){
+	var password = $("input[type=password]").val();
+	var uidx = $("input[type=hidden]").val();
+	
+	var frm = document.frm;
+	
+	if (frm.password.value == "") {
+		alert("비밀번호를 입력해주세요.");
+		return;
+	}
+	
+	var sendData = "password="+password+"&uidx="+uidx;
+			$.ajax({
+				url : "withdraw.do",
+				method : "post",
+				data : sendData,
+				success : function(text) {
+					 if (text == 0){
+						alert("비밀번호가 일치하지 않습니다.");
+						return;
+					} else if (text == 1) {
+						$("#pwdCheck").html("정말 탈퇴하시겠습니까?<br><br><button id = 'withdrawBtn2' onclick ='withdraw();' type = 'button'>확인</button> <input type = 'hidden' name= 'uidx' value = '${login.uidx }'>");
+					}
+				},
+				error : function(xhr) {
+					alert("에러코드 = "+ xhr.status);
+				}
+			});
+	}
 	</script>
+	<script>
+	//회원 탈퇴
+	function withdraw (){
+		
+		var uidx = "uidx="+${login.uidx};
+		
+		$.ajax({
+			url : "withdraw2.do",
+			method : "post",
+			data : uidx,
+			success : function(text) {
+				 if (text == 0){
+						alert("회원 탈퇴에 실패하였습니다. 잠시후 다시 시도해주세요.");
+						return;
+					} else if (text > 0) {
+						$("#pwdCheck").html("탈퇴가 완료되었습니다. 그동안 Plend를 이용해주셔서 감사합니다.<br><br><button type ='button' id = 'withdrawBtn2' onclick ='location.href="+"/controller/"+"'>메인으로 가기</button> ");
+					}
+			},
+			error : function(xhr) {
+				alert("에러코드2 = "+ xhr.status);
+			}
+		});
+		
+	}
+	</script>
+
 </head>
 
 <body>
@@ -68,55 +96,35 @@
     	<div>
  		<ul id = "naviBar">
      	<!-- 나중에 해당링크 들어간 곳 글씨 진하게하는 css 추가하기 -->
- 		 <li><a href="myInfo.do?uidx=${login.uidx}" id = "select"><strong>내 정보</strong></a></li>
+ 		 <li><a href="myInfo.do?uidx=${login.uidx}" id = "select">내 정보</a></li>
  		 <li><a href="#" id = "select">쿠폰 등록</a></li>
   		 <li><a href="bookStatus.do?uidx=${login.uidx}" id = "select">예약 현황</a></li>
  		 <li><a href="#" id = "select">찜 목록</a></li>
  		 <li><a href="#" id = "select">마이 리뷰</a></li>
- 		 <li><a href="withdraw.do?uidx=${login.uidx}" id = "select">회원 탈퇴</a></li>
+ 		 <li><a href="withdraw.do?uidx=${login.uidx}" id = "select"><strong>회원 탈퇴</strong></a></li>
  		 <br>
 	    </ul>
 	    </div>
    	</nav>  	
    	
-   <div id = "infoBox">
+   <div id = "withdrawBox">
    	<br>
-		<h4>내 정보</h4>
+   	<br>
+		<h2>회원 탈퇴</h2>
+		<br>
 		<hr>
 		<br>
-		<form name = "frm" action = "myInfo.do?uidx=${vo.uidx}" method = "post">
-			<table>
-				<tr>
-					<th>아이디</th>
-					<td colspan = "3">${vo.id }</td>
-				</tr>
-				<tr>
-					<th>비밀번호</th>
-					<td colspan = "3"><input type = "password" name = "password" value = "" id = "infoText"></td>
-				</tr>
-				<tr>
-					<th>비밀번호 확인</th>
-					<td colspan = "3"><input type = "password" name = "pwdCheck" value = "" id = "infoText"></td>
-				</tr>
-				<tr>
-					<th>닉네임</th>
-					<td colspan = "3">${vo.nickName }</td>
-				</tr>
-				<tr>
-					<th>연락처</th>
-					<td colspan = "3"><input type = "text" name = "userPhone" value = "${vo.userPhone }" id = "infoText" required></td>
-				</tr>
-				<tr>
-					<th>이메일</th>
-					<td colspan = "3"><input type = "email" name = "email" value = "${vo.email }" id = "infoText" required></td>
-				</tr>
-				<tr>
-					<th>생년월일</th>
-					<td colspan = "3"><input type = "text" name = "birth" id = "infoText" value = "${vo.birth }" required></td>
-				</tr>
-			</table>
-			<br>
-			<button type = "button" id = "regBtn" onclick = "pwdChk();">수정하기</button>
+		<form action = "withdraw.do" method = "post" name = "frm">
+			<div id = "pwdCheck">
+			<input type = "hidden" name= "uidx" value = "${login.uidx }">
+				비밀번호를 다시 한번 입력해주세요.
+				<br>
+				<br>
+				<input type = "password" name = "password" id = "pwdBox">
+				<br>
+				<br>
+				<button id = "withdrawBtn" type="button" onclick = "chk();">확인</button>
+			</div>
 		</form>
 		<br>
 		<br>
@@ -125,7 +133,6 @@
    </div>
 <div style="margin-top: -48px;">
 <footer id="footer" class="mt-5" style = "float:none;display:inline-block;"></footer>
-</div>
 </div>
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

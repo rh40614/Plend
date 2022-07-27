@@ -6,7 +6,6 @@
 <mapper namespace="three.people.mapper.commonMapper">
 	
 	<insert id="insertUser" parameterType="UserVO">
-	<!-- 일단 유저만 -->
 		INSERT INTO user(
 			 id
 			,password
@@ -24,7 +23,12 @@
 			,#{password}
 			,#{name}
 			,#{nickName}
+	<if test = "birth != null and regnum == ''">
 			,#{birth}
+	</if> 
+	<if test = "regnum != null and birth == ''">
+			,#{regnum}
+	</if>
 			,#{userPhone}
 			,#{email}
 			,#{gender}
@@ -33,15 +37,22 @@
 			,#{role}
 		)
 	</insert>
-	
+	<select id = "selectID" parameterType="UserVO" resultType="UserVO">
+		SELECT 
+			 password
+		  FROM user 
+		 WHERE id = #{id}
+	</select>
 	<select id="login" resultType="UserVO" parameterType="UserVO">
 		SELECT 
 			 uidx
 			,id
 			,password
+			,role
+			,nickName
 		FROM user
 	   WHERE id = #{id}
-	     AND password = #{password}	
+	     AND delyn = 'N'
 	</select>
 	
 	<select id="selectId" resultType="UserVO" parameterType="UserVO">

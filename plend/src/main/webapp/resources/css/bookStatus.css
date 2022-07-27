@@ -1,0 +1,71 @@
+#naviBar {
+		list-style-type: none;
+		overflow: auto;
+		}
+	
+	#select {
+		display: block;
+		color: black;
+		padding: 8px 16px;
+		text-decoration: none;
+		position : relative;
+		margin-top : 20px;
+		text-align:center;
+		z-index:1;
+		}
+	#select:before{
+		content: '';
+		position: absolute; /*부모 요소에는 position: relative를 주어야 함*/
+		background-color: #FF007F;
+		height: 50px;
+		width: 0; /*초기에 보이지 않도록*/
+		bottom: -5px; /*a태그 아래에 위치*/
+		transition: 0.7s; /*애니메이션 동작 실행 시간 정의*/
+		margin-left:29px;
+		left:0;
+		z-index : -1;
+		}
+		
+	#select:hover:before{
+		width: 83%;
+		}
+	#select:hover{
+		color:white;	
+		}
+		
+	#bookBox{
+		margin : 100px 0 0 18%;
+		float : right;
+		width : 45%;
+		height: 100%;
+		}
+		
+	#bookView {
+		width : 100%;
+		height: 30%;
+		background : #CFCFCF;
+	
+	}
+	#MyPageBox{
+			text-align:center;
+			color:white;
+			height:15%;
+			background:#2F506D;
+		}
+	table,tr,td,th{
+		border:0px solid gray;
+		
+	}
+	
+	table {
+		margin-left:20px;
+	}
+	th{
+		padding : 5px;
+		width:150px;
+	}
+	td {
+		padding : 5px;
+		width:600px;
+		
+	}

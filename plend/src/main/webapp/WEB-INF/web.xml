@@ -59,7 +59,6 @@
 	</servlet-mapping>
 	
 	<!-- 파일을 업로드할때 설정정보를 담는 설정(최대사이즈 등) -->      
-     <!-- fileupload multipart-config maxSize set -->
     <multipart-config>
           <max-file-size>104857600</max-file-size> <!-- 10MB limit -->
           <max-request-size>104857600</max-request-size>
@@ -67,7 +66,7 @@
     </multipart-config>
       
     <session-config> 
-		<session-timeout>10</session-timeout> <!-- 분 단위 - 10분 -->
+		<session-timeout>1</session-timeout> <!-- 분 단위 - 10분 -->
 	</session-config>
 
 </web-app>
