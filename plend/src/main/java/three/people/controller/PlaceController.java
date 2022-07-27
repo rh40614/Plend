@@ -6,12 +6,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import three.people.service.PlaceService;
 import three.people.vo.BookVO;
+import three.people.vo.HeartVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
 import three.people.vo.UserVO;
@@ -25,7 +28,18 @@ public final class PlaceController {
 	
 	// 한 장소의 상세보기 페이지
 	@RequestMapping(value="/view.do", method=RequestMethod.GET)
-	public String view(PlaceVO placevo, Model model) {
+	public String view(PlaceVO placevo, Model model, HttpServletRequest request,HttpSession session) {
+		
+		session = request.getSession();
+		if(session.getAttribute("login") != null) {
+			UserVO login = (UserVO) session.getAttribute("login");
+			HeartVO heartvo = new HeartVO();
+			heartvo.setUidx(login.getUidx());
+			heartvo.setPidx(placevo.getPidx());
+			
+			model.addAttribute("heartList", placeService.selectHeart(heartvo));
+		}
+		
 		
 		model.addAttribute("imageList", placeService.selectImage(placevo));
 		model.addAttribute("placeOne", placeService.placeOne(placevo));
@@ -75,6 +89,25 @@ public final class PlaceController {
 		return "place/beforeBookDetail";
 	}
 	
+	//찜목록 등록, 삭제
+	@RequestMapping(value="/heart.do", method=RequestMethod.GET)
+	@ResponseBody
+	public int like(HeartVO hvo, HttpServletRequest request, HttpSession session) {
+		
+		session = request.getSession();
+		UserVO login = (UserVO) session.getAttribute("login");
+		hvo.setUidx(login.getUidx());
+		
+		// like의 값에 따라 다른 sql구문 전송
+		if(hvo.getLike().equals("add")) {
+			return placeService.likeAdd(hvo);
+		}else if(hvo.getLike().equals("delete")) {
+			return placeService.likeDelete(hvo);
+		}else {
+			return 0;
+		}
+		
+	}
 	
 	@RequestMapping(value="/test.do", method=RequestMethod.GET)
 	public String test() {

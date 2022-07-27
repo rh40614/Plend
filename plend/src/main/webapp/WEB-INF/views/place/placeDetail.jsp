@@ -32,12 +32,13 @@
 		});
 	</script>
 </head>
-<body>
+<body data-bs-spy="scroll" data-bs-target="#simple-list-example" data-bs-offset="0" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
 <div class="container">	
 	<header class="row" id="header"></header>
 	<br>
-	<main class="row">
-		<section id="placeHeader" class="col-9 d-inline-flex mb-5">
+	<div class="row">
+	<main class="d-flex flex-column col-9">
+		<section id="placeHeader" class="d-inline-flex mt-1 mb-5">
 			<!-- 이미지 불러오기 -->
 			<section id="placeImg" class="col-6">
 				<!-- image slide -->
@@ -65,7 +66,7 @@
 			</section>
 			<!-- 장소 이름/주소/짧은 기능 -->
 			<section id="placeTitle" class="col-5 ms-3">
-				<div class="d-flex place_name me-5 mt-5 mb-5 fs-5">
+				<div class="d-flex place_name ms-5 mt-3 mb-2 fs-3 fw-bold">
 					<c:if test="${placeOne.eventYN eq 'Y'}">
 						[특가 진행중] ${placeOne.placeName}
 					</c:if>
@@ -73,196 +74,210 @@
 						${placeOne.placeName}
 					</c:if> 
 				</div>
-				<div class="d-flex place_addr me-5 mt-5 mb-5">${placeOne.address}</div>
-				<div class="d-flex place_tag me-5 mt-5 mb-5">${placeOne.tag}</div>
-				<div class="icon d-flex me-5 mt-5 mb-5">
+				<div class="d-flex place_tag ms-5 ">${placeOne.tag}</div>
+				<div class="d-flex place_addr ms-5 me-5 mt-4 mb-1 fw-bold" style="border-bottom: 1px solid lightgray;">${placeOne.address}</div>
+				<div class="icon d-flex ms-5 mt-2 me-5 pb-1" style="border-bottom: 1px solid lightgray; justify-content: right;">
+					<!-- 클립보드 -->
 					<a class="me-2 ms-2" onclick="setClipboard()" style="cursor: pointer;"><i class="fa-solid fa-link"></i></a>
-					<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this)" class="fa-regular fa-heart" style="color: red;"></i></a>
+					<!-- 찜하기 -->
+					<c:choose>
+						<c:when test="${empty heartList}">
+							<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this)" class="fa-regular fa-heart" style="color: red;"></i></a>
+						</c:when>
+						<c:when test="${not empty heartList}">
+							<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this)" class="fa-solid fa-heart" style="color: red;"></i></a>
+						</c:when>
+					</c:choose>
 					<i class="fa-regular fa-star me-2 ms-2" style="float:right"></i>
 				</div>
 			</section>
 		</section>
-		<section id="viewNav" class="col-9">
-			<div class="nav-scroller mb-2">
+		<section id="viewNav">
+			<div id="simple-list-example" class="nav-scroller mb-2 simple-list-example-scrollspy list-group">
 			    <nav class="nav d-flex row detailNav">
-			      <a class="p-2 col link-secondary text-white active2" href="#explanation_place">공간 소개</a>
-			      <a class="p-2 col link-secondary text-white" href="#facilities">편의 시설</a>
-			      <a class="p-2 col link-secondary text-white" href="#notice">유의사항</a>
-			      <a class="p-2 col link-secondary text-white" href="#QnA">QnA</a>
-			      <a class="p-2 col link-secondary text-white" href="#review">이용후기</a>
+			      <a class="p-2 col link-secondary text-white list-group-item list-group-item-action active" href="#explanation_place">공간 소개</a>
+			      <a class="p-2 col link-secondary text-white list-group-item list-group-item-action" href="#facilities">편의 시설</a>
+			      <a class="p-2 col link-secondary text-white list-group-item list-group-item-action" href="#notice">유의사항</a>
+			      <a class="p-2 col link-secondary text-white list-group-item list-group-item-action" href="#QnA">QnA</a>
+			      <a class="p-2 col link-secondary text-white list-group-item list-group-item-action" href="#review">이용후기</a>
 			    </nav>
 			</div>
-			<section id="explanation_place">
-				<table class="table caption-top table-borderless">
-					<caption class="ms-4 text-black fw-bold fs-5" >공간소개</caption>
-					<tbody>
-						<c:forEach var="img" items="${imageList}">
-							<tr> 
-								<td style="padding: 0;"> 
-									<img width="800" height="400" alt="img" src="<%=request.getContextPath() %>/imageView.do?originFileName=${img.originFileName}"/>
-								</td>
-							</tr>		
-						</c:forEach>
-						<tr>
-							<td>${placeOne.placeDetail}</td>
-						</tr>						
-					</tbody>
-				</table>
-			</section>
-			<section id="facilities">
-				<table class="table caption-top">
-					<caption class="ms-4 text-black fw-bold fs-5">편의시설</caption>
-					<tbody style="border-top: none;">
-						<c:if test="${placeOne.option1 eq null}">
-							<tr> 
-								<td style="text-align-last: center;"> 등록된 편의시설이 없습니다. </td>
-							</tr>		
-						</c:if>
-					</tbody>
-				</table>
-			</section>
-			<section id="notice">
-				<table class="table caption-top">
-					<caption class="ms-4 text-black fw-bold fs-5">유의사항</caption>
-					<tbody style="border-top: none;">
-						<c:if test="${placeOne.guide eq null}">
-							<tr> 
-								<td style="text-align-last: center;"> 등록된 유의사항이 없습니다. </td>
-							</tr>
-						</c:if>
-					</tbody>
-				</table>
-			</section>
-			<section id="kakaoMap">
-				<div style="width: 800; border-top: 1px var(--bs-gray-300)solid; background-color: var(--bs-gray-200);">
-					<p> ${placeOne.placeName} </p>
-					<p style="padding-bottom: 16px; margin-bottom: 0px;"> ${placeOne.address} </p> 	
-				</div>
-				<div class="map_wrap" style="border: 1px var(--bs-gray-300) solid;">
-				    <div id="map" style="width:800; height:400; position:relative; overflow:hidden;"></div> 
-				    <!-- 지도 확대, 축소 컨트롤 div 입니다 -->
-				    <div class="custom_zoomcontrol radius_border"> 
-				        <span onclick="zoomIn()"><i class="fa-solid fa-plus" style="margin-top: 12px;"></i></span>  
-				        <span onclick="zoomOut()"><i class="fa-solid fa-minus" style="margin-top: 12px;"></i></span>
-				    </div>
-				</div>
-			</section>
-			<section id="QnA">
-				<table class="table caption-top">
-					<caption class="ms-4 text-black fw-bold fs-5"> QnA</caption>
-					<tbody>
-						<c:if test="${empty QnaList}">
+			<div id="scrollPosition" >
+				<section id="explanation_place">
+					<table class="table caption-top table-borderless">
+						<caption class="ms-4 text-black fw-bold fs-5" >공간소개</caption>
+						<tbody>
+							<c:forEach var="img" items="${imageList}">
+								<tr> 
+									<td style="padding: 0;"> 
+										<img width="800" height="400" alt="img" src="<%=request.getContextPath() %>/imageView.do?originFileName=${img.originFileName}"/>
+									</td>
+								</tr>		
+							</c:forEach>
 							<tr>
-								<td style="text-align-last: center;">등록된 QnA가 없습니다.</td>
-							</tr>
-						</c:if>
-						<c:forEach var="qna" items="${QnaList}" varStatus="status">
-							<!-- QnA 질문 표시 -->
-							<c:if test="${qna.depth eq 0}">
-								<tr class="table-secondary">
-									<td class="text-center col-2">Q.</td>
-									<td>${qna.content}</td>
-									<td class="col-3 text-end justify-content-md-end">
-										<c:if test="${placeOne.uidx eq login.uidx && QnaList[status.index+1].depth ne 1}">
-											<a class="btn btn-primary btn-sm rounded-3" onclick="QnAToggle('QnAToggle${status.index}')">답변</a>
-										</c:if>
-										<c:if test="${qna.uidx eq login.uidx}">
-											<a class="btn btn-primary btn-sm rounded-3" onclick="modifyToggle('Modify${status.index}')">수정</a>
-											<a class="btn btn-primary btn-sm rounded-3 me-2" href="deleteQna.do?qidx=${qna.qidx}&pidx=${placeOne.pidx}">삭제</a>
-										</c:if>
-									</td>								
-								</tr>
-								<!-- QnA 답변 등록 창 -->
-								<tr class="QnAToggle${status.index} d-none">
-									<td colspan="3">
-										<div class="d-grid gap-1 d-md-flex justify-content-md-end">
-											<form action="answer.do" method="post" class="col-12 text-end">
-												<textarea class="form-control" name="content" style="resize: none;" required></textarea>
-												<input type="hidden" name="uidx" value="${login.uidx}" readonly>
-												<input type="hidden" name="pidx" value="${placeOne.pidx}" readonly>
-												<input type="hidden" name="originQidx" value="${qna.qidx}" readonly>
-												<a class="btn btn-sm rounded-3 mt-1" onclick="QnAToggle('QnAToggle${status.index}')">취소</a>
-												<button class="btn btn-sm rounded-3 mt-1">답변 등록</button>
-											</form>
-										</div>
-									</td>
-								</tr>
-								<!-- 질문 수정 창 -->
-								<tr class="Modify${status.index} d-none">
-									<td colspan="3">
-										<div class="d-grid gap-1 d-md-flex justify-content-md-end">
-											<form action="questionModify.do" method="post" class="col-12 text-end">
-												<textarea class="form-control" name="content" style="resize: none;" required>${qna.content}</textarea>
-												<input type="hidden" name="uidx" value="${login.uidx}" readonly>
-												<input type="hidden" name="pidx" value="${placeOne.pidx}" readonly>
-												<input type="hidden" name="qidx" value="${qna.qidx}" readonly>
-												<input type="hidden" name="originQidx" value="${qna.originQidx}" readonly>
-												<a class="btn btn-sm rounded-3 mt-1" onclick="modifyToggle('Modify${status.index}')">취소</a>
-												<button class="btn btn-sm rounded-3 mt-1">수정</button>
-											</form>
-										</div>
-									</td>
+								<td>${placeOne.placeDetail}</td>
+							</tr>						
+						</tbody>
+					</table>
+				</section>
+				<section id="facilities">
+					<table class="table caption-top">
+						<caption class="ms-4 text-black fw-bold fs-5">편의시설</caption>
+						<tbody style="border-top: none;">
+							<c:if test="${placeOne.option1 eq null}">
+								<tr> 
+									<td style="text-align-last: center;"> 등록된 편의시설이 없습니다. </td>
+								</tr>		
+							</c:if>
+						</tbody>
+					</table>
+				</section>
+				<section id="notice">
+					<table class="table caption-top">
+						<caption class="ms-4 text-black fw-bold fs-5">유의사항</caption>
+						<tbody style="border-top: none;">
+							<c:if test="${placeOne.guide eq null}">
+								<tr> 
+									<td style="text-align-last: center;"> 등록된 유의사항이 없습니다. </td>
 								</tr>
 							</c:if>
-							<!-- QnA 답변 표시 -->
-							<c:if test="${QnaList[status.index+1].depth eq 1}">
-								<tr>
-									<td class="text-center col-2">A.</td>
-									<td>${QnaList[status.index+1].content}</td>
-									<td class="col-3 text-end justify-content-md-end">
-										<c:if test="${qna.uidx eq login.uidx}">
-											<a class="btn btn-primary btn-sm rounded-3" onclick="modifyToggle('Modify${status.index+1}')">수정</a>
-											<a class="btn btn-primary btn-sm rounded-3 me-2" href="deleteQna.do?qidx=${QnaList[status.index+1].qidx}&pidx=${placeOne.pidx}">삭제</a>
-										</c:if>
-									</td>
-								</tr>
-								<!-- 답변 수정 창 -->					
-								<tr class="Modify${status.index+1} d-none">
-									<td colspan="3">
-										<div class="d-grid gap-1 d-md-flex justify-content-md-end">
-											<form action="questionModify.do" method="post" class="col-12 text-end">
-												<textarea class="form-control" name="content" style="resize: none;" required>${QnaList[status.index+1].content}</textarea>
-												<input type="hidden" name="uidx" value="${login.uidx}" readonly>
-												<input type="hidden" name="pidx" value="${placeOne.pidx}" readonly>
-												<input type="hidden" name="qidx" value="${QnaList[status.index+1].qidx}" readonly>
-												<input type="hidden" name="originQidx" value="${QnaList[status.index+1].originQidx}" readonly>
-												<a class="btn btn-sm rounded-3 mt-1" onclick="modifyToggle('Modify${status.index+1}')">취소</a>
-												<button class="btn btn-sm rounded-3 mt-1">수정</button>
-											</form>
-										</div>
-									</td>
-								</tr>							
-							</c:if>
-						</c:forEach>
-					</tbody>
-				</table>
-				<c:if test="${login ne null}">
-					<div class="d-grid gap-1 d-md-flex justify-content-md-end">
-						<a class="btn btn-primary btn-sm rounded-3 me-2 QnAToggle" onclick="QnAToggle('QnAToggle')">질문하기</a>
-						<form action="question.do" method="post" class="QnAToggle d-none col-12 text-end">
-							<textarea class="form-control" name="content" style="resize: none;" required></textarea>
-							<input type="hidden" name="uidx" value="${login.uidx}">
-							<input type="hidden" name="pidx" value="${placeOne.pidx}">
-							<a id="QnAsubmit" class="btn btn-sm rounded-3 mt-1" onclick="QnAToggle('QnAToggle')">취소</a>
-							<button id="QnAsubmit" class="btn btn-sm rounded-3 mt-1">등록</button>
-						</form>
+						</tbody>
+					</table>
+				</section>
+				<section id="kakaoMap">
+					<p class="ms-4 text-black fw-bold fs-5" style="padding-bottom:20px;"> 위치</p>
+					<div style="width: 800; border-top: 1px var(--bs-gray-300)solid; background-color: var(--bs-gray-200);">
+						<p class="ms-4 text-black fw-bold pt-2"><i class="fa-solid fa-location-dot"></i> ${placeOne.placeName} </p>
+						<p style="padding-left:24px; padding-bottom: 16px; margin-bottom: 0px;"> ${placeOne.address} </p> 	
 					</div>
-				</c:if>
-			</section>
-			<section id="review">
-				<table class="table caption-top">
-					<caption class="ms-4 text-black fw-bold fs-5">이용후기</caption>
-					<tbody style="border-top: none;">
-						<c:if test="">
-							<tr> 
-								<td></td>
-							</tr>		
-						</c:if>
-					</tbody>
-				</table>
-			</section>
+					<div class="map_wrap" style="border: 1px var(--bs-gray-300) solid;">
+					    <div id="map" style="width:800; height:400; position:relative; overflow:hidden;"></div> 
+					    <!-- 지도 확대, 축소 컨트롤 div 입니다 -->
+					    <div class="custom_zoomcontrol radius_border"> 
+					        <span onclick="zoomIn()"><i class="fa-solid fa-plus" style="margin-top: 12px;"></i></span>  
+					        <span onclick="zoomOut()"><i class="fa-solid fa-minus" style="margin-top: 12px;"></i></span>
+					    </div>
+					</div>
+				</section>
+				<section id="QnA">
+					<table class="table caption-top">
+						<caption class="ms-4 text-black fw-bold fs-5"> QnA</caption>
+						<tbody>
+							<c:if test="${empty QnaList}">
+								<tr>
+									<td style="text-align-last: center;">등록된 QnA가 없습니다.</td>
+								</tr>
+							</c:if>
+							<c:forEach var="qna" items="${QnaList}" varStatus="status">
+								<!-- QnA 질문 표시 -->
+								<c:if test="${qna.depth eq 0}">
+									<tr class="table-secondary">
+										<td class="text-center col-2">Q.</td>
+										<td>${qna.content}</td>
+										<td class="col-3 text-end justify-content-md-end">
+											<c:if test="${placeOne.uidx eq login.uidx && QnaList[status.index+1].depth ne 1}">
+												<a class="btn btn-primary btn-sm rounded-3" onclick="QnAToggle('QnAToggle${status.index}')">답변</a>
+											</c:if>
+											<c:if test="${qna.uidx eq login.uidx}">
+												<a class="btn btn-primary btn-sm rounded-3" onclick="modifyToggle('Modify${status.index}')">수정</a>
+												<a class="btn btn-primary btn-sm rounded-3 me-2" href="deleteQna.do?qidx=${qna.qidx}&pidx=${placeOne.pidx}">삭제</a>
+											</c:if>
+										</td>								
+									</tr>
+									<!-- QnA 답변 등록 창 -->
+									<tr class="QnAToggle${status.index} d-none">
+										<td colspan="3">
+											<div class="d-grid gap-1 d-md-flex justify-content-md-end">
+												<form action="answer.do" method="post" class="col-12 text-end">
+													<textarea class="form-control" name="content" style="resize: none;" required></textarea>
+													<input type="hidden" name="uidx" value="${login.uidx}" readonly>
+													<input type="hidden" name="pidx" value="${placeOne.pidx}" readonly>
+													<input type="hidden" name="originQidx" value="${qna.qidx}" readonly>
+													<a class="btn btn-sm rounded-3 mt-1" onclick="QnAToggle('QnAToggle${status.index}')">취소</a>
+													<button class="btn btn-sm rounded-3 mt-1">답변 등록</button>
+												</form>
+											</div>
+										</td>
+									</tr>
+									<!-- 질문 수정 창 -->
+									<tr class="Modify${status.index} d-none">
+										<td colspan="3">
+											<div class="d-grid gap-1 d-md-flex justify-content-md-end">
+												<form action="questionModify.do" method="post" class="col-12 text-end">
+													<textarea class="form-control" name="content" style="resize: none;" required>${qna.content}</textarea>
+													<input type="hidden" name="uidx" value="${login.uidx}" readonly>
+													<input type="hidden" name="pidx" value="${placeOne.pidx}" readonly>
+													<input type="hidden" name="qidx" value="${qna.qidx}" readonly>
+													<input type="hidden" name="originQidx" value="${qna.originQidx}" readonly>
+													<a class="btn btn-sm rounded-3 mt-1" onclick="modifyToggle('Modify${status.index}')">취소</a>
+													<button class="btn btn-sm rounded-3 mt-1">수정</button>
+												</form>
+											</div>
+										</td>
+									</tr>
+								</c:if>
+								<!-- QnA 답변 표시 -->
+								<c:if test="${QnaList[status.index+1].depth eq 1}">
+									<tr>
+										<td class="text-center col-2">A.</td>
+										<td>${QnaList[status.index+1].content}</td>
+										<td class="col-3 text-end justify-content-md-end">
+											<c:if test="${qna.uidx eq login.uidx}">
+												<a class="btn btn-primary btn-sm rounded-3" onclick="modifyToggle('Modify${status.index+1}')">수정</a>
+												<a class="btn btn-primary btn-sm rounded-3 me-2" href="deleteQna.do?qidx=${QnaList[status.index+1].qidx}&pidx=${placeOne.pidx}">삭제</a>
+											</c:if>
+										</td>
+									</tr>
+									<!-- 답변 수정 창 -->					
+									<tr class="Modify${status.index+1} d-none">
+										<td colspan="3">
+											<div class="d-grid gap-1 d-md-flex justify-content-md-end">
+												<form action="questionModify.do" method="post" class="col-12 text-end">
+													<textarea class="form-control" name="content" style="resize: none;" required>${QnaList[status.index+1].content}</textarea>
+													<input type="hidden" name="uidx" value="${login.uidx}" readonly>
+													<input type="hidden" name="pidx" value="${placeOne.pidx}" readonly>
+													<input type="hidden" name="qidx" value="${QnaList[status.index+1].qidx}" readonly>
+													<input type="hidden" name="originQidx" value="${QnaList[status.index+1].originQidx}" readonly>
+													<a class="btn btn-sm rounded-3 mt-1" onclick="modifyToggle('Modify${status.index+1}')">취소</a>
+													<button class="btn btn-sm rounded-3 mt-1">수정</button>
+												</form>
+											</div>
+										</td>
+									</tr>							
+								</c:if>
+							</c:forEach>
+						</tbody>
+					</table>
+					<c:if test="${login ne null}">
+						<div class="d-grid gap-1 d-md-flex justify-content-md-end">
+							<a class="btn btn-primary btn-sm rounded-3 me-2 QnAToggle" onclick="QnAToggle('QnAToggle')">질문하기</a>
+							<form action="question.do" method="post" class="QnAToggle d-none col-12 text-end">
+								<textarea class="form-control" name="content" style="resize: none;" required></textarea>
+								<input type="hidden" name="uidx" value="${login.uidx}">
+								<input type="hidden" name="pidx" value="${placeOne.pidx}">
+								<a id="QnAsubmit" class="btn btn-sm rounded-3 mt-1" onclick="QnAToggle('QnAToggle')">취소</a>
+								<button id="QnAsubmit" class="btn btn-sm rounded-3 mt-1">등록</button>
+							</form>
+						</div>
+					</c:if>
+				</section>
+				<section id="review">
+					<table class="table caption-top">
+						<caption class="ms-4 text-black fw-bold fs-5">이용후기</caption>
+						<tbody style="border-top: none;">
+							<c:if test="">
+								<tr> 
+									<td></td>
+								</tr>		
+							</c:if>
+						</tbody>
+					</table>
+				</section>
+			</div>
 		</section>
-		<div id="book" class="bookSticky col-3 text-center">
+	</main>
+	<div class="d-flex flex-column col-3">
+		<div id="book" class="bookSticky text-center">
 			<form action="book.do" onsubmit="return calTime()" method="post">
 				<div id="book_Timepiker" class="border-2 rounded-3 m-2 pt-4 pb-4 d-grid gap-1" style="border: solid var(--bs-gray-800);">
 					<div class="dateCalendar d-none"></div>
@@ -282,7 +297,8 @@
 				</div>
 			</form>
 		</div>
-	</main>
+	</div>
+	</div>
 </div>
 <footer id="footer" class="row mt-5"></footer>
 <!-- JavaScript Bundle with Popper -->
@@ -416,16 +432,53 @@
 <!-- 좋아요 버튼 클릭시 찜목록에 들어감 -->
 <script>
 	function like(obj){
-		if($(obj).hasClass("fa-regular") == true){
-			$(obj).removeClass("fa-regular");
-			$(obj).addClass("fa-solid");
-			/* 요기가 찜 등록하는 곳 */
+		if(${login ne null}){
+			if($(obj).hasClass("fa-regular") == true){
+				$.ajax({
+					url: "heart.do?pidx=${placeOne.pidx}&like=add",
+					success: function(data){
+						console.log(data);
+						if(data == 1){
+							$(obj).removeClass("fa-regular");
+							$(obj).addClass("fa-solid");
+							alert("찜목록에 등록되었습니다.");
+						}else{
+							alert("찜목록 등록에 실패했습니다.");
+						}
+					},
+					error: function(){
+						alert("찜목록 등록에 실패했습니다.");
+					}
+				});
+				
+			}else{
+				$.ajax({
+					url: "heart.do?pidx=${placeOne.pidx}&like=delete",
+					success: function(data){
+						if(data == 1){
+							$(obj).removeClass("fa-solid");
+							$(obj).addClass("fa-regular");
+							alert("찜목록에서 삭제했습니다.");
+						}else{
+							alert("찜목록 삭제에 실패했습니다.");
+						}
+					},
+					error: function(){
+						alert("찜목록 삭제에 실패했습니다.");
+					}
+				});
+			}
 		}else{
-			$(obj).removeClass("fa-solid");
-			$(obj).addClass("fa-regular");
+			alert("로그인을 해주세요.");
 		}
-	
 	}
+</script>
+<!-- scrollspy -->
+<script type="text/javascript">
+	 /* $("#scrollPosition").scrollspy({ target: '#simple-list-example' })
+	 const scrollSpy = new bootstrap.ScrollSpy(document.body, {
+		  target: "#simple-list-example"
+		})  */
 </script>
 </body>
 </html>

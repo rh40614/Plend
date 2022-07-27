@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import three.people.dao.PlaceDAO;
 import three.people.vo.BookVO;
+import three.people.vo.HeartVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
@@ -64,6 +65,21 @@ public class PlaceServiceIml implements PlaceService{
 	@Override
 	public List<ImageVO> selectImage(PlaceVO placevo) {
 		return placeDAO.selectImage(placevo);
+	}
+
+	@Override
+	public int likeAdd(HeartVO heartvo) {
+		return placeDAO.likeAdd(heartvo);
+	}
+
+	@Override
+	public int likeDelete(HeartVO heartvo) {
+		return placeDAO.likeDelete(heartvo);
+	}
+
+	@Override
+	public List<HeartVO> selectHeart(HeartVO heartvo) {
+		return placeDAO.selectHeart(heartvo);
 	}
 
 }

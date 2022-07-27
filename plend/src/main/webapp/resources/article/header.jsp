@@ -15,7 +15,7 @@
 <div id="wrap">
 <header>
 
-  <nav class="navbar navbar-light shadow-sm fixed-top mt-4">
+  <nav id="aticleHeader" class="navbar navbar-light shadow-sm fixed-top">
 
   <div class="container" style="align-items: center; flex-wrap: wrap; justify-content: center;">
   	<div style=" display: flex; flex-direction: row; align-items: center; width: 100%;">

@@ -3,6 +3,7 @@ package three.people.service;
 import java.util.List;
 
 import three.people.vo.BookVO;
+import three.people.vo.HeartVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
@@ -19,4 +20,7 @@ public interface PlaceService {
 	public int deleteQnA(QnaVO qnavo);
 	public int insertBook(BookVO bookvo);
 	public List<ImageVO> selectImage(PlaceVO placevo);
+	public int likeAdd(HeartVO heartvo);
+	public int likeDelete(HeartVO heartvo);
+	public List<HeartVO> selectHeart(HeartVO heartvo);
 }
