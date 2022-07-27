@@ -5,7 +5,7 @@
  
 <mapper namespace="three.people.mapper.placeMapper">
 	
-	<select id="selectPlaceAll" resultType="PlaceVO" parameterType="SearchVO">
+	<select id="selectPlaceAll" resultType="PlaceVO" parameterType="HashMap">
 			
 			SELECT
 				  pidx
@@ -26,9 +26,10 @@
 				 ,availTimeValue
 				 ,intervalTime 
 			FROM place
+		   WHERE delYN ='N'
+		   	 AND uidx = #{uidx}
 		ORDER BY pidx DESC
 		   LIMIT #{start},#{cntPerPage}
-	
 	</select>
 	<!-- 2022.07.19 김연희: 페이징 처리 위해 만듬 -->
 	<select id="cntPlace" parameterType="PlaceVO" resultType="int">
@@ -36,6 +37,7 @@
 			   COUNT(pidx)
 		  FROM place 
 		 WHERE delYN ='N'
+		   AND uidx = #{uidx}
 	</select>
 	<!-- 07.20 김영민: 장소하나 가져오는 쿼리 -->
 	<select id="placeOne" resultType="PlaceVO" parameterType="PlaceVO">
@@ -148,6 +150,85 @@
 		 WHERE pidx = #{pidx}
 	</select>
 	<select id="randomPlace" resultType="PlaceVO"></select>
+	
+	
+	<!-- 2022.07.27 김연희 : 카테고리별 장소 리스트 -->
+	<select id="categoryPlace" resultType="PlaceVO" parameterType="PlaceVO">
+			
+			SELECT
+				  pidx
+				 ,uidx
+				 ,category
+				 ,placeName
+				 ,eventYN
+				 ,placeDetail
+				 ,guide
+				 ,tag
+				 ,placeImg
+				 ,address
+				 ,option1
+				 ,option2
+				 ,price
+				 ,delYN
+				 ,approvalYN
+				 ,availTimeValue
+				 ,intervalTime 
+			FROM place
+		   WHERE category =#{category}
+		     AND delYN = 'N'
+		ORDER BY pidx DESC
+		<!--   LIMIT #{start},#{cntPerPage} -->
+	
+	</select>
+	<!-- 2022.07.27 김연희 : 장소에 등록된 첫번째 사진  -->
+	<select id="selectImageOne" parameterType="PlaceVO" resultType="ImageVO">
+		SELECT 
+			    MIN(imidex)
+			   ,imidex
+			   ,path
+			   ,originfilename
+			   ,realfilename
+			   ,pidx
+			   ,eidx
+		  FROM image
+		 WHERE pidx = #{pidx}
+	</select>
+	
+	
+	<!-- 2022.07.27 김연희 : 랜덤 리스트 만들기 위해  -->
+	<select id="selectPlace" resultType="PlaceVO">
+			SELECT
+				  pidx
+				 ,uidx
+				 ,category
+				 ,placeName
+				 ,eventYN
+				 ,placeDetail
+				 ,guide
+				 ,tag
+				 ,placeImg
+				 ,address
+				 ,option1
+				 ,option2
+				 ,price
+				 ,delYN
+				 ,approvalYN
+				 ,availTimeValue
+				 ,intervalTime 
+			FROM place
+		   WHERE delYN ='N'
+		ORDER BY pidx DESC
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper>
 

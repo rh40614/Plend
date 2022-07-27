@@ -37,7 +37,7 @@
 			type: "GET",
 			data: "nowPage="+p,
 			success: function(data){
-				//console.log("에이작스 페이징");
+				console.log("에이작스 페이징");
 				$("#placeList").html(data);
 			},
 			error: function(){

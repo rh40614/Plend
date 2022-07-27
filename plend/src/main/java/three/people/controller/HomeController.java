@@ -2,8 +2,11 @@ package three.people.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,50 +24,55 @@ import three.people.service.GoogleService;
 import three.people.service.KakaoService;
 import three.people.service.MailSendService;
 import three.people.service.NaverService;
+import three.people.service.PlaceService;
+import three.people.vo.PlaceVO;
+import three.people.vo.SearchVO;
 import three.people.vo.SnsVO;
 
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class HomeController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	@Autowired
+	PlaceService placeservice;
 	
+	@Autowired
+	private MailSendService mailSend;
 
-	@Autowired
-	private NaverService naverservice;
-	@Autowired
-	private KakaoService kakaoService;
-	@Autowired
-	private GoogleService googleService;
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 * @throws UnsupportedEncodingException 
-	 */
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model, HttpServletRequest request, HttpSession session) throws UnsupportedEncodingException {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+	public String home(SearchVO searchVO, Model model, HttpServletRequest request, HttpSession session) {
 		
-		String formattedDate = dateFormat.format(date);
-		SnsVO navervo = naverservice.loginApiURL(); 
-		session.setAttribute("state",navervo.getState()); 
-		model.addAttribute("navervo", navervo);
-		model.addAttribute("serverTime", formattedDate );
+		List<PlaceVO> placeList = placeservice.selectPlace();
 		
-		SnsVO kakaovo = kakaoService.loginApiURL();
-		model.addAttribute("kakaovo", kakaovo);
+		List<PlaceVO> randomList = new ArrayList<PlaceVO>(); 
+		
+		Random random = new Random(placeList.size());
+		System.out.println("placeList: "+placeList);
+			if(placeList.size() > 0) {
+				
+				for(int i=0; i<9; i++) {
+					int idx = random.nextInt(placeList.size());		
+					PlaceVO randomPlace = placeList.get(idx);
+					System.out.println("randomPlace: "+randomPlace);
+					randomList.add(randomPlace);
+					System.out.println(randomPlace.getPidx());
+				}
+			
+			}
+		
+			//사진도 가지고 가기 지금 하드코딩 되어있음
+			
+			
+			
+			
+		model.addAttribute("list", randomList);
 		
 		return "home";
 	}
 	
 
-	@Autowired
-	private MailSendService mailSend;
-
+	
 	@RequestMapping(value="emailCheck.do")
 	@ResponseBody
 	public void emailCheck(String email) {
@@ -86,6 +94,12 @@ public class HomeController {
 	}
 
 
+	
+	
+	
+	
+	
+	
 }
 
 

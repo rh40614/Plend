@@ -1,5 +1,8 @@
 package three.people.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import three.people.service.PlaceService;
 import three.people.vo.BookVO;
+import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
 import three.people.vo.UserVO;
@@ -84,6 +88,47 @@ public final class PlaceController {
 
 
 
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value="/placeList.do", method = RequestMethod.GET)
+	public String placeList(PlaceVO placeVO, Model model) {
+		//카테고리에 해당하는 장소 리스트
+		List<PlaceVO> list = placeService.categoryPlace(placeVO);
+		List<ImageVO> image = new ArrayList<ImageVO>();
+		
+			for(PlaceVO place: list) {
+				int pidx = place.getPidx();
+				placeVO.setPidx(pidx);
+				ImageVO imageOne = placeService.selectImageOne(place);
+				//System.out.println("imageOne: "+imageOne);
+				image.add(imageOne);
+				//System.out.println("image: "+image);
+			}
+		
+		model.addAttribute("list", list);
+		model.addAttribute("imageList", image);
+		//헤더 카테고리 나타내기 
+		model.addAttribute("category", placeVO);
+		
+		return"place/placeList";
+	}
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 
