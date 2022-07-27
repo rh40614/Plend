@@ -1,13 +1,13 @@
 /* commonHeader */
-	/* 07.04 �迬�� : �˻�â Ŭ�������� �׵θ� �ȳ����� ����  */
+	/* 07.04 占썼연占쏙옙 : 占싯삼옙창 클占쏙옙占쏙옙占쏙옙占쏙옙 占쌓두몌옙 占싫놂옙占쏙옙占쏙옙 占쏙옙占쏙옙  */
     input:focus{outline:none;}
-    /* 07.07 �迬�� : ���������� ��������� �ڵ����� ������ �ȵǼ� 200���� �����*/
+    /* 07.07 占썼연占쏙옙 : 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占� 占쌘듸옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占싫되쇽옙 200占쏙옙占쏙옙 占쏙옙占쏙옙占�*/
     #header{
     height: 200px;
     
     }
-/* section : ��� 4���� ���ٷ� ������ �ξ����ϴ�.*/
-	/*07.08 �迬�� : �����۸�ũ ���� */
+/* section : 占쏙옙占� 4占쏙옙占쏙옙 占쏙옙占쌕뤄옙 占쏙옙占쏙옙占쏙옙 占싸억옙占쏙옙占싹댐옙.*/
+	/*07.08 占썼연占쏙옙 : 占쏙옙占쏙옙占쌜몌옙크 占쏙옙占쏙옙 */
 	a{
 	text-decoration: none;
 	}
@@ -26,7 +26,7 @@
     
     
 /* developerHeader */
-    /* 07.06 �迵�� ��з� Ŭ������ ��� ���� ���� */
+    /* 07.06 占썼영占쏙옙 占쏙옙鈞占� 클占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙 占쏙옙占쏙옙 */
 	.active2 {
 		  background-color: #2F506D !important;
 		  border-color: #2F506D !important;
@@ -55,12 +55,69 @@
 		width: 100%;
 		
 	}
-/* 07.07 �迬�� :footer�� absolute�� �� ��� �θ��Ҹ� ����  */	
+/* 07.07 占썼연占쏙옙 :footer占쏙옙 absolute占쏙옙 占쏙옙 占쏙옙占� 占싸몌옙占쌀몌옙 占쏙옙占쏙옙  */	
 	
 	#wrap {
 	    display: flex;
-	  	min-height: 100px;
+	  	min-height: 100%;
 	  	flex-direction: column; 
    	  	justify-content: flex-end;
 	}
 		
+		
+		
+		/* 07.27 김연희 장소 리스트 반응형 */
+		/* 더큰화면 데스크탑 (가로 해상도가 1920px 보다 작은 화면에 적용) */
+		 
+		/* @media (max-width: 1919px) { 
+			main {
+				margin-left: 22%;
+				margin-right: 21%;
+			}
+		}
+		
+		max-width: 0~1199px;
+		@media (max-width: 1199px) { 
+			main {
+				margin-left: 13%;
+				margin-right: 13%;
+			}
+		}
+			 */
+	
+	
+	/* 글씨 편하게 조절하기 위해 설정 */		 
+	.title1{
+    	display: inline-block;
+    	margin: 20px 0px 20px 0px;
+    	vertical-align: top;
+    	font-size: 24px;
+    	font-weight: bold;
+	}
+	
+	
+	.title2{
+	
+    	display: inline-block;
+    	margin: 20px 0px 20px 0px;
+    	vertical-align: top;
+    	font-size: 20px;
+    	font-weight: bold;
+	}
+	
+	.title2-1{
+		display: inline-block;
+    	margin: 5px 0px 5px 0px;
+    	vertical-align: top;
+    	font-size: 20px;
+    	font-weight: bold;
+    	width: 800px;
+	}
+	
+	.title3{
+		display: inline-block;
+    	font-size: 18px;
+    	font-weight: bold;
+    	color: #364F6B;
+	}
+			 

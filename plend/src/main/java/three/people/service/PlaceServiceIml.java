@@ -1,5 +1,6 @@
 package three.people.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +20,15 @@ public class PlaceServiceIml implements PlaceService{
 	PlaceDAO placeDAO;
 	
 	@Override
-	public List<PlaceVO> selectPlaceAll(SearchVO searchVO) {
-		List<PlaceVO> result = placeDAO.selectPlaceAll(searchVO);
+	public List<PlaceVO> selectPlaceAll(HashMap<String, Integer> page) {
+		List<PlaceVO> result = placeDAO.selectPlaceAll(page);
 		System.out.println("result"+result);
 		return result;
 	}
 
 	@Override
-	public int cntPlace(PlaceVO pidx) {
-		int result = placeDAO.cntPlace(pidx);
+	public int cntPlace(PlaceVO placeVO) {
+		int result = placeDAO.cntPlace(placeVO);
 		return result;
 	}
 
@@ -64,6 +65,21 @@ public class PlaceServiceIml implements PlaceService{
 	@Override
 	public List<ImageVO> selectImage(PlaceVO placevo) {
 		return placeDAO.selectImage(placevo);
+	}
+
+	@Override
+	public List<PlaceVO> categoryPlace(PlaceVO placeVO) {
+		return placeDAO.categoryPlace(placeVO);
+	}
+
+	@Override
+	public ImageVO selectImageOne(PlaceVO placeVO) {
+		return placeDAO.selectImageOne(placeVO);
+	}
+
+	@Override
+	public List<PlaceVO> selectPlace() {
+		return placeDAO.selectPlace();
 	}
 
 }

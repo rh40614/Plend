@@ -185,9 +185,12 @@ public class HostController {
 	
 	
 	@RequestMapping(value="/managePlace.do", method = RequestMethod.GET)
-	public String managePlace(PlaceVO pidx, Model model, SearchVO searchVO) {
+	public String managePlace(PlaceVO placeVO, Model model, SearchVO searchVO, HttpSession session, HttpServletRequest request) {
 		System.out.println("장소관리 페이지 ");
 		
+		//로그인 정보
+		session = request.getSession();
+		UserVO login = (UserVO) session.getAttribute("login");
 		
 		//페이징
 		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
@@ -199,12 +202,28 @@ public class HostController {
 			searchVO.setNowPage(1);
 		}
 		
-		//토탈 갯수
-		int total = placeService.cntPlace(pidx);
-		searchVO.calPaging(total);
-		System.out.println(total);
+		//해쉬맵에 넣어줄 파라미터들
+		int uidx = login.getUidx();
+		int start = searchVO.getStart();
+		int cntPerPage = searchVO.getCntPerPage(); 
 		
-		List<PlaceVO> list_p = placeService.selectPlaceAll(searchVO);
+		//cnt할때 uidx가져갈 수 있도록 넣기
+		placeVO.setUidx(uidx);
+		
+		//토탈 갯수
+		int total = placeService.cntPlace(placeVO);
+		searchVO.calPaging(total);
+		System.out.println("total: "+total);
+		
+		//파라미터 전달
+		HashMap<String, Integer> page = new HashMap<String, Integer>();
+	
+		page.put("uidx", uidx);
+		page.put("start", start);
+		page.put("cntPerPage", cntPerPage);
+		
+		List<PlaceVO> list_p = placeService.selectPlaceAll(page);
+		
 		
 		//장소 소개 35자 이상 자르기
 		for(PlaceVO place: list_p) {
@@ -227,8 +246,14 @@ public class HostController {
 	
 	//managePlace내부 장소 리스트 ajax
 	@RequestMapping(value="/placeList.do", method = RequestMethod.GET)
-	public String placeList(PlaceVO pidx, Model model, SearchVO searchVO) {
+	public String placeList(PlaceVO placeVO, Model model, SearchVO searchVO, HttpSession session, HttpServletRequest request) {
 		System.out.println("장소 리스트 페이징 ");
+
+		//로그인 정보
+		session = request.getSession();
+		UserVO login = (UserVO) session.getAttribute("login");
+		//해쉬맵에 넣어줄 로그인 정보 
+		int uidx = login.getUidx();
 		
 		//페이징
 		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
@@ -240,12 +265,26 @@ public class HostController {
 			searchVO.setNowPage(1);
 		}
 		
-		//토탈 갯수
-		int total = placeService.cntPlace(pidx);
-		searchVO.calPaging(total);
-		System.out.println(total);
+		//cnt할때 uidx가져갈 수 있도록 넣기
+		placeVO.setUidx(uidx);
 		
-		List<PlaceVO> list_p = placeService.selectPlaceAll(searchVO);
+		//토탈 갯수
+		int total = placeService.cntPlace(placeVO);
+		searchVO.calPaging(total);
+		System.out.println("total: "+total);
+		
+		//파라미터 전달
+		HashMap<String, Integer> page = new HashMap<String, Integer>();
+		
+		int start = searchVO.getStart();
+		int cntPerPage = searchVO.getCntPerPage(); 
+		
+		page.put("uidx", uidx);
+		page.put("start", start);
+		page.put("cntPerPage", cntPerPage);
+		
+		List<PlaceVO> list_p = placeService.selectPlaceAll(page);
+		
 		
 		//장소 소개 35자 이상 자르기
 		for(PlaceVO place: list_p) {
@@ -256,14 +295,16 @@ public class HostController {
 		}
 	
 		System.out.println("list_p: "+list_p);
-		System.out.println("pagenation: "+searchVO.getStartPage());
-		System.out.println("pagenation: "+searchVO.getEndPage());
+		System.out.println("StartPage: "+searchVO.getStartPage());
+		System.out.println("EndPage: "+searchVO.getEndPage());
+		System.out.println("Start: "+searchVO.getStart());
+		System.out.println("End: "+searchVO.getEnd());
 	
 		//화면단으로 옮기기
 		model.addAttribute("list_p", list_p);
 		model.addAttribute("pagenation", searchVO);
 		
-		return "host/search/placeList";
+		return "host/ajax/placeList";
 	}
 	
 	@RequestMapping(value="/inquiry_user.do", method= RequestMethod.GET)
@@ -565,7 +606,7 @@ public class HostController {
 		model.addAttribute("pagination", searchVO);
 		
 		
-	return "host/search/noticeSearch";
+	return "host/ajax/noticeSearch";
 	}
 	
 	

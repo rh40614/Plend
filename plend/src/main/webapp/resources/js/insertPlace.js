@@ -193,7 +193,7 @@
 		
 			var a = $("#address").val();
 			var b = $("#detailAddress").val();
-			var addr =  a+b;
+			var addr =  a+"&nbsp"+b;
 		
 			$("#addr").val(addr);
 			
