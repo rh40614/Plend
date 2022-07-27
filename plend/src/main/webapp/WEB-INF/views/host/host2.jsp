@@ -132,7 +132,7 @@
 </div>
 <br>
 <br>
-<div style = "text-align:center;height:70px;padding:17px 0;background-color:#2F506D;">
+<div style = "text-align:center;height:70px;padding:17px 0;background-color:#2F506D;margin-top: 243px;">
 	<a href = "#" id = "link" style = "font-size:25px;">플레이스 시작하기</a>
 </div>
 </main>

@@ -68,6 +68,19 @@
     });
 }); 
 	</script>
+	
+	<style>
+	select {
+		width : 90px;
+		height : 30px;
+		color : white;
+		background : #2F506D;
+		-webkit-appearance: none;
+		border-radius : 5px;
+		text-align: center;
+	}
+	
+	</style>
 </head>
 
 <body>
@@ -78,6 +91,12 @@
 		<input type = "hidden" value = "1" name = "category">
 		<div style="margin-left:23%;margin-right:23%;">
 			<h2 >| 공지사항 수정</h2>
+			<br>
+			<select name = "category">
+				<option value = "">- 선택 -</option>
+				<option value = "1">유저</option>
+				<option value = "2">호스트</option>
+			</select>
 			<br>
 			<br>
 			<input type = "text" name = "title" value = "${vo.title}">

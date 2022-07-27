@@ -23,10 +23,94 @@
 		   	  ,email = #{email}
 		   	  ,addr = #{addr}
 		   	  ,birth = #{birth}
+		   	  ,password = #{password}
 		 WHERE uidx = #{uidx}
 	</update>
-	<update id="userWithdraw"  parameterType="UserVO"></update>
-	<select id="bookList" resultType="BookVO" parameterType="UserVO"></select>
+	<select id = "checkUser" parameterType="int" resultType= "int">
+		SELECT 
+			 count(*)
+		  FROM user
+		 WHERE uidx = #{uidx} 
+	</select>
+	<select id = "inquirePwd" parameterType="int" resultType="UserVO">
+		SELECT 
+			 password
+		  FROM user
+		 WHERE uidx = #{uidx}
+	</select>
+	<update id="userWithdraw"  parameterType="int">
+		UPDATE user 
+		   SET delyn = 'Y'
+		 WHERE uidx = #{uidx}
+	</update>
+	<select id="bookList" resultType="BookVO" parameterType="UserVO">
+		SELECT 
+			 bidx
+			,a.pidx
+			,a.uidx
+			,booktime
+			,usetime
+			,cntpeople
+			,a.approvalyn
+			,b.title
+			,b.price
+			,a.option1
+	     FROM book a
+   INNER JOIN place b 
+   		   ON a.uidx = b.uidx
+   		WHERE a.uidx = #{uidx}
+   		  AND a.approvalYN = 'N'
+   		  AND a.delyn = 'N'
+	</select>
+	<select id="bookedList" resultType="BookVO" parameterType="HashMap">
+		SELECT 
+			 bidx
+			,a.pidx
+			,a.uidx
+			,booktime
+			,usetime
+			,cntpeople
+			,a.approvalyn
+			,b.title
+			,b.price
+			,a.option1
+	     FROM book a
+   INNER JOIN place b 
+   		   ON a.uidx = b.uidx
+   		WHERE a.uidx = #{uidx}
+   		  AND a.approvalYN = 'Y'
+   		  AND a.delyn = 'N'
+   		LIMIT #{start},#{end}
+	</select>
+	<select id="bookOne" resultType="BookVO" parameterType="UserVO">
+		SELECT 
+			 bidx
+			,a.pidx
+			,a.uidx
+			,booktime
+			,usetime
+			,cntpeople
+			,a.approvalyn
+			,b.title
+			,b.price
+			,a.option1
+	     FROM book a
+   INNER JOIN place b 
+   		   ON a.uidx = b.uidx
+   		WHERE bidx = #{bidx}
+	</select>
+	<select id = "bookTotal" parameterType = "UserVO" resultType="Integer" >
+		SELECT count(bidx)
+		  FROM book
+		 WHERE delyn = 'N'
+		   AND uidx = #{uidx}
+		   AND approvalYN = 'Y'
+	</select>
+	<update	 id = "cancelBook" parameterType = "int">
+		UPDATE book
+		   SET delyn = 'Y'
+		 WHERE bidx = #{bidx} 
+	</update>
 	<!-- <insert id="insertReview" parameterType="ReviewVO"></insert> -->
 	<select id="likeList" resultType="PlaceVO" parameterType="UserVO"></select>
 	<!-- <select id="myReview" resultType="ReviewVO" parameterType="UserVO"></select> -->

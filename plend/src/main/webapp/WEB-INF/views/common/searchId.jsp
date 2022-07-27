@@ -41,7 +41,7 @@
 			dataType : "text",
 			success : function(text) {
 				if (text != null) {
-					$("#searchedId").html("등록된 아이디는  " + text +" 입니다.");
+					$("#searchedId").html("<h2>등록된 아이디는  " + text +" 입니다.</h2>");
 					console.log(text);
 				} else{
 					$("#searchedId").html("등록된 정보가 없습니다.");
@@ -73,6 +73,8 @@
  			<hr style = "margin-left : 300px; margin-right: 300px;">
 			<a href = "signIn.do">로그인 하러 가기</a>
 		</form>
+		<br>
+		<br>
 		<div id = "searchedId">
 			
 		</div>

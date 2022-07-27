@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="true" %>
 
 <html>
@@ -14,6 +15,7 @@
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/home.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/resources/css/bookStatus.css" rel="stylesheet">
 	
 	<script type="text/javascript">
 		$(function(){
@@ -22,187 +24,130 @@
 		})
 	</script>
 	
-	<script>
-	
-	function like (obj){
-		if($(obj).hasClass("fa-regular") == true){
-			$(obj).removeClass("fa-regular");
-			$(obj).addClass("fa-solid");
-		}else{
-			$(obj).removeClass("fa-solid");
-			$(obj).addClass("fa-regular");
-		}
-		
-	}
-	
-	</script>
-	<style>
-	ul {
-	  	float : left;
-		list-style-type: none;
-		margin-top :95px;
-		padding: 0;
-		width: 11%;
-		background-color: #CFCFCF;
-		position: fixed; left : 0;
-		overflow: auto;
-		padding-bottom:15px;
-		}
-	
-	li a {
-		display: block;
-		color: white;
-		padding: 8px 16px;
-		text-decoration: none;
-		position : relative;
-		margin-top : 20px;
-		text-align:center;
-		}
-	li a:before{
-		content: '';
-		position: absolute; /*부모 요소에는 position: relative를 주어야 함*/
-		background-color: #FF007F;
-		height: 50px;
-		width: 0; /*초기에 보이지 않도록*/
-		bottom: -5px; /*a태그 아래에 위치*/
-		transition: 0.7s; /*애니메이션 동작 실행 시간 정의*/
-		margin-left:30px;
-		left:0;
-		z-index : -1;
-		}
-		
-	li a:hover:before{
-		width: 84%;
-		}
-	li a:hover{
-		color:white;	
-		}
-		
-	#bookBox{
-		margin : 10% 0 0 37%;
-		float : right;
-		background: #F2F2F2;
-		width : 45%;
-		height: 100%;
-		text-align:center;
-	
-		}
-	table {
-		width : 400px;
-		margin-left:auto;
-		margin-right:auto;
-		
-		}
-	table,tr,td {
-		height : 40px;
-		text-align: center;
-		}
-		
-	#regBtn {
-		margin-right: 13px;
-		float:right;
-		border-radius:15px;
-		border : 1px solid #2F506D;
-		background : #2F506D;
-		color : white;
-		width : 90px;
-		height : 30px;
-		}
-	#regBtn:hover {
-		border : 0px;
-		background-color:#3FC1C9;
-		}
-		
-	#MyPageBox{
-		text-align:center;
-		color:white;
-		background:#2F506D;
-		padding-bottom: 10px;
-		padding-top: 10px;
-			
-		}
-	#infoText {
-		border : 0;
-		background : #D8D8D8;
-		width : 250px;
-		
-		
-		}
-	
-	</style>
 </head>
 
 <body>
 <div id="wrap">	
 	<header id="header" style = "height:0;"></header>
-	<div class="container-fluid">
-  <div class="row">
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-black sidebar collapse">
-     	<ul>
-     	<br>
-     	<div id = "MyPageBox">
+   <br>
+   	<div style="display:flex; ">
+   	<nav style="display: flex;flex-direction: column;width:11%;margin-top:72px;background: #CFCFCF">
+   		<div id = "MyPageBox">
+   			<br>
+   			<br>
      		<h4>My Page</h4>
-     	</div>
-     	<br>
+    	</div>
+    	<div>
+ 		<ul id = "naviBar">
      	<!-- 나중에 해당링크 들어간 곳 글씨 진하게하는 css 추가하기 -->
- 		 <li><a href="myInfo.do?uidx=${login.uidx}">내 정보</a></li>
- 		 <li><a href="#">쿠폰 등록</a></li>
-  		 <li><a href="bookStatus.do?uidx=${login.uidx}"><strong>예약 현황</strong></a></li>
- 		 <li><a href="#">찜 목록</a></li>
- 		 <li><a href="#">마이 리뷰</a></li>
- 		 <li><a href="#">회원 탈퇴</a></li>
- 		 <br>
- 		 <br>
- 		 <br>
- 		 <br>
- 		 <br>
- 		 <br>
+ 		 <li><a href="myInfo.do?uidx=${login.uidx}" id = "select">내 정보</a></li>
+ 		 <li><a href="#" id = "select">쿠폰 등록</a></li>
+  		 <li><a href="bookStatus.do?uidx=${login.uidx}" id = "select"><strong>예약 현황</strong></a></li>
+ 		 <li><a href="#" id = "select">찜 목록</a></li>
+ 		 <li><a href="#" id = "select">마이 리뷰</a></li>
+ 		 <li><a href="withdraw.do?uidx=${login.uidx}" id = "select">회원 탈퇴</a></li>
  		 <br>
 	    </ul>
-      </div>
-    </nav>
-   </div>
+	    </div>
+   	</nav>
+   	
+   	
    <div id = "bookBox">
-   	<br>
-		<h4>내 정보</h4>
-		<hr>
+   	
+		<h5><strong>| 예약 현황</strong></h5>
 		<br>
-		<br>
-		<form name = "frm" action = "myInfo.do?uidx=${vo.uidx}" method = "post">
+		<c:forEach var = "vo" items = "${list}">
+		<c:if test = "${vo.approvalYN ne 'Y' }">
+		<div id = "bookView">
 			<table>
 				<tr>
-					<th>아이디</th>
-					<td colspan = "3">${vo.id }</td>
+					<th>장소 이름 : </th>
+					<td><a href = "bookDetail.do?bidx=${vo.bidx }"><strong>${vo.title }</strong></a></td>
 				</tr>
 				<tr>
-					<th>닉네임</th>
-					<td colspan = "3">${vo.nickName }</td>
+					<th>이용 날짜 :</th>
+					<td>${vo.useTime }</td>
 				</tr>
 				<tr>
-					<th>연락처</th>
-					<td colspan = "3"><input type = "text" name = "userPhone" value = "${vo.userPhone }" id = "infoText" required></td>
+					<th>이용 인원 : </th>
+					<td>${vo.cntPeople }명</td>
 				</tr>
 				<tr>
-					<th>이메일</th>
-					<td colspan = "3"><input type = "email" name = "email" value = "${vo.email }" id = "infoText" required></td>
+					<th>금액 : </th>
+					<td><fmt:formatNumber value="${vo.price }" type="currency"/>원</td>
 				</tr>
 				<tr>
-					<th>주소</th>
-					<td colspan = "3"><input type = "text" name = "addr" value = "${vo.addr }" id = "infoText" required></td>
-				</tr>
-				<tr>
-					<th>생년월일</th>
-					<td colspan = "3"><input type = "text" name = "birth" id = "infoText" value = "${vo.birth }" required></td>
+					<th>업체 승인 여부 : </th>
+					<td>${vo.approvalYN }</td>
 				</tr>
 			</table>
+		</div>
+		</c:if>
+		</c:forEach>
+		<br>
+		<hr style = "height:2px;background:black;">
+		<h5><strong>| 이용 리스트</strong></h5>
+		<br>
+		<c:forEach var = "vo" items = "${list2}">
+		<c:if test = "${vo.approvalYN ne 'N' }">
+		<div id = "bookView">
+			<table>
+				<tr>
+					<th>장소 이름 : </th>
+					<td>${vo.title }</td>
+				</tr>
+				<tr>
+					<th>이용 날짜 :</th>
+					<td>${vo.useTime }</td>
+				</tr>
+				<tr>
+					<th>이용 인원 : </th>
+					<td>${vo.cntPeople }명</td>
+				</tr>
+				<tr>
+					<th>금액 : </th>
+					<td><fmt:formatNumber value="${vo.price }" type="currency"/>원</td>
+				</tr>
+				<tr>
+					<th>업체 승인 여부 : </th>
+					<td>${vo.approvalYN }</td>
+				</tr>
+			</table>
+			</div>
 			<br>
-			<button id = "regBtn" >수정하기</button>
-		</form>
+		</c:if>
+		</c:forEach>
 		<br>
-		<br>
+		<c:if test="${not empty list2}">
+			<nav id="pagenation" class="row">
+			  <ul class="pagination justify-content-center">
+			  	<c:if test="${pagenation.startPage > 5}">
+				    <li class="page-item">
+				      <a class="page-link" href="bookStatus.do?nowPage=4">&laquo;</a>
+				    </li>
+			  	</c:if>
+			  	<c:forEach begin="${pagenation.startPage }" end="${pagenation.endPage }" var="p">
+					<c:choose>
+						<c:when test="${p == pagenation.nowPage }">
+							<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" href="bookStatusdo?nowPage=${p}">${p}</a></li>
+						</c:when>
+						<c:when test="${p != pagenation.nowPage }">
+							<li class="page-item"><a class="page-link" href="bookStatus.do?nowPage=${p}">${p}</a></li>
+						</c:when>
+					</c:choose>
+				</c:forEach>
+			    <c:if test="${pagenation.endPage != pagenation.lastPage}">
+				    <li class="page-item">
+				      <a class="page-link" href="bookStatus.do?nowPage=${pagenation.endPage +1}">&raquo;</a>
+				    </li>
+			    </c:if>
+			  </ul>
+			</nav>
+		</c:if>
    </div>
-<div>
-<footer id="footer" class="mt-5" style = "position:fixed;bottom:0;"></footer>
+   </div>
+<div style="margin-top: -48px;">
+<footer id="footer" class="mt-5" style = "float:none;display:inline-block;"></footer>
 </div>
 </div>
 	<!-- JavaScript Bundle with Popper -->

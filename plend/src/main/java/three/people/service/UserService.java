@@ -9,4 +9,5 @@ public interface UserService {
 	UserVO searchID(UserVO vo);
 	int idCheck(String id);
 	int nickNameCheck(String nickName);
+	UserVO selectID(UserVO vo);
 }

@@ -716,6 +716,13 @@ public class HostController {
 		return "host/placeView";
 	}
 	
+	@RequestMapping(value = "/host.do", method = RequestMethod.GET)
+	public String host() {
+		return "host/host";
+	}
 	
-	
+	@RequestMapping(value = "/host2.do", method = RequestMethod.GET)
+	public String host2() {
+		return "host/host2";
+	}
 }

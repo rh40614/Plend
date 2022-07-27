@@ -47,4 +47,10 @@ public class UserServieImpl implements UserService {
 		return result;
 	}
 
+	@Override
+	public UserVO selectID(UserVO vo) {
+		
+		return commonDao.selectID(vo);
+	}
+
 }

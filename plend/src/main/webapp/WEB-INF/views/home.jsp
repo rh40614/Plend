@@ -36,20 +36,6 @@
 	}
 
 	</script>
-	<script>
-	//마이페이지 클릭시 세션 값이 있는지 확인
-	function check(){
-		var login = "${login.uidx}";
-		if (login == "") {
-			alert("로그인이 필요합니다.");
-			location.href="<%=request.getContextPath()%>/common/signIn.do";
-		} else {
-			location.href="<%=request.getContextPath()%>/myPage/myInfo.do?uidx=${login.uidx}";
-		}
-		
-	}
-	
-	</script>
 
 </head>
 
@@ -60,8 +46,7 @@
 
 	<main>
 	<br>
-	<a href="host/insertPlace.do">장소등록 </a>
-	<button type="button" onclick="check();">마이페이지</button>
+	<a href="insertPlace.do">장소등록 </a>
   <a href="developer/userList.do">유저리스트 </a>
 
   	<div class="container" style="width: 1100px;">
