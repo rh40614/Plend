@@ -75,8 +75,8 @@ public class HostServiceImpl implements HostService {
 
 
 	@Override
-	public List<HashMap<String, Integer>> selectInquiry(HashMap<String, Integer> page) {
-		List<HashMap<String, Integer>> result= hostDAO.selectInquiry(page);
+	public List<InquiryVO> selectInquiry(HashMap<String, Integer> page) {
+		List<InquiryVO> result= hostDAO.selectInquiry(page);
 		return result;
 	}
 
@@ -183,6 +183,24 @@ public class HostServiceImpl implements HostService {
 	public int deleteNotice(NoticeVO noticeVO) {
 		int result = hostDAO.deleteNotice(noticeVO);
 		return result;
+	}
+
+
+	@Override
+	public List<InquiryVO> developerInquiry(SearchVO searchvo) {
+		return hostDAO.developerInquiry(searchvo);
+	}
+
+
+	@Override
+	public int countInquiry(SearchVO searchvo) {
+		return hostDAO.countInquiry(searchvo);
+	}
+
+
+	@Override
+	public int replyModify(InquiryVO inquiryVO) {
+		return hostDAO.replyModify(inquiryVO);
 	}
 	
 	

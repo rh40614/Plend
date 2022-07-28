@@ -61,8 +61,8 @@ public class HostDAO {
 	} 
 	
 	//운영자 문의
-	public List<HashMap<String, Integer>> selectInquiry(HashMap<String, Integer> page) {
-		List<HashMap<String, Integer>> result = sqlSession.selectList(namespace+".selectInquiry", page);
+	public List<InquiryVO> selectInquiry(HashMap<String, Integer> page) {
+		List<InquiryVO> result = sqlSession.selectList(namespace+".selectInquiry", page);
 		return result;
 	} 
 	public InquiryVO selectInquiryOne(InquiryVO inquiryVO) {
@@ -128,9 +128,16 @@ public class HostDAO {
 		return result;
 	}
 	
-	
-	
-	
+	// 개발자페이지
+	public List<InquiryVO> developerInquiry(SearchVO searchvo){
+		return sqlSession.selectList(namespace+".developerInquiry", searchvo);
+	}
+	public int countInquiry(SearchVO searchvo) {
+		return sqlSession.selectOne(namespace+".countInquiry", searchvo);
+	}
+	public int replyModify(InquiryVO inquiryVO) {
+		return sqlSession.update(namespace+".replyModify", inquiryVO);
+	}
 	
 	
 	
