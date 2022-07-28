@@ -69,75 +69,44 @@
 
 	
 
-	//해쉬태그	//js파일을 제일 아래에 둬서 ready 없이 사용
-    	//$(document).ready(function () {
-       	 	var tag = {};
-        	var counter = 0;
-
-        	// 입력한 값을 태그로 생성한다.
-        	function addTag (value) {
-            	tag[counter] = value;
-            	counter++; // del-btn 의 고유 id 가 된다.
-      		}	
-
-        	// tag 안에 있는 값을 array type 으로 만들어서 넘긴다.
-        	function marginTag () {
-            	return Object.values(tag).filter(function (word) {
-                	return word !== "";
-            	});
-        	}
-   			
-   			 
-    		
+	//해쉬태그
+	var input = document.querySelector('input[name="tag"]'),
+    // init Tagify script on the above inputs
+    tagify = new Tagify(input, {
+      whitelist:
+       ["모던한", "깨끗한", "자연광", "단독대관", "헬스", "운동", "인스타", "따뜻한", "프라이빗", "스튜디오", "영상촬영", "음식촬영", "청결한", "스튜디오",
+       "공유주방", "쉐어키친", "헬스장", "스몰웨딩", "전시", "화보촬영", "인터뷰",
+       "조용한", "화려한", "접근성좋은", "빈티지", "야간촬영", "무대", "할인", "ALGOL 68",
+       "ALGOL W", "Alice", "Alma-0", "AmbientTalk", "Amiga E", "AMOS", "AMPL", "Apex (Salesforce.com)", "APL", "AppleScript", "Arc",
+       "ARexx", "Argus", "AspectJ", "Assembly language", "ATS", "Ateji PX", "AutoHotkey", "Autocoder", "AutoIt", "AutoLISP / Visual LISP",
+       "Averest", "AWK", "Axum", "Active Server Pages", "ASP.NET", "B", "Babbage", "Bash", "BASIC", "bc", "BCPL", "BeanShell",
+       "Batch (Windows/Dos)", "Bertrand", "BETA", "Bigwig", "Bistro", "BitC", "BLISS", "Blockly", "BlooP", "Blue", "Boo", "Boomerang",
+       "Bourne shell (including bash and ksh)", "BREW", "BPEL", "B", "C--", "C++ – ISO/IEC 14882", "C# – ISO/IEC 23270", "C/AL",
+       "Caché ObjectScript", "C Shell", "Caml", "Cayenne", "CDuce", "Cecil", "Cesil", "Céu", "Ceylon", "CFEngine", "CFML", "Cg",
+       "Ch", "Chapel", "Charity", "Charm", "Chef", "CHILL", "CHIP-8", "chomski", "ChucK", "CICS", "Cilk", "Citrine (programming language)",
+       "CL (IBM)", "Claire", "Clarion", "Clean", "Clipper", "CLIPS", "CLIST", "Clojure", "CLU", "CMS-2", "COBOL – ISO/IEC 1989",
+       "CobolScript – COBOL Scripting language", "Cobra", "CODE", "CoffeeScript", "ColdFusion", "COMAL", "Combined Programming Language (CPL)",
+       "COMIT", "Common Intermediate Language (CIL)", "Common Lisp (also known as CL)", "COMPASS", "Component Pascal",
+       "Constraint Handling Rules (CHR)", "COMTRAN", "Converge", "Cool", "Coq", "Coral 66", "Corn", "CorVision", "COWSEL",
+       "CPL", "CPL", "Cryptol", "csh", "Csound", "CSP", "CUDA", "Curl", "Curry", "Cybil", "Cyclone", "Cython", "Java", "Javascript",
+       "M2001", "M4", "M#", "Machine code", "MAD (Michigan Algorithm Decoder)", "MAD/I", "Magik", "Magma", "make", "Maple",
+       "MAPPER now part of BIS", "MARK-IV now VISION:BUILDER", "Mary", "MASM Microsoft Assembly x86", "MATH-MATIC", "Mathematica",
+       "MATLAB", "Maxima (see also Macsyma)", "Max (Max Msp – Graphical Programming Environment)", "Maya (MEL)", "MDL", "Mercury",
+       "Mesa", "Metafont", "Microcode", "MicroScript", "MIIS", "Milk (programming language)", "MIMIC", "Mirah", "Miranda", "MIVA Script",
+       "ML", "Model 204", "Modelica", "Modula", "Modula-2", "Modula-3", "Mohol", "MOO", "Mortran", "Mouse", "MPD", "Mathcad",
+        "MSIL – deprecated name for CIL", "MSL", "MUMPS", "Mystic Programming L"],
+      maxTags: 10,
+      
+      dropdown: {
+        maxItems: 20,           // <- mixumum allowed rendered suggestions
+        classname: "tags-look", // <- custom classname for this dropdown, so it could be targeted
+        enabled: 0,             // <- show suggestions on focus
+        closeOnSelect: false    // <- do not hide the suggestions dropdown once an item has been selected
+      }
+    })
     
-		
-        	$("#tag").on("keypress", function (e) {
-            	var self = $(this);
-
-            	//엔터나 스페이스바 눌렀을때 실행
-            	if (e.key === "Enter" || e.keyCode == 32) {
-
-               	 	var tagValue = self.val(); // 값 가져오기
-
-                	// 해시태그 값 없으면 실행X
-                	if (tagValue !== "") {
-
-                    	// 같은 태그가 있는지 검사한다. 있다면 해당값이 array 로 return 된다.
-                    	var result = Object.values(tag).filter(function (word) {
-                        return word === tagValue;
-                    	})
-                
-                    	// 해시태그가 중복되었는지 확인
-                    	if (result.length == 0) { 
-                        	$("#tag-list").append("<li class='tag-item'># "+tagValue+"<span class='del-btn' idx='"+counter+"'>x</span></li>");
-                        	addTag(tagValue);
-                        	self.val("");
-                    	} else {
-                        	alert("태그값이 중복됩니다.");
-                    	}
-                	}
-                	e.preventDefault(); // SpaceBar 시 빈공간이 생기지 않도록 방지
-            	}
-        	});
-
-        	// 삭제 버튼 
-        	// 인덱스 검사 후 삭제
-        	$(document).on("click", ".del-btn", function (e) {
-            	var index = $(this).attr("idx");
-            	tag[index] = "";
-            	$(this).parent().remove();
-        	});
-	//	})
-	
-	
-			// 해쉬태그 서버에 제공
-   			 function hash(){
-   			 var value = marginTag(); // return array
-        		$("#rdTag").val(value); 
-        		
-				console.log($("#rdTag").val());
-   			 }
-
+    
+    
 	//주소
     function DaumPostcode() {
         new daum.Postcode({
@@ -193,7 +162,7 @@
 		
 			var a = $("#address").val();
 			var b = $("#detailAddress").val();
-			var addr =  a+b;
+			var addr =  a+"&nbsp"+b;
 		
 			$("#addr").val(addr);
 			
@@ -261,13 +230,27 @@
     		noCalendar: true,
     		dateFormat: "H:i",
 		});
+		
+	
+	// 영업 시간 24시간 설정
+		
+		
+		
+		$("#avaliableTime").change(function(){
+		console.log("체크박스");
+				$('#kt_datepicker_1').val('00');
+				$('#kt_datepicker_2').val('00');
+		})
+			
+
+		
 
 	
 	//장소 등록
 		function check(){
 		
 		
-			hash();
+			
 			concatAddr();
 			facilities();
 			
@@ -283,9 +266,9 @@
 				alert("장소에 대한 설명을 입력해주세요.");
 				$("#placeDetail").focus();
 				
-			//}else if($("#placeImg").val() == ""){
-			//	alert("공간에 대한 사진을 등록해주세요.");
-			//	$("#placeImg").focus();
+			}else if($("#placeImg").val() == ""){
+				alert("공간에 대한 사진을 등록해주세요.");
+				$("#placeImg").focus();
 				
 			}else if($("#guide1").val() == ""){
 				alert("시설 이용정보를 최소 3개이상 작성해주세요");

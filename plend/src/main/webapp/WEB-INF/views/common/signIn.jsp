@@ -13,6 +13,7 @@
 	<link href="../resources/css/signIn.css" rel="stylesheet">
 	<script src="../resources/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
+	
 	$(function(){
 			$("#header").load("../resources/article/header.jsp");
 			$("#footer").load("../resources/article/footer.jsp");

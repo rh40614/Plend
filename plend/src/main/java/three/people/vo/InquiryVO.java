@@ -11,7 +11,7 @@ public class InquiryVO extends UserVO {
 	private String answerYN;
 	private int originiqidx;
 	private int depth;
-	private float answerRate;
+	private float answerRate; // 답변 만족도
 	private int uidx;
 	
 	

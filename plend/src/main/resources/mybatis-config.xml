@@ -21,6 +21,7 @@
         <typeAlias type="three.people.vo.SearchVO" alias="SearchVO"/>
         <typeAlias type="three.people.vo.EventVO" alias="EventVO"/>
         <typeAlias type="three.people.vo.QnaVO" alias="QnaVO"/>
+        <typeAlias type="three.people.vo.HeartVO" alias="HeartVO"/>
 
 
 

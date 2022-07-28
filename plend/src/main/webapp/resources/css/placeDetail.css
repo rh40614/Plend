@@ -1,9 +1,21 @@
+/* tag */
+body {
+	position: relative;
+	heightoverflow-y: scroll;
+}
 section {
 	margin-top: 70px;
 }
 
+caption {
+	padding-bottom: 40px;
+}
+/* class */
 .row {
 	--bs-gutter-x:0;
+}
+.icon {
+	font-size: 18px;
 }
 
 .btn-sm {
@@ -12,6 +24,7 @@ section {
     color: white !important;
 }
 
+/* nav */
 .nav-scroller{
 	background-color: #D9D9D9;
 	border-color: #D9D9D9;
@@ -22,6 +35,24 @@ section {
 	text-align: center;
 }
 
+.list-group-item-action {
+	background-color: var(--bs-gray-300);
+    border-color: var(--bs-gray-300);
+    color: black ;
+}
+
+nav > a.active {
+	background-color: #2F506D !important;
+    border-color: #2F506D !important;
+}
+
+#simple-list-example {
+	position: sticky;
+	top: 96px;
+	z-index:2;
+}
+
+/* book */
 .bookBtn {
 	background-color: #2F506D !important;
     border-color: black !important;
@@ -34,10 +65,11 @@ section {
     color: black !important;
 }
 
-.bookSticky {
+#book {
 	position: sticky;
-	top: -1px;
+	top: 96px;
 }
+
 
 /* 카카오맵 스타일 */
 .map_wrap {position:relative;overflow:hidden;width:800;height:400px;}

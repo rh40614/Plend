@@ -2,14 +2,15 @@ package three.people.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,54 +18,73 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import three.people.service.GoogleService;
-import three.people.service.KakaoService;
 import three.people.service.MailSendService;
-import three.people.service.NaverService;
-import three.people.vo.SnsVO;
+import three.people.service.PlaceService;
+import three.people.vo.ImageVO;
+import three.people.vo.PlaceVO;
+import three.people.vo.SearchVO;
 
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class HomeController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	@Autowired
+	PlaceService placeService;
 	
+	@Autowired
+	private MailSendService mailSend;
 
-	@Autowired
-	private NaverService naverservice;
-	@Autowired
-	private KakaoService kakaoService;
-	@Autowired
-	private GoogleService googleService;
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 * @throws UnsupportedEncodingException 
-	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model, HttpServletRequest request, HttpSession session) throws UnsupportedEncodingException {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+	public String mains(SearchVO searchVO, Model model, HttpServletRequest request, HttpSession session) {
+		//장소리스트 //이벤트 리스트 
+		List<PlaceVO> placeList = placeService.selectPlace();
+		List<PlaceVO> eventList = placeService.eventPlace();
 		
-		String formattedDate = dateFormat.format(date);
-		SnsVO navervo = naverservice.loginApiURL(); 
-		session.setAttribute("state",navervo.getState()); 
-		model.addAttribute("navervo", navervo);
-		model.addAttribute("serverTime", formattedDate );
+		//1. 장소 랜덤
+		List<PlaceVO> randomPlaceList = new ArrayList<PlaceVO>(); 
+		//랜덤으로 9개 뽑기
+		int[] idx = placeService.RandomPlace(placeList);
+		//인덱스 배열이 완성되면 장소 가지고 오기
+		for(int i:idx) {
+			//장소 가지고 오기
+			PlaceVO randomPlace = placeList.get(i);
+			//장소 사진 가지고 오기
+			ImageVO imageOne = placeService.selectImageOne(randomPlace);
+			String file = imageOne.getOriginFileName();
+			randomPlace.setPlaceImg(file);
+			//넣기
+			randomPlaceList.add(randomPlace);
+			
+		}
 		
-		SnsVO kakaovo = kakaoService.loginApiURL();
-		model.addAttribute("kakaovo", kakaovo);
+		//2. 이벤트 랜덤
+		List<PlaceVO> randomEventList = new ArrayList<PlaceVO>(); 
+		//랜덤으로 9개 뽑기
+		int[] idx2 = placeService.RandomPlace(eventList);
+		//인덱스 배열이 완성되면 장소 가지고 오기
+		for(int i:idx2) {
+			//장소 가지고 오기
+			PlaceVO randomPlace = eventList.get(i);
+			//장소 사진 가지고 오기
+			ImageVO imageOne = placeService.selectImageOne(randomPlace);
+			String file = imageOne.getOriginFileName();
+			randomPlace.setPlaceImg(file);
+			//넣기
+			randomEventList.add(randomPlace);
+		}
+		
+		//3. 리뷰 랜덤
+		
+		
+		//4.화면단 이동
+		model.addAttribute("list", randomPlaceList);
+		model.addAttribute("list2", randomEventList);
 		
 		return "home";
 	}
 	
 
-	@Autowired
-	private MailSendService mailSend;
-
+	
 	@RequestMapping(value="emailCheck.do")
 	@ResponseBody
 	public void emailCheck(String email) {
@@ -86,6 +106,12 @@ public class HomeController {
 	}
 
 
+	
+	
+	
+	
+	
+	
 }
 
 

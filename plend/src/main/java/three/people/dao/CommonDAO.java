@@ -38,4 +38,8 @@ public class CommonDAO {
 	public int totalCountUser(SearchVO searchvo) {
 		return sqlSession.selectOne("three.people.mapper.commonMapper.totalCountUser", searchvo);
 	}
+	
+	public UserVO selectID(UserVO vo) {
+		return sqlSession.selectOne("three.people.mapper.commonMapper.selectID", vo);
+	}
 }

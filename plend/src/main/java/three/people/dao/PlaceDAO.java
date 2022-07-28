@@ -1,5 +1,6 @@
 package three.people.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import three.people.vo.BookVO;
+import three.people.vo.HeartVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
@@ -21,13 +23,13 @@ public class PlaceDAO {
 	
 	String namespace="three.people.mapper.placeMapper";
 	
-	public List<PlaceVO> selectPlaceAll(SearchVO searchVO) {
-		List<PlaceVO> result = sqlSession.selectList(namespace+".selectPlaceAll", searchVO);
+	public List<PlaceVO> selectPlaceAll(HashMap<String, Integer> page) {
+		List<PlaceVO> result = sqlSession.selectList(namespace+".selectPlaceAll", page);
 		return result;
 	}
 	
-	public int cntPlace(PlaceVO pidx) {
-		int result = sqlSession.selectOne(namespace+".cntPlace", pidx);
+	public int cntPlace(PlaceVO placeVO) {
+		int result = sqlSession.selectOne(namespace+".cntPlace", placeVO);
 		return result;
 	}
 	
@@ -59,4 +61,37 @@ public class PlaceDAO {
 	public List<ImageVO> selectImage(PlaceVO placevo){
 		return sqlSession.selectList(namespace+".selectImage", placevo);
 	}
+	//07.27 김연희 : 카테고리별 장소 가지고 오기
+	public List<PlaceVO> categoryPlace(PlaceVO placeVO){
+		List<PlaceVO> result = sqlSession.selectList(namespace+".categoryPlace", placeVO);
+		return result;
+	} 
+	//07.27 김연희 : 장소 썸네일용 이미지 하나 
+	public ImageVO selectImageOne(PlaceVO placeVO) {
+		return sqlSession.selectOne(namespace+".selectImageOne", placeVO);
+	}
+	//07.27 김연희 : 랜덤용 장소 리스트 
+	public List<PlaceVO> selectPlace() {
+		List<PlaceVO> result = sqlSession.selectList(namespace+".selectPlace");
+		return result;
+	}
+
+	//07.27 김영민: 찜목록 등록/삭제 하기/리스트 불러오기
+	public int likeAdd(HeartVO heartvo) {
+		return sqlSession.insert(namespace+".likeAdd", heartvo);
+	}
+	public int likeDelete(HeartVO heartvo) {
+		return sqlSession.delete(namespace+".likeDelete", heartvo);
+	}
+	public List<HeartVO> selectHeart(HeartVO heartvo){
+		return sqlSession.selectList(namespace+".selectHeart", heartvo);
+	}
+
+	//07.27 김연희 : 랜덤용 할인 리스트 
+		public List<PlaceVO> eventPlace() {
+			List<PlaceVO> result = sqlSession.selectList(namespace+".eventPlace");
+			return result;
+		}
+	
+
 }

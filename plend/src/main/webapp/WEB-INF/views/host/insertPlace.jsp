@@ -27,7 +27,11 @@
 	
 	<!-- DAUM POSTCODE  -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<!-- 해쉬 태그  -->
 	
+	<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript">
 	//프론트 디자인
 		$(function(){
@@ -36,7 +40,13 @@
 		})
 	</script>
 	<!-- 테스트 -->
-
+	<style>
+	.customSuggestionsList > div{
+  		max-height: 300px;
+  		border: 2px solid pink;
+ 		overflow: auto;
+	}
+	</style>
 </head>
 
 <body>
@@ -91,18 +101,18 @@
 								<input type="text" name="placeName" id="placeName" size="30" placeholder="어떤 공간을 가지고 계신가요?">
 							</label>
 							<br>
+							<label class="mt-3">
+								<span class="title3">최대 수용가능 인원 </span><br>
+								<input type="number" name="cntPeople" id="cntPeople" min="1">
+							</label>
+							<br>
 							
 							<!-- 해쉬태그 -->
 							<div class=" mt-3" >
 								<span class="title3">태그 </span><br>
-       					    	<div class="form-group">
-           							<input type="hidden"  name="tag" id="rdTag" />
-          				  		</div>
-             					<ul id="tag-list" style=""></ul>
-            					<div class="form-group">
-            						<input type="text" id="tag" size="7" placeholder="엔터로 해시태그를 등록해주세요." style="width: 300px;"/>
-           						</div>
-           					
+								<p>최대 10개의 태그를 작성할 수있습니다. 태그를 작성하고 공간을 더욱 자세하게 설명해보세요!</p>
+								<input name='tag' class='some_class_name' placeholder='write some tags' value='장소에,어울리는,태그를,달아보세요'>
+								
 							</div>
 							<br>
 							
@@ -275,7 +285,7 @@
 							</label>
 							<br>
 							<label class="mt-3">
-								<span class="title3">주소 : </span><br>
+								<span class="title3">주소 </span><br>
 								<input type="text" id="postcode" placeholder="우편번호">
 								<input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
 								<input type="text"  id="address" size="50" placeholder="주소" class="mt-2"><br>

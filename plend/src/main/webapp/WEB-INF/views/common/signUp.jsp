@@ -154,7 +154,7 @@
 		} else if (isNaN(frm.birth.value) == true){
 			alert("생년월일은 숫자만 입력해주세요. ex) 19990707");
 			return;
-		} else if (document.querySelector('#birth').style.display == 'none' && frm.regnum.value == "") {
+		}  else if (document.querySelector('#birth').style.display == 'none' && frm.regnum.value == "") {
 			alert("사업자 번호를 입력해주세요.");
 			return;
 		} else if (document.querySelector('#dbchk').style.display != 'none') {
@@ -162,6 +162,9 @@
 			return;
 		} else if (document.querySelector('#dbchk2').style.display != 'none') {
 			alert("닉네임 중복확인을 해주세요.");
+			return;
+		} else if (!frm.essential.checked) {
+			alert("필수항목을 체크해주세요.");
 			return;
 		} else {
 			frm.submit();
@@ -182,9 +185,11 @@
 	
 	function role1(){
 		$('#regumRole').removeAttr();
+		$("input[name=role]").val(1);
 	}
 	function role2(){
 		$('#birthRole').removeAttr();
+		$("input[name=role]").val(2);
 	}
 	
 	</script>
@@ -203,7 +208,7 @@
 		<div class="hr-sect">또는</div> 
 		회원 구분 <button id ="user" class = "chkcolor" onclick="role1();">개인</button><button id = "host" class = "chkcolor" onclick="role2();">사업자</button> <br><br>
 			<form action = "signUp.do" method ="post" name = "frm" id = "frm" style = "margin-bottom:0px;">
-			<input type = "text" name = "id" placeholder = "아이디"" id = "chkbox" class = "textbox"> <button type = "button" id = "dbchk">중복확인</button><br><br>
+			<input type = "text" name = "id" placeholder = "아이디" id = "chkbox" class = "textbox"> <button type = "button" id = "dbchk">중복확인</button><br><br>
 			<input type = "password" name = "password" placeholder = "비밀번호" class = "textbox"> <br><br>
 			<input type = "password" name = "passwordOk" placeholder = "비밀번호 확인" class = "textbox"> <br><br>
 			<input type = "text" name = "name" placeholder = "이름" class = "textbox"> <br><br>
@@ -213,19 +218,17 @@
 			<input type = text name = "userPhone" placeholder = "핸드폰 번호 ex) 010-1234-1234" class = "textbox"> <br><br>
 			<input type = "email" name = "email" placeholder = "이메일 ex) plend@naver.com" class = "textbox"> <br><br> 	
 		
-			<div id = "regnum">
-					사업자 번호 <input type = "text" name = "regnum" placeholder = "사업자 번호" class = "textbox" style = "width:200px;margin-right:260px;"> <br><br>
-						  <input type = "hidden" value = "2" name = "role" id = "regnumRole">
-			</div>
-		
 			<div id = "birth">
-				 생년월일 <input type = "text" name = "birth" placeholder = "ex)19990707" class = "textbox" style = "width:200px;margin-right:280px;"> <br><br>
-					 <input type = "hidden" value = "1" name = "role" id = "birthRole">
+				 생년월일 <input type = "text" name = "birth" placeholder = "ex)19990707" class = "textbox" style = "width:200px;margin-right:280px;" id = "birthRole"> <br><br>
+			</div>
+			
+			<div id = "regnum">
+					사업자 번호 <input type = "text" name = "regnum" placeholder = "사업자 번호" class = "textbox" style = "width:200px;margin-right:260px;" id = "regnumRole"> <br><br>
 			</div>
 			<hr style = "margin-left : 300px; margin-right: 300px;">
 				<div style = "margin-right:430px;">
 					<details>
-						<summary> <input type = "checkbox" name = "terms"> 이용약관(필수)</summary>
+						<summary> <input type = "checkbox" name = "terms" id = "essential"> 이용약관(필수)</summary>
 						<span id = "sum">동의해주세요.</span>
 						
 					</details>
@@ -235,6 +238,7 @@
 					</details>
 					<br><br>
 				</div>
+				<input type = "hidden" name = "role" value = "">
  			<input type = "button" onclick = "check();" value = "회원가입" id = "joinBtn">
 		</form>
 		<br>

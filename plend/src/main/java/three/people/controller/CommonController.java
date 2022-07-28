@@ -12,6 +12,12 @@ import javax.servlet.http.HttpSession;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +42,9 @@ import three.people.vo.UserVO;
 
 @RequestMapping(value="/common")
 @Controller
-public class CommonController {
+@Configuration
+@EnableWebSecurity
+public class CommonController  {
 
 
 	@Autowired
@@ -47,7 +55,10 @@ public class CommonController {
 	private NaverService naverService;
 	@Autowired
 	UserService userService;
-
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
+	
 	
 	@RequestMapping(value="/naverLogin.do")
 	public String naverLogin(SnsVO snsvo, Model model, HttpServletRequest request) throws IOException {
@@ -113,6 +124,8 @@ public class CommonController {
 
 	@RequestMapping(value="/signUp.do", method = RequestMethod.POST)
 	public String signUp(UserVO vo) {
+		String encodedPassword = passwordEncoder.encode(vo.getPassword());
+		vo.setPassword(encodedPassword);
 		int result = userService.insertUser(vo);
 		return "redirect:/";
 	}
@@ -156,25 +169,31 @@ public class CommonController {
 	}
 
 	@RequestMapping(value = "signIn.do", method = RequestMethod.POST)
-	public String signIn(UserVO vo, HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
+	public String signIn(String password, UserVO vo, HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
 
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		UserVO id = userService.selectID(vo);
 		UserVO user = userService.login(vo);
 
-		if (user != null) {
-
+		if (user != null && encoder.matches(password, id.getPassword())) {
 			session = request.getSession();
 
 			UserVO login = new UserVO();
 			login.setUidx(user.getUidx());
 			System.out.println(user.getUidx());
 			login.setId(user.getId());
-			login.setPassword(user.getPassword());
-
+			login.setRole(user.getRole());
+			login.setNickName(user.getNickName());
+			
+			System.out.println("role ="+user.getRole());
+			System.out.println("nickname = "+user.getNickName());
+			
+			//자동 로그아웃 시간 30분
+			//움직이지 않고 가만히 있을 경우 시간이 흘러 30분이 경과됐을 때 자동 로그아웃
+			session.setMaxInactiveInterval(1800);
 			session.setAttribute("login", login);
-
 			return "redirect:/";
 		} else {
 			out.println("<script>alert('로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요.')</script>");
@@ -233,9 +252,11 @@ public class CommonController {
 	}
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String login(UserVO vo, HttpServletRequest request, HttpSession session) {
+	public String login(UserVO vo, HttpServletRequest request, HttpSession session,HttpServletResponse response) throws IOException {
 
 		UserVO user = userService.login(vo);
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = response.getWriter();
 
 		if (user != null) {
 			session = request.getSession();
@@ -243,11 +264,19 @@ public class CommonController {
 			UserVO login = new UserVO();
 			login.setId(user.getId());
 			login.setPassword(user.getPassword());
+			login.setRole(user.getRole());
+			login.setNickName(user.getNickName());
+			
+			System.out.println("role ="+user.getRole());
+			System.out.println("nickname = "+user.getNickName());
 
 			session.setAttribute("login", login);
 			return "redirect:/";
 
 		} else {
+			pw.append("<script>alert('로그인에 실패하였습니다.');location.href = 'login.do'</script>");
+			
+			pw.flush();
 			return "common/login";
 		}
 
@@ -262,5 +291,5 @@ public class CommonController {
 		return "redirect:/";
 	}
 
-
+	
 }

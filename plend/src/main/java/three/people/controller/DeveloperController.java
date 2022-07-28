@@ -10,11 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import three.people.service.AdminService;
@@ -26,15 +31,19 @@ import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
 // 07.13 김영민 페이지 이동 제작
+// 07.27 김하진 비밀번호 수정시 암호화
 @RequestMapping(value="/developer")
 @Controller
+@Configuration
+@EnableWebSecurity
 public class DeveloperController {
 
 	@Autowired
 	AdminService adminService;
 	@Autowired
 	CommonService commonService;
-	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	// 회원 리스트로 이동
 	@RequestMapping(value="/userList.do", method = RequestMethod.GET)
 	public String userList(SearchVO searchvo,Model model) {
@@ -46,27 +55,29 @@ public class DeveloperController {
 		}else if(searchvo.getNowPage() == 0) {
 			searchvo.setNowPage(1);
 		}
-		
+
 		searchvo.setRole(2);
 		int total = commonService.totalCountUser(searchvo);
 		searchvo.calPaging(total);
-		
+
 		model.addAttribute("pagenation", searchvo);
 		model.addAttribute("userList", adminService.userList(searchvo));
-		
+
 		return "developer/userList";
 	}
-	
+
 	//회원 수정 페이지로 이동
 	@RequestMapping(value="/userModify.do", method=RequestMethod.GET)
 	public String userModify(UserVO uservo, Model model) {
 		model.addAttribute("user", adminService.userOne(uservo));
 		return "developer/userModify";
 	}
-	
+
 	//회원 수정 로직 실행
 	@RequestMapping(value="/userModify.do", method=RequestMethod.POST)
 	public String userModify(UserVO uservo) {
+		String encodedPassword = passwordEncoder.encode(uservo.getPassword());
+		uservo.setPassword(encodedPassword);
 		int result = adminService.userInfo(uservo);
 		if(result == 1) {
 			return "redirect:/developer/userList.do";
@@ -74,7 +85,7 @@ public class DeveloperController {
 			return "redirect:/developer/userModify.do?uidx=" + uservo.getUidx();
 		}
 	}
-	
+
 	@RequestMapping(value="/event.do", method=RequestMethod.GET)
 	public String event(SearchVO searchvo, Model model ) {
 		if(searchvo.getNowPage() == 0) {
@@ -82,12 +93,12 @@ public class DeveloperController {
 		}
 		searchvo.setCntPerPage(5);
 		searchvo.calPaging(adminService.totalEvent());
-		
+
 		model.addAttribute("pagenation", searchvo);
 		model.addAttribute("eventList", adminService.eventList(searchvo));
 		return "developer/event";
 	}
-	
+
 //	 이벤트 등록
 	@Transactional
 	@RequestMapping(value="/event.do", method=RequestMethod.POST)
@@ -108,36 +119,36 @@ public class DeveloperController {
 			if(!file.getOriginalFilename().isEmpty()) {
 				file.transferTo(new File(path, file.getOriginalFilename()));
 				String originFileName = file.getOriginalFilename();
-				
+
 				//2022.07.21  김연희 : 사진 호출을 위해 사진 저장 이름 변경(사진이름SSS.확장자)
-				//확장자 추출(이후 호출 할때 확장자가 두번 붙어버림) 
+				//확장자 추출(이후 호출 할때 확장자가 두번 붙어버림)
 				String extention = originFileName.substring(originFileName.lastIndexOf("."));
 				//확장자를 제거한 파일 이름
 				String origin = originFileName.replace(extention, "");
-				
+
 				Date now =new Date();
 				SimpleDateFormat simple = new SimpleDateFormat("SSS");
 				String distinct = simple.format(now);
-				
+
 				//서버에 저장될 이름(사진이름SSS.확장자)
 				String realFileName = origin + distinct+ extention ;
 				System.out.println("realFileName: "+realFileName);
-				
+
 				ImageVO imagevo = new ImageVO();
 				imagevo.setEidx(eventvo.getEidx());
 				imagevo.setPath(path);
 				imagevo.setOriginFileName(originFileName);
 				imagevo.setRealFileName(realFileName);
-				
+
 				adminService.eventImg(imagevo);
 			}
-			
+
 		}else {
 			System.out.println("failed");
 		}
 		return "redirect:/developer/event.do";
 	}
-	
+
 	// 이벤트 수정 ajax요청에 대한 응답
 	@RequestMapping(value="/modifyEvent.do", method=RequestMethod.GET)
 	public String modifyEvent(EventVO eventvo, Model model) {
@@ -164,22 +175,22 @@ public class DeveloperController {
 			if(!file.getOriginalFilename().isEmpty()) {
 				file.transferTo(new File(path, file.getOriginalFilename()));
 				String originFileName = file.getOriginalFilename();
-				
+
 				Date now = new Date();
 				SimpleDateFormat simple = new SimpleDateFormat("SSS");
 				String distinct = simple.format(now);
-				
+
 				String realFileName = originFileName + distinct;
-				
+
 				ImageVO imagevo = new ImageVO();
 				imagevo.setEidx(eventvo.getEidx());
 				imagevo.setPath(path);
 				imagevo.setOriginFileName(originFileName);
 				imagevo.setRealFileName(realFileName);
-				
+
 				int rs = adminService.updateImg(imagevo);
 			}
-			
+
 		}else {
 			System.out.println("failed");
 		}
@@ -204,16 +215,16 @@ public class DeveloperController {
 		}else if(searchvo.getNowPage() == 0) {
 			searchvo.setNowPage(1);
 		}
-		
+
 		searchvo.setRole(3);
 		int total = commonService.totalCountUser(searchvo);
 		searchvo.calPaging(total);
 		model.addAttribute("pagenation", searchvo);
 		model.addAttribute("enterList", adminService.userList(searchvo));
-		
+
 		return "developer/enterList";
 	}
-	
+
 	//업체 수정페이지로 이동
 	//해당 업체 데이터도 넘겨주기
 	@RequestMapping(value="enterModify.do", method=RequestMethod.GET)
@@ -234,8 +245,8 @@ public class DeveloperController {
 		adminService.deleteEnter(uservo);
 		return "redirect:/developer/enterList.do";
 	}
-	
-	
+
+
 	//업체 장소 등록 승인 페이지
 	@RequestMapping(value="enterConfirm.do", method=RequestMethod.GET)
 	public String enterConfirm(SearchVO searchvo, Model model) {
@@ -247,28 +258,33 @@ public class DeveloperController {
 		}else if(searchvo.getNowPage() == 0) {
 			searchvo.setNowPage(1);
 		}
-		
+
 		int total = adminService.totalPlace(searchvo);
 		searchvo.calPaging(total);
 		model.addAttribute("pagenation", searchvo);
 		model.addAttribute("placeList", adminService.apPlace(searchvo));
 		return "developer/enterConfirm";
 	}
-	
+
 	@RequestMapping(value="confirm.do", method=RequestMethod.GET)
 	public String confirm(PlaceVO placevo) {
 		adminService.approvalYN(placevo);
 		return "redirect:/developer/enterConfirm.do";
 	}
-	
+
 	@RequestMapping(value="reportList.do", method=RequestMethod.GET)
 	public String reportList() {
 		return "developer/reportList";
 	}
-	
+
 	@RequestMapping(value="enterBlock.do", method=RequestMethod.GET)
 	public String enterBlock() {
 		return "developer/enterBlock";
 	}
 	
+	@RequestMapping(value="inquiryList.do", method=RequestMethod.GET)
+	public String inquiryList() {
+		return "developer/inquiryList";
+	}
+
 }

@@ -2,12 +2,19 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- 
+
 <mapper namespace="three.people.mapper.commonMapper">
-	
+
 	<insert id="insertUser" parameterType="UserVO">
+
+		INSERT INTO user(
+
+
 	<!-- 일단 유저만 -->
+
+
 		INSERT INTO user_plend(
+
 			 id
 			,password
 			,name
@@ -24,7 +31,12 @@
 			,#{password}
 			,#{name}
 			,#{nickName}
+	<if test = "birth != null and regnum == ''">
 			,#{birth}
+	</if>
+	<if test = "regnum != null and birth == ''">
+			,#{regnum}
+	</if>
 			,#{userPhone}
 			,#{email}
 			,#{gender}
@@ -33,38 +45,47 @@
 			,#{role}
 		)
 	</insert>
-	
+
+	<select id = "selectID" parameterType="UserVO" resultType="UserVO">
+		SELECT
+			 password
+		  FROM user_plend
+		 WHERE id = #{id}
+	</select>
+
 	<select id="login" resultType="UserVO" parameterType="UserVO">
-		SELECT 
+		SELECT
 			 uidx
 			,id
 			,password
+			,role
+			,nickName
 		FROM user_plend
 	   WHERE id = #{id}
-	     AND password = #{password}	
+	     AND delyn = 'N'
 	</select>
-	
+
 	<select id="selectId" resultType="UserVO" parameterType="UserVO">
 		SELECT
 			 name
 			,email
 			,id
-		FROM user_plend 
+		FROM user_plend
 	   WHERE name = #{name}
 	     AND email = #{email}
 	</select>
 	<select id="selectPwd" resultType = "int">
-		
+
 	</select>
-	
+
 	<select id="idCheck" parameterType="String" resultType="Integer">
-		SELECT 
+		SELECT
 			 count(*)
 		  FROM user_plend
-		 WHERE id = #{id} 
+		 WHERE id = #{id}
 	</select>
 	<select id="nickNameCheck" parameterType="String" resultType="Integer">
-		SELECT 
+		SELECT
 			 count(*)
 		  FROM user_plend
 		 WHERE nickName = #{nickName}
@@ -75,13 +96,13 @@
 		  FROM user_plend
 		 WHERE role = #{role}
 		 <if test="role == 2">
-		 	<include refid="searchUser"></include> 
+		 	<include refid="searchUser"></include>
 		 </if>
 		 <if test="role == 3">
 		 	<include refid="searchEnter"></include>
 		 </if>
 	</select>
-	
+
 	<sql id="searchUser">
 		<if test="searchType != null">
 			<if test='searchType.equals("name")'>
@@ -89,7 +110,7 @@
 		 	</if>
 		 	<if test='searchType.equals("id")'>
 		   		AND (id LIKE CONCAT('%',#{searchValue},'%'))
-		 	</if>		
+		 	</if>
 		</if>
 	</sql>
 	<sql id="searchEnter">
@@ -99,10 +120,7 @@
 		 	</if>
 		 	<if test='searchType.equals("nickName")'>
 		   		AND (nickname LIKE CONCAT('%',#{searchValue},'%'))
-		 	</if>		
+		 	</if>
 		</if>
 	</sql>
 </mapper>
-
-
-
