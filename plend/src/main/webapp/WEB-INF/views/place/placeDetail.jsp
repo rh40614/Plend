@@ -74,7 +74,18 @@
 						${placeOne.placeName}
 					</c:if> 
 				</div>
-				<div class="d-flex place_tag ms-5 ">${placeOne.tag}</div>
+				<div class="d-flex place_tag ms-5 "id="tag${pv.pidx}"></div>
+					<script>
+						var tags = JSON.parse('${placeOne.tag}');
+						var tag = "";
+						tags.forEach(element => 
+							tag += "#"+ element.value + "&nbsp;" 
+						);
+						console.log(tag);
+						
+						$("#tag${placeOne.pidx}").html(tag);
+						 
+					</script>
 				<div class="d-flex place_addr ms-5 me-5 mt-4 mb-1 fw-bold" style="border-bottom: 1px solid lightgray;">${placeOne.address}</div>
 				<div class="icon d-flex ms-5 mt-2 me-5 pb-1" style="border-bottom: 1px solid lightgray; justify-content: right;">
 					<!-- 클립보드 -->
