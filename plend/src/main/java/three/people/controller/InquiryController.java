@@ -325,7 +325,17 @@ public class InquiryController {
 		
 	}
 	
-	
+	// 문의 답변 달기 전 상세보기
+	@RequestMapping(value="/inquiryViewOne.do", method=RequestMethod.GET)
+	public String inquiryViewOne(InquiryVO inquiryVO, Model model) {
+		//문의 내역 (단건)
+		InquiryVO inquiry = hostService.selectInquiryOne(inquiryVO);
+		
+		model.addAttribute("inquiry", inquiry);
+		
+		return "host/inquiry_dev/inquiryView";
+
+	}
 	
 	
 	

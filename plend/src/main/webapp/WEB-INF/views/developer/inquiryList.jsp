@@ -72,8 +72,10 @@
 						  			<a onclick="replyOpen(${inquiryVO.uidx},${inquiryVO.iqidx})" class="btn btn-sm">수정</a>
 				  				</c:when>
 				  			</c:choose>
-				  			<a class="btn btn-sm">삭제</a>
 				  		</td>
+			  		</tr>
+			  		<tr>
+			  			<td id="viewOne${inquiryVO.iqidx}" class="replyTD d-none" colspan="7"></td>
 			  		</tr>
 			  		<tr>
 			  			<td id="reply${inquiryVO.iqidx}" class="replyTD d-none" colspan="7"></td>
@@ -137,11 +139,23 @@
 				$(".replyTD").addClass("d-none");
 				$("#reply"+iqidx).removeClass("d-none");
 				$("#reply"+iqidx).html(html);
+				$.ajax({
+					url:"<%= request.getContextPath()%>/inquiry_dev/inquiryViewOne.do?uidx="+uidx+"&iqidx="+iqidx,
+					success: function(html){
+						$("#viewOne"+iqidx).removeClass("d-none");
+						$("#viewOne"+iqidx).html(html);
+					},
+					error: function(){
+						console.log("답변 창 오픈 실패");
+					}
+				});
 			},
 			error: function(){
 				console.log("답변 창 오픈 실패");
 			}
-		})
+		});
+		
+
 	}
 </script>
 </body>

@@ -106,8 +106,6 @@
 		
 	</select>
 	
-	
-
 	<!-- 2022.07.20 김연희 이벤트하나 호출 -->
 	<select id="eventOne" parameterType="EventVO" resultType="EventVO">
 		SELECT 
@@ -146,8 +144,8 @@
 					,#{depth}
 					,#{answerRate}
 			)
-	
 	</insert>
+	
 	<!-- 2022.07.21 김연희 : 문의 내역 전체 불러오기 -->
 	<select id="selectInquiry" parameterType="HashMap" resultType="InquiryVO">
 		SELECT 
@@ -473,8 +471,6 @@
 		 	</if>
 		  </if>
 	</select>
-	
-	
 	
 	
 	
