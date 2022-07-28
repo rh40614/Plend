@@ -14,7 +14,11 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
-		
+	
+	<!-- include summerNote css/js -->
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	<!-- header, footer -->	
 	<script type="text/javascript">
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/developerHeader.jsp");
@@ -46,54 +50,72 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			  	<tr>
-			  		<td> 1 </td>
-			  		<td> company </td>
-			  		<td> category </td>
-			  		<td><a>title</a></td>
-			  		<td> answer </td>
-			  		<td> 2022.07.25 </td>
-			  		<td class="col-2">
-			  			<a class="btn btn-sm">답변</a>
-			  			<a class="btn btn-sm">수정</a>
-			  			<a class="btn btn-sm">삭제</a>
-			  		</td>
-			  	</tr>
+			  	<c:if test="${empty list}">
+			  		<tr>
+			  			<td colspan="7"> 아직 등록된 문의가 없습니다. </td>
+			  		</tr>
+			  	</c:if>
+			  	<c:forEach var="inquiryVO" items="${list}">
+			  		<tr>
+			  			<td> ${inquiryVO.iqidx} </td>
+			  			<td> ${inquiryVO.nickName} </td>
+			  			<td> ${inquiryVO.category} </td>
+			  			<td> ${inquiryVO.title} </td>
+			  			<td> ${inquiryVO.answerYN} </td>
+			  			<td> ${inquiryVO.date.substring(0,10)} </td>
+				  		<td class="col-2">
+				  			<c:choose>
+				  				<c:when test="${inquiryVO.answerYN eq 'N'}">
+						  			<a onclick="replyOpen(${inquiryVO.uidx},${inquiryVO.iqidx})" class="btn btn-sm">답변</a>
+				  				</c:when>
+				  				<c:when test="${inquiryVO.answerYN ne 'N'}">
+						  			<a onclick="replyOpen(${inquiryVO.uidx},${inquiryVO.iqidx})" class="btn btn-sm">수정</a>
+				  				</c:when>
+				  			</c:choose>
+				  		</td>
+			  		</tr>
+			  		<tr>
+			  			<td id="viewOne${inquiryVO.iqidx}" class="replyTD d-none" colspan="7"></td>
+			  		</tr>
+			  		<tr>
+			  			<td id="reply${inquiryVO.iqidx}" class="replyTD d-none" colspan="7"></td>
+			  		</tr>
+			  	</c:forEach>
 			  </tbody>
 			</table>
 		</section>
-		<c:if test="${not empty enterList}">
+		<c:if test="${not empty list}">
 			<nav id="pagenation" class="row">
 			  <ul class="pagination justify-content-center">
-			  	<c:if test="${pagenation.startPage > 5}">
+			  	<c:if test="${pagination.startPage > 5}">
 				    <li class="page-item">
-				      <a class="page-link" href="enterList.do?nowPage=4">&laquo;</a>
+				      <a class="page-link" href="inquiryList.do?nowPage=4">&laquo;</a>
 				    </li>
 			  	</c:if>
-			  	<c:forEach begin="${pagenation.startPage }" end="${pagenation.endPage }" var="p">
+			  	<c:forEach begin="${pagination.startPage }" end="${pagination.endPage }" var="p">
 					<c:choose>
-						<c:when test="${p == pagenation.nowPage }">
-							<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" href="enterList.do?nowPage=${p}">${p}</a></li>
+						<c:when test="${p == pagination.nowPage }">
+							<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" href="inquiryList.do?nowPage=${p}">${p}</a></li>
 						</c:when>
-						<c:when test="${p != pagenation.nowPage }">
-							<li class="page-item"><a class="page-link" href="enterList.do?nowPage=${p}">${p}</a></li>
+						<c:when test="${p != pagination.nowPage }">
+							<li class="page-item"><a class="page-link" href="inquiryList.do?nowPage=${p}">${p}</a></li>
 						</c:when>
 					</c:choose>
 				</c:forEach>
-			    <c:if test="${pagenation.endPage != pagenation.lastPage}">
+			    <c:if test="${pagination.endPage != pagination.lastPage}">
 				    <li class="page-item">
-				      <a class="page-link" href="enterList.do?nowPage=${pagenation.endPage +1}">&raquo;</a>
+				      <a class="page-link" href="inquiryList.do?nowPage=${pagination.endPage +1}">&raquo;</a>
 				    </li>
 			    </c:if>
 			  </ul>
 			</nav>
 		</c:if>
-		<form action="enterList.do" method="get">
+		<form action="inquiryList.do" method="get">
 			<div class="row search-form mb-5">
 				<div class="input-group justify-content-center">
 					<select class="form-select-sm" name="searchType">
 	  					<option value="nickName">업체명</option>
-						<option value="category">유형</option>
+						<option value="title">제목</option>
 					</select>
 					<input name="searchValue">
 					<button class="btn btn-primary btn-sm">검색</button>
@@ -103,8 +125,39 @@
 		<div class="flex-grow-1"></div>
 		<footer id="footer" class="row"></footer>
 	</div>
-	<!-- JavaScript Bundle with Popper -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!-- 답변창 오픈 함수 -->
+<script type="text/javascript">
+	function replyOpen(uidx,iqidx){
+		console.log("답변 창 오픈");
+	
+		$.ajax({
+			url: "replyInquiry.do?uidx="+uidx+"&iqidx="+iqidx,
+			success: function(html){
+				console.log("답변 창 오픈 성공");
+				$(".replyTD").addClass("d-none");
+				$("#reply"+iqidx).removeClass("d-none");
+				$("#reply"+iqidx).html(html);
+				$.ajax({
+					url:"<%= request.getContextPath()%>/inquiry_dev/inquiryViewOne.do?uidx="+uidx+"&iqidx="+iqidx,
+					success: function(html){
+						$("#viewOne"+iqidx).removeClass("d-none");
+						$("#viewOne"+iqidx).html(html);
+					},
+					error: function(){
+						console.log("답변 창 오픈 실패");
+					}
+				});
+			},
+			error: function(){
+				console.log("답변 창 오픈 실패");
+			}
+		});
+		
+
+	}
+</script>
 </body>
 </html>
 

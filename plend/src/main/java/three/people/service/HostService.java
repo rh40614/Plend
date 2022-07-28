@@ -26,7 +26,7 @@ public interface HostService {
 	
 	//운영자 문의
 	public int insertInquiry_dev(InquiryVO inquiryVO);
-	public List<HashMap<String, Integer>> selectInquiry(HashMap<String, Integer> page);
+	public List<InquiryVO> selectInquiry(HashMap<String, Integer> page);
 	public InquiryVO selectInquiryOne(InquiryVO inquiryVO);
 	public int cntIqidx(InquiryVO inquiryVO);
 	public int inquiryEdit_dev(InquiryVO inquiryVO);
@@ -44,4 +44,9 @@ public interface HostService {
 	public NoticeVO prevNextTitle (NoticeVO noticeVO);
 	public NoticeVO noticeOne (NoticeVO noticeVO);
 	public int deleteNotice(NoticeVO noticeVO);
+
+	//개발자페이지
+	public List<InquiryVO> developerInquiry(SearchVO searchvo);
+	public int countInquiry(SearchVO searchvo);
+	public int replyModify(InquiryVO inquiryVO);
 }

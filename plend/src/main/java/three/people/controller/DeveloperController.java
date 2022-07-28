@@ -4,7 +4,10 @@ package three.people.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,8 +27,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import three.people.service.AdminService;
 import three.people.service.CommonService;
+import three.people.service.HostService;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
+import three.people.vo.InquiryVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
@@ -44,6 +49,9 @@ public class DeveloperController {
 	CommonService commonService;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	HostService hostService;
+	
 	// 회원 리스트로 이동
 	@RequestMapping(value="/userList.do", method = RequestMethod.GET)
 	public String userList(SearchVO searchvo,Model model) {
@@ -282,9 +290,34 @@ public class DeveloperController {
 		return "developer/enterBlock";
 	}
 	
+	// 07.28 김영민: 개발자 페이지에서 호스트의 문의 내역보기
 	@RequestMapping(value="inquiryList.do", method=RequestMethod.GET)
-	public String inquiryList() {
+	public String inquiryList(SearchVO searchVO, Model model) {
+		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
+			searchVO.setNowPage(1);
+			searchVO.setCntPerPage(10);
+		}else if(searchVO.getCntPerPage() == 0) {
+			searchVO.setCntPerPage(10);
+		}else if(searchVO.getNowPage() == 0) {
+			searchVO.setNowPage(1);
+		}
+		
+		searchVO.calPaging(hostService.countInquiry(searchVO));
+		
+		model.addAttribute("pagination", searchVO);
+		model.addAttribute("list", hostService.developerInquiry(searchVO));
+		
 		return "developer/inquiryList";
+	}
+	
+	// 07.28 김영민: 호스트 문의내역 답변달기
+	@RequestMapping(value="replyInquiry.do", method=RequestMethod.GET)
+	public String replyInquiry(InquiryVO inquiryVO, Model model) {
+		InquiryVO inquiry = hostService.selectInquiryOne(inquiryVO);
+		model.addAttribute("inquiry",inquiry);
+		model.addAttribute("reply", hostService.selectReplyOne(inquiryVO));
+		
+		return "host/inquiry_dev/reply";
 	}
 
 }
