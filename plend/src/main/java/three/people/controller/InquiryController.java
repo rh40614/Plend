@@ -77,7 +77,7 @@ public class InquiryController {
 		page.put("uidx", uidx );
 		
 		//이전 문의 내역 불러오기
-		List<HashMap<String, Integer>> list = hostService.selectInquiry(page);
+		List<InquiryVO> list = hostService.selectInquiry(page);
 		
 		model.addAttribute("pagination", searchVO);
 		model.addAttribute("list",list);
@@ -160,7 +160,7 @@ public class InquiryController {
 		
 		
 		//이전 문의 내역 불러오기(리스트)
-		List<HashMap<String, Integer>> list = hostService.selectInquiry(page);
+		List<InquiryVO> list = hostService.selectInquiry(page);
 		
 		//문의 내역 (단건)
 		InquiryVO inquiry = hostService.selectInquiryOne(inquiryVO);
@@ -307,10 +307,23 @@ public class InquiryController {
 	
 	}
 	
-	
-	
-	
-	
+	//답변 수정
+	@Transactional
+	@RequestMapping(value="/replyModify.do", method=RequestMethod.POST)
+	public void replyModify(@RequestBody String reply, InquiryVO inquiryVO, HttpSession session, HttpServletRequest request, Model model) {
+		System.out.println("답변 저장하기");
+		
+		//답변을 작성하려는 사람의 uidx
+		session = request.getSession();
+		UserVO login = (UserVO)session.getAttribute("login");
+		inquiryVO.setUidx(login.getUidx()); 
+		
+		System.out.println("iqidx: "+inquiryVO.getIqidx());
+		
+		
+		model.addAttribute("answer", hostService.replyModify(inquiryVO));
+		
+	}
 	
 	
 	

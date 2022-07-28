@@ -6,7 +6,7 @@
 <mapper namespace="three.people.mapper.commonMapper">
 
 	<insert id="insertUser" parameterType="UserVO">
-		INSERT INTO user(
+		INSERT INTO user_plend(
 			 id
 			,password
 			,name
@@ -40,7 +40,7 @@
 	<select id = "selectID" parameterType="UserVO" resultType="UserVO">
 		SELECT
 			 password
-		  FROM user
+		  FROM user_plend
 		 WHERE id = #{id}
 	</select>
 	<select id="login" resultType="UserVO" parameterType="UserVO">
@@ -50,7 +50,7 @@
 			,password
 			,role
 			,nickName
-		FROM user
+		FROM user_plend
 	   WHERE id = #{id}
 	     AND delyn = 'N'
 	</select>

@@ -169,8 +169,6 @@
 		
 	</select>
 
-
-	
 	<!--2022.07.21 김연희 : 문의 내역 하나 -->
 	<select id="selectInquiryOne" parameterType="InquiryVO" resultType="InquiryVO">
 		SELECT 
@@ -261,6 +259,16 @@
 	   WHERE originiqidx = #{iqidx}
 	   AND depth ='1'
 	</select>
+	
+	<!-- 2022.07.28 김영민: 답변 수정 -->
+	<update id="replyModify" parameterType="InquiryVO">
+		UPDATE inquiry
+		   SET title = #{title},
+		   	   content = #{content},
+		   	   date = now()
+		 WHERE originiqidx = #{iqidx}
+		   AND depth = '1'
+	</update>
 	
 	
 	<!-- 2022.07.25 김연희	: 장소에 대한 qna 가지고 오기 -->
@@ -413,10 +421,58 @@
 		  AND category = '2'
 	</update>
 	
+	<!-- 07.28 김영민: 호스트 문의 개발자 페이지에 불러오기 -->
+	<select id="developerInquiry" parameterType="SearchVO" resultType="InquiryVO">
+		SELECT 
+			i.iqidx
+			,i.uidx
+			,i.category
+			,i.title
+			,i.content
+			,i.date
+			,i.img
+			,i.answerYN
+			,i.originiqidx
+			,i.depth
+			,i.answerRate
+			,u.id
+			,u.name
+			,u.nickname
+			,u.addr
+			,u.email
+			,u.userphone
+		FROM inquiry i
+		JOIN user_plend u
+		  ON i.uidx = u.uidx
+		WHERE depth = '0'
+		  <if test="searchType != null">
+		 	<if test='searchType.equals("nickName")'>
+		   		AND (u.nickname LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>		
+			<if test='searchType.equals("title")'>
+		   		AND (i.title LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>
+		  </if>
+		ORDER BY iqidx DESC
+		LIMIT #{start},#{cntPerPage}
+		
+	</select>
 	
-	
-	
-	
+	<!-- 2022.07.28 김영민: 페이징 위한 문의 갯수 -->
+	<select id="countInquiry" parameterType="SearchVO" resultType="int">
+		SELECT COUNT(i.iqidx)
+		       FROM inquiry i
+		       JOIN user_plend u
+		         ON i.uidx = u.uidx
+	      <if test="searchType != null">
+		 	<if test='searchType.equals("nickName")'>
+		   		WHERE (u.nickname LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>		
+			<if test='searchType.equals("title")'>
+		   		WHERE (i.title LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>
+		  </if>
+	</select>
 	
 	
 	
