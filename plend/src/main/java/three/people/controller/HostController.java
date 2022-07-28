@@ -326,6 +326,7 @@ public class HostController {
 		
 		model.addAttribute("list", list);		
 		model.addAttribute("pagination" , searchVO);
+
 		
 		return "host/inquiry_user";
 	}

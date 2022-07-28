@@ -135,6 +135,18 @@
 			#{option1}
 		)
 	</insert>
+	
+	<!-- 07.26 김영민: 이미지 데이터 가져오기 -->
+	<select id="selectImage" parameterType="PlaceVO" resultType="ImageVO">
+		SELECT imidex,
+			   path,
+			   originfilename,
+			   realfilename,
+			   pidx,
+			   eidx
+		  FROM image
+		 WHERE pidx = #{pidx}
+	</select>
 	<select id="randomPlace" resultType="PlaceVO"></select>
 	
 </mapper>
