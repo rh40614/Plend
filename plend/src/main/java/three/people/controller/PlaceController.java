@@ -132,19 +132,19 @@ public final class PlaceController {
 	public String placeList(PlaceVO placeVO, Model model) {
 		//카테고리에 해당하는 장소 리스트
 		List<PlaceVO> list = placeService.categoryPlace(placeVO);
-		List<ImageVO> image = new ArrayList<ImageVO>();
 		
 			for(PlaceVO place: list) {
 				int pidx = place.getPidx();
+				//사진을 pidx 값으로 찾기 때문에 설정
 				placeVO.setPidx(pidx);
+				//사진도 list에 담기 
 				ImageVO imageOne = placeService.selectImageOne(place);
-				//System.out.println("imageOne: "+imageOne);
-				image.add(imageOne);
-				//System.out.println("image: "+image);
+				String file = imageOne.getOriginFileName();
+				place.setPlaceImg(file);
 			}
 		
 		model.addAttribute("list", list);
-		model.addAttribute("imageList", image);
+		
 		//헤더 카테고리 나타내기 
 		model.addAttribute("category", placeVO);
 		

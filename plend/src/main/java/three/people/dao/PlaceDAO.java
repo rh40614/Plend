@@ -75,6 +75,7 @@ public class PlaceDAO {
 		List<PlaceVO> result = sqlSession.selectList(namespace+".selectPlace");
 		return result;
 	}
+
 	//07.27 김영민: 찜목록 등록/삭제 하기/리스트 불러오기
 	public int likeAdd(HeartVO heartvo) {
 		return sqlSession.insert(namespace+".likeAdd", heartvo);
@@ -85,4 +86,12 @@ public class PlaceDAO {
 	public List<HeartVO> selectHeart(HeartVO heartvo){
 		return sqlSession.selectList(namespace+".selectHeart", heartvo);
 	}
+
+	//07.27 김연희 : 랜덤용 할인 리스트 
+		public List<PlaceVO> eventPlace() {
+			List<PlaceVO> result = sqlSession.selectList(namespace+".eventPlace");
+			return result;
+		}
+	
+
 }

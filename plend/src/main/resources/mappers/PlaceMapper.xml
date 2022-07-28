@@ -195,7 +195,7 @@
 	</select>
 	
 	
-	<!-- 2022.07.27 김연희 : 랜덤 리스트 만들기 위해  -->
+	<!-- 2022.07.27 김연희 : 메인화면 장소 랜덤 리스트 만들기 위해  -->
 	<select id="selectPlace" resultType="PlaceVO">
 			SELECT
 				  pidx
@@ -220,6 +220,7 @@
 		ORDER BY pidx DESC
 	</select>
 	
+
 	<!-- 07.27 김영민: 찜목록 등록/삭제/리스트 -->
 	<insert id="likeAdd" parameterType="HeartVO">
 		INSERT INTO heart(
@@ -245,6 +246,42 @@
 		 	AND pidx = #{pidx} 
 		 </if>
 	</select>
+
+
+	<!-- 2022.07.28  김연희 : 메인화면 상설 할인 리스트  -->
+	<select id="eventPlace" resultType="PlaceVO" >
+			SELECT
+				  pidx
+				 ,uidx
+				 ,category
+				 ,placeName
+				 ,eventYN
+				 ,placeDetail
+				 ,guide
+				 ,tag
+				 ,placeImg
+				 ,address
+				 ,option1
+				 ,option2
+				 ,price
+				 ,delYN
+				 ,approvalYN
+				 ,availTimeValue
+				 ,intervalTime 
+			FROM place
+		   WHERE delYN ='N'
+		     AND eventYN ='Y'
+		ORDER BY pidx DESC
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 </mapper>
 
