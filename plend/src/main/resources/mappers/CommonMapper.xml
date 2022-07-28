@@ -5,7 +5,9 @@
 
 <mapper namespace="three.people.mapper.commonMapper">
 
-	<insert id="insertUser" parameterType="UserVO">
+
+
+<insert id="insertUser" parameterType="UserVO">
 
 		INSERT INTO user_plend(
 			 id
