@@ -271,4 +271,9 @@ public class DeveloperController {
 		return "developer/enterBlock";
 	}
 	
+	@RequestMapping(value="inquiryList.do", method=RequestMethod.GET)
+	public String inquiryList() {
+		return "developer/inquiryList";
+	}
+	
 }
