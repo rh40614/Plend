@@ -30,6 +30,7 @@
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
+	<!-- 페이징 -->
 	<script>
 	function nowPage(p){
 		$.ajax({
@@ -46,6 +47,10 @@
 			
 		});
 	}
+	</script>
+	<!-- 해쉬 태그  -->
+	<script>
+
 		
 	</script>
 
@@ -80,7 +85,19 @@
 									<tr >
 										<td>${pv.pidx}</td>
 										<td>${pv.placeName}</td>
-										<td>${pv.tag}</td>
+										
+										<td class="tag"></td>
+										<script>
+											/* 값이 없으면 넣도록? innnerHTML 검사 후 값이 없으면 넣기?  */
+											var tags = JSON.parse('${pv.tag}');
+											var tag = "";
+											tags.forEach(element => 
+												tag += "#"+ element.value + "&nbsp;" 
+											);
+											console.log(tag);
+											$(".tag").html(tag);
+											 
+										</script>
 										<td style="text-align: left;">${pv.placeDetail}</td>
 										<td>${pv.approvalYN}</td>
 										<td><button class="btnDefault" type="button" onclick="location.href='/host/placeView.do'">수정</button></td>

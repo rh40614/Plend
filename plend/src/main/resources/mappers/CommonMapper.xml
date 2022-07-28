@@ -6,7 +6,10 @@
 <mapper namespace="three.people.mapper.commonMapper">
 	
 	<insert id="insertUser" parameterType="UserVO">
+<<<<<<< Updated upstream
 	<!-- 일단 유저만 -->
+=======
+>>>>>>> Stashed changes
 		INSERT INTO user_plend(
 			 id
 			,password
@@ -33,12 +36,26 @@
 			,#{role}
 		)
 	</insert>
+<<<<<<< Updated upstream
 	
+=======
+	<select id = "selectID" parameterType="UserVO" resultType="UserVO">
+		SELECT
+			 password
+		  FROM user_plend
+		 WHERE id = #{id}
+	</select>
+>>>>>>> Stashed changes
 	<select id="login" resultType="UserVO" parameterType="UserVO">
 		SELECT 
 			 uidx
 			,id
 			,password
+<<<<<<< Updated upstream
+=======
+			,role
+			,nickName
+>>>>>>> Stashed changes
 		FROM user_plend
 	   WHERE id = #{id}
 	     AND password = #{password}	

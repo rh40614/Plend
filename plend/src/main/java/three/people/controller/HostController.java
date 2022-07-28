@@ -73,11 +73,11 @@ public class HostController {
 		placeVO.setUidx(login.getUidx()); 
 		
 //		System.out.println("장소등록을 하는 사람: "+ placeVO.getUidx());
-		System.out.println("주소: "+ placeVO.getAddress());
+//		System.out.println("주소: "+ placeVO.getAddress());
 //		System.out.println("장소설명: "+ placeVO.getPlaceDetail());
 //		System.out.println("금액: "+ placeVO.getPrice());
 //		System.out.println("getCategory: "+ placeVO.getCategory());
-		System.out.println("getGuide: "+ placeVO.getGuide());
+//		System.out.println("getGuide: "+ placeVO.getGuide());
 //		System.out.println("getIntervalTime: "+ placeVO.getIntervalTime());
 //		System.out.println("getOption1: "+ placeVO.getOption1());
 //		System.out.println("getOption2: "+ placeVO.getOption2());
@@ -222,21 +222,9 @@ public class HostController {
 		page.put("start", start);
 		page.put("cntPerPage", cntPerPage);
 		
+		//장소리스트
 		List<PlaceVO> list_p = placeService.selectPlaceAll(page);
-		
-		
-		//장소 소개 35자 이상 자르기
-		for(PlaceVO place: list_p) {
-			if(place.getPlaceDetail().length() > 35) {
-				String pd =place.getPlaceDetail().substring(0, 35);
-				place.setPlaceDetail(pd);
-			}
-		}
-	
-		System.out.println("list_p: "+list_p);
-		System.out.println("pagenation: "+searchVO.getStartPage());
-		System.out.println("pagenation: "+searchVO.getEndPage());
-	
+
 		//화면단으로 옮기기
 		model.addAttribute("list_p", list_p);
 		model.addAttribute("pagenation", searchVO);

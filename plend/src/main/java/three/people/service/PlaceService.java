@@ -23,4 +23,7 @@ public interface PlaceService {
 	public List<PlaceVO> categoryPlace(PlaceVO placeVO);
 	public ImageVO selectImageOne(PlaceVO placeVO);
 	public List<PlaceVO> selectPlace();
+	public List<PlaceVO> eventPlace();
+	//07.28 김연희: 리스트 내의 객체를 랜덤으로 9개 가지고 오는 메서드
+	public int[] RandomPlace(List<PlaceVO> methodList);
 }
