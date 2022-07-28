@@ -19,7 +19,7 @@
         <span>세션없음</span>
         </c:if>
         <c:if test="${login != null }">
-        [<a href = "" id = "header">로그아웃</a>&nbsp|&nbsp<a href = "" id = "header">마이페이지</a>]
+        [<a href = "<%=request.getContextPath()%>/common/signOut.do" id = "header">로그아웃</a>&nbsp;|&nbsp;<a href = "<%=request.getContextPath()%>/" id = "header">메인 페이지</a>]
         </c:if>
       </div>
     </div>

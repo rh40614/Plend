@@ -5,16 +5,10 @@
 
 <mapper namespace="three.people.mapper.commonMapper">
 
-	<insert id="insertUser" parameterType="UserVO">
-
-		INSERT INTO user(
-
-
 	<!-- 일단 유저만 -->
 
-
+<insert id="insertUser" parameterType="UserVO">
 		INSERT INTO user_plend(
-
 			 id
 			,password
 			,name

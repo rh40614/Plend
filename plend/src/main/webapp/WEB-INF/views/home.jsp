@@ -59,7 +59,6 @@
 		<c:if test="${list.size() == 0}">
 			<P class="title2 m-auto">등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. </P>
 		</c:if>
-	
 		<c:if test="${list.size() > 0 }">
 			<c:forEach var ="c" items="${list}" varStatus="status"> 
 			
@@ -101,7 +100,6 @@
 		<c:if test="${list2.size() == 0}">
 			<P class="title2 m-auto">등록된 장소가 없습니다. 더 많은 이벤트로 찾아오겠습니다. </P>
 		</c:if>
-	
 		<c:if test="${list2.size() > 0 }">
 			<c:forEach var ="e" items="${list2}" varStatus="status"> 
 			

@@ -85,17 +85,17 @@
 									<tr >
 										<td>${pv.pidx}</td>
 										<td>${pv.placeName}</td>
-										
-										<td class="tag"></td>
+										<!-- 반복문을 돌리는 아이디값에 변수를 주기위해 아이디 뒤에 변수 넣기 -->
+										<td id="tag${pv.pidx}"></td>
 										<script>
-											/* 값이 없으면 넣도록? innnerHTML 검사 후 값이 없으면 넣기?  */
 											var tags = JSON.parse('${pv.tag}');
 											var tag = "";
 											tags.forEach(element => 
 												tag += "#"+ element.value + "&nbsp;" 
 											);
 											console.log(tag);
-											$(".tag").html(tag);
+											
+											$("#tag${pv.pidx}").html(tag);
 											 
 										</script>
 										<td style="text-align: left;">${pv.placeDetail}</td>
