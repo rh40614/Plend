@@ -281,5 +281,10 @@ public class DeveloperController {
 	public String enterBlock() {
 		return "developer/enterBlock";
 	}
+	
+	@RequestMapping(value="inquiryList.do", method=RequestMethod.GET)
+	public String inquiryList() {
+		return "developer/inquiryList";
+	}
 
 }

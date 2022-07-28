@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import three.people.vo.BookVO;
+import three.people.vo.HeartVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
@@ -23,4 +24,7 @@ public interface PlaceService {
 	public List<PlaceVO> categoryPlace(PlaceVO placeVO);
 	public ImageVO selectImageOne(PlaceVO placeVO);
 	public List<PlaceVO> selectPlace();
+	public int likeAdd(HeartVO heartvo);
+	public int likeDelete(HeartVO heartvo);
+	public List<HeartVO> selectHeart(HeartVO heartvo);
 }

@@ -220,16 +220,32 @@
 		ORDER BY pidx DESC
 	</select>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<!-- 07.27 김영민: 찜목록 등록/삭제/리스트 -->
+	<insert id="likeAdd" parameterType="HeartVO">
+		INSERT INTO heart(
+			uidx,
+			pidx
+		)VALUES(
+			#{uidx},
+			#{pidx}
+		)
+	</insert>
+	<delete id="likeDelete" parameterType="HeartVO">
+		DELETE FROM heart
+		      WHERE uidx = #{uidx}
+		        AND pidx = #{pidx}
+	</delete>
+	<select id="selectHeart" parameterType="HeartVO" resultType="HeartVO">
+		SELECT hidx,
+			   uidx,
+			   pidx
+		  FROM heart
+		 WHERE uidx = #{uidx}
+		 <if test="pidx != null">
+		 	AND pidx = #{pidx} 
+		 </if>
+	</select>
+
 </mapper>
 
 

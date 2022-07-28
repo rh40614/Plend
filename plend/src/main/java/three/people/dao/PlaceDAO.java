@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import three.people.vo.BookVO;
+import three.people.vo.HeartVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
@@ -74,7 +75,14 @@ public class PlaceDAO {
 		List<PlaceVO> result = sqlSession.selectList(namespace+".selectPlace");
 		return result;
 	}
-	
-	
-	
+	//07.27 김영민: 찜목록 등록/삭제 하기/리스트 불러오기
+	public int likeAdd(HeartVO heartvo) {
+		return sqlSession.insert(namespace+".likeAdd", heartvo);
+	}
+	public int likeDelete(HeartVO heartvo) {
+		return sqlSession.delete(namespace+".likeDelete", heartvo);
+	}
+	public List<HeartVO> selectHeart(HeartVO heartvo){
+		return sqlSession.selectList(namespace+".selectHeart", heartvo);
+	}
 }
