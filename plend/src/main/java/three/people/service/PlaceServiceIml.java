@@ -81,6 +81,9 @@ public class PlaceServiceIml implements PlaceService{
 	@Override
 	public List<PlaceVO> selectPlace() {
 		return placeDAO.selectPlace();
+	}
+	
+	@Override
 	public int likeAdd(HeartVO heartvo) {
 		return placeDAO.likeAdd(heartvo);
 	}
