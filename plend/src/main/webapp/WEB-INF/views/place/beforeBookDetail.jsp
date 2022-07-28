@@ -15,6 +15,9 @@
 	<!-- css -->
 	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/placeDetail.css" rel="stylesheet">
+	<!-- 07.28 김연희: 부트페이 -->
+	<script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.1.min.js" type="application/javascript"></script>
+	
 	<!-- header/footer -->	
 	<script type="text/javascript">
 		$(function(){
@@ -27,6 +30,46 @@
 			padding: 15px;
 		}
 	</style>
+	
+	<script>
+	function payment(){
+		 BootPay.request({
+		      price: '1000', //실제 결제되는 가격
+		 
+		      // 관리자로그인 -> 결제설치 -> 인증키 및 보안 -> WEB Application ID
+		      application_id: "62e277882701800023bd122a",
+		 
+		      name: '${placeOne.placeName}', //결제창에서 보여질 이름
+		      pg: 'nicepay',
+		      method: 'card', //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
+		      show_agree_window: 0, // 부트페이 정보 동의 창 보이기 여부
+		      items: [
+		          {
+		              item_name: '${placeOne.placeName}', //상품명
+		              qty: 1, //수량
+		              unique: '${placeOne.pidx}', //해당 상품을 구분짓는 primary key
+		              price: 1000, //상품 단가
+		          }
+		      ],
+		      order_id: 'order_id_${placeOne.pidx}', //고유 주문번호로, 생성하신 값을 보내주셔야 합니다.
+		  }).error(function (data) {
+		      //결제 진행시 에러가 발생하면 수행됩니다.
+		      console.log(data);
+		  }).cancel(function (data) {
+		      //결제가 취소되면 수행됩니다.
+		      console.log(data);
+		  }).close(function (data) {
+		      // 결제창이 닫힐때 수행됩니다. (성공,실패,취소에 상관없이 모두 수행됨)
+		      console.log(data);
+		  }).done(function (data) {
+		      //결제가 정상적으로 완료되면 수행됩니다
+		      //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
+		      console.log(data);
+		  });
+	}
+		 
+	</script>
+	
 </head>
 
 <body>
@@ -99,7 +142,7 @@
 			</div> 
 			<div class="d-inline-flex">
 				<button type="button" class="btn btn-sm me-2">옵션 변경하기</button>
-				<button type="button" class="btn btn-sm">결제하기</button>
+				<button type="button" class="btn btn-sm" onclick="payment()">결제하기</button>
 			</div>
 		</div>
 	</main>
