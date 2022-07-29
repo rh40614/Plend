@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import three.people.service.MailSendService;
 import three.people.service.PlaceService;
-import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.SearchVO;

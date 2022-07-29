@@ -18,6 +18,9 @@
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/home.css" rel="stylesheet">
+	<!-- 07.29 김연희 : 플랫피커 -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 	<script type="text/javascript">
 		$(function(){
@@ -25,9 +28,8 @@
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
 		})
 	</script>
-
+	<!-- 찜 -->
 	<script>
-
 	function like (obj){
 		if($(obj).hasClass("fa-regular") == true){
 			$(obj).removeClass("fa-regular");
@@ -55,16 +57,56 @@
 	
 	</script>
 	
+	<!-- 달력 -->
+	<script>
+	$(function(){
+		$(".selector").flatpickr({
+			/* 시간은 안쓸거라 삭제 */
+			minDate: "today", //과거의 날짜 비활성화
+			maxDate: new Date().fp_incr(120), // 지금부터 120일 이내 
 
+		});
+	})
+	</script>
+	<!-- 날짜, 인원, 지역 검색  -->
+	<script>
+	var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+	var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+	  return new bootstrap.Popover(popoverTriggerEl)
+	})
+	
+	
+	</script>
+	<!-- 부트 스트랩 팝오버 수정 -->
+	<script>
+  	$( function () {
+    	$( '[data-toggle="popover"]' ).popover()
+  	} );
+	</script>
 </head>
 
 <body>
 <div id="wrap">
 	<header id="header" style ="background: white; "></header>
 	<main style="margin: 5% 19% 10% 19%; flex: 1;">
+	
+	<!-- 검색 버튼 그룹 -->
+	<div  style="margin-top: 25; float: right;" class="d-flex">
+		<input class="selector" placeholder="날짜" style="width:100px; text-align: center;">
+		
+		<button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom popover">
+  Popover on bottom
+</button>
+		<button type="button" class="btn">인원</button>
+		<button type="button" class="btn btn-outline-secondary me-2">지역</button>
+		<button type="button" class="btn btn-secondary me-2">검색</button>
+	</div>
+	
+	<!-- 카테고리 제목 -->
 	<div>
     	<span class="navbar-brand title1">|  ${category.category}</span>
   	</div>
+  	
 	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start ">
 		<c:if test="${list.size() == 0}">
 			<P class="title2 m-auto">등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. </P>
