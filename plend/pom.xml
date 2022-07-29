@@ -313,7 +313,20 @@
 			<artifactId>mybatis-typehandlers-jsr310</artifactId>
 			<version>1.0.2</version>
 		</dependency>
-
+		
+		<!--07.28 김연희 : 부트 페이 결제연동 -->
+		<dependency>
+    		<groupId>org.apache.httpcomponents</groupId>
+	    	<artifactId>httpclient</artifactId>
+	    	<version>LATEST</version>
+		</dependency>
+		<dependency>
+	    	<groupId>com.google.code.gson</groupId>
+	    	<artifactId>gson</artifactId>
+	    	<version>LATEST</version>
+		</dependency>
+		
+		
 	</dependencies>
     <build>
         <plugins>
