@@ -39,7 +39,7 @@ public class HomeController {
 	public String mains(SearchVO searchVO, Model model, HttpServletRequest request, HttpSession session) {
 		//장소리스트 //이벤트 리스트 
 		List<PlaceVO> placeList = placeService.selectPlace();
-		List<EventVO> eventList = placeService.eventPlace();
+		List<PlaceVO> eventList = placeService.eventPlace();
 		
 		//1. 장소 랜덤
 		List<PlaceVO> randomPlaceList = new ArrayList<PlaceVO>(); 
@@ -57,12 +57,9 @@ public class HomeController {
 				PlaceVO randomPlace = placeList.get(i);
 				
 				//장소 사진 가지고 오기
-				if(randomPlace.getPlaceImg() != null) {
-					ImageVO imageOne = placeService.selectImageOne(randomPlace);
-					String file = imageOne.getOriginFileName();
-					randomPlace.setPlaceImg(file);
-				}
-				
+				ImageVO imageOne = placeService.selectImageOne(randomPlace);
+				String file = imageOne.getOriginFileName();
+				randomPlace.setPlaceImg(file);
 				//넣기
 				randomPlaceList.add(randomPlace);
 				
@@ -72,7 +69,7 @@ public class HomeController {
 			
 			
 		//2. 이벤트 랜덤
-		List<EventVO> randomEventList = new ArrayList<EventVO>(); 
+		List<PlaceVO> randomEventList = new ArrayList<PlaceVO>(); 
 		
 		if(placeList.size()<3) {
 			randomEventList = eventList;
@@ -83,13 +80,11 @@ public class HomeController {
 			//인덱스 배열이 완성되면 장소 가지고 오기
 			for(int i:idx2) {
 				//장소 가지고 오기
-				EventVO randomPlace = eventList.get(i);
-
-				if(randomPlace.getEventImg() != null) {
-					ImageVO imageOne = placeService.selectImageOne(randomPlace);
-					String file = imageOne.getOriginFileName();
-					randomPlace.setEventImgString(file);
-				}
+				PlaceVO randomPlace = eventList.get(i);
+				//사진가지고오기
+				ImageVO imageOne = placeService.selectImageOne(randomPlace);
+				String file = imageOne.getOriginFileName();
+				randomPlace.setPlaceImg(file);
 				//넣기
 				randomEventList.add(randomPlace);
 			}

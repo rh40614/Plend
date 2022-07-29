@@ -84,7 +84,7 @@ public class PlaceServiceIml implements PlaceService{
 	}
 
 	@Override
-	public <T> ImageVO selectImageOne(T placeVO) {
+	public ImageVO selectImageOne(PlaceVO placeVO) {
 		return placeDAO.selectImageOne(placeVO);
 	}
 
@@ -109,13 +109,13 @@ public class PlaceServiceIml implements PlaceService{
 	}
 
 	@Override
-	public List<EventVO> eventPlace() {
+	public List<PlaceVO> eventPlace() {
 		return placeDAO.eventPlace();
 	}
 
 	
 	@Override
-	public <T> int[] RandomPlace(List<T> methodList) {
+	public int[] RandomPlace(List<PlaceVO> methodList) {
 		
 		
 		int listSize = methodList.size();
@@ -183,6 +183,7 @@ public class PlaceServiceIml implements PlaceService{
 					idxOver6[i] = randomNum;
 				}
 			}
+			
 			return idxOver6;
 			
 		}else if(listSize > 0) {
