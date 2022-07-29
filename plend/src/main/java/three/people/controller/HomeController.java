@@ -40,7 +40,6 @@ public class HomeController {
 		List<PlaceVO> randomPlaceList = new ArrayList<PlaceVO>(); 
 		//화면 초기에 장소가 3개이하이면 랜덤없이 그냥 장소가지고 오기
 		if(placeList.size()<6) {
-			
 			for(PlaceVO p: placeList ) {
 				//장소 사진 가지고 오기
 				ImageVO imageOne = placeService.selectImageOne(p);
@@ -74,7 +73,6 @@ public class HomeController {
 		List<PlaceVO> randomEventList = new ArrayList<PlaceVO>(); 
 		
 		if(placeList.size()<6) {
-		
 			for(PlaceVO e: eventList ) {
 				//장소 사진 가지고 오기
 				ImageVO imageOne = placeService.selectImageOne(e);
