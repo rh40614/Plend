@@ -188,4 +188,9 @@ public class MyPageController {
 			return 0;
 		}
 	}
+	
+	@RequestMapping(value = "/heartList.do", method = RequestMethod.GET)
+	public String heartList() {
+		return "myPage/heartList";
+	}
 }

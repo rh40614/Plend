@@ -46,9 +46,13 @@
 
 	<main>
 	<br>
+	<!-- 
+	07.28 김하진 role 별로 로그인을 하고 navi바에서 들어가시길 바랍니다. 
+	불편하시면 따로 링크를 빼셔도 됩니다. 
+	 -->
 	<a href="insertPlace.do">장소등록 </a>
-  <a href="developer/userList.do">유저리스트 </a>
 
+	
   	<div class="container" style="width: 1100px;">
     	<span class="navbar-brand">| 추천 장소</span>
     	<span style="float: right; margin-right: 20px;">더보기 <i class="fa-solid fa-play"></i></span>
