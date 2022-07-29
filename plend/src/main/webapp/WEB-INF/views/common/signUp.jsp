@@ -170,8 +170,6 @@
 			frm.submit();
 		}
 	}
-	//필수 약관 체크 여부 추가할것
-	
 	
 	function gender1() {
 		var val = $('#M1').val();
@@ -208,11 +206,11 @@
 		<div class="hr-sect">또는</div> 
 		회원 구분 <button id ="user" class = "chkcolor" onclick="role1();">개인</button><button id = "host" class = "chkcolor" onclick="role2();">사업자</button> <br><br>
 			<form action = "signUp.do" method ="post" name = "frm" id = "frm" style = "margin-bottom:0px;">
-			<input type = "text" name = "id" placeholder = "아이디" id = "chkbox" class = "textbox"> <button type = "button" id = "dbchk">중복확인</button><br><br>
-			<input type = "password" name = "password" placeholder = "비밀번호" class = "textbox"> <br><br>
-			<input type = "password" name = "passwordOk" placeholder = "비밀번호 확인" class = "textbox"> <br><br>
-			<input type = "text" name = "name" placeholder = "이름" class = "textbox"> <br><br>
-			<input type = "text" name = "nickName" placeholder = "닉네임" id = "chkbox" class = "textbox"> <button type = "button" id = "dbchk2">중복확인</button> <br><br>
+			<input type = "text" name = "id" placeholder = "아이디" id = "chkbox" class = "textbox" maxlength='20'> <button type = "button" id = "dbchk">중복확인</button><br><br>
+			<input type = "password" name = "password" placeholder = "비밀번호" class = "textbox" maxlength='20'> <br><br>
+			<input type = "password" name = "passwordOk" placeholder = "비밀번호 확인" class = "textbox" maxlength='20'> <br><br>
+			<input type = "text" name = "name" placeholder = "이름" class = "textbox" maxlength='8'> <br><br>
+			<input type = "text" name = "nickName" placeholder = "닉네임" id = "chkbox" class = "textbox" maxlength='15'> <button type = "button" id = "dbchk2">중복확인</button> <br><br>
 			<input type = "hidden" name = "gender" value = "" id ="hidden">
 			성별 <button type = "button" value = "M" id = "M1" class = "chkcolor" onclick = "gender1();">남</button><button type = "button" value = "F" id = "F1" class = "chkcolor" onclick = "gender2();">여</button> <br><br>
 			<input type = text name = "userPhone" placeholder = "핸드폰 번호 ex) 010-1234-1234" class = "textbox"> <br><br>
@@ -257,6 +255,10 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$("#M1").trigger('click');
 });
+
+$('input[name=id]').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z]/g,"") );});
+$('input[name=name]').on("keyup", function() {$(this).val( $(this).val().replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
+$('input[name=nickName]').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
 </script>
 	<footer id="footer"></footer>
 	<!-- JavaScript Bundle with Popper -->
