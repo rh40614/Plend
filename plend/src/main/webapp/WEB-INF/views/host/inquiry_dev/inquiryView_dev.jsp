@@ -102,7 +102,7 @@
 									<tr >
 										<td>${i.iqidx}</td>
 										<td>${i.category}</td>
-										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/inquiry_dev/inquiryView_dev.do?iqidx=${i.iqidx}">${i.title}</a></td>
+										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/inquiry_dev/inquiryView_dev.do?iqidx=${i.iqidx}&uidx=${i.uidx}">${i.title}</a></td>
 										<c:if test="${i.answerYN eq 'Y'}">
 											<td>답변 완료</td>
 										</c:if>
@@ -115,7 +115,6 @@
 							</c:if>
 						</tbody>
 					</table>
-					
 					<!-- 페이징 -->
 						<c:if test="${not empty list}">
 							<nav aria-label="Page navigation example" class="m-auto">
@@ -123,7 +122,7 @@
 							  	
 								<c:if test="${pagination.startPage > 5}">
 									<li class="page-item">
-							      		<a class="page-link" href=/inquiryView_dev.do?nowPage=4">&laquo;</a>
+							      		<a class="page-link" href=/inquiryView_dev.do?nowPage=4&iqidx=${inquiry.iqidx}">&laquo;</a>
 							    	</li>
 							    </c:if>
 							    
@@ -131,18 +130,18 @@
 									<c:choose>
 										<c:when test="${p == pagination.nowPage }">
 											 <li class="page-item text-secondary active">
-											 <a class="page-link text-secondary" href="inquiryView_dev.do?nowPage=${p}">${p}</a></li>
+											 <a class="page-link text-secondary" href="inquiryView_dev.do?nowPage=${p}&iqidx=${inquiry.iqidx}">${p}</a></li>
 										</c:when>
 										<c:when test="${p != pagination.nowPage }">
 											<li class="page-item text-secondary">
-											 <a class="page-link text-secondary" href="inquiryView_dev.do?nowPage=${p}">${p}</a></li>
+											 <a class="page-link text-secondary" href="inquiryView_dev.do?nowPage=${p}&iqidx=${inquiry.iqidx}">${p}</a></li>
 										</c:when>
 									</c:choose>
 								</c:forEach>
 							
 						    	<c:if test="${pagination.endPage != pagination.lastPage}">
 								    <li class="page-item">
-								      <a class="page-link" href="inquiryView_dev.do?nowPage=${pagination.endPage +1}">&raquo;</a>
+								      <a class="page-link" href="inquiryView_dev.do?nowPage=${pagination.endPage +1}&iqidx=${inquiry.iqidx}">&raquo;</a>
 								    </li>
 						    	</c:if>
 							  </ul>
@@ -201,9 +200,6 @@
 			<section>
 				<br>
 				<c:choose>
-					<c:when test="${inquiry.answerYN eq 'N' && login.role == 1 }">
-						<button type="button" onclick="replyOpen(this)" class="btnBig spaceL" value="${inquiry.iqidx}">답변작성</button>
-					</c:when>
 					<c:when test="${inquiry.answerYN eq 'N' && login.role == 2 }">
 						<p >아직 답변이 작성되지 않았습니다.<br> 문의사항에 대한 답변은 평균 1-7일내에 관리자의 확인 후 확인하실 수 있습니다.<br> 더 궁금하신 점이 있다면 1588-0000번으로 문의 부탁드립니다. 감사합니다.</p>
 					</c:when>

@@ -45,7 +45,7 @@ public class HomeController {
 		List<PlaceVO> randomPlaceList = new ArrayList<PlaceVO>(); 
 		
 		//화면 초기에 장소가 3개이하이면 랜덤없이 그냥 장소가지고 오기
-		if(placeList.size()<3) {
+		if(placeList.size()<6) {
 			randomPlaceList = placeList;
 			
 		}else {
@@ -71,7 +71,7 @@ public class HomeController {
 		//2. 이벤트 랜덤
 		List<PlaceVO> randomEventList = new ArrayList<PlaceVO>(); 
 		
-		if(placeList.size()<3) {
+		if(placeList.size()<6) {
 			randomEventList = eventList;
 			
 		}else {

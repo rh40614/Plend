@@ -162,6 +162,7 @@
 			,answerRate
 		FROM inquiry
 		WHERE depth = '0'
+		  AND uidx = #{uidx}
 		ORDER BY iqidx DESC
 		LIMIT #{start},#{cntPerPage}
 		
@@ -193,6 +194,7 @@
 		SELECT
 			COUNT(iqidx)
 		FROM inquiry
+	   WHERE uidx = #{uidx}
 	</select>
 	
 	
