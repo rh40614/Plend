@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import three.people.vo.BookVO;
+import three.people.vo.EventVO;
 import three.people.vo.HeartVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
@@ -22,15 +23,16 @@ public interface PlaceService {
 	public int insertBook(BookVO bookvo);
 	public List<ImageVO> selectImage(PlaceVO placevo);
 	public List<PlaceVO> categoryPlace(PlaceVO placeVO);
-	public ImageVO selectImageOne(PlaceVO placeVO);
+	public <T> ImageVO selectImageOne(T placeVO);
 	public List<PlaceVO> selectPlace();
 
 	public int likeAdd(HeartVO heartvo);
 	public int likeDelete(HeartVO heartvo);
 	public List<HeartVO> selectHeart(HeartVO heartvo);
 
-	public List<PlaceVO> eventPlace();
+	public List<EventVO> eventPlace();
 	//07.28 김연희: 리스트 내의 객체를 랜덤으로 9개 가지고 오는 메서드
-	public int[] RandomPlace(List<PlaceVO> methodList);
+	public <T> int[] RandomPlace(List<T> methodList);
+	
 
 }

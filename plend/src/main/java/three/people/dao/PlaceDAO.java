@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import three.people.vo.BookVO;
+import three.people.vo.EventVO;
 import three.people.vo.HeartVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
@@ -66,8 +67,8 @@ public class PlaceDAO {
 		List<PlaceVO> result = sqlSession.selectList(namespace+".categoryPlace", placeVO);
 		return result;
 	} 
-	//07.27 김연희 : 장소 썸네일용 이미지 하나 
-	public ImageVO selectImageOne(PlaceVO placeVO) {
+	//07.27 김연희 : 장소 썸네일용 이미지 하나 // 07.29 김연희 : 이벤트의 사진도 가져와야해서 파라미터 타입 제네릭으로 변경
+	public <T> ImageVO selectImageOne(T placeVO) {
 		return sqlSession.selectOne(namespace+".selectImageOne", placeVO);
 	}
 	//07.27 김연희 : 랜덤용 장소 리스트 
@@ -88,8 +89,8 @@ public class PlaceDAO {
 	}
 
 	//07.27 김연희 : 랜덤용 할인 리스트 
-		public List<PlaceVO> eventPlace() {
-			List<PlaceVO> result = sqlSession.selectList(namespace+".eventPlace");
+		public List<EventVO> eventPlace() {
+			List<EventVO> result = sqlSession.selectList(namespace+".eventPlace");
 			return result;
 		}
 	

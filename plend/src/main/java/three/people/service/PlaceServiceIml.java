@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import three.people.dao.PlaceDAO;
 import three.people.vo.BookVO;
+import three.people.vo.EventVO;
 import three.people.vo.HeartVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
@@ -83,7 +84,7 @@ public class PlaceServiceIml implements PlaceService{
 	}
 
 	@Override
-	public ImageVO selectImageOne(PlaceVO placeVO) {
+	public <T> ImageVO selectImageOne(T placeVO) {
 		return placeDAO.selectImageOne(placeVO);
 	}
 
@@ -108,13 +109,13 @@ public class PlaceServiceIml implements PlaceService{
 	}
 
 	@Override
-	public List<PlaceVO> eventPlace() {
+	public List<EventVO> eventPlace() {
 		return placeDAO.eventPlace();
 	}
 
 	
 	@Override
-	public int[] RandomPlace(List<PlaceVO> methodList) {
+	public <T> int[] RandomPlace(List<T> methodList) {
 		
 		
 		int listSize = methodList.size();
