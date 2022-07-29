@@ -39,12 +39,14 @@
     		<a href="event.do" class="btn btn-primary flex-fill rounded-0 text-white" style="background-color: #2F506D; border-color: #2F506D;">이벤트 관리</a>
     	</div>
     </div>
-    <!-- 07.13 김영민 주소 수정-->
+    <!-- 07.13 김영민: 주소 수정-->
+	<!-- 07.28 김영민: 업체 문의 내역 추가  -->
     <div class="container d-block m-0 p-0 mw-100">
     	<div id="classification_category2" class="d-none flex-row  mw-100 classification_category">
     		<a href="enterList.do" class="btn btn-primary flex-fill rounded-0 fw-bold text-white" style="background-color: #2F506D; border-color: #2F506D">업체리스트</a>
     		<a href="enterConfirm.do" class="btn btn-primary flex-fill rounded-0 text-white" style="background-color: #2F506D; border-color: #2F506D">업체장소 등록승인</a>
     		<a href="enterBlock.do" class="btn btn-primary flex-fill rounded-0 text-white" style="background-color: #2F506D; border-color: #2F506D">사용자 블랙리스트</a>
+    		<a href="inquiryList.do" class="btn btn-primary flex-fill rounded-0 text-white" style="background-color: #2F506D; border-color: #2F506D">업체 문의내역</a>
     	</div>
     </div>
     <!-- 오른쪽 캔버스  -->

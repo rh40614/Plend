@@ -27,7 +27,11 @@
 	
 	<!-- DAUM POSTCODE  -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<!-- 해쉬 태그  -->
 	
+	<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript">
 	//프론트 디자인
 		$(function(){
@@ -35,8 +39,14 @@
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
-	
-
+	<!-- 테스트 -->
+	<style>
+	.customSuggestionsList > div{
+  		max-height: 300px;
+  		border: 2px solid pink;
+ 		overflow: auto;
+	}
+	</style>
 </head>
 
 <body>
@@ -91,18 +101,18 @@
 								<input type="text" name="placeName" id="placeName" size="30" placeholder="어떤 공간을 가지고 계신가요?">
 							</label>
 							<br>
+							<label class="mt-3">
+								<span class="title3">최대 수용가능 인원 </span><br>
+								<input type="number" name="cntPeople" id="cntPeople" min="1">
+							</label>
+							<br>
 							
 							<!-- 해쉬태그 -->
 							<div class=" mt-3" >
 								<span class="title3">태그 </span><br>
-       					    	<div class="form-group">
-           							<input type="hidden"  name="tag" id="rdTag" />
-          				  		</div>
-             					<ul id="tag-list" style=""></ul>
-            					<div class="form-group">
-            						<input type="text" id="tag" size="7" placeholder="엔터로 해시태그를 등록해주세요." style="width: 300px;"/>
-           						</div>
-           					
+								<p>최대 10개의 태그를 작성할 수있습니다. 태그를 작성하고 공간을 더욱 자세하게 설명해보세요!</p>
+								<input name='tag' class='some_class_name' placeholder='write some tags' value='장소에,어울리는,태그를,달아보세요'>
+								
 							</div>
 							<br>
 							
@@ -119,10 +129,55 @@
 								<textarea cols="100" rows="5" name="placeDetail" id="placeDetail" placeholder="등록할 공간을 소개해주세요 :-) "></textarea>
 							</label>
 							<br>
-							<label class="mt-3">
+							
+							<div>
 								<span class="title3">시설정보</span><br>
-								<textarea cols="100" rows="5" name="guide" id="guide"  placeholder="사용자가 이용할 시설에 대한 안내를 적어 주세요."></textarea>
-							</label>
+								<table class="table" > 
+									<tr>
+										<td>1.</td>
+										<td><input type="text" id="guide1" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+									<tr>
+										<td>2.</td>
+										<td><input type="text" id="guide2" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+									<tr>
+										<td>3.</td>
+										<td><input type="text" id="guide3" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+									<tr>
+										<td>4.</td>
+										<td><input type="text" id="guide4" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+									<tr>
+										<td>5.</td>
+										<td><input type="text" id="guide5" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+									<tr>
+										<td>6.</td>
+										<td><input type="text" id="guide6" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+									<tr>
+										<td>7.</td>
+										<td><input type="text" id="guide7" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+									<tr>
+										<td>8.</td>
+										<td><input type="text" id="guide8" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+									<tr>
+										<td>9.</td>
+										<td><input type="text" id="guide9" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+									<tr>
+										<td>10.</td>
+										<td><input type="text" id="guide10" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+									</tr>
+								</table>
+								<input type="hidden" name="guide" id="guide">
+							</div>
+								<!-- <textarea cols="100" rows="5" name="guide" id="guide"  placeholder="사용자가 이용할 시설에 대한 안내를 적어 주세요."></textarea> -->
+							
 							<br>
 							<div class="mt-3" >
 								<span class="title3">플레이스 옵션(선택) </span><br>
@@ -230,7 +285,7 @@
 							</label>
 							<br>
 							<label class="mt-3">
-								<span class="title3">주소 : </span><br>
+								<span class="title3">주소 </span><br>
 								<input type="text" id="postcode" placeholder="우편번호">
 								<input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
 								<input type="text"  id="address" size="50" placeholder="주소" class="mt-2"><br>
@@ -262,40 +317,28 @@
 								<span>고객이용가능 시간이 30분일 경우 30분 단위로 예약을 여는 것을 추천합니다.</span><br>
 									<select name="intervalTime" id="intervalTime" class="mt-3" required>
 										<option value="" disabled selected >예약단위</option>
-										<option value="1" >30분</option>
-										<option value="2" >1시간</option>
-										<option value="3" >2시간</option>
+										<!-- <option value="1" >30분</option> -->
+										<option value="1" >1시간</option>
+										<option value="2" >2시간</option>
 										<option value="4" >4시간</option>
-										<option value="5" >6시간</option>
+										<option value="6" >6시간</option>
 									</select>
 							
 							</label>
 							<br>
+							
+							<!-- 최대 수용가능 인원-->
 							<label class="mt-3">
 								<span class="title3">가격 </span><br>
 								시간 당 <input type="text" name="price" id="price" placeholder="ex) 10000">원으로 으로 책정합니다.
 							</label>
 							<br>
-					
-						<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px; border-radius: 20px; float:right; " onclick="check()">장소 등록</button>
-				
+						<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px; border-radius: 20px; float:right; " onclick="check()" >장소 등록</button>
 				</form>
-				
-				
-				
-				
 				</div>
-				
-				
 			</div>
-			
-			
-
-
 		</section>
-		
 		<div>
-		
 		
 		</div>
 		

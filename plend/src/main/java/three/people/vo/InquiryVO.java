@@ -11,8 +11,16 @@ public class InquiryVO extends UserVO {
 	private String answerYN;
 	private int originiqidx;
 	private int depth;
-	private float answerRate;
+	private float answerRate; // 답변 만족도
+	private int uidx;
 	
+	
+	public int getUidx() {
+		return uidx;
+	}
+	public void setUidx(int uidx) {
+		this.uidx = uidx;
+	}
 	public int getIqidx() {
 		return iqidx;
 	}

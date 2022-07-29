@@ -47,48 +47,62 @@
 					<table class="table table-hover text-center clearfix" >
 						<thead class="table-dark">
 							<tr style="text-al">
-								<td>번호</td><td>카테고리</td><td>플레이스명</td><td>문의 제목</td><td>작성자</td><td>작성일</td>
+								<td>번호</td><td>카테고리</td><td>플레이스명</td><td>문의 제목</td><td>작성일</td>
 							</tr>
 						<thead>
 						<tbody>
-							<c:if test="${list_p.size() == 0}">	
+							<c:if test="${list.size() == 0}">	
 								<tr>
 									<td colspan="6">등록된 문의가 없습니다.</td>
 								</tr>
 							</c:if>
 							<!--  -->
-							<c:if test="${list_p.size() > 0}">
-								<c:forEach var="pv" items="${list_p}">
+							<c:if test="${list.size() > 0}">
+								<c:forEach var="q" items="${list}">
 									<tr >
-										<td>${pv.pidx}</td>
-										<td>${pv.placeName}</td>
-										<td>${pv.tag}</td>
-										<td style="text-align: left;">${pv.placeDetail}</td>
-										<td>${pv.approvalYN}</td>
-										<td><button class="btnDefault" type="button" onclick="location.href='/host/placeDetail.do'">수정</button></td>
+										<td>${q.qidx}</td>
+										<td>${q.category}</td>
+										<td>${q.placeName}</td>
+										<td style="text-align: left;">${q.title}</td>
+										<td>${q.date}</td>
 									</tr>
 								</c:forEach>
 							</c:if>
 						</tbody>
 					</table>
 					
-				<nav aria-label="Page navigation example" class="m-auto">
-				  <ul class="pagination justify-content-center " >
-				    <li class="page-item text-secondary">
-				      <a class="page-link text-secondary" href="#" aria-label="Previous">
-				        <span aria-hidden="true">&laquo;</span>
-				      </a>
-				    </li>
-				    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">1</a></li>
-				    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">2</a></li>
-				    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">3</a></li>
-				    <li class="page-item text-secondary">
-				      <a class="page-link text-secondary" href="#" aria-label="Next">
-				        <span aria-hidden="true">&raquo;</span>
-				      </a>
-				    </li>
-				  </ul>
-				</nav>
+				<!-- 페이징 -->
+				<c:if test="${not empty list}">
+					<nav aria-label="Page navigation example" class="m-auto">
+					  <ul class="pagination justify-content-center " >
+					  	
+						<c:if test="${pagination.startPage > 5}">
+							<li class="page-item">
+					      		<a class="page-link" href="inquiry_user.do?nowPage=4">&laquo;</a>
+					    	</li>
+					    </c:if>
+					    
+						<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="p">
+							<c:choose>
+								<c:when test="${p == pagination.nowPage }">
+									 <li class="page-item text-secondary active">
+									 <a class="page-link text-secondary" href="inquiry_user.do?nowPage=${p}">${p}</a></li>
+								</c:when>
+								<c:when test="${p != pagination.nowPage }">
+									<li class="page-item text-secondary">
+									 <a class="page-link text-secondary" href="inquiry_user.do?nowPage=${p}">${p}</a></li>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+					
+				    	<c:if test="${pagination.endPage != pagination.lastPage}">
+						    <li class="page-item">
+						      <a class="page-link" href="inquiry_user.do?nowPage=${pagination.endPage +1}">&raquo;</a>
+						    </li>
+				    	</c:if>
+					  </ul>
+					</nav>
+				</c:if> 
 			</div>
 				
 		</section>

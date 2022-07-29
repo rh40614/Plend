@@ -104,4 +104,14 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.deleteEvent(eventvo);
 	}
 
+	@Override
+	public int placeEventUpdate(EventVO eventvo) {
+		return adminDAO.placeEventUpdate(eventvo);
+	}
+
+	@Override
+	public int placeEventDone(EventVO eventvo) {
+		return adminDAO.placeEventDone(eventvo);
+	}
+
 }

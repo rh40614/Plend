@@ -62,7 +62,7 @@
 				      <td>${event.edate.replace("to","~")}</td>
 				      <td>
 				      	<button class="btn btn-primary btn-sm rounded-3" onclick="modifyEvent(${event.eidx})">수정</button>
-				      	<a class="btn btn-primary btn-sm rounded-3" href="deleteEvent.do?eidx=${event.eidx}" >삭제</a>
+				      	<a class="btn btn-primary btn-sm rounded-3" href="deleteEvent.do?eidx=${event.eidx}&category=${event.category}" >삭제</a>
 			      	  </td>
 				    </tr>
 			  	</c:forEach>
@@ -101,7 +101,7 @@
 			</div>
 		</div>
 		<div id="formPosition">
-			<form action="event.do" method="POST" enctype="multipart/form-data">
+			<form action="event.do" method="POST" enctype="multipart/form-data" onsubmit="return validation()">
 			<section class="row px-1">
 				<table class="col table text-center table-hover">
 				  <tbody>
@@ -139,23 +139,23 @@
 					</tr>
 					<tr> 
 						<td class="align-middle text-center">이벤트 기간</td>
-						<td><input name="edate" type="date" class="form-control edate"> </td>
+						<td><input name="edate" type="date" class="form-control edate" required> </td>
 					</tr>
 					<tr> 
 						<td class="align-middle text-center">제목</td>
-						<td><input name="title" type="text" class="form-control"> </td>
+						<td><input name="title" type="text" class="form-control" required> </td>
 					</tr>
 					<tr> 
 						<td class="align-middle text-center">상세내용</td>
-						<td><input name="semiTitle" type="text" class="form-control"> </td>
+						<td><input name="semiTitle" type="text" class="form-control" required> </td>
 					</tr>
 					<tr> 
 						<td class="align-middle text-center">이벤트 설명</td>
-						<td><input name="content" type="text" class="form-control"> </td>
+						<td><input name="content" type="text" class="form-control" required> </td>
 					</tr>
 					<tr> 
 						<td class="align-middle text-center">이용조건</td>
-						<td><input name="conditions" id="conditions" type="text" class="form-control"> </td>
+						<td><input name="conditions" id="conditions" type="text" class="form-control" required> </td>
 					</tr>
 					<tr> 
 						<td class="align-middle text-center">파일 등록 </td>
@@ -175,31 +175,9 @@
 		<div class="flex-grow-1"></div>
 		<footer id="footer" class="row"></footer>
 	</div>
-	<!-- timePicker 형식 -->
-	<script>
-		$(".edate").flatpickr({
-			mode: "range"
-		});
-	</script>
-	<!-- formReset -->
-	<script type="text/javascript">
-		$(".formReset").click(function(){
-			$(this).closest("form")[0].reset();
-		})
-	</script>
-	<!-- ajax이용 수정페이지 불러오기 -->
-	<script>
-		function modifyEvent(eidx){
-			$.ajax({
-				url:"modifyEvent.do?eidx=" + eidx,
-				success: function(result){
-					$("#formPosition").html(result);
-				}
-			});
-		}
-	</script>
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<script src="<%=request.getContextPath()%>/resources/js/event.js"></script>
 </body>
 </html>
 

@@ -26,4 +26,6 @@ public interface AdminService {
 	int updateEvent(EventVO eventvo);
 	int updateImg(ImageVO imagevo);
 	int deleteEvent(EventVO eventvo);
+	int placeEventUpdate(EventVO eventvo);
+	int placeEventDone(EventVO eventvo);
 }

@@ -102,3 +102,8 @@ Servers/Tomcat v8.5 Server at localhost-config/web.xml
 plend/target/classes/three/people/service/CommonService.class
 plend/target/classes/three/people/service/CommonServiceImpl.class
 plend/target/classes/three/people/vo/SearchVO.class
+*.class
+*.class
+*.class
+*.class
+*.class
