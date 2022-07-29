@@ -52,12 +52,12 @@
 			,usetime
 			,cntpeople
 			,a.approvalyn
-			,b.title
+			,b.placename
 			,b.price
 			,a.option1
 	     FROM book a
    INNER JOIN place b 
-   		   ON a.uidx = b.uidx
+   		   ON a.pidx = b.pidx
    		WHERE a.uidx = #{uidx}
    		  AND a.approvalYN = 'N'
    		  AND a.delyn = 'N'
@@ -71,12 +71,12 @@
 			,usetime
 			,cntpeople
 			,a.approvalyn
-			,b.title
+			,b.placename
 			,b.price
 			,a.option1
 	     FROM book a
    INNER JOIN place b 
-   		   ON a.uidx = b.uidx
+   		   ON a.pidx = b.pidx
    		WHERE a.uidx = #{uidx}
    		  AND a.approvalYN = 'Y'
    		  AND a.delyn = 'N'
@@ -91,7 +91,7 @@
 			,usetime
 			,cntpeople
 			,a.approvalyn
-			,b.title
+			,b.placename
 			,b.price
 			,a.option1
 	     FROM book a

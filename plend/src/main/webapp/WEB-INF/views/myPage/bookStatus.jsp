@@ -62,7 +62,7 @@
 			<table>
 				<tr>
 					<th>장소 이름 : </th>
-					<td><a href = "bookDetail.do?bidx=${vo.bidx }"><strong>${vo.title }</strong></a></td>
+					<td><a href = "bookDetail.do?bidx=${vo.bidx }"><strong>${vo.placeName }</strong></a></td>
 				</tr>
 				<tr>
 					<th>이용 날짜 :</th>
@@ -94,7 +94,7 @@
 			<table>
 				<tr>
 					<th>장소 이름 : </th>
-					<td>${vo.title }</td>
+					<td>${vo.placeName }</td>
 				</tr>
 				<tr>
 					<th>이용 날짜 :</th>

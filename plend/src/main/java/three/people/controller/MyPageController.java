@@ -96,7 +96,6 @@ public class MyPageController {
 		int uidx = login.getUidx();
 		int start = sv.getStart();
 		int end = sv.getCntPerPage();
-		
 		param.put("uidx", uidx);
 		param.put("start", start);
 		param.put("end", end);
