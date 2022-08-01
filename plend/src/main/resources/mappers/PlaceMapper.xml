@@ -121,23 +121,6 @@
 		 WHERE qidx = #{qidx}
 	</update>
 	
-	<!-- 07.25 김영민: 예약정보 추가하기 -->
-	<insert id="insertBook" parameterType="BookVO">
-		INSERT INTO book(
-			pidx,
-			uidx,
-			usetime,
-			cntpeople,
-			option1
-		)VALUES(
-			#{pidx},
-			#{uidx},
-			#{useTime},
-			#{cntPeople},
-			#{option1}
-		)
-	</insert>
-	
 	<!-- 07.26 김영민: 이미지 데이터 가져오기 -->
 	<select id="selectImage" parameterType="PlaceVO" resultType="ImageVO">
 		SELECT imidex,

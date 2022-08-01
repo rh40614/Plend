@@ -27,9 +27,37 @@
 </head>
 
 <body>
+<div class="reviewModal">
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        <form>
+	          <div class="mb-3">
+	            <label for="recipient-name" class="col-form-label">Recipient:</label>
+	            <input type="text" class="form-control" id="recipient-name">
+	          </div>
+	          <div class="mb-3">
+	            <label for="message-text" class="col-form-label">Message:</label>
+	            <textarea class="form-control" id="message-text"></textarea>
+	          </div>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary">Send message</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>
 <div id="wrap">	
 	<header id="header" style = "height:0;"></header>
-   <br>
+   	<br>
    	<div style="display:flex; ">
    	<nav style="display: flex;flex-direction: column;width:11%;margin-top:72px;background: #CFCFCF">
    		<div id = "MyPageBox">
@@ -53,7 +81,6 @@
    	
    	
    <div id = "bookBox">
-   	
 		<h5><strong>| 예약 현황</strong></h5>
 		<br>
 		<c:forEach var = "vo" items = "${list}">
@@ -152,7 +179,11 @@
 </div>
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+<!-- modal창 열기 -->
+<script type="text/javascript">
+	const myModal = new bootstrap.Modal('#exampleModal', {});
+	myModal.show();
+</script>
 </body>
 </html>
 

@@ -69,11 +69,6 @@ public class PlaceServiceIml implements PlaceService{
 	}
 
 	@Override
-	public int insertBook(BookVO bookvo) {
-		return placeDAO.insertBook(bookvo);
-	}
-
-	@Override
 	public List<ImageVO> selectImage(PlaceVO placevo) {
 		return placeDAO.selectImage(placevo);
 	}

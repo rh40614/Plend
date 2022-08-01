@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import three.people.service.MailSendService;
 import three.people.service.PlaceService;
+import three.people.service.Scheduler;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
@@ -29,9 +30,13 @@ public class HomeController {
 	
 	@Autowired
 	private MailSendService mailSend;
-
+	@Autowired
+	Scheduler scheduler;
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String mains(SearchVO searchVO, Model model, HttpServletRequest request, HttpSession session) {
+		scheduler.autoUpdate();
+		
 		//장소리스트 //이벤트 리스트 
 		List<PlaceVO> placeList = placeService.selectPlace();
 		List<PlaceVO> eventList = placeService.eventPlace();

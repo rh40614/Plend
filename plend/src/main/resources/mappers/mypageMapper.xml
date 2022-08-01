@@ -52,6 +52,7 @@
 			,usetime
 			,cntpeople
 			,a.approvalyn
+			,a.successbook
 			,b.placename
 			,b.price
 			,a.option1
@@ -71,6 +72,7 @@
 			,usetime
 			,cntpeople
 			,a.approvalyn
+			,a.successbook
 			,b.placename
 			,b.price
 			,a.option1
@@ -91,6 +93,7 @@
 			,usetime
 			,cntpeople
 			,a.approvalyn
+			,a.successbook
 			,b.placename
 			,b.price
 			,a.option1

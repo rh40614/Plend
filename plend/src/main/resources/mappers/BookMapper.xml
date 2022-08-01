@@ -7,8 +7,37 @@
 <mapper namespace="three.people.mapper.bookMapper">
 	
 
+	<!-- 07.25 김영민: 예약정보 추가하기 -->
+	<insert id="insertBook" parameterType="BookVO">
+		INSERT INTO book(
+			pidx,
+			uidx,
+			usetime,
+			cntpeople,
+			option1
+		)VALUES(
+			#{pidx},
+			#{uidx},
+			#{useTime},
+			#{cntPeople},
+			#{option1}
+		)
+	</insert>
 	
-	<!-- <insert id="insertBook" parameterType="BookVO"></insert>
+	<!-- 08.01 김영민: 이용시간 지난 예약들 이용완료처리하기 -->
+	<select id="usetimeEnd" resultType="BookVO">
+		<![CDATA[
+		SELECT *
+		  FROM book
+		 WHERE SUBSTRING(usetime,20,16) < now() AND approvalyn = 'Y'
+		 ]]>
+	</select>
+	<update id="successBook" parameterType="BookVO">
+		UPDATE book
+		   SET successbook = 'Y'
+		 WHERE bidx = #{bidx}
+	</update>	
+	<!--
 	<select id="bookOne" resultType="BookVO" parameterType="BookVO"></select>
 	<update id="bookModify" parameterType="BookVO"></update>
 	<update id="bookCancel" parameterType="BookVO"></update> -->
