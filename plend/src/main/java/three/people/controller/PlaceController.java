@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import three.people.service.PlaceService;
 import three.people.vo.BookVO;
+import three.people.vo.BootPayVO;
 import three.people.vo.ImageVO;
 import three.people.vo.HeartVO;
 import three.people.vo.PlaceVO;
@@ -153,12 +154,28 @@ public final class PlaceController {
 	
 	
 
+
+	@RequestMapping(value="/filter_search.do", method = RequestMethod.GET)
+	public String filter_search(PlaceVO placeVO, Model model) {
+		
+		
+		
+		return "place/ajax/placeList";
+	}
 	
 	
-	
-	
-	
-	
+	//예약완료
+	@RequestMapping(value="/bookDetail.do", method = RequestMethod.POST, produces="application/x-www-form-urlencoded; charset=utf-8"  )
+	public String bookDetail(BootPayVO bootpayVO , BookVO bookvo, Model model) {
+		System.out.println("boot: "+bootpayVO.getPrice());
+		
+		//결제 정보 VO로로 받아오기(잭슨 덕분에)
+		model.addAttribute("boot",bootpayVO);
+		model.addAttribute("bookvo", bookvo);
+		model.addAttribute("placeOne", placeService.placeOne(bookvo));
+		return "place/ajax/bookDetail";
+
+	}
 	
 	
 	
