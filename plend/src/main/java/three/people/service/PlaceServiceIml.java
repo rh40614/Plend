@@ -80,6 +80,17 @@ public class PlaceServiceIml implements PlaceService{
 
 	@Override
 	public List<PlaceVO> categoryPlace(PlaceVO placeVO) {
+		//장소 이름 자르기
+		/*
+		 * for() {
+		 * 
+		 * }
+		 */
+		
+		
+		
+		
+		
 		return placeDAO.categoryPlace(placeVO);
 	}
 
