@@ -1,4 +1,4 @@
-#naviBar {
+	#naviBar {
 		list-style-type: none;
 		overflow: auto;
 		}
@@ -69,3 +69,4 @@
 		width:600px;
 		
 	}
+	

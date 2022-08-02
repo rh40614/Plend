@@ -10,47 +10,102 @@
 	<title>plend</title>
 	<!-- 07.08 김연희: 폰트어썸 - 카드 별, 하트 아이콘   -->
 	<script src="https://kit.fontawesome.com/f5807db9d4.js" crossorigin="anonymous"></script>
-
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
-	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
-	<link href="<%=request.getContextPath()%>/resources/css/home.css" rel="stylesheet">
-	<link href="<%=request.getContextPath()%>/resources/css/bookStatus.css" rel="stylesheet">
+	<!-- include libraries(jQuery, bootstrap) -->
+	<script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
+	<script type="text/javascript" src="cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	
+	<!-- summernote -->
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>	
+
+	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/resources/css/bookStatus.css" rel="stylesheet">
 	<script type="text/javascript">
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
 		})
 	</script>
-	
+	<!-- modal style -->
+	<style type="text/css">
+		.rating {
+		   display: inline-flex;
+		    margin-top: -10px;
+		    flex-direction: row-reverse;
+		}
+		
+		.rating>input {
+		    display: none
+		}
+		
+		.rating>label {
+		    position: relative;
+		    width: 28px;
+		    font-size: 35px;
+		    color: #ffc107;
+		    cursor: pointer;
+		}
+		
+		.rating>label::before {
+		    content: "\2605";
+		    position: absolute;
+		    opacity: 0
+		}
+		
+		.rating>label:hover:before,
+		.rating>label:hover~label:before {
+		    opacity: 1 !important
+		}
+		
+		.rating>input:checked~label:before {
+		    opacity: 1
+		}
+		
+		.rating:hover>input:checked~label:before {
+		    opacity: 0.4
+		}
+		
+		.btn-primary {
+			background-color: #2F506D !important;
+		 	border-color: #2F506D !important;
+		 	color: white !important;
+		}
+		.btn-light.active {
+			background-color: #6c757d!important;
+		}
+	</style>
 </head>
 
 <body>
 <div class="reviewModal">
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reivewModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <form>
+	      <div class="modal-header justify-content-center">
+	        <h5 class="modal-title" id="reivewModalLabel">이용후기</h5>
+	      </div>
+	      <div class="mb-3 text-center">
+          	  <div class="rating"> 
+	          	  <input type="radio" name="rate" value="5" id="5"><label for="5">☆</label> 
+	          	  <input type="radio" name="rate" value="4" id="4"><label for="4">☆</label> 
+	          	  <input type="radio" name="rate" value="3" id="3"><label for="3">☆</label> 
+	          	  <input type="radio" name="rate" value="2" id="2"><label for="2">☆</label> 
+	          	  <input type="radio" name="rate" value="1" id="1"><label for="1">☆</label> 
+          	  </div>
 	      </div>
 	      <div class="modal-body">
-	        <form>
 	          <div class="mb-3">
-	            <label for="recipient-name" class="col-form-label">Recipient:</label>
-	            <input type="text" class="form-control" id="recipient-name">
+	            <input name="title" type="text" class="form-control" id="recipient-name" placeholder="제목">
 	          </div>
-	          <div class="mb-3">
-	            <label for="message-text" class="col-form-label">Message:</label>
-	            <textarea class="form-control" id="message-text"></textarea>
-	          </div>
-	        </form>
+	            <textarea name="content" id="summernote" required></textarea>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Send message</button>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+	        <button class="btn btn-primary">등록</button>
 	      </div>
+        </form>
 	    </div>
 	  </div>
 	</div>
@@ -181,8 +236,30 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <!-- modal창 열기 -->
 <script type="text/javascript">
-	const myModal = new bootstrap.Modal('#exampleModal', {});
+	const myModal = new bootstrap.Modal('#reviewModal', {});
 	myModal.show();
+</script>
+<!-- 썸머노트 -->
+<script type="text/javascript">
+$().ready(function(){
+	$('#summernote').summernote({
+	    lang: 'ko-KR',
+	    placeholder: '내용',
+	    toolbar: [
+          ['font', ['bold', 'underline']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol']],
+          ['insert', ['picture']],
+	    ],
+	    focus: true
+	});
+	$(".form-group.note-group-image-url").addClass("d-none");
+	$(".note-form-label").addClass("d-none");
+	$(".close").addClass("d-none");
+})
+const list2 = '${list2[0].bidx}';
+const found = list2;
+		console.log(found);
 </script>
 </body>
 </html>
