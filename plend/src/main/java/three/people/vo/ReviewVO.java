@@ -1,6 +1,6 @@
 package three.people.vo;
 
-public class ReviewVO extends PlaceVO {
+public class ReviewVO extends BookVO {
 	
 	private int rvidx;
 	private String title;

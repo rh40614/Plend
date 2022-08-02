@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import three.people.service.MyPageService;
 import three.people.vo.BookVO;
+import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
@@ -191,5 +192,11 @@ public class MyPageController {
 	@RequestMapping(value = "/heartList.do", method = RequestMethod.GET)
 	public String heartList() {
 		return "myPage/heartList";
+	}
+	// 08.02 김영민: 리뷰등록
+	@RequestMapping(value="/addReview.do", method=RequestMethod.POST)
+	public String addReview(ReviewVO reviewVO) {
+		mypageService.insertReview(reviewVO);
+		return "myPage/bookStatus";
 	}
 }

@@ -51,6 +51,7 @@
 			,booktime
 			,usetime
 			,cntpeople
+			,a.reviewYN
 			,a.approvalyn
 			,a.successbook
 			,b.placename
@@ -71,6 +72,7 @@
 			,booktime
 			,usetime
 			,cntpeople
+			,a.reviewYN
 			,a.approvalyn
 			,a.successbook
 			,b.placename
@@ -92,6 +94,7 @@
 			,booktime
 			,usetime
 			,cntpeople
+			,a.reviewYN
 			,a.approvalyn
 			,a.successbook
 			,b.placename
@@ -114,7 +117,26 @@
 		   SET delyn = 'Y'
 		 WHERE bidx = #{bidx} 
 	</update>
-	<!-- <insert id="insertReview" parameterType="ReviewVO"></insert> -->
+	
+	<!-- 08.02 김영민: 리뷰등록  -->
+	<insert id="insertReview" parameterType="ReviewVO">
+		INSERT INTO review(
+			pidx,
+			title,
+			content,
+			rate
+		)VALUES(
+			#{pidx},
+			#{title},
+			#{content},
+			#{rate}
+		)
+	</insert>
+	<update id="updateReivew" parameterType="ReviewVO">
+		UPDATE book
+		   SET reviewyn = 'Y'
+		 WHERE bidx = #{bidx}
+	</update>
 	<select id="likeList" resultType="PlaceVO" parameterType="UserVO"></select>
 	<!-- <select id="myReview" resultType="ReviewVO" parameterType="UserVO"></select> -->
 

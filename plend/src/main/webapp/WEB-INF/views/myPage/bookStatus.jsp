@@ -82,7 +82,7 @@
 	<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reivewModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
-        <form>
+        <form id="addReview">
 	      <div class="modal-header justify-content-center">
 	        <h5 class="modal-title" id="reivewModalLabel">이용후기</h5>
 	      </div>
@@ -98,12 +98,14 @@
 	      <div class="modal-body">
 	          <div class="mb-3">
 	            <input name="title" type="text" class="form-control" id="recipient-name" placeholder="제목">
+	            <input name="pidx" type="hidden" class="pidx">
+	            <input name="bidx" type="hidden" class="bidx">
 	          </div>
 	            <textarea name="content" id="summernote" required></textarea>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-	        <button class="btn btn-primary">등록</button>
+	        <button type="button" class="btn btn-primary" onclick="addReview()">등록</button>
 	      </div>
         </form>
 	    </div>
@@ -236,30 +238,61 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <!-- modal창 열기 -->
 <script type="text/javascript">
-	const myModal = new bootstrap.Modal('#reviewModal', {});
-	myModal.show();
+	
 </script>
-<!-- 썸머노트 -->
+<!-- 썸머노트 이용시간이 끝났으면서 리뷰를 쓰지않은 가장최근 장소에 대해 리뷰 모달창을 띄운다. -->
+<c:set var="loop" value="true"/>
+<c:forEach var="findReviewN" items="${list2}">
+	<c:if test="${loop}">
+		<c:if test="${findReviewN.reviewYN eq 'N' && findReviewN.successBook eq 'Y'}">
+			<script type="text/javascript">
+			const myModal = new bootstrap.Modal('#reviewModal', {});
+			myModal.show();
+			$("#reivewModalLabel").html("${findReviewN.placeName} 이용후기");
+			$(".pidx").val('${findReviewN.pidx}');
+			$(".bidx").val('${findReviewN.bidx}');
+			
+			$().ready(function(){
+				$('#summernote').summernote({
+				    lang: 'ko-KR',
+				    placeholder: '내용',
+				    toolbar: [
+			          ['font', ['bold', 'underline']],
+			          ['color', ['color']],
+			          ['para', ['ul', 'ol']],
+			          ['insert', ['picture']],
+				    ],
+				    focus: true,
+				    minHeight: 160,
+				});
+				$(".form-group.note-group-image-url").addClass("d-none");
+				$(".note-form-label").addClass("d-none");
+				$(".close").addClass("d-none");
+			});
+			</script>
+			<c:set var="loop" value="false"/>
+		</c:if>
+	</c:if>
+</c:forEach>
+<!-- 리뷰등록 ajax -->
 <script type="text/javascript">
-$().ready(function(){
-	$('#summernote').summernote({
-	    lang: 'ko-KR',
-	    placeholder: '내용',
-	    toolbar: [
-          ['font', ['bold', 'underline']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol']],
-          ['insert', ['picture']],
-	    ],
-	    focus: true
-	});
-	$(".form-group.note-group-image-url").addClass("d-none");
-	$(".note-form-label").addClass("d-none");
-	$(".close").addClass("d-none");
-})
-const list2 = '${list2[0].bidx}';
-const found = list2;
-		console.log(found);
+	function addReview(){
+		
+		var formData = $("#addReview").serialize();
+		
+		$.ajax({
+			url: "addReview.do",
+			method: "POST",
+			data: formData,
+			success: function(data){
+				console.log("success");
+				myModal.hide();
+			},
+			error: function(){
+				console.log("error");
+			}
+		});
+	}
 </script>
 </body>
 </html>
