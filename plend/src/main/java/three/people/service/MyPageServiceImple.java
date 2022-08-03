@@ -88,5 +88,15 @@ public class MyPageServiceImple implements MyPageService{
 		return mypageDao.updateReivew(reviewVO);
 	}
 
+	@Override
+	public List<ReviewVO> myReview(UserVO uservo) {
+		return mypageDao.myReview(uservo);
+	}
+
+	@Override
+	public int countMyReview(UserVO userVO) {
+		return mypageDao.countMyReview(userVO);
+	}
+
 	
 }

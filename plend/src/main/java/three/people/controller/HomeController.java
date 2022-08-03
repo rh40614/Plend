@@ -135,7 +135,10 @@ public class HomeController {
 		return "host/insertPlace";
 	}
 
-
+	@RequestMapping(value="test.do")
+	public String test() {
+		return "test";
+	}
 	
 	
 	

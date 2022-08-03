@@ -21,4 +21,6 @@ public interface MyPageService {
 	public int checkUser(int uidx);
 	public UserVO inquirePwd(int uidx);
 	public int insertReview(ReviewVO reviewVO);
+	public List<ReviewVO> myReview(UserVO uservo);
+	public int countMyReview(UserVO userVO);
 }

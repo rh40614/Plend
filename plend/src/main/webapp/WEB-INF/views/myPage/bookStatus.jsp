@@ -78,6 +78,7 @@
 </head>
 
 <body>
+<!-- modal -->
 <div class="reviewModal">
 	<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reivewModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
@@ -129,7 +130,7 @@
  		 <li><a href="#" id = "select">쿠폰 등록</a></li>
   		 <li><a href="bookStatus.do?uidx=${login.uidx}" id = "select"><strong>예약 현황</strong></a></li>
  		 <li><a href="heartList.do?uidx=${login.uidx}" id = "select">찜 목록</a></li>
- 		 <li><a href="#" id = "select">마이 리뷰</a></li>
+ 		 <li><a href="myReviewList.do?uidx=${login.uidx}" id = "select">마이 리뷰</a></li>
  		 <li><a href="withdraw.do?uidx=${login.uidx}" id = "select">회원 탈퇴</a></li>
  		 <br>
 	    </ul>
@@ -236,10 +237,6 @@
 </div>
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<!-- modal창 열기 -->
-<script type="text/javascript">
-	
-</script>
 <!-- 썸머노트 이용시간이 끝났으면서 리뷰를 쓰지않은 가장최근 장소에 대해 리뷰 모달창을 띄운다. -->
 <c:set var="loop" value="true"/>
 <c:forEach var="findReviewN" items="${list2}">

@@ -199,4 +199,52 @@ public class MyPageController {
 		mypageService.insertReview(reviewVO);
 		return "myPage/bookStatus";
 	}
+	// 08.03 김영민: 내가 작성한 리뷰 리스트
+	@RequestMapping(value="/myReviewList.do", method=RequestMethod.GET)
+	public String myReviewList(UserVO uservo, SearchVO searchVO ,Model model) {
+		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
+			searchVO.setNowPage(1);
+			searchVO.setCntPerPage(10);
+		}else if(searchVO.getCntPerPage() == 0) {
+			searchVO.setCntPerPage(10);
+		}else if(searchVO.getNowPage() == 0) {
+			searchVO.setNowPage(1);
+		}
+		
+		int total = mypageService.countMyReview(uservo);
+		System.out.println("total: "+total);
+		searchVO.calPaging(total);
+		
+		model.addAttribute("pagenation",searchVO);
+		model.addAttribute("myReviewList", mypageService.myReview(uservo));
+		
+		return "myPage/myReviewList";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

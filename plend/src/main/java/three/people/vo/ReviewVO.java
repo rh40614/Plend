@@ -6,8 +6,15 @@ public class ReviewVO extends BookVO {
 	private String title;
 	private String content;
 	private int rate;
+	private String date;
 	private String delYN;
 	
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 	public int getRvidx() {
 		return rvidx;
 	}

@@ -124,12 +124,14 @@
 			pidx,
 			title,
 			content,
-			rate
+			rate,
+			uidx
 		)VALUES(
 			#{pidx},
 			#{title},
 			#{content},
-			#{rate}
+			#{rate},
+			#{uidx}
 		)
 	</insert>
 	<update id="updateReivew" parameterType="ReviewVO">
@@ -137,8 +139,26 @@
 		   SET reviewyn = 'Y'
 		 WHERE bidx = #{bidx}
 	</update>
+	<!-- 08.03 김영민: 내 리뷰 불러오기 -->
+	<select id="myReview" resultType="ReviewVO" parameterType="UserVO">
+		SELECT rvidx
+			  ,pidx
+			  ,title
+			  ,content
+			  ,rate
+			  ,date
+			  ,delyn
+			  ,uidx
+		  FROM review
+		 WHERE uidx = #{uidx} 
+	</select>
+	<select id="countMyReview" resultType="int" parameterType="UserVO">
+		SELECT COUNT(*)
+		  FROM review
+		 WHERE uidx = #{uidx}
+	</select>
+
 	<select id="likeList" resultType="PlaceVO" parameterType="UserVO"></select>
-	<!-- <select id="myReview" resultType="ReviewVO" parameterType="UserVO"></select> -->
 
 
 </mapper>
