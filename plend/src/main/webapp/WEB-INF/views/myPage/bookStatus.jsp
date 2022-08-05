@@ -101,8 +101,10 @@
 	            <input name="title" type="text" class="form-control" id="recipient-name" placeholder="제목">
 	            <input name="pidx" type="hidden" class="pidx">
 	            <input name="bidx" type="hidden" class="bidx">
-	          </div>
+	            <input name="uidx" type="hidden" value="${login.uidx}"> 
 	            <textarea name="content" id="summernote" required></textarea>
+	          	<input type="file" name="reviewImgs" id="reviewImgs" multiple="multiple">
+	          </div>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
@@ -274,13 +276,16 @@
 <!-- 리뷰등록 ajax -->
 <script type="text/javascript">
 	function addReview(){
-		
-		var formData = $("#addReview").serialize();
-		
+		var formData = new FormData($("#addReview")[0]);
+		console.log(formData);
 		$.ajax({
 			url: "addReview.do",
 			method: "POST",
 			data: formData,
+			enctype: 'multipart/form-data',
+			processData: false,
+		    contentType: false,
+		    cache: false,
 			success: function(data){
 				console.log("success");
 				myModal.hide();

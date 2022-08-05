@@ -5,10 +5,84 @@
  
 <mapper namespace="three.people.mapper.reviewMapper">
 	
+	<!-- 08.02 김영민: 리뷰등록  -->
+	<insert id="insertReview" parameterType="ReviewVO">
+		INSERT INTO review(
+			pidx,
+			title,
+			content,
+			rate,
+			uidx
+		)VALUES(
+			#{pidx},
+			#{title},
+			#{content},
+			#{rate},
+			#{uidx}
+		)
+		<selectKey keyProperty="rvidx" order="AFTER" resultType="int">
+			SELECT MAX(rvidx)
+			  FROM review
+		</selectKey>
+	</insert>
+	<update id="updateReivew" parameterType="ReviewVO">
+		UPDATE book
+		   SET reviewyn = 'Y'
+		 WHERE bidx = #{bidx}
+	</update>
+	<!-- 08.03 김영민: 내 리뷰 리스트 불러오기 -->
+	<select id="myReview" resultType="ReviewVO" parameterType="HashMap">
+		SELECT rvidx
+			  ,pidx
+			  ,title
+			  ,content
+			  ,rate
+			  ,date
+			  ,delyn
+			  ,uidx
+		  FROM review
+		 WHERE uidx = #{UserVO.uidx}
+	  ORDER BY rvidx DESC
+		 LIMIT #{SearchVO.start}, #{SearchVO.cntPerPage} 
+	</select>
+	<select id="countMyReview" resultType="int" parameterType="UserVO">
+		SELECT COUNT(*)
+		  FROM review
+		 WHERE uidx = #{uidx}
+	</select>
+	
+	<!-- 08.05 김영민: 리뷰이미지 등록 -->
+	<insert id="insertReviewImg" parameterType="ImageVO">
+		INSERT INTO image(
+			path,
+			originFileName,
+			realFileName,
+			rvidx
+		)VALUES(
+			#{path},
+			#{originFileName},
+			#{realFileName},
+			#{rvidx}
+		)
+	</insert>
+	
+	<!-- 08.05 김영민: 리뷰하나 불러오기 -->
+	<select id="reviewOne" resultType="ReviewVO" parameterType="ReviewVO">
+		SELECT r.rvidx,
+			   u.uidx,
+			   r.title,
+			   r.content,
+			   r.rate,
+			   r.date,
+			   r.delYN
+		  FROM review r
+		  JOIN user_plend u
+		    ON r.uidx = u.uidx
+		 WHERE rvidx = #{rvidx}
+	</select> 
 	<!-- <select id="reviewALl" parameterType="ReviewVO"></select>
 	<update id="reviewModify" parameterType="ReviewVO"></update>
 	<insert id="insertReview" parameterType="ReviewVO"></insert>
-	<select id="reviewOne" resultType="ReviewVO" parameterType="ReviewVO"></select> 
 	<update id="reviewDelete" parameterType="ReviewVO"></update>
 	<insert id="insertReviewReport" parameterType="ReviewVO"></insert> -->
 	

@@ -82,21 +82,7 @@ public class MyPageServiceImple implements MyPageService{
 		return mypageDao.inquirePwd(uidx);
 	}
 
-	@Override
-	public int insertReview(ReviewVO reviewVO) {
-		mypageDao.insertReview(reviewVO);
-		return mypageDao.updateReivew(reviewVO);
-	}
-
-	@Override
-	public List<ReviewVO> myReview(UserVO uservo) {
-		return mypageDao.myReview(uservo);
-	}
-
-	@Override
-	public int countMyReview(UserVO userVO) {
-		return mypageDao.countMyReview(userVO);
-	}
+	
 
 	
 }
