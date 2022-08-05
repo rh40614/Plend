@@ -150,15 +150,20 @@ public final class PlaceController {
 		
 		return"place/placeList";
 	}
-	
-	
+	//예약완료
+	@ResponseBody
+	@RequestMapping(value="/bookDetail.do", method = RequestMethod.POST)
+	public BootPayVO bookDetail(BootPayVO bootpayVO , Model model) {
+		System.out.println("boot: "+bootpayVO.getPrice());
+		System.out.println("when: "+ bootpayVO.getRequested_at());
+//		
+//		//결제 정보 VO로로 받아오기(잭슨이 있으므로 스프링에서 알아서 json데이터를vo 짝맞추어가지고옴)
+		model.addAttribute("boot",bootpayVO);
+//		model.addAttribute("bookvo", bookvo);
+//		model.addAttribute("placeOne", placeService.placeOne(bookvo));
+		return bootpayVO;
+	}
 
-	
-	
-	
-	
-	
-	
 	
 	
 	

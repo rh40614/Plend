@@ -257,6 +257,41 @@
 		ORDER BY pidx DESC
 	</select>
 	
+	<select id="filter_search" parameterType="PlaceVO" resultType="PlaceVO">
+	
+			SELECT
+				  pidx
+				 ,uidx
+				 ,category
+				 ,placeName
+				 ,eventYN
+				 ,placeDetail
+				 ,guide
+				 ,tag
+				 ,placeImg
+				 ,address
+				 ,option1
+				 ,option2
+				 ,price
+				 ,delYN
+				 ,approvalYN
+				 ,availTimeValue
+				 ,intervalTime
+				 ,cntPeople
+			FROM place
+		   WHERE category = #{gallery}
+		     AND delYN = 'N'
+		    <if test="address !=null" >
+		     AND address LIKE #{address}
+		    </if>
+		    <if test="cntPeople !=null" >
+		     AND cntPeople > #{cntPeople}
+		    </if>
+			ORDER BY pidx DESC
+	
+	</select>
+	
+
 	
 	
 	
