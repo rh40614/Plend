@@ -60,7 +60,12 @@
 	<!-- 	<beans:property name="maxUploadSize" value="10485760"/> --><!-- 업로드최대용량 -->
 </beans:bean>
 	
-
+<interceptors>
+           <interceptor>
+               <mapping path="/developer/**"/>
+                   <beans:bean id="commonInterceptor" class="three.people.service.Interceptor"/>
+        </interceptor>
+    </interceptors>
 	
 	
 	
