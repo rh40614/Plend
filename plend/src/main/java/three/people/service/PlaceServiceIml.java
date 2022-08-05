@@ -80,6 +80,17 @@ public class PlaceServiceIml implements PlaceService{
 
 	@Override
 	public List<PlaceVO> categoryPlace(PlaceVO placeVO) {
+		//장소 이름 자르기
+		/*
+		 * for() {
+		 * 
+		 * }
+		 */
+		
+		
+		
+		
+		
 		return placeDAO.categoryPlace(placeVO);
 	}
 
@@ -224,6 +235,13 @@ public class PlaceServiceIml implements PlaceService{
 			return nothing;
 		}
 			
+	}
+
+	
+	//검색 인원, 지역
+	@Override
+	public List<PlaceVO> filter_search(PlaceVO placeVO) {
+		return placeDAO.filter_search(placeVO);
 	}
 	
 }

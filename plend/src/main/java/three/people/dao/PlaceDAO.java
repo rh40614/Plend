@@ -89,10 +89,14 @@ public class PlaceDAO {
 	}
 
 	//07.27 김연희 : 랜덤용 할인 리스트 
-		public List<PlaceVO> eventPlace() {
-			List<PlaceVO> result = sqlSession.selectList(namespace+".eventPlace");
-			return result;
-		}
+	public List<PlaceVO> eventPlace() {			
+		List<PlaceVO> result = sqlSession.selectList(namespace+".eventPlace");
+		return result;
+	}
+	//08.01 김연희 : 장소 검색
+	public List<PlaceVO> filter_search(PlaceVO placeVO){
+		return sqlSession.selectList(namespace+".filter_search", placeVO);
+	}
 	
 
 }
