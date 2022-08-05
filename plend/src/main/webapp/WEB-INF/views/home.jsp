@@ -53,7 +53,8 @@
 	 -->
 	<a href="host/insertPlace.do">장소등록 </a>
 	<button type="button" onclick="check();">마이페이지</button>
-  <a href="developer/userList.do">유저리스트 </a>
+    <a href="developer/userList.do">유저리스트 </a>
+    <a href="test.do">테스트 </a>
 
   	<div>
     	<span class="navbar-brand title1">| 추천 장소 </span>

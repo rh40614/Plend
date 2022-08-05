@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import three.people.service.MyPageService;
 import three.people.vo.BookVO;
+import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
@@ -96,7 +97,6 @@ public class MyPageController {
 		int uidx = login.getUidx();
 		int start = sv.getStart();
 		int end = sv.getCntPerPage();
-		
 		param.put("uidx", uidx);
 		param.put("start", start);
 		param.put("end", end);
@@ -193,4 +193,58 @@ public class MyPageController {
 	public String heartList() {
 		return "myPage/heartList";
 	}
+	// 08.02 김영민: 리뷰등록
+	@RequestMapping(value="/addReview.do", method=RequestMethod.POST)
+	public String addReview(ReviewVO reviewVO) {
+		mypageService.insertReview(reviewVO);
+		return "myPage/bookStatus";
+	}
+	// 08.03 김영민: 내가 작성한 리뷰 리스트
+	@RequestMapping(value="/myReviewList.do", method=RequestMethod.GET)
+	public String myReviewList(UserVO uservo, SearchVO searchVO ,Model model) {
+		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
+			searchVO.setNowPage(1);
+			searchVO.setCntPerPage(10);
+		}else if(searchVO.getCntPerPage() == 0) {
+			searchVO.setCntPerPage(10);
+		}else if(searchVO.getNowPage() == 0) {
+			searchVO.setNowPage(1);
+		}
+		
+		int total = mypageService.countMyReview(uservo);
+		System.out.println("total: "+total);
+		searchVO.calPaging(total);
+		
+		model.addAttribute("pagenation",searchVO);
+		model.addAttribute("myReviewList", mypageService.myReview(uservo));
+		
+		return "myPage/myReviewList";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

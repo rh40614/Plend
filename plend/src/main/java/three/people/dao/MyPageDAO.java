@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import three.people.vo.BookVO;
+import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
@@ -68,4 +69,23 @@ public class MyPageDAO {
 	public UserVO inquirePwd(int uidx) {
 		return sqlSession.selectOne("three.people.mapper.mypageMapper.inquirePwd", uidx);
 	}
+	
+	public int insertReview(ReviewVO reviewVO) {
+		return sqlSession.insert("three.people.mapper.mypageMapper.insertReview", reviewVO);
+	}
+	public int updateReivew(ReviewVO reviewVO) {
+		return sqlSession.update("three.people.mapper.mypageMapper.updateReivew", reviewVO);
+	}
+	// 마이리뷰리스트 불러오기
+	public List<ReviewVO> myReview(UserVO uservo){
+		return sqlSession.selectList("three.people.mapper.mypageMapper.myReview", uservo);
+	}
+	public int countMyReview(UserVO userVO) {
+		return sqlSession.selectOne("three.people.mapper.mypageMapper.countMyReview", userVO);
+	}
+
+
+
+
+
 } 
