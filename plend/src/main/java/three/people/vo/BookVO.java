@@ -10,13 +10,14 @@ public class BookVO extends PlaceVO{
 	private String reviewYN;
 	private String approvalYN;
 	private String delYN;
-	private int pidx;
+	private String successBook;
 	
-	public int getPidx() {
-		return pidx;
+
+	public String getSuccessBook() {
+		return successBook;
 	}
-	public void setPidx(int pidx) {
-		this.pidx = pidx;
+	public void setSuccessBook(String successBook) {
+		this.successBook = successBook;
 	}
 	public int getBidx() {
 		return bidx;

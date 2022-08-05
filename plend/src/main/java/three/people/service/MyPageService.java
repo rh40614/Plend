@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import three.people.vo.BookVO;
+import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
@@ -19,4 +20,7 @@ public interface MyPageService {
 	public int userWithdraw(int uidx);
 	public int checkUser(int uidx);
 	public UserVO inquirePwd(int uidx);
+	public int insertReview(ReviewVO reviewVO);
+	public List<ReviewVO> myReview(UserVO uservo);
+	public int countMyReview(UserVO userVO);
 }
