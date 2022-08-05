@@ -12,7 +12,7 @@ public class BookVO extends PlaceVO{
 	private String delYN;
 	private String successBook;
 	
-	
+
 	public String getSuccessBook() {
 		return successBook;
 	}

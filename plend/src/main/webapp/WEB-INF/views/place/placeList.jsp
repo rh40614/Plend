@@ -14,10 +14,13 @@
 	<!-- 07.08 김연희: 폰트어썸 - 카드 별, 하트 아이콘   -->
 	<script src="https://kit.fontawesome.com/f5807db9d4.js" crossorigin="anonymous"></script>
 
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/home.css" rel="stylesheet">
+	<!-- 07.29 김연희 : 플랫피커 -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 	<script type="text/javascript">
 		$(function(){
@@ -25,9 +28,8 @@
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
 		})
 	</script>
-
+	<!-- 찜 -->
 	<script>
-
 	function like (obj){
 		if($(obj).hasClass("fa-regular") == true){
 			$(obj).removeClass("fa-regular");
@@ -55,16 +57,131 @@
 	
 	</script>
 	
+	<!-- 달력 -->
+	<script>
+	$(function(){
+		$(".selector").flatpickr({
+			/* 시간은 안쓸거라 삭제 */
+			minDate: "today", //과거의 날짜 비활성화
+			maxDate: new Date().fp_incr(120), // 지금부터 120일 이내 
 
+		});
+		
+		
+	})
+	</script>
+	<!-- 날짜, 인원, 지역 검색  -->
+	<script>
+	</script>
+	<!-- 부트 스트랩 팝오버 초기화-->
+	<script>
+  	$( function () {
+		var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+		var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+	 	 return new bootstrap.Popover(popoverTriggerEl)
+		});
+    	
+  	} );
+	</script>
+	
+	<!-- 팝오버 작동시 태그 구현  -->
+	<script>
+	function filter(){
+		if($(".filter_human").css("visibility") == "hidden"){
+			$(".filter_human").css("visibility","visible");
+		}else if($(".filter_human").css("visibility") == "visible"){
+			$(".filter_human").css("visibility","hidden");
+		}  
+	}
+	
+	 
+	 function filter_human_set(){
+		console.log("설정완료");
+		$(".filter_human").css("visibility","hidden");
+		
+	}
+	
+	</script>
+	<!-- 검색 -->
+	<script>
+		function search(){
+		    var formData = $("#frm").serialize();
+			console.log(formData);
+		    $.ajax({
+				url:"filter_search.do",
+				method:"GET",
+				data: formData,
+				/* 보낼떄도 인코딩 */
+				success: function(obj){
+					console.log(obj);
+					$("#search_result").html(obj);
+				},
+				error: function(){
+					console.log("실팦");
+				}
+				
+			});
+		}
+	</script>
 </head>
 
 <body>
 <div id="wrap">
 	<header id="header" style ="background: white; "></header>
 	<main style="margin: 5% 19% 10% 19%; flex: 1;">
+	
+	<!-- 검색 버튼 그룹 -->
+	<form id="frm">
+		<div  style="margin-top: 25; float: right;" class="d-flex">
+			<!-- 날짜 -->
+			<input class="selector" placeholder="날짜" style="width:100px; text-align: center;" >
+			<!-- 인원 -->
+			<div class="filter_btn"  onclick="filter()">
+				<div>인원</div>
+			</div>
+			<!-- 인원: 상위 div안에 넣으면 작동 x, absolute로 설정-->
+			<div class="filter_human" >
+				<div class="filter_human_inside">
+					<div class="filter_human_inside_text">총 인원수</div>
+					<div class="filter_human_inside_number">
+						<input type="text" name ="cntPeople" class="filter_human_inside_number" placeholder="1" style="text-align: center;">
+					</div>
+					<div>
+						<button type="button" class="btnDefault" onclick="filter_human_set()">완료</button>
+					</div>
+				</div>
+			</div>
+			<!-- 지역 -->
+			 <select name="address">
+				<option value="">지역</option>
+				<option value="서울">서울</option>
+				<option value="경기">경기</option>
+				<option value="인천">인천</option>
+				<option value="부산">부산</option> 
+				<option value="광주">광주</option>
+				<option value="제주">제주</option>
+				<option value="대전">대전</option>
+				<option value="울산">울산</option>
+				<option value="대구">대구</option>
+				<option value="충북">충북</option>
+				<option value="충남">충남</option>
+				<option value="강원">강원</option>
+				<option value="전북">전북</option>
+				<option value="전남">전남</option>
+				<option value="경북">경북</option>
+				<option value="경남">경남</option>
+				
+			</select>
+		
+			<button type="button" class="btn btn-secondary me-2" onclick="search()">검색</button>
+		</div>
+	</form>
+	
+	<!-- 카테고리 제목 -->
 	<div>
     	<span class="navbar-brand title1">|  ${category.category}</span>
   	</div>
+  <div id="search_result">
 	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start ">
 		<c:if test="${list.size() == 0}">
 			<P class="title2 m-auto">등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. </P>
@@ -99,7 +216,7 @@
 			</c:forEach>
 		</c:if>
 	</section>
-	
+</div>
 
 
 </main>

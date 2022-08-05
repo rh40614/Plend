@@ -69,8 +69,9 @@
 		
 		
 		
-		/* 07.27 ±è¿¬Èñ Àå¼Ò ¸®½ºÆ® ¹İÀÀÇü */
-		/* ´õÅ«È­¸é µ¥½ºÅ©Å¾ (°¡·Î ÇØ»óµµ°¡ 1920px º¸´Ù ÀÛÀº È­¸é¿¡ Àû¿ë) */
+
+		/* 07.27 ê¹€ì˜í¬ ì¥ì†Œ ë¦¬ìŠ¤íŠ¸ ë°˜ì‘í˜• */
+		/* ë”í°í™”ë©´ ë°ìŠ¤í¬íƒ‘ (ê°€ë¡œ í•´ìƒë„ê°€ 1920px ë³´ë‹¤ ì‘ì€ í™”ë©´ì— ì ìš©) */
 		 
 		/* @media (max-width: 1919px) { 
 			main {
@@ -89,7 +90,7 @@
 			 */
 	
 	
-	/* ±Û¾¾ ÆíÇÏ°Ô Á¶ÀıÇÏ±â À§ÇØ ¼³Á¤ */		 
+	/* ê¸€ì”¨ í¸í•˜ê²Œ ì¡°ì ˆí•˜ê¸° ìœ„í•´ ì„¤ì • */		 
 	.title1{
     	display: inline-block;
     	margin: 20px 0px 20px 0px;
@@ -123,4 +124,78 @@
     	font-weight: bold;
     	color: #364F6B;
 	}
+	
+	
+	.btnDefault{
+		background:#364F6B;
+		color: white;
+		border-radius: 10px;
+		border:none;
+		width: 60px;
+		height: 40px;
+	}
+	
+	
+	
+	/* 2022.08.01 ê¹€ì—°í¬ ê²€ìƒ‰í•„í„°*/
+	.filter_btn{
+		width: 57px; 
+		height: 40px; 
+		border-radius: 4px; 
+		border: solid 1px grey; 
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	.filter_human{
+		display: flex;
+		flex-direction: column;
+		position: absolute;
+		visibility:hidden;
+		top:  370px;
+		height: 50px; 
+		width: 340px;
+		z-index: 9999;
+		border-radius: 8px;
+		box-shadow: rgb(0 0 0 / 10%) 2px 2px 8px 0px;
+	    border: 1px solid rgb(239, 243, 245);
+	    background-color: rgb(255, 255, 255);
+	}
+			 
+	.filter_human_inside{
+		display: flex!important;
+	    align-items: center;
+	    justify-content: center;
+	}
+	.filter_human_inside_number	{
+		width: 60px;
+	    margin: 0px 14px;
+	    padding: 0px 2px;
+	    height: 44px;
+	    border-radius: 4px;
+	    border: solid 1px grey;
+	    display: flex;
+	    flex-direction: row;
+	    align-items: center;
+	    justify-content: center;
+	 }	 
+			 
+			 
+	.filter_human_inside_number2{
+		width: 100%;
+	    height: 100%;
+	    border-width: 0px;
+	    font-size: 15px;
+	    font-weight: normal;
+	    font-stretch: normal;
+	    font-style: normal;
+	    line-height: 1.6;
+	    letter-spacing: normal;
+	    text-align: center;
+	    color: grey;
+		
+		
+	} 
 			 

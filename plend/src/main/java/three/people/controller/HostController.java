@@ -51,6 +51,9 @@ public class HostController {
 	@Autowired
 	MainService mainService;
 	
+	
+
+	
 	@RequestMapping(value = "/insertPlace.do", method = RequestMethod.GET )
 	public String insertPlace() {  
 		System.out.println("장소등록GET");
@@ -58,7 +61,6 @@ public class HostController {
 		return "host/insertPlace";
 	}
 	
-
 	
 	@RequestMapping(value = "/insertPlace.do", method = RequestMethod.POST )
 	public void insertPlace(PlaceVO placeVO, HttpServletRequest request, HttpServletResponse response ,HttpSession session) throws IllegalStateException, IOException {
