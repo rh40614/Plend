@@ -80,18 +80,18 @@ public class PlaceServiceIml implements PlaceService{
 
 	@Override
 	public List<PlaceVO> categoryPlace(PlaceVO placeVO) {
+		List<PlaceVO> result = placeDAO.categoryPlace(placeVO);
 		//장소 이름 자르기
-		/*
-		 * for() {
-		 * 
-		 * }
-		 */
+		for(PlaceVO place: result) {
+			//단일 공백 정규식 : \\s
+			String[] ad = place.getAddress().split("\\s");
+			String twoFromStart = ad[0] +" " +ad[1];
+			//System.out.println("twoFromStart: "+twoFromStart);
+			
+			place.setAddress(twoFromStart);
+		}
 		
-		
-		
-		
-		
-		return placeDAO.categoryPlace(placeVO);
+		return result;
 	}
 
 	@Override
@@ -101,7 +101,21 @@ public class PlaceServiceIml implements PlaceService{
 
 	@Override
 	public List<PlaceVO> selectPlace() {
-		return placeDAO.selectPlace();
+		List<PlaceVO> result = placeDAO.selectPlace();
+		
+		//장소 이름 자르기
+		for(PlaceVO place: result) {
+			//단일 공백 정규식 : \\s
+			String[] ad = place.getAddress().split("\\s");
+			String twoFromStart = ad[0] +" " +ad[1];
+			//System.out.println("twoFromStart: "+twoFromStart);
+			
+			place.setAddress(twoFromStart);
+		}
+		
+		
+		
+		return result;
 	}
 	
 	@Override
