@@ -70,9 +70,7 @@
 		
 	})
 	</script>
-	<!-- 날짜, 인원, 지역 검색  -->
-	<script>
-	</script>
+
 	<!-- 부트 스트랩 팝오버 초기화-->
 	<script>
   	$( function () {
@@ -102,22 +100,27 @@
 	}
 	
 	</script>
+	
 	<!-- 검색 -->
 	<script>
 		function search(){
+			
+			if($("#cntPeople").val() == 0){
+				$("#cntPeople").val(1);
+			}
+			
 		    var formData = $("#frm").serialize();
 			console.log(formData);
 		    $.ajax({
 				url:"filter_search.do",
 				method:"GET",
 				data: formData,
-				/* 보낼떄도 인코딩 */
+				contentType: "text/html;charset=utf-8",
 				success: function(obj){
-					console.log(obj);
 					$("#search_result").html(obj);
 				},
 				error: function(){
-					console.log("실팦");
+					console.log("실패요");
 				}
 				
 			});
@@ -133,6 +136,7 @@
 	<!-- 검색 버튼 그룹 -->
 	<form id="frm">
 		<div  style="margin-top: 25; float: right;" class="d-flex">
+			<input type="hidden" name="category" value="${category.category}">
 			<!-- 날짜 -->
 			<input class="selector" placeholder="날짜" style="width:100px; text-align: center;" >
 			<!-- 인원 -->
@@ -144,7 +148,7 @@
 				<div class="filter_human_inside">
 					<div class="filter_human_inside_text">총 인원수</div>
 					<div class="filter_human_inside_number">
-						<input type="text" name ="cntPeople" class="filter_human_inside_number" placeholder="1" style="text-align: center;">
+						<input type="text" name ="cntPeople" class="filter_human_inside_number" placeholder="1" style="text-align: center;" value="0"  id="cntPeople">
 					</div>
 					<div>
 						<button type="button" class="btnDefault" onclick="filter_human_set()">완료</button>
@@ -172,7 +176,7 @@
 				<option value="경남">경남</option>
 				
 			</select>
-		
+			
 			<button type="button" class="btn btn-secondary me-2" onclick="search()">검색</button>
 		</div>
 	</form>

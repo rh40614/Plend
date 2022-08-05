@@ -32,7 +32,7 @@
 	</style>
 	
 	<script>
-	function payment(){
+	function payment(obj1){
 		//주문번호 pk에 사용할 수
 		var today = new Date();   
 		var hours = ('0' + today.getHours()).slice(-2); 
@@ -70,6 +70,16 @@
 		  }).done(function (data) {
 		      //결제가 정상적으로 완료되면 수행됩니다
 		      console.log(data);
+		    
+		      //안쪽 ajax 디비에 넣을 예약 정보들
+		      var pi = "pidx=${bookvo.pidx}";
+		      var ut = "useTime=${bookvo.useTime}";
+		      var cntp = "cntPeople=${bookvo.cntPeople}";
+		      var op1 = "option1=${bookvo.option1}";
+		      
+		      var resultdata = pi+ "&"+ ut+ "&"+cntp+ "&"+op1;
+		      console.log(resultdata); 
+		      
 		      
 		      $.ajax({
 		    	  url: "bookDetail.do",
@@ -78,8 +88,7 @@
 		    	  dataType: "json",
 		    	  success:function(obj){
 		    		  console.log("성공"); 
-		    		  console.log(obj);
-		    		  console.log(obj.price);
+		    		  
 		    		  html ="";
 		    		  html += "<td>결제 완료 시각:</td>";
 		    		  html += "<td>"+ obj.purchased_at +"</td>";
@@ -94,6 +103,21 @@
 		    		   html2 +="</div>";
 		    		   
 		    		   $("#bookDonebtn").html(html2);
+		    		   
+		    		   
+			    		   //예약정보 디비에 넣기 
+			    		   $.ajax({
+			    			  url: "insertBook.do",
+			    			  type: "POST",
+			    			  data: resultdata,
+			    			  success: function(){
+			    				  console.log("결과 성공");
+			    			  },
+			    			  error: function(){
+			    				  console.log("결과 실패");
+			    			  },
+			    		   });
+
 		    	  },
 		    	  error: function(){
 		    		  console.log("실패");
@@ -183,6 +207,7 @@
 					</div> 
 					<div class="d-inline-flex">
 						<button type="button" class="btn btn-sm me-2">옵션 변경하기</button>
+						
 						<button type="button" class="btn btn-sm" onclick="payment()">결제하기</button>
 					</div>
 				</div>
