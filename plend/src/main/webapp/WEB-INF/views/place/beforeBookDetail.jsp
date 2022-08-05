@@ -39,9 +39,7 @@
 		var minutes = ('0' + today.getMinutes()).slice(-2);
 		var seconds = ('0' + today.getSeconds()).slice(-2); 
 		var timeString = hours + minutes + seconds;
-
-		console.log(timeString);
-		
+	console.log(timeString);
 		
 		 BootPay.request({
 		      price: '100', //실제 결제되는 가격
@@ -71,17 +69,31 @@
 		      console.log(data);
 		  }).done(function (data) {
 		      //결제가 정상적으로 완료되면 수행됩니다
-		      //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
 		      console.log(data);
 		      
 		      $.ajax({
 		    	  url: "bookDetail.do",
 		    	  type: "POST",
 		    	  data: data,
-		    	  contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+		    	  dataType: "json",
 		    	  success:function(obj){
 		    		  console.log("성공"); 
-		    		  $("#bookDone").html(obj);
+		    		  console.log(obj);
+		    		  console.log(obj.price);
+		    		  html ="";
+		    		  html += "<td>결제 완료 시각:</td>";
+		    		  html += "<td>"+ obj.purchased_at +"</td>";
+		    		  html += "<td>결제 완료 금액:</td>";
+		    		  html += "<td>"+obj.price+"</td>";
+		    		   $("#bookDone").html(html);
+		    		   
+		    		   //하단 버튼 변경
+		    		   html2 ="";
+		    		   html2 +="<div class='d-inline-flex'>";
+		    		   html2 +="<button type='button' class='btn btn-sm me-2' onclick='goMain()'>확인</button>";
+		    		   html2 +="</div>";
+		    		   
+		    		   $("#bookDonebtn").html(html2);
 		    	  },
 		    	  error: function(){
 		    		  console.log("실패");
@@ -89,17 +101,21 @@
 		      });
 		  });
 	}
-		 
+	 
 	</script>
-	
+	<script>
+	function goMain(){
+		location.href="<%=request.getContextPath()%>/";
+	}
+	</script>
 </head>
 
 <body>
+
 <div class="container">	
 	<header class="row" id="header"></header>
 	<br>
 	<main class="row">
-		<div id="bookDone">
 			<table class="table beforeBook">
 				<thead>
 					<tr> 
@@ -154,21 +170,23 @@
 							</tr>
 						</c:when>
 					</c:choose>
+							<tr id="bookDone"></tr>
 				</tbody>
 			</table>
-			<div class="d-flex justify-content-between">
-				<div class="form-check d-inline-flex">
-				  <input class="form-check-input me-1" type="checkbox" value="" id="flexCheckDefault">
-				  <label class="form-check-label" for="flexCheckDefault">
-				    	상기 예약 정보를 확인하였습니다.
-				  </label>
-				</div> 
-				<div class="d-inline-flex">
-					<button type="button" class="btn btn-sm me-2">옵션 변경하기</button>
-					<button type="button" class="btn btn-sm" onclick="payment()">결제하기</button>
+			<div id="bookDonebtn">
+				<div class="d-flex justify-content-between">
+					<div class="form-check d-inline-flex">
+					  <input class="form-check-input me-1" type="checkbox" value="" id="flexCheckDefault">
+					  <label class="form-check-label" for="flexCheckDefault">
+					    	상기 예약 정보를 확인하였습니다.
+					  </label>
+					</div> 
+					<div class="d-inline-flex">
+						<button type="button" class="btn btn-sm me-2">옵션 변경하기</button>
+						<button type="button" class="btn btn-sm" onclick="payment()">결제하기</button>
+					</div>
 				</div>
 			</div>
-		</div>
 	</main>
 </div>
 <footer id="footer" class="row mt-5 fixed-bottom"></footer>
@@ -178,6 +196,7 @@
 <script>
 	$(".price").text(new Intl.NumberFormat().format(${placeOne.price}));
 </script>
+
 </body>
 </html>
 

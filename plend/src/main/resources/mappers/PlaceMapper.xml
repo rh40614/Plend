@@ -298,7 +298,7 @@
 				 ,intervalTime
 				 ,cntPeople
 			FROM place
-		   WHERE category =#{gallery}
+		   WHERE category = #{gallery}
 		     AND delYN = 'N'
 		    <if test="address !=null" >
 		     AND address LIKE #{address}
@@ -306,8 +306,7 @@
 		    <if test="cntPeople !=null" >
 		     AND cntPeople > #{cntPeople}
 		    </if>
-		     
-		ORDER BY pidx DESC
+			ORDER BY pidx DESC
 	
 	</select>
 	

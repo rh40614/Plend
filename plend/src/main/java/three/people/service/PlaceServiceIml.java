@@ -236,5 +236,12 @@ public class PlaceServiceIml implements PlaceService{
 		}
 			
 	}
+
+	
+	//검색 인원, 지역
+	@Override
+	public List<PlaceVO> filter_search(PlaceVO placeVO) {
+		return placeDAO.filter_search(placeVO);
+	}
 	
 }
