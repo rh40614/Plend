@@ -130,7 +130,15 @@ public class HomeController {
 	}
 
 
-	
+	@RequestMapping(value="filter_search.do")
+	public String filter_search(PlaceVO placeVO, Model model){
+		System.out.println("검색: "+ placeVO.getAddress());
+		List<PlaceVO> pl = placeService.filter_search(placeVO);
+		
+		model.addAttribute("list",pl);
+		
+		return "place/ajax/placeList";
+	}
 	
 	
 	

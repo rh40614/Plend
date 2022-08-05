@@ -94,6 +94,9 @@ public class PlaceDAO {
 		return result;
 	}
 	//08.01 김연희 : 장소 검색
+	public List<PlaceVO> filter_search(PlaceVO placeVO){
+		return sqlSession.selectList(namespace+".filter_search", placeVO);
+	}
 	
 
 }
