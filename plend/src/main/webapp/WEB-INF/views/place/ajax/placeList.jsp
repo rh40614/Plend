@@ -5,7 +5,7 @@
 
 	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start ">
 	<c:if test="${list.size() == 0}">
-		<P class="title2 m-auto">등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. </P>
+		<P class="title2 m-auto">해당하는 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. </P>
 	</c:if>
 
 	<c:if test="${list.size() > 0 }">
