@@ -93,7 +93,6 @@ public class PlaceDAO {
 	public List<PlaceVO> filter_search(PlaceVO placeVO){
 		return sqlSession.selectList(namespace+".filter_search", placeVO);
 	}
-
 	
 
 }

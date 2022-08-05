@@ -14,10 +14,13 @@
 	<!-- 07.08 김연희: 폰트어썸 - 카드 별, 하트 아이콘   -->
 	<script src="https://kit.fontawesome.com/f5807db9d4.js" crossorigin="anonymous"></script>
 
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/home.css" rel="stylesheet">
+	<!-- 07.29 김연희 : 플랫피커 -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 	<script type="text/javascript">
 		$(function(){
@@ -25,9 +28,8 @@
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
 		})
 	</script>
-
+	<!-- 찜 -->
 	<script>
-
 	function like (obj){
 		if($(obj).hasClass("fa-regular") == true){
 			$(obj).removeClass("fa-regular");
@@ -55,7 +57,13 @@
 	
 	</script>
 	
-
+	<!-- 달력 -->
+	<script>
+	$(function(){
+		$(".selector").flatpickr({
+			/* 시간은 안쓸거라 삭제 */
+			minDate: "today", //과거의 날짜 비활성화
+			maxDate: new Date().fp_incr(120), // 지금부터 120일 이내 
 
 		});
 		
@@ -121,6 +129,7 @@
 <div id="wrap">
 	<header id="header" style ="background: white; "></header>
 	<main style="margin: 5% 19% 10% 19%; flex: 1;">
+	
 	<!-- 검색 버튼 그룹 -->
 	<form id="frm">
 		<div  style="margin-top: 25; float: right;" class="d-flex">

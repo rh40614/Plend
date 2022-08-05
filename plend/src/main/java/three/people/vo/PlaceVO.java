@@ -26,6 +26,7 @@ public class PlaceVO extends UserVO {
 	private String[] availTime;
 	private String availTimeValue;
 	private String useTime;
+	private int cntPeople;
 	
 	
 	
@@ -150,6 +151,12 @@ public class PlaceVO extends UserVO {
 	}
 	public void setAvailTime(String[] availTime) {
 		this.availTime = availTime;
+	}
+	public int getCntPeople() {
+		return cntPeople;
+	}
+	public void setCntPeople(int cntPeople) {
+		this.cntPeople = cntPeople;
 	}
 	
 }

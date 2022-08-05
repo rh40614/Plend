@@ -42,11 +42,9 @@
 	console.log(timeString);
 		
 		 BootPay.request({
-		      price: '1000', //실제 결제되는 가격
-		 
-		      // 관리자로그인 -> 결제설치 -> 인증키 및 보안 -> WEB Application ID
+		      price: '100', //실제 결제되는 가격
+		      //WEB Application ID
 		      application_id: "62e277882701800023bd122a",
-		 
 		      name: '${placeOne.placeName}', //결제창에서 보여질 이름
 		      pg: 'nicepay',
 		      method: 'card', //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
@@ -55,11 +53,11 @@
 		          {
 		              item_name: '${placeOne.placeName}', //상품명
 		              qty: 1, //수량
-		              unique: '${placeOne.pidx}', //해당 상품을 구분짓는 primary key
-		              price: 1000, //상품 단가
+		              unique: '${placeOne.pidx}'+timeString, //해당 상품을 구분짓는 primary key
+		              price: 100, //상품 단가
 		          }
 		      ],
-		      order_id: 'order_id_${placeOne.pidx}', //고유 주문번호로, 생성하신 값을 보내주셔야 합니다.
+		      order_id: 'order_id_${placeOne.pidx}', //고유 주문번호
 		  }).error(function (data) {
 		      //결제 진행시 에러가 발생하면 수행됩니다.
 		      console.log(data);
@@ -71,7 +69,8 @@
 		      console.log(data);
 		  }).done(function (data) {
 		      //결제가 정상적으로 완료되면 수행됩니다
-		      console.log(data);     
+		      console.log(data);
+		      
 		      $.ajax({
 		    	  url: "bookDetail.do",
 		    	  type: "POST",

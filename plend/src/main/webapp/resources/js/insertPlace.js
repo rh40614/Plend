@@ -265,6 +265,10 @@
 				alert("장소에 대한 설명을 입력해주세요.");
 				$("#placeDetail").focus();
 				
+			}else if($("#cntPeople").val() == ""){
+				alert("최대 수용가능 인원을 입력해주세요");
+				$("#cntPeople").focus();	
+				
 			}else if($("#placeImg").val() == ""){
 				alert("공간에 대한 사진을 등록해주세요.");
 				$("#placeImg").focus();
