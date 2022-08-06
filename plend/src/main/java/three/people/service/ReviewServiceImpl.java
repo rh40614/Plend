@@ -37,4 +37,14 @@ public class ReviewServiceImpl implements ReviewService {
 	public int insertReviewImg(ImageVO imageVO) {
 		return reviewDAO.insertReviewImg(imageVO);
 	}
+
+	@Override
+	public ReviewVO reviewOne(ReviewVO reviewVO) {
+		return reviewDAO.reviewOne(reviewVO);
+	}
+
+	@Override
+	public List<ImageVO> reviewImg(ReviewVO reviewVO) {
+		return reviewDAO.reviewImg(reviewVO);
+	}
 }

@@ -284,8 +284,7 @@
 			data: formData,
 			enctype: 'multipart/form-data',
 			processData: false,
-		    contentType: false,
-		    cache: false,
+			contentType: false,
 			success: function(data){
 				console.log("success");
 				myModal.hide();

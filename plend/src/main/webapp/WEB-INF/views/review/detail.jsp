@@ -28,20 +28,33 @@
 	<main class="row">
 		<table>
 			<tbody>
-				<tr> 
-					<td>이미지</td>
-				</tr>
+				<c:forEach var="img" items="${imgs}">
+					<tr> 
+						<td>
+							<img width="750" height="350" alt="img" src="<%=request.getContextPath() %>/reviewImg.do?originFileName=${img.originFileName}"/>
+						</td>
+					</tr>				
+				</c:forEach>
 				<tr class="" style="border-top: 2px solid black;"> 
-					<td>제목</td>
+					<td>${review.title}</td>
 				</tr>
 				<tr> 
-					<td>별점</td>
+					<td>
+					  <div class="rating"> 
+			          	  <input type="radio" name="rate" value="5" id="5" disabled="disabled"><label for="5">☆</label> 
+			          	  <input type="radio" name="rate" value="4" id="4" disabled="disabled"><label for="4">☆</label> 
+			          	  <input type="radio" name="rate" value="3" id="3" disabled="disabled"><label for="3">☆</label> 
+			          	  <input type="radio" name="rate" value="2" id="2" disabled="disabled"><label for="2">☆</label> 
+			          	  <input type="radio" name="rate" value="1" id="1" disabled="disabled"><label for="1">☆</label> 
+		          	  </div>
+		          	  
+					</td>
 				</tr>
 				<tr> 
-					<td>내용</td>
+					<td>${review.content}</td>
 				</tr>
 				<tr>
-					<td>
+					<td style="text-align: end;">
 						<a class="btn btn-sm">수정</a>
 						<a class="btn btn-sm">삭제</a>
 						<a class="btn btn-sm">신고하기</a>
@@ -56,6 +69,11 @@
 <footer id="footer" class="row mt-5"></footer>
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!-- 리뷰 별점 표현하기 -->
+<script type="text/javascript">
+	console.log(${review.rate});
+	$("#${review.rate}").prop("checked", true);
+</script>
 </body>
 </html>
 

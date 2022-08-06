@@ -13,4 +13,6 @@ public interface ReviewService {
 	public List<ReviewVO> myReview(HashMap<String, Object> hashMap);
 	public int countMyReview(UserVO userVO);
 	public int insertReviewImg(ImageVO imageVO);
+	public ReviewVO reviewOne(ReviewVO reviewVO);
+	public List<ImageVO> reviewImg(ReviewVO reviewVO);
 }

@@ -35,7 +35,12 @@ public class ReviewDAO {
 	public int insertReviewImg(ImageVO imageVO) {
 		return sqlSession.insert("three.people.mapper.reviewMapper.insertReviewImg", imageVO);
 	}
-
-
+	//리뷰 하나만 들고오기, 이미지까진
+	public ReviewVO reviewOne(ReviewVO reviewVO) {
+		return sqlSession.selectOne("three.people.mapper.reviewMapper.reviewOne", reviewVO);
+	}
+	public List<ImageVO> reviewImg(ReviewVO reviewVO){
+		return sqlSession.selectList("three.people.mapper.reviewMapper.reviewImg", reviewVO);
+	}
 
 }
