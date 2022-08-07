@@ -160,8 +160,6 @@ public final class PlaceController {
 
 	@RequestMapping(value="/filter_search.do", method = RequestMethod.GET)
 	public String filter_search(PlaceVO placeVO, Model model) {
-		System.out.println("CntPeople: "+placeVO.getCntPeople() );
-		
 		
 		List<PlaceVO> list = placeService.filter_search(placeVO);
 		System.out.println("검색 결과 : " + list);
