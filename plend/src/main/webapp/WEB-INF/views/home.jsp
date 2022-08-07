@@ -51,7 +51,7 @@
 	07.28 김하진 role 별로 로그인을 하고 navi바에서 들어가시길 바랍니다. 
 	불편하시면 따로 링크를 빼셔도 됩니다. 
 	 -->
-	<a href="host/insertPlace.do">장소등록 </a>
+	<a href="host/managePlace.do">장소등록 </a>
 	<button type="button" onclick="check();">마이페이지</button>
     <a href="developer/userList.do">유저리스트 </a>
     <a href="test.do">테스트 </a>

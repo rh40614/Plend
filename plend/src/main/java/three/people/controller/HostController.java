@@ -25,9 +25,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import three.people.service.BookService;
+import three.people.service.CommonService;
 import three.people.service.HostService;
 import three.people.service.MainService;
 import three.people.service.PlaceService;
+import three.people.vo.BookVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.NoticeVO;
@@ -44,14 +47,14 @@ public class HostController {
 
 	@Autowired
 	HostService hostService;
-	
 	@Autowired
 	PlaceService placeService;
-	
 	@Autowired
 	MainService mainService;
-	
-	
+	@Autowired
+	BookService bookService;
+	@Autowired
+	CommonService commonService;
 
 	
 	@RequestMapping(value = "/insertPlace.do", method = RequestMethod.GET )
@@ -101,20 +104,14 @@ public class HostController {
 			}
 		}
 		
-
 		//장소 등록
 		int result = hostService.insertPlace(placeVO);
-		
-	
 		//화면응답
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		
-		
 		if(result ==1) {
 			System.out.println("장소 등록 성공");
-			
-			
 			System.out.println("pidx: "+placeVO.getPidx());
 			
 			//사진이 저장될 경로
@@ -183,16 +180,20 @@ public class HostController {
 	}
 
 	
-
-	
-	
 	@RequestMapping(value="/managePlace.do", method = RequestMethod.GET)
-	public String managePlace(PlaceVO placeVO, Model model, SearchVO searchVO, HttpSession session, HttpServletRequest request) {
-		System.out.println("장소관리 페이지 ");
+	public String managePlace(PlaceVO placeVO, Model model, SearchVO searchVO, SearchVO searchVO2, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		System.out.println("장소관리 페이지");
+
 		
+		//1. 장소관리
 		//로그인 정보
 		session = request.getSession();
 		UserVO login = (UserVO) session.getAttribute("login");
+		
+		if(login == null) {
+			return "redirect:/common/signIn.do";
+		}
+		
 		
 		//페이징
 		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
@@ -231,8 +232,51 @@ public class HostController {
 		model.addAttribute("list_p", list_p);
 		model.addAttribute("pagenation", searchVO);
 		
+		
+		
+		//2. 예약정보 리스트 
+		//페이징
+		
+		if(searchVO2.getNowPage() == 0 && searchVO2.getCntPerPage() == 0) {
+			searchVO2.setNowPage(1);
+			searchVO2.setCntPerPage(5);
+		}else if(searchVO2.getCntPerPage() == 0) {
+			searchVO2.setCntPerPage(5);
+		}else if(searchVO2.getNowPage() == 0) {
+			searchVO2.setNowPage(1);
+		}
+		int bookTotal = bookService.cntBook(uidx);
+		searchVO2.calPaging(bookTotal);
+		System.out.println("bookTotal: "+bookTotal);
+
+		
+		//예약리스트 
+		HashMap<String, Integer> page2 = new HashMap<String, Integer>();
+		int start2 = searchVO2.getStart();
+		int cntPerPage2 = searchVO2.getCntPerPage(); 
+		page2.put("uidx", uidx);
+		page2.put("start", start2);
+		page2.put("cntPerPage", cntPerPage2);
+		
+		List<BookVO> list_b = bookService.selectBookByHost(page2);
+		
+		for(BookVO b: list_b) {
+			//예약자 정보
+			int uidx2 =b.getUidx();
+			UserVO bookUser = commonService.userInfoByUidx(uidx2);
+			b.setNickName(bookUser.getNickName());
+		}
+		
+		model.addAttribute("list_b", list_b);
+		model.addAttribute("pagenation2", searchVO2);
+			
+		
+		
 		return "host/managePlace";
 	}
+	
+	
+	
 	
 	//managePlace내부 장소 리스트 ajax
 	@RequestMapping(value="/placeList.do", method = RequestMethod.GET)
@@ -296,6 +340,67 @@ public class HostController {
 		
 		return "host/ajax/placeList";
 	}
+	
+	
+	
+	
+	
+	//managePlace내부 예약 리스트 ajax
+	@RequestMapping(value="/bookList.do", method = RequestMethod.GET)
+	public String bookList(PlaceVO placeVO, Model model, SearchVO searchVO2, HttpSession session, HttpServletRequest request) {
+		System.out.println("예약리스트 페이징");
+
+		//로그인 정보
+		session = request.getSession();
+		UserVO login = (UserVO) session.getAttribute("login");
+		//해쉬맵에 넣어줄 로그인 정보 
+		int uidx = login.getUidx();
+		
+		if(searchVO2.getNowPage() == 0 && searchVO2.getCntPerPage() == 0) {
+			searchVO2.setNowPage(1);
+			searchVO2.setCntPerPage(5);
+		}else if(searchVO2.getCntPerPage() == 0) {
+			searchVO2.setCntPerPage(5);
+		}else if(searchVO2.getNowPage() == 0) {
+			searchVO2.setNowPage(1);
+		}
+		int bookTotal = bookService.cntBook(uidx);
+		searchVO2.calPaging(bookTotal);
+		System.out.println("bookTotal: "+bookTotal);
+		
+		HashMap<String, Integer> page2 = new HashMap<String, Integer>();
+		int start2 = searchVO2.getStart();
+		int cntPerPage2 = searchVO2.getCntPerPage(); 
+		page2.put("uidx", uidx);
+		page2.put("start", start2);
+		page2.put("cntPerPage", cntPerPage2);
+		
+		List<BookVO> list_b = bookService.selectBookByHost(page2);
+		
+		
+		for(BookVO b: list_b) {
+			//예약자 정보
+			int uidx2 =b.getUidx();
+			UserVO bookUser = commonService.userInfoByUidx(uidx2);
+			b.setNickName(bookUser.getNickName());
+		}
+		
+		model.addAttribute("list_b", list_b);
+		model.addAttribute("pagenation2", searchVO2);
+		
+		return "host/ajax/bookList";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@RequestMapping(value="/inquiry_user.do", method= RequestMethod.GET)
 	public String userInquiry(HttpSession session, HttpServletRequest request, Model model, SearchVO searchVO) {
@@ -566,7 +671,7 @@ public class HostController {
 	
 	@RequestMapping(value="noticeSearch.do", method= RequestMethod.GET)
 	public String notice_dev(@RequestBody String searchContent, Model model, SearchVO searchVO) {
-		System.out.println("검색jsp");
+
 		//페이징
 		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
 			searchVO.setNowPage(1);

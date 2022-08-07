@@ -1,5 +1,6 @@
 package three.people.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -24,5 +25,12 @@ public class BookDAO {
 	}
 	public int successBook(BookVO bookVO) {
 		return sqlSession.update("three.people.mapper.bookMapper.successBook", bookVO);
+	}
+	//2022.08.06 김연희: 호스트 센터 예약 리스트 
+	public List<BookVO> selectBookByHost(HashMap<String, Integer> page2) {
+		return sqlSession.selectList("three.people.mapper.bookMapper.selectBookByHost", page2);
+	}
+	public int cntBook(int uidx) {
+		return sqlSession.selectOne("three.people.mapper.bookMapper.cntBook", uidx);
 	}
 }

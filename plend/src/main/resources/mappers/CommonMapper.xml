@@ -117,4 +117,27 @@
 		 	</if>
 		</if>
 	</sql>
+	
+	<!-- 2022.08.06 김연희 : uidx로 유저 정보 반환 -->
+	<select id="userInfoByUidx" parameterType="int" resultType="UserVO">
+		SELECT 
+				uidx
+				,id
+				,password
+				,name
+				,nickName
+				,birth
+				,userPhone
+				,email
+				,gender
+				,addr
+				,regnum
+				,role
+				,delYN
+				,jdate
+			FROM user_plend
+		   WHERE uidx = #{uidx}
+	</select>
+	
+	
 </mapper>
