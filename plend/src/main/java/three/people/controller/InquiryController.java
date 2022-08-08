@@ -49,7 +49,7 @@ public class InquiryController {
 	
 		session = request.getSession();
 		UserVO login = (UserVO)session.getAttribute("login");
-		//inquiryVO.setUidx(login.getUidx()); 
+		inquiryVO.setUidx(login.getUidx()); 
 		
 		//페이징
 		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
@@ -155,19 +155,19 @@ public class InquiryController {
 		
 		page.put("start", start);
 		page.put("cntPerPage", cntPerPage);
-		page.put("uidx", uidx );
+//		page.put("uidx", uidx );
+		page.put("uidx", inquiryVO.getUidx());
 		
 		
 		
 		//이전 문의 내역 불러오기(리스트)
 		List<InquiryVO> list = hostService.selectInquiry(page);
-		
+		System.out.println("list: "+list);
 		//문의 내역 (단건)
 		InquiryVO inquiry = hostService.selectInquiryOne(inquiryVO);
 		System.out.println("inquiry_View: "+inquiry);
 
 		//답변이 달린글이 있다면 답변 가지고 오기 
-		System.out.println("answerYN: "+ inquiry.getAnswerYN());
 			 if(inquiry.getAnswerYN().equals("Y")) {
 				 
 				 InquiryVO answer = hostService.selectReplyOne(inquiry);

@@ -1,4 +1,4 @@
-#naviBar {
+	#naviBar {
 		list-style-type: none;
 		overflow: auto;
 		}
@@ -68,4 +68,14 @@
 		padding : 5px;
 		width:600px;
 		
+	}
+	/* 마이리뷰 리스트 */
+	#reviewTable {
+		margin : 100px 0 0 18%;
+		float : right;
+		width : 45%;
+		height: 100%;
+	}
+	tbody > tr > td > p {
+		margin: 0;
 	}

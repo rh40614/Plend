@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import three.people.dao.MyPageDAO;
 import three.people.vo.BookVO;
+import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
@@ -80,6 +81,8 @@ public class MyPageServiceImple implements MyPageService{
 		
 		return mypageDao.inquirePwd(uidx);
 	}
+
+	
 
 	
 }

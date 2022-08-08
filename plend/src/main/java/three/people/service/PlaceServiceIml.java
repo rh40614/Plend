@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import three.people.dao.PlaceDAO;
 import three.people.vo.BookVO;
+import three.people.vo.EventVO;
 import three.people.vo.HeartVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
@@ -28,8 +29,8 @@ public class PlaceServiceIml implements PlaceService{
 		
 		//장소 소개 35자 이상 자르기
 		for(PlaceVO place: result) {
-			if(place.getPlaceDetail().length() > 35) {
-				String pd =place.getPlaceDetail().substring(0, 35);
+			if(place.getPlaceDetail().length() > 90) {
+				String pd =place.getPlaceDetail().substring(0, 90);
 				place.setPlaceDetail(pd);
 			}
 		}
@@ -68,18 +69,24 @@ public class PlaceServiceIml implements PlaceService{
 	}
 
 	@Override
-	public int insertBook(BookVO bookvo) {
-		return placeDAO.insertBook(bookvo);
-	}
-
-	@Override
 	public List<ImageVO> selectImage(PlaceVO placevo) {
 		return placeDAO.selectImage(placevo);
 	}
 
 	@Override
 	public List<PlaceVO> categoryPlace(PlaceVO placeVO) {
-		return placeDAO.categoryPlace(placeVO);
+		List<PlaceVO> result = placeDAO.categoryPlace(placeVO);
+		//장소 이름 자르기
+		for(PlaceVO place: result) {
+			//단일 공백 정규식 : \\s
+			String[] ad = place.getAddress().split("\\s");
+			String twoFromStart = ad[0] +" " +ad[1];
+			//System.out.println("twoFromStart: "+twoFromStart);
+			
+			place.setAddress(twoFromStart);
+		}
+		
+		return result;
 	}
 
 	@Override
@@ -89,7 +96,18 @@ public class PlaceServiceIml implements PlaceService{
 
 	@Override
 	public List<PlaceVO> selectPlace() {
-		return placeDAO.selectPlace();
+		List<PlaceVO> result = placeDAO.selectPlace();
+		//장소 이름 자르기
+		for(PlaceVO place: result) {
+			//단일 공백 정규식 : \\s
+			String[] ad = place.getAddress().split("\\s");
+			String twoFromStart = ad[0] +" " +ad[1];
+			place.setAddress(twoFromStart);
+		}
+		
+		
+		
+		return result;
 	}
 	
 	@Override
@@ -182,6 +200,7 @@ public class PlaceServiceIml implements PlaceService{
 					idxOver6[i] = randomNum;
 				}
 			}
+			
 			return idxOver6;
 			
 		}else if(listSize > 0) {
@@ -222,6 +241,13 @@ public class PlaceServiceIml implements PlaceService{
 			return nothing;
 		}
 			
+	}
+
+	
+	//검색 인원, 지역
+	@Override
+	public List<PlaceVO> filter_search(PlaceVO placeVO) {
+		return placeDAO.filter_search(placeVO);
 	}
 	
 }

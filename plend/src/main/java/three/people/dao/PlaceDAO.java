@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import three.people.vo.BookVO;
+import three.people.vo.EventVO;
 import three.people.vo.HeartVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
@@ -53,10 +54,6 @@ public class PlaceDAO {
 	public int deleteQnA(QnaVO qnavo) {
 		return sqlSession.update(namespace+".deleteQnA", qnavo);
 	}
-	// 07.25 김영민: 예약정보 추가
-	public int insertBook(BookVO bookvo) {
-		return sqlSession.insert(namespace+".insertBook", bookvo);
-	}
 	// 07.26 김영민: 이미지정보 가져오기
 	public List<ImageVO> selectImage(PlaceVO placevo){
 		return sqlSession.selectList(namespace+".selectImage", placevo);
@@ -88,10 +85,14 @@ public class PlaceDAO {
 	}
 
 	//07.27 김연희 : 랜덤용 할인 리스트 
-		public List<PlaceVO> eventPlace() {
-			List<PlaceVO> result = sqlSession.selectList(namespace+".eventPlace");
-			return result;
-		}
+	public List<PlaceVO> eventPlace() {			
+		List<PlaceVO> result = sqlSession.selectList(namespace+".eventPlace");
+		return result;
+	}
+	//08.01 김연희 : 장소 검색
+	public List<PlaceVO> filter_search(PlaceVO placeVO){
+		return sqlSession.selectList(namespace+".filter_search", placeVO);
+	}
 	
 
 }

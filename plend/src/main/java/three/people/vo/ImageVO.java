@@ -8,8 +8,15 @@ public class ImageVO extends PlaceVO {
 	private String realFileName;
 	private int pidx;
 	private int eidx;
+	private int rvidx;
 	
 	
+	public int getRvidx() {
+		return rvidx;
+	}
+	public void setRvidx(int rvidx) {
+		this.rvidx = rvidx;
+	}
 	public int getEidx() {
 		return eidx;
 	}

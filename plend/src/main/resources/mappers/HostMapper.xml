@@ -24,7 +24,8 @@
 					option2,
 					availTimeValue,
 					intervalTime,
-					price
+					price,
+					cntPeople
 			)VALUES(
 		  			#{uidx},
 		  			#{category},
@@ -38,7 +39,8 @@
 		  			#{option2},
 		  			#{availTimeValue},
 		  			#{intervalTime},
-		  			#{price}
+		  			#{price},
+		  			#{cntPeople}
 		)
 		
 		<!-- keyProperty: 이 쿼리가 실행 되면 결과를 어디에 담을거냐. 현재 insert에 사용한 중에 어느 컬럼에 담을거냐. order after이므로 앞의 쿼리가 실행된후 실행하겠다.  -->	
@@ -162,6 +164,7 @@
 			,answerRate
 		FROM inquiry
 		WHERE depth = '0'
+		  AND uidx = #{uidx}
 		ORDER BY iqidx DESC
 		LIMIT #{start},#{cntPerPage}
 		
@@ -193,6 +196,7 @@
 		SELECT
 			COUNT(iqidx)
 		FROM inquiry
+	   WHERE uidx = #{uidx}
 	</select>
 	
 	

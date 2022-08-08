@@ -5,13 +5,166 @@
  
 <mapper namespace="three.people.mapper.reviewMapper">
 	
-	<!-- <select id="reviewALl" parameterType="ReviewVO"></select>
-	<update id="reviewModify" parameterType="ReviewVO"></update>
-	<insert id="insertReview" parameterType="ReviewVO"></insert>
-	<select id="reviewOne" resultType="ReviewVO" parameterType="ReviewVO"></select> 
-	<update id="reviewDelete" parameterType="ReviewVO"></update>
-	<insert id="insertReviewReport" parameterType="ReviewVO"></insert> -->
+	<!-- 08.02 김영민: 리뷰등록  -->
+	<insert id="insertReview" parameterType="ReviewVO">
+		INSERT INTO review(
+			pidx,
+			title,
+			content,
+			rate,
+			uidx
+		)VALUES(
+			#{pidx},
+			#{title},
+			#{content},
+			#{rate},
+			#{uidx}
+		)
+		<selectKey keyProperty="rvidx" order="AFTER" resultType="int">
+			SELECT MAX(rvidx)
+			  FROM review
+		</selectKey>
+	</insert>
+	<update id="updateReivew" parameterType="ReviewVO">
+		UPDATE book
+		   SET reviewyn = 'Y'
+		 WHERE bidx = #{bidx}
+	</update>
+	<!-- 08.03 김영민: 내 리뷰 리스트 불러오기 -->
+	<select id="myReview" resultType="ReviewVO" parameterType="HashMap">
+		SELECT rvidx
+			  ,pidx
+			  ,title
+			  ,content
+			  ,rate
+			  ,date
+			  ,delyn
+			  ,uidx
+		  FROM review
+		 WHERE uidx = #{UserVO.uidx}
+	  ORDER BY rvidx DESC
+		 LIMIT #{SearchVO.start}, #{SearchVO.cntPerPage} 
+	</select>
+	<select id="countMyReview" resultType="int" parameterType="UserVO">
+		SELECT COUNT(*)
+		  FROM review
+		 WHERE uidx = #{uidx}
+	</select>
 	
+	<!-- 08.05 김영민: 리뷰이미지 등록 -->
+	<insert id="insertReviewImg" parameterType="ImageVO">
+		INSERT INTO image(
+			path,
+			originFileName,
+			realFileName,
+			rvidx
+		)VALUES(
+			#{path},
+			#{originFileName},
+			#{realFileName},
+			#{rvidx}
+		)
+	</insert>
+	
+	<!-- 08.05 김영민: 리뷰하나 불러오기 -->
+	<select id="reviewOne" resultType="ReviewVO" parameterType="ReviewVO">
+		SELECT r.rvidx,
+			   r.pidx,
+			   u.uidx,
+			   r.title,
+			   r.content,
+			   r.rate,
+			   r.date,
+			   r.delYN
+		  FROM review r
+		  JOIN user_plend u
+		    ON r.uidx = u.uidx
+		 WHERE rvidx = #{rvidx}
+	</select> 
+	<!-- 08.06 김영민: 해당 리뷰 이미지 불러오기 -->
+	<select id="reviewImg" resultType="ImageVO" parameterType="reviewVO">
+		SELECT imidex,
+			   path,
+			   originfilename,
+			   realfilename
+		  FROM image
+		 WHERE rvidx = #{rvidx}
+	</select>
+	<!-- 08.08 김영민: 리뷰 수정 -->
+	<update id="reviewModify" parameterType="ReviewVO">
+		UPDATE review
+		   SET title = #{title},
+		   	   content = #{content},
+		   	   rate = #{rate}
+		 WHERE rvidx = #{rvidx}
+	</update>
+	<update id="reviewImgModify" parameterType="ImageVO">
+		UPDATE image
+		   SET originfilename = #{originFileName},
+		   	   realfilename = #{realFileName}
+		 WHERE rvidx = #{rvidx}
+	</update>
+	<!-- 08.08 김영민: 리뷰 삭제 -->	
+	<update id="reviewDelete" parameterType="ReviewVO">
+		UPDATE review
+		   SET delyn = 'Y'
+		 WHERE rvidx = #{rvidx}
+	</update>
+	<!-- 08.08 김영민: 리뷰 신고 -->
+	<insert id="insertReviewReport" parameterType="ReportVO">
+		INSERT INTO report(
+			rvidx,
+			category,
+			content,
+			reporter_uidx,
+			respondent_uidx
+		)VALUES(
+			#{rvidx},
+			#{category},
+			#{content},
+			#{reporter_uidx},
+			#{respondent_uidx}
+		)
+	</insert>
+	
+	<!--2022.08.08 김연희: 호스트가 가지고 있는 장소에 대한 리뷰들  -->	
+	<select id="selectReviewByHost" parameterType="HashMap" resultType="ReviewVO">
+		SELECT 
+				@rownum:=@rownum+1 AS rnum
+				,r.*  
+		FROM 
+		(SELECT 
+			 rvidx
+			,r.pidx
+			,r.title
+			,r.content
+			,r.rate
+			,r.date
+			,r.delYN
+			,r.uidx
+			,p.placeName
+	    FROM review r
+	    JOIN place p
+	      ON r.pidx = p.pidx
+	   WHERE p.uidx =#{uidx}
+	     AND r.delYN = 'N'
+	     AND P.delYN = 'N'
+    ORDER BY rvidx DESC) r,
+     (SELECT @rownum:=0) rnum
+    ORDER BY rnum ASC
+	   LIMIT #{start},#{cntPerPage}
+	</select>
+
+
+	<select id="cntReview" parameterType="int" resultType="int">
+			SELECT 
+				COUNT(rvidx)
+			FROM review r
+			JOIN book b
+			WHERE b.uidx = #{uidx}
+			AND r.delYN ='N'
+			AND b.delYN ='N'
+	</select>
 	
 	
 </mapper>

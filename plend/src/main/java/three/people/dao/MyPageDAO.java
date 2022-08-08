@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import three.people.vo.BookVO;
+import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
@@ -68,4 +69,11 @@ public class MyPageDAO {
 	public UserVO inquirePwd(int uidx) {
 		return sqlSession.selectOne("three.people.mapper.mypageMapper.inquirePwd", uidx);
 	}
+	
+	
+
+
+
+
+
 } 

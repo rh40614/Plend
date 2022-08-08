@@ -47,17 +47,23 @@
 	<main style="margin: 5% 19% 10% 19%; flex: 1;">
 	<br>
 
-	<a href="host/insertPlace.do">장소등록 </a>
+	<!-- 
+	07.28 김하진 role 별로 로그인을 하고 navi바에서 들어가시길 바랍니다. 
+	불편하시면 따로 링크를 빼셔도 됩니다. 
+	 -->
+	<a href="host/managePlace.do">장소등록 </a>
 	<button type="button" onclick="check();">마이페이지</button>
-
-  <a href="developer/userList.do">유저리스트 </a>
+    <a href="developer/userList.do">유저리스트 </a>
+    <a href="test.do">테스트 </a>
 
   	<div>
     	<span class="navbar-brand title1">| 추천 장소 </span>
   	</div>
 	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start ">
 		<c:if test="${list.size() == 0}">
-			<P class="title2 m-auto">등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. </P>
+			<div class=" m-auto" style="height: 400px;">	
+				<P class="title2 m-auto">등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. </P>
+			</div>
 		</c:if>
 		<c:if test="${list.size() > 0 }">
 			<c:forEach var ="c" items="${list}" varStatus="status"> 
@@ -98,7 +104,9 @@
   	</div>
   		<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start ">
 		<c:if test="${list2.size() == 0}">
-			<P class="title2 m-auto">등록된 장소가 없습니다. 더 많은 이벤트로 찾아오겠습니다. </P>
+			<div class=" m-auto" style="height: 400px;">	
+				<P class="title2 m-auto">등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. </P>
+			</div>
 		</c:if>
 		<c:if test="${list2.size() > 0 }">
 			<c:forEach var ="e" items="${list2}" varStatus="status"> 

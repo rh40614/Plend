@@ -14,15 +14,10 @@ public class EventVO {
 	private MultipartFile eventImg;
 	private String category;
 	//2022.07.21 김연희 여러가지 시도중
-	private String path;
+	private String eventImgString;
 	
 
-	public String getPath() {
-		return path;
-	}
-	public void setPath(String path) {
-		this.path = path;
-	}
+	
 	public MultipartFile getEventImg() {
 		return eventImg;
 	}
@@ -76,6 +71,12 @@ public class EventVO {
 	}
 	public void setStartEnd(String startEnd) {
 		this.startEnd = startEnd;
+	}
+	public String getEventImgString() {
+		return eventImgString;
+	}
+	public void setEventImgString(String eventImgString) {
+		this.eventImgString = eventImgString;
 	}
 
 	

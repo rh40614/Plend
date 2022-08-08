@@ -114,7 +114,7 @@
 										<tr >
 											<td>${i.iqidx}</td>
 											<td>${i.category}</td>
-											<td style="text-align: left;"><a href="<%=request.getContextPath()%>/inquiry_dev/inquiryView_dev.do?iqidx=${i.iqidx}">${i.title}</a></td>
+											<td style="text-align: left;"><a href="<%=request.getContextPath()%>/inquiry_dev/inquiryView_dev.do?iqidx=${i.iqidx}&uidx=${i.uidx}">${i.title}</a></td>
 											<c:if test="${i.answerYN eq 'Y'}">
 												<td>답변 완료</td>
 											</c:if>
