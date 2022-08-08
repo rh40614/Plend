@@ -118,46 +118,6 @@
 		 WHERE bidx = #{bidx} 
 	</update>
 	
-	<!-- 08.02 김영민: 리뷰등록  -->
-	<insert id="insertReview" parameterType="ReviewVO">
-		INSERT INTO review(
-			pidx,
-			title,
-			content,
-			rate,
-			uidx
-		)VALUES(
-			#{pidx},
-			#{title},
-			#{content},
-			#{rate},
-			#{uidx}
-		)
-	</insert>
-	<update id="updateReivew" parameterType="ReviewVO">
-		UPDATE book
-		   SET reviewyn = 'Y'
-		 WHERE bidx = #{bidx}
-	</update>
-	<!-- 08.03 김영민: 내 리뷰 불러오기 -->
-	<select id="myReview" resultType="ReviewVO" parameterType="UserVO">
-		SELECT rvidx
-			  ,pidx
-			  ,title
-			  ,content
-			  ,rate
-			  ,date
-			  ,delyn
-			  ,uidx
-		  FROM review
-		 WHERE uidx = #{uidx} 
-	</select>
-	<select id="countMyReview" resultType="int" parameterType="UserVO">
-		SELECT COUNT(*)
-		  FROM review
-		 WHERE uidx = #{uidx}
-	</select>
-
 	<select id="likeList" resultType="PlaceVO" parameterType="UserVO"></select>
 
 

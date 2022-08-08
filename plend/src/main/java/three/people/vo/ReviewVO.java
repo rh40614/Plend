@@ -1,5 +1,7 @@
 package three.people.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class ReviewVO extends BookVO {
 	
 	private int rvidx;
@@ -8,7 +10,14 @@ public class ReviewVO extends BookVO {
 	private int rate;
 	private String date;
 	private String delYN;
+	private MultipartFile[] reviewImgs;
 	
+	public MultipartFile[] getReviewImgs() {
+		return reviewImgs;
+	}
+	public void setReviewImgs(MultipartFile[] reviewImgs) {
+		this.reviewImgs = reviewImgs;
+	}
 	public String getDate() {
 		return date;
 	}

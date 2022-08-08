@@ -58,7 +58,6 @@
    					<tr>
    						<th scope="col">글번호</th>
    						<th scope="col">제목</th>
-   						<th scope="col">내용</th>
    						<th scope="col">평점</th>
    						<th scope="col">작성일</th>
    					</tr>
@@ -66,49 +65,41 @@
    				<tbody class="text-center">
    					<c:forEach var="myReview" items="${myReviewList}" varStatus="status">
    						<tr>
-	   						<td scope="row">${status.index +1}</td>
-	   						<td>${myReview.title}</td>
-	   						<c:choose>
-	   							<c:when test="${myReview.content.length() > 11}">
-	   								<td>${myReview.content.substring(0,11)}</td>
-	   							</c:when>
-	   							<c:otherwise>
-	   								<td>${myReview.content}</td>
-	   							</c:otherwise>
-	   						</c:choose>
+	   						<td scope="row">${myReview.rvidx}</td>
+	   						<td><a href="<%=request.getContextPath()%>/review/detail.do?rvidx=${myReview.rvidx}">${myReview.title}</a></td>
 							<td>${myReview.rate}점</td>	
 							<td>${myReview.date.substring(0,10)}</td>	
 	   					</tr>
    					</c:forEach>
    				</tbody>
    			</table>
+	   		<c:if test="${not empty myReviewList}">
+				<nav id="pagenation" class="row">
+				  <ul class="pagination justify-content-center">
+				  	<c:if test="${pagenation.startPage > 5}">
+					    <li class="page-item">
+					      <a class="page-link" href="myReviewList.do?nowPage=4&uidx=${login.uidx}">&laquo;</a>
+					    </li>
+				  	</c:if>
+				  	<c:forEach begin="${pagenation.startPage }" end="${pagenation.endPage }" var="p">
+						<c:choose>
+							<c:when test="${p == pagenation.nowPage }">
+								<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" href="myReviewList.do?nowPage=${p}&uidx=${login.uidx}">${p}</a></li>
+							</c:when>
+							<c:when test="${p != pagenation.nowPage }">
+								<li class="page-item"><a class="page-link" href="myReviewList.do?nowPage=${p}&uidx=${login.uidx}">${p}</a></li>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+				    <c:if test="${pagenation.endPage != pagenation.lastPage}">
+					    <li class="page-item">
+					      <a class="page-link" href="myReviewList.do?nowPage=${pagenation.endPage +1}&uidx=${login.uidx}">&raquo;</a>
+					    </li>
+				    </c:if>
+				  </ul>
+				</nav>
+			</c:if>
    		</div>
-   		<c:if test="${not empty myReviewList}">
-			<nav id="pagenation" class="row">
-			  <ul class="pagination justify-content-center">
-			  	<c:if test="${pagenation.startPage > 5}">
-				    <li class="page-item">
-				      <a class="page-link" href="myReviewList.do?nowPage=4&uidx=${login.uidx}">&laquo;</a>
-				    </li>
-			  	</c:if>
-			  	<c:forEach begin="${pagenation.startPage }" end="${pagenation.endPage }" var="p">
-					<c:choose>
-						<c:when test="${p == pagenation.nowPage }">
-							<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" href="myReviewList.do?nowPage=${p}&uidx=${login.uidx}">${p}</a></li>
-						</c:when>
-						<c:when test="${p != pagenation.nowPage }">
-							<li class="page-item"><a class="page-link" href="myReviewList.do?nowPage=${p}&uidx=${login.uidx}">${p}</a></li>
-						</c:when>
-					</c:choose>
-				</c:forEach>
-			    <c:if test="${pagenation.endPage != pagenation.lastPage}">
-				    <li class="page-item">
-				      <a class="page-link" href="myReviewList.do?nowPage=${pagenation.endPage +1}&uidx=${login.uidx}">&raquo;</a>
-				    </li>
-			    </c:if>
-			  </ul>
-			</nav>
-		</c:if>
    </div>
 <div style="margin-top: -48px;">
 <footer id="footer" class="mt-5" style = "float:none;display:inline-block;"></footer>

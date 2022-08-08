@@ -35,4 +35,20 @@ public class ImageViewController {
 	    }
 	    return result;
 	}
+	
+	@RequestMapping(value="/reviewImg.do", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> reviewImg(ImageVO imagevo, HttpServletRequest request, HttpSession session){
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/upload/reviewImg");
+		File file=new File(path, imagevo.getOriginFileName());
+	    ResponseEntity<byte[]> result=null;
+	    try {
+	        HttpHeaders headers=new HttpHeaders();
+	        headers.add("Content-Type", Files.probeContentType(file.toPath()));
+	        result=new ResponseEntity<>(FileCopyUtils.copyToByteArray(file),headers,HttpStatus.OK );
+	    }catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	    return result;
+	}
 }
