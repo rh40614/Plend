@@ -33,10 +33,7 @@
 							tags.forEach(element => 
 								tag += "#"+ element.value + "&nbsp;" 
 							);
-							console.log(tag);
-							
 							$("#tag${pv.pidx}").html(tag);
-							 
 						</script>
 						<td style="text-align: left;">${pv.placeDetail}</td>
 						<td>${pv.approvalYN}</td>

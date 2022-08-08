@@ -50,7 +50,7 @@
 			,a.uidx
 			,booktime
 			,usetime
-			,cntpeople
+			,a.cntpeople
 			,a.reviewYN
 			,a.approvalyn
 			,a.successbook
@@ -71,7 +71,7 @@
 			,a.uidx
 			,booktime
 			,usetime
-			,cntpeople
+			,a.cntpeople
 			,a.reviewYN
 			,a.approvalyn
 			,a.successbook

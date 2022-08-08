@@ -20,4 +20,6 @@ public interface ReviewService {
 	public int reviewImgModify(ImageVO imageVO);
 	public int reviewDelete(ReviewVO reviewVO);
 	public int insertReviewReport(ReportVO reportVO);
+	public List<ReviewVO> selectReviewByHost(HashMap<String,Integer> page);
+	public int cntReview(int uidx);
 }
