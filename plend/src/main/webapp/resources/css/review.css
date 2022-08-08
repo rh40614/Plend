@@ -96,6 +96,10 @@ td {
 .rating:hover>input:checked~label:before {
     opacity: 0.4
 }
+
+.reviewImg::after {
+	content: '  x';
+}
 /* button */
 .btn-light {
 	color: #000 !important;

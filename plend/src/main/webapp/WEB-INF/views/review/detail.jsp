@@ -51,10 +51,16 @@
 	            <input name="rvidx" type="hidden" value="${review.rvidx}" readonly> 
 	            <textarea name="content" id="summernote" required>${review.content}</textarea>
 	          	<input type="file" name="reviewImgs" id="reviewImgs" multiple="multiple">
+	          	<div class="mt-1">
+	          		<c:forEach var="img" items="${imgs}">
+	          			<button type="button" class="reviewImg btn btn-light">${img.originFileName}</button>
+	          		</c:forEach>
+	          		<input type="hidden" name="deleteImg" readonly/>
+	          	</div>
 	          </div>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="resetDeleteImg()">닫기</button>
 	        <button type="button" class="btn btn-primary" onclick="reviewModify()">수정</button>
 	      </div>
         </form>
@@ -111,7 +117,7 @@
 					<td style="text-align: end;">
 						<c:if test="${review.uidx eq login.uidx}">
 							<a class="btn btn-sm" onclick="openModal();">수정</a>
-							<a class="btn btn-sm">삭제</a>
+							<a class="btn btn-sm" onclick="reviewDelete();">삭제</a>
 						</c:if>
 						<c:if test="${placeOne.uidx eq login.uidx}">
 							<a class="btn btn-sm">블랙리스트 등록</a>
@@ -160,7 +166,6 @@ function openModal(){
 
 function reviewModify(){
 	var formData = new FormData($("#reviewModify")[0]);
-	console.log(formData);
 	$.ajax({
 		url: "reviewModify.do",
 		method: "POST",
@@ -170,13 +175,38 @@ function reviewModify(){
 		contentType: false,
 		success: function(data){
 			console.log("success");
-			location.href='<%=request.getContextPath()%>/review/detail.do?rvidx=${review.rvidx}';
+			location.replace("<%=request.getContextPath()%>/review/detail.do?rvidx=${review.rvidx}");
 		},
 		error: function(){
 			console.log("error");
 		}
 	});
 }
+</script>
+<!-- modal deleteimg 추가 -->
+<script type="text/javascript">
+	var imgName = '';
+	$(".reviewImg").click(function(){
+		imgName += $(this).text() + '/';
+		$(this).hide();
+		$("input[name='deleteImg']").val(imgName);
+	});
+</script>
+<!-- modal deleteimg 초기화 -->
+<script type="text/javascript">
+	function resetDeleteImg() {
+		var imgName = '';
+		$("input[name='deleteImg']").val('');
+		$(".reviewImg").show();
+	}
+</script>
+<!-- 리뷰삭제 -->
+<script type="text/javascript">
+	function reviewDelete(){
+		if (window.confirm("정말로 삭제하시겠습니까?")) {
+			location.replace('<%=request.getContextPath()%>/review/reviewDelete.do?rvidx=${review.rvidx}');
+		}
+	}
 </script>
 </body>
 </html>

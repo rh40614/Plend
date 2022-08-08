@@ -12,7 +12,15 @@ public class ReviewVO extends BookVO {
 	private String delYN;
 	private int rnum;
 	private MultipartFile[] reviewImgs;
+	private String deleteImg;
 	
+	
+	public String getDeleteImg() {
+		return deleteImg;
+	}
+	public void setDeleteImg(String deleteImg) {
+		this.deleteImg = deleteImg;
+	}
 	public MultipartFile[] getReviewImgs() {
 		return reviewImgs;
 	}
