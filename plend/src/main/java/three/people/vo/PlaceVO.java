@@ -27,6 +27,8 @@ public class PlaceVO extends UserVO {
 	private String availTimeValue;
 	private String useTime;
 	private int cntPeople;
+	//2022.08.08 김연희 : 페이징후 게시물 넘버
+	private int rnum;
 	
 	
 	
@@ -158,5 +160,12 @@ public class PlaceVO extends UserVO {
 	public void setCntPeople(int cntPeople) {
 		this.cntPeople = cntPeople;
 	}
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+	
 	
 }

@@ -8,6 +8,7 @@
 	<select id="selectPlaceAll" resultType="PlaceVO" parameterType="HashMap">
 			
 			SELECT
+				  @rownum:=@rownum+1 AS rnum,
 				  pidx
 				 ,uidx
 				 ,category
@@ -24,12 +25,13 @@
 				 ,delYN
 				 ,approvalYN
 				 ,availTimeValue
-				 ,intervalTime 
-			FROM place
+				 ,intervalTime
+			FROM place , (SELECT @rownum:=0) rnum
 		   WHERE delYN ='N'
 		   	 AND uidx = #{uidx}
-		ORDER BY pidx DESC
-		   LIMIT #{start},#{cntPerPage}
+		ORDER BY rnum ASC
+		LIMIT #{start},#{cntPerPage}
+		   
 	</select>
 	<!-- 2022.07.19 김연희: 페이징 처리 위해 만듬 -->
 	<select id="cntPlace" parameterType="PlaceVO" resultType="int">

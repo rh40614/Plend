@@ -10,6 +10,7 @@ public class ReviewVO extends BookVO {
 	private int rate;
 	private String date;
 	private String delYN;
+	private int rnum;
 	private MultipartFile[] reviewImgs;
 	
 	public MultipartFile[] getReviewImgs() {
@@ -17,6 +18,13 @@ public class ReviewVO extends BookVO {
 	}
 	public void setReviewImgs(MultipartFile[] reviewImgs) {
 		this.reviewImgs = reviewImgs;
+	}
+	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 	public String getDate() {
 		return date;
