@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import three.people.vo.ImageVO;
+import three.people.vo.ReportVO;
 import three.people.vo.ReviewVO;
 import three.people.vo.UserVO;
 
@@ -42,5 +43,23 @@ public class ReviewDAO {
 	public List<ImageVO> reviewImg(ReviewVO reviewVO){
 		return sqlSession.selectList("three.people.mapper.reviewMapper.reviewImg", reviewVO);
 	}
-
+	// 리뷰수정, 이미지까지
+	public int reviewModify(ReviewVO reviewVO) {
+		return sqlSession.update("three.people.mapper.reviewMapper.reviewModify", reviewVO);
+	}
+	public int reviewImgModify(ImageVO imageVO) {
+		return sqlSession.update("three.people.mapper.reviewMapper.reviewImgModify", imageVO);
+	}
+	// 리뷰삭제
+	public int reviewDelete(ReviewVO reviewVO) {
+		return sqlSession.delete("three.people.mapper.reviewMapper.reviewDelete", reviewVO);
+	}
+	//리뷰신고
+	public int insertReviewReport(ReportVO reportVO) {
+		return sqlSession.insert("three.people.mapper.reviewMapper.insertReviewReport", reportVO);
+	}
+	
+	
+	
+	
 }

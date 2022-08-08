@@ -69,6 +69,7 @@
 	<!-- 08.05 김영민: 리뷰하나 불러오기 -->
 	<select id="reviewOne" resultType="ReviewVO" parameterType="ReviewVO">
 		SELECT r.rvidx,
+			   r.pidx,
 			   u.uidx,
 			   r.title,
 			   r.content,
@@ -89,12 +90,46 @@
 		  FROM image
 		 WHERE rvidx = #{rvidx}
 	</select>
-	
-	<!-- <select id="reviewALl" parameterType="ReviewVO"></select>
-	<update id="reviewModify" parameterType="ReviewVO"></update>
+	<!-- 08.08 김영민: 리뷰 수정 -->
+	<update id="reviewModify" parameterType="ReviewVO">
+		UPDATE review
+		   SET title = #{title},
+		   	   content = #{content},
+		   	   rate = #{rate}
+		 WHERE rvidx = #{rvidx}
+	</update>
+	<update id="reviewImgModify" parameterType="ImageVO">
+		UPDATE image
+		   SET originfilename = #{originFileName},
+		   	   realfilename = #{realFileName}
+		 WHERE rvidx = #{rvidx}
+	</update>
+	<!-- 08.08 김영민: 리뷰 삭제 -->	
+	<update id="reviewDelete" parameterType="ReviewVO">
+		UPDATE review
+		   SET delyn = 'Y'
+		 WHERE rvidx = #{rvidx}
+	</update>
+	<!-- 08.08 김영민: 리뷰 신고 -->
+	<insert id="insertReviewReport" parameterType="ReportVO">
+		INSERT INTO report(
+			rvidx,
+			category,
+			content,
+			reporter_uidx,
+			respondent_uidx
+		)VALUES(
+			#{rvidx},
+			#{category},
+			#{content},
+			#{reporter_uidx},
+			#{respondent_uidx}
+		)
+	</insert>
+	<!-- 
+	<select id="reviewALl" parameterType="ReviewVO"></select>
 	<insert id="insertReview" parameterType="ReviewVO"></insert>
-	<update id="reviewDelete" parameterType="ReviewVO"></update>
-	<insert id="insertReviewReport" parameterType="ReviewVO"></insert> -->
+	-->
 	
 	
 	

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import three.people.dao.ReviewDAO;
 import three.people.vo.ImageVO;
+import three.people.vo.ReportVO;
 import three.people.vo.ReviewVO;
 import three.people.vo.UserVO;
 
@@ -46,5 +47,25 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<ImageVO> reviewImg(ReviewVO reviewVO) {
 		return reviewDAO.reviewImg(reviewVO);
+	}
+
+	@Override
+	public int reviewModify(ReviewVO reviewVO) {
+		return reviewDAO.reviewModify(reviewVO);
+	}
+
+	@Override
+	public int reviewImgModify(ImageVO imageVO) {
+		return reviewDAO.reviewImgModify(imageVO);
+	}
+
+	@Override
+	public int reviewDelete(ReviewVO reviewVO) {
+		return reviewDAO.reviewDelete(reviewVO);
+	}
+
+	@Override
+	public int insertReviewReport(ReportVO reportVO) {
+		return reviewDAO.insertReviewReport(reportVO);
 	}
 }

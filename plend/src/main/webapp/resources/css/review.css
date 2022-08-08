@@ -30,6 +30,35 @@ td {
 	padding-bottom: 40px;
 }
 
+/* rated */
+.rated {
+	display: inline-flex;
+    flex-direction: row-reverse;
+}
+
+.rated>input {
+    display: none
+}
+
+.rated>label {
+    position: relative;
+    width: 28px;
+    font-size: 35px;
+    color: #ffc107;
+}
+
+.rated>label::before {
+    content: "\2605";
+    position: absolute;
+    opacity: 0
+}
+
+
+.rated>input:checked~label:before {
+    opacity: 1
+}
+
+/* modal */
 /* rating */
 .rating {
    display: inline-flex;
@@ -46,6 +75,7 @@ td {
     width: 28px;
     font-size: 35px;
     color: #ffc107;
+    cursor: pointer;
 }
 
 .rating>label::before {
@@ -54,7 +84,20 @@ td {
     opacity: 0
 }
 
+.rating>label:hover:before,
+.rating>label:hover~label:before {
+    opacity: 1 !important
+}
 
 .rating>input:checked~label:before {
     opacity: 1
+}
+
+.rating:hover>input:checked~label:before {
+    opacity: 0.4
+}
+/* button */
+.btn-light {
+	color: #000 !important;
+    background-color: #f8f9fa !important;
 }

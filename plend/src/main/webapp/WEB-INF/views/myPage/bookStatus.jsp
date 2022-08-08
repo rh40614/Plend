@@ -259,7 +259,6 @@
 			          ['font', ['bold', 'underline']],
 			          ['color', ['color']],
 			          ['para', ['ul', 'ol']],
-			          ['insert', ['picture']],
 				    ],
 				    focus: true,
 				    minHeight: 160,
