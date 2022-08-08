@@ -68,4 +68,21 @@ public class ReviewServiceImpl implements ReviewService {
 	public int insertReviewReport(ReportVO reportVO) {
 		return reviewDAO.insertReviewReport(reportVO);
 	}
+
+	@Override
+	public List<ReviewVO> selectReviewByHost(HashMap<String, Integer> page) {
+		
+		List<ReviewVO> result = reviewDAO.selectReviewByHost(page);
+		//일자 자르기
+		for(ReviewVO r: result) {
+			r.setDate(r.getDate().substring(0,10));
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int cntReview(int uidx) {
+		return reviewDAO.cntReview(uidx);
+	}
 }
