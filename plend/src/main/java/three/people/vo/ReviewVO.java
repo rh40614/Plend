@@ -8,7 +8,14 @@ public class ReviewVO extends BookVO {
 	private int rate;
 	private String date;
 	private String delYN;
+	private int rnum;
 	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	public String getDate() {
 		return date;
 	}

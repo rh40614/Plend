@@ -41,6 +41,10 @@
 	<!-- 2022.08.06 김연희 : host 센터에서 장소에 대한 예약리스트 로딩 -->
 	<select id="selectBookByHost" parameterType="HashMap" resultType="BookVO">
 		SELECT 
+				@rownum:=@rownum+1 AS rnum
+				,b.*  
+		FROM 
+		(SELECT 	
 				bidx
 				,b.pidx
 				,b.uidx
@@ -52,14 +56,16 @@
 				,b.approvalYN
 				,b.delYN
 				,p.placeName 
-			FROM book b
+			FROM book b 
 			JOIN place p 
 			  ON b.pidx = p.pidx
 		   WHERE p.uidx = #{uidx}
 			 AND b.delYN ='N'
 			 AND p.delYN ='N'
-		ORDER BY bidx DESC
-		LIMIT #{start},#{cntPerPage}
+		ORDER BY bidx desc) b,
+		 (SELECT @rownum:=0) rnum
+		ORDER BY rnum ASC
+		   LIMIT #{start},#{cntPerPage}
 	</select>
 	
 	<select id="cntBook" parameterType="int" resultType="int">

@@ -22,9 +22,9 @@
 			</c:if>
 			<!--  -->
 			<c:if test="${list_p.size() > 0}">
-				<c:forEach var="pv" items="${list_p}" varStatus="status">
+				<c:forEach var="pv" items="${list_p}" >
 					<tr >
-						<td>${status.count}</td>
+						<td>${pv.rnum}</td>
 						<td>${pv.placeName}</td>
 						<td id="tag${pv.pidx}"></td>
 						<script>
@@ -49,31 +49,31 @@
 
 <!-- 페이징 -->
 <c:if test="${not empty list_p}">
-<nav aria-label="Page navigation example" class="m-auto">
+<nav aria-label="Page navigation example" style="margin-bottom: 0px!important;">
   <ul class="pagination justify-content-center " >
   	
-	<c:if test="${pagenation.startPage > 5}">
+	<c:if test="${pagination.startPage > 5}">
 		<li class="page-item">
       		<a class="page-link" onclick="nowPage(4)">&laquo;</a>
     	</li>
     </c:if>
     
-	<c:forEach begin="${pagenation.startPage}" end="${pagenation.endPage}" var="p">
+	<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="p">
 		<c:choose>
-			<c:when test="${p == pagenation.nowPage }">
+			<c:when test="${p == pagination.nowPage }">
 				 <li class="page-item text-secondary">
 				 <a class="page-link text-secondary" onclick="nowPage(${p})">${p}</a></li>
 			</c:when>
-			<c:when test="${p != pagenation.nowPage }">
+			<c:when test="${p != pagination.nowPage }">
 				<li class="page-item text-secondary">
 				 <a class="page-link text-secondary" onclick="nowPage(${p})">${p}</a></li>
 			</c:when>
 		</c:choose>
 	</c:forEach>
 
-   	<c:if test="${pagenation.endPage != pagenation.lastPage}">
+   	<c:if test="${pagination.endPage != pagination.lastPage}">
 	    <li class="page-item">
-	      <a class="page-link" onclick="nowPage(${pagenation.endPage +1})">&raquo;</a>
+	      <a class="page-link" onclick="nowPage(${pagination.endPage +1})">&raquo;</a>
 	    </li>
    	</c:if>
   </ul>
