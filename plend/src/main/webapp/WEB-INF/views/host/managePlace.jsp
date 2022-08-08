@@ -31,7 +31,7 @@
 			//장소 로딩
 			$.ajax({
 				url: "placeList.do",
-				type: "POST",
+				type: "GET",
 				success: function(data){
 					$("#placeList").html(data);
 				}
@@ -39,7 +39,7 @@
 			//예약 로딩
 			$.ajax({
 				url: "bookList.do",
-				type: "POST",
+				type: "GET",
 				success: function(data){
 					$("#bookList").html(data);
 				}
@@ -47,9 +47,12 @@
 			//리뷰 로딩
 			$.ajax({
 				url: "reviewList.do",
-				type: "POST",
+				type: "GET",
 				success: function(data){
 					$("#reviewList").html(data);
+				},
+				error: function(){
+					console.log("아이고");
 				}
 			});
 			
@@ -73,6 +76,7 @@
 				<div id="placeList" style="height:550px;justify-content: space-between;align-items: center;" class="d-flex flex-column" >
 					<!-- 데이터 들어오는 곳 -->
 				</div>
+			    <hr width="100%">
 			</div>
 		</section>
 	<!-- 예약현황 리스트 -->	
@@ -82,6 +86,7 @@
 					<div id="bookList"  style="height:400px; justify-content: space-between;align-items: center;" class="d-flex flex-column ">
 						<!-- 데이터 들어오는 곳 -->
 					</div>
+					<hr width="100%">
 				</div>
 		</section>		
 	<!-- 후기 리스트 -->	
@@ -91,6 +96,7 @@
 					<div id="reviewList" style="height:400px; justify-content: space-between;align-items: center;" class="d-flex flex-column">
 						<!-- 데이터 들어오는 곳 -->
 					</div>
+					<hr width="100%">
 				</div>
 		</section>	
 

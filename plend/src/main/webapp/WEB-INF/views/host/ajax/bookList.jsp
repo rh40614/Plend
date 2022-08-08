@@ -18,7 +18,7 @@
 	<tbody>
 		<c:if test="${list_b.size() == 0}">	
 	<tr>
-		<td colspan="6">등록된 장소가 없습니다.</td>
+		<td colspan="8">등록된 예약이 없습니다. </td>
 	</tr>
 	</c:if>
 	<!--  -->

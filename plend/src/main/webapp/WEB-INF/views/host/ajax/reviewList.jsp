@@ -16,7 +16,7 @@
 		<tbody>
 			<c:if test="${list_r.size() == 0}">	
 				<tr>
-					<td colspan="6">등록된 장소가 없습니다.</td>
+					<td colspan="6">등록된 리뷰가 없습니다.</td>
 				</tr>
 			</c:if>
 			<!--  -->
@@ -45,11 +45,11 @@
 		      		<a class="page-link" onclick="nowPage3(4)">&laquo;</a>
 		    	</li>
 		    </c:if>
-		    
+		   
 			<c:forEach begin="${pagination3.startPage}" end="${pagination3.endPage}" var="p">
 				<c:choose>
 					<c:when test="${p == pagination3.nowPage }">
-						 <li class="page-item text-secondary">
+						 <li class="page-item text-secondary ">
 						 <a class="page-link text-secondary" onclick="nowPage3(${p})">${p}</a></li>
 					</c:when>
 					<c:when test="${p != pagination3.nowPage }">
@@ -71,7 +71,7 @@
 
 			
 			
-	<!-- 예약 페이징 -->
+	<!-- 리뷰 페이징 -->
 	<script>
 	function nowPage3(p){
 		$.ajax({

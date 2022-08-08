@@ -160,10 +160,11 @@
 			SELECT 
 				COUNT(rvidx)
 			FROM review r
-			JOIN book b
-			WHERE b.uidx = #{uidx}
+			JOIN place p
+			ON r.pidx = p.pidx 
+			WHERE p.uidx = #{uidx}
 			AND r.delYN ='N'
-			AND b.delYN ='N'
+			AND p.delYN ='N'
 	</select>
 	
 	
