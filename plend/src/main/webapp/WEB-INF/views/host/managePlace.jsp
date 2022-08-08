@@ -25,6 +25,30 @@
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
+	
+	<script>
+		$(function(){
+			//장소 로딩
+			$.ajax({
+				url: "placeManage.do",
+				type: "POST",
+				success: function(data){
+					$("#placeList").html(data);
+				}
+			});
+			//예약 로딩
+			$.ajax({
+				url: "bookManage.do",
+				type: "POST",
+				success: function(data){
+					$("#bookList").html(data);
+				}
+			});
+			
+		});
+	</script>
+	
+	
 	<!-- 장소 페이징 -->
 	<script>
 	
@@ -76,7 +100,7 @@
 			<button class="mb-3 btnBig " onclick="location.href='<%=request.getContextPath()%>/host/insertPlace.do'">플레이스 등록</button>
 		</div>		
 			<div class=".table-responsive container " style="margin-left: 100px;" >
-				<div id="placeList" style="height:400px;">
+				<div id="placeList" style="height:550px;justify-content: space-between;align-items: center;" class="d-flex flex-column" >
 					<table class="table table-hover text-center clearfix " >
 						<thead class="table-dark">
 							<tr style="text-al">
@@ -121,31 +145,31 @@
 			
 					<!-- 페이징 -->
 					<c:if test="${not empty list_p}">
-						<nav aria-label="Page navigation example" class="m-auto">
-						  <ul class="pagination justify-content-center " >
+						<nav aria-label="Page navigation example" style="margin-bottom: 0px!important;">
+						  <ul class="pagination justify-content-center" >
 						  	
-							<c:if test="${pagenation.startPage > 5}">
+							<c:if test="${pagination.startPage > 5}">
 								<li class="page-item">
 						      		<a class="page-link" onclick="nowPage(4)">&laquo;</a>
 						    	</li>
 						    </c:if>
 						    
-							<c:forEach begin="${pagenation.startPage}" end="${pagenation.endPage}" var="p">
+							<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="p">
 								<c:choose>
-									<c:when test="${p == pagenation.nowPage }">
+									<c:when test="${p == pagination.nowPage }">
 										 <li class="page-item text-secondary">
 										 <a class="page-link text-secondary" onclick="nowPage(${p})">${p}</a></li>
 									</c:when>
-									<c:when test="${p != pagenation.nowPage }">
+									<c:when test="${p != pagination.nowPage }">
 										<li class="page-item text-secondary">
 										 <a class="page-link text-secondary" onclick="nowPage(${p})">${p}</a></li>
 									</c:when>
 								</c:choose>
 							</c:forEach>
 						
-					    	<c:if test="${pagenation.endPage != pagenation.lastPage}">
+					    	<c:if test="${pagination.endPage != pagination.lastPage}">
 							    <li class="page-item">
-							      <a class="page-link" onclick="nowPage(${pagenation.endPage +1})">&raquo;</a>
+							      <a class="page-link" onclick="nowPage(${pagination.endPage +1})">&raquo;</a>
 							    </li>
 					    	</c:if>
 						  </ul>
@@ -158,10 +182,10 @@
 	
 	<!-- 예약현황 리스트 -->	
 		<section>
-			<span class="title1 " style="margin-left: 120px;">예약 현황</span>
+			<span class="title1 mt-5 mb-5" style="margin-left: 120px;">예약 현황</span>
 			
 				<div class=".table-responsive container " style="margin-left: 100px;" >
-					<div id="bookList" style="height:400px;">
+					<div id="bookList"  style="height:400px; justify-content: space-between;align-items: center;" class="d-flex flex-column ">
 					<table class="table table-hover text-center clearfix" >
 						<thead class="table-dark">
 							<tr style="text-al">
@@ -183,9 +207,9 @@
 							</c:if>
 							<!--  -->
 							<c:if test="${list_b.size() > 0}">
-								<c:forEach var="pv" items="${list_b}" varStatus="status">
+								<c:forEach var="pv" items="${list_b}">
 									<tr >
-										<td>${status.count}</td>
+										<td>${pv.rnum}</td>
 										<td>${pv.bidx}</td>
 										<td>${pv.placeName}</td>
 										<td>${pv.useTime}</td>
@@ -218,31 +242,31 @@
 					
 						<!-- 페이징 -->
 						<c:if test="${not empty list_b}">
-							<nav aria-label="Page navigation example" class="m-auto">
+							<nav aria-label="Page navigation example" >
 							  <ul class="pagination justify-content-center " >
 							  	
-								<c:if test="${pagenation2.startPage > 5}">
+								<c:if test="${pagination2.startPage > 5}">
 									<li class="page-item">
 							      		<a class="page-link" onclick="nowPage2(4)">&laquo;</a>
 							    	</li>
 							    </c:if>
 							    
-								<c:forEach begin="${pagenation2.startPage}" end="${pagenation.endPage}" var="p">
+								<c:forEach begin="${pagination2.startPage}" end="${pagination.endPage}" var="p">
 									<c:choose>
-										<c:when test="${p == pagenation2.nowPage }">
+										<c:when test="${p == pagination2.nowPage }">
 											 <li class="page-item text-secondary">
 											 <a class="page-link text-secondary" onclick="nowPage2(${p})">${p}</a></li>
 										</c:when>
-										<c:when test="${p != pagenation2.nowPage }">
+										<c:when test="${p != pagination2.nowPage }">
 											<li class="page-item text-secondary">
 											 <a class="page-link text-secondary" onclick="nowPage2(${p})">${p}</a></li>
 										</c:when>
 									</c:choose>
 								</c:forEach>
 							
-						    	<c:if test="${pagenation2.endPage != pagenation2.lastPage}">
+						    	<c:if test="${pagination2.endPage != pagination2.lastPage}">
 								    <li class="page-item">
-								      <a class="page-link" onclick="nowPage2(${pagenation2.endPage +1})">&raquo;</a>
+								      <a class="page-link" onclick="nowPage2(${pagination2.endPage +1})">&raquo;</a>
 								    </li>
 						    	</c:if>
 							  </ul>
@@ -296,28 +320,28 @@
 						<nav aria-label="Page navigation example" class="m-auto">
 						  <ul class="pagination justify-content-center " >
 						  	
-							<c:if test="${pagenation3.startPage > 5}">
+							<c:if test="${pagination3.startPage > 5}">
 								<li class="page-item">
 						      		<a class="page-link" onclick="nowPage3(4)">&laquo;</a>
 						    	</li>
 						    </c:if>
 						    
-							<c:forEach begin="${pagenation3.startPage}" end="${pagenation3.endPage}" var="p">
+							<c:forEach begin="${pagination3.startPage}" end="${pagination3.endPage}" var="p">
 								<c:choose>
-									<c:when test="${p == pagenation3.nowPage }">
+									<c:when test="${p == pagination3.nowPage }">
 										 <li class="page-item text-secondary">
 										 <a class="page-link text-secondary" onclick="nowPage3(${p})">${p}</a></li>
 									</c:when>
-									<c:when test="${p != pagenation3.nowPage }">
+									<c:when test="${p != pagination3.nowPage }">
 										<li class="page-item text-secondary">
 										 <a class="page-link text-secondary" onclick="nowPage3(${p})">${p}</a></li>
 									</c:when>
 								</c:choose>
 							</c:forEach>
 						
-					    	<c:if test="${pagenation3.endPage != pagenation.lastPage}">
+					    	<c:if test="${pagination3.endPage != pagination.lastPage}">
 							    <li class="page-item">
-							      <a class="page-link" onclick="nowPage3(${pagenation3.endPage +1})">&raquo;</a>
+							      <a class="page-link" onclick="nowPage3(${pagination3.endPage +1})">&raquo;</a>
 							    </li>
 					    	</c:if>
 						  </ul>
