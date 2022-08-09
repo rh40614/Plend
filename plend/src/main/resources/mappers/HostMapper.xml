@@ -72,6 +72,410 @@
 	<update id="placeModify" parameterType="PlaceVO"></update>
 	<update id="placeDelete" parameterType="PlaceVO"></update>
 	
+	<!-- 2022.07.20 김연희 이벤트 리스트 호출 -->
+	<select id="eventList" parameterType="EventVO" resultType="EventVO">
+		SELECT 
+			 e.eidx
+			,title
+			,semiTitle
+			,content
+			,conditions
+			,edate
+			,startEnd
+			,category
+	    FROM event e
+	    INNER JOIN image i
+	    ON e.eidx = i.eidx
+	    WHERE startEnd = #{startEnd}
+	    
+	</select>
+	
+	<!-- 2022.07.20 김연희 : 이벤트 이미지  -->
+	<select id="eventImage" parameterType="EventVO" resultType="ImageVO">
+		
+		SELECT
+			imidex
+			,path
+			,originFileName
+			,realFileName
+			,e.eidx
+		FROM image i 
+		JOIN event e 
+		ON i.eidx = e.eidx
+		WHERE e.eidx = #{eidx}
+		
+	</select>
+	
+	<!-- 2022.07.20 김연희 이벤트하나 호출 -->
+	<select id="eventOne" parameterType="EventVO" resultType="EventVO">
+		SELECT 
+			e.eidx
+			,title
+			,semiTitle
+			,content
+			,conditions
+			,edate
+			,startend
+			,category
+	    FROM event e
+	    INNER JOIN image i
+	    ON e.eidx = i.eidx
+	    WHERE e.eidx = #{eidx}
+	</select>
+	
+	<!-- 2022.07.20 김연희 : 운영자 문의 사항 등록 -->
+	<insert id="insertInquiry_dev" parameterType="InquiryVO">
+	INSERT INTO inquiry(
+					uidx
+					,category
+					,title
+					,content
+					,img
+					,originiqidx
+					,depth
+					,answerRate
+			)VALUES(
+					 #{uidx}
+					,#{category}
+					,#{title}
+					,#{content}
+					,#{img}
+					,#{originiqidx}
+					,#{depth}
+					,#{answerRate}
+			)
+	</insert>
+	
+	<!-- 2022.07.21 김연희 : 문의 내역 전체 불러오기 -->
+	<select id="selectInquiry" parameterType="HashMap" resultType="InquiryVO">
+		SELECT 
+			iqidx
+			,uidx
+			,category
+			,title
+			,content
+			,date
+			,img
+			,answerYN
+			,originiqidx
+			,depth
+			,answerRate
+		FROM inquiry
+		WHERE depth = '0'
+		  AND uidx = #{uidx}
+		ORDER BY iqidx DESC
+		LIMIT #{start},#{cntPerPage}
+		
+	</select>
+
+	<!--2022.07.21 김연희 : 문의 내역 하나 -->
+	<select id="selectInquiryOne" parameterType="InquiryVO" resultType="InquiryVO">
+		SELECT 
+			 iqidx
+			,uidx
+			,category
+			,title
+			,content
+			,date
+			,img
+			,answerYN
+			,originiqidx
+			,depth
+			,answerRate
+		FROM inquiry
+		WHERE uidx = #{uidx}
+		AND iqidx = #{iqidx}
+		ORDER BY iqidx DESC
+		
+	</select>
+	
+	<!-- 2022.07.21 김연희: 페이징 위한 문의 갯수 -->
+	<select id="cntIqidx" parameterType="InquiryVO" resultType="int">
+		SELECT
+			COUNT(iqidx)
+		FROM inquiry
+	   WHERE uidx = #{uidx}
+	</select>
+	
+	
+	<!-- 2022.07.21 김연희 : 문의 수정 -->
+	<insert id="inquiryEdit_dev" parameterType="InquiryVO" >
+		UPDATE inquiry 
+		   SET title = #{title}
+			  ,content = #{content} 
+			  ,category = #{category}
+		 WHERE iqidx = #{iqidx}
+	</insert>
+	
+	
+	<!-- 2022.07.22 김연희 : 답변(트랜젝션)-->
+	<insert id="reply" parameterType="InquiryVO">
+		INSERT inquiry(
+				uidx
+				,category
+				,title
+				,content
+				,originiqidx
+				,depth
+		)VALUES( 
+				 #{uidx}
+				,#{category}
+				,#{title}
+				,#{content}
+				,#{iqidx} <!-- 원글의 idx를 origin으로 넣기 -->
+				,'1'
+		 )
+		 
+		<!-- 답변의 iqidx
+		<selectKey resultType="int" keyProperty="iqidx" order="AFTER">
+			SELECT max(iqidx) FROM inquiry
+		</selectKey> -->
+	</insert>
+	
+	<!-- 원글의 YN 변경(트랜젝션) -->
+	<update id="updateAnswerYN" parameterType="InquiryVO" >
+		UPDATE inquiry 
+		   SET answerYN ='Y' 
+		 WHERE iqidx =#{iqidx}
+	</update>
+	
+	
+	
+	<!-- 답변 출력 -->
+	<select id="selectReplyOne" parameterType="InquiryVO" resultType="InquiryVO">
+		SELECT 
+			iqidx
+			,uidx
+			,category
+			,title
+			,content
+			,date
+			,img
+			,answerYN
+			,originiqidx
+			,depth
+			,answerRate
+		FROM inquiry
+	   WHERE originiqidx = #{iqidx}
+	   AND depth ='1'
+	</select>
+	
+	<!-- 2022.07.28 김영민: 답변 수정 -->
+	<update id="replyModify" parameterType="InquiryVO">
+		UPDATE inquiry
+		   SET title = #{title},
+		   	   content = #{content},
+		   	   date = now()
+		 WHERE originiqidx = #{iqidx}
+		   AND depth = '1'
+	</update>
+	
+	
+	<!-- 2022.07.25 김연희	: 장소에 대한 qna 가지고 오기 -->
+	<select id="selectQna" resultType="QnaVO" parameterType="HashMap">
+		SELECT
+				qidx
+				,p.pidx
+				,title
+				,content
+				,originQidx
+				,p.category
+				,p.placeName
+				,q.date
+				,depth
+				,p.delYN
+				,q.delYN
+				,q.uidx
+			FROM place p
+			JOIN qna q
+			ON p.pidx = q.pidx
+		 WHERE p.uidx = #{uidx}
+		 AND p.delYN = 'N'
+		 AND q.delYN = 'N'
+		 LIMIT #{start},#{cntPerPage}
+	</select>
+	
+	
+	<select id="qnaList" resultType="QnaVO" parameterType="HashMap">
+		SELECT
+				qidx
+				,p.pidx
+				,title
+				,content
+				,originQidx
+				,p.category
+				,p.placeName
+				,q.date
+				,depth
+				,p.delYN
+				,q.delYN
+				,q.uidx
+			FROM place p
+			JOIN qna q
+			ON p.pidx = q.pidx
+		 WHERE p.uidx = #{uidx}
+		 AND p.delYN = 'N'
+		 AND q.delYN = 'N'
+	</select>
+	
+	
+	<select id="cntQidx" parameterType="UserVO" resultType="int">
+		SELECT
+			COUNT(qidx)
+		FROM qna
+		JOIN place p
+		WHERE p.uidx = #{uidx}
+	</select>
+	
+	
+	<!-- 2022.07.26 김연희 : notice 쿼리 가져옴 -->
+	<select id="selectNoticeAll" parameterType="SearchVO" resultType="NoticeVO">
+			SELECT 
+				 nidx
+				,title
+				,n.date
+				,hit
+			FROM notice n
+	  INNER JOIN user_plend u
+	  		  ON n.uidx = u.uidx
+	  	   WHERE n.delyn = 'N' 
+	  	     AND category = '2'
+	  	     <if test="searchType =='title'">
+				AND title LIKE '%' #{searchValue}  '%'
+			</if>
+			 <if test="searchType =='content'">
+				AND content LIKE '%'  #{searchValue}  '%'
+			</if>
+	  	ORDER BY nidx desc
+	  	   LIMIT #{start}, #{cntPerPage}
+	</select>
+	
+	
+	
+	<select id ="cntNotice" parameterType = "SearchVO" resultType = "int">
+		SELECT count(*) 
+		  FROM notice
+		 WHERE delyn = 'N'
+		 AND category = '2'
+		 <if test="searchType =='title'">
+			AND title LIKE '%'  #{searchValue} '%'
+		</if>
+		<if test="searchType =='content'">
+			AND content LIKE '%' #{searchValue}  '%'
+		</if>
+	</select>
+	
+	<select id ="prevNextNidx" resultType = "NoticeVO" parameterType="NoticeVO">
+		SELECT * FROM (
+			SELECT nidx, 
+			LAG(nidx,1,-1) OVER (ORDER BY nidx) AS pre, 
+			LEAD(nidx) OVER(ORDER BY nidx) AS next 
+			FROM notice 
+			WHERE delyn = 'N' 
+			AND category = '2'
+			GROUP BY nidx) A 
+			WHERE nidx = #{nidx};
+		
+	</select>
+	
+	<select id ="prevNextTitle" resultType = "NoticeVO" parameterType="NoticeVO">
+		SELECT * FROM (
+			SELECT nidx, 
+			LAG(title,1,-1) OVER (order by nidx) AS preTitle, 
+			LEAD(title) OVER(ORDER BY nidx) AS nextTitle 
+			FROM notice 
+			WHERE delyn = 'N'
+			AND category = '2'
+			GROUP BY nidx) A 
+			WHERE nidx = #{nidx};
+		
+	</select>
+	
+	
+	<select id ="noticeOne" resultType ="NoticeVO" parameterType = "int">
+		SELECT 
+			 nidx
+			,u.uidx
+			,title
+			,content
+			,nickName
+			,n.date
+			,hit
+		FROM notice n
+  INNER JOIN user_plend u
+  		  ON n.uidx = u.uidx 
+  		 WHERE n.nidx = #{nidx}
+  		 AND category = '2'
+	</select>
+	
+	<!-- <update id ="hitUP" parameterType = "int">
+		UPDATE notice
+		  SET hit = hit + 1
+		WHERE nidx = #{nidx}
+	</update> -->
+	
+	<update id="deleteNotice" parameterType="NoticeVO" >
+		 UPDATE notice 
+		 	SET delYN ='Y'
+		  WHERE nidx =#{nidx}
+		  AND category = '2'
+	</update>
+	
+	<!-- 07.28 김영민: 호스트 문의 개발자 페이지에 불러오기 -->
+	<select id="developerInquiry" parameterType="SearchVO" resultType="InquiryVO">
+		SELECT 
+			i.iqidx
+			,i.uidx
+			,i.category
+			,i.title
+			,i.content
+			,i.date
+			,i.img
+			,i.answerYN
+			,i.originiqidx
+			,i.depth
+			,i.answerRate
+			,u.id
+			,u.name
+			,u.nickname
+			,u.addr
+			,u.email
+			,u.userphone
+		FROM inquiry i
+		JOIN user_plend u
+		  ON i.uidx = u.uidx
+		WHERE depth = '0'
+		  <if test="searchType != null">
+		 	<if test='searchType.equals("nickName")'>
+		   		AND (u.nickname LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>		
+			<if test='searchType.equals("title")'>
+		   		AND (i.title LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>
+		  </if>
+		ORDER BY iqidx DESC
+		LIMIT #{start},#{cntPerPage}
+		
+	</select>
+	
+	<!-- 2022.07.28 김영민: 페이징 위한 문의 갯수 -->
+	<select id="countInquiry" parameterType="SearchVO" resultType="int">
+		SELECT COUNT(i.iqidx)
+		       FROM inquiry i
+		       JOIN user_plend u
+		         ON i.uidx = u.uidx
+	      <if test="searchType != null">
+		 	<if test='searchType.equals("nickName")'>
+		   		WHERE (u.nickname LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>		
+			<if test='searchType.equals("title")'>
+		   		WHERE (i.title LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>
+		  </if>
+	</select>
+	
+	
+	
 </mapper>
 
 

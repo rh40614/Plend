@@ -30,7 +30,29 @@
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
+	<!-- 페이징 -->
+	<script>
+	function nowPage(p){
+		$.ajax({
+			url: "placeList.do",
+			type: "GET",
+			data: "nowPage="+p,
+			success: function(data){
+				console.log("에이작스 페이징");
+				$("#placeList").html(data);
+			},
+			error: function(){
+				console.log("페이징 실패");
+			}
+			
+		});
+	}
+	</script>
+	<!-- 해쉬 태그  -->
+	<script>
+
 		
+	</script>
 
 </head>
 <body>
@@ -44,7 +66,7 @@
 			<button class="mb-3 btnBig " onclick="location.href='<%=request.getContextPath()%>/host/insertPlace.do'">플레이스 등록</button>
 		</div>		
 				<div class=".table-responsive container " style="margin-left: 100px;" >
-					
+				<div id="placeList">
 					<table class="table table-hover text-center clearfix" >
 						<thead class="table-dark">
 							<tr style="text-al">
@@ -63,7 +85,19 @@
 									<tr >
 										<td>${pv.pidx}</td>
 										<td>${pv.placeName}</td>
-										<td>${pv.tag}</td>
+										<!-- 반복문을 돌리는 아이디값에 변수를 주기위해 아이디 뒤에 변수 넣기 -->
+										<td id="tag${pv.pidx}"></td>
+										<script>
+											var tags = JSON.parse('${pv.tag}');
+											var tag = "";
+											tags.forEach(element => 
+												tag += "#"+ element.value + "&nbsp;" 
+											);
+											console.log(tag);
+											
+											$("#tag${pv.pidx}").html(tag);
+											 
+										</script>
 										<td style="text-align: left;">${pv.placeDetail}</td>
 										<td>${pv.approvalYN}</td>
 										<td><button class="btnDefault" type="button" onclick="location.href='/host/placeView.do'">수정</button></td>
@@ -80,7 +114,7 @@
 				  	
 					<c:if test="${pagenation.startPage > 5}">
 						<li class="page-item">
-				      		<a class="page-link" href="managePlace.do?nowPage=4">&laquo;</a>
+				      		<a class="page-link" onclick="nowPage(4)">&laquo;</a>
 				    	</li>
 				    </c:if>
 				    
@@ -88,24 +122,24 @@
 						<c:choose>
 							<c:when test="${p == pagenation.nowPage }">
 								 <li class="page-item text-secondary">
-								 <a class="page-link text-secondary" href="managePlace.do?nowPage=${p}">${p}</a></li>
+								 <a class="page-link text-secondary" onclick="nowPage(${p})">${p}</a></li>
 							</c:when>
 							<c:when test="${p != pagenation.nowPage }">
 								<li class="page-item text-secondary">
-								 <a class="page-link text-secondary" href="managePlace.do?nowPage=${p}">${p}</a></li>
+								 <a class="page-link text-secondary" onclick="nowPage(${p})">${p}</a></li>
 							</c:when>
 						</c:choose>
 					</c:forEach>
 				
 			    	<c:if test="${pagenation.endPage != pagenation.lastPage}">
 					    <li class="page-item">
-					      <a class="page-link" href="managePlace.do?nowPage=${pagenation.endPage +1}">&raquo;</a>
+					      <a class="page-link" onclick="nowPage(${pagenation.endPage +1})">&raquo;</a>
 					    </li>
 			    	</c:if>
 				  </ul>
 				</nav>
 			</c:if> 
-			
+		</div>
 			
 		
 			</div>

@@ -58,6 +58,10 @@ public class AdminDAO {
 	public int eventImg(ImageVO imagevo) {
 		return sqlSession.insert("three.people.mapper.adminMapper.eventImg", imagevo);
 	}
+// 07.25 김영민: 장소 eventyn Y로 설정
+	public int placeEventUpdate(EventVO eventvo) {
+		return sqlSession.update("three.people.mapper.adminMapper.placeEventUpdate", eventvo);
+	}
 // 07.18 김영민: 이벤트 리스트 불러오기/ 이벤트 게시글 총 갯수
 	public List<EventVO> eventList(SearchVO searchvo){
 		return sqlSession.selectList("three.people.mapper.adminMapper.eventList", searchvo);
@@ -83,7 +87,10 @@ public class AdminDAO {
 	public int deleteEvent(EventVO eventvo) {
 		return sqlSession.delete("three.people.mapper.adminMapper.deleteEvent", eventvo);
 	}
-	
+// 07.25 김영민: 장소 eventyn N으로 설정
+	public int placeEventDone(EventVO eventvo) {
+		return sqlSession.update("three.people.mapper.adminMapper.placeEventDone", eventvo);
+	}	
 	
 	
 	

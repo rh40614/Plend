@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Hostcenter-프로모션</title>
+<title>Hostcenter-이벤트</title>
 
 	<link href="<%=request.getContextPath()%>/resources/css/global_Host.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/slideBanner_HOST.css" rel="stylesheet">
@@ -23,17 +23,17 @@
 	<!--  fontAwesome -->
 	<script src="https://kit.fontawesome.com/f5807db9d4.js" crossorigin="anonymous"></script>
 	
-	
+	<!-- 프론트 디자인 -->
 	<script type="text/javascript">
-	//프론트 디자인
+	
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/hostHeaderWithNav.jsp");
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
 	
+<!--슬라이드 배너 -->
 	<script>
-	//슬라이드 배너
 		let interval;
 		let activeIndex = 1;
 	
@@ -72,9 +72,8 @@
 	
 	</script>
 	
+	<!-- 이벤트 버튼 -->
 	<script>
-	//프로모션 버튼
-			
 		function btn(obj){
 			
 			if($(obj).hasClass("btnDisabled") == true){
@@ -82,15 +81,88 @@
 			
 				$(obj).removeClass("btnDisabled");	 
 				$(obj).addClass("btnBig");
-				
 			}
-			
 		}
-			
 	</script>
 	
+	<!-- 진행중인 이벤트 -->
+	<script>
+	function startList(start){
+		
+		$("#eventOFF").addClass("btnDisabled");
+		$("#eventON").removeClass("btnDisabled");	 
+		$("#eventON").addClass("btnBig");
 
+		
+		$.ajax({
+			url: "startList.do",
+			type: "GET",
+			data: "startEnd="+ $(start).val(),
+			success: function(data){
+				console.log("성공");
+				$("#list").html(data);
+			},
+			error: function(){
+				console.log("실패");
+			}
+			
+		})
+	}
+	
+	</script>
 
+	<!-- 종료된 이벤트 리스트  -->
+	<script>
+		function endList(end){
+			
+			$("#eventON").addClass("btnDisabled");
+			$("#eventOFF").removeClass("btnDisabled");	 
+			$("#eventOFF").addClass("btnBig");
+			
+			$.ajax({
+				url: "startList.do",
+				type: "GET",
+				data: "startEnd="+ $(end).val(),
+				success: function(data){
+					//console.log("성공");
+					$("#list").html(data);
+				},
+				error: function(){
+					console.log("실패");
+				}
+				
+			})
+		}
+		
+		</script>
+		
+	<!-- 이벤트 사진 가지고 오기  -->
+	<script>
+	$(function(){
+		
+		 /* $.ajax({
+			url: "eventImage.do",
+			type: "GET",
+			data: "eidx="+ $("#eidx").val(),
+			success: function(image){
+				console.log("사진성공");
+				var html ="";
+				html = "<a href='javascript:eventView("+image.eidx+");'><img src='"+image.path+"' class='card-img-top' alt='사진이 안뜨네요'></a>";
+				
+				$("#image").html(html);
+			},
+			error: function(){
+				console.log("사진실패");
+			}
+			
+		}); 
+		 */
+	});
+		
+	</script>
+	
+	
+	
 </head>
 <body>
 	<!-- header -->
@@ -120,47 +192,39 @@
 		<!--section  -->
 		<section>
 			<!-- 제목 -->
-			<span class="title1 mb-5" style="margin-top:100px; margin-left:0px;">프로모션 리스트</span>
+			<span class="title1 mb-5" style="margin-top:100px; margin-left:0px;">이벤트 리스트</span>
 			<!-- 버튼 그룹 -->
 			<div class="btn-group" role="group" id="btnGroup" >
-				<button class="btnBig" id="promotionON" onclick="btn(this)">진행중</button>	
-				<button class="btnBig btnDisabled" id="promotionOFF" onclick="btn(this)">진행 종료</button>	
+				<button class="btnBig" id="eventON" onclick="startList(this)" value="start">진행중</button>	
+				<button class="btnBig btnDisabled" id="eventOFF" onclick="endList(this)" value="end">진행 종료</button>	
 			</div>
 		
 		
-				<!-- 프로모션 -->
-				<article>
+				<!--진행 중 이벤트 -->
+				<article id="list">
 				
-					<div class="card mt-3 me-5"  style="width: 18rem;">
-					  <img src="<%=request.getContextPath()%>/resources/image/promotion/promotion.png" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'">
-					  <div class="card-body">
-					    <p class="card-text">전 카테고리 10% 할인 </p>
-					  </div>
-					</div>
-					
-					<div class="card mt-3 me-5" style="width: 18rem;">
-					  <img src="<%=request.getContextPath()%>/resources/image/promotion/promotion.png" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'">
-					  <div class="card-body">
-					    <p class="card-text">전 카테고리 10% 할인 </p>
-					  </div>
-					</div>
-					
-					<div class="card mt-3 me-5" style="width: 18rem;">
-					  <img src="<%=request.getContextPath()%>/resources/image/promotion/promotion.png" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'">
-					  <div class="card-body">
-					    <p class="card-text">전 카테고리 10% 할인 </p>
-					  </div>
-					</div>
-					 
-					<div class="card mt-3 me-5" style="width: 18rem;">
-					  <img src="<%=request.getContextPath()%>/resources/image/promotion/promotion.png" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'">
-					  <div class="card-body">
-					    <p class="card-text">전 카테고리 10% 할인 </p>
-					  </div>
-					</div> 
+				<c:if test="${list.size() == 0}">
 				
+					<div class=" mt-3 me-5"  style="width: 18rem;">
+					    <p class="title2 ms-auto">현재 진행 이벤트가 없습니다. </p>
+					</div>
+				</c:if>
+				
+				<c:if test="${not empty list}">
+					<c:forEach var="event" items="${list}">
+						<div class="card mt-3 me-5"  style="width: 18rem;">
+							<!-- <div id="image"></div> -->
+							 	<img src="../imgs/${event.path}" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${event.eidx}">
+							  <div class="card-body">
+							    <p class="card-text"  onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${event.eidx}">${event.semiTitle}</p>
+							  </div>
+						</div>
+						<input type="hidden" value="${event.eidx}" id="eidx">
+					</c:forEach>
+				</c:if>
 				
 				</article>
+				
 				
 		
 		

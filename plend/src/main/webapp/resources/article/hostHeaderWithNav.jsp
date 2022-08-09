@@ -19,7 +19,7 @@
         <span>세션없음</span>
         </c:if>
         <c:if test="${login != null }">
-        [<a href = "" id = "header">로그아웃</a>&nbsp|&nbsp<a href = "" id = "header">마이페이지</a>]
+        [<a href = "<%=request.getContextPath()%>/common/signOut.do" id = "header">로그아웃</a>&nbsp;|&nbsp;<a href = "<%=request.getContextPath()%>/" id = "header">메인 페이지</a>]
         </c:if>
       </div>
     </div>
@@ -35,12 +35,12 @@
  		 <!-- <li><a href="#">매출 관리</a></li> -->
  		 <li><a href="<%=request.getContextPath()%>/host/managePlace.do">장소 관리</a></li>
   		 <li><a href="<%=request.getContextPath()%>/host/inquiry_user.do">문의 관리</a></li>
- 		 <li><a href="<%=request.getContextPath()%>/host/promotionList.do">프로모션</a></li>
+ 		 <li><a href="<%=request.getContextPath()%>/host/eventList.do?startEnd=start">이벤트</a></li>
  		 <li><a href="<%=request.getContextPath()%>/host/notice_dev.do">공지사항</a></li>
  		
  		
  		 <li><a href="#" style = "font-size:13px; margin-top: 300px;">판매자 정보</a></li>
- 		 <li><a href="<%=request.getContextPath()%>/host/inquiry_FAQ.do" style = "font-size:13px;">운영자 문의</a></li>
+ 		 <li><a href="<%=request.getContextPath()%>/inquiry_dev/inquiry_FAQ.do" style = "font-size:13px;">운영자 문의</a></li>
 	    </ul>
       </div>
     </nav>

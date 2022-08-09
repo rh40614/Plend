@@ -5,7 +5,7 @@
  
 <mapper namespace="three.people.mapper.placeMapper">
 	
-	<select id="selectPlaceAll" resultType="PlaceVO" parameterType="SearchVO">
+	<select id="selectPlaceAll" resultType="PlaceVO" parameterType="HashMap">
 			
 			SELECT
 				  pidx
@@ -26,9 +26,10 @@
 				 ,availTimeValue
 				 ,intervalTime 
 			FROM place
+		   WHERE delYN ='N'
+		   	 AND uidx = #{uidx}
 		ORDER BY pidx DESC
 		   LIMIT #{start},#{cntPerPage}
-	
 	</select>
 	<!-- 2022.07.19 김연희: 페이징 처리 위해 만듬 -->
 	<select id="cntPlace" parameterType="PlaceVO" resultType="int">
@@ -36,11 +37,252 @@
 			   COUNT(pidx)
 		  FROM place 
 		 WHERE delYN ='N'
+		   AND uidx = #{uidx}
 	</select>
+	<!-- 07.20 김영민: 장소하나 가져오는 쿼리 -->
+	<select id="placeOne" resultType="PlaceVO" parameterType="PlaceVO">
+		SELECT pidx,
+		       uidx,
+		       category,
+		       placename,
+		       eventyn,
+		       placedetail,
+		       guide,
+		       tag,
+		       placeimg,
+		       address,
+		       option1,
+		       option2,
+		       price,
+		       delyn,
+		       approvalyn,
+		       availTimeValue,
+		       intervalTime
+		  FROM place
+		 WHERE pidx = #{pidx}
+	</select>
+	<!-- QnA 데이터 입력하기 -->
+	<insert id="insertQnA" parameterType="QnaVO">
+		<selectKey keyProperty="originQidx" resultType="int" order="BEFORE">
+			<if test="originQidx == 0">
+				<![CDATA[
+				SELECT IF(MAX(qidx)+1 = null, MAX(qidx)+1, 1) as result
+				  FROM qna
+				]]>
+			</if>
+			<if test="originQidx != 0">
+				<![CDATA[
+				SELECT #{originQidx} FROM dual
+				]]>
+			</if>
+		</selectKey>
+		INSERT INTO qna(
+		    pidx,
+		    content,
+		    uidx,
+		    originqidx,
+		    depth
+		)VALUES(
+			#{pidx},
+			#{content},
+			#{uidx},
+			#{originQidx},
+			#{depth}			
+		)
+	</insert>
+	<!-- 07.22 김영민: QnA 데이터 불러오기 -->
+	<select id="selectQnA" parameterType="PlaceVO" resultType="QnaVO">
+		SELECT qidx,
+			   uidx,
+			   pidx,
+		       content,
+		       date,
+		       originqidx,
+		       depth,
+		       delyn
+		  FROM qna
+		 WHERE pidx = #{pidx}
+		   AND delyn = 'N'
+	  ORDER BY originqidx DESC,
+	           depth ASC
+	</select>
+	<!-- 07.22 김영민: QnA 데이터 수정하기 -->
+	<update id="qnaModify" parameterType="QnaVO">
+		UPDATE qna
+		   SET content = #{content},
+		       date = now()
+		 WHERE qidx = #{qidx}
+	</update>
 	
-	<select id="placeOne" resultType="PlaceVO" parameterType="PlaceVO"></select>
+	<!-- 07.22 김영민: QnA 글 삭제하기 -->
+	<update id="deleteQnA" parameterType="QnaVO">
+		UPDATE qna
+	       SET delyn = 'Y'
+		 WHERE qidx = #{qidx}
+	</update>
+	
+	<!-- 07.25 김영민: 예약정보 추가하기 -->
+	<insert id="insertBook" parameterType="BookVO">
+		INSERT INTO book(
+			pidx,
+			uidx,
+			usetime,
+			cntpeople,
+			option1
+		)VALUES(
+			#{pidx},
+			#{uidx},
+			#{useTime},
+			#{cntPeople},
+			#{option1}
+		)
+	</insert>
+	
+	<!-- 07.26 김영민: 이미지 데이터 가져오기 -->
+	<select id="selectImage" parameterType="PlaceVO" resultType="ImageVO">
+		SELECT imidex,
+			   path,
+			   originfilename,
+			   realfilename,
+			   pidx,
+			   eidx
+		  FROM image
+		 WHERE pidx = #{pidx}
+	</select>
 	<select id="randomPlace" resultType="PlaceVO"></select>
 	
+	
+	<!-- 2022.07.27 김연희 : 카테고리별 장소 리스트 -->
+	<select id="categoryPlace" resultType="PlaceVO" parameterType="PlaceVO">
+			
+			SELECT
+				  pidx
+				 ,uidx
+				 ,category
+				 ,placeName
+				 ,eventYN
+				 ,placeDetail
+				 ,guide
+				 ,tag
+				 ,placeImg
+				 ,address
+				 ,option1
+				 ,option2
+				 ,price
+				 ,delYN
+				 ,approvalYN
+				 ,availTimeValue
+				 ,intervalTime 
+			FROM place
+		   WHERE category =#{category}
+		     AND delYN = 'N'
+		ORDER BY pidx DESC
+		<!--   LIMIT #{start},#{cntPerPage} -->
+	
+	</select>
+	<!-- 2022.07.27 김연희 : 장소에 등록된 첫번째 사진  -->
+	<select id="selectImageOne" parameterType="PlaceVO" resultType="ImageVO">
+		SELECT 
+			    MIN(imidex)
+			   ,imidex
+			   ,path
+			   ,originfilename
+			   ,realfilename
+			   ,pidx
+			   ,eidx
+		  FROM image
+		 WHERE pidx = #{pidx}
+	</select>
+	
+	
+	<!-- 2022.07.27 김연희 : 메인화면 장소 랜덤 리스트 만들기 위해  -->
+	<select id="selectPlace" resultType="PlaceVO">
+			SELECT
+				  pidx
+				 ,uidx
+				 ,category
+				 ,placeName
+				 ,eventYN
+				 ,placeDetail
+				 ,guide
+				 ,tag
+				 ,placeImg
+				 ,address
+				 ,option1
+				 ,option2
+				 ,price
+				 ,delYN
+				 ,approvalYN
+				 ,availTimeValue
+				 ,intervalTime 
+			FROM place
+		   WHERE delYN ='N'
+		ORDER BY pidx DESC
+	</select>
+	
+
+	<!-- 07.27 김영민: 찜목록 등록/삭제/리스트 -->
+	<insert id="likeAdd" parameterType="HeartVO">
+		INSERT INTO heart(
+			uidx,
+			pidx
+		)VALUES(
+			#{uidx},
+			#{pidx}
+		)
+	</insert>
+	<delete id="likeDelete" parameterType="HeartVO">
+		DELETE FROM heart
+		      WHERE uidx = #{uidx}
+		        AND pidx = #{pidx}
+	</delete>
+	<select id="selectHeart" parameterType="HeartVO" resultType="HeartVO">
+		SELECT hidx,
+			   uidx,
+			   pidx
+		  FROM heart
+		 WHERE uidx = #{uidx}
+		 <if test="pidx != null">
+		 	AND pidx = #{pidx} 
+		 </if>
+	</select>
+
+
+	<!-- 2022.07.28  김연희 : 메인화면 상설 할인 리스트  -->
+	<select id="eventPlace" resultType="PlaceVO" >
+			SELECT
+				  pidx
+				 ,uidx
+				 ,category
+				 ,placeName
+				 ,eventYN
+				 ,placeDetail
+				 ,guide
+				 ,tag
+				 ,placeImg
+				 ,address
+				 ,option1
+				 ,option2
+				 ,price
+				 ,delYN
+				 ,approvalYN
+				 ,availTimeValue
+				 ,intervalTime 
+			FROM place
+		   WHERE delYN ='N'
+		     AND eventYN ='Y'
+		ORDER BY pidx DESC
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 </mapper>
 
 

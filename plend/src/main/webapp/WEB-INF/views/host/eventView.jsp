@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Hostcenter-프로모션</title>
+<title>Hostcenter-이벤트</title>
 
 	<link href="<%=request.getContextPath()%>/resources/css/global_Host.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/slideBanner_HOST.css" rel="stylesheet">
@@ -24,8 +24,8 @@
 	<script src="https://kit.fontawesome.com/f5807db9d4.js" crossorigin="anonymous"></script>
 	
 	
+<!-- 프론트 디자인 -->
 	<script type="text/javascript">
-	//프론트 디자인
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/hostHeaderWithNav.jsp");
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
@@ -33,8 +33,8 @@
 		})
 	</script>
 	
+<!--슬라이드 배너 -->
 	<script>
-	//슬라이드 배너
 		let interval;
 		let activeIndex = 1;
 	
@@ -73,8 +73,8 @@
 	
 	</script>
 	
+<!--이벤트 버튼 -->
 	<script>
-	//프로모션 버튼
 			
 		function btn(obj){
 			
@@ -120,45 +120,37 @@
 	
 		<!--제목  -->
 		<section>
-			<span class="title1 mb-5" style="margin-top:100px; margin-left: 30px;">프로모션 리스트</span>
+			<span class="title1 mb-5" style="margin-top:100px; margin-left: 30px;">이벤트 리스트</span>
 		
 			<div class="promotionViewDIV">
 			
-			<table class="promotionTable" id="promotionTable">
-				<tr>
-					<td colspan="3" class="title2">여름 맞이 특가 찬스!!</td>
-				</tr>
-				<tr>
-					<td rowspan="4" ><img style="width: 100%; height: 80%;" src="<%=request.getContextPath()%>/resources/image/promotion/promotionM.png" alt="프로모션 이미지"></td>
-					<td class="promotionTD">부제목: </td>
-					<td class="promotionTD2">10% 상설 할인</td>
-				</tr>
-				<tr>
-					<td class="promotionTD">기간: </td>
-					<td class="promotionTD2">2022.07.12~2022.08.12</td>
-				</tr>
-				<tr>
-					<td class="promotionTD">내용: </td>
-					<td class="promotionTD2">여름을 맞이하여 제휴  업체들에게는 10% 할인 쿠폰을 제공합니다.5000원 이상 구매시 사용가능업체당 100매</td>
-				</tr>
-				<tr>
-					<td class="promotionTD">약관(조건):</td>
-					<td class="promotionTD2"></td>
-				</tr>
-			
-			
-			</table>
-			
-			
-			
-			
-			
+				<table class="promotionTable" id="promotionTable">
+					<tr>
+						<td colspan="3" class="title2">${e.title}</td>
+					</tr>
+					
+					<tr>
+						<td rowspan="4" ><img style="width: 100%; height: 80%;" src="<%=request.getContextPath()%>/resources/image/promotion/promotionM.png" alt="이벤트 이미지"></td>
+						<td class="promotionTD">부제목: </td>
+						<td class="promotionTD2">${e.semiTitle}</td>
+					</tr>
+					<tr>
+						<td class="promotionTD">기간: </td>
+						<td class="promotionTD2">${e.edate}</td>
+					</tr>
+					<tr>
+						<td class="promotionTD">내용: </td>
+						<td class="promotionTD2">${e.content }</td>
+					</tr>
+					<tr>
+						<td class="promotionTD">약관(조건):</td>
+						<td class="promotionTD2">${e.conditions}</td>
+					</tr>
+				</table>
+			<br>
 			</div>
-		
-		
-		
-		
-		
+			
+			<button class="btnBig" onclick="location.href='<%=request.getContextPath()%>/host/eventList.do?startEnd=start'" >목록</button>
 		
 		</section>
 

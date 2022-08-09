@@ -14,11 +14,11 @@
 			,email
 			,addr
 			,birth
-		FROM user
+		FROM user_plend
 	   WHERE uidx = #{uidx}
 	</select>
 	<update id="userModify" parameterType="UserVO">
-		UPDATE user
+		UPDATE user_plend
 		   SET userPhone = #{userPhone}
 		   	  ,email = #{email}
 		   	  ,addr = #{addr}
@@ -29,17 +29,17 @@
 	<select id = "checkUser" parameterType="int" resultType= "int">
 		SELECT 
 			 count(*)
-		  FROM user
+		  FROM user_plend
 		 WHERE uidx = #{uidx} 
 	</select>
 	<select id = "inquirePwd" parameterType="int" resultType="UserVO">
 		SELECT 
 			 password
-		  FROM user
+		  FROM user_plend
 		 WHERE uidx = #{uidx}
 	</select>
 	<update id="userWithdraw"  parameterType="int">
-		UPDATE user 
+		UPDATE user_plend 
 		   SET delyn = 'Y'
 		 WHERE uidx = #{uidx}
 	</update>

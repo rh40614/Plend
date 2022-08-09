@@ -70,70 +70,42 @@
 	
 
 	//해쉬태그
-    	$(document).ready(function () {
-       	 	var tag = {};
-        	var counter = 0;
-
-        	// 입력한 값을 태그로 생성한다.
-        	function addTag (value) {
-            	tag[counter] = value;
-            	counter++; // del-btn 의 고유 id 가 된다.
-      		}	
-
-        	// tag 안에 있는 값을 array type 으로 만들어서 넘긴다.
-        	function marginTag () {
-            	return Object.values(tag).filter(function (word) {
-                	return word !== "";
-            	});
-        	}
+	var input = document.querySelector('input[name="tag"]'),
+    // init Tagify script on the above inputs
+    tagify = new Tagify(input, {
+      whitelist:
+       ["모던한", "깨끗한", "자연광", "단독대관", "헬스", "운동", "인스타", "따뜻한", "프라이빗", "스튜디오", "영상촬영", "음식촬영", "청결한", "스튜디오",
+       "공유주방", "쉐어키친", "헬스장", "스몰웨딩", "전시", "화보촬영", "인터뷰",
+       "조용한", "화려한", "접근성좋은", "빈티지", "야간촬영", "무대", "할인", "자연광",
+       "호리존", "유튜브", "카페", "식당", "바", "헬스장", "요가", "필라테스", "편의점", "노래방", "헤어샵",
+       "갤러리", "공장", "공방", "작업실", "공연장", "강의장", "사무실", "병원", "약국", "학교",
+       "웨딩", "호텔펜션", "폐차장", "캠핑장", "마당", "공연", "일상", "단체", "개인", "소품", "컴퓨터", "오락실",
+       "대형스크린", "강남", "강북", "신촌", "서울역", "회의실", "브라이덜샤워", "라이브방송", "라이브커머스", "자취방", "하이브", "웨비나",
+       "전광판", "서재", "앤틱스튜디오", "서초동", "마구간", "룩북", "뮤직비디오", "유럽",
+       "프로필", "크로마키", "벽난로", "특수효과", "네온사인", "무인", "로케이션", "주차", "중세", "욕조", "광고촬영지", "바이럴",
+       "체스", "댄스", "일본", "성수역", "대기실", "루프탑", "모던", "독립영화", "인터뷰", "동대문", "홍콩", "전주",
+       "코스프레", "하이틴", "폐창고", "조경", "원목가구", "야경", "지하", "미술관", "예술", "콘크리트", "쿠킹스튜디오",
+       "24평", "36평", "오디션", "오션뷰", "발코니","동시중계", "컬러조명", "연말모임", "제품촬영", "내추럴", "심플", "데이트",
+       "소형", "유니크", "모던프렌치", "오픈", "가성비", "역세권", "셀프카메라", "닌텐도", "컨셉",
+       "스냅", "엔터", "엔터테이먼트", "BTS", "Kpop", "웹드라마", "넷플릭스", "와챠", "티빙", "디즈니", "댄스커버", "애견", "애견동반", "잔디",
+       "요리영상촬영", "음식사진촬영", "노래커버", "남산뷰", "야경", "매일소독", "화양연화", "촬영대관", "웨딩", "웨딩촬영",
+       "미국", "서부", "바디프로필", "화가", "화실", "화방",
+       "팟캐스트", "옐로우", "퍼플", "성벽", "동양", "지브리",
+       "피아노", "호랑이", "원데이클래스", "경성", "마이크", "조명", "카메라", "도심캠핑", "편의점", "최고급스피커",
+       "연습실", "방송국", "야외촬영", "빔프로젝터", "드라마촬영", "통창", "욕실컨셉", "식물", "우드톤", "농구장", "체육관", "블랙",
+        "한옥", "테라스", "셀프촬영", "학교"],
+      maxTags: 10,
+      
+      dropdown: {
+        maxItems: 20,           // <- mixumum allowed rendered suggestions
+        classname: "tags-look", // <- custom classname for this dropdown, so it could be targeted
+        enabled: 0,             // <- show suggestions on focus
+        closeOnSelect: false    // <- do not hide the suggestions dropdown once an item has been selected
+      }
+    })
     
-        	// 서버에 제공
-        	//$("#tag-form").on("submit", function (e) {
-        	//	var value = marginTag(); // return array
-            //	$("#rdTag").val(value); 
-//
-            //	$(this).submit();
-        	//});
-
-        	$("#tag").on("keypress", function (e) {
-            	var self = $(this);
-
-            	//엔터나 스페이스바 눌렀을때 실행
-            	if (e.key === "Enter" || e.keyCode == 32) {
-
-               	 	var tagValue = self.val(); // 값 가져오기
-
-                	// 해시태그 값 없으면 실행X
-                	if (tagValue !== "") {
-
-                    	// 같은 태그가 있는지 검사한다. 있다면 해당값이 array 로 return 된다.
-                    	var result = Object.values(tag).filter(function (word) {
-                        return word === tagValue;
-                    	})
-                
-                    	// 해시태그가 중복되었는지 확인
-                    	if (result.length == 0) { 
-                        	$("#tag-list").append("<li class='tag-item'># "+tagValue+"<span class='del-btn' idx='"+counter+"'>x</span></li>");
-                        	addTag(tagValue);
-                        	self.val("");
-                    	} else {
-                        	alert("태그값이 중복됩니다.");
-                    	}
-                	}
-                	e.preventDefault(); // SpaceBar 시 빈공간이 생기지 않도록 방지
-            	}
-        	});
-
-        	// 삭제 버튼 
-        	// 인덱스 검사 후 삭제
-        	$(document).on("click", ".del-btn", function (e) {
-            	var index = $(this).attr("idx");
-            	tag[index] = "";
-            	$(this).parent().remove();
-        	});
-		})
-	
-
+    
+    
 	//주소
     function DaumPostcode() {
         new daum.Postcode({
@@ -184,17 +156,42 @@
     }
 
 	//주소합치기 
-		$(function(){
-	
+		
+		function concatAddr(){
+		
 			var a = $("#address").val();
 			var b = $("#detailAddress").val();
-			var addr =  a+b;
+			var addr =  a+"&nbsp"+b;
 		
 			$("#addr").val(addr);
 			
+		}
 			
 		
-		});
+		
+		
+
+
+	//시설이용 정보 합치기 
+		function facilities(){
+
+			var g1 = $("#guide1").val();
+			var g2 = $("#guide2").val();
+			var g3 = $("#guide3").val();
+			var g4 = $("#guide4").val();
+			var g5 = $("#guide5").val();
+			var g6 = $("#guide6").val();
+			var g7 = $("#guide7").val();
+			var g8 = $("#guide8").val();
+			var g9 = $("#guide9").val();
+			var g10 = $("#guide10").val();
+			
+			var guide = g1+"/"+g2+"/"+g3+"/"+g4+"/"+g5+"/"+g6+"/"+g7+"/"+g8+"/"+g9+"/"+g10;
+			console.log(g1);
+			$("#guide").val(guide);
+			console.log($("#guide").val());
+			
+		}
 		
 
 
@@ -232,10 +229,29 @@
     		noCalendar: true,
     		dateFormat: "H:i",
 		});
+		
+	
+	// 영업 시간 24시간 설정
+		
+		
+		
+		$("#avaliableTime").change(function(){
+		console.log("체크박스");
+				$('#kt_datepicker_1').val('00');
+				$('#kt_datepicker_2').val('00');
+		})
+			
+
+		
 
 	
 	//장소 등록
 		function check(){
+		
+		
+			
+			concatAddr();
+			facilities();
 			
 			if($("#cate").val() == ""){
 				alert("장소 카테고리를 선택해 주세요.");
@@ -249,13 +265,21 @@
 				alert("장소에 대한 설명을 입력해주세요.");
 				$("#placeDetail").focus();
 				
-			//}else if($("#placeImg").val() == ""){
-			//	alert("공간에 대한 사진을 등록해주세요.");
-			//	$("#placeImg").focus();
+			}else if($("#placeImg").val() == ""){
+				alert("공간에 대한 사진을 등록해주세요.");
+				$("#placeImg").focus();
 				
-			}else if($("#guide").val() == ""){
-				alert("시설 이용정보를 작성해주세요.");
-				$("#guide").focus();
+			}else if($("#guide1").val() == ""){
+				alert("시설 이용정보를 최소 3개이상 작성해주세요");
+				$("#guide1").focus();
+				
+			}else if($("#guide2").val() == ""){
+				alert("시설 이용정보를 최소 3개이상 작성해주세요");
+				$("#guide2").focus();
+				
+			}else if($("#guide3").val() == ""){
+				alert("시설 이용정보를 최소 3개이상 작성해주세요");
+				$("#guide3").focus();
 				
 			}else if($("#address").val() == ""){
 				alert("주소를 입력해 주세요");

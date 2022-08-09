@@ -61,7 +61,7 @@
 						      <th scope="row">${place.pidx} </th>
 						      <td>${place.category}</td>
 						      <td>${place.nickName}</td>
-						      <td>${place.placeName}</td>
+						      <td><a href="<%=request.getContextPath()%>/place/view.do?pidx=${place.pidx}">${place.placeName}</a></td>
 						      <td>${place.name}</td>
 						      <td>${place.userPhone}</td>
 						      <td>2022-07-13</td>
