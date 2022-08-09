@@ -68,9 +68,6 @@
 		 
 	</insert>
 	
-	
-	
-	
 	<update id="placeModify" parameterType="PlaceVO"></update>
 	<update id="placeDelete" parameterType="PlaceVO"></update>
 	
@@ -92,7 +89,8 @@
 	    
 	</select>
 	
-	<!-- 2022.07.20 김연희 : 이벤트 이미지  -->
+	
+	<!-- 2022.07.20 김연희 : 이벤트 이미지  -> 08.09 수정   -->
 	<select id="eventImage" parameterType="EventVO" resultType="ImageVO">
 		
 		SELECT imidex,
