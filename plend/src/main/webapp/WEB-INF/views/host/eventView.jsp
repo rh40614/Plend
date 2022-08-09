@@ -90,7 +90,25 @@
 			
 	</script>
 	
-
+	<script>
+		$(function(){
+			$.ajax({
+				url: "eventBanner.do",
+				type: "GET",
+				data: "startEnd=start",
+				success: function(){
+					console.log("성공");
+				},
+				error: function(){
+					console.log("실패");
+				}
+				
+			});
+		})
+			
+		
+		
+		</script>
 
 </head>
 <body>
@@ -103,10 +121,9 @@
 		<!-- 슬라이드 배너  -->
 		<div class="banner-container">
 		  <div class="banner">
-		    <div data-index=1><img src="<%=request.getContextPath()%>/resources/image/slideBanner/slideBanner.png" alt="슬라이드 1" onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'"></div>
-		    <div data-index=2><img src="<%=request.getContextPath()%>/resources/image/slideBanner/slideBanner.png" alt="슬라이드 2"></div>
-		    <div data-index=3><img src="<%=request.getContextPath()%>/resources/image/slideBanner/slideBanner.png" alt="슬라이드 3"></div>
-		    <div data-index=4><img src="<%=request.getContextPath()%>/resources/image/slideBanner/slideBanner.png" alt="슬라이드 4"></div>
+		  	<c:forEach var="b" items="${list}" >
+		  	<div data-index=1><img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${b.image}" alt="슬라이드 1" onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}"></div>
+		    </c:forEach>
 		  </div>
 		</div>
 		<div class="list-button">
@@ -130,7 +147,7 @@
 					</tr>
 					
 					<tr>
-						<td rowspan="4" ><img style="width: 100%; height: 80%;" src="<%=request.getContextPath()%>/resources/image/promotion/promotionM.png" alt="이벤트 이미지"></td>
+						<td rowspan="4" ><img style="width: 100%; height: 80%;"  src="<%=request.getContextPath()%>/eventImg.do?originFileName=${e.image}" alt="이벤트 이미지"></td>
 						<td class="promotionTD">부제목: </td>
 						<td class="promotionTD2">${e.semiTitle}</td>
 					</tr>
