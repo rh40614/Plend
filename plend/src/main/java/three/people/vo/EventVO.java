@@ -11,17 +11,17 @@ public class EventVO {
 	private String conditions;
 	private String edate;
 	private String startEnd;
-	private MultipartFile eventImg;
+	private MultipartFile[] eventImg;
 	private String category;
 	//2022.07.21 김연희 여러가지 시도중
 	private String eventImgString;
 	
 
 	
-	public MultipartFile getEventImg() {
+	public MultipartFile[] getEventImg() {
 		return eventImg;
 	}
-	public void setEventImg(MultipartFile eventImg) {
+	public void setEventImg(MultipartFile[] eventImg) {
 		this.eventImg = eventImg;
 	}
 	public String getCategory() {

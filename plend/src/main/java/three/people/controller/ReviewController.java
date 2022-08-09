@@ -15,11 +15,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import three.people.service.PlaceService;
 import three.people.service.ReviewService;
 import three.people.vo.ImageVO;
+import three.people.vo.ReportVO;
 import three.people.vo.ReviewVO;
 import three.people.vo.UserVO;
 
@@ -115,7 +117,20 @@ public class ReviewController {
 		return "redirect:/myPage/myReviewList.do?uidx="+login.getUidx();
 	}
 	
-	
+	// 08.09 김영민: 리뷰신고
+	@ResponseBody
+	@RequestMapping(value="/reportUser.do", method=RequestMethod.POST)
+	public int reportUser(ReportVO reportVO, HttpServletRequest request, HttpSession session) {
+		
+		session = request.getSession();
+		UserVO login = (UserVO)session.getAttribute("login");
+		reportVO.setReporter_uidx(login.getUidx());
+		
+		int result = reviewService.insertReviewReport(reportVO);
+		
+		return result;
+	}
+
 	
 	
 	

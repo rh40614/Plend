@@ -57,8 +57,12 @@
 			<td><input name="conditions" id="conditions" type="text" class="form-control" value="${eventvo.conditions}" required> </td>
 		</tr>
 		<tr> 
-			<td class="align-middle text-center">파일 등록 </td>
-			<td><input name="eventImg" class="form-control" type="file" id="formFile" value="${eventvo.eventImg}"> </td>
+			<td class="align-middle text-center">메인 이미지 등록 </td>
+			<td><input name="eventImg" class="form-control" type="file" id="formFile"> </td>
+		</tr>
+		<tr> 
+			<td class="align-middle text-center">배너 등록 </td>
+			<td><input name="eventImg" class="form-control" type="file" id="formFile"> </td>
 		</tr>
 		<tr>
 			<td colspan="2">
