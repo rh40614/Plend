@@ -32,6 +32,8 @@ import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.InquiryVO;
 import three.people.vo.PlaceVO;
+import three.people.vo.ReportVO;
+import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
@@ -290,14 +292,51 @@ public class DeveloperController {
 		adminService.approvalYN(placevo);
 		return "redirect:/developer/enterConfirm.do";
 	}
-
+	
+	// 08.09 김영민: 리뷰신고 리스트 데이터 가져오기 추가
 	@RequestMapping(value="reportList.do", method=RequestMethod.GET)
-	public String reportList() {
+	public String reportList(SearchVO searchVO, Model model) {
+		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
+			searchVO.setNowPage(1);
+			searchVO.setCntPerPage(10);
+		}else if(searchVO.getCntPerPage() == 0) {
+			searchVO.setCntPerPage(10);
+		}else if(searchVO.getNowPage() == 0) {
+			searchVO.setNowPage(1);
+		}
+		
+		int total = adminService.countReport(searchVO);
+		searchVO.calPaging(total);
+		
+		model.addAttribute("reportList", adminService.reportList(searchVO));
+		model.addAttribute("pagenation", searchVO);
 		return "developer/reportList";
 	}
-
+	
+	// 내일 물어보기
+	@RequestMapping(value="/blind.do", method=RequestMethod.GET)
+	public String blind(ReportVO reportVO) {
+		adminService.reviewBlind(reportVO);
+		
+		return "";
+	}
+	
 	@RequestMapping(value="enterBlock.do", method=RequestMethod.GET)
-	public String enterBlock() {
+	public String enterBlock(SearchVO searchVO,Model model) {
+		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
+			searchVO.setNowPage(1);
+			searchVO.setCntPerPage(10);
+		}else if(searchVO.getCntPerPage() == 0) {
+			searchVO.setCntPerPage(10);
+		}else if(searchVO.getNowPage() == 0) {
+			searchVO.setNowPage(1);
+		}
+		searchVO.setRole(3);
+		int total = commonService.totalCountUser(searchVO);
+		searchVO.calPaging(total);
+		
+		model.addAttribute("enterList", adminService.userList(searchVO));
+		model.addAttribute("pagination", searchVO);
 		return "developer/enterBlock";
 	}
 	

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import three.people.dao.HostDAO;
+import three.people.vo.BlockVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.InquiryVO;
@@ -201,6 +202,12 @@ public class HostServiceImpl implements HostService {
 	@Override
 	public int replyModify(InquiryVO inquiryVO) {
 		return hostDAO.replyModify(inquiryVO);
+	}
+
+
+	@Override
+	public int insertBlockUser(BlockVO blockVO) {
+		return hostDAO.insertBlockUser(blockVO);
 	}
 	
 	

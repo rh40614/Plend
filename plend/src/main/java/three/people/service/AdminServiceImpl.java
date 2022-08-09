@@ -9,6 +9,8 @@ import three.people.dao.AdminDAO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
+import three.people.vo.ReportVO;
+import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
@@ -113,5 +115,22 @@ public class AdminServiceImpl implements AdminService {
 	public int placeEventDone(EventVO eventvo) {
 		return adminDAO.placeEventDone(eventvo);
 	}
+
+	@Override
+	public List<ReportVO> reportList(SearchVO searchVO) {
+		return adminDAO.reportList(searchVO);
+	}
+
+	@Override
+	public int countReport(SearchVO searchVO) {
+		return adminDAO.countReport(searchVO);
+	}
+	
+	@Override
+	public int reviewBlind(ReportVO reportVO) {
+		adminDAO.reportBlind(reportVO);
+		return adminDAO.reviewBlind(reportVO);
+	}
+	
 
 }

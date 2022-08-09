@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +32,7 @@ import three.people.service.HostService;
 import three.people.service.MainService;
 import three.people.service.PlaceService;
 import three.people.service.ReviewService;
+import three.people.vo.BlockVO;
 import three.people.vo.BookVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
@@ -787,8 +789,17 @@ public class HostController {
 	
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/blockUser.do", method=RequestMethod.POST)
+	public int blockUser(BlockVO blockVO, HttpServletRequest request, HttpSession session) {
 	
-	
+		session = request.getSession();
+		UserVO login = (UserVO)session.getAttribute("login");
+		blockVO.setReporter_uidx(login.getUidx());
+		int result = hostService.insertBlockUser(blockVO);
+		
+		return result;
+	}
 	
 	
 	

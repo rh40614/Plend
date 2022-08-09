@@ -45,118 +45,86 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr>
-			      <th scope="row">1</th>
-			      <td>욕설/비방</td>
-			      <td>**이라고 했어요. 삭제해주세요</td>
-			      <td>김연희</td>
-			      <td>2022-06-24</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">2</th>
-			      <td>욕설/비방</td>
-			      <td>**이라고 했어요. 삭제해주세요</td>
-			      <td>김연희</td>
-			      <td>2022-06-24</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">3</th>
-			      <td>욕설/비방</td>
-			      <td>**이라고 했어요. 삭제해주세요</td>
-			      <td>김연희</td>
-			      <td>2022-06-24</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">4</th>
-			      <td>욕설/비방</td>
-			      <td>**이라고 했어요. 삭제해주세요</td>
-			      <td>김연희</td>
-			      <td>2022-06-24</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">5</th>
-			      <td>욕설/비방</td>
-			      <td>**이라고 했어요. 삭제해주세요</td>
-			      <td>김연희</td>
-			      <td>2022-06-24</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">6</th>
-			      <td>욕설/비방</td>
-			      <td>**이라고 했어요. 삭제해주세요</td>
-			      <td>김연희</td>
-			      <td>2022-06-24</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">7</th>
-			      <td>욕설/비방</td>
-			      <td>**이라고 했어요. 삭제해주세요</td>
-			      <td>김연희</td>
-			      <td>2022-06-24</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">8</th>
-			      <td>욕설/비방</td>
-			      <td>**이라고 했어요. 삭제해주세요</td>
-			      <td>김연희</td>
-			      <td>2022-06-24</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">9</th>
-			      <td>욕설/비방</td>
-			      <td>**이라고 했어요. 삭제해주세요</td>
-			      <td>김연희</td>
-			      <td>2022-06-24</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">10</th>
-			      <td>욕설/비방</td>
-			      <td>**이라고 했어요. 삭제해주세요</td>
-			      <td>김연희</td>
-			      <td>2022-06-24</td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="blind.do" role="button">블라인드처리</a></td>
-			    </tr>
+			  	<c:if test="${empty reportList}">
+			  		<tr>
+			  			<td colspan="6"> 아직 접수된 신고가 없습니다. </td>
+			  		</tr>
+			  	</c:if>
+			  	<c:forEach var="report" items="${reportList}">
+					<tr>
+				      <th scope="row">${report.rbidx}</th>
+				      <td>${report.category.replace(",",'/')}</td>
+				      <td>${report.content}</td>
+				      <td>${report.name}</td>
+				      <td>${report.date.substring(0,10)}</td>
+				      <c:choose>
+				      	<c:when test="${report.delYN eq 'N'}">
+					      <td><a class="btn btn-primary btn-sm rounded-3" onclick="doBlind(${report.rvidx},${report.rbidx})">블라인드처리</a></td>
+				      	</c:when>
+				      	<c:otherwise>
+				      	  <td><a class="btn btn-primary btn-sm rounded-3" style="border-color: lightgray !important; background-color: lightgray !important;">블라인드처리</a></td>
+				      	</c:otherwise>
+				      </c:choose>
+				    </tr>			  		
+			  	</c:forEach>
 			  </tbody>
 			</table>
 		</section>
-		<nav id="pagenation" class="row">
-		  <ul class="pagination justify-content-center">
-		    <li class="page-item disabled">
-		      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
-		    </li>
-		    <li class="page-item"><a class="page-link" href="#">1</a></li>
-		    <li class="page-item"><a class="page-link" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		    <li class="page-item">
-		      <a class="page-link" href="#">&raquo;</a>
-		    </li>
-		  </ul>
-		</nav>
-		<div class="row search-form mb-5">
-			<div class="input-group justify-content-center">
-				<select class="form-select-sm">
-					<option value="1">One</option>
-  					<option value="2">Two</option>
-  					<option value="3">Three</option>
-				</select>
-				<input>
-				<button class="btn btn-primary btn-sm">검색</button>
+		<c:if test="${not empty reportList}">
+			<nav id="pagenation" class="row">
+			  <ul class="pagination justify-content-center">
+			  	<c:if test="${pagenation.startPage > 5}">
+				    <li class="page-item">
+				      <a class="page-link" href="reportList.do?nowPage=4">&laquo;</a>
+				    </li>
+			  	</c:if>
+			  	<c:forEach begin="${pagenation.startPage }" end="${pagenation.endPage }" var="p">
+					<c:choose>
+						<c:when test="${p == pagenation.nowPage }">
+							<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" href="reportList.do?nowPage=${p}">${p}</a></li>
+						</c:when>
+						<c:when test="${p != pagenation.nowPage }">
+							<li class="page-item"><a class="page-link" href="reportList.do?nowPage=${p}">${p}</a></li>
+						</c:when>
+					</c:choose>
+				</c:forEach>
+			    <c:if test="${pagenation.endPage != pagenation.lastPage}">
+				    <li class="page-item">
+				      <a class="page-link" href="reportList.do?nowPage=${pagenation.endPage +1}">&raquo;</a>
+				    </li>
+			    </c:if>
+			  </ul>
+			</nav>
+		</c:if>
+		<form action="reportList.do" method="get">
+			<div class="row search-form mb-5">
+				<div class="input-group justify-content-center">
+					<select class="form-select-sm" name="searchType">
+						<option value="category">신고항목</option>
+	  					<option value="name">신고자</option>
+					</select>
+					<input name="searchValue">
+					<button class="btn btn-primary btn-sm">검색</button>
+				</div>
 			</div>
-		</div>
+		</form>
 		<div class="flex-grow-1"></div>
 		<footer id="footer" class="row"></footer>
 	</div>
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!-- 리뷰 블라인드 처리 -->
+<script type="text/javascript">
+	function doBlind(rvidx,rbidx){
+		var param = "?rvidx=" + rvidx + "&rbidx=" +rbidx;
+		$.ajax({
+			url: "blind.do" + param,
+			success: function(data){
+				console.log(data);
+			}
+		});
+	}
+</script>
 </body>
 </html>
 

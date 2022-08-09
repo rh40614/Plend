@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import three.people.vo.BlockVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.InquiryVO;
@@ -139,6 +140,10 @@ public class HostDAO {
 		return sqlSession.update(namespace+".replyModify", inquiryVO);
 	}
 	
+	// 유저블랙리스트
+	public int insertBlockUser(BlockVO blockVO) {
+		return sqlSession.insert(namespace+".insertBlockUser", blockVO);
+	}
 	
 	
 	

@@ -1,12 +1,12 @@
 package three.people.vo;
 
-public class ReportVO {
+public class ReportVO extends ReviewVO{
 	private int rbidx;
 	private int rvidx;
 	private String category;
 	private String content;
 	private String date;
-	private String delyn;
+	private String delYN;
 	private int reporter_uidx;
 	private int respondent_uidx;
 	
@@ -40,11 +40,11 @@ public class ReportVO {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public String getDelyn() {
-		return delyn;
+	public String getDelYN() {
+		return delYN;
 	}
-	public void setDelyn(String delyn) {
-		this.delyn = delyn;
+	public void setDelYN(String delyn) {
+		this.delYN = delyn;
 	}
 	public int getReporter_uidx() {
 		return reporter_uidx;

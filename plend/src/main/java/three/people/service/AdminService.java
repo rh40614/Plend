@@ -5,6 +5,8 @@ import java.util.List;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
+import three.people.vo.ReportVO;
+import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
@@ -28,4 +30,7 @@ public interface AdminService {
 	int deleteEvent(EventVO eventvo);
 	int placeEventUpdate(EventVO eventvo);
 	int placeEventDone(EventVO eventvo);
+	List<ReportVO> reportList(SearchVO searchVO);
+	int countReport(SearchVO searchVO);
+	int reviewBlind(ReportVO reportVO);
 }

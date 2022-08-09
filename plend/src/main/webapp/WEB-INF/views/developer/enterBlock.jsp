@@ -27,13 +27,12 @@
 	</script>
 </head>
 <body>
-	<!-- h-100을 제거하면 푸터가 올라오고...고쳐야함 -->
 	<div id="wrap" class="container-fluid h-100 overflow-auto">	
 		<header id="header" class="row"></header>
 		<br><br>
 		<div class="row mt-3">
 			<div class="col category">
-				<p class="h5 fw-bold category-title"> 업체블랙리스트 </p>
+				<p class="h5 fw-bold category-title"> 업체리스트 </p>
 			</div>
 		</div>
 		<section class="row px-1">
@@ -47,12 +46,14 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr>
-			      <th scope="row">1</th>
-			      <td>jjangjjangEnter</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			    </tr>
+			  	<c:forEach var="enter" items="${enterList}">
+					<tr>
+				      <th scope="row">${enter.uidx}</th>
+				      <td>${enter.nickName}</td>
+				      <td>${enter.name}</td>
+				      <td>${enter.userPhone}</td>
+				    </tr>			  	
+			  	</c:forEach>
 			  </tbody>
 			</table>
 		</section>

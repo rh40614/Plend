@@ -3,6 +3,7 @@ package three.people.service;
 import java.util.HashMap;
 import java.util.List;
 
+import three.people.vo.BlockVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.InquiryVO;
@@ -49,4 +50,7 @@ public interface HostService {
 	public List<InquiryVO> developerInquiry(SearchVO searchvo);
 	public int countInquiry(SearchVO searchvo);
 	public int replyModify(InquiryVO inquiryVO);
+	
+	// 유저 블랙 리스트
+	public int insertBlockUser(BlockVO blockVO);
 }

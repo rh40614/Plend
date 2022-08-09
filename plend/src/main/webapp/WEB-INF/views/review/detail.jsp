@@ -80,11 +80,11 @@
 	      <div class="modal-body">
 	          <div class="mb-3">
 	          	<select class="form-select form-select-sm mb-1" name="category">
-				  <option value="abuse" selected>욕설/혐오/비방 글입니다.</option>
-				  <option value="advertisement">스팸/홍보/도배 글입니다.</option>
-				  <option value="illegal">불법정보입니다.</option>
-				  <option value="privacy">개인정보가 너무 많이 포함되어 있습니다.</option>
-				  <option value="adult">성적 표현이 있습니다.</option>
+				  <option value="욕설,비방" selected>욕설/혐오/비방 글입니다.</option>
+				  <option value="스팸,홍보">스팸/홍보/도배 글입니다.</option>
+				  <option value="불법정보">불법정보입니다.</option>
+				  <option value="개인정보남용">개인정보가 너무 많이 포함되어 있습니다.</option>
+				  <option value="성적 표현">성적 표현이 있습니다.</option>
 				</select>
 	            <input name="rvidx" type="hidden" value="${review.rvidx}" readonly> 
 	            <input name="respondent_uidx" type="hidden" value="${review.uidx}" readonly> 
@@ -94,6 +94,37 @@
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 	        <button type="button" class="btn btn-primary" onclick="reportUser();">신고하기</button>
+	      </div>
+        </form>
+	    </div>
+	  </div>
+	</div>
+</div>
+<!-- 유저 블랙리스트 모달 -->
+<div class="blockModal">
+	<div class="modal fade" id="blockModal" tabindex="-1" aria-labelledby="blockModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+        <form id="blockUser">
+	      <div class="modal-header justify-content-center">
+	        <h5 class="modal-title" id="blockModalLabel">유저 블랙리스트 등록하기</h5>
+	      </div>
+	      <div class="modal-body">
+	          <div class="mb-3">
+	          	<select class="form-select form-select-sm mb-1" name="category">
+				  <option value="욕설,비방" selected>악의적인 글입니다.</option>
+				  <option value="스팸/홍보">스팸/홍보/도배 글입니다.</option>
+				  <option value="장소사용문제">장소 사용에 문제점이 있습니다.</option>
+				  <option value="불법정보">불법정보입니다.</option>
+				  <option value="성적표현">성적 표현이 있습니다.</option>
+				</select>
+	            <input name="respondent_uidx" type="hidden" value="${review.uidx}" readonly> 
+	            <textarea name="content" id="summernote3" required>내용</textarea>
+	          </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+	        <button type="button" class="btn btn-primary" onclick="blockUser();">등록하기</button>
 	      </div>
         </form>
 	    </div>
@@ -153,7 +184,7 @@
 							<a class="btn btn-sm" onclick="reviewDelete();">삭제</a>
 						</c:if>
 						<c:if test="${placeOne.uidx eq login.uidx}">
-							<a class="btn btn-sm">블랙리스트 등록</a>
+							<a class="btn btn-sm" onclick="openBlockModal();">블랙리스트 등록</a>
 						</c:if>
 						<c:if test="${login ne null}">
 							<a class="btn btn-sm" onclick="openReportModal();">신고하기</a>
@@ -190,6 +221,30 @@ $().ready(function(){
 	$(".form-group.note-group-image-url").addClass("d-none");
 	$(".note-form-label").addClass("d-none");
 	$(".close").addClass("d-none");
+	
+	$('#summernote2').summernote({
+	    lang: 'ko-KR',
+	    placeholder: '내용',
+	    toolbar: [
+          ['font', ['bold', 'underline']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol']],
+	    ],
+	    focus: true,
+	    minHeight: 160,
+	});
+	
+	$('#summernote3').summernote({
+	    lang: 'ko-KR',
+	    placeholder: '내용',
+	    toolbar: [
+          ['font', ['bold', 'underline']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol']],
+	    ],
+	    focus: true,
+	    minHeight: 160,
+	});
 });
 </script>
 <!-- modal -->
@@ -244,25 +299,9 @@ function reviewModify(){
 	}
 </script>
 <!-- 리뷰신고 -->
-<!-- summerNote -->
-<script type="text/javascript">
-$().ready(function(){
-	$('#summernote2').summernote({
-	    lang: 'ko-KR',
-	    placeholder: '내용',
-	    toolbar: [
-          ['font', ['bold', 'underline']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol']],
-	    ],
-	    focus: true,
-	    minHeight: 160,
-	});
-});
-</script>
 <!-- 리뷰신고 ajax -->
 <script type="text/javascript">
-	const reportModal = new bootstrap.Modal('#reportModal', {});
+const reportModal = new bootstrap.Modal('#reportModal', {});
 function openReportModal(){
 	reportModal.show();
 }
@@ -276,6 +315,29 @@ function reportUser(){
 		success: function(data){
 			reportModal.hide();
 			alert("신고가 접수되었습니다.");
+		},
+		error: function(){
+			console.log("error");
+		}
+	});
+}
+</script>
+<!-- 유저 블랙 리스트 -->
+<script type="text/javascript">
+const blockModal = new bootstrap.Modal('#blockModal', {});
+function openBlockModal(){
+	blockModal.show();
+}
+
+function blockUser(){
+	var formData = $("#blockUser").serialize();
+	$.ajax({
+		url: "<%= request.getContextPath()%>/host/blockUser.do",
+		method: "POST",
+		data: formData,
+		success: function(data){
+			blockModal.hide();
+			alert("블랙 리스트로 등록되었습니다.");
 		},
 		error: function(){
 			console.log("error");
