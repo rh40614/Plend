@@ -42,6 +42,7 @@
 			  ,uidx
 		  FROM review
 		 WHERE uidx = #{UserVO.uidx}
+		   AND delyn = 'N'
 	  ORDER BY rvidx DESC
 		 LIMIT #{SearchVO.start}, #{SearchVO.cntPerPage} 
 	</select>
@@ -49,6 +50,7 @@
 		SELECT COUNT(*)
 		  FROM review
 		 WHERE uidx = #{uidx}
+		   AND delyn = 'N'
 	</select>
 	
 	<!-- 08.05 김영민: 리뷰이미지 등록 -->
@@ -98,12 +100,11 @@
 		   	   rate = #{rate}
 		 WHERE rvidx = #{rvidx}
 	</update>
-	<update id="reviewImgModify" parameterType="ImageVO">
-		UPDATE image
-		   SET originfilename = #{originFileName},
-		   	   realfilename = #{realFileName}
-		 WHERE rvidx = #{rvidx}
-	</update>
+	<delete id="reviewImgModify" parameterType="ImageVO">
+		DELETE FROM image
+		      WHERE originfilename = #{originFileName}
+		        AND rvidx = #{rvidx}
+	</delete>
 	<!-- 08.08 김영민: 리뷰 삭제 -->	
 	<update id="reviewDelete" parameterType="ReviewVO">
 		UPDATE review

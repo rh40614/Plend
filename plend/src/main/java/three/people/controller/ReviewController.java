@@ -6,11 +6,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +21,7 @@ import three.people.service.PlaceService;
 import three.people.service.ReviewService;
 import three.people.vo.ImageVO;
 import three.people.vo.ReviewVO;
+import three.people.vo.UserVO;
 
 @RequestMapping(value="/review")
 @Controller
@@ -47,9 +50,7 @@ public class ReviewController {
 	@RequestMapping(value="/reviewModify.do", method=RequestMethod.POST)
 	public String reviewModify(ReviewVO reviewVO, HttpServletRequest request) throws IllegalStateException, IOException {
 		int result = reviewService.reviewModify(reviewVO);
-		System.out.println("length: "+reviewVO.getReviewImgs().length);
-		System.out.println("reviewImg: "+reviewVO.getReviewImgs().toString());
-		if(result == 1 && reviewVO.getReviewImgs().length > 1 ) {
+		if(result == 1) {
 			//사진이 저장될 경로
 			String path = request.getSession().getServletContext().getRealPath("/resources/upload/reviewImg");
 					
@@ -58,9 +59,17 @@ public class ReviewController {
 			if(!dir.exists()) {	//위치가 존재하는지 확인
 				 dir.mkdirs();	//위치가 존재하지 않는경우 위치를 생성
 			}
+			if(reviewVO.getDeleteImg() != null) {
+				String[] imgs = reviewVO.getDeleteImg().split("/");
+				for(String img : imgs) {
+					ImageVO imageVO = new ImageVO();
+					imageVO.setRvidx(reviewVO.getRvidx());
+					imageVO.setOriginFileName(img);
 					
+					reviewService.reviewImgModify(imageVO);
+				}
+			}
 			for(MultipartFile files : reviewVO.getReviewImgs()) {
-						
 				if(!files.getOriginalFilename().isEmpty()) {	//화면에서 넘어온 파일이 존재한다면
 					//화면에서 넘어온 파일을 path위치에 새로쓰는 로직
 					files.transferTo(new File(path, files.getOriginalFilename()));	//error는 throw	
@@ -88,11 +97,7 @@ public class ReviewController {
 					imageVO.setOriginFileName(originFileName);
 					imageVO.setRealFileName(realFileName);
 					
-					if(reviewService.reviewImg(reviewVO).size() > 0) {
-						reviewService.reviewImgModify(imageVO);
-					}else {
-						reviewService.insertReviewImg(imageVO);
-					}
+					reviewService.insertReviewImg(imageVO);
 				}
 			}
 		}
@@ -100,7 +105,15 @@ public class ReviewController {
 		return "redirect:/review/detail.do?rvidx="+reviewVO.getRvidx();
 	}
 	
-	
+	//리뷰삭제
+	@RequestMapping(value="/reviewDelete.do", method=RequestMethod.GET)
+	public String reviewDelete(ReviewVO reviewVO, HttpServletRequest request, HttpSession session) {
+		session = request.getSession();
+		UserVO login = (UserVO)session.getAttribute("login");
+		reviewService.reviewDelete(reviewVO);
+		
+		return "redirect:/myPage/myReviewList.do?uidx="+login.getUidx();
+	}
 	
 	
 	

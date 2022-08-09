@@ -48,11 +48,11 @@ public class ReviewDAO {
 		return sqlSession.update("three.people.mapper.reviewMapper.reviewModify", reviewVO);
 	}
 	public int reviewImgModify(ImageVO imageVO) {
-		return sqlSession.update("three.people.mapper.reviewMapper.reviewImgModify", imageVO);
+		return sqlSession.delete("three.people.mapper.reviewMapper.reviewImgModify", imageVO);
 	}
 	// 리뷰삭제
 	public int reviewDelete(ReviewVO reviewVO) {
-		return sqlSession.delete("three.people.mapper.reviewMapper.reviewDelete", reviewVO);
+		return sqlSession.update("three.people.mapper.reviewMapper.reviewDelete", reviewVO);
 	}
 	//리뷰신고
 	public int insertReviewReport(ReportVO reportVO) {
