@@ -31,60 +31,7 @@
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
-	
-<!--슬라이드 배너 -->
-	<script>
-		let interval;
-		let activeIndex = 1;
-	
-		$(document).ready(function(){
-		  interval = setInterval(changeActiveIndex,2500);
-			$('.list-button-item').on('click',function(){
-		  	// list button의 색상 변경
-		    const index = $(this).index();
-		    activeIndex = index;
-		    changeActiveIndex();
-		    clearInterval(interval);
-		    // animation 재설정을 위해 animation을 잠시 제거한다.
-		    $('.banner').css('animation','none');
-		   	// animation 재설정
-		    $('.banner').animate({marginLeft:`${-100*index}%`},1,function(){
-		    	//1초의 시간 여유(해당 이미지로 이동하는 animation을 위한 시간)를 두고 다시 animation을 설정한다.
-		    	setTimeout(function(){
-		    		$('.banner').css('animation',`animation${index+1} 10s infinite`)
-		  
-		  		interval = setInterval(changeActiveIndex,2500);
-		      }, 1000)
-		    })
-		  })
-		})
-		function changeActiveIndex(){
-			if(activeIndex>3) {
-		  	activeIndex%=4;
-		  }
-		  changeActiveBtn();
-			activeIndex+=1;
-		}
-		function changeActiveBtn(){
-		  $('.list-button-item').removeClass('active');
-		  $('.list-button span:eq(${activeIndex})').addClass('active');
-		}
-	
-	</script>
-	
-	<!-- 이벤트 버튼 -->
-	<script>
-		function btn(obj){
-			
-			if($(obj).hasClass("btnDisabled") == true){
-				$("#btnGroup").children("button").addClass("btnDisabled");
-			
-				$(obj).removeClass("btnDisabled");	 
-				$(obj).addClass("btnBig");
-			}
-		}
-	</script>
-	
+
 	<!-- 진행중인 이벤트 -->
 	<script>
 	function startList(start){
@@ -124,7 +71,7 @@
 				type: "GET",
 				data: "startEnd="+ $(end).val(),
 				success: function(data){
-					//console.log("성공");
+					console.log("성공");
 					$("#list").html(data);
 				},
 				error: function(){
@@ -146,25 +93,48 @@
 	<header id="header"></header>
 	<!-- main -->
 	<!-- 2022.07.18 김연희: main에 margin top150dl 기본으로 되어있으나 배너 부분은  딱맞게 시작하게 설정 -->
-	<main style="margin-top: 85px;" >
-	
-		<!-- 슬라이드 배너  -->
-		<div class="banner-container">
-		  <div class="banner">
-		  	<div data-index=1>
-		  		<c:forEach var ="b" items="${list}">
-					<img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${b.image}" alt='${b.semiTitle}' onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}">
-				</c:forEach>
-			</div>
+	<main style="margin-top: 85px; margin-right: 0px;important!" class="d-flex flex-column " >
+
+		<div id="carouselExampleIndicators" class="carousel slide " data-bs-ride="carousel" style="width:100%; ">
+		  <div class="carousel-indicators">
+		  	<c:forEach var ="b" items="${list}" varStatus="status">
+		 		 <c:choose>
+		 		 	<c:when test="${status.index == '0'}">
+ 						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    				</c:when>
+    				<c:otherwise>
+				    	<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>   				
+				    </c:otherwise>
+    			</c:choose>
+			  </c:forEach>
+		  
 		  </div>
+		  <div class="carousel-inner">
+			  <c:forEach var ="b" items="${list}" varStatus="status">
+		 		 <c:choose>
+		 		 	<c:when test="${status.index == '0'}">
+				    	<div class="carousel-item active">
+	      					<img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${b.banner}" alt='${b.semiTitle}' onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}" class="d-block w-100 h-25" alt="...">
+	    				</div>
+    				</c:when>
+    				<c:otherwise >
+				    	<div class="carousel-item">
+	      					<img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${b.banner}" alt='${b.semiTitle}' onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}" class="d-block w-100 h-25" alt="...">
+	    				</div>
+    				</c:otherwise>
+    			</c:choose>
+			  </c:forEach>
+		    
+		  </div>
+		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Previous</span>
+		  </button>
+		  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Next</span>
+		  </button>
 		</div>
-		<div class="list-button">
-		  <span class="list-button-item active"></span> 
-		  <span class="list-button-item"></span> 
-		  <span class="list-button-item"></span> 
-		  <span class="list-button-item"></span> 
-		</div> 
-	
 	
 	
 		<!--section  -->

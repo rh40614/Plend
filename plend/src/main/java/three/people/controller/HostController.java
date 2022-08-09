@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -426,10 +427,11 @@ public class HostController {
 		List<EventVO> list = hostService.eventList(eventVO);
 		System.out.println(" eventList list: "+ list);
 			for(EventVO event : list) {
-				
+				//사진 (0번 메인 1번 배너)
 				eventVO.setEidx(event.getEidx());
-				ImageVO image = hostService.eventImage(eventVO);
-				event.setImage(image.getOriginFileName());
+				List<ImageVO> imageList = hostService.eventImageList(eventVO);
+				event.setImage(imageList.get(0).getOriginFileName());
+				event.setBanner(imageList.get(1).getOriginFileName());
 				
 				if(event.getSemiTitle().length() >19) {
 					String semi = event.getSemiTitle().substring(0,19);
@@ -437,9 +439,8 @@ public class HostController {
 				}
 			}
 		
-		
 		model.addAttribute("list",list);
-
+		
 		
 		return "host/eventList";
 	}
@@ -450,26 +451,27 @@ public class HostController {
 	public String startList(Model model, EventVO eventVO) {
 		
 		List<EventVO> list = hostService.eventList(eventVO);
-		
+		System.out.println("startlist: "+list);
+		System.out.println("startlist: "+list.size());
+
 		for(EventVO event : list) {
-			eventVO.setEidx(event.getEidx());
-		}
-		//사진 가지고 오기
-		List<ImageVO> imageList = hostService.eventImageList(eventVO);
-		
-		for(EventVO event : list) {
-			//semiTitle 자르기
-			if(event.getSemiTitle().length() >19) {
-				String semi = event.getSemiTitle().substring(0,19);
-				event.setSemiTitle(semi);
 			
-			}
-			//이미지이름 화면에 가져갈 리스트에 넣기
-			for(ImageVO image : imageList) {
-				event.setImage(image.getOriginFileName());
+			if(event == null) {
+				break;
+			}else {
+				eventVO.setEidx(event.getEidx());
+				List<ImageVO> imageList = hostService.eventImageList(eventVO);
+				event.setImage(imageList.get(0).getOriginFileName());
+				//event.setBanner(imageList.get(1).getOriginFileName());
 				
+				if(event.getSemiTitle().length() >19) {
+					String semi = event.getSemiTitle().substring(0,19);
+					event.setSemiTitle(semi);
+				}
 			}
+			
 		}
+		
 		
 		model.addAttribute("list",list);
 		
@@ -483,38 +485,37 @@ public class HostController {
 		
 		EventVO event = hostService.eventOne(eventVO);
 		eventVO.setEidx(event.getEidx());
-		ImageVO image = hostService.eventImage(eventVO);
-		event.setImage(image.getOriginFileName());
+		List<ImageVO> image = hostService.eventImageList(eventVO);
+		event.setImage(image.get(0).getOriginFileName());
+		event.setBanner(image.get(1).getOriginFileName());
+		
 		model.addAttribute("e",event);
 		return "host/eventView";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/eventBanner.do", method= RequestMethod.GET)
-	public void eventBanner(Model model ,EventVO eventVO) {
-		
-		List<EventVO> list = hostService.eventList(eventVO);
-		
-		for(EventVO event : list) {
-			eventVO.setEidx(event.getEidx());
-		}
-		//사진 가지고 오기
-		List<ImageVO> imageList = hostService.eventImageList(eventVO);
-		
-		for(EventVO event : list) {
-			//semiTitle 자르기
-			if(event.getSemiTitle().length() >19) {
-				String semi = event.getSemiTitle().substring(0,19);
-				event.setSemiTitle(semi);
-			}
-			//이미지이름 화면에 가져갈 리스트에 넣기
-			for(ImageVO image : imageList) {
-				event.setImage(image.getOriginFileName());
-			}
-		}
-		model.addAttribute("banner", list);
-		
-	}
+//	@ResponseBody
+//	@RequestMapping(value="/eventBanner.do", method= RequestMethod.GET)
+//	public void eventBanner(Model model ,EventVO eventVO) {
+//		
+//		List<EventVO> list = hostService.eventList(eventVO);
+//		
+//		for(EventVO event : list) {
+//			eventVO.setEidx(event.getEidx());
+//		}
+//		//사진 가지고 오기
+//		List<ImageVO> imageList = hostService.eventImageList(eventVO);
+//		
+//		for(EventVO event : list) {
+//			//semiTitle 자르기
+//			if(event.getSemiTitle().length() >19) {
+//				String semi = event.getSemiTitle().substring(0,19);
+//				event.setSemiTitle(semi);
+//			}
+//			//event.setImage(imageList);	
+//		}
+//		model.addAttribute("banner", list);
+//		
+//	}
 	
 	
 	
