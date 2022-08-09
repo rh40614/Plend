@@ -11,7 +11,7 @@
 <c:if test="${not empty list}">
 	<c:forEach var="event" items="${list}" >
 		<div class="card mt-3 me-5"  style="width: 18rem;">
-		  <img src="" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${event.eidx}">
+		  <img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${event.image}" class="card-img-top" alt="${event.semiTitle}" onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${event.eidx}">
 			  <div class="card-body">
 			    <p class="card-text">${event.semiTitle}</p>
 			  </div>

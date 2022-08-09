@@ -67,7 +67,7 @@
 		}
 		function changeActiveBtn(){
 		  $('.list-button-item').removeClass('active');
-		  $(`.list-button span:eq(${activeIndex})`).addClass('active');
+		  $('.list-button span:eq(${activeIndex})').addClass('active');
 		}
 	
 	</script>
@@ -131,37 +131,14 @@
 					console.log("실패");
 				}
 				
-			})
+			});
 		}
 		
 		</script>
+		<!-- 2022.08.09 이벤트 배너 가지고 오기  -->
 		
-	<!-- 이벤트 사진 가지고 오기  -->
-	<script>
-	$(function(){
 		
-		 /* $.ajax({
-			url: "eventImage.do",
-			type: "GET",
-			data: "eidx="+ $("#eidx").val(),
-			success: function(image){
-				console.log("사진성공");
-				var html ="";
-				html = "<a href='javascript:eventView("+image.eidx+");'><img src='"+image.path+"' class='card-img-top' alt='사진이 안뜨네요'></a>";
-				
-				$("#image").html(html);
-			},
-			error: function(){
-				console.log("사진실패");
-			}
-			
-		}); 
-		 */
-	});
-		
-	</script>
-	
-	
+
 	
 </head>
 <body>
@@ -174,10 +151,11 @@
 		<!-- 슬라이드 배너  -->
 		<div class="banner-container">
 		  <div class="banner">
-		    <div data-index=1><img src="<%=request.getContextPath()%>/resources/image/slideBanner/slideBanner.png" alt="슬라이드 1" onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'"></div>
-		    <div data-index=2><img src="<%=request.getContextPath()%>/resources/image/slideBanner/slideBanner.png" alt="슬라이드 2" onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'"></div>
-		    <div data-index=3><img src="<%=request.getContextPath()%>/resources/image/slideBanner/slideBanner.png" alt="슬라이드 3" onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'"></div>
-		    <div data-index=4><img src="<%=request.getContextPath()%>/resources/image/slideBanner/slideBanner.png" alt="슬라이드 4" onclick="location.href='<%=request.getContextPath()%>/host/promotionView.do'"></div>
+		  	<div data-index=1>
+		  		<c:forEach var ="b" items="${list}">
+					<img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${b.image}" alt='${b.semiTitle}' onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}">
+				</c:forEach>
+			</div>
 		  </div>
 		</div>
 		<div class="list-button">
@@ -213,11 +191,10 @@
 				<c:if test="${not empty list}">
 					<c:forEach var="event" items="${list}">
 						<div class="card mt-3 me-5"  style="width: 18rem;">
-							<!-- <div id="image"></div> -->
-							 	<img src="../imgs/${event.path}" class="card-img-top" alt="..." onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${event.eidx}">
-							  <div class="card-body">
+							 <img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${event.image}" class="card-img-top" alt="${event.semiTitle}" onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${event.eidx}">
+							 <div class="card-body">
 							    <p class="card-text"  onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${event.eidx}">${event.semiTitle}</p>
-							  </div>
+							 </div>
 						</div>
 						<input type="hidden" value="${event.eidx}" id="eidx">
 					</c:forEach>

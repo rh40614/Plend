@@ -118,7 +118,7 @@ public class DeveloperController {
 			if(eventvo.getStartEnd().equals("start")) {
 				adminService.placeEventUpdate(eventvo);
 			}
-			String path = request.getSession().getServletContext().getRealPath("/resources/upload/event");
+			String path = request.getSession().getServletContext().getRealPath("/resources/upload/eventImg");
 			File dir = new File(path);
 			if(!dir.exists()) {
 				dir.mkdirs();
