@@ -30,6 +30,7 @@ import three.people.service.CommonService;
 import three.people.service.HostService;
 import three.people.service.MainService;
 import three.people.service.PlaceService;
+import three.people.service.ReviewService;
 import three.people.vo.BookVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
@@ -37,6 +38,7 @@ import three.people.vo.NoticeVO;
 import three.people.vo.PagingVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
+import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
@@ -56,6 +58,8 @@ public class HostController {
 	BookService bookService;
 	@Autowired
 	CommonService commonService;
+	@Autowired
+	ReviewService reviewService;
 
 	
 	@RequestMapping(value = "/insertPlace.do", method = RequestMethod.GET )
@@ -179,30 +183,11 @@ public class HostController {
 		}
 	
 	}
-
+	
 	//managePlace 화면만 로딩
 	@RequestMapping(value="/managePlace.do", method = RequestMethod.GET)
 	public String managePlace(HttpSession session, HttpServletRequest request) {
 	
-		//로그인 정보
-				session = request.getSession();
-				UserVO login = (UserVO) session.getAttribute("login");
-				//임시로 로그인 페이지 연결
-				if(login == null) {
-					return "redirect:/common/signIn.do";
-				}
-				
-				
-		return "host/managePlace";
-	}
-	
-	
-	//managePlace 첫번째 데이터
-	@RequestMapping(value="/placeManage.do", method = RequestMethod.POST)
-	public String placeManage(PlaceVO placeVO, Model model, SearchVO searchVO, HttpSession session, HttpServletRequest request) {
-		System.out.println("장소관리 페이지");
-
-		//1. 장소관리
 		//로그인 정보
 		session = request.getSession();
 		UserVO login = (UserVO) session.getAttribute("login");
@@ -210,109 +195,11 @@ public class HostController {
 		if(login == null) {
 			return "redirect:/common/signIn.do";
 		}
-	
-		
-		//페이징
-		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
-			searchVO.setNowPage(1);
-			searchVO.setCntPerPage(5);
-		}else if(searchVO.getCntPerPage() == 0) {
-			searchVO.setCntPerPage(5);
-		}else if(searchVO.getNowPage() == 0) {
-			searchVO.setNowPage(1);
-		}
-		
-		//해쉬맵에 넣어줄 파라미터들
-		int uidx = login.getUidx();
-		int start = searchVO.getStart();
-		int cntPerPage = searchVO.getCntPerPage(); 
-		//cnt할때 uidx가져갈 수 있도록 넣기
-		placeVO.setUidx(uidx);
-		
-		//토탈 갯수
-		int total = placeService.cntPlace(placeVO);
-		searchVO.calPaging(total);
-		System.out.println("total: "+total);
-		System.out.println("장소의 endPage: "+searchVO.getEndPage());
-		
-		//파라미터 전달
-		HashMap<String, Integer> page = new HashMap<String, Integer>();
-	
-		page.put("uidx", uidx);
-		page.put("start", start);
-		page.put("cntPerPage", cntPerPage);
-		
-		//장소리스트
-		List<PlaceVO> list_p = placeService.selectPlaceAll(page);
-
-		//화면단으로 옮기기
-		model.addAttribute("list_p", list_p);
-		model.addAttribute("pagination", searchVO);
-			
-		
-		
-		return "host/ajax/placeList";
+				
+		return "host/managePlace";
 	}
 	
-	
-
-	//managePlace 두번째데이터
-	@RequestMapping(value="/bookManage.do", method = RequestMethod.POST)
-	public String bookManage(PlaceVO placeVO, Model model, SearchVO searchVO, HttpSession session, HttpServletRequest request) {
-		//1. 장소관리
-		//로그인 정보
-		session = request.getSession();
-		UserVO login = (UserVO) session.getAttribute("login");
-		int uidx = login.getUidx();
-		
-		//2. 예약정보 리스트 
-		//페이징
-		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
-			searchVO.setNowPage(1);
-			searchVO.setCntPerPage(5);
-		}else if(searchVO.getCntPerPage() == 0) {
-			searchVO.setCntPerPage(5);
-		}else if(searchVO.getNowPage() == 0) {
-			searchVO.setNowPage(1);
-		}
-		int bookTotal = bookService.cntBook(uidx);
-		searchVO.calPaging(bookTotal);
-		System.out.println("bookTotal: "+bookTotal);
-		System.out.println("장소의 endPage: "+searchVO.getEndPage());
-		System.out.println("장소의 endPage: "+searchVO.getEndPage());
-		
-		
-		
-		
-		//예약리스트 
-		HashMap<String, Integer> page2 = new HashMap<String, Integer>();
-		int start2 = searchVO.getStart();
-		int cntPerPage2 = searchVO.getCntPerPage(); 
-		page2.put("uidx", uidx);
-		page2.put("start", start2);
-		page2.put("cntPerPage", cntPerPage2);
-		
-		List<BookVO> list_b = bookService.selectBookByHost(page2);
-		
-		for(BookVO b: list_b) {
-			//예약자 정보 회면단에 가져가기 쉽게 하나의 리스트에 담기
-			int uidx2 =b.getUidx();
-			UserVO bookUser = commonService.userInfoByUidx(uidx2);
-			b.setNickName(bookUser.getNickName());
-		}
-		
-		model.addAttribute("list_b", list_b);
-		model.addAttribute("pagination2", searchVO);
-		
-		return "host/ajax/bookList";
-		
-	}
-	
-	
-	
-	
-	
-	//managePlace내부 장소 리스트 ajax
+	//1.managePlace내부 장소 리스트 ajax
 	@RequestMapping(value="/placeList.do", method = RequestMethod.GET)
 	public String placeList(PlaceVO placeVO, Model model, SearchVO searchVO, HttpSession session, HttpServletRequest request) {
 		System.out.println("장소 리스트 페이징 ");
@@ -339,7 +226,7 @@ public class HostController {
 		//토탈 갯수
 		int total = placeService.cntPlace(placeVO);
 		searchVO.calPaging(total);
-		System.out.println("total: "+total);
+		//System.out.println("total: "+total);
 		
 		//파라미터 전달
 		HashMap<String, Integer> page = new HashMap<String, Integer>();
@@ -353,7 +240,6 @@ public class HostController {
 		
 		List<PlaceVO> list_p = placeService.selectPlaceAll(page);
 		
-		
 		//장소 소개 35자 이상 자르기
 		for(PlaceVO place: list_p) {
 			if(place.getPlaceDetail().length() > 35) {
@@ -362,27 +248,17 @@ public class HostController {
 			}
 		}
 	
-		System.out.println("list_p: "+list_p);
-		System.out.println("StartPage: "+searchVO.getStartPage());
-		System.out.println("EndPage: "+searchVO.getEndPage());
-		System.out.println("Start: "+searchVO.getStart());
-		System.out.println("End: "+searchVO.getEnd());
-	
 		//화면단으로 옮기기
 		model.addAttribute("list_p", list_p);
 		model.addAttribute("pagination", searchVO);
 		
 		return "host/ajax/placeList";
 	}
-	
-	
-	
-	
-	
-	//managePlace내부 예약 리스트 ajax
+
+
+	//2.managePlace내부 예약 리스트 ajax
 	@RequestMapping(value="/bookList.do", method = RequestMethod.GET)
 	public String bookList(PlaceVO placeVO, Model model, SearchVO searchVO, HttpSession session, HttpServletRequest request) {
-		System.out.println("예약리스트 페이징");
 
 		//로그인 정보
 		session = request.getSession();
@@ -398,19 +274,17 @@ public class HostController {
 		}else if(searchVO.getNowPage() == 0) {
 			searchVO.setNowPage(1);
 		}
-		int bookTotal = bookService.cntBook(uidx);
-		searchVO.calPaging(bookTotal);
-		System.out.println("bookTotal: "+bookTotal);
+		int total = bookService.cntBook(uidx);
+		searchVO.calPaging(total);
 		
-		HashMap<String, Integer> page2 = new HashMap<String, Integer>();
-		int start2 = searchVO.getStart();
-		int cntPerPage2 = searchVO.getCntPerPage(); 
-		page2.put("uidx", uidx);
-		page2.put("start", start2);
-		page2.put("cntPerPage", cntPerPage2);
+		HashMap<String, Integer> page = new HashMap<String, Integer>();
+		int start = searchVO.getStart();
+		int cntPerPage = searchVO.getCntPerPage(); 
+		page.put("uidx", uidx);
+		page.put("start", start);
+		page.put("cntPerPage", cntPerPage);
 		
-		List<BookVO> list_b = bookService.selectBookByHost(page2);
-		
+		List<BookVO> list_b = bookService.selectBookByHost(page);
 		
 		for(BookVO b: list_b) {
 			//예약자 정보
@@ -426,12 +300,51 @@ public class HostController {
 	}
 	
 	
+	//3.managePlace내부 리뷰 리스트 ajax
+	@RequestMapping(value="/reviewList.do", method = RequestMethod.GET)
+	public String reviewList( Model model, SearchVO searchVO, HttpSession session, HttpServletRequest request) {
 	
+		//로그인 정보
+		session = request.getSession();
+		UserVO login = (UserVO) session.getAttribute("login");
+		int uidx = login.getUidx();
 	
-	
-	
-	
-	
+		//1.페이징
+		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
+			searchVO.setNowPage(1);
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getCntPerPage() == 0) {
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getNowPage() == 0) {
+			searchVO.setNowPage(1);
+		}
+		int total = reviewService.cntReview(uidx);
+		searchVO.calPaging(total);
+		System.out.println("total: "+total );
+		
+		//2.리뷰 리스트
+		HashMap<String, Integer> page = new HashMap<String, Integer>();
+		int start = searchVO.getStart();
+		int cntPerPage = searchVO.getCntPerPage(); 
+		page.put("uidx", uidx);
+		page.put("start", start);
+		page.put("cntPerPage", cntPerPage);
+		
+		List<ReviewVO> list_r = reviewService.selectReviewByHost(page);
+		
+		for(ReviewVO r: list_r) {
+			int uidx2 =r.getUidx();
+			UserVO reviewUser = commonService.userInfoByUidx(uidx2);
+			r.setNickName(reviewUser.getNickName());
+		}
+		System.out.println("searchVO: "+searchVO);
+		
+		model.addAttribute("list_r", list_r);
+		model.addAttribute("pagination3", searchVO);
+		
+		return "host/ajax/reviewList";
+		
+	}
 	
 	
 	
@@ -513,14 +426,12 @@ public class HostController {
 		List<EventVO> list = hostService.eventList(eventVO);
 		System.out.println("list: "+ list);
 		
-		
 		for(EventVO event : list) {
 			//semiTitle 자르기
 			if(event.getSemiTitle().length() >19) {
 				String semi = event.getSemiTitle().substring(0,19);
 				event.setSemiTitle(semi);
 			}
-			
 		}
 		
 		//이벤트 index가지고 와서 넘겨줘야함

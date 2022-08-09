@@ -58,8 +58,14 @@ public class ReviewDAO {
 	public int insertReviewReport(ReportVO reportVO) {
 		return sqlSession.insert("three.people.mapper.reviewMapper.insertReviewReport", reportVO);
 	}
-	
-	
+	//장소에 대한 리뷰 로딩
+	public List<ReviewVO> selectReviewByHost(HashMap<String,Integer> page) {
+		return sqlSession.selectList("three.people.mapper.reviewMapper.selectReviewByHost", page);
+	}
+	//호스트가 가진 장소에 대한 리뷰갯수 
+	public int cntReview(int uidx) {
+		return sqlSession.selectOne("three.people.mapper.reviewMapper.cntReview", uidx);
+	}
 	
 	
 }

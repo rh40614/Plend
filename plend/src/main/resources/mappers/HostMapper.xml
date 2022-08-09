@@ -95,16 +95,13 @@
 	<!-- 2022.07.20 김연희 : 이벤트 이미지  -->
 	<select id="eventImage" parameterType="EventVO" resultType="ImageVO">
 		
-		SELECT
-			imidex
-			,path
-			,originFileName
-			,realFileName
-			,e.eidx
-		FROM image i 
-		JOIN event e 
-		ON i.eidx = e.eidx
-		WHERE e.eidx = #{eidx}
+		SELECT imidex,
+			   originfilename,
+			   realfilename,
+			   pidx,
+			   eidx
+		  FROM image
+		 WHERE eidx = #{eidx}
 		
 	</select>
 	
@@ -273,7 +270,7 @@
 	</update>
 	
 	
-	<!-- 2022.07.25 김연희	: 장소에 대한 qna 가지고 오기 -->
+	<!-- 2022.07.25 김연희: 장소에 대한 qna 가지고 오기 -->
 	<select id="selectQna" resultType="QnaVO" parameterType="HashMap">
 		SELECT
 				qidx
@@ -475,6 +472,8 @@
 		 	</if>
 		  </if>
 	</select>
+	
+
 	
 	
 	

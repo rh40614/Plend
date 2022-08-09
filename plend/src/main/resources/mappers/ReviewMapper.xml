@@ -127,11 +127,46 @@
 			#{respondent_uidx}
 		)
 	</insert>
-	<!-- 
-	<select id="reviewALl" parameterType="ReviewVO"></select>
-	<insert id="insertReview" parameterType="ReviewVO"></insert>
-	-->
 	
+	<!--2022.08.08 김연희: 호스트가 가지고 있는 장소에 대한 리뷰들  -->	
+	<select id="selectReviewByHost" parameterType="HashMap" resultType="ReviewVO">
+		SELECT 
+				@rownum:=@rownum+1 AS rnum
+				,r.*  
+		FROM 
+		(SELECT 
+			 rvidx
+			,r.pidx
+			,r.title
+			,r.content
+			,r.rate
+			,r.date
+			,r.delYN
+			,r.uidx
+			,p.placeName
+	    FROM review r
+	    JOIN place p
+	      ON r.pidx = p.pidx
+	   WHERE p.uidx =#{uidx}
+	     AND r.delYN = 'N'
+	     AND P.delYN = 'N'
+    ORDER BY rvidx DESC) r,
+     (SELECT @rownum:=0) rnum
+    ORDER BY rnum ASC
+	   LIMIT #{start},#{cntPerPage}
+	</select>
+
+
+	<select id="cntReview" parameterType="int" resultType="int">
+			SELECT 
+				COUNT(rvidx)
+			FROM review r
+			JOIN place p
+			ON r.pidx = p.pidx 
+			WHERE p.uidx = #{uidx}
+			AND r.delYN ='N'
+			AND p.delYN ='N'
+	</select>
 	
 	
 </mapper>
