@@ -39,6 +39,9 @@
 		} else if (idChk){
 			setCookie("Cookie_id", frm.id.value, 3);
 			// 체크박스가 선택된 경우 Cookie_id 라는 이름으로 id 값이 3일간 저장
+		} else if (!idChk){
+			//체크박스가 선택되지 않았을 경우 바로 submit
+			frm.submit();
 		} else {
 			deleteCookie("Cookie_id");
 		}

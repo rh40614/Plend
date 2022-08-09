@@ -261,13 +261,13 @@
 				alert("장소 이름을 입력해 주세요.");
 				$("#placeName").focus();
 				
+			}else if($("#placeImgs").val() == ""){
+				alert("공간에 대한 사진을 등록해주세요.");
+				$("#placeImgs").focus();
+				
 			}else if($("#placeDetail").val() == ""){
 				alert("장소에 대한 설명을 입력해주세요.");
 				$("#placeDetail").focus();
-				
-			}else if($("#placeImg").val() == ""){
-				alert("공간에 대한 사진을 등록해주세요.");
-				$("#placeImg").focus();
 				
 			}else if($("#guide1").val() == ""){
 				alert("시설 이용정보를 최소 3개이상 작성해주세요");
