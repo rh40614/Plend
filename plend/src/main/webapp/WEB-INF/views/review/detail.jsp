@@ -344,6 +344,30 @@ function blockUser(){
 		}
 	});
 }
+<!-- modal deleteimg 추가 -->
+<script type="text/javascript">
+	var imgName = '';
+	$(".reviewImg").click(function(){
+		imgName += $(this).text() + '/';
+		$(this).hide();
+		$("input[name='deleteImg']").val(imgName);
+	});
+</script>
+<!-- modal deleteimg 초기화 -->
+<script type="text/javascript">
+	function resetDeleteImg() {
+		var imgName = '';
+		$("input[name='deleteImg']").val('');
+		$(".reviewImg").show();
+	}
+</script>
+<!-- 리뷰삭제 -->
+<script type="text/javascript">
+	function reviewDelete(){
+		if (window.confirm("정말로 삭제하시겠습니까?")) {
+			location.replace('<%=request.getContextPath()%>/review/reviewDelete.do?rvidx=${review.rvidx}');
+		}
+	}
 </script>
 </body>
 </html>
