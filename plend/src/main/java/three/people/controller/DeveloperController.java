@@ -123,36 +123,38 @@ public class DeveloperController {
 			if(!dir.exists()) {
 				dir.mkdirs();
 			}
-			MultipartFile file = eventvo.getEventImg();
-			if(!file.getOriginalFilename().isEmpty()) {
-				file.transferTo(new File(path, file.getOriginalFilename()));
-				String originFileName = file.getOriginalFilename();
-
-				//2022.07.21  김연희 : 사진 호출을 위해 사진 저장 이름 변경(사진이름SSS.확장자)
-				//확장자 추출(이후 호출 할때 확장자가 두번 붙어버림)
-				String extention = originFileName.substring(originFileName.lastIndexOf("."));
-				//확장자를 제거한 파일 이름
-				String origin = originFileName.replace(extention, "");
-
-				Date now =new Date();
-				SimpleDateFormat simple = new SimpleDateFormat("SSS");
-				String distinct = simple.format(now);
-
-				//서버에 저장될 이름(사진이름SSS.확장자)
-				String realFileName = origin + distinct+ extention ;
-				System.out.println("realFileName: "+realFileName);
-
-				ImageVO imagevo = new ImageVO();
-				imagevo.setEidx(eventvo.getEidx());
-				imagevo.setPath(path);
-				imagevo.setOriginFileName(originFileName);
-				imagevo.setRealFileName(realFileName);
-
-				adminService.eventImg(imagevo);
+			for(MultipartFile files : eventvo.getEventImg()) {
+				
+				if(!files.getOriginalFilename().isEmpty()) {	//화면에서 넘어온 파일이 존재한다면
+					//화면에서 넘어온 파일을 path위치에 새로쓰는 로직
+					files.transferTo(new File(path, files.getOriginalFilename()));	//error는 throw	
+					
+					//originName(사용자가 저장한 이름) 가지고 오기
+					String originFileName = files.getOriginalFilename();
+					
+					//확장자 추출(이후 호출 할때 확장자가 두번 붙어버림) 
+					String extention = originFileName.substring(originFileName.lastIndexOf("."));
+					//확장자를 제거한 파일 이름
+					String origin = originFileName.replace(extention, "");
+					
+					Date now =new Date();
+					SimpleDateFormat simple = new SimpleDateFormat("SSS");
+					String distinct = simple.format(now);
+					
+					//서버에 저장될 이름(사진이름SSS.확장자)
+					String realFileName = origin + distinct+ extention ;
+					System.out.println("realFileName: "+realFileName);
+					
+					ImageVO imageVO = new ImageVO();
+					
+					imageVO.setEidx(eventvo.getEidx());
+					imageVO.setPath(path);
+					imageVO.setOriginFileName(originFileName);
+					imageVO.setRealFileName(realFileName);
+					
+					adminService.eventImg(imageVO);
+				}
 			}
-
-		}else {
-			System.out.println("failed");
 		}
 		return "redirect:/developer/event.do";
 	}
@@ -179,28 +181,37 @@ public class DeveloperController {
 			if(!dir.exists()) {
 				dir.mkdirs();
 			}
-			MultipartFile file = eventvo.getEventImg();
-			if(!file.getOriginalFilename().isEmpty()) {
-				file.transferTo(new File(path, file.getOriginalFilename()));
-				String originFileName = file.getOriginalFilename();
-
-				Date now = new Date();
-				SimpleDateFormat simple = new SimpleDateFormat("SSS");
-				String distinct = simple.format(now);
-
-				String realFileName = originFileName + distinct;
-
-				ImageVO imagevo = new ImageVO();
-				imagevo.setEidx(eventvo.getEidx());
-				imagevo.setPath(path);
-				imagevo.setOriginFileName(originFileName);
-				imagevo.setRealFileName(realFileName);
-
-				int rs = adminService.updateImg(imagevo);
+			for(MultipartFile files : eventvo.getEventImg()) {
+				if(!files.getOriginalFilename().isEmpty()) {	//화면에서 넘어온 파일이 존재한다면
+					//화면에서 넘어온 파일을 path위치에 새로쓰는 로직
+					files.transferTo(new File(path, files.getOriginalFilename()));	//error는 throw	
+					
+					//originName(사용자가 저장한 이름) 가지고 오기
+					String originFileName = files.getOriginalFilename();
+					
+					//확장자 추출(이후 호출 할때 확장자가 두번 붙어버림) 
+					String extention = originFileName.substring(originFileName.lastIndexOf("."));
+					//확장자를 제거한 파일 이름
+					String origin = originFileName.replace(extention, "");
+					
+					Date now =new Date();
+					SimpleDateFormat simple = new SimpleDateFormat("SSS");
+					String distinct = simple.format(now);
+					
+					//서버에 저장될 이름(사진이름SSS.확장자)
+					String realFileName = origin + distinct+ extention ;
+					System.out.println("realFileName: "+realFileName);
+					
+					ImageVO imageVO = new ImageVO();
+					
+					imageVO.setEidx(eventvo.getEidx());
+					imageVO.setPath(path);
+					imageVO.setOriginFileName(originFileName);
+					imageVO.setRealFileName(realFileName);
+					
+					adminService.eventImg(imageVO);
+				}
 			}
-
-		}else {
-			System.out.println("failed");
 		}
 		return "redirect:/developer/event.do";
 	}
