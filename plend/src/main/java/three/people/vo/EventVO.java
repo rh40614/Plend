@@ -1,5 +1,7 @@
 package three.people.vo;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class EventVO {
@@ -14,6 +16,7 @@ public class EventVO {
 	private MultipartFile[] eventImg;
 	private String category;
 	private String image;
+	private String banner;
 	
 
 	
@@ -23,6 +26,7 @@ public class EventVO {
 	public void setEventImg(MultipartFile[] eventImg) {
 		this.eventImg = eventImg;
 	}
+	
 	public String getCategory() {
 		return category;
 	}
@@ -76,6 +80,12 @@ public class EventVO {
 	}
 	public void setImage(String image) {
 		this.image = image;
+	}
+	public String getBanner() {
+		return banner;
+	}
+	public void setBanner(String banner) {
+		this.banner = banner;
 	}
 
 	

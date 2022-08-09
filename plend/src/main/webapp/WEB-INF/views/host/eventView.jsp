@@ -93,11 +93,12 @@
 	<script>
 		$(function(){
 			$.ajax({
-				url: "eventBanner.do",
+				url: "eventList.do",
 				type: "GET",
 				data: "startEnd=start",
 				success: function(){
 					console.log("성공");
+					
 				},
 				error: function(){
 					console.log("실패");
@@ -121,9 +122,9 @@
 		<!-- 슬라이드 배너  -->
 		<div class="banner-container">
 		  <div class="banner">
-		  	<c:forEach var="b" items="${list}" >
-		  	<div data-index=1><img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${b.image}" alt="슬라이드 1" onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}"></div>
-		    </c:forEach>
+		  	<%-- <c:forEach var="e" items="${e}" >
+		  	<div data-index=1><img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${e.banner}" alt="슬라이드 1" onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}"></div>
+		    </c:forEach> --%>
 		  </div>
 		</div>
 		<div class="list-button">

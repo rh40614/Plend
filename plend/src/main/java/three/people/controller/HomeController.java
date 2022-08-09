@@ -36,10 +36,16 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String mains(SearchVO searchVO, Model model, HttpServletRequest request, HttpSession session) {
 		scheduler.autoUpdate();
-		
-		//장소리스트 //이벤트 리스트 
+		return "home";
+	}
+	
+
+	
+	@RequestMapping(value = "/recommendPlace", method = RequestMethod.GET)
+	public String recommendPlace(SearchVO searchVO, Model model, HttpServletRequest request, HttpSession session) {
+	
+		//장소리스트 
 		List<PlaceVO> placeList = placeService.selectPlace();
-		List<PlaceVO> eventList = placeService.eventPlace();
 		
 		//1. 장소 랜덤
 		List<PlaceVO> randomPlaceList = new ArrayList<PlaceVO>(); 
@@ -71,13 +77,25 @@ public class HomeController {
 				
 			}
 		}		
-			
-			
-			
+		model.addAttribute("list", randomPlaceList);
+	
+		return "ajax/recommendPlace";
+	}
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/eventPlace", method = RequestMethod.GET)
+	public String eventPlace(SearchVO searchVO, Model model, HttpServletRequest request, HttpSession session) {
+		
+		//이벤트 리스트 
+		List<PlaceVO> eventList = placeService.eventPlace();	
+		
 		//2. 이벤트 랜덤
 		List<PlaceVO> randomEventList = new ArrayList<PlaceVO>(); 
 		
-		if(placeList.size()<6) {
+		if(eventList.size()<6) {
 			for(PlaceVO e: eventList ) {
 				//장소 사진 가지고 오기
 				ImageVO imageOne = placeService.selectImageOne(e);
@@ -103,17 +121,29 @@ public class HomeController {
 				randomEventList.add(randomPlace);
 			}
 		}
-		//3. 리뷰 랜덤
-		
-		
-		//4.화면단 이동
-		model.addAttribute("list", randomPlaceList);
+	
 		model.addAttribute("list2", randomEventList);
 		
-		return "home";
+	
+	return "ajax/eventPlace";
 	}
 	
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@RequestMapping(value="emailCheck.do")
 	@ResponseBody

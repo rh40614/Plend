@@ -64,7 +64,7 @@ public class ImageViewController {
 	    }catch (IOException e) {
 	        e.printStackTrace();
 	    }
-	    System.out.println(path);
+	    //System.out.println(path);
 	    return result;
 	}
 }
