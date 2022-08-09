@@ -267,7 +267,7 @@ public class CommonController  {
 			login.setRole(user.getRole());
 			login.setNickName(user.getNickName());
 			
-			System.out.println("role ="+user.getRole());
+			System.out.println("role = "+user.getRole());
 			System.out.println("nickname = "+user.getNickName());
 
 			session.setAttribute("login", login);
