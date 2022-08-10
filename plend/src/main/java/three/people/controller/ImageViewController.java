@@ -54,7 +54,6 @@ public class ImageViewController {
 	
 	@RequestMapping(value="/eventImg.do", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> eventImg(ImageVO imagevo, HttpServletRequest request, HttpSession session){
-		
 		String path = request.getSession().getServletContext().getRealPath("/resources/upload/eventImg");
 		File file=new File(path, imagevo.getOriginFileName());
 	    ResponseEntity<byte[]> result=null;
@@ -65,6 +64,7 @@ public class ImageViewController {
 	    }catch (IOException e) {
 	        e.printStackTrace();
 	    }
+	    //System.out.println(path);
 	    return result;
 	}
 }

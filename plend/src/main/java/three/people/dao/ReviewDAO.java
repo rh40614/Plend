@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import three.people.vo.ImageVO;
+import three.people.vo.PlaceVO;
 import three.people.vo.ReportVO;
 import three.people.vo.ReviewVO;
 import three.people.vo.UserVO;
@@ -74,4 +75,17 @@ public class ReviewDAO {
 		return sqlSession.selectOne("three.people.mapper.reviewMapper.countPlaceReview", reviewVO);
 	}
 	
+	public int avgRevew(PlaceVO placeVO) {
+		return sqlSession.selectOne("three.people.mapper.reviewMapper.avgRevew", placeVO);
+	}
+	public List<ReviewVO> reviewAll() {
+		return sqlSession.selectList("three.people.mapper.reviewMapper.reviewAll");
+	}
+	public ImageVO selectImageOne(ReviewVO reviewVO) {
+		return sqlSession.selectOne("three.people.mapper.reviewMapper.selectImageOne", reviewVO );
+	}
+	public List<ImageVO> reviewImages(ReviewVO reviewVO) {
+		return sqlSession.selectList("three.people.mapper.reviewMapper.selectImageOne", reviewVO );
+	}
+
 }

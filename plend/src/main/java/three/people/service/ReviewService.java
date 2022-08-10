@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import three.people.vo.ImageVO;
+import three.people.vo.PlaceVO;
 import three.people.vo.ReportVO;
 import three.people.vo.ReviewVO;
 import three.people.vo.UserVO;
@@ -24,4 +25,9 @@ public interface ReviewService {
 	public int cntReview(int uidx);
 	List<ReviewVO> selectPlaceReview(HashMap<String,Object> hashMap);
 	int countPlaceReview(ReviewVO reviewVO);
+	public int avgRevew(PlaceVO placeVO);
+	public List<ReviewVO> reviewAll();
+	public ImageVO selectImageOne(ReviewVO reviewVO);
+	public int[] RandomReview(List<ReviewVO> methodList);
+	public List<ImageVO> reviewImages(ReviewVO reviewVO);
 }

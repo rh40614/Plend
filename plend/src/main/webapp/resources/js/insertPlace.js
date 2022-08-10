@@ -1,73 +1,73 @@
 	'use strict';
-	
+
 	//카테고리 선택
 		function cate(obj){
-			
+
 			const cate = $(obj).val();
 			console.log(cate);
 			//값을 재선택할 때 비우기
-			$("#cate").attr('value','');		
+			$("#cate").attr('value','');
 			//카데고리 선택 값
 			$("#cate").attr('value',cate);
-			
+
 			//선택되는 카테고리에 따라서 옵션선택 값 다르게 제공
 			if(cate == 'meeting'){
 				$(".option1").css("display", "none");
 				$("#option_meeting").css("display", "block");
-				
+
 			}else if(cate == 'gallery'){
 				$(".option1").css("display", "none");
 				$("#option_gallery").css("display", "block");
-				
+
 			}else if(cate == 'dancePractice'){
 				$(".option1").css("display", "none");
 				$("#option_dancePractice").css("display", "block");
-				
+
 			}else if(cate == 'homeGim'){
 				$(".option1").css("display", "none");
 				$("#option_homeGim").css("display", "block");
-				
+
 			}else if(cate == 'office'){
 				$(".option1").css("display", "none");
 				$("#option_office").css("display", "block");
-				
+
 			}else if(cate == 'officeShare'){
 				$(".option1").css("display", "none");
 				$("#option_officeShare").css("display", "block");
-				
+
 			}else if(cate == 'partyRoom'){
 				$(".option1").css("display", "none");
 				$("#option_partyRoom").css("display", "block");
-				
+
 			}else if(cate == 'recording'){
 				$(".option1").css("display", "none");
 				$("#option_recording").css("display", "block");
-				
+
 			}else if(cate == 'shareKitchen'){
 				$(".option1").css("display", "none");
 				$("#option_shareKitchen").css("display", "block");
-				
+
 			}else if(cate == 'singPractice'){
 				$(".option1").css("display", "none");
 				$("#option_singPractice").css("display", "block");
-				
+
 			}else if(cate == 'smallWedding'){
 				$(".option1").css("display", "none");
 				$("#option_smallWedding").css("display", "block");
-				
+
 			}else if(cate == 'studio'){
 				$(".option1").css("display", "none");
 				$("#option_studio").css("display", "block");
-				
-			}
-			
-			
-			
-			
-		}
-	
 
-	
+			}
+
+
+
+
+		}
+
+
+
 
 	//해쉬태그
 	var input = document.querySelector('input[name="tag"]'),
@@ -95,7 +95,7 @@
        "연습실", "방송국", "야외촬영", "빔프로젝터", "드라마촬영", "통창", "욕실컨셉", "식물", "우드톤", "농구장", "체육관", "블랙",
         "한옥", "테라스", "셀프촬영", "학교"],
       maxTags: 10,
-      
+
       dropdown: {
         maxItems: 20,           // <- mixumum allowed rendered suggestions
         classname: "tags-look", // <- custom classname for this dropdown, so it could be targeted
@@ -103,19 +103,19 @@
         closeOnSelect: false    // <- do not hide the suggestions dropdown once an item has been selected
       }
     })
-    
-    
-    
+
+
+
 	//주소
     function DaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
-                
+
                 // 각 주소의 노출 규칙에 따라 주소를 조합한다.
                 // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
                 var addr = ''; // 주소 변수
                 var extraAddr = ''; // 참고항목 변수
-                
+
 
                 //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
                 if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
@@ -141,7 +141,7 @@
                     }
                     // 조합된 참고항목을 해당 필드에 넣는다.
                     document.getElementById("extraAddress").value = extraAddr;
-                
+
                 } else {
                     document.getElementById("extraAddress").value = '';
                 }
@@ -155,24 +155,24 @@
         }).open();
     }
 
-	//주소합치기 
-		
+	//주소합치기
+
 		function concatAddr(){
-		
+
 			var a = $("#address").val();
 			var b = $("#detailAddress").val();
 			var addr =  a+"&nbsp"+b;
-		
+
 			$("#addr").val(addr);
-			
+
 		}
-			
-		
-		
-		
 
 
-	//시설이용 정보 합치기 
+
+
+
+
+	//시설이용 정보 합치기
 		function facilities(){
 
 			var g1 = $("#guide1").val();
@@ -185,138 +185,140 @@
 			var g8 = $("#guide8").val();
 			var g9 = $("#guide9").val();
 			var g10 = $("#guide10").val();
-			
+
 			var guide = g1+"/"+g2+"/"+g3+"/"+g4+"/"+g5+"/"+g6+"/"+g7+"/"+g8+"/"+g9+"/"+g10;
 			console.log(g1);
 			$("#guide").val(guide);
 			console.log($("#guide").val());
-			
+
 		}
-		
+
 
 
 	//이용가능 시간대 설정
-	
+
 		$(document).ready(function(){
-   			
+
 			$("#avaliableTime").change(function(){
-        	
+
    				if($("#avaliableTime").is(":checked")){
    					$('#kt_datepicker_1').attr('disabled', 'true').css("color","#d2d2d2	");
    					$('#kt_datepicker_2').attr('disabled', 'true').css("color","#d2d2d2");
-        	
+
    				}else{
    					$('#kt_datepicker_1').removeAttr('disabled', 'true').css("color","#8c8c8c");
    					$('#kt_datepicker_2').removeAttr('disabled', 'true').css("color","#8c8c8c");
-   					
-        	
+
+
    				}
-    	
+
 			});
-	
+
 		});
-			
-		
+
+
 	//영업시간 설정
 		$("#kt_datepicker_1").flatpickr({
     		enableTime: true,
     		noCalendar: true,
     		dateFormat: "H:i",
 		});
-		
+
 		$("#kt_datepicker_2").flatpickr({
     		enableTime: true,
     		noCalendar: true,
     		dateFormat: "H:i",
 		});
-		
-	
+
+
 	// 영업 시간 24시간 설정
-		
-		
-		
+
+
+
 		$("#avaliableTime").change(function(){
 		console.log("체크박스");
 				$('#kt_datepicker_1').val('00');
 				$('#kt_datepicker_2').val('00');
 		})
-			
 
-		
 
-	
+
+
+
 	//장소 등록
 		function check(){
-		
-		
-			
+
+
+
 			concatAddr();
 			facilities();
-			
+
 			if($("#cate").val() == ""){
 				alert("장소 카테고리를 선택해 주세요.");
 				$("#cate").focus();
-				
+
 			}else if($("#placeName").val() == ""){
 				alert("장소 이름을 입력해 주세요.");
 				$("#placeName").focus();
-				
+
+			}else if($("#placeImgs").val() == ""){
+				alert("공간에 대한 사진을 등록해주세요.");
+				$("#placeImgs").focus();
+
 			}else if($("#placeDetail").val() == ""){
 				alert("장소에 대한 설명을 입력해주세요.");
 				$("#placeDetail").focus();
-				
+
 			}else if($("#cntPeople").val() == ""){
 				alert("최대 수용가능 인원을 입력해주세요");
-				$("#cntPeople").focus();	
-				
+				$("#cntPeople").focus();
+
 			}else if($("#placeImg").val() == ""){
 				alert("공간에 대한 사진을 등록해주세요.");
 				$("#placeImg").focus();
-				
+
 			}else if($("#guide1").val() == ""){
 				alert("시설 이용정보를 최소 3개이상 작성해주세요");
 				$("#guide1").focus();
-				
+
 			}else if($("#guide2").val() == ""){
 				alert("시설 이용정보를 최소 3개이상 작성해주세요");
 				$("#guide2").focus();
-				
+
 			}else if($("#guide3").val() == ""){
 				alert("시설 이용정보를 최소 3개이상 작성해주세요");
 				$("#guide3").focus();
-				
+
 			}else if($("#address").val() == ""){
 				alert("주소를 입력해 주세요");
 				$("#address").focus();
-				
+
 			}else if($("#kt_datepicker_1").val() == ""){
 				alert("장소의 영업시작 시각을 입력해주세요");
 				$("#kt_datepicker_1").focus();
-				
+
   			}else if($("#kt_datepicker_2").val() == ""){
 				alert("장소의 영업종료 시각을 입력해주세요");
 				$("#kt_datepicker_2").focus();
-				
+
 			}else if($("#intervalTime > option:selected").val()==""){
 				alert("예약시간 단위를 입력해주세요. 입력하신 시간마다 예약이 열립니다.");
 				$("#intervalTime").focus();
-				
+
 			}else if($("#price").val() == ""){
 				alert("시간당 금액을 입력해주세요.");
 				$("#price").focus();
-				
+
 			}else{
-				
+
 				confirm("등록하시겠습니까?");
-				
+
 				$("#frm").action ="host/insertPlace.do";
 				$("#frm").method ="post";
-				$("#frm").submit();			
-				
+				$("#frm").submit();
+
 			}
-			
-			
-			
+
+
+
 	}
-	
-	

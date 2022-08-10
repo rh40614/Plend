@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -426,142 +427,57 @@ public class HostController {
 		
 		//화면 로딩시 파라미터가 start인것들만 가지고 옴
 		List<EventVO> list = hostService.eventList(eventVO);
-		System.out.println("list: "+ list);
-		
-		for(EventVO event : list) {
-			//semiTitle 자르기
-			if(event.getSemiTitle().length() >19) {
-				String semi = event.getSemiTitle().substring(0,19);
-				event.setSemiTitle(semi);
+		System.out.println(" eventList list: "+ list);
+			for(EventVO event : list) {
+				//사진 (0번 메인 1번 배너)
+				eventVO.setEidx(event.getEidx());
+				List<ImageVO> imageList = hostService.eventImageList(eventVO);
+				event.setImage(imageList.get(0).getOriginFileName());
+				event.setBanner(imageList.get(1).getOriginFileName());
+				
+				if(event.getSemiTitle().length() >19) {
+					String semi = event.getSemiTitle().substring(0,19);
+					event.setSemiTitle(semi);
+				}
 			}
-		}
-		
-		//이벤트 index가지고 와서 넘겨줘야함
-		
-		//사진 가지고 오기
-		List<ImageVO> imageList = hostService.eventImageList(eventVO);
-		System.out.println("image: "+ imageList);
-			
-			for(ImageVO image :imageList) {
-				
-				//사진이 저장된 경로 
-				//String path = image.getPath();
-				String real = image.getRealFileName();
-				String origin =image.getOriginFileName();
-				//String p = path+"\\"+ origin;
-				
-				//확장자 추출
-				String extention = origin.substring(origin.lastIndexOf("."));
-				
-				//뒤에 붙은 밀리초
-				String SSS = real.substring(real.length()-7, real.length());
-				
-				//밀리초 떼고 확장자 붙이기
-				String fileName = real.replace(SSS, extention);
-				//최종 경로
-				//외부에 있는 파일은 경로를 mapping 해주어야해서 이름만 넘겨주기 
-			
-				System.out.println("파일이름: "+fileName);
-			
-				
-			}
-		
 		
 		model.addAttribute("list",list);
-
+		
+		
 		return "host/eventList";
 	}
 	
 	
-	
-	@ResponseBody
-	@RequestMapping(value="/eventImage.do", method= RequestMethod.GET)
-	public ImageVO eventImage(EventVO eventVO) {
-	System.out.println("이미지 로딩");
-		//사진 가지고 오기
-		ImageVO image = hostService.eventImage(eventVO);
-		
-		//사진이 저장된 경로 
-		String path = image.getPath();
-		String real = image.getRealFileName();
-		String origin =image.getOriginFileName();
-		//String p = path+"\\"+ origin;
-		
-		//확장자 추출
-		String extention = origin.substring(origin.lastIndexOf(".")+1);
-		
-		//뒤에 붙은 밀리초
-		String SSS = real.substring(real.length()-3, real.length());
-		
-		//밀리초 떼기
-		String fileName = real.replace(SSS, extention);
-		//최종 경로
-		String p = path+"\\"+ fileName;
-		image.setPath(p);
-		
-		System.out.println("im: "+image.getPath());
-		
-		return image;
-	}
-	
-	
-	
-	
-	//이미지 리스트로 가지고 오기
-//	@ResponseBody
-//	@RequestMapping(value="/eventImageList.do", method= RequestMethod.GET)
-//	public List<ImageVO> eventImageList(EventVO eventVO) {
-//	
-//	
-//		List<ImageVO> imageList = hostService.eventImageList(eventVO);
-//		
-//	
-//			for(ImageVO image :imageList ) {
-//				
-//				//사진이 저장된 경로 
-//				String path = image.getPath();
-//				String real = image.getRealFileName();
-//				String origin =image.getOriginFileName();
-//				//확장자 추출
-//				String extention = origin.substring(origin.lastIndexOf(".")+1);
-//				
-//				//뒤에 붙은 밀리초
-//				String SSS = real.substring(real.length()-3, real.length());
-//				//밀리초 떼기
-//				String fileName = real.replace(SSS, extention);
-//				//최종 경로
-//				String p = path+"\\"+ fileName;
-//				image.setPath(p);
-//					
-//				System.out.println("image경로 : "+p);
-//				}
-//			
-//			return imageList;	
-//			
-//	}
-	
-	
-	//이벤트 리스트 (파라미터에 따라 출력)
+	//이벤트 리스트 
 	@RequestMapping(value="/startList.do", method= RequestMethod.GET)
 	public String startList(Model model, EventVO eventVO) {
 		
 		List<EventVO> list = hostService.eventList(eventVO);
-	
-	
-		
-		//semiTitle 자르기
+		System.out.println("startlist: "+list);
+		System.out.println("startlist: "+list.size());
+
 		for(EventVO event : list) {
-			if(event.getSemiTitle().length() >19) {
-				String semi = event.getSemiTitle().substring(0,19);
-				event.setSemiTitle(semi);
+			
+			if(event == null) {
+				break;
+			}else {
+				eventVO.setEidx(event.getEidx());
+				List<ImageVO> imageList = hostService.eventImageList(eventVO);
+				event.setImage(imageList.get(0).getOriginFileName());
+				//event.setBanner(imageList.get(1).getOriginFileName());
+				
+				if(event.getSemiTitle().length() >19) {
+					String semi = event.getSemiTitle().substring(0,19);
+					event.setSemiTitle(semi);
+				}
 			}
+			
 		}
-		//사진 가지고 오기
 		
 		
 		model.addAttribute("list",list);
 		
-		return "host/startList";
+		return "host/ajax/startList";
 	}
 	
 	
@@ -570,12 +486,40 @@ public class HostController {
 		System.out.println("이벤트 상세 보기 페이지");
 		
 		EventVO event = hostService.eventOne(eventVO);
-		
-		System.out.println("eidx: "+event.getEidx());
+		eventVO.setEidx(event.getEidx());
+		List<ImageVO> image = hostService.eventImageList(eventVO);
+		event.setImage(image.get(0).getOriginFileName());
+		event.setBanner(image.get(1).getOriginFileName());
 		
 		model.addAttribute("e",event);
 		return "host/eventView";
 	}
+	
+//	@ResponseBody
+//	@RequestMapping(value="/eventBanner.do", method= RequestMethod.GET)
+//	public void eventBanner(Model model ,EventVO eventVO) {
+//		
+//		List<EventVO> list = hostService.eventList(eventVO);
+//		
+//		for(EventVO event : list) {
+//			eventVO.setEidx(event.getEidx());
+//		}
+//		//사진 가지고 오기
+//		List<ImageVO> imageList = hostService.eventImageList(eventVO);
+//		
+//		for(EventVO event : list) {
+//			//semiTitle 자르기
+//			if(event.getSemiTitle().length() >19) {
+//				String semi = event.getSemiTitle().substring(0,19);
+//				event.setSemiTitle(semi);
+//			}
+//			//event.setImage(imageList);	
+//		}
+//		model.addAttribute("banner", list);
+//		
+//	}
+	
+	
 	
 	
 	@RequestMapping(value="/notice_dev.do", method= RequestMethod.GET)
@@ -765,24 +709,20 @@ public class HostController {
 		
 			if(result <= 0) {
 			pw.append("<script>alert('수정에 실패하였습니다.');location.href = 'noticeView.do?nidx="+vo.getNidx()+"'</script>");
-			
 			pw.flush();
 			
 			} else {
 			pw.append("<script>alert('수정에 성공하였습니다.');location.href = 'noticeView.do?nidx="+vo.getNidx()+"'</script>"); 
-			
 			pw.flush();
 			}
 		
 		}else {
 			if(result <= 0) {
 				pw.append("<script>alert('수정에 실패하였습니다.');location.href = 'noticeView.do?nidx="+vo.getNidx()+"'</script>");
-				
 				pw.flush();
 				
 			} else {
 				pw.append("<script>alert('수정에 성공하였습니다.');location.href = 'noticeView.do?nidx="+vo.getNidx()+"'</script>"); 
-				
 				pw.flush();
 				}
 		}
@@ -801,6 +741,20 @@ public class HostController {
 		return result;
 	}
 	
+
+	@RequestMapping(value="approval.do", method= RequestMethod.GET)
+	public int approval(BookVO bookVO) {
+		
+		int result = hostService.approval(bookVO);
+		if(result == 1) {
+			System.out.println("수정완");
+		}else {
+			System.out.println("수정 실패 ");
+		}
+		
+		return result;
+	}
+
 	
 	
 	@RequestMapping(value="/placeView.do", method= RequestMethod.GET)

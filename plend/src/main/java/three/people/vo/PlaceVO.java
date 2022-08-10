@@ -29,7 +29,8 @@ public class PlaceVO extends UserVO {
 	private int cntPeople;
 	//2022.08.08 김연희 : 페이징후 게시물 넘버
 	private int rnum;
-	
+	//2022.08.10 김연희 : 평균 평점 
+	private float avgRate;
 	
 	
 	public String getUseTime() {
@@ -165,6 +166,12 @@ public class PlaceVO extends UserVO {
 	}
 	public void setRnum(int rnum) {
 		this.rnum = rnum;
+	}
+	public float getAvgRate() {
+		return avgRate;
+	}
+	public void setAvgRate(float avgRate) {
+		this.avgRate = avgRate;
 	}
 	
 	
