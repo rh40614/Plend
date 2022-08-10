@@ -134,7 +134,7 @@
 		  FROM image
 		 WHERE pidx = #{pidx}
 	</select>
-	<select id="randomPlace" resultType="PlaceVO"></select>
+	
 	
 	
 	<!-- 2022.07.27 김연희 : 카테고리별 장소 리스트 -->

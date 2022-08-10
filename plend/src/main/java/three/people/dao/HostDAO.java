@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import three.people.vo.BlockVO;
+import three.people.vo.BookVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.InquiryVO;
@@ -143,6 +144,10 @@ public class HostDAO {
 	// 유저블랙리스트
 	public int insertBlockUser(BlockVO blockVO) {
 		return sqlSession.insert(namespace+".insertBlockUser", blockVO);
+  }
+	//예약 승인
+	public int approval(BookVO bookVO) {
+		return sqlSession.update(namespace+".approval", bookVO);
 	}
 	
 	

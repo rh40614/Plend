@@ -36,11 +36,11 @@
 					<td>승인 대기</td>
 				</c:when>
 				<c:when test="${pv.approvalYN eq 'Y'}">
-					<td>승인 완료</td>
+					<td id="approvalY">승인 완료</td>
 				</c:when>
 			</c:choose>
 			
-			<td><button class="btnDefault" type="button" onclick="location.href='/host/placeDetail.do'">확인</button></td>
+			<td id="canclebtn${pv.bidx}"><button class="btnDefault" type="button" onclick="approval(${pv.bidx},'${pv.approvalYN}')" id="approvalBtn${pv.bidx}">확인</button></td>
 			<!-- 2022.07.15 김연희:
 			 확인 버튼 누르면 예약정보 상세창이 팝업으로 뜨고  승인, 거절 버튼이 주어지고 
 			 승인을 누르면 approval값 변경. 
@@ -109,5 +109,55 @@
 			
 		});
 	}
-		
 	</script>
+	
+	<script>
+		function approval(idx, app){
+			
+			if(app == 'Y'){
+				alert("이미 승인된 요청입니다.")
+			}else{
+				
+				if(confirm("승인하시겠습니까? 승인 완료 후 예약을 취소 할 수 없습니다.")){
+				$.ajax({
+					url: "approval.do", 
+					type: "GET",
+					data: "bidx="+idx,
+					success: function(){
+						alert("승인되었습니다.")
+						$("#approvalY").html("승인 완료");
+					}
+				});
+				
+				}else{
+				console.log("승인 거절");
+				}
+			
+			}
+			
+				
+			
+			
+		}
+	
+	
+	
+	
+	</script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

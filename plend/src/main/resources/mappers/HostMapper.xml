@@ -472,6 +472,7 @@
 		  </if>
 	</select>
 	
+
 	<!-- 08.09 김영민: 유저 블랙리스트 등록 -->
 	<insert id="insertBlockUser" parameterType="BlockVO">
 		INSERT INTO block(
@@ -486,6 +487,16 @@
 			#{respondent_uidx}
 		)
 	</insert>
+
+	<update id="approval" parameterType="BookVO" >
+		UPDATE
+		 		book  
+		    SET approvalyn = 'Y' 
+		  WHERE bidx = #{bidx}
+	
+	</update>
+	
+
 	
 	
 </mapper>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import three.people.dao.HostDAO;
 import three.people.vo.BlockVO;
+import three.people.vo.BookVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.InquiryVO;
@@ -208,6 +209,10 @@ public class HostServiceImpl implements HostService {
 	@Override
 	public int insertBlockUser(BlockVO blockVO) {
 		return hostDAO.insertBlockUser(blockVO);
+  }
+  @Override
+	public int approval(BookVO bookVO) {
+		return hostDAO.approval(bookVO);
 	}
 	
 	

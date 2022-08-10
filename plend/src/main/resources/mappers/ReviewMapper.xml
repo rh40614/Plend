@@ -168,7 +168,62 @@
 			AND p.delYN ='N'
 	</select>
 	
+	<select id="avgRevew" parameterType="PlaceVO" resultType="int">
+		SELECT 
+				IFNULL(AVG(rate), 0) as rate 
+		   FROM review
+	  	  WHERE pidx = #{pidx}
+
+	</select>
+	<select id="reviewAll" resultType="ReviewVO" >
+		SELECT
+			r.rvidx
+			,r.pidx
+			,r.title
+			,r.content
+			,r.rate
+			,r.date
+			,r.img
+			,r.delyn
+			,r.uidx
+			,p.tag
+		    ,p.address
+		    ,p.category
+		    ,p.price
+		    ,p.placeName
+		  FROM review r
+		  JOIN place p 
+		  on r.pidx = p.pidx
+		WHERE r.delYN ='N'
+		AND r.delyn ='N'
 	
+	</select>
+	
+	<select id="selectImageOne" parameterType="ReviewVO" resultType="ImageVO">
+		SELECT 
+			    MIN(imidex)
+			   ,imidex
+			   ,path
+			   ,originfilename
+			   ,realfilename
+			   ,pidx
+			   ,eidx
+		  FROM image
+		 WHERE rvidx = #{rvidx}
+	</select>
+	
+	<select id="reviewImages" parameterType="ReviewVO" resultType="ImageVO">
+		SELECT 
+			    imidex
+			   ,imidex
+			   ,path
+			   ,originfilename
+			   ,realfilename
+			   ,pidx
+			   ,eidx
+		  FROM image
+		 WHERE rvidx = #{rvidx}
+	</select>
 </mapper>
 
 
