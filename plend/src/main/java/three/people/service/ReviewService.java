@@ -22,4 +22,6 @@ public interface ReviewService {
 	public int insertReviewReport(ReportVO reportVO);
 	public List<ReviewVO> selectReviewByHost(HashMap<String,Integer> page);
 	public int cntReview(int uidx);
+	List<ReviewVO> selectPlaceReview(HashMap<String,Object> hashMap);
+	int countPlaceReview(ReviewVO reviewVO);
 }

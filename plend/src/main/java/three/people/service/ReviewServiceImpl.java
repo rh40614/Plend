@@ -85,4 +85,14 @@ public class ReviewServiceImpl implements ReviewService {
 	public int cntReview(int uidx) {
 		return reviewDAO.cntReview(uidx);
 	}
+
+	@Override
+	public List<ReviewVO> selectPlaceReview(HashMap<String, Object> hashMap) {
+		return reviewDAO.selectPlaceReview(hashMap);
+	}
+
+	@Override
+	public int countPlaceReview(ReviewVO reviewVO) {
+		return reviewDAO.countPlaceReview(reviewVO);
+	}
 }

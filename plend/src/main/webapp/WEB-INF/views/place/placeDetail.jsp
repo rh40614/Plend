@@ -135,11 +135,21 @@
 					<table class="table caption-top">
 						<caption class="ms-4 text-black fw-bold fs-5">편의시설</caption>
 						<tbody style="border-top: none;">
-							<c:if test="${placeOne.option1 eq null}">
-								<tr> 
-									<td style="text-align-last: center;"> 등록된 편의시설이 없습니다. </td>
-								</tr>		
-							</c:if>
+							<c:choose>
+								<c:when test="${placeOne.option1 eq null}">
+									<tr> 
+										<td style="text-align-last: center;"> 등록된 편의시설이 없습니다. </td>
+									</tr>		
+								</c:when>
+								<c:otherwise>
+									<c:set var="option" value="${placeOne.option1.split(',')}"/>
+									<c:forEach var="opt" items="${option}">
+										<tr>
+											<td class="ps-4 pb-3">${opt}</td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
 						</tbody>
 					</table>
 				</section>
@@ -147,11 +157,21 @@
 					<table class="table caption-top">
 						<caption class="ms-4 text-black fw-bold fs-5">유의사항</caption>
 						<tbody style="border-top: none;">
-							<c:if test="${placeOne.guide eq null}">
-								<tr> 
-									<td style="text-align-last: center;"> 등록된 유의사항이 없습니다. </td>
-								</tr>
-							</c:if>
+							<c:choose>
+								<c:when test="${placeOne.guide eq null}">
+									<tr> 
+										<td style="text-align-last: center;"> 등록된 유의사항이 없습니다. </td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:set var="guid" value="${placeOne.guide.split('/')}" />
+									<c:forEach var="g" items="${guid}">
+										<tr> 
+											<td class="ps-4 pb-3">${g}</td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
 						</tbody>
 					</table>
 				</section>
@@ -287,6 +307,7 @@
 			</div>
 		</section>
 	</main>
+	<!-- 예약하기 -->
 	<div class="d-flex flex-column col-3">
 		<div id="book" class="bookSticky text-center">
 			<form action="book.do" onsubmit="return calTime()" method="post">
@@ -329,28 +350,43 @@
 <!-- 예약 날짜/시간/인원 보이기 클릭이벤트 -->
 <script>
 	$(".datePicker").click(function(){
-		$(".timeTable").addClass("d-none");
-		$(".cntPeople").addClass("d-none");
-		$(".dateCalendar").toggleClass("d-none");
+		if(${login eq null}){
+			alert("로그인 해주세요");
+		}else{
+			$(".timeTable").addClass("d-none");
+			$(".cntPeople").addClass("d-none");
+			$(".dateCalendar").toggleClass("d-none");
+		}
 	})
 	
 	$(".timePicker").click(function(){
-		$(".dateCalendar").addClass("d-none");
-		$(".cntPeople").addClass("d-none");
-		$(".timeTable").toggleClass("d-none");
+		if(${login eq null}){
+			alert("로그인 해주세요");
+		}else{
+			$(".dateCalendar").addClass("d-none");
+			$(".cntPeople").addClass("d-none");
+			$(".timeTable").toggleClass("d-none");
+		}
 	});
 	
 	$(".peopleCnt").click(function(){
-		$(".dateCalendar").addClass("d-none");
-		$(".timeTable").addClass("d-none");
-		$(".cntPeople").toggleClass("d-none");
+		if(${login eq null}){
+			alert("로그인 해주세요");
+		}else{
+			$(".dateCalendar").addClass("d-none");
+			$(".timeTable").addClass("d-none");
+			$(".cntPeople").toggleClass("d-none");
+		}
 	});
 </script>
 <!-- 예약전 예약시간 계산/ 빈값 유효성 검사 -->
 <script type="text/javascript">
 	function calTime(){
 		
-		if($(".selectDate").val()==""){
+	    if(${login eq null}){
+			alert("로그인을 해주세요");
+			return false;
+	    }else if($(".selectDate").val()==""){
 			alert("날짜를 선택해주세요.");
 			return false;
 		}else if($(".selectTime").val()==""){

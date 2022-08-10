@@ -37,4 +37,5 @@ public interface AdminService {
 	int reviewBlind(ReportVO reportVO);
 	List<BlockVO> blockUser(HashMap<String, Object> hashMap);
 	int countBlockUser(BlockVO blockVO);
+	int blockDelete(BlockVO blockVO);
 }

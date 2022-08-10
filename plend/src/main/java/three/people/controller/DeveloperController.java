@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import three.people.service.AdminService;
 import three.people.service.CommonService;
 import three.people.service.HostService;
+import three.people.vo.BlockVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.InquiryVO;
@@ -328,6 +329,12 @@ public class DeveloperController {
 		return "developer/enterBlock";
 	}
 	
+	@RequestMapping(value="/blockDelete.do", method=RequestMethod.GET)
+	public String blockDelete(BlockVO blockVO) {
+		adminService.blockDelete(blockVO);
+		return "redirect:/developer/enterBlock.do";
+	}
+	
 	// 07.28 김영민: 개발자 페이지에서 호스트의 문의 내역보기
 	@RequestMapping(value="/inquiryList.do", method=RequestMethod.GET)
 	public String inquiryList(SearchVO searchVO, Model model) {
@@ -357,5 +364,6 @@ public class DeveloperController {
 		
 		return "host/inquiry_dev/reply";
 	}
-
+	
+	
 }

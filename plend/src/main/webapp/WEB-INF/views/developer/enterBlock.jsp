@@ -32,7 +32,7 @@
 		<br><br>
 		<div class="row mt-3">
 			<div class="col category">
-				<p class="h5 fw-bold category-title"> 업체리스트 </p>
+				<p class="h5 fw-bold category-title">업체리스트</p>
 			</div>
 		</div>
 		<section class="row px-1">

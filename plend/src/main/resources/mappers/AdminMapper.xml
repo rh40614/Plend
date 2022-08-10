@@ -337,7 +337,8 @@
 		SELECT b.rbidx,
 			   b.category,
 			   b.content, 
-			   b.date, 
+			   b.date,
+			   b.bdelyn, 
 			   u.uidx, 
 			   u.name, 
 			   u.delyn 
@@ -345,6 +346,7 @@
 		  JOIN user_plend u 
 		    ON b.reporter_uidx = u.uidx
 		 WHERE uidx = #{blockVO.uidx}
+		   AND b.bdelyn = 'N'
 		 LIMIT #{searchVO.start}, #{searchVO.cntPerPage}
 	</select>
 	<!-- 블랙리스트 갯수 -->
@@ -358,7 +360,7 @@
 	<!-- 블랙리스트 삭제 -->
 	<update id="blockDelete" parameterType="BlockVO" >
 		UPDATE block
-		   SET delyn = 'Y'
+		   SET bdelyn = 'Y'
 		 WHERE rbidx = #{rbidx}
 	</update>
 	
