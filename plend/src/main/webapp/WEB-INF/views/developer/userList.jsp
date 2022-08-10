@@ -27,78 +27,81 @@
 	<div id="wrap" class="container-fluid overflow-auto">	
 		<header id="header" class="row"></header>
 		<br><br>
-		<div class="row mt-3">
-			<div class="col category">
-				<p class="h5 fw-bold category-title"> 회원리스트 </p>
-			</div>
-		</div>
-		<section class="row px-1">
-			<table class="col table text-center table-hover">
-			  <thead class="table-light">
-			    <tr>
-			      <th scope="col">회원번호</th>
-			      <th scope="col">아이디</th>
-			      <th scope="col">이름</th>
-			      <th scope="col">관리</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			  	<!-- 07.14 김영민 데이터반영 회원리스트 -->
-			  	<c:if test="${empty userList}">
-			  		<tr>
-						<td colspan="4"> 결과와 맞는 유저가 없습니다. </td>
-			  		</tr>
-			  	</c:if>
-			  	<c:forEach var="user" items="${userList}">
-			  		<tr>
-				      <th scope="row">${user.uidx}</th>
-				      <td>${user.id}</td>
-				      <td>${user.name}</td>
-				      <td><a class="btn btn-primary btn-sm rounded-3" href="userModify.do?uidx=${user.uidx}" role="button">수정</a></td>
-			    	</tr>
-			  	</c:forEach>
-			  </tbody>
-			</table>
-		</section>
-		<c:if test="${ not empty userList}">
-			<nav id="pagenation" class="row">
-			  <ul class="pagination justify-content-center">
-			  	<c:if test="${pagenation.startPage > 5}">
-				    <li class="page-item">
-				      <a class="page-link" href="userList.do?nowPage=4">&laquo;</a>
-				    </li>
-			  	</c:if>
-			  	<c:forEach begin="${pagenation.startPage }" end="${pagenation.endPage }" var="p">
-					<c:choose>
-						<c:when test="${p == pagenation.nowPage }">
-							<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" href="userList.do?nowPage=${p}">${p}</a></li>
-						</c:when>
-						<c:when test="${p != pagenation.nowPage }">
-							<li class="page-item"><a class="page-link" href="userList.do?nowPage=${p}">${p}</a></li>
-						</c:when>
-					</c:choose>
-				</c:forEach>
-			    <c:if test="${pagenation.endPage != pagenation.lastPage}">
-				    <li class="page-item">
-				      <a class="page-link" href="userList.do?nowPage=${pagenation.endPage +1}">&raquo;</a>
-				    </li>
-			    </c:if>
-			  </ul>
-			</nav>
-		</c:if>
-		<form action="userList.do" method="get">
-			<div class="row search-form mb-5">
-				<div class="input-group justify-content-center">
-					<select class="form-select-sm" name="searchType">
-						<option value="name">이름</option>
-	  					<option value="id">아이디</option>
-					</select>
-					<input name="searchValue">
-					<button class="btn btn-primary btn-sm">검색</button>
+		
+		<main>
+			<div class="row mt-3">
+				<div class="col category">
+					<p class="h5 fw-bold category-title"> 회원리스트 </p>
 				</div>
 			</div>
-		</form>
-		<div class="flex-grow-1"></div>
+			<section class="row px-1">
+				<table class="col table text-center table-hover">
+				  <thead class="table-light">
+				    <tr>
+				      <th scope="col">회원번호</th>
+				      <th scope="col">아이디</th>
+				      <th scope="col">이름</th>
+				      <th scope="col">관리</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	<!-- 07.14 김영민 데이터반영 회원리스트 -->
+				  	<c:if test="${empty userList}">
+				  		<tr>
+							<td colspan="4"> 결과와 맞는 유저가 없습니다. </td>
+				  		</tr>
+				  	</c:if>
+				  	<c:forEach var="user" items="${userList}">
+				  		<tr>
+					      <th scope="row">${user.uidx}</th>
+					      <td>${user.id}</td>
+					      <td>${user.name}</td>
+					      <td><a class="btn btn-primary btn-sm rounded-3" href="userModify.do?uidx=${user.uidx}" role="button">수정</a></td>
+				    	</tr>
+				  	</c:forEach>
+				  </tbody>
+				</table>
+			</section>
+			<c:if test="${ not empty userList}">
+				<nav id="pagenation" class="row">
+				  <ul class="pagination justify-content-center">
+				  	<c:if test="${pagenation.startPage > 5}">
+					    <li class="page-item">
+					      <a class="page-link" href="userList.do?nowPage=4">&laquo;</a>
+					    </li>
+				  	</c:if>
+				  	<c:forEach begin="${pagenation.startPage }" end="${pagenation.endPage }" var="p">
+						<c:choose>
+							<c:when test="${p == pagenation.nowPage }">
+								<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" href="userList.do?nowPage=${p}">${p}</a></li>
+							</c:when>
+							<c:when test="${p != pagenation.nowPage }">
+								<li class="page-item"><a class="page-link" href="userList.do?nowPage=${p}">${p}</a></li>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+				    <c:if test="${pagenation.endPage != pagenation.lastPage}">
+					    <li class="page-item">
+					      <a class="page-link" href="userList.do?nowPage=${pagenation.endPage +1}">&raquo;</a>
+					    </li>
+				    </c:if>
+				  </ul>
+				</nav>
+			</c:if>
+			<form action="userList.do" method="get">
+				<div class="row search-form mb-5">
+					<div class="input-group justify-content-center">
+						<select class="form-select-sm" name="searchType">
+							<option value="name">이름</option>
+		  					<option value="id">아이디</option>
+						</select>
+						<input name="searchValue">
+						<button class="btn btn-primary btn-sm">검색</button>
+					</div>
+				</div>
+			</form>
+			<div class="flex-grow-1"></div>
+		</main>
 		<footer id="footer" class="row"></footer>
 	</div>
 	<!-- JavaScript Bundle with Popper -->
