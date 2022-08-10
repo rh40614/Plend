@@ -10,8 +10,7 @@
 	<link href="<%=request.getContextPath()%>/resources/css/global_Host.css" rel="stylesheet">
 	<!-- jQuery -->
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
-	<!-- JavaScript Bundle with Popper -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	
 	<!-- bootstrap  -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<!--  fontAwesome -->
@@ -64,7 +63,36 @@
 <body>
 
 	<header id="header"></header>
-	
+	<!-- 거절 모달 -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">예약 거절 </h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="reject()">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <form id="frm" method="GET" action="reportReject.do">
+		          <!-- <div class="form-group">
+		            <label for="recipient-name" class="col-form-label">거절 항목:</label>
+		            <input type="text" class="form-control" id="recipient-name">
+		          </div> -->
+		          <div class="form-group">
+		            <label for="message-text" class="col-form-label">거절 사유:</label>
+		            <textarea class="form-control" id="message-text" placeholder="구체적인 거절 사유를 입력해주세요" name="content" style=" resize:none; " rows="10" ></textarea>
+		          </div>
+		        </form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="reject()">취소</button>
+		        <button type="button" class="btn btn-primary"  id="savebtn">저장</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
 	<main>
 	<!-- 장소관리 리스트 -->
 		<section>
@@ -103,5 +131,75 @@
 	</main>
 
 	<footer id="footer"></footer>
+	
+	
+
+	<!-- JavaScript Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+		<!-- 에약 승인 및 거절 -->
+		<script>
+	
+		var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+			  keyboard: false
+			})
+		
+		function rejectSubmit(idx){
+			
+			console.log(idx);
+			$("frm").submit();
+			console.log("거절사유 전송 완료 ");
+			
+		}
+		
+		function approval(idx){
+			
+			if($("#approvalY"+idx).html() == '승인 완료'){
+				alert("이미 승인된 요청입니다.");
+				
+			}else{
+				
+				if(confirm("승인하시겠습니까? 승인 완료 후 예약을 취소 할 수 없습니다.",{
+					 cancelButton:'거절'
+				})){
+				$.ajax({
+					url: "<%=request.getContextPath()%>/ajax/approval.do", 
+					type: "GET",
+					data: "bidx="+idx,
+					success: function(){
+						alert("승인되었습니다.")
+						$("#approvalY"+idx).html("승인 완료");
+					}
+				});
+				
+				}else{
+				console.log("승인 거절");
+					if(confirm("예약을 거절하시겠습니까?")){
+						
+						myModal.show();
+						console.log("거절 모달");
+						
+						$("#savebtn").click(function(){
+							rejectSubmit(idx);
+						}) 
+						
+						
+							
+					}
+				}
+			}
+			
+		}
+		
+		function reject (){
+			myModal.hide();
+		}
+		
+	
+	
+	
+	
+	</script>
+
+
 </body>
 </html>

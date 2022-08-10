@@ -496,6 +496,19 @@
 	
 	</update>
 	
+	
+	<insert id="insertReject" parameterType="BookVO"  >
+		
+		INSERT INTO report(
+				 rvidx
+				,category
+				,content
+	   ) VALUES(
+				 #{rvidx}
+				,#{category}
+	   )
+	</insert>
+	
 
 	
 	

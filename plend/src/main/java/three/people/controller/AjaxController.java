@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import three.people.service.AdminService;
+import three.people.service.HostService;
 import three.people.vo.BlockVO;
+import three.people.vo.BookVO;
 import three.people.vo.ReportVO;
 import three.people.vo.SearchVO;
 
@@ -21,6 +23,8 @@ public class AjaxController {
 
 	@Autowired
 	AdminService adminService;
+	@Autowired
+	HostService hostService;
 	
 	// 리뷰 블라인드처리, 신고내역 버튼 회색처리
 	@ResponseBody
@@ -50,4 +54,32 @@ public class AjaxController {
 		model.addAttribute("pagination2", searchVO);
 		return "developer/enterBlockList";
 	}
+	
+	//08.10 김연희 : 호스트 센터 에약 승인 
+	@ResponseBody
+	@RequestMapping(value="approval.do", method= RequestMethod.GET)
+	public int approval(BookVO bookVO) {
+		int result = hostService.approval(bookVO);
+		if(result == 1) {
+			System.out.println("수정완");
+		}else {
+			System.out.println("수정 실패 ");
+		}
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
