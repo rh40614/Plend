@@ -4,10 +4,7 @@ package three.people.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,6 +28,8 @@ import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.InquiryVO;
 import three.people.vo.PlaceVO;
+import three.people.vo.ReportVO;
+import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
@@ -224,7 +222,7 @@ public class DeveloperController {
 		return "redirect:/developer/event.do";
 	}
 	//업체 리스트 페이지로 이동
-	@RequestMapping(value="enterList.do", method=RequestMethod.GET)
+	@RequestMapping(value="/enterList.do", method=RequestMethod.GET)
 	public String enterList(SearchVO searchvo, Model model) {
 		if(searchvo.getNowPage() == 0 && searchvo.getCntPerPage() == 0) {
 			searchvo.setNowPage(1);
@@ -234,7 +232,7 @@ public class DeveloperController {
 		}else if(searchvo.getNowPage() == 0) {
 			searchvo.setNowPage(1);
 		}
-
+		
 		searchvo.setRole(3);
 		int total = commonService.totalCountUser(searchvo);
 		searchvo.calPaging(total);
@@ -246,20 +244,20 @@ public class DeveloperController {
 
 	//업체 수정페이지로 이동
 	//해당 업체 데이터도 넘겨주기
-	@RequestMapping(value="enterModify.do", method=RequestMethod.GET)
+	@RequestMapping(value="/enterModify.do", method=RequestMethod.GET)
 	public String enterModify(UserVO uservo, Model model) {
 		model.addAttribute("enter", adminService.userOne(uservo));
 		model.addAttribute("placeList", adminService.enterPlace(uservo));
 		return "developer/enterModify";
 	}
 	//업체정보 수정하기
-	@RequestMapping(value="enterModify.do", method=RequestMethod.POST)
+	@RequestMapping(value="/enterModify.do", method=RequestMethod.POST)
 	public String enterModify(UserVO uservo) {
 		adminService.userInfo(uservo);
 		return "redirect:/developer/enterList.do";
 	}
 	//업체 삭제
-	@RequestMapping(value="enterDelete.do", method=RequestMethod.GET)
+	@RequestMapping(value="/enterDelete.do", method=RequestMethod.GET)
 	public String deleteEnter(UserVO uservo) {
 		adminService.deleteEnter(uservo);
 		return "redirect:/developer/enterList.do";
@@ -267,7 +265,7 @@ public class DeveloperController {
 
 
 	//업체 장소 등록 승인 페이지
-	@RequestMapping(value="enterConfirm.do", method=RequestMethod.GET)
+	@RequestMapping(value="/enterConfirm.do", method=RequestMethod.GET)
 	public String enterConfirm(SearchVO searchvo, Model model) {
 		if(searchvo.getNowPage() == 0 && searchvo.getCntPerPage() == 0) {
 			searchvo.setNowPage(1);
@@ -285,24 +283,53 @@ public class DeveloperController {
 		return "developer/enterConfirm";
 	}
 
-	@RequestMapping(value="confirm.do", method=RequestMethod.GET)
+	@RequestMapping(value="/confirm.do", method=RequestMethod.GET)
 	public String confirm(PlaceVO placevo) {
 		adminService.approvalYN(placevo);
 		return "redirect:/developer/enterConfirm.do";
 	}
-
-	@RequestMapping(value="reportList.do", method=RequestMethod.GET)
-	public String reportList() {
+	
+	// 08.09 김영민: 리뷰신고 리스트 데이터 가져오기 추가
+	@RequestMapping(value="/reportList.do", method=RequestMethod.GET)
+	public String reportList(SearchVO searchVO, Model model) {
+		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
+			searchVO.setNowPage(1);
+			searchVO.setCntPerPage(10);
+		}else if(searchVO.getCntPerPage() == 0) {
+			searchVO.setCntPerPage(10);
+		}else if(searchVO.getNowPage() == 0) {
+			searchVO.setNowPage(1);
+		}
+		
+		int total = adminService.countReport(searchVO);
+		searchVO.calPaging(total);
+		
+		model.addAttribute("reportList", adminService.reportList(searchVO));
+		model.addAttribute("pagenation", searchVO);
 		return "developer/reportList";
 	}
-
-	@RequestMapping(value="enterBlock.do", method=RequestMethod.GET)
-	public String enterBlock() {
+	//업체가 등록한 블랙리스트 
+	@RequestMapping(value="/enterBlock.do", method=RequestMethod.GET)
+	public String enterBlock(SearchVO searchVO,Model model) {
+		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
+			searchVO.setNowPage(1);
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getCntPerPage() == 0) {
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getNowPage() == 0) {
+			searchVO.setNowPage(1);
+		}
+		searchVO.setRole(3);
+		int total = commonService.totalCountUser(searchVO);
+		searchVO.calPaging(total);
+		
+		model.addAttribute("enterList", adminService.userList(searchVO));
+		model.addAttribute("pagination", searchVO);
 		return "developer/enterBlock";
 	}
 	
 	// 07.28 김영민: 개발자 페이지에서 호스트의 문의 내역보기
-	@RequestMapping(value="inquiryList.do", method=RequestMethod.GET)
+	@RequestMapping(value="/inquiryList.do", method=RequestMethod.GET)
 	public String inquiryList(SearchVO searchVO, Model model) {
 		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
 			searchVO.setNowPage(1);
@@ -322,7 +349,7 @@ public class DeveloperController {
 	}
 	
 	// 07.28 김영민: 호스트 문의내역 답변달기
-	@RequestMapping(value="replyInquiry.do", method=RequestMethod.GET)
+	@RequestMapping(value="/replyInquiry.do", method=RequestMethod.GET)
 	public String replyInquiry(InquiryVO inquiryVO, Model model) {
 		InquiryVO inquiry = hostService.selectInquiryOne(inquiryVO);
 		model.addAttribute("inquiry",inquiry);

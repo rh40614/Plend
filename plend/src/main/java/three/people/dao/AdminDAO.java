@@ -1,14 +1,18 @@
 package three.people.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import three.people.vo.BlockVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
+import three.people.vo.ReportVO;
+import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
@@ -91,12 +95,26 @@ public class AdminDAO {
 	public int placeEventDone(EventVO eventvo) {
 		return sqlSession.update("three.people.mapper.adminMapper.placeEventDone", eventvo);
 	}	
-	
-	
-	
-	
-	
-	
+	// 08.09 김영민: 리뷰 신고글 불러오기, 리뷰 갯수 가져오기, 리뷰 삭제하기
+	public List<ReportVO> reportList(SearchVO searchVO){
+		return sqlSession.selectList("three.people.mapper.adminMapper.reportList", searchVO);
+	}
+	public int countReport(SearchVO searchVO) {
+		return sqlSession.selectOne("three.people.mapper.adminMapper.countReport", searchVO);
+	}
+	public int reviewBlind(ReportVO reportVO) {
+		return sqlSession.update("three.people.mapper.adminMapper.reviewBlind", reportVO);
+	}
+	public int reportBlind(ReportVO reportVO) {
+		return sqlSession.update("three.people.mapper.adminMapper.reportBlind", reportVO);
+	}
+	// 08.10 김영민: 블랙리스트 불러오기, 갯수
+	public List<BlockVO> blockUser(HashMap<String,Object> hashMap){
+		return sqlSession.selectList("three.people.mapper.adminMapper.blockUser", hashMap);
+	}
+	public int countBlockUser(BlockVO blockVO) {
+		return sqlSession.selectOne("three.people.mapper.adminMapper.countBlockUser", blockVO);
+	}
 	
 	
 	
