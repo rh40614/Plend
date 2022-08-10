@@ -1,6 +1,6 @@
 package three.people.vo;
 
-public class BlockVO {
+public class BlockVO extends UserVO {
 
 	private int rbidx;
 	private String category;

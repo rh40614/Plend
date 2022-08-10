@@ -62,3 +62,9 @@
     height: 40px;
     margin: 5px;
 }
+
+/* reportList */
+.grayBtn {
+	border-color: lightgray !important;
+	background-color: lightgray !important;
+}

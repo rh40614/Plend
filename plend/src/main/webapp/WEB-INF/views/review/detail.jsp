@@ -344,6 +344,7 @@ function blockUser(){
 		}
 	});
 }
+</script>
 <!-- modal deleteimg 추가 -->
 <script type="text/javascript">
 	var imgName = '';

@@ -1,11 +1,13 @@
 package three.people.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import three.people.vo.BlockVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
@@ -106,8 +108,13 @@ public class AdminDAO {
 	public int reportBlind(ReportVO reportVO) {
 		return sqlSession.update("three.people.mapper.adminMapper.reportBlind", reportVO);
 	}
-	
-	
+	// 08.10 김영민: 블랙리스트 불러오기, 갯수
+	public List<BlockVO> blockUser(HashMap<String,Object> hashMap){
+		return sqlSession.selectList("three.people.mapper.adminMapper.blockUser", hashMap);
+	}
+	public int countBlockUser(BlockVO blockVO) {
+		return sqlSession.selectOne("three.people.mapper.adminMapper.countBlockUser", blockVO);
+	}
 	
 	
 	

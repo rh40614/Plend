@@ -28,6 +28,7 @@
 		 <if test="role == 3">
 		 	<include refid="searchEnter"></include>
 		 </if>
+	  ORDER BY uidx DESC
 	 	 LIMIT #{start}, #{cntPerPage}
 	</select>
 	
@@ -212,8 +213,6 @@
 			   e.eventimg,
 			   e.category
 		  FROM event e
-	 LEFT JOIN image i
-		    ON e.eidx = i.eidx
 	  ORDER BY e.eidx DESC	    
          LIMIT #{start}, #{cntPerPage} 
 	</select>
@@ -333,9 +332,35 @@
 		 WHERE rbidx = #{rbidx}
 	</update>
 	
-	<!-- 
-	<select id="BlockUser" resultType="BlockVO"></select>
-	-->
+	<!-- 08.10 김영민: 업체별 블랙리스트 불러오기 -->
+	<select id="blockUser" resultType="BlockVO" parameterType="HashMap">
+		SELECT b.rbidx,
+			   b.category,
+			   b.content, 
+			   b.date, 
+			   u.uidx, 
+			   u.name, 
+			   u.delyn 
+		  FROM block b 
+		  JOIN user_plend u 
+		    ON b.reporter_uidx = u.uidx
+		 WHERE uidx = #{blockVO.uidx}
+		 LIMIT #{searchVO.start}, #{searchVO.cntPerPage}
+	</select>
+	<!-- 블랙리스트 갯수 -->
+	<select id="countBlockUser" resultType="int" parameterType="BlockVO">
+		SELECT COUNT(*)
+		  FROM block b
+		  JOIN user_plend u
+		    ON b.reporter_uidx = u.uidx
+		 WHERE uidx = #{uidx}
+	</select>
+	<!-- 블랙리스트 삭제 -->
+	<update id="blockDelete" parameterType="BlockVO" >
+		UPDATE block
+		   SET delyn = 'Y'
+		 WHERE rbidx = #{rbidx}
+	</update>
 	
 </mapper>
 

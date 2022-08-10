@@ -1,11 +1,13 @@
 package three.people.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import three.people.dao.AdminDAO;
+import three.people.vo.BlockVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
@@ -130,6 +132,16 @@ public class AdminServiceImpl implements AdminService {
 	public int reviewBlind(ReportVO reportVO) {
 		adminDAO.reportBlind(reportVO);
 		return adminDAO.reviewBlind(reportVO);
+	}
+
+	@Override
+	public List<BlockVO> blockUser(HashMap<String, Object> hashMap) {
+		return adminDAO.blockUser(hashMap);
+	}
+
+	@Override
+	public int countBlockUser(BlockVO blockVO) {
+		return adminDAO.countBlockUser(blockVO);
 	}
 	
 

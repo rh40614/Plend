@@ -50,7 +50,7 @@
 			  			<td colspan="6"> 아직 접수된 신고가 없습니다. </td>
 			  		</tr>
 			  	</c:if>
-			  	<c:forEach var="report" items="${reportList}">
+			  	<c:forEach var="report" items="${reportList}" varStatus="status">
 					<tr>
 				      <th scope="row">${report.rbidx}</th>
 				      <td>${report.category.replace(",",'/')}</td>
@@ -59,10 +59,10 @@
 				      <td>${report.date.substring(0,10)}</td>
 				      <c:choose>
 				      	<c:when test="${report.delYN eq 'N'}">
-					      <td><a class="btn btn-primary btn-sm rounded-3" onclick="doBlind(${report.rvidx},${report.rbidx})">블라인드처리</a></td>
+					      <td><a id="blind${status.index}" class="btn btn-sm rounded-3" onclick="doBlind(${report.rvidx},${report.rbidx},${status.index})">블라인드처리</a></td>
 				      	</c:when>
 				      	<c:otherwise>
-				      	  <td><a class="btn btn-primary btn-sm rounded-3" style="border-color: lightgray !important; background-color: lightgray !important;">블라인드처리</a></td>
+				      	  <td><a class="btn btn-sm grayBtn rounded-3">블라인드처리</a></td>
 				      	</c:otherwise>
 				      </c:choose>
 				    </tr>			  		
@@ -115,12 +115,16 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <!-- 리뷰 블라인드 처리 -->
 <script type="text/javascript">
-	function doBlind(rvidx,rbidx){
+	function doBlind(rvidx,rbidx,status){
 		var param = "?rvidx=" + rvidx + "&rbidx=" +rbidx;
 		$.ajax({
-			url: "blind.do" + param,
+			url: "<%=request.getContextPath()%>/ajax/reviewBlind.do" + param,
 			success: function(data){
-				console.log(data);
+				if(data==1){
+					$('#blind'+status).addClass('grayBtn');
+				}else{
+					alert("블라인드 처리에 실패했습니다.");
+				}
 			}
 		});
 	}
