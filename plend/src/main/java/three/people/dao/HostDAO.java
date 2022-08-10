@@ -15,6 +15,7 @@ import three.people.vo.InquiryVO;
 import three.people.vo.NoticeVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
+import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
@@ -144,12 +145,16 @@ public class HostDAO {
 	// 유저블랙리스트
 	public int insertBlockUser(BlockVO blockVO) {
 		return sqlSession.insert(namespace+".insertBlockUser", blockVO);
-  }
-	//예약 승인
+   }
+	
+	
+	//예약 승인,예약 거절
 	public int approval(BookVO bookVO) {
 		return sqlSession.update(namespace+".approval", bookVO);
 	}
-	
+	public int insertReject(BookVO bookVO) {
+		return sqlSession.insert(namespace+".insertReject", bookVO);
+	}
 	
 	
 	
