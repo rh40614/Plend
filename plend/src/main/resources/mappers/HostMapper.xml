@@ -472,7 +472,13 @@
 		  </if>
 	</select>
 	
-
+	<update id="approval" parameterType="BookVO" >
+		UPDATE
+		 		book  
+		    SET approvalyn = 'Y' 
+		  WHERE bidx = #{bidx}
+	
+	</update>
 	
 	
 	

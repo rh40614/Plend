@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import three.people.service.MailSendService;
 import three.people.service.PlaceService;
+import three.people.service.ReviewService;
 import three.people.service.Scheduler;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
+import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
 
 
@@ -27,7 +29,8 @@ public class HomeController {
 	
 	@Autowired
 	PlaceService placeService;
-	
+	@Autowired
+	ReviewService reviewService;
 	@Autowired
 	private MailSendService mailSend;
 	@Autowired
@@ -56,6 +59,9 @@ public class HomeController {
 				ImageVO imageOne = placeService.selectImageOne(p);
 				String file = imageOne.getOriginFileName();
 				p.setPlaceImg(file);
+				//평균 별점
+				int avgRate = reviewService.avgRevew(p); 
+				p.setAvgRate(avgRate);
 				//넣기
 				randomPlaceList.add(p);
 			}
@@ -67,11 +73,13 @@ public class HomeController {
 			for(int i:idx) {
 				//장소 가지고 오기
 				PlaceVO randomPlace =  placeList.get(i);
-				
 				//장소 사진 가지고 오기
 				ImageVO imageOne = placeService.selectImageOne(randomPlace);
 				String file = imageOne.getOriginFileName();
 				randomPlace.setPlaceImg(file);
+				//평균 별점
+				int avgRate = reviewService.avgRevew(randomPlace); 
+				randomPlace.setAvgRate(avgRate);
 				//넣기
 				randomPlaceList.add(randomPlace);
 				
@@ -87,7 +95,7 @@ public class HomeController {
 	
 	
 	@RequestMapping(value = "/eventPlace", method = RequestMethod.GET)
-	public String eventPlace(SearchVO searchVO, Model model, HttpServletRequest request, HttpSession session) {
+	public String eventPlace(Model model, HttpServletRequest request, HttpSession session) {
 		
 		//이벤트 리스트 
 		List<PlaceVO> eventList = placeService.eventPlace();	
@@ -101,6 +109,9 @@ public class HomeController {
 				ImageVO imageOne = placeService.selectImageOne(e);
 				String file = imageOne.getOriginFileName();
 				e.setPlaceImg(file);
+				//평균 별점
+				int avgRate = reviewService.avgRevew(e); 
+				e.setAvgRate(avgRate);
 				//넣기
 				randomEventList.add(e);
 			}
@@ -117,6 +128,9 @@ public class HomeController {
 				ImageVO imageOne = placeService.selectImageOne(randomPlace);
 				String file = imageOne.getOriginFileName();
 				randomPlace.setPlaceImg(file);
+				//평균 별점
+				int avgRate = reviewService.avgRevew(randomPlace); 
+				randomPlace.setAvgRate(avgRate);
 				//넣기
 				randomEventList.add(randomPlace);
 			}
@@ -128,6 +142,50 @@ public class HomeController {
 	return "ajax/eventPlace";
 	}
 	
+	
+	
+	
+	@RequestMapping(value = "/randomReview", method = RequestMethod.GET)
+	public String randomReview(Model model, HttpServletRequest request, HttpSession session) {
+		
+		List<ReviewVO> reviewList = reviewService.reviewAll();
+		List<ReviewVO> randomReviewList = new ArrayList<ReviewVO>();
+	
+		//등록된 리뷰가 6개 이하 일 떄 
+		if(reviewList.size()<6) {
+			
+			for(ReviewVO r: reviewList ) {
+				//장소 사진 가지고 오기
+				ImageVO imageOne = reviewService.selectImageOne(r);
+				String file = imageOne.getOriginFileName();
+				r.setReviewImg(file);
+				//평균 별점
+				int avgRate = reviewService.avgRevew(r); 
+				r.setAvgRate(avgRate);
+				//넣기
+				randomReviewList.add(r);
+			}
+			
+		}else {
+			//랜덤으로 뽑기
+			int[] idx = reviewService.RandomReview(reviewList);
+			ReviewVO random;
+			for(int i:idx) {
+				random = reviewList.get(i);
+				//사진가지고오기
+				ImageVO imageOne = reviewService.selectImageOne(random);
+				String file = imageOne.getOriginFileName();
+				random.setReviewImg(file);
+				//넣기
+				randomReviewList.add(random);
+			}
+		}
+	
+		model.addAttribute("list3", randomReviewList);
+		
+	
+	return "ajax/randomReview";
+	}
 	
 	
 	
