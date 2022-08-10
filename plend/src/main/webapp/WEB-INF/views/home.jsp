@@ -12,6 +12,7 @@
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<script src="resources/js/jquery-3.6.0.min.js"></script>
+	<script src="resources/js/jquery.shuffle-images.js"></script>
 	<link href="resources/css/global.css" rel="stylesheet">
 	<link href="resources/css/home.css" rel="stylesheet">
 
@@ -51,6 +52,13 @@
 				type: "GET",
 				success: function(data){
 					$("#eventPlace").html(data);
+				}
+			});
+			$.ajax({
+				url: "randomReview.do",
+				type: "GET",
+				success: function(data){
+					$("#randomReview").html(data);
 				}
 			});
 		});
@@ -94,61 +102,11 @@
 	</section>
 	<hr>
 	<br>
-	<div class="container" style="width: 1100px;">
-    	<h3 class="navbar-brand">| 리뷰존</h3>
+	
+	<div>
+    	<h3 class="navbar-brand title1">| 리뷰존</h3>
   	</div>
-  		<section>
-		<div class="card " style="width: 16rem; margin-right: 10px;">
-  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
-  				<i class="fa-solid fa-bolt bolt"></i>
- 			<div class="card-body">
- 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
- 				<p class="card-text">장소위치</p>
- 				<p class="card-text">가격</p>
- 				<i class="fa-regular fa-star" style="float:right">별점</i>
- 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
-
-  			</div>
-		</div>
-
-		<div class="card " style="width: 16rem; margin-right: 10px;">
-  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
-  				<i class="fa-solid fa-bolt bolt"></i>
- 			<div class="card-body">
- 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
- 				<p class="card-text">장소위치</p>
- 				<p class="card-text">가격</p>
- 				<i class="fa-regular fa-star" style="float:right">별점</i>
- 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
-
-  			</div>
-		</div>
-
-	<div class="card " style="width: 16rem; margin-right: 10px;">
-  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
-  				<i class="fa-solid fa-bolt bolt"></i>
- 			<div class="card-body">
- 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
- 				<p class="card-text">장소위치</p>
- 				<p class="card-text">가격</p>
- 				<i class="fa-regular fa-star" style="float:right">별점</i>
- 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
-
-  			</div>
-		</div>
-
-	<div class="card " style="width: 16rem; margin-right: 10px;">
-  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
-  				<i class="fa-solid fa-bolt bolt"></i>
- 			<div class="card-body">
- 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
- 				<p class="card-text">장소위치</p>
- 				<p class="card-text">가격</p>
- 				<i class="fa-regular fa-star" style="float:right">별점</i>
- 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
-
-  			</div>
-		</div>
+  	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start" id="randomReview">	
 	</section>
 
 

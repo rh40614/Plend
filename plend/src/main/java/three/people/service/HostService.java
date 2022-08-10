@@ -3,6 +3,7 @@ package three.people.service;
 import java.util.HashMap;
 import java.util.List;
 
+import three.people.vo.BookVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.InquiryVO;
@@ -17,6 +18,7 @@ public interface HostService {
 	//장소
 	public int insertPlace(PlaceVO placeVO);
 	public int insertPlaceImg(ImageVO imageVO);
+	public int approval(BookVO bookVO);
 	//이벤트
 	public List<EventVO> eventList(EventVO eventVO);
 	public EventVO eventOne(EventVO eventVO);

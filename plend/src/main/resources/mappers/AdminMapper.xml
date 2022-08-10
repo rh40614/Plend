@@ -212,8 +212,6 @@
 			   e.eventimg,
 			   e.category
 		  FROM event e
-	 LEFT JOIN image i
-		    ON e.eidx = i.eidx
 	  ORDER BY e.eidx DESC	    
          LIMIT #{start}, #{cntPerPage} 
 	</select>
