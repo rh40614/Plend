@@ -33,7 +33,7 @@
     <!-- 소분류 -->
     <div class="container d-block m-0 p-0 mw-100">
 
-    	<div id="classification_category1" class="d-flex flex-row  mw-100 classification_category">
+    	<div id="classification_category1" class="d-flex flex-row  mw-100 classification_category" style="height: 80px;">
     		<a href="userList.do" class="btn btn-primary flex-fill rounded-0 fw-bold text-white" style="background-color: #2F506D; border-color: #2F506D">회원리스트</a>
     		<a href="reportList.do" class="btn btn-primary flex-fill rounded-0 text-white" style="background-color: #2F506D; border-color: #2F506D">신고관리</a>
     		<a href="event.do" class="btn btn-primary flex-fill rounded-0 text-white" style="background-color: #2F506D; border-color: #2F506D;">이벤트 관리</a>

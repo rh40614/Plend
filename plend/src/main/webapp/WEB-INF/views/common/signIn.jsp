@@ -81,35 +81,37 @@
 	</script>
 </head>
 <body>
-<!-- 2022.08.02 김연희 div wrap추가 -->
 <div id="wrap">
 	<header id="header"></header>
-<main>
-	<div style = "text-align:center;height:75%;margin-left:13%;margin-right:13%;background-color:#F2F2F2;"><br>
-		<div class="g-signin2" data-onsuccess="onSignIn" style = "display: flex; flex-direction: row-reverse;flex-wrap: nowrap;align-content: center;justify-content: center; margin:7px;"></div>
-		<a href="${navervo.apiURL }"><img height="50" style = "margin:7px;" src="../resources/image/naverLogin.png"/></a> <br>
-		<button type="button" style = "margin:7px;" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=ab7da9e9cfc38c18cc1cac5e5ddc71f0&redirect_uri=http://localhost:8090/controller/common/kakaoLogin&response_type=code'"><img alt="카카오 로그인" src="<%=request.getContextPath()%>/resources/image/kakao_login_medium_narrow.png"></button><br>	<div class="hr-sect">또는</div>
-		<br>
-		<form action = "signIn.do" method ="post" name = "frm" id = "frm">
-
-			<input type = "text" name = "id" placeholder = "아이디" class = "textbox"><br><br>
-			<input type = "password" name = "password" placeholder = "비밀번호" class = "textbox"> <br><br>
-
-			<div style = "margin-right:410px;">
-				<lable><input type = "checkbox" id = "idChk"> 아이디 기억하기</lable><br><br>
+		<!-- 08.10 김연희 : flex 1 으로 하단 고정 -->
+		<main style="flex: 1; margin: 50px 20% 20% 20%; display: flex; flex-direction: column; align-items: center;">
+			<br>
+				<!-- 2022.08.10 김연희 : 디자인 이것저것 시도중 -->
+				<%-- <div class="g-signin2" data-onsuccess="onSignIn" style = "display: flex; flex-direction: row-reverse;flex-wrap: nowrap;align-content: center;justify-content: center; margin:7px;"></div>
+				<a href="${navervo.apiURL }"><img height="50" style = "margin:7px;" src="../resources/image/naverLogin.png"/></a> <br>
+				<button type="button" style = "margin:7px;" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=ab7da9e9cfc38c18cc1cac5e5ddc71f0&redirect_uri=http://localhost:8090/controller/common/kakaoLogin&response_type=code'"><img alt="카카오 로그인" src="<%=request.getContextPath()%>/resources/image/kakao_login_medium_narrow.png"></button><br>	<div class="hr-sect">또는</div>
+				<br> --%>
+			<div class="loginBox">
+			<p  class="mb-4 mt-5 loginLetter">로그인</p>
+				<form action = "signIn.do" method ="post" name = "frm" id = "frm">
+					<input type = "text" name = "id" placeholder = "아이디" class = "textbox loginId" ><br>
+					<input type = "password" name = "password" placeholder = "비밀번호" class = "textbox mb-3 loginpwd" >
+					<div style="margin-right: auto;" class="mb-3">
+						<input type = "checkbox" id = "idChk" > 아이디 기억하기
+					</div>
+			 			<input type = "button" onclick = "check();" value = "로그인" id = "signBtn">
+			 			<hr style = "margin-left : 280px; margin-right: 280px;">
+					<div class="d-flex;">
+			 			<a href = "searchId.do">아이디 찾기</a> | <a href = "searchPwd.do">비밀번호 찾기</a>
+			 		</div>
+			 		<div style = "align-items: center; " class="mt-2">
+						<a href = "signUp.do" >회원가입</a>
+					</div>
+				</form>
 			</div>
+		</main>
 
- 			<input type = "button" onclick = "check();" value = "로그인" id = "signBtn">
- 			<br>
- 			<hr style = "margin-left : 280px; margin-right: 280px;">
- 			<a href = "searchId.do">아이디 찾기</a> | <a href = "searchPwd.do">비밀번호 찾기</a> <br>
-			<a href = "signUp.do">회원가입</a>
-
-		</form>
-	</div>
-</main>
-
-	<footer id="footer"></footer>
+	<footer id="footer"></footer> 
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </div>
