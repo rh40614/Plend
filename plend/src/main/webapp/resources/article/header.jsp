@@ -16,7 +16,7 @@
 <header>
 
 
-  <nav id="aticleHeader" class="navbar navbar-light shadow-sm fixed-top">
+  <nav id="aticleHeader" class="navbar navbar-light shadow-sm fixed-top" style = "background:white;">
 
 
   <div class="container" style="align-items: center; flex-wrap: wrap; justify-content: center;">

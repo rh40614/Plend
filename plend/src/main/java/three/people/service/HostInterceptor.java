@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import three.people.vo.UserVO;
 
-public class Interceptor implements HandlerInterceptor{
+public class HostInterceptor implements HandlerInterceptor{
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -27,7 +27,8 @@ public class Interceptor implements HandlerInterceptor{
 		if(session.getAttribute("login") != null ) {
 				int role = login.getRole();
 				System.out.println("role =" + role);
-			if(role != 1){
+				//관리자도 들어가게 수정해야함
+			if(role == 2){
 			pw.print("<script>alert('잘못된 접근입니다.');location.href = '/controller/'</script>");
 			
 			pw.flush();

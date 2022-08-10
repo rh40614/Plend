@@ -87,7 +87,7 @@
 	<header id="header" style = "height:0;"></header>
    <br>
    	<div style="display:flex; ">
-   	<nav style="display: flex;flex-direction: column;width:11%;margin-top:72px;background: #CFCFCF">
+   	<nav style="display: flex;flex-direction: column;width:11%;margin-top:48px;background: #CFCFCF">
    		<div id = "MyPageBox">
    			<br>
    			<br>

@@ -19,17 +19,17 @@
 			$("#footer").load("../resources/article/footer.jsp");
 			//쿠키값 읽어오기
 			var id = getCookie("Cookie_id");
-			
+
 			if (id) {
 				$("input[name=id]").val(id);
 				$("#idChk").attr("checked", true);
 			}
 		})
-		
+
 	function check() {
 		var frm = document.frm;
 		var idChk = $("#idChk").is(":checked");
-		
+
 		if (frm.id.value == "") {
 			alert("아이디를 입력해주세요.");
 			return;
@@ -39,15 +39,17 @@
 		} else if (idChk){
 			setCookie("Cookie_id", frm.id.value, 3);
 			// 체크박스가 선택된 경우 Cookie_id 라는 이름으로 id 값이 3일간 저장
+
 		} else if(!idChk){
 			frm.submit();
 		}else {
-		
+
 			deleteCookie("Cookie_id");
 		}
 		frm.submit();
+
 	}
-	
+
 	//쿠키 생성 함수(쿠키이름, 쿠키값, 저장기간)
 	function setCookie(cookieName, value , exdays){
 		var exdate = new Date();
@@ -61,7 +63,7 @@
 		var cookieData = document.cookie;
 		var start = cookieData.indexOf(cookieName);
 		var cookieValue = '';
-		
+
 		if (start != -1) {
 			start += cookieName.length;
 			var end = cookieData.indexOf(';', start);
@@ -89,20 +91,20 @@
 		<button type="button" style = "margin:7px;" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=ab7da9e9cfc38c18cc1cac5e5ddc71f0&redirect_uri=http://localhost:8090/controller/common/kakaoLogin&response_type=code'"><img alt="카카오 로그인" src="<%=request.getContextPath()%>/resources/image/kakao_login_medium_narrow.png"></button><br>	<div class="hr-sect">또는</div>
 		<br>
 		<form action = "signIn.do" method ="post" name = "frm" id = "frm">
-		
+
 			<input type = "text" name = "id" placeholder = "아이디" class = "textbox"><br><br>
 			<input type = "password" name = "password" placeholder = "비밀번호" class = "textbox"> <br><br>
-			
+
 			<div style = "margin-right:410px;">
 				<lable><input type = "checkbox" id = "idChk"> 아이디 기억하기</lable><br><br>
 			</div>
-			
+
  			<input type = "button" onclick = "check();" value = "로그인" id = "signBtn">
  			<br>
  			<hr style = "margin-left : 280px; margin-right: 280px;">
  			<a href = "searchId.do">아이디 찾기</a> | <a href = "searchPwd.do">비밀번호 찾기</a> <br>
 			<a href = "signUp.do">회원가입</a>
- 			
+
 		</form>
 	</div>
 </main>

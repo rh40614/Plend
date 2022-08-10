@@ -21,7 +21,6 @@ public interface HostService {
 	//이벤트
 	public List<EventVO> eventList(EventVO eventVO);
 	public EventVO eventOne(EventVO eventVO);
-	
 	public List<ImageVO> eventImageList(EventVO eventVO);
 	public ImageVO eventImage(EventVO eventVO);
 	

@@ -29,7 +29,7 @@ public class HostServiceImpl implements HostService {
 
 	@Override
 	public int insertPlace(PlaceVO placeVO) {
-		//System.out.println("service에서"+placeVO.getAvailTime());
+		//System.out.println("service�뿉�꽌"+placeVO.getAvailTime());
 		int result = hostDAO.insertPlace(placeVO); 
 		return result;
 	}
@@ -54,20 +54,20 @@ public class HostServiceImpl implements HostService {
 		return result;
 	}
 
-	//사진 리스트
+	//�궗吏� 由ъ뒪�듃
 	@Override
 	public List<ImageVO> eventImageList(EventVO eventVO) {
 		List<ImageVO> result = hostDAO.eventImageList(eventVO);
 		return result;
 	}
-	//사진 하나
+	//�궗吏� �븯�굹
 	@Override
 	public ImageVO eventImage(EventVO eventVO) {
 		ImageVO result = hostDAO.eventImage(eventVO);
 		return result;
 	}
 
-	//운영자 문의
+	//�슫�쁺�옄 臾몄쓽
 	@Override
 	public int insertInquiry_dev(InquiryVO inquiryVO) {
 		int result = hostDAO.insertInquiry_dev(inquiryVO);

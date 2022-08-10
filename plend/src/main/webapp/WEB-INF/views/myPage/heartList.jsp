@@ -58,12 +58,10 @@
 			}
 		
 	#infoBox{
-			margin : 10% 0 10% 26%;
+			margin : 5% 0 10% 10%;
 			float : right;
-			background: #F2F2F2;
-			width : 30%;
+			width : 70%;
 			height: 70%;
-			text-align:center;
 	
 		}
 		table {
@@ -103,6 +101,21 @@
 			background : #D8D8D8;
 			width : 250px;
 		}
+		
+		section{
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+    	justify-content: flex-start;
+    	
+		} 
+	
+		.bolt{
+		position: absolute;
+		z-index:5;
+		margin: 10px;
+		
+		}
 	</style>
 </head>
 
@@ -111,7 +124,7 @@
 	<header id="header" style = "height:0;"></header>
    <br>
    	<div style="display:flex; ">
-   	<nav style="display: flex;flex-direction: column;width:11%;margin-top:72px;background: #CFCFCF">
+   	<nav style="display: flex;flex-direction: column;width:11%;margin-top:48px;background: #CFCFCF">
    		<div id = "MyPageBox">
    			<br>
    			<br>
@@ -133,45 +146,114 @@
    	
    <div id = "infoBox">
    	<br>
-		<h4>내 정보</h4>
-		<hr>
+		<h5><strong>찜 목록</strong></h5>
 		<br>
-		<form name = "frm" action = "myInfo.do?uidx=${vo.uidx}" method = "post">
-			<table>
-				<tr>
-					<th>아이디</th>
-					<td colspan = "3">${vo.id }</td>
-				</tr>
-				<tr>
-					<th>비밀번호</th>
-					<td colspan = "3"><input type = "password" name = "password" value = "" id = "infoText"></td>
-				</tr>
-				<tr>
-					<th>비밀번호 확인</th>
-					<td colspan = "3"><input type = "password" name = "pwdCheck" value = "" id = "infoText"></td>
-				</tr>
-				<tr>
-					<th>닉네임</th>
-					<td colspan = "3">${vo.nickName }</td>
-				</tr>
-				<tr>
-					<th>연락처</th>
-					<td colspan = "3"><input type = "text" name = "userPhone" value = "${vo.userPhone }" id = "infoText" required></td>
-				</tr>
-				<tr>
-					<th>이메일</th>
-					<td colspan = "3"><input type = "email" name = "email" value = "${vo.email }" id = "infoText" required></td>
-				</tr>
-				<tr>
-					<th>생년월일</th>
-					<td colspan = "3"><input type = "text" name = "birth" id = "infoText" value = "${vo.birth }" required></td>
-				</tr>
-			</table>
-			<br>
-			<button type = "button" id = "regBtn" onclick = "pwdChk();">수정하기</button>
-		</form>
+		<section>
+			<div class="card " style="width: 16rem; margin-right: 20px;">
+  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
+  				<i class="fa-solid fa-bolt bolt"></i>
+ 			<div class="card-body">
+ 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
+ 				<p class="card-text">장소위치</p>
+ 				<p class="card-text">가격</p>
+ 				<i class="fa-regular fa-star" style="float:right">별점</i>
+ 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
+
+  			</div>
+		</div>
+		
+		<div class="card " style="width: 16rem; margin-right: 20px;">
+  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
+  				<i class="fa-solid fa-bolt bolt"></i>
+ 			<div class="card-body">
+ 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
+ 				<p class="card-text">장소위치</p>
+ 				<p class="card-text">가격</p>
+ 				<i class="fa-regular fa-star" style="float:right">별점</i>
+ 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
+
+  			</div>
+		</div>
+		<div class="card " style="width: 16rem; margin-right: 20px;">
+  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
+  				<i class="fa-solid fa-bolt bolt"></i>
+ 			<div class="card-body">
+ 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
+ 				<p class="card-text">장소위치</p>
+ 				<p class="card-text">가격</p>
+ 				<i class="fa-regular fa-star" style="float:right">별점</i>
+ 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
+
+  			</div>
+		</div>
+		<div class="card " style="width: 16rem; margin-right: 20px;">
+  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
+  				<i class="fa-solid fa-bolt bolt"></i>
+ 			<div class="card-body">
+ 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
+ 				<p class="card-text">장소위치</p>
+ 				<p class="card-text">가격</p>
+ 				<i class="fa-regular fa-star" style="float:right">별점</i>
+ 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
+
+  			</div>
+		</div>
+		
+		</section>
 		<br>
 		<br>
+		<section>
+			<div class="card " style="width: 16rem; margin-right: 20px;">
+  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
+  				<i class="fa-solid fa-bolt bolt"></i>
+ 			<div class="card-body">
+ 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
+ 				<p class="card-text">장소위치</p>
+ 				<p class="card-text">가격</p>
+ 				<i class="fa-regular fa-star" style="float:right">별점</i>
+ 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
+
+  			</div>
+		</div>
+		
+		<div class="card " style="width: 16rem; margin-right: 20px;">
+  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
+  				<i class="fa-solid fa-bolt bolt"></i>
+ 			<div class="card-body">
+ 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
+ 				<p class="card-text">장소위치</p>
+ 				<p class="card-text">가격</p>
+ 				<i class="fa-regular fa-star" style="float:right">별점</i>
+ 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
+
+  			</div>
+		</div>
+		<div class="card " style="width: 16rem; margin-right: 20px;">
+  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
+  				<i class="fa-solid fa-bolt bolt"></i>
+ 			<div class="card-body">
+ 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
+ 				<p class="card-text">장소위치</p>
+ 				<p class="card-text">가격</p>
+ 				<i class="fa-regular fa-star" style="float:right">별점</i>
+ 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
+
+  			</div>
+		</div>
+		<div class="card " style="width: 16rem; margin-right: 20px;">
+  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
+  				<i class="fa-solid fa-bolt bolt"></i>
+ 			<div class="card-body">
+ 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
+ 				<p class="card-text">장소위치</p>
+ 				<p class="card-text">가격</p>
+ 				<i class="fa-regular fa-star" style="float:right">별점</i>
+ 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
+
+  			</div>
+		</div>
+		
+		</section>
    </div>
    </div>
    </div>

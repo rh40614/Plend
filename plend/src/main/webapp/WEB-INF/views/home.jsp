@@ -36,6 +36,29 @@
 	}
 
 	</script>
+	<!--데이터   -->
+	<script>	
+		$(function(){
+			$.ajax({
+				url: "recommendPlace.do",
+				type: "GET",
+				success: function(data){
+					$("#recommendPlace").html(data);
+				}
+			});
+			$.ajax({
+				url: "eventPlace.do",
+				type: "GET",
+				success: function(data){
+					$("#eventPlace").html(data);
+				}
+			});
+		});
+	</script>
+
+
+
+
 
 </head>
 
@@ -59,90 +82,17 @@
   	<div>
     	<span class="navbar-brand title1">| 추천 장소 </span>
   	</div>
-	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start ">
-		<c:if test="${list.size() == 0}">
-			<div class=" m-auto" style="height: 400px;">	
-				<P class="title2 m-auto">등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. </P>
-			</div>
-		</c:if>
-		<c:if test="${list.size() > 0 }">
-			<c:forEach var ="c" items="${list}" varStatus="status"> 
-			
-			<div class="card  mb-5" style="width: 22rem; height: 25rem">
-  				<c:choose>
-  					<c:when test="${c.placeImg == null}">
-  						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
-  							<img src="<%=request.getContextPath()%>/imageView.do?originFileName=매실1.PNG" class="card-img-top" alt="등록된 사진이 없습니다." style="height: 13rem;">
-  						</a>
-  					</c:when>
-  					<c:when test="${c.placeImg != null}">
-  						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
-  							<img src="<%=request.getContextPath()%>/imageView.do?originFileName=${c.placeImg}" class="card-img-top" alt="사진 로딩 오류" style="height: 13rem;">
-  						</a>
-  					</c:when>
-  				</c:choose>
-  				<i class="fa-solid fa-bolt bolt"></i>
- 			<div class="card-body">
- 				<h5 class="card-title title2-1" class=""><a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">${c.placeName}</a></h5>
- 				<p class="card-text">${c.address}</p>
- 				<span class="card-text title3">${c.price}</span><span>원/시간</span>
- 				<i class="fa-regular fa-star" style="float:right">별점</i>
- 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
-  			</div>
-			</div>
-			
-			</c:forEach>
-		</c:if>
+	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start" id="recommendPlace">
 	</section>
-
-
-<hr>
-
+	<hr>
 	<br>
+	
 	<div>
     	<h3 class="navbar-brand title1" >| 이벤트</h3>
   	</div>
-  		<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start ">
-		<c:if test="${list2.size() == 0}">
-			<div class=" m-auto" style="height: 400px;">	
-				<P class="title2 m-auto">등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. </P>
-			</div>
-		</c:if>
-		<c:if test="${list2.size() > 0 }">
-			<c:forEach var ="e" items="${list2}" varStatus="status"> 
-			
-			<div class="card  mb-5" style="width: 22rem; height: 25rem">
-  				<c:choose>
-  					<c:when test="${e.placeImg == null}">
-  						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${e.pidx}">
-  							<img src="<%=request.getContextPath()%>/imageView.do?originFileName=매실1.PNG" class="card-img-top" alt="등록된 사진이 없습니다." style="height: 13rem;">
-  						</a>
-  					</c:when>
-  					<c:when test="${e.placeImg != null}">
-  						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${e.pidx}">
-  							<img src="<%=request.getContextPath()%>/imageView.do?originFileName=${e.placeImg}" class="card-img-top" alt="사진 로딩 오류" style="height: 13rem;">
-  						</a>
-  					</c:when>
-  				</c:choose>
-  				<i class="fa-solid fa-bolt bolt"></i>
- 			<div class="card-body">
- 				<h5 class="card-title title2-1" class=""><a href="<%=request.getContextPath()%>/place/view.do?pidx=${e.pidx}">${e.placeName}</a></h5>
- 				<p class="card-text">${e.address}</p>
- 				<span class="card-text title3">${e.price}</span><span>원/시간</span>
- 				<i class="fa-regular fa-star" style="float:right">별점</i>
- 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
-  			</div>
-			</div>
-			
-			</c:forEach>
-		</c:if>
+  	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start" id="eventPlace">	
 	</section>
-
-
-
-
-
-
+	<hr>
 	<br>
 	<div class="container" style="width: 1100px;">
     	<h3 class="navbar-brand">| 리뷰존</h3>
