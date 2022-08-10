@@ -60,18 +60,19 @@ public final class PlaceController {
 		}
 		searchVO.setCntPerPage(5);
 		searchVO.calPaging(reviewService.countPlaceReview(reviewVO));
-
+		
 		HashMap<String,Object> hashMap = new HashMap<String,Object>();
 		hashMap.put("searchVO", searchVO);
 		hashMap.put("reviewVO", reviewVO);
-		reviewService.selectPlaceReview(hashMap);
 		
-		
+		model.addAttribute("pagination", searchVO);
+		model.addAttribute("reviewList", reviewService.selectPlaceReview(hashMap));
 		model.addAttribute("imageList", placeService.selectImage(placevo));
 		model.addAttribute("placeOne", placeService.placeOne(placevo));
 		model.addAttribute("QnaList", placeService.selectQnA(placevo));
 		return "place/placeDetail";
 	}
+	
 	
 	// qna 질문하기 버튼
 	@RequestMapping(value="/question.do", method=RequestMethod.POST)

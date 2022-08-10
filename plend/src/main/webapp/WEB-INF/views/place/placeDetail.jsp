@@ -165,9 +165,9 @@
 								</c:when>
 								<c:otherwise>
 									<c:set var="guid" value="${placeOne.guide.split('/')}" />
-									<c:forEach var="g" items="${guid}">
+									<c:forEach var="g" items="${guid}" varStatus="status">
 										<tr> 
-											<td class="ps-4 pb-3">${g}</td>
+											<td class="ps-4"> <p class="fw-bold d-inline-flex">${status.count}.</p> ${g}</td>
 										</tr>
 									</c:forEach>
 								</c:otherwise>
@@ -293,16 +293,64 @@
 					</c:if>
 				</section>
 				<section id="review">
-					<table class="table caption-top">
+					<table class="table table-borderless caption-top">
 						<caption class="ms-4 text-black fw-bold fs-5">이용후기</caption>
-						<tbody style="border-top: none;">
-							<c:if test="">
+						<tbody class="reviewListMap" style="border-top: none;">
+							<c:if test="${empty reviewList}">
 								<tr> 
-									<td></td>
+									<td style="text-align-last: center;"> 아직 등록된 후기가 없습니다.</td>
 								</tr>		
+							</c:if>
+							<c:if test="${not empty reviewList}">
+								<c:forEach var="review" items="${reviewList}">
+									<tr>
+										<td>
+											${review.title}
+											<p>
+												<c:forEach var="i" begin="0" end="${review.rate-1}">
+													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16" style="color: #2F506D ;">
+													  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+													</svg>
+												</c:forEach>
+											</p>
+										</td>
+									</tr>
+									<tr>
+										<td>${review.content}</td>
+									</tr>
+									<tr style="border-bottom: 1px solid lightgray; color: gray; font-size: xx-small;">
+										<td style="padding: 0px; padding-bottom: 5px;">${review.date.substring(0,10)}</td>
+									</tr>
+								</c:forEach>
 							</c:if>
 						</tbody>
 					</table>
+					<c:if test="${not empty reviewList}">
+						<nav id="pagenation" class="row">
+						  <ul class="pagination justify-content-center">
+						  	<c:if test="${pagination.startPage > 5}">
+							    <li class="page-item">
+							      <a class="page-link text-black" onclick="review(${placeOne.pidx},4)" role="button">&laquo;</a>
+							    </li>
+						  	</c:if>
+						  	<c:forEach begin="${pagination.startPage }" end="${pagination.endPage }" var="p">
+								<c:choose>
+									<c:when test="${p == pagination.nowPage }">
+										<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" onclick="review(${placeOne.pidx},${p})" role="button">${p}</a></li>
+									</c:when>
+									<c:when test="${p != pagination.nowPage }">
+										<li class="page-item"><a class="page-link text-black" onclick="review(${placeOne.pidx},${p})" role="button">${p}</a></li>
+									</c:when>
+								</c:choose>
+							</c:forEach>
+						    <c:if test="${pagination.endPage != pagination.lastPage}">
+							    <li class="page-item">
+							      <a class="page-link text-black" onclick="review(${placeOne.pidx},${pagination.endPage +1})" role="button">&raquo;</a>
+							    </li>
+						    </c:if>
+						  </ul>
+						</nav>
+					</c:if>
 				</section>
 			</div>
 		</section>
@@ -513,12 +561,17 @@
 		}
 	}
 </script>
-<!-- scrollspy -->
+<!-- 리뷰 페이징 ajax -->
 <script type="text/javascript">
-	 /* $("#scrollPosition").scrollspy({ target: '#simple-list-example' })
-	 const scrollSpy = new bootstrap.ScrollSpy(document.body, {
-		  target: "#simple-list-example"
-		})  */
+	function review(pidx,nowPage){
+		var param = "pidx="+pidx+"&nowPage="+nowPage;
+		$.ajax({
+			url: "<%=request.getContextPath()%>/ajax/viewPagination.do?"+param,
+			success: function(data){
+				$("#review").html(data.trimStart());
+			}
+		});
+	}
 </script>
 </body>
 </html>
