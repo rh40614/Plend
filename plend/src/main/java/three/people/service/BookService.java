@@ -11,4 +11,5 @@ public interface BookService {
 	int updateSuccess();
 	List<BookVO> selectBookByHost(HashMap<String, Integer> page2);
 	int cntBook(int uidx);
+	int bookCancel(BookVO bookVO);
 }

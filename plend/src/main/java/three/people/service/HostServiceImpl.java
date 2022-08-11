@@ -218,13 +218,13 @@ public class HostServiceImpl implements HostService {
 
 	@Override
 	public int insertReject(BookVO bookVO) {
-		int result = hostDAO.insertReject(bookVO);
-			if(result == 1) {
-				System.out.println("거절 사유 입력 완료");
-			}else {
-				System.out.println("거절 사유 입력 실패 ");
-			}
-		return result;
+		return hostDAO.insertReject(bookVO);
+	}
+
+
+	@Override
+	public int reject(BookVO bookVO) {
+		return hostDAO.reject(bookVO);
 	}
 
 

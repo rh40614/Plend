@@ -1,5 +1,6 @@
 	html,body {
 		margin: 0px;
+		font-family:  'Hi Melody', sans-serif;
 	}
 
     @media (max-width: 1000px) {
@@ -13,6 +14,8 @@
          display:none;
         }
     }
+    
+
     
 /*07.08 김연희: hostcenter css별도 파일로 분리*/
 
@@ -242,6 +245,33 @@
 		width: 75%;
 	}
 
+
+	.insertPlaceBtn{
+		background:#2F506D;
+		border: #2F506D;
+		width: 160px;
+		height: 48px;
+		color: white;
+		border-radius: 4px;
+		font-size: 1.25rem;
+		transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out
+		;
+		
+	}
+	.insertPlaceBtn:hover{
+		/* background:#2b3f56; */
+		/* background:#223245; */
+		background:#f9f9fa;
+		color: #2F506D;
+		box-shadow: 10px 10px 10px 10px #a7a7a7;
+		
+	}
+	
+	.selectedBtn{
+		background:#f9f9fa;
+		color: #2F506D;
+		box-shadow: 5px 5px 5px 5px  #a7a7a7;
+	}
 	/* 해쉬태그 */
 	
 	#tag-list{

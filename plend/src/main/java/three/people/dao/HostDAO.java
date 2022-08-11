@@ -161,7 +161,9 @@ public class HostDAO {
 	public int insertReject(BookVO bookVO) {
 		return sqlSession.insert(namespace+".insertReject", bookVO);
 	}
-	
+	public int reject(BookVO bookVO) {
+		return sqlSession.update(namespace+".reject", bookVO);
+	}
 	
 	
 	

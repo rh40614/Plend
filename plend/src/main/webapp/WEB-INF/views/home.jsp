@@ -25,15 +25,47 @@
 
 	<script>
 
-	function like (obj){
-		if($(obj).hasClass("fa-regular") == true){
-			$(obj).removeClass("fa-regular");
-			$(obj).addClass("fa-solid");
+	function like (obj, idx){
+		
+		if(${login ne null}){
+			if($(obj).hasClass("fa-regular") == true){
+				$.ajax({
+					url: "<%=request.getContextPath()%>/place/heart.do?pidx="+idx+"&like=add",
+					success: function(data){
+						console.log(data);
+						if(data == 1){
+							$(obj).removeClass("fa-regular");
+							$(obj).addClass("fa-solid");
+							alert("찜목록에 등록되었습니다.");
+						}else{
+							alert("찜목록 등록에 실패했습니다.");
+						}
+					},
+					error: function(){
+						alert("찜목록 등록에 실패했습니다.");
+					}
+				});
+				
+			}else{
+				$.ajax({
+					url: "<%=request.getContextPath()%>/place/heart.do?pidx="+idx+"&like=delete",
+					success: function(data){
+						if(data == 1){
+							$(obj).removeClass("fa-solid");
+							$(obj).addClass("fa-regular");
+							alert("찜목록에서 삭제했습니다.");
+						}else{
+							alert("찜목록 삭제에 실패했습니다.");
+						}
+					},
+					error: function(){
+						alert("찜목록 삭제에 실패했습니다.");
+					}
+				});
+			}
 		}else{
-			$(obj).removeClass("fa-solid");
-			$(obj).addClass("fa-regular");
+			alert("로그인을 해주세요.");
 		}
-
 	}
 
 	</script>

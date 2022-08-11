@@ -74,14 +74,11 @@
 		        </button>
 		      </div>
 		      <div class="modal-body">
-		        <form id="frm" method="GET" action="reportReject.do">
-		          <!-- <div class="form-group">
-		            <label for="recipient-name" class="col-form-label">거절 항목:</label>
-		            <input type="text" class="form-control" id="recipient-name">
-		          </div> -->
+		        <form id="frm" method="GET">
+		        	<input type="hidden" name="bidx" Id="bidx">
 		          <div class="form-group">
 		            <label for="message-text" class="col-form-label">거절 사유:</label>
-		            <textarea class="form-control" id="message-text" placeholder="구체적인 거절 사유를 입력해주세요" name="content" style=" resize:none; " rows="10" ></textarea>
+		            <textarea class="form-control" id="message-text" placeholder="구체적인 거절 사유를 입력해주세요" name="rejectContent" style=" resize:none; " rows="10" ></textarea>
 		          </div>
 		        </form>
 		      </div>
@@ -136,44 +133,58 @@
 
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-		<!-- 에약 승인 및 거절 -->
+		<!-- 예약 승인 및 거절 -->
 		<script>
 	
 		var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
 			  keyboard: false
 			})
 		
+		/* 거절  */
 		function rejectSubmit(idx){
 			
-			console.log(idx);
-			$("frm").submit();
-			console.log("거절사유 전송 완료 ");
-			
+			if($("#message-text").val().length > 300){
+				alert("300자 이내로 작성해 주십시오.");		
+				return;
+			}else{
+				//console.log(idx);
+				const fm = $("#frm");
+				
+				$("#bidx").val(idx);
+				$("#frm").attr('action','reportReject.do').submit();
+				myModal.hide();
+				$("#approvalN"+idx).html("승인 거절");
+			}
 		}
 		
+		
+		/* 승인  */
 		function approval(idx){
-			
-			if($("#approvalY"+idx).html() == '승인 완료'){
+
+			if($("#approvalN"+idx).html() == '승인 완료'){
 				alert("이미 승인된 요청입니다.");
+			
+			}else if($("#approvalR"+idx).html() == '승인 거절'){
+				alert("이미 거절처리된 요청입니다. 거절된 요청은 재승인이 불가능합니다.");
 				
 			}else{
 				
-				if(confirm("승인하시겠습니까? 승인 완료 후 예약을 취소 할 수 없습니다.",{
-					 cancelButton:'거절'
-				})){
-				$.ajax({
+				if(confirm("승인하시겠습니까? 승인 완료 후 예약을 취소 할 수 없습니다.")){
+				
+					$.ajax({
 					url: "<%=request.getContextPath()%>/ajax/approval.do", 
 					type: "GET",
 					data: "bidx="+idx,
 					success: function(){
 						alert("승인되었습니다.")
-						$("#approvalY"+idx).html("승인 완료");
+						$("#approvalN"+idx).html("승인 완료");
 					}
 				});
 				
 				}else{
-				console.log("승인 거절");
-					if(confirm("예약을 거절하시겠습니까?")){
+					
+					console.log("승인 거절");
+					if(confirm("예약을 거절하시겠습니까? 창을 닫으시려면 취소를 눌러주세요.")){
 						
 						myModal.show();
 						console.log("거절 모달");
@@ -181,15 +192,11 @@
 						$("#savebtn").click(function(){
 							rejectSubmit(idx);
 						}) 
-						
-						
-							
 					}
 				}
 			}
-			
 		}
-		
+		/* 취소 (창 닫기) */
 		function reject (){
 			myModal.hide();
 		}
