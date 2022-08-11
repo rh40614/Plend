@@ -19,7 +19,7 @@ public interface HostService {
 	//장소
 	public int insertPlace(PlaceVO placeVO);
 	public int insertPlaceImg(ImageVO imageVO);
-	public int approval(BookVO bookVO);
+	
 	//이벤트
 	public List<EventVO> eventList(EventVO eventVO);
 	public EventVO eventOne(EventVO eventVO);
@@ -54,4 +54,8 @@ public interface HostService {
 	
 	// 유저 블랙 리스트
 	public int insertBlockUser(BlockVO blockVO);
+	
+	//예약
+	public int approval(BookVO bookVO);
+	public int insertReject(BookVO bookVO);
 }

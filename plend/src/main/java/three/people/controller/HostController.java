@@ -741,19 +741,14 @@ public class HostController {
 		return result;
 	}
 	
-
-	@RequestMapping(value="approval.do", method= RequestMethod.GET)
-	public int approval(BookVO bookVO) {
+	
+	
+	@RequestMapping(value="/reportReject.do")
+	public void reportReject(BookVO bookVO) {
+		hostService.insertReject(bookVO);
 		
-		int result = hostService.approval(bookVO);
-		if(result == 1) {
-			System.out.println("수정완");
-		}else {
-			System.out.println("수정 실패 ");
-		}
-		
-		return result;
 	}
+
 
 	
 	
