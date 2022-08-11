@@ -45,7 +45,7 @@
 		var minutes = ('0' + today.getMinutes()).slice(-2);
 		var seconds = ('0' + today.getSeconds()).slice(-2); 
 		var timeString = hours + minutes + seconds;
-	console.log(timeString);
+		console.log(timeString);
 		
 		 BootPay.request({
 		      price: '100', //실제 결제되는 가격
@@ -63,10 +63,11 @@
 		              price: 100, //상품 단가
 		          }
 		      ],
-		      order_id: 'order_id_${placeOne.pidx}', //고유 주문번호
+		      order_id: 'order_id_${placeOne.pidx}'+timeString, //고유 주문번호
 		  }).error(function (data) {
 		      //결제 진행시 에러가 발생하면 수행됩니다.
 		      console.log(data);
+		      alert("결제 중 오류가 발생하였습니다. 다시 시도해주시길 바랍니다.");
 		  }).cancel(function (data) {
 		      //결제가 취소되면 수행됩니다.
 		      console.log(data);

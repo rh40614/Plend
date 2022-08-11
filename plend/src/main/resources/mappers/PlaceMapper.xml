@@ -298,32 +298,7 @@
 	</select>
 	
 	<!-- 2022.08.05 김연희: 비슷한 장소 추천-->
-	<select id="recommendPlace" parameterType="PlaceVO" resultType="PlaceVO">
-		SELECT
-			  pidx
-			 ,uidx
-			 ,category
-			 ,placeName
-			 ,eventYN
-			 ,placeDetail
-			 ,guide
-			 ,tag
-			 ,placeImg
-			 ,address
-			 ,option1
-			 ,option2
-			 ,price
-			 ,delYN
-			 ,approvalYN
-			 ,availTimeValue
-			 ,intervalTime
-			 ,cntPeople
-		FROM place	
-		WHERE tag LIKE '%' #{tag} '%'
-	
-	
-	
-	</select>
+	<!-- <select id="recommendPlace" parameterType="PlaceVO" resultType="PlaceVO"></select> -->
 	
 	
 

@@ -34,10 +34,13 @@
 			<td>${pv.nickName}</td>
 			 <c:choose>
 				<c:when test="${pv.approvalYN eq 'N'}">
-					<td id="approvalY${pv.bidx}">승인 대기</td>
+					<td id="approvalN${pv.bidx}">승인 대기</td>
 				</c:when>
 				<c:when test="${pv.approvalYN eq 'Y'}"> 
-					<td >승인 완료</td>
+					<td id="approvalY${pv.bidx}">승인 완료</td>
+				</c:when>
+				<c:when test="${pv.approvalYN eq 'R'}"> 
+					<td id="approvalR${pv.bidx}">승인 거절</td>
 				</c:when>
 			</c:choose> 
 			<td id="canclebtn${pv.bidx}"><button class="btnDefault" type="button" onclick="approval(${pv.bidx})" id="approvalBtn${pv.bidx}">확인</button></td>

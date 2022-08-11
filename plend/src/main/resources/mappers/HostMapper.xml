@@ -489,25 +489,25 @@
 	</insert>
 
 	<update id="approval" parameterType="BookVO" >
-		UPDATE
-		 		book  
+		 UPDATE book  
 		    SET approvalyn = 'Y' 
 		  WHERE bidx = #{bidx}
 	
 	</update>
 	
 	
-	<insert id="insertReject" parameterType="BookVO"  >
-		
-		INSERT INTO report(
-				 rvidx
-				,category
-				,content
-	   ) VALUES(
-				 #{rvidx}
-				,#{category}
-	   )
+	<insert id="insertReject" parameterType="BookVO" >
+	
 	</insert>
+	
+	
+	
+	<update id="reject" parameterType="BookVO">
+			UPDATE book
+			  SET  approvalyn = 'R'
+			  	   ,rejectContent = #{rejectContent}
+			 WHERE bidx = #{bidx}
+	</update>
 	
 
 	

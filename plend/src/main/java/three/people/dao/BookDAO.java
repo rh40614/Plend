@@ -33,4 +33,8 @@ public class BookDAO {
 	public int cntBook(int uidx) {
 		return sqlSession.selectOne("three.people.mapper.bookMapper.cntBook", uidx);
 	}
+	public int bookCancel(BookVO bookVO) {
+		return sqlSession.update("three.people.mapper.bookMapper.bookCancel", bookVO);
+		
+	}
 }

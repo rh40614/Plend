@@ -58,4 +58,5 @@ public interface HostService {
 	//예약
 	public int approval(BookVO bookVO);
 	public int insertReject(BookVO bookVO);
+	public int reject(BookVO bookVO);
 }
