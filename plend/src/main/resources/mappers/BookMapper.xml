@@ -36,7 +36,51 @@
 		UPDATE book
 		   SET successbook = 'Y'
 		 WHERE bidx = #{bidx}
-	</update>	
+	</update>
+	
+	<!-- 2022.08.06 김연희 : host 센터에서 장소에 대한 예약리스트 로딩 -->
+	<select id="selectBookByHost" parameterType="HashMap" resultType="BookVO">
+		SELECT 
+				@rownum:=@rownum+1 AS rnum
+				,b.*  
+		FROM 
+		(SELECT 	
+				bidx
+				,b.pidx
+				,b.uidx
+				,b.bookTime
+				,b.useTime
+				,b.cntPeople
+				,b.option1
+				,b.reviewYN
+				,b.approvalYN
+				,b.delYN
+				,p.placeName 
+			FROM book b 
+			JOIN place p 
+			  ON b.pidx = p.pidx
+		   WHERE p.uidx = #{uidx}
+			 AND b.delYN ='N'
+			 AND p.delYN ='N'
+		ORDER BY bidx desc) b,
+		 (SELECT @rownum:=0) rnum
+		ORDER BY rnum ASC
+		   LIMIT #{start},#{cntPerPage}
+	</select>
+	
+	<select id="cntBook" parameterType="int" resultType="int">
+		SELECT 
+				COUNT(bidx)
+		FROM book b
+		JOIN place p 
+		  ON b.pidx = p.pidx
+	   WHERE p.uidx = #{uidx}
+		 AND b.delYN ='N'
+		 AND p.delYN ='N'
+	</select>
+	
+	
+		
 	<!--
 	<select id="bookOne" resultType="BookVO" parameterType="BookVO"></select>
 	<update id="bookModify" parameterType="BookVO"></update>

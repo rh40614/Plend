@@ -27,13 +27,12 @@
 	</script>
 </head>
 <body>
-	<!-- h-100을 제거하면 푸터가 올라오고...고쳐야함 -->
-	<div id="wrap" class="container-fluid h-100 overflow-auto">	
+	<div id="wrap" class="container-fluid">	
 		<header id="header" class="row"></header>
 		<br><br>
 		<div class="row mt-3">
 			<div class="col category">
-				<p class="h5 fw-bold category-title"> 업체블랙리스트 </p>
+				<p class="h5 fw-bold category-title">업체리스트</p>
 			</div>
 		</div>
 		<section class="row px-1">
@@ -47,40 +46,55 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr>
-			      <th scope="row">1</th>
-			      <td>jjangjjangEnter</td>
-			      <td>김연희</td>
-			      <td>010-1234-5678</td>
-			    </tr>
+			  	<c:forEach var="enter" items="${enterList}">
+					<tr>
+				      <th scope="row">${enter.uidx}</th>
+				      <td> <a onclick="callEnterBlockList(${enter.uidx},0)" role="button">${enter.nickName}</a> </td>
+				      <td>${enter.name}</td>
+				      <td>${enter.userPhone}</td>
+				    </tr>			  	
+			  	</c:forEach>
 			  </tbody>
 			</table>
 		</section>
-		<nav id="pagenation" class="row">
-		  <ul class="pagination justify-content-center">
-		    <li class="page-item disabled">
-		      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
-		    </li>
-		    <li class="page-item"><a class="page-link" href="#">1</a></li>
-		    <li class="page-item"><a class="page-link" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		    <li class="page-item">
-		      <a class="page-link" href="#">&raquo;</a>
-		    </li>
-		  </ul>
-		</nav>
+		<c:if test="${not empty enterList}">
+			<nav id="pagenation" class="row">
+			  <ul class="pagination justify-content-center">
+			  	<c:if test="${pagination.startPage > 5}">
+				    <li class="page-item">
+				      <a class="page-link" href="enterBlock.do?nowPage=4">&laquo;</a>
+				    </li>
+			  	</c:if>
+			  	<c:forEach begin="${pagination.startPage }" end="${pagination.endPage }" var="p">
+					<c:choose>
+						<c:when test="${p == pagination.nowPage }">
+							<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" href="enterBlock.do?nowPage=${p}">${p}</a></li>
+						</c:when>
+						<c:when test="${p != pagination.nowPage }">
+							<li class="page-item"><a class="page-link" href="enterBlock.do?nowPage=${p}">${p}</a></li>
+						</c:when>
+					</c:choose>
+				</c:forEach>
+			    <c:if test="${pagination.endPage != pagination.lastPage}">
+				    <li class="page-item">
+				      <a class="page-link" href="enterBlock.do?nowPage=${pagination.endPage +1}">&raquo;</a>
+				    </li>
+			    </c:if>
+			  </ul>
+			</nav>
+		</c:if>
 		<div class="row mt-3">
 			<div class="col category">
-				<p class="h5 fw-bold"> 업체별 사용자 블랙리스트 - 업체명 </p>
+				<p class="h5 fw-bold"> 업체별 사용자 블랙리스트 </p>
 			</div>
 		</div>
-		<section class="row px-1">
+		<section class="row px-1 mb-5 enterBlockUserList">
 			<table class="col table text-center table-hover">
 			  <thead class="table-dark">
 			    <tr>
 			      <th scope="col">번호</th>
 			      <th scope="col">회원명</th>
-			      <th scope="col">가입/탈퇴</th>
+			      <th scope="col">탈퇴유무</th>
 			      <th scope="col">등록일</th>
 			      <th scope="col" class="col col-5">사유</th>
 			      <th scope="col">삭제</th>
@@ -88,44 +102,28 @@
 			  </thead>
 			  <tbody>
 			    <tr>
-			      <th scope="row">1</th>
-			      <td>김연희</td>
-			      <td>Y</td>
-			      <td>2022-07-13</td>
-			      <td> 그냥 </td>
-			      <td><a class="btn btn-primary btn-sm rounded-3" href="#" role="button">삭제</a></td>
+					<td colspan="6"> 업체를 선택해주세요. </td>
 			    </tr>
 			  </tbody>
 			</table>
 		</section>
-		<nav id="pagenation" class="row">
-		  <ul class="pagination justify-content-center">
-		    <li class="page-item disabled">
-		      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
-		    </li>
-		    <li class="page-item"><a class="page-link" href="#">1</a></li>
-		    <li class="page-item"><a class="page-link" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		    <li class="page-item">
-		      <a class="page-link" href="#">&raquo;</a>
-		    </li>
-		  </ul>
-		</nav>
 		<div class="flex-grow-1"></div>
 		<footer id="footer" class="row"></footer>
-	</div>
-	<!-- 승인/반려 버튼 클릭 이벤트 -->
-	<script type="text/javascript">
-		$(".confirm").click(function(){
-			$(this).closest("tr").css("color","#BDBDBD");
-		})
-		
-		$(".reject").click(function(){
-			$(this).closest("tr").css("color","#FF0000");
-		})
-	</script>	
-	<!-- JavaScript Bundle with Popper -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	</div>	
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!-- 해당 업체 블랙리스트 가져오기 -->
+<script type="text/javascript">
+	function callEnterBlockList(uidx,nowPage){
+		var param = 'uidx=' + uidx + '&nowPage=' + nowPage;
+		$.ajax({
+			url: "<%=request.getContextPath()%>/ajax/callEnterBlockList.do?" + param,
+			success: function(data){
+				$(".enterBlockUserList").html(data);
+			}
+		});
+	}
+</script>
 </body>
 </html>
 

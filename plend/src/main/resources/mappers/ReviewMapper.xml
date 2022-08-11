@@ -42,6 +42,7 @@
 			  ,uidx
 		  FROM review
 		 WHERE uidx = #{UserVO.uidx}
+		   AND delyn = 'N'
 	  ORDER BY rvidx DESC
 		 LIMIT #{SearchVO.start}, #{SearchVO.cntPerPage} 
 	</select>
@@ -49,6 +50,7 @@
 		SELECT COUNT(*)
 		  FROM review
 		 WHERE uidx = #{uidx}
+		   AND delyn = 'N'
 	</select>
 	
 	<!-- 08.05 김영민: 리뷰이미지 등록 -->
@@ -69,6 +71,7 @@
 	<!-- 08.05 김영민: 리뷰하나 불러오기 -->
 	<select id="reviewOne" resultType="ReviewVO" parameterType="ReviewVO">
 		SELECT r.rvidx,
+			   r.pidx,
 			   u.uidx,
 			   r.title,
 			   r.content,
@@ -89,15 +92,160 @@
 		  FROM image
 		 WHERE rvidx = #{rvidx}
 	</select>
+	<!-- 08.08 김영민: 리뷰 수정 -->
+	<update id="reviewModify" parameterType="ReviewVO">
+		UPDATE review
+		   SET title = #{title},
+		   	   content = #{content},
+		   	   rate = #{rate}
+		 WHERE rvidx = #{rvidx}
+	</update>
+	<delete id="reviewImgModify" parameterType="ImageVO">
+		DELETE FROM image
+		      WHERE originfilename = #{originFileName}
+		        AND rvidx = #{rvidx}
+	</delete>
+	<!-- 08.08 김영민: 리뷰 삭제 -->	
+	<update id="reviewDelete" parameterType="ReviewVO">
+		UPDATE review
+		   SET delyn = 'Y'
+		 WHERE rvidx = #{rvidx}
+	</update>
+	<!-- 08.08 김영민: 리뷰 신고 -->
+	<insert id="insertReviewReport" parameterType="ReportVO">
+		INSERT INTO report(
+			rvidx,
+			category,
+			content,
+			reporter_uidx,
+			respondent_uidx
+		)VALUES(
+			#{rvidx},
+			#{category},
+			#{content},
+			#{reporter_uidx},
+			#{respondent_uidx}
+		)
+	</insert>
 	
-	<!-- <select id="reviewALl" parameterType="ReviewVO"></select>
-	<update id="reviewModify" parameterType="ReviewVO"></update>
-	<insert id="insertReview" parameterType="ReviewVO"></insert>
-	<update id="reviewDelete" parameterType="ReviewVO"></update>
-	<insert id="insertReviewReport" parameterType="ReviewVO"></insert> -->
+	<!--2022.08.08 김연희: 호스트가 가지고 있는 장소에 대한 리뷰들  -->	
+	<select id="selectReviewByHost" parameterType="HashMap" resultType="ReviewVO">
+		SELECT 
+				@rownum:=@rownum+1 AS rnum
+				,r.*  
+		FROM 
+		(SELECT 
+			 rvidx
+			,r.pidx
+			,r.title
+			,r.content
+			,r.rate
+			,r.date
+			,r.delYN
+			,r.uidx
+			,p.placeName
+	    FROM review r
+	    JOIN place p
+	      ON r.pidx = p.pidx
+	   WHERE p.uidx =#{uidx}
+	     AND r.delYN = 'N'
+	     AND P.delYN = 'N'
+    ORDER BY rvidx DESC) r,
+     (SELECT @rownum:=0) rnum
+    ORDER BY rnum ASC
+	   LIMIT #{start},#{cntPerPage}
+	</select>
+
+	<select id="cntReview" parameterType="int" resultType="int">
+			SELECT 
+				COUNT(rvidx)
+			FROM review r
+			JOIN place p
+			ON r.pidx = p.pidx 
+			WHERE p.uidx = #{uidx}
+			AND r.delYN ='N'
+			AND p.delYN ='N'
+	</select>
 	
+	<!-- 08.10 김영민: 해당하는 장소의 리뷰 가져오기 -->
+	<select id="selectPlaceReview" parameterType="HashMap" resultType="ReviewVO">
+		SELECT rvidx,
+			   pidx,
+			   title,
+			   content,
+			   rate,
+			   date,
+			   img,
+			   delyn,
+			   uidx 
+		  FROM review 
+		 WHERE pidx = #{reviewVO.pidx}
+		   AND delyn = 'N'
+	  ORDER BY rvidx DESC
+		 LIMIT #{searchVO.start}, #{searchVO.cntPerPage}
+	</select>
+	<select id="countPlaceReview" parameterType="ReviewVO" resultType="int">
+		SELECT COUNT(*)
+		  FROM review
+		 WHERE pidx = #{pidx}
+		   AND delyn = 'N'
+	</select>
+	<select id="avgRevew" parameterType="PlaceVO" resultType="int">
+		SELECT 
+				IFNULL(AVG(rate), 0) as rate 
+		   FROM review
+	  	  WHERE pidx = #{pidx}
+
+	</select>
+	<select id="reviewAll" resultType="ReviewVO" >
+		SELECT
+			r.rvidx
+			,r.pidx
+			,r.title
+			,r.content
+			,r.rate
+			,r.date
+			,r.img
+			,r.delyn
+			,r.uidx
+			,p.tag
+		    ,p.address
+		    ,p.category
+		    ,p.price
+		    ,p.placeName
+		  FROM review r
+		  JOIN place p 
+		  on r.pidx = p.pidx
+		WHERE r.delYN ='N'
+		AND r.delyn ='N'
 	
+	</select>
 	
+	<select id="selectImageOne" parameterType="ReviewVO" resultType="ImageVO">
+		SELECT 
+			    MIN(imidex)
+			   ,imidex
+			   ,path
+			   ,originfilename
+			   ,realfilename
+			   ,pidx
+			   ,eidx
+		  FROM image
+		 WHERE rvidx = #{rvidx}
+	</select>
+	
+	<select id="reviewImages" parameterType="ReviewVO" resultType="ImageVO">
+		SELECT 
+			    imidex
+			   ,imidex
+			   ,path
+			   ,originfilename
+			   ,realfilename
+			   ,pidx
+			   ,eidx
+		  FROM image
+		 WHERE rvidx = #{rvidx}
+	</select>
 </mapper>
 
 

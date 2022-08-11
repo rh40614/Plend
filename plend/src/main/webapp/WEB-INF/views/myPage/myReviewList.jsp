@@ -64,12 +64,14 @@
    				</thead>
    				<tbody class="text-center">
    					<c:forEach var="myReview" items="${myReviewList}" varStatus="status">
-   						<tr>
-	   						<td scope="row">${myReview.rvidx}</td>
-	   						<td><a href="<%=request.getContextPath()%>/review/detail.do?rvidx=${myReview.rvidx}">${myReview.title}</a></td>
-							<td>${myReview.rate}점</td>	
-							<td>${myReview.date.substring(0,10)}</td>	
-	   					</tr>
+   						<c:if test="${myReview.delYN eq 'N'}">
+	   						<tr>
+		   						<td scope="row">${myReview.rvidx}</td>
+		   						<td><a href="<%=request.getContextPath()%>/review/detail.do?rvidx=${myReview.rvidx}">${myReview.title}</a></td>
+								<td>${myReview.rate}점</td>	
+								<td>${myReview.date.substring(0,10)}</td>	
+		   					</tr>
+   						</c:if>
    					</c:forEach>
    				</tbody>
    			</table>
@@ -102,7 +104,7 @@
    		</div>
    </div>
 <div style="margin-top: -48px;">
-<footer id="footer" class="mt-5" style = "float:none;display:inline-block;"></footer>
+<footer id="footer" class="mt-5 fixed-bottom" style="float:none;display:inline-block;"></footer>
 </div>
 </div>
 <!-- JavaScript Bundle with Popper -->

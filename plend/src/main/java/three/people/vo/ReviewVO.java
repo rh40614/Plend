@@ -10,13 +10,38 @@ public class ReviewVO extends BookVO {
 	private int rate;
 	private String date;
 	private String delYN;
+	private int rnum;
 	private MultipartFile[] reviewImgs;
+	private String deleteImg;
+	private String reviewImg;
+	private int pidx;
 	
+	
+	
+	public int getPidx() {
+		return pidx;
+	}
+	public void setPidx(int pidx) {
+		this.pidx = pidx;
+	}
+	public String getDeleteImg() {
+		return deleteImg;
+	}
+	public void setDeleteImg(String deleteImg) {
+		this.deleteImg = deleteImg;
+	}
 	public MultipartFile[] getReviewImgs() {
 		return reviewImgs;
 	}
 	public void setReviewImgs(MultipartFile[] reviewImgs) {
 		this.reviewImgs = reviewImgs;
+	}
+	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 	public String getDate() {
 		return date;
@@ -53,6 +78,12 @@ public class ReviewVO extends BookVO {
 	}
 	public void setDelYN(String delYN) {
 		this.delYN = delYN;
+	}
+	public String getReviewImg() {
+		return reviewImg;
+	}
+	public void setReviewImg(String reviewImg) {
+		this.reviewImg = reviewImg;
 	}
 	
 	

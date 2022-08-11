@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import three.people.vo.UserVO;
 
-public class Interceptor implements HandlerInterceptor{
+public class HostInterceptor implements HandlerInterceptor{
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -21,38 +21,29 @@ public class Interceptor implements HandlerInterceptor{
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter pw = response.getWriter();
 		
+		UserVO login = (UserVO) session.getAttribute("login");
+		
+				
 		if(session.getAttribute("login") != null ) {
-				UserVO login = (UserVO) session.getAttribute("login");
 				int role = login.getRole();
 				System.out.println("role =" + role);
-				pw.print("<script>alert('잘못된 접근입니다.');</script>");
-				
-				pw.flush();
-			if(role != 1){
-			String urlPrior = request.getRequestURL().toString() + "?" + request.getQueryString();
-			request.getSession().setAttribute("url_prior_login", urlPrior);
-			
-			response.sendRedirect(request.getContextPath() + "/");
-			pw.print("<script>alert('잘못된 접근입니다.');</script>");
+				//관리자도 들어가게 수정해야함
+			if(role == 2){
+			pw.print("<script>alert('잘못된 접근입니다.');location.href = '/controller/'</script>");
 			
 			pw.flush();
 			System.out.println("로그인은 했지만 권한이 없음.");
 			return false;
 			} 
-		}else if (session.getAttribute("login") == null) {
-			String urlPrior = request.getRequestURL().toString() + "?" + request.getQueryString();
-			request.getSession().setAttribute("url_prior_login", urlPrior);
+		}else if(session.getAttribute("login") == null) {
 			
-			response.sendRedirect(request.getContextPath() + "/");	
-			pw.print("<script>alert('잘못된 접근입니다.');</script>");
+			System.out.println("로그인 하지 않음.");
+			pw.print("<script>alert('로그인이 필요한 접근입니다.');location.href = '/controller/common/signIn.do'</script>");
 			
 			pw.flush();
-			System.out.println("로그인 하지 않음.");
+			
 			return false;
-		} else {
-			return true;
 		}
-		
 			return true;
 	}
 

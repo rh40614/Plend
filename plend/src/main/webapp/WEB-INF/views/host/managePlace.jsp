@@ -8,20 +8,14 @@
 <title>Hostcenter-장소 관리</title>
 
 	<link href="<%=request.getContextPath()%>/resources/css/global_Host.css" rel="stylesheet">
-	
-	
 	<!-- jQuery -->
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	
-	<!-- JavaScript Bundle with Popper -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-	
 	<!-- bootstrap  -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	
 	<!--  fontAwesome -->
 	<script src="https://kit.fontawesome.com/f5807db9d4.js" crossorigin="anonymous"></script>
-	
+
 	
 	<script type="text/javascript">
 	//프론트 디자인
@@ -30,242 +24,182 @@
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
-	<!-- 페이징 -->
+	
 	<script>
-	function nowPage(p){
-		$.ajax({
-			url: "placeList.do",
-			type: "GET",
-			data: "nowPage="+p,
-			success: function(data){
-				console.log("에이작스 페이징");
-				$("#placeList").html(data);
-			},
-			error: function(){
-				console.log("페이징 실패");
-			}
+		$(function(){
+			//장소 로딩
+			$.ajax({
+				url: "placeList.do",
+				type: "GET",
+				success: function(data){
+					$("#placeList").html(data);
+				}
+			});
+			//예약 로딩
+			$.ajax({
+				url: "bookList.do",
+				type: "GET",
+				success: function(data){
+					$("#bookList").html(data);
+				}
+			});
+			//리뷰 로딩
+			$.ajax({
+				url: "reviewList.do",
+				type: "GET",
+				success: function(data){
+					$("#reviewList").html(data);
+				},
+				error: function(){
+					console.log("아이고");
+				}
+			});
 			
 		});
-	}
 	</script>
-	<!-- 해쉬 태그  -->
-	<script>
-
-		
-	</script>
+	
 
 </head>
 <body>
 
 	<header id="header"></header>
-	
+	<!-- 거절 모달 -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">예약 거절 </h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="reject()">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <form id="frm" method="GET" action="reportReject.do">
+		          <!-- <div class="form-group">
+		            <label for="recipient-name" class="col-form-label">거절 항목:</label>
+		            <input type="text" class="form-control" id="recipient-name">
+		          </div> -->
+		          <div class="form-group">
+		            <label for="message-text" class="col-form-label">거절 사유:</label>
+		            <textarea class="form-control" id="message-text" placeholder="구체적인 거절 사유를 입력해주세요" name="content" style=" resize:none; " rows="10" ></textarea>
+		          </div>
+		        </form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="reject()">취소</button>
+		        <button type="button" class="btn btn-primary"  id="savebtn">저장</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
 	<main>
+	<!-- 장소관리 리스트 -->
 		<section>
 		<div class="container" style=" margin-left: 100px; display: flex;  justify-content: space-between; align-items: baseline; margin-left: 100px;">
 			<span class="title1" style="margin:0px;">플레이스 리스트</span>
 			<button class="mb-3 btnBig " onclick="location.href='<%=request.getContextPath()%>/host/insertPlace.do'">플레이스 등록</button>
 		</div>		
-				<div class=".table-responsive container " style="margin-left: 100px;" >
-				<div id="placeList">
-					<table class="table table-hover text-center clearfix" >
-						<thead class="table-dark">
-							<tr style="text-al">
-								<td>번호</td><td>플레이스명</td><td>태그</td><td>소개</td><td>승인여부</td><td>수정</td>
-							</tr>
-						<thead>
-						<tbody>
-							<c:if test="${list_p.size() == 0}">	
-								<tr>
-									<td colspan="6">등록된 장소가 없습니다.</td>
-								</tr>
-							</c:if>
-							<!--  -->
-							<c:if test="${list_p.size() > 0}">
-								<c:forEach var="pv" items="${list_p}">
-									<tr >
-										<td>${pv.pidx}</td>
-										<td>${pv.placeName}</td>
-										<!-- 반복문을 돌리는 아이디값에 변수를 주기위해 아이디 뒤에 변수 넣기 -->
-										<td id="tag${pv.pidx}"></td>
-										<script>
-											var tags = JSON.parse('${pv.tag}');
-											var tag = "";
-											tags.forEach(element => 
-												tag += "#"+ element.value + "&nbsp;" 
-											);
-											console.log(tag);
-											
-											$("#tag${pv.pidx}").html(tag);
-											 
-										</script>
-										<td style="text-align: left;">${pv.placeDetail}</td>
-										<td>${pv.approvalYN}</td>
-										<td><button class="btnDefault" type="button" onclick="location.href='/host/placeView.do'">수정</button></td>
-									</tr>
-								</c:forEach>
-							</c:if>
-						</tbody>
-					</table>
-			
-			<!-- 페이징 -->
-			<c:if test="${not empty list_p}">
-				<nav aria-label="Page navigation example" class="m-auto">
-				  <ul class="pagination justify-content-center " >
-				  	
-					<c:if test="${pagenation.startPage > 5}">
-						<li class="page-item">
-				      		<a class="page-link" onclick="nowPage(4)">&laquo;</a>
-				    	</li>
-				    </c:if>
-				    
-					<c:forEach begin="${pagenation.startPage}" end="${pagenation.endPage}" var="p">
-						<c:choose>
-							<c:when test="${p == pagenation.nowPage }">
-								 <li class="page-item text-secondary">
-								 <a class="page-link text-secondary" onclick="nowPage(${p})">${p}</a></li>
-							</c:when>
-							<c:when test="${p != pagenation.nowPage }">
-								<li class="page-item text-secondary">
-								 <a class="page-link text-secondary" onclick="nowPage(${p})">${p}</a></li>
-							</c:when>
-						</c:choose>
-					</c:forEach>
-				
-			    	<c:if test="${pagenation.endPage != pagenation.lastPage}">
-					    <li class="page-item">
-					      <a class="page-link" onclick="nowPage(${pagenation.endPage +1})">&raquo;</a>
-					    </li>
-			    	</c:if>
-				  </ul>
-				</nav>
-			</c:if> 
-		</div>
-			
-		
+			<div class=".table-responsive container " style="margin-left: 100px;" >
+				<div id="placeList" style="height:550px;justify-content: space-between;align-items: center;" class="d-flex flex-column" >
+					<!-- 데이터 들어오는 곳 -->
+				</div>
+			    <hr width="100%">
 			</div>
-				
 		</section>
-		
+	<!-- 예약현황 리스트 -->	
 		<section>
-			<span class="title1 " style="margin-left: 120px;">예약 현황</span>
-			
-				
+			<span class="title1 mt-5 mb-5" style="margin-left: 120px;">예약 현황</span>
 				<div class=".table-responsive container " style="margin-left: 100px;" >
-					
-					<table class="table table-hover text-center clearfix" >
-						<thead class="table-dark">
-							<tr style="text-al">
-								<td>번호</td><td>장소</td><td>기간</td><td>인원</td><td>예약자</td><td>승인여부</td><td>승인</td>
-							</tr>
-						<thead>
-						<tbody>
-							<c:if test="${list_p.size() == 0}">	
-								<tr>
-									<td colspan="6">등록된 장소가 없습니다.</td>
-								</tr>
-							</c:if>
-							<!--  -->
-							<c:if test="${list_p.size() > 0}">
-								<c:forEach var="pv" items="${list_p}">
-									<tr >
-										<td>${pv.pidx}</td>
-										<td>${pv.placeName}</td>
-										<td>2022.07.15 12:00 ~ 2022.07.15 15:00</td>
-										<td>3명</td>
-										<td>김영민</td>
-										<td>${pv.approvalYN}</td>
-										<td><button class="btnDefault" type="button" onclick="location.href='/host/placeDetail.do'">확인</button></td>
-										<!-- 2022.07.15 김연희:
-										 확인 버튼 누르면 예약정보 상세창이 팝업으로 뜨고  승인, 거절 버튼이 주어지고 
-										 승인을 누르면 approval값 변경. 
-										 승인 거절을 누르면 ajax로 팝업 화면을 변경해서
-										 승인거절 항목(selectbox) 선택할 수 있도록하고 
-										 승인 사유 적도록하기 
-										 취소하기, 등록하기 버튼을 제공하고 등록을 누르면  
-										 approval 변경 및 db에 승인 거절 사유 등록
-										 취소를 누르면 예약정보 상세창이 뜨도록 하기  -->
-									</tr>
-								</c:forEach>
-							</c:if>
-						</tbody>
-					</table>
-					
-					<nav aria-label="Page navigation example" class="m-auto">
-					  <ul class="pagination justify-content-center " >
-					    <li class="page-item text-secondary">
-					      <a class="page-link text-secondary" href="#" aria-label="Previous">
-					        <span aria-hidden="true">&laquo;</span>
-					      </a>
-					    </li>
-					    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">1</a></li>
-					    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">2</a></li>
-					    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">3</a></li>
-					    <li class="page-item text-secondary">
-					      <a class="page-link text-secondary" href="#" aria-label="Next">
-					        <span aria-hidden="true">&raquo;</span>
-					      </a>
-					    </li>
-					  </ul>
-					</nav>
+					<div id="bookList"  style="height:400px; justify-content: space-between;align-items: center;" class="d-flex flex-column ">
+						<!-- 데이터 들어오는 곳 -->
+					</div>
+					<hr width="100%">
 				</div>
 		</section>		
-		
+	<!-- 후기 리스트 -->	
 		<section>
-			<span class="title1" style="margin-left: 120px;">후기</span>
-			
-				
+			<span class="title1 mt-5 mb-5" style="margin-left: 120px;">후기</span>
 				<div class=".table-responsive container " style="margin-left: 100px;" >
-					
-					<table class="table table-hover text-center clearfix" >
-						<thead class="table-dark">
-							<tr style="text-al">
-								<td>번호</td><td>장소</td><td>평점</td><td>후기</td><td>아이디</td><td>작성일</td>
-							</tr>
-						<thead>
-						<tbody>
-							<c:if test="${list_p.size() == 0}">	
-								<tr>
-									<td colspan="6">등록된 장소가 없습니다.</td>
-								</tr>
-							</c:if>
-							<!--  -->
-							<c:if test="${list_p.size() > 0}">
-								<c:forEach var="pv" items="${list_p}">
-									<tr >
-										<td>${pv.pidx}</td>
-										<td>${pv.placeName}</td>
-										<td><i class="fa-regular fa-star"> 9.5</i>${pv.tag}</td>
-										<td style="text-align: left;">${pv.placeDetail}</td>
-										<td>김하진</td>
-										<td><button class="btnDefault" type="button" onclick="location.href='/host/placeDetail.do'">수정</button></td>
-									</tr>
-								</c:forEach>
-							</c:if>
-						</tbody>
-					</table>
-					
-					<nav aria-label="Page navigation example" class="m-auto">
-					  <ul class="pagination justify-content-center " >
-					    <li class="page-item text-secondary">
-					      <a class="page-link text-secondary" href="#" aria-label="Previous">
-					        <span aria-hidden="true">&laquo;</span>
-					      </a>
-					    </li>
-					    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">1</a></li>
-					    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">2</a></li>
-					    <li class="page-item text-secondary"><a class="page-link text-secondary" href="#">3</a></li>
-					    <li class="page-item text-secondary">
-					      <a class="page-link text-secondary" href="#" aria-label="Next">
-					        <span aria-hidden="true">&raquo;</span>
-					      </a>
-					    </li>
-					  </ul>
-					</nav>
+					<div id="reviewList" style="height:400px; justify-content: space-between;align-items: center;" class="d-flex flex-column">
+						<!-- 데이터 들어오는 곳 -->
+					</div>
+					<hr width="100%">
 				</div>
 		</section>	
 
 	</main>
 
 	<footer id="footer"></footer>
+	
+	
+
+	<!-- JavaScript Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+		<!-- 에약 승인 및 거절 -->
+		<script>
+	
+		var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+			  keyboard: false
+			})
+		
+		function rejectSubmit(idx){
+			
+			console.log(idx);
+			$("frm").submit();
+			console.log("거절사유 전송 완료 ");
+			
+		}
+		
+		function approval(idx){
+			
+			if($("#approvalY"+idx).html() == '승인 완료'){
+				alert("이미 승인된 요청입니다.");
+				
+			}else{
+				
+				if(confirm("승인하시겠습니까? 승인 완료 후 예약을 취소 할 수 없습니다.",{
+					 cancelButton:'거절'
+				})){
+				$.ajax({
+					url: "<%=request.getContextPath()%>/ajax/approval.do", 
+					type: "GET",
+					data: "bidx="+idx,
+					success: function(){
+						alert("승인되었습니다.")
+						$("#approvalY"+idx).html("승인 완료");
+					}
+				});
+				
+				}else{
+				console.log("승인 거절");
+					if(confirm("예약을 거절하시겠습니까?")){
+						
+						myModal.show();
+						console.log("거절 모달");
+						
+						$("#savebtn").click(function(){
+							rejectSubmit(idx);
+						}) 
+						
+						
+							
+					}
+				}
+			}
+			
+		}
+		
+		function reject (){
+			myModal.hide();
+		}
+		
+	
+	
+	
+	
+	</script>
+
+
 </body>
 </html>

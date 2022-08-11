@@ -1,5 +1,6 @@
 package three.people.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,16 @@ public class BookServiceImpl implements BookService {
 			result = bookDAO.successBook(book);
 		}
 		return result;
+	}
+
+	@Override
+	public List<BookVO> selectBookByHost(HashMap<String, Integer> page2) {
+		return bookDAO.selectBookByHost(page2);
+	}
+
+	@Override
+	public int cntBook(int uidx) {
+		return bookDAO.cntBook(uidx);
 	}
 
 }

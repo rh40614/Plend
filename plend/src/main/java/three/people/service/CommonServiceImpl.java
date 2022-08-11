@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import three.people.dao.CommonDAO;
 import three.people.vo.SearchVO;
+import three.people.vo.UserVO;
 
 @Service
 public class CommonServiceImpl implements CommonService {
@@ -15,6 +16,11 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public int totalCountUser(SearchVO searchvo) {
 		return commonDAO.totalCountUser(searchvo);
+	}
+
+	@Override
+	public UserVO userInfoByUidx(int uidx) {
+		return commonDAO.userInfoByUidx(uidx);
 	}
 
 }

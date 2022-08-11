@@ -183,11 +183,11 @@
 	
 	function role1(){
 		$('#regumRole').removeAttr();
-		$("input[name=role]").val(1);
+		$("input[name=role]").val(2);
 	}
 	function role2(){
 		$('#birthRole').removeAttr();
-		$("input[name=role]").val(2);
+		$("input[name=role]").val(3);
 	}
 	
 	</script>

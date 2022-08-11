@@ -3,36 +3,26 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page session="true" %>
-<style>
-	#wrap {
-	  display: flex;
-	  min-height: 90px;
-	  flex-direction: column;
-   	  justify-content: flex-end;
 
-	 }
-</style>
-<div id="wrap">
-<header>
-
-
-  <nav id="aticleHeader" class="navbar navbar-light shadow-sm fixed-top">
+  <nav id ="aticleHeader" class="navbar navbar-light shadow-sm pt-4 fixed-top bg-white">
 
 
   <div class="container" style="align-items: center; flex-wrap: wrap; justify-content: center;">
-  	<div style=" display: flex; flex-direction: row; align-items: center; width: 100%;">
-    <a class="navbar-brand" style=" margin-right:auto; " href="/controller/"><img src="<%=request.getContextPath()%>/resources/image/plend.png" alt="logo not found"></a>
+  <div style=" display: flex; flex-direction: row; align-items: center; width: 100%;">
+   
+    <a class="navbar-brand" style=" margin-right:auto; " href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/image/plend.png" alt="logo not found"></a>
+   
     <div id="searchBar" style="border: 3px solid grey; border-radius: 10px; height: 47px; width: 750px;">
     	<form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="원하는 장소를 검색해보세요!" aria-label="Search" style="border: none;">
           <button class="btn " type="submit" style="border:none;" ><img alt="searchBtn" src="<%=request.getContextPath()%>/resources/image/searchBtn.png" ></button>
         </form>
     </div>
-    <button class="navbar-toggler" type="button" style="border: none; margin-left:auto;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+      <button class="navbar-toggler" type="button" style="border: none; margin-left:auto;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
     </div>
-    </div>
+    
     <!-- 오른쪽 캔버스  -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header" style="background: #364F6B; height: 250px; flex-direction: column">
@@ -68,7 +58,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<%=request.getContextPath()%>/main/faq.do">FAQ</a>
-          </li>>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="#">1:1 문의</a>
           </li>
@@ -94,6 +84,6 @@
         </ul>
       </div>
     </div>
+   </div>
 </nav>
-</header>
-  </div>
+   

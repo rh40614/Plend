@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -19,20 +20,28 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import three.people.service.BookService;
+import three.people.service.CommonService;
 import three.people.service.HostService;
 import three.people.service.MainService;
 import three.people.service.PlaceService;
+import three.people.service.ReviewService;
+import three.people.vo.BlockVO;
+import three.people.vo.BookVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
 import three.people.vo.NoticeVO;
+import three.people.vo.PagingVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
+import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
@@ -44,14 +53,16 @@ public class HostController {
 
 	@Autowired
 	HostService hostService;
-	
 	@Autowired
 	PlaceService placeService;
-	
 	@Autowired
 	MainService mainService;
-	
-	
+	@Autowired
+	BookService bookService;
+	@Autowired
+	CommonService commonService;
+	@Autowired
+	ReviewService reviewService;
 
 	
 	@RequestMapping(value = "/insertPlace.do", method = RequestMethod.GET )
@@ -101,20 +112,14 @@ public class HostController {
 			}
 		}
 		
-
 		//장소 등록
 		int result = hostService.insertPlace(placeVO);
-		
-	
 		//화면응답
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		
-		
 		if(result ==1) {
 			System.out.println("장소 등록 성공");
-			
-			
 			System.out.println("pidx: "+placeVO.getPidx());
 			
 			//사진이 저장될 경로
@@ -181,60 +186,23 @@ public class HostController {
 		}
 	
 	}
-
 	
-
-	
-	
+	//managePlace 화면만 로딩
 	@RequestMapping(value="/managePlace.do", method = RequestMethod.GET)
-	public String managePlace(PlaceVO placeVO, Model model, SearchVO searchVO, HttpSession session, HttpServletRequest request) {
-		System.out.println("장소관리 페이지 ");
-		
+	public String managePlace(HttpSession session, HttpServletRequest request) {
+	
 		//로그인 정보
 		session = request.getSession();
 		UserVO login = (UserVO) session.getAttribute("login");
-		
-		//페이징
-		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
-			searchVO.setNowPage(1);
-			searchVO.setCntPerPage(5);
-		}else if(searchVO.getCntPerPage() == 0) {
-			searchVO.setCntPerPage(5);
-		}else if(searchVO.getNowPage() == 0) {
-			searchVO.setNowPage(1);
+		//임시로 로그인 페이지 연결
+		if(login == null) {
+			return "redirect:/common/signIn.do";
 		}
-		
-		//해쉬맵에 넣어줄 파라미터들
-		int uidx = login.getUidx();
-		int start = searchVO.getStart();
-		int cntPerPage = searchVO.getCntPerPage(); 
-		
-		//cnt할때 uidx가져갈 수 있도록 넣기
-		placeVO.setUidx(uidx);
-		
-		//토탈 갯수
-		int total = placeService.cntPlace(placeVO);
-		searchVO.calPaging(total);
-		System.out.println("total: "+total);
-		
-		//파라미터 전달
-		HashMap<String, Integer> page = new HashMap<String, Integer>();
-	
-		page.put("uidx", uidx);
-		page.put("start", start);
-		page.put("cntPerPage", cntPerPage);
-		
-		//장소리스트
-		List<PlaceVO> list_p = placeService.selectPlaceAll(page);
-
-		//화면단으로 옮기기
-		model.addAttribute("list_p", list_p);
-		model.addAttribute("pagenation", searchVO);
-		
+				
 		return "host/managePlace";
 	}
 	
-	//managePlace내부 장소 리스트 ajax
+	//1.managePlace내부 장소 리스트 ajax
 	@RequestMapping(value="/placeList.do", method = RequestMethod.GET)
 	public String placeList(PlaceVO placeVO, Model model, SearchVO searchVO, HttpSession session, HttpServletRequest request) {
 		System.out.println("장소 리스트 페이징 ");
@@ -261,7 +229,7 @@ public class HostController {
 		//토탈 갯수
 		int total = placeService.cntPlace(placeVO);
 		searchVO.calPaging(total);
-		System.out.println("total: "+total);
+		//System.out.println("total: "+total);
 		
 		//파라미터 전달
 		HashMap<String, Integer> page = new HashMap<String, Integer>();
@@ -275,7 +243,6 @@ public class HostController {
 		
 		List<PlaceVO> list_p = placeService.selectPlaceAll(page);
 		
-		
 		//장소 소개 35자 이상 자르기
 		for(PlaceVO place: list_p) {
 			if(place.getPlaceDetail().length() > 35) {
@@ -284,18 +251,106 @@ public class HostController {
 			}
 		}
 	
-		System.out.println("list_p: "+list_p);
-		System.out.println("StartPage: "+searchVO.getStartPage());
-		System.out.println("EndPage: "+searchVO.getEndPage());
-		System.out.println("Start: "+searchVO.getStart());
-		System.out.println("End: "+searchVO.getEnd());
-	
 		//화면단으로 옮기기
 		model.addAttribute("list_p", list_p);
-		model.addAttribute("pagenation", searchVO);
+		model.addAttribute("pagination", searchVO);
 		
 		return "host/ajax/placeList";
 	}
+
+
+	//2.managePlace내부 예약 리스트 ajax
+	@RequestMapping(value="/bookList.do", method = RequestMethod.GET)
+	public String bookList(PlaceVO placeVO, Model model, SearchVO searchVO, HttpSession session, HttpServletRequest request) {
+
+		//로그인 정보
+		session = request.getSession();
+		UserVO login = (UserVO) session.getAttribute("login");
+		//해쉬맵에 넣어줄 로그인 정보 
+		int uidx = login.getUidx();
+		
+		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
+			searchVO.setNowPage(1);
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getCntPerPage() == 0) {
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getNowPage() == 0) {
+			searchVO.setNowPage(1);
+		}
+		int total = bookService.cntBook(uidx);
+		searchVO.calPaging(total);
+		
+		HashMap<String, Integer> page = new HashMap<String, Integer>();
+		int start = searchVO.getStart();
+		int cntPerPage = searchVO.getCntPerPage(); 
+		page.put("uidx", uidx);
+		page.put("start", start);
+		page.put("cntPerPage", cntPerPage);
+		
+		List<BookVO> list_b = bookService.selectBookByHost(page);
+		
+		for(BookVO b: list_b) {
+			//예약자 정보
+			int uidx2 =b.getUidx();
+			UserVO bookUser = commonService.userInfoByUidx(uidx2);
+			b.setNickName(bookUser.getNickName());
+		}
+		
+		model.addAttribute("list_b", list_b);
+		model.addAttribute("pagination2", searchVO);
+		
+		return "host/ajax/bookList";
+	}
+	
+	
+	//3.managePlace내부 리뷰 리스트 ajax
+	@RequestMapping(value="/reviewList.do", method = RequestMethod.GET)
+	public String reviewList( Model model, SearchVO searchVO, HttpSession session, HttpServletRequest request) {
+	
+		//로그인 정보
+		session = request.getSession();
+		UserVO login = (UserVO) session.getAttribute("login");
+		int uidx = login.getUidx();
+	
+		//1.페이징
+		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
+			searchVO.setNowPage(1);
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getCntPerPage() == 0) {
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getNowPage() == 0) {
+			searchVO.setNowPage(1);
+		}
+		int total = reviewService.cntReview(uidx);
+		searchVO.calPaging(total);
+		System.out.println("total: "+total );
+		
+		//2.리뷰 리스트
+		HashMap<String, Integer> page = new HashMap<String, Integer>();
+		int start = searchVO.getStart();
+		int cntPerPage = searchVO.getCntPerPage(); 
+		page.put("uidx", uidx);
+		page.put("start", start);
+		page.put("cntPerPage", cntPerPage);
+		
+		List<ReviewVO> list_r = reviewService.selectReviewByHost(page);
+		
+		for(ReviewVO r: list_r) {
+			int uidx2 =r.getUidx();
+			UserVO reviewUser = commonService.userInfoByUidx(uidx2);
+			r.setNickName(reviewUser.getNickName());
+		}
+		System.out.println("searchVO: "+searchVO);
+		
+		model.addAttribute("list_r", list_r);
+		model.addAttribute("pagination3", searchVO);
+		
+		return "host/ajax/reviewList";
+		
+	}
+	
+	
+	
 	
 	@RequestMapping(value="/inquiry_user.do", method= RequestMethod.GET)
 	public String userInquiry(HttpSession session, HttpServletRequest request, Model model, SearchVO searchVO) {
@@ -372,144 +427,57 @@ public class HostController {
 		
 		//화면 로딩시 파라미터가 start인것들만 가지고 옴
 		List<EventVO> list = hostService.eventList(eventVO);
-		System.out.println("list: "+ list);
-		
-		
-		for(EventVO event : list) {
-			//semiTitle 자르기
-			if(event.getSemiTitle().length() >19) {
-				String semi = event.getSemiTitle().substring(0,19);
-				event.setSemiTitle(semi);
+		System.out.println(" eventList list: "+ list);
+			for(EventVO event : list) {
+				//사진 (0번 메인 1번 배너)
+				eventVO.setEidx(event.getEidx());
+				List<ImageVO> imageList = hostService.eventImageList(eventVO);
+				event.setImage(imageList.get(0).getOriginFileName());
+				event.setBanner(imageList.get(1).getOriginFileName());
+				
+				if(event.getSemiTitle().length() >19) {
+					String semi = event.getSemiTitle().substring(0,19);
+					event.setSemiTitle(semi);
+				}
 			}
-			
-		}
-		
-		//이벤트 index가지고 와서 넘겨줘야함
-		
-		//사진 가지고 오기
-		List<ImageVO> imageList = hostService.eventImageList(eventVO);
-		System.out.println("image: "+ imageList);
-			
-			for(ImageVO image :imageList) {
-				
-				//사진이 저장된 경로 
-				//String path = image.getPath();
-				String real = image.getRealFileName();
-				String origin =image.getOriginFileName();
-				//String p = path+"\\"+ origin;
-				
-				//확장자 추출
-				String extention = origin.substring(origin.lastIndexOf("."));
-				
-				//뒤에 붙은 밀리초
-				String SSS = real.substring(real.length()-7, real.length());
-				
-				//밀리초 떼고 확장자 붙이기
-				String fileName = real.replace(SSS, extention);
-				//최종 경로
-				//외부에 있는 파일은 경로를 mapping 해주어야해서 이름만 넘겨주기 
-			
-				System.out.println("파일이름: "+fileName);
-			
-				
-			}
-		
 		
 		model.addAttribute("list",list);
-
+		
+		
 		return "host/eventList";
 	}
 	
 	
-	
-	@ResponseBody
-	@RequestMapping(value="/eventImage.do", method= RequestMethod.GET)
-	public ImageVO eventImage(EventVO eventVO) {
-	System.out.println("이미지 로딩");
-		//사진 가지고 오기
-		ImageVO image = hostService.eventImage(eventVO);
-		
-		//사진이 저장된 경로 
-		String path = image.getPath();
-		String real = image.getRealFileName();
-		String origin =image.getOriginFileName();
-		//String p = path+"\\"+ origin;
-		
-		//확장자 추출
-		String extention = origin.substring(origin.lastIndexOf(".")+1);
-		
-		//뒤에 붙은 밀리초
-		String SSS = real.substring(real.length()-3, real.length());
-		
-		//밀리초 떼기
-		String fileName = real.replace(SSS, extention);
-		//최종 경로
-		String p = path+"\\"+ fileName;
-		image.setPath(p);
-		
-		System.out.println("im: "+image.getPath());
-		
-		return image;
-	}
-	
-	
-	
-	
-	//이미지 리스트로 가지고 오기
-//	@ResponseBody
-//	@RequestMapping(value="/eventImageList.do", method= RequestMethod.GET)
-//	public List<ImageVO> eventImageList(EventVO eventVO) {
-//	
-//	
-//		List<ImageVO> imageList = hostService.eventImageList(eventVO);
-//		
-//	
-//			for(ImageVO image :imageList ) {
-//				
-//				//사진이 저장된 경로 
-//				String path = image.getPath();
-//				String real = image.getRealFileName();
-//				String origin =image.getOriginFileName();
-//				//확장자 추출
-//				String extention = origin.substring(origin.lastIndexOf(".")+1);
-//				
-//				//뒤에 붙은 밀리초
-//				String SSS = real.substring(real.length()-3, real.length());
-//				//밀리초 떼기
-//				String fileName = real.replace(SSS, extention);
-//				//최종 경로
-//				String p = path+"\\"+ fileName;
-//				image.setPath(p);
-//					
-//				System.out.println("image경로 : "+p);
-//				}
-//			
-//			return imageList;	
-//			
-//	}
-	
-	
-	//이벤트 리스트 (파라미터에 따라 출력)
+	//이벤트 리스트 
 	@RequestMapping(value="/startList.do", method= RequestMethod.GET)
 	public String startList(Model model, EventVO eventVO) {
 		
 		List<EventVO> list = hostService.eventList(eventVO);
-	
-	
-		
-		//semiTitle 자르기
+		System.out.println("startlist: "+list);
+		System.out.println("startlist: "+list.size());
+
 		for(EventVO event : list) {
-			if(event.getSemiTitle().length() >19) {
-				String semi = event.getSemiTitle().substring(0,19);
-				event.setSemiTitle(semi);
+			
+			if(event == null) {
+				break;
+			}else {
+				eventVO.setEidx(event.getEidx());
+				List<ImageVO> imageList = hostService.eventImageList(eventVO);
+				event.setImage(imageList.get(0).getOriginFileName());
+				//event.setBanner(imageList.get(1).getOriginFileName());
+				
+				if(event.getSemiTitle().length() >19) {
+					String semi = event.getSemiTitle().substring(0,19);
+					event.setSemiTitle(semi);
+				}
 			}
+			
 		}
-		//사진 가지고 오기
 		
 		
 		model.addAttribute("list",list);
 		
-		return "host/startList";
+		return "host/ajax/startList";
 	}
 	
 	
@@ -518,12 +486,40 @@ public class HostController {
 		System.out.println("이벤트 상세 보기 페이지");
 		
 		EventVO event = hostService.eventOne(eventVO);
-		
-		System.out.println("eidx: "+event.getEidx());
+		eventVO.setEidx(event.getEidx());
+		List<ImageVO> image = hostService.eventImageList(eventVO);
+		event.setImage(image.get(0).getOriginFileName());
+		event.setBanner(image.get(1).getOriginFileName());
 		
 		model.addAttribute("e",event);
 		return "host/eventView";
 	}
+	
+//	@ResponseBody
+//	@RequestMapping(value="/eventBanner.do", method= RequestMethod.GET)
+//	public void eventBanner(Model model ,EventVO eventVO) {
+//		
+//		List<EventVO> list = hostService.eventList(eventVO);
+//		
+//		for(EventVO event : list) {
+//			eventVO.setEidx(event.getEidx());
+//		}
+//		//사진 가지고 오기
+//		List<ImageVO> imageList = hostService.eventImageList(eventVO);
+//		
+//		for(EventVO event : list) {
+//			//semiTitle 자르기
+//			if(event.getSemiTitle().length() >19) {
+//				String semi = event.getSemiTitle().substring(0,19);
+//				event.setSemiTitle(semi);
+//			}
+//			//event.setImage(imageList);	
+//		}
+//		model.addAttribute("banner", list);
+//		
+//	}
+	
+	
 	
 	
 	@RequestMapping(value="/notice_dev.do", method= RequestMethod.GET)
@@ -566,7 +562,7 @@ public class HostController {
 	
 	@RequestMapping(value="noticeSearch.do", method= RequestMethod.GET)
 	public String notice_dev(@RequestBody String searchContent, Model model, SearchVO searchVO) {
-		System.out.println("검색jsp");
+
 		//페이징
 		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
 			searchVO.setNowPage(1);
@@ -713,38 +709,60 @@ public class HostController {
 		
 			if(result <= 0) {
 			pw.append("<script>alert('수정에 실패하였습니다.');location.href = 'noticeView.do?nidx="+vo.getNidx()+"'</script>");
-			
 			pw.flush();
 			
 			} else {
 			pw.append("<script>alert('수정에 성공하였습니다.');location.href = 'noticeView.do?nidx="+vo.getNidx()+"'</script>"); 
-			
 			pw.flush();
 			}
 		
 		}else {
 			if(result <= 0) {
 				pw.append("<script>alert('수정에 실패하였습니다.');location.href = 'noticeView.do?nidx="+vo.getNidx()+"'</script>");
-				
 				pw.flush();
 				
 			} else {
 				pw.append("<script>alert('수정에 성공하였습니다.');location.href = 'noticeView.do?nidx="+vo.getNidx()+"'</script>"); 
-				
 				pw.flush();
 				}
 		}
 	
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/blockUser.do", method=RequestMethod.POST)
+	public int blockUser(BlockVO blockVO, HttpServletRequest request, HttpSession session) {
+	
+		session = request.getSession();
+		UserVO login = (UserVO)session.getAttribute("login");
+		blockVO.setReporter_uidx(login.getUidx());
+		int result = hostService.insertBlockUser(blockVO);
+		
+		return result;
+	}
 	
 	
 	
+	@RequestMapping(value="/reportReject.do")
+	public void reportReject(BookVO bookVO) {
+		hostService.insertReject(bookVO);
+		
+	}
+
+
 	
 	
 	@RequestMapping(value="/placeView.do", method= RequestMethod.GET)
 	public String placeView() {
 		return "host/placeView";
+	}
+	
+	//08.11 김영민: 장소등록 수정
+	@RequestMapping(value="/placeModfy.do", method=RequestMethod.GET)
+	public String placeModfy(PlaceVO placeVO, Model model) {
+		
+		model.addAttribute("place", placeService.placeOne(placeVO));
+		return "host/placeModify";
 	}
 	
 	@RequestMapping(value = "/host.do", method = RequestMethod.GET)

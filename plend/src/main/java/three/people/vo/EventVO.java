@@ -1,5 +1,7 @@
 package three.people.vo;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class EventVO {
@@ -11,19 +13,20 @@ public class EventVO {
 	private String conditions;
 	private String edate;
 	private String startEnd;
-	private MultipartFile eventImg;
+	private MultipartFile[] eventImg;
 	private String category;
-	//2022.07.21 김연희 여러가지 시도중
-	private String eventImgString;
+	private String image;
+	private String banner;
 	
 
 	
-	public MultipartFile getEventImg() {
+	public MultipartFile[] getEventImg() {
 		return eventImg;
 	}
-	public void setEventImg(MultipartFile eventImg) {
+	public void setEventImg(MultipartFile[] eventImg) {
 		this.eventImg = eventImg;
 	}
+	
 	public String getCategory() {
 		return category;
 	}
@@ -72,11 +75,17 @@ public class EventVO {
 	public void setStartEnd(String startEnd) {
 		this.startEnd = startEnd;
 	}
-	public String getEventImgString() {
-		return eventImgString;
+	public String getImage() {
+		return image;
 	}
-	public void setEventImgString(String eventImgString) {
-		this.eventImgString = eventImgString;
+	public void setImage(String image) {
+		this.image = image;
+	}
+	public String getBanner() {
+		return banner;
+	}
+	public void setBanner(String banner) {
+		this.banner = banner;
 	}
 
 	

@@ -1,5 +1,7 @@
 package three.people.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -41,5 +43,10 @@ public class CommonDAO {
 	
 	public UserVO selectID(UserVO vo) {
 		return sqlSession.selectOne("three.people.mapper.commonMapper.selectID", vo);
+	}
+	
+	public UserVO userInfoByUidx(int uidx){
+		return  sqlSession.selectOne("three.people.mapper.commonMapper.userInfoByUidx", uidx);
+		
 	}
 }

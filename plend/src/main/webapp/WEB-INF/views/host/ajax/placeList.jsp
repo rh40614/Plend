@@ -1,69 +1,82 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
 
 
-<table class="table table-hover text-center clearfix" >
-						<thead class="table-dark">
-							<tr style="text-al">
-								<td>¹øÈ£</td><td>ÇÃ·¹ÀÌ½º¸í</td><td>ÅÂ±×</td><td>¼Ò°³</td><td>½ÂÀÎ¿©ºÎ</td><td>¼öÁ¤</td>
-							</tr>
-						<thead>
-						<tbody>
-							<c:if test="${list_p.size() == 0}">	
-								<tr>
-									<td colspan="6">µî·ÏµÈ Àå¼Ò°¡ ¾ø½À´Ï´Ù.</td>
-								</tr>
-							</c:if>
-							<!--  -->
-							<c:if test="${list_p.size() > 0}">
-								<c:forEach var="pv" items="${list_p}">
-									<tr >
-										<td>${pv.pidx}</td>
-										<td>${pv.placeName}</td>
-										<td>${pv.tag}</td>
-										<td style="text-align: left;">${pv.placeDetail}</td>
-										<td>${pv.approvalYN}</td>
-										<td><button class="btnDefault" type="button" onclick="location.href='/host/placeView.do'">¼öÁ¤</button></td>
-									</tr>
-								</c:forEach>
-							</c:if>
-						</tbody>
-					</table>
-			
-			<!-- ÆäÀÌÂ¡ -->
-			<c:if test="${not empty list_p}">
-				<nav aria-label="Page navigation example" class="m-auto">
-				  <ul class="pagination justify-content-center " >
-				  	
-					<c:if test="${pagenation.startPage > 5}">
-						<li class="page-item">
-				      		<a class="page-link" onclick="nowPage(4)">&laquo;</a>
-				    	</li>
-				    </c:if>
-				    
-					<c:forEach begin="${pagenation.startPage}" end="${pagenation.endPage}" var="p">
-						<c:choose>
-							<c:when test="${p == pagenation.nowPage }">
-								 <li class="page-item text-secondary">
-								 <a class="page-link text-secondary" onclick="nowPage(${p})">${p}</a></li>
-							</c:when>
-							<c:when test="${p != pagenation.nowPage }">
-								<li class="page-item text-secondary">
-								 <a class="page-link text-secondary" onclick="nowPage(${p})">${p}</a></li>
-							</c:when>
-						</c:choose>
-					</c:forEach>
-				
-			    	<c:if test="${pagenation.endPage != pagenation.lastPage}">
-					    <li class="page-item">
-					      <a class="page-link" onclick="nowPage(${pagenation.endPage +1})">&raquo;</a>
-					    </li>
-			    	</c:if>
-				  </ul>
-				</nav>
-			</c:if> 
-			
+	<table class="table table-hover text-center clearfix" >
+		<thead class="table-dark">
+			<tr style="text-al">
+				<td class="col-md-1">ë²ˆí˜¸</td>
+				<td class="col-md-2">í”Œë ˆì´ìŠ¤ëª…</td>
+				<td class="col-md-3">íƒœê·¸</td>
+				<td class="col-md-4">ì†Œê°œ</td>
+				<td class="col-md-1">ìŠ¹ì¸ì—¬ë¶€</td>
+				<td class="col-md-1">ìˆ˜ì •</td>
+			</tr>
+		<thead>
+		<tbody>
+			<c:if test="${list_p.size() == 0}">	
+				<tr>
+					<td colspan="6">ë“±ë¡ëœ ì¥ì†Œê°€ ì—†ìŠµë‹ˆë‹¤.</td>
+				</tr>
+			</c:if>
+			<!--  -->
+			<c:if test="${list_p.size() > 0}">
+				<c:forEach var="pv" items="${list_p}" >
+					<tr >
+						<td>${pv.rnum}</td>
+						<td>${pv.placeName}</td>
+						<td id="tag${pv.pidx}"></td>
+						<script>
+							var tags = JSON.parse('${pv.tag}');
+							var tag = "";
+							tags.forEach(element => 
+								tag += "#"+ element.value + "&nbsp;" 
+							);
+							$("#tag${pv.pidx}").html(tag);
+						</script>
+						<td style="text-align: left;">${pv.placeDetail}</td>
+						<td>${pv.approvalYN}</td>
+						<td><button class="btnDefault" type="button" onclick="location.href='placeModfy.do?pidx=${pv.pidx}'">ìˆ˜ì •</button></td>
+					</tr>
+				</c:forEach>
+			</c:if>
+		</tbody>
+	</table>
+
+<!-- í˜ì´ì§• -->
+<c:if test="${not empty list_p}">
+<nav aria-label="Page navigation example" style="margin-bottom: 0px!important;">
+  <ul class="pagination justify-content-center " >
+  	
+	<c:if test="${pagination.startPage > 5}">
+		<li class="page-item">
+      		<a class="page-link" onclick="nowPage(4)">&laquo;</a>
+    	</li>
+    </c:if>
+    
+	<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="p">
+		<c:choose>
+			<c:when test="${p == pagination.nowPage }">
+				 <li class="page-item text-secondary">
+				 <a class="page-link text-secondary" onclick="nowPage(${p})">${p}</a></li>
+			</c:when>
+			<c:when test="${p != pagination.nowPage }">
+				<li class="page-item text-secondary">
+				 <a class="page-link text-secondary" onclick="nowPage(${p})">${p}</a></li>
+			</c:when>
+		</c:choose>
+	</c:forEach>
+
+   	<c:if test="${pagination.endPage != pagination.lastPage}">
+	    <li class="page-item">
+	      <a class="page-link" onclick="nowPage(${pagination.endPage +1})">&raquo;</a>
+	    </li>
+   	</c:if>
+  </ul>
+</nav>
+</c:if> 
+
 			
 			
 			
@@ -74,11 +87,11 @@
 			type: "GET",
 			data: "nowPage="+p,
 			success: function(data){
-				//console.log("¿¡ÀÌÀÛ½º ÆäÀÌÂ¡");
+				//console.log("ì—ì´ì‘ìŠ¤ í˜ì´ì§•");
 				$("#placeList").html(data);
 			},
 			error: function(){
-				console.log("ÆäÀÌÂ¡ ½ÇÆĞ");
+				console.log("í˜ì´ì§• ì‹¤íŒ¨");
 			}
 			
 		});

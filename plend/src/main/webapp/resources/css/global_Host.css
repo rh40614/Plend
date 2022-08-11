@@ -208,6 +208,16 @@
 	}
 	
 	
+	.btnDefaultDisabled{
+		background: #A3AEBB;
+		color: white;
+		border-radius: 10px;
+		border:none;
+		width: 60px;
+		height: 30px;
+	}
+	
+	
 	.btnBig{
 		background:#364F6B;
 		color: white;
@@ -346,7 +356,23 @@
 	
 	
 	
-	
+	a{
+	text-decoration: none;
+	}
+	a:link{
+	text-decoration: none;
+	color: black;
+	}
+	a:visited{
+	text-decoration: none;
+	color: black;
+	}
+	a:hover{
+	color: #6e6e6e;
+	}
+	a:active{
+	color: #6e6e6e;
+	}
 	
 	
 	
