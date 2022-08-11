@@ -298,7 +298,7 @@
 							</label>
 							<br>
 							<label class="mt-3">
-								<input type="checkbox" name="availTime" id="avaliableTime" value="24hours" class="mr-3">24시간 이용가능한 공간입니다.<br>
+								<input type="checkbox" name="availTime" id="avaliableTime" value="24hours" class="mr-3">  24시간 이용가능한 공간입니다.<br>
 							</label>
 							<br>
 							<label class="mt-3">
