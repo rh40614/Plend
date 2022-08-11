@@ -156,7 +156,6 @@
 	   LIMIT #{start},#{cntPerPage}
 	</select>
 
-
 	<select id="cntReview" parameterType="int" resultType="int">
 			SELECT 
 				COUNT(rvidx)
@@ -168,6 +167,29 @@
 			AND p.delYN ='N'
 	</select>
 	
+	<!-- 08.10 김영민: 해당하는 장소의 리뷰 가져오기 -->
+	<select id="selectPlaceReview" parameterType="HashMap" resultType="ReviewVO">
+		SELECT rvidx,
+			   pidx,
+			   title,
+			   content,
+			   rate,
+			   date,
+			   img,
+			   delyn,
+			   uidx 
+		  FROM review 
+		 WHERE pidx = #{reviewVO.pidx}
+		   AND delyn = 'N'
+	  ORDER BY rvidx DESC
+		 LIMIT #{searchVO.start}, #{searchVO.cntPerPage}
+	</select>
+	<select id="countPlaceReview" parameterType="ReviewVO" resultType="int">
+		SELECT COUNT(*)
+		  FROM review
+		 WHERE pidx = #{pidx}
+		   AND delyn = 'N'
+	</select>
 	<select id="avgRevew" parameterType="PlaceVO" resultType="int">
 		SELECT 
 				IFNULL(AVG(rate), 0) as rate 

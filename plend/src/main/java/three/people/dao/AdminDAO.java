@@ -108,14 +108,16 @@ public class AdminDAO {
 	public int reportBlind(ReportVO reportVO) {
 		return sqlSession.update("three.people.mapper.adminMapper.reportBlind", reportVO);
 	}
-	// 08.10 김영민: 블랙리스트 불러오기, 갯수
+	// 08.10 김영민: 블랙리스트 불러오기, 갯수, 삭제
 	public List<BlockVO> blockUser(HashMap<String,Object> hashMap){
 		return sqlSession.selectList("three.people.mapper.adminMapper.blockUser", hashMap);
 	}
 	public int countBlockUser(BlockVO blockVO) {
 		return sqlSession.selectOne("three.people.mapper.adminMapper.countBlockUser", blockVO);
 	}
-	
+	public int blockDelete(BlockVO blockVO) {
+		return sqlSession.update("three.people.mapper.adminMapper.blockDelete", blockVO);
+	}
 	
 	
 	

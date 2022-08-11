@@ -89,6 +89,15 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
+	public List<ReviewVO> selectPlaceReview(HashMap<String, Object> hashMap) {
+		return reviewDAO.selectPlaceReview(hashMap);
+	}
+
+	@Override
+	public int countPlaceReview(ReviewVO reviewVO) {
+		return reviewDAO.countPlaceReview(reviewVO);
+	}
+
 	public int avgRevew(PlaceVO placeVO) {
 		return reviewDAO.avgRevew(placeVO);
 	}
@@ -235,5 +244,5 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	
 	
-	
+
 }

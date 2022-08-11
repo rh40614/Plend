@@ -1,5 +1,6 @@
 package three.people.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,12 +17,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import three.people.service.BookService;
 import three.people.service.PlaceService;
+import three.people.service.ReviewService;
 import three.people.vo.BookVO;
 import three.people.vo.BootPayVO;
 import three.people.vo.ImageVO;
 import three.people.vo.HeartVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
+import three.people.vo.ReviewVO;
+import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
 @RequestMapping(value="/place")
@@ -34,9 +38,12 @@ public final class PlaceController {
 	@Autowired
 	BookService bookService;
 	
+	@Autowired
+	ReviewService reviewService;
+	
 	// 한 장소의 상세보기 페이지
 	@RequestMapping(value="/view.do", method=RequestMethod.GET)
-	public String view(PlaceVO placevo, Model model, HttpServletRequest request,HttpSession session) {
+	public String view(PlaceVO placevo, ReviewVO reviewVO, SearchVO searchVO, Model model, HttpServletRequest request,HttpSession session) {
 		
 		session = request.getSession();
 		if(session.getAttribute("login") != null) {
@@ -48,12 +55,24 @@ public final class PlaceController {
 			model.addAttribute("heartList", placeService.selectHeart(heartvo));
 		}
 		
+		if(searchVO.getNowPage() == 0) {
+			searchVO.setNowPage(1);
+		}
+		searchVO.setCntPerPage(5);
+		searchVO.calPaging(reviewService.countPlaceReview(reviewVO));
 		
+		HashMap<String,Object> hashMap = new HashMap<String,Object>();
+		hashMap.put("searchVO", searchVO);
+		hashMap.put("reviewVO", reviewVO);
+		
+		model.addAttribute("pagination", searchVO);
+		model.addAttribute("reviewList", reviewService.selectPlaceReview(hashMap));
 		model.addAttribute("imageList", placeService.selectImage(placevo));
 		model.addAttribute("placeOne", placeService.placeOne(placevo));
 		model.addAttribute("QnaList", placeService.selectQnA(placevo));
 		return "place/placeDetail";
 	}
+	
 	
 	// qna 질문하기 버튼
 	@RequestMapping(value="/question.do", method=RequestMethod.POST)
@@ -98,8 +117,8 @@ public final class PlaceController {
 	}
 	
 	//찜목록 등록, 삭제
-	@RequestMapping(value="/heart.do", method=RequestMethod.GET, produces="application/json;utf-8")
 	@ResponseBody
+	@RequestMapping(value="/heart.do", method=RequestMethod.GET, produces="application/json; utf-8")
 	public int like(HeartVO hvo, HttpServletRequest request, HttpSession session) {
 		
 		session = request.getSession();

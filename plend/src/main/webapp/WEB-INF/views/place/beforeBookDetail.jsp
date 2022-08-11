@@ -33,6 +33,12 @@
 	
 	<script>
 	function payment(obj1){
+		
+		if(!$("#authPayment").prop("checked")){
+			alert("예약 정보 확인을 체크해주세요.");
+			return;
+		}
+		
 		//주문번호 pk에 사용할 수
 		var today = new Date();   
 		var hours = ('0' + today.getHours()).slice(-2); 
@@ -201,8 +207,8 @@
 			<div id="bookDonebtn">
 				<div class="d-flex justify-content-between">
 					<div class="form-check d-inline-flex">
-					  <input class="form-check-input me-1" type="checkbox" value="" id="flexCheckDefault">
-					  <label class="form-check-label" for="flexCheckDefault">
+					  <input class="form-check-input me-1" type="checkbox" value="" id="authPayment">
+					  <label class="form-check-label" for="authPayment">
 					    	상기 예약 정보를 확인하였습니다.
 					  </label>
 					</div> 

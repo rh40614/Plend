@@ -143,6 +143,11 @@ public class AdminServiceImpl implements AdminService {
 	public int countBlockUser(BlockVO blockVO) {
 		return adminDAO.countBlockUser(blockVO);
 	}
+
+	@Override
+	public int blockDelete(BlockVO blockVO) {
+		return adminDAO.blockDelete(blockVO);
+	}
 	
 
 }
