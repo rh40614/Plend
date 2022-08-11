@@ -98,7 +98,7 @@ public final class PlaceController {
 	}
 	
 	//찜목록 등록, 삭제
-	@RequestMapping(value="/heart.do", method=RequestMethod.GET)
+	@RequestMapping(value="/heart.do", method=RequestMethod.GET, produces="application/json;utf-8")
 	@ResponseBody
 	public int like(HeartVO hvo, HttpServletRequest request, HttpSession session) {
 		
@@ -202,11 +202,10 @@ public final class PlaceController {
 		UserVO login = (UserVO)session.getAttribute("login");
 		bookVO.setUidx(login.getUidx());
 		
-		
-		System.out.println("pidx"+bookVO.getPidx());
-		System.out.println("UseTime: "+bookVO.getUseTime());
-		System.out.println("cntpeople : "+ bookVO.getCntPeople());
-		System.out.println("option1: "+ bookVO.getOption1());
+//		System.out.println("pidx"+bookVO.getPidx());
+//		System.out.println("UseTime: "+bookVO.getUseTime());
+//		System.out.println("cntpeople : "+ bookVO.getCntPeople());
+//		System.out.println("option1: "+ bookVO.getOption1());
 		
 		int result = bookService.insertBook(bookVO);
 		return result;

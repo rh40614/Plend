@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -743,10 +744,12 @@ public class HostController {
 	
 	
 	
-	@RequestMapping(value="/reportReject.do")
-	public void reportReject(BookVO bookVO) {
-		hostService.insertReject(bookVO);
-		
+	@RequestMapping(value="/reportReject.do", method=RequestMethod.GET)
+	public String reportReject(BookVO bookVO) {
+		System.out.println("진입");
+		/* hostService.insertReject(bookVO); */
+		hostService.reject(bookVO);
+		return "redirect:/host/managePlace.do";
 	}
 
 

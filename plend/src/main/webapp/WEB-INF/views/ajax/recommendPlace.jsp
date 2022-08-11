@@ -31,7 +31,7 @@
 			<p class="card-text">${c.address}</p>
 			<span class="card-text title3">${c.price}</span><span>원/시간</span>
 			<i class="fa-regular fa-star" style="float:right">${c.avgRate}</i>
-			<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
+			<i class="fa-regular fa-heart" onclick="like(this,${c.pidx})"  style="color: red;"></i>
 			</div>
 	</div>
 	

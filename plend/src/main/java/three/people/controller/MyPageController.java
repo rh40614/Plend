@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import three.people.service.BookService;
 import three.people.service.MyPageService;
 import three.people.service.ReviewService;
 import three.people.vo.BookVO;
@@ -45,6 +46,8 @@ public class MyPageController {
 	MyPageService mypageService;
 	@Autowired
 	ReviewService reviewService;
+	@Autowired
+	BookService bookService;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
@@ -283,7 +286,15 @@ public class MyPageController {
 	}
 	
 	
-	
+	//2022.08.11 김연희 : 예약취소 
+	//아직 화면에 안붙임
+	@RequestMapping(value="/bookCancel")
+	public String bookCancel(BookVO bookVO) {
+		
+		bookService.bookCancel(bookVO);
+		
+		return "redirect:/myPage/bookStatus.do";
+	}
 	
 	
 	

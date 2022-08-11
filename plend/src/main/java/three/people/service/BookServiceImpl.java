@@ -40,4 +40,9 @@ public class BookServiceImpl implements BookService {
 		return bookDAO.cntBook(uidx);
 	}
 
+	@Override
+	public int bookCancel(BookVO bookVO) {
+		return bookDAO.bookCancel(bookVO);
+	}
+
 }

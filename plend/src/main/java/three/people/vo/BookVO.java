@@ -13,6 +13,7 @@ public class BookVO extends PlaceVO{
 	private String successBook;
 	//2022.08.08 김연희 : 페이징후 게시물 넘버
 	private int rnum;
+	private String rejectContent;
 	
 
 	public int getRnum() {
@@ -74,6 +75,12 @@ public class BookVO extends PlaceVO{
 	}
 	public void setDelYN(String delYN) {
 		this.delYN = delYN;
+	}
+	public String getRejectContent() {
+		return rejectContent;
+	}
+	public void setRejectContent(String rejectContent) {
+		this.rejectContent = rejectContent;
 	}
 	
 	
