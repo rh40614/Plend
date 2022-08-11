@@ -305,13 +305,22 @@
 								<c:forEach var="review" items="${reviewList}">
 									<tr>
 										<td>
-											${review.title}
+											<a href="<%=request.getContextPath()%>/review/detail.do?rvidx=${review.rvidx}">${review.title}</a>
 											<p>
-												<c:forEach var="i" begin="0" end="${review.rate-1}">
-													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16" style="color: #2F506D ;">
-													  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-													</svg>
-												</c:forEach>
+												<c:choose>
+													<c:when test="${review.rate == '0' || review.rate == '1'}">
+														<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16" style="color: #2F506D ;">
+														  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+														</svg>
+													</c:when>
+													<c:otherwise>
+														<c:forEach var="i" begin="0" end="${review.rate-1}">
+															<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16" style="color: #2F506D ;">
+															  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+															</svg>
+														</c:forEach>
+													</c:otherwise>			
+												</c:choose>
 											</p>
 										</td>
 									</tr>
@@ -333,12 +342,12 @@
 							      <a class="page-link text-black" onclick="review(${placeOne.pidx},4)" role="button">&laquo;</a>
 							    </li>
 						  	</c:if>
-						  	<c:forEach begin="${pagination.startPage }" end="${pagination.endPage }" var="p">
+						  	<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="p">
 								<c:choose>
-									<c:when test="${p == pagination.nowPage }">
+									<c:when test="${p == pagination.nowPage}">
 										<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" onclick="review(${placeOne.pidx},${p})" role="button">${p}</a></li>
 									</c:when>
-									<c:when test="${p != pagination.nowPage }">
+									<c:when test="${p != pagination.nowPage}">
 										<li class="page-item"><a class="page-link text-black" onclick="review(${placeOne.pidx},${p})" role="button">${p}</a></li>
 									</c:when>
 								</c:choose>
