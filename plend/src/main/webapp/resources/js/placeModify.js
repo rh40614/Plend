@@ -312,7 +312,7 @@
 
 				confirm("등록하시겠습니까?");
 
-				$("#frm").action ="host/insertPlace.do";
+				$("#frm").action ="host/placeModfy.do";
 				$("#frm").method ="post";
 				$("#frm").submit();
 

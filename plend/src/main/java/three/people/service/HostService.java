@@ -19,7 +19,10 @@ public interface HostService {
 	//장소
 	public int insertPlace(PlaceVO placeVO);
 	public int insertPlaceImg(ImageVO imageVO);
+	public int placeModify(PlaceVO placeVO);
 	
+	//사진삭제
+	public int deletePlaceImg(PlaceVO placeVO);
 	//이벤트
 	public List<EventVO> eventList(EventVO eventVO);
 	public EventVO eventOne(EventVO eventVO);

@@ -82,7 +82,7 @@
 						<form name="frm" id="frm" method="POST" enctype="multipart/form-data">
 							<!-- 카테고리 히든으로 받기  -->
 							<input type="hidden" name="category" id="cate" value="${place.category}">
-							
+							<input type="hidden" name="pidx" value="${place.pidx}" readonly>
 							<h5 class="title2" >1. 공간</h5>
 							
 							<br>
@@ -273,19 +273,19 @@
 								<textarea  class="ta" cols="100" rows="5" name="option2" placeholder="위 항목 이외에 추가 하실 항목이 있으시다면 작성해주세요 . 관리자의 검토 후 추가하겠습니다." >${place.option2}</textarea>
 							</label>
 							<br>
+							<c:set var="address" value="${place.address.split('&nbsp')}"/>
 							<label class="mt-3">
 								<span class="title3">주소 </span><br>
 								<input type="text" id="postcode" placeholder="우편번호">
 								<input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
-								<input type="text"  id="address" size="50" placeholder="주소" class="mt-2"><br>
-								<input type="text"  id="detailAddress"  size="50"placeholder="상세주소" class="mt-2">
+								<input type="text"  id="address" size="50" class="mt-2" value="${address[0]}"><br>
+								<input type="text"  id="detailAddress"  size="50" placeholder="상세주소" value="${address[1]}" class="mt-2">
 								<input type="text"  id="extraAddress"  size="50"placeholder="참고항목" class="mt-2">
 								
 								<input type="hidden" name="address" id="addr" >
 							</label>
 					
 						<div class="horison"></div>
-					
 							<h5 class="title2">2. 이용가능 시각 및 금액</h5>
 							<br>
 							<label class="mt-3">
@@ -324,24 +324,30 @@
 				</div>
 			</div>
 		</section>
-		<div>
-		
-		</div>
-		
-		
 	</main>
 	<div style="margin:300px;"></div>
 	<footer id="footer"></footer>
-	<script src="<%=request.getContextPath()%>/resources/js/insertPlace.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/js/placeModify.js"></script>
 <!-- 로딩 이후 인풋에 데이터 뿌려주기 -->
-<c:set var="option" value="${place.option1.split(',')}"/>
 <!-- guide -->
 <c:set var="guide" value="${place.guide.split('/')}"/>
 <script type="text/javascript">
 	<c:forEach var="g" items="${guide}" varStatus="status">
-		$("#guide"+${status.count}).val(${g});
+		$("#guide"+${status.count}).val('${g}');
 	</c:forEach>
 </script>
+<!-- option -->
+<c:set var="option" value="${place.option1.split(',')}"/>
+<script type="text/javascript">
+	var input = $("div#option_${place.category} > label > input");
+	var length = $("div#option_${place.category} > label > input").length;
+	<c:forEach var="opt" items="${option}" varStatus="status">
+		if(input.eq(${status.index}).val() == '${opt}'){
+			input.eq(${status.index}).prop("checked", true);
+		}
+	</c:forEach>
+</script>
+<!-- category, tag, availTimeValue" -->
 <script type="text/javascript">
 	$(function(){
 		/* category */
@@ -352,10 +358,6 @@
 		var tag = "";
 		${place.tag}.forEach(element => tag += element['value']+',');
 		$(".some_class_name").val(tag);
-		
-		/* option1 */
-
-		/* availTimeValue */
 	});
 </script>
 </body>
