@@ -24,7 +24,7 @@
 	<script src="https://kit.fontawesome.com/f5807db9d4.js" crossorigin="anonymous"></script>
 	
 	
-<!-- 프론트 디자인 -->
+	<!-- 프론트 디자인 -->
 	<script type="text/javascript">
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/hostHeaderWithNav.jsp");
@@ -32,48 +32,7 @@
 			
 		})
 	</script>
-	
-<!--슬라이드 배너 -->
-	<script>
-		let interval;
-		let activeIndex = 1;
-	
-		$(document).ready(function(){
-		  interval = setInterval(changeActiveIndex,2500);
-			$('.list-button-item').on('click',function(){
-		  	// list button의 색상 변경
-		    const index = $(this).index();
-		    activeIndex = index;
-		    changeActiveIndex();
-		    clearInterval(interval);
-		    // animation 재설정을 위해 animation을 잠시 제거한다.
-		    $('.banner').css('animation','none');
-		   	// animation 재설정
-		    $('.banner').animate({marginLeft:`${-100*index}%`},1,function(){
-		    	//1초의 시간 여유(해당 이미지로 이동하는 animation을 위한 시간)를 두고 다시 animation을 설정한다.
-		    	setTimeout(function(){
-		    		$('.banner').css('animation',`animation${index+1} 10s infinite`)
-		  
-		  		interval = setInterval(changeActiveIndex,2500);
-		      }, 1000)
-		    })
-		  })
-		})
-		function changeActiveIndex(){
-			if(activeIndex>3) {
-		  	activeIndex%=4;
-		  }
-		  changeActiveBtn();
-			activeIndex+=1;
-		}
-		function changeActiveBtn(){
-		  $('.list-button-item').removeClass('active');
-		  $(`.list-button span:eq(${activeIndex})`).addClass('active');
-		}
-	
-	</script>
-	
-<!--이벤트 버튼 -->
+	<!--이벤트 버튼 -->
 	<script>
 			
 		function btn(obj){
@@ -98,72 +57,52 @@
 				data: "startEnd=start",
 				success: function(){
 					console.log("성공");
-					
 				},
 				error: function(){
 					console.log("실패");
 				}
-				
 			});
 		})
-			
-		
-		
-		</script>
+	</script>
 
 </head>
 <body>
 
 	<header id="header"></header>
 	
-	<!-- 2022.07.18 김연희: main에 margin top150dl 기본으로 되어있으나 배너 부분은  딱맞게 시작하게 설정 -->
-	<main style="margin-top: 85px;" >
-	
-		<!-- 슬라이드 배너  -->
-		<div class="banner-container">
-		  <div class="banner">
-		  	<%-- <c:forEach var="e" items="${e}" >
-		  	<div data-index=1><img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${e.banner}" alt="슬라이드 1" onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}"></div>
-		    </c:forEach> --%>
-		  </div>
-		</div>
-		<div class="list-button">
-		  <span class="list-button-item active"></span> 
-		  <span class="list-button-item"></span> 
-		  <span class="list-button-item"></span> 
-		  <span class="list-button-item"></span> 
-		</div>  
-	
-	
-	
+	<!-- 2022.07.18 김연희: main에 margin top150 기본으로 되어있으나 배너 부분은  딱맞게 시작하게 설정 -->
+	<main style="margin-top: 53px;" >
 		<!--제목  -->
 		<section>
-			<span class="title1 mb-5" style="margin-top:100px; margin-left: 30px;">이벤트 리스트</span>
+			<span class="title1 mb-5" style="margin-top:100px; margin-left: 30px;">이벤트</span>
 		
-			<div class="promotionViewDIV">
+			<div class="">
 			
-				<table class="promotionTable" id="promotionTable">
-					<tr>
-						<td colspan="3" class="title2">${e.title}</td>
-					</tr>
-					
-					<tr>
-						<td rowspan="4" ><img style="width: 100%; height: 80%;"  src="<%=request.getContextPath()%>/eventImg.do?originFileName=${e.image}" alt="이벤트 이미지"></td>
-						<td class="promotionTD">부제목: </td>
-						<td class="promotionTD2">${e.semiTitle}</td>
-					</tr>
-					<tr>
-						<td class="promotionTD">기간: </td>
-						<td class="promotionTD2">${e.edate}</td>
-					</tr>
-					<tr>
-						<td class="promotionTD">내용: </td>
-						<td class="promotionTD2">${e.content }</td>
-					</tr>
-					<tr>
-						<td class="promotionTD">약관(조건):</td>
-						<td class="promotionTD2">${e.conditions}</td>
-					</tr>
+				<table class="table" id="promotionTable">
+					<thead>
+						<tr>
+							<td colpan="3"class="title2 col-md-12">${e.title}</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td rowspan="4" class="col-md-5" style="text-align: center;"><img style="width: 25rem; height: 22rem;"  src="<%=request.getContextPath()%>/eventImg.do?originFileName=${e.image}" alt="이벤트 이미지"></td>
+							<td class="col-md-2">부제목: </td>
+							<td class="col-md-5">${e.semiTitle}</td>
+						</tr>
+						<tr>
+							<td class="col-md-2">기간: </td>
+							<td class="col-md-5">${e.edate}</td>
+						</tr>
+						<tr>
+							<td class="col-md-2">내용: </td>
+							<td class="col-md-5">${e.content }</td>
+						</tr>
+						<tr>
+							<td class="col-md-2">약관(조건):</td>
+							<td class="col-md-5">${e.conditions}</td>
+						</tr>
+					</tbody>
 				</table>
 			<br>
 			</div>

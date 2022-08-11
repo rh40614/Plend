@@ -482,8 +482,6 @@ public class HostController {
 	
 	@RequestMapping(value="/eventView.do", method= RequestMethod.GET)
 	public String eventView(Model model, EventVO eventVO) {
-		System.out.println("이벤트 상세 보기 페이지");
-		
 		EventVO event = hostService.eventOne(eventVO);
 		eventVO.setEidx(event.getEidx());
 		List<ImageVO> image = hostService.eventImageList(eventVO);
@@ -493,33 +491,6 @@ public class HostController {
 		model.addAttribute("e",event);
 		return "host/eventView";
 	}
-	
-//	@ResponseBody
-//	@RequestMapping(value="/eventBanner.do", method= RequestMethod.GET)
-//	public void eventBanner(Model model ,EventVO eventVO) {
-//		
-//		List<EventVO> list = hostService.eventList(eventVO);
-//		
-//		for(EventVO event : list) {
-//			eventVO.setEidx(event.getEidx());
-//		}
-//		//사진 가지고 오기
-//		List<ImageVO> imageList = hostService.eventImageList(eventVO);
-//		
-//		for(EventVO event : list) {
-//			//semiTitle 자르기
-//			if(event.getSemiTitle().length() >19) {
-//				String semi = event.getSemiTitle().substring(0,19);
-//				event.setSemiTitle(semi);
-//			}
-//			//event.setImage(imageList);	
-//		}
-//		model.addAttribute("banner", list);
-//		
-//	}
-	
-	
-	
 	
 	@RequestMapping(value="/notice_dev.do", method= RequestMethod.GET)
 	public String notice_dev(Model model, SearchVO searchVO, NoticeVO noticeVO) {

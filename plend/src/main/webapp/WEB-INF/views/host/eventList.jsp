@@ -93,8 +93,8 @@
 	<header id="header"></header>
 	<!-- main -->
 	<!-- 2022.07.18 김연희: main에 margin top150dl 기본으로 되어있으나 배너 부분은  딱맞게 시작하게 설정 -->
-	<main style="margin-top: 85px; margin-right: 0px;important!" class="d-flex flex-column " >
-
+	<main style="margin-top: 53px; margin-right: 0px;important!" class="d-flex flex-column" >
+		<!-- 슬라이드 배너  -->
 		<div id="carouselExampleIndicators" class="carousel slide " data-bs-ride="carousel" style="width:100%; ">
 		  <div class="carousel-indicators">
 		  	<c:forEach var ="b" items="${list}" varStatus="status">
@@ -114,12 +114,12 @@
 		 		 <c:choose>
 		 		 	<c:when test="${status.index == '0'}">
 				    	<div class="carousel-item active">
-	      					<img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${b.banner}" alt='${b.semiTitle}' onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}" class="d-block w-100 h-25" alt="...">
+	      					<img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${b.banner}" alt='${b.semiTitle}' onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}" class="d-block w-100" style="height: 400px;" alt="...">
 	    				</div>
     				</c:when>
     				<c:otherwise >
 				    	<div class="carousel-item">
-	      					<img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${b.banner}" alt='${b.semiTitle}' onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}" class="d-block w-100 h-25" alt="...">
+	      					<img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${b.banner}" alt='${b.semiTitle}' onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}" class="d-block w-100 " style="height: 400px;" alt="...">
 	    				</div>
     				</c:otherwise>
     			</c:choose>
@@ -149,19 +149,18 @@
 		
 		
 				<!--진행 중 이벤트 -->
-				<article id="list">
+				<article id="list" style="width: 100%; height: 300px; align-items: center;">
 				
 				<c:if test="${list.size() == 0}">
-				
-					<div class=" mt-3 me-5"  style="width: 18rem;">
-					    <p class="title2 ms-auto">현재 진행 이벤트가 없습니다. </p>
+					<div style="display:flex; justify-content: center;width: 100%;">
+					    <p class="title2 ">현재 진행 이벤트가 없습니다. </p>
 					</div>
 				</c:if>
 				
 				<c:if test="${not empty list}">
 					<c:forEach var="event" items="${list}">
-						<div class="card mt-3 me-5"  style="width: 18rem;">
-							 <img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${event.image}" class="card-img-top" alt="${event.semiTitle}" onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${event.eidx}">
+						<div class="card mt-3 me-5"  style="width: 18rem; height: 280px;">
+							 <img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${event.image}" style="height: 230px;" class="card-img-top" alt="${event.semiTitle}" onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${event.eidx}">
 							 <div class="card-body">
 							    <p class="card-text"  onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${event.eidx}">${event.semiTitle}</p>
 							 </div>
@@ -172,13 +171,17 @@
 				
 				</article>
 				
-				
-		
-		
+			<c:if test="${login.role == '1'}">
+			<div class="container d-flex justify-content-end mb-5">
+				<button class="btnBig" onclick="location.href='<%=request.getContextPath()%>/developer/event.do'" >이벤트 등록</button>	
+			</div>
+			</c:if>	
+					
 		</section>
-
+		
+		
 	</main>
-	<div style="margin:300px;"></div>
+	
 	<footer id="footer"></footer>
 	
 

@@ -8,7 +8,7 @@
   <!-- Header -->
   <nav class="navbar navbar-expand-md navbar-dark fixed-top" style ="background-color:#2F506D; height: 70px;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#" style = "margin-left:50px;">HOSTING CENTER</a>
+      <a class="navbar-brand" href="<%=request.getContextPath()%>/host/managePlace.do" style = "margin-left:50px;">HOSTING CENTER</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
