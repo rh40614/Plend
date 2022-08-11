@@ -37,7 +37,13 @@ public class HostDAO {
 		int result = sqlSession.insert(namespace+".insertPlaceImg", imageVO);
 		return result;
 	}
-	
+	public int placeModify(PlaceVO placeVO) {
+		return sqlSession.update(namespace+".placeModify", placeVO);
+	}
+	//사진삭제
+	public int deletePlaceImg(PlaceVO placeVO) {
+		return sqlSession.delete(namespace+".deletePlaceImg", placeVO);
+	}
 	//이벤트 리스트
 	public List<EventVO> eventList(EventVO eventVO) {
 		List<EventVO> result= sqlSession.selectList(namespace+".eventList", eventVO);
