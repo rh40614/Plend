@@ -68,8 +68,6 @@ public class HostController {
 	
 	@RequestMapping(value = "/insertPlace.do", method = RequestMethod.GET )
 	public String insertPlace() {  
-		System.out.println("장소등록GET");
-		
 		return "host/insertPlace";
 	}
 	
