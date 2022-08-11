@@ -26,5 +26,25 @@ function validation(){
 	if($(".edate").val() == ""){
 		alert("날짜를 입력해주세요");
 		return false;
+	}else if($("input[name='eventImg']").val() == ""){
+		alert("메인 이미지를 등록해주세요");
+		return false;
+	}else if($("#formFile").val() == ""){
+		alert("배너 이미지를 등록해주세요");
+		return false;
 	}
 }
+
+// 이벤트 삭제 전 물어보기
+function deleteConfirm(eidx,category){
+	if(confirm("삭제 하시겠습니까?")){
+		location.replace("deleteEvent.do?eidx="+eidx+"&category="+category)
+	}
+}
+
+
+
+
+
+
+

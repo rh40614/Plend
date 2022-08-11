@@ -11,9 +11,6 @@
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/developer.css" rel="stylesheet">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
 		
 	<script type="text/javascript">
 		$(function(){
@@ -45,7 +42,7 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-				  	<!-- 07.14 김영민 데이터반영 회원리스트 -->
+				  	<!-- 07.14 김영민: 데이터반영 회원리스트 -->
 				  	<c:if test="${empty userList}">
 				  		<tr>
 							<td colspan="4"> 결과와 맞는 유저가 없습니다. </td>
@@ -104,8 +101,8 @@
 		</main>
 		<footer id="footer" class="row"></footer>
 	</div>
-	<!-- JavaScript Bundle with Popper -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
 

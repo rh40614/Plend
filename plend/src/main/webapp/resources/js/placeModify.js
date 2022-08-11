@@ -5,6 +5,11 @@
 
 			const cate = $(obj).val();
 			console.log(cate);
+			
+			if($(".insertPlaceBtn").hasClass('selectedBtn')){
+				$(".insertPlaceBtn").removeClass('selectedBtn');
+			}
+			
 			//값을 재선택할 때 비우기
 			$("#cate").attr('value','');
 			//카데고리 선택 값
@@ -14,51 +19,63 @@
 			if(cate == 'meeting'){
 				$(".option1").css("display", "none");
 				$("#option_meeting").css("display", "block");
-
+				$(obj).addClass('selectedBtn');
+			
 			}else if(cate == 'gallery'){
 				$(".option1").css("display", "none");
 				$("#option_gallery").css("display", "block");
-
+				$(obj).addClass('selectedBtn');
+			
 			}else if(cate == 'dancePractice'){
 				$(".option1").css("display", "none");
 				$("#option_dancePractice").css("display", "block");
-
-			}else if(cate == 'homeGim'){
+				$(obj).addClass('selectedBtn');
+			
+			}else if(cate == 'homeGym'){
 				$(".option1").css("display", "none");
 				$("#option_homeGim").css("display", "block");
-
+				$(obj).addClass('selectedBtn');
+			
 			}else if(cate == 'office'){
 				$(".option1").css("display", "none");
 				$("#option_office").css("display", "block");
-
-			}else if(cate == 'officeShare'){
+				$(obj).addClass('selectedBtn');
+				
+			}else if(cate == 'shareOffice'){
 				$(".option1").css("display", "none");
 				$("#option_officeShare").css("display", "block");
-
+				$(obj).addClass('selectedBtn');
+				
 			}else if(cate == 'partyRoom'){
 				$(".option1").css("display", "none");
 				$("#option_partyRoom").css("display", "block");
-
+				$(obj).addClass('selectedBtn');
+				
 			}else if(cate == 'recording'){
 				$(".option1").css("display", "none");
 				$("#option_recording").css("display", "block");
-
+				$(obj).addClass('selectedBtn');
+				
 			}else if(cate == 'shareKitchen'){
 				$(".option1").css("display", "none");
 				$("#option_shareKitchen").css("display", "block");
-
+				$(obj).addClass('selectedBtn');
+				
 			}else if(cate == 'singPractice'){
 				$(".option1").css("display", "none");
 				$("#option_singPractice").css("display", "block");
-
+				$(obj).addClass('selectedBtn');
+				
 			}else if(cate == 'smallWedding'){
 				$(".option1").css("display", "none");
 				$("#option_smallWedding").css("display", "block");
-
+				$(obj).addClass('selectedBtn');
+				
 			}else if(cate == 'studio'){
 				$(".option1").css("display", "none");
 				$("#option_studio").css("display", "block");
-
+				$(obj).addClass('selectedBtn');
+				
 			}
 
 

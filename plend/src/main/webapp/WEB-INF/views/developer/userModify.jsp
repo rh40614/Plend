@@ -13,9 +13,6 @@
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/developer.css" rel="stylesheet">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
 		
 	<script type="text/javascript">
 		$(function(){
@@ -26,12 +23,12 @@
 </head>
 
 <body>
-	<div id="wrap" class="container-fluid">	
+	<div id="wrap" class="container-fluid overflow-auto">	
 		<header id="header" class="row"></header>
 		<br><br>
 		<div class="row" style="margin-top: 80px;">
 			<div class="col category">
-				<p class="h5 fw-bold category-title"> 회원정보수정 </p>
+				<p class="h5 fw-bold category-title" style="padding-left: 10%;"> 회원정보수정 </p>
 			</div>
 		</div>
 		<form name="frm" action="userModify.do?uidx=${user.uidx}" method="post" onsubmit="modifySubmit()">
@@ -97,65 +94,9 @@
 		<div class="flex-grow-1"></div>
 		<footer id="footer" class="row"></footer>
 	</div>
-	<!-- daumMapAPI javaScript -->
-	<script>
-    function DaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-                var extraAddr = ''; // 참고항목 변수
-                
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.jibunAddress;
-                }
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                if(data.userSelectedType === 'R'){
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("extraAddress").value = extraAddr;
-                
-                } else {
-                    document.getElementById("extraAddress").value = '';
-                }
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('postcode').value = data.zonecode;
-                document.getElementById("address").value = addr;
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("detailAddress").focus();
-            }
-        }).open();
-    }
-	</script>
-	<!-- submit 할 때  주소 합쳐 보내기-->
-	<script type="text/javascript">
-		function modifySubmit(){
-			var address = $("#address").val();
-			var detailAddress = $("#detailAddress").val();
-			var addr = address + " " + detailAddress;
-			
-			$("#addr").val(addr);
-		}
-	</script>
-	<!-- JavaScript Bundle with Popper -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="<%=request.getContextPath()%>/resources/js/developer/userModify.js"></script>
 </body>
 </html>
 
