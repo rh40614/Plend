@@ -37,7 +37,7 @@
 						</script>
 						<td style="text-align: left;">${pv.placeDetail}</td>
 						<td>${pv.approvalYN}</td>
-						<td><button class="btnDefault" type="button" onclick="location.href='/host/placeView.do'">수정</button></td>
+						<td><button class="btnDefault" type="button" onclick="location.href='placeModfy.do?pidx=${pv.pidx}'">수정</button></td>
 					</tr>
 				</c:forEach>
 			</c:if>

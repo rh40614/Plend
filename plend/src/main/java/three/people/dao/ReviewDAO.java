@@ -67,6 +67,14 @@ public class ReviewDAO {
 	public int cntReview(int uidx) {
 		return sqlSession.selectOne("three.people.mapper.reviewMapper.cntReview", uidx);
 	}
+	// 해당 장소에 대한 리뷰, 갯수
+	public List<ReviewVO> selectPlaceReview(HashMap<String,Object> hashMap){
+		return sqlSession.selectList("three.people.mapper.reviewMapper.selectPlaceReview",hashMap);
+	}
+	public int countPlaceReview(ReviewVO reviewVO) {
+		return sqlSession.selectOne("three.people.mapper.reviewMapper.countPlaceReview", reviewVO);
+	}
+	
 	public int avgRevew(PlaceVO placeVO) {
 		return sqlSession.selectOne("three.people.mapper.reviewMapper.avgRevew", placeVO);
 	}
@@ -79,4 +87,5 @@ public class ReviewDAO {
 	public List<ImageVO> reviewImages(ReviewVO reviewVO) {
 		return sqlSession.selectList("three.people.mapper.reviewMapper.selectImageOne", reviewVO );
 	}
+
 }

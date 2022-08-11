@@ -6,10 +6,16 @@ public class BlockVO extends UserVO {
 	private String category;
 	private String content;
 	private String date; 
-	private String delyn;
+	private String bdelYN;
 	private int reporter_uidx;
 	private int respondent_uidx;
 	
+	public String getBdelYN() {
+		return bdelYN;
+	}
+	public void setBdelYN(String bdelYN) {
+		this.bdelYN = bdelYN;
+	}
 	public int getRbidx() {
 		return rbidx;
 	}
@@ -34,12 +40,7 @@ public class BlockVO extends UserVO {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public String getDelyn() {
-		return delyn;
-	}
-	public void setDelyn(String delyn) {
-		this.delyn = delyn;
-	}
+	
 	public int getReporter_uidx() {
 		return reporter_uidx;
 	}

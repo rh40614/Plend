@@ -757,6 +757,14 @@ public class HostController {
 		return "host/placeView";
 	}
 	
+	//08.11 김영민: 장소등록 수정
+	@RequestMapping(value="/placeModfy.do", method=RequestMethod.GET)
+	public String placeModfy(PlaceVO placeVO, Model model) {
+		
+		model.addAttribute("place", placeService.placeOne(placeVO));
+		return "host/placeModify";
+	}
+	
 	@RequestMapping(value = "/host.do", method = RequestMethod.GET)
 	public String host() {
 		return "host/host";

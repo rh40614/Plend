@@ -27,7 +27,7 @@
 					<td>${block.delYN}</td>
 					<td>${block.date}</td>
 					<td>${block.content}</td>
-					<td> <a class="btn btn-sm">삭제</a></td>
+					<td><a class="btn btn-sm" href="blockDelete.do?rbidx=${block.rbidx}">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</c:otherwise>
