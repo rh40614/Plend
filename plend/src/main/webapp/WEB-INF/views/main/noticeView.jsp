@@ -73,7 +73,7 @@
 	</div>
 	<br>
 	<div id = "btns">
-		<c:if test = "${login.uidx eq vo.uidx}">
+		<c:if test = "${login.role == '1'}">
 			<input type = "button" value = "수정" style = "float:left;margin-right:5px;" onclick = "location.href='noticeModify.do?nidx=${vo.nidx}'">
 				<input type = "button" value = "삭제" style = "float:left;" onclick = "del();">
 		</c:if>

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import three.people.vo.BookVO;
+import three.people.vo.ImageVO;
+import three.people.vo.PlaceVO;
 import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
@@ -70,10 +72,18 @@ public class MyPageDAO {
 		return sqlSession.selectOne("three.people.mapper.mypageMapper.inquirePwd", uidx);
 	}
 	
+	public List<PlaceVO> selectPlace(HashMap<String, Integer> param) {
+		
+		return sqlSession.selectList("three.people.mapper.mypageMapper.likeList", param);
+	}
 	
 
-
-
-
+	public ImageVO selectImg(PlaceVO vo) {
+		return sqlSession.selectOne("three.people.mapper.mypageMapper.selectImgOne", vo);
+	}
+	
+	public int likeListTotal(int uidx) {
+		return sqlSession.selectOne("three.people.mapper.mypageMapper.likeListTotal", uidx);
+	}
 
 } 

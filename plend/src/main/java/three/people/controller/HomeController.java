@@ -74,41 +74,41 @@ public class HomeController {
 			
 			
 			
-		//2. 이벤트 랜덤
-		List<PlaceVO> randomEventList = new ArrayList<PlaceVO>(); 
-		
-		if(placeList.size()<6) {
-			for(PlaceVO e: eventList ) {
-				//장소 사진 가지고 오기
-				ImageVO imageOne = placeService.selectImageOne(e);
-				String file = imageOne.getOriginFileName();
-				e.setPlaceImg(file);
-				//넣기
-				randomEventList.add(e);
-			}
-			
-		}else {
-			//랜덤으로 뽑기
-			int[] idx2 = placeService.RandomPlace(eventList);
-			PlaceVO randomPlace;
-			//인덱스 배열이 완성되면 장소 가지고 오기
-			for(int i:idx2) {
-				//장소 가지고 오기
-				randomPlace = eventList.get(i);
-				//사진가지고오기
-				ImageVO imageOne = placeService.selectImageOne(randomPlace);
-				String file = imageOne.getOriginFileName();
-				randomPlace.setPlaceImg(file);
-				//넣기
-				randomEventList.add(randomPlace);
-			}
-		}
+//		//2. 이벤트 랜덤
+//		List<PlaceVO> randomEventList = new ArrayList<PlaceVO>(); 
+//		
+//		if(placeList.size()<6) {
+//			for(PlaceVO e: eventList ) {
+//				//장소 사진 가지고 오기
+//				ImageVO imageOne = placeService.selectImageOne(e);
+//				String file = imageOne.getOriginFileName();
+//				e.setPlaceImg(file);
+//				//넣기
+//				randomEventList.add(e);
+//			}
+//			
+//		}else {
+//			//랜덤으로 뽑기
+//			int[] idx2 = placeService.RandomPlace(eventList);
+//			PlaceVO randomPlace;
+//			//인덱스 배열이 완성되면 장소 가지고 오기
+//			for(int i:idx2) {
+//				//장소 가지고 오기
+//				randomPlace = eventList.get(i);
+//				//사진가지고오기
+//				ImageVO imageOne = placeService.selectImageOne(randomPlace);
+//				String file = imageOne.getOriginFileName();
+//				randomPlace.setPlaceImg(file);
+//				//넣기
+//				randomEventList.add(randomPlace);
+//			}
+//		}
 		//3. 리뷰 랜덤
 		
 		
 		//4.화면단 이동
 		model.addAttribute("list", randomPlaceList);
-		model.addAttribute("list2", randomEventList);
+//		model.addAttribute("list2", randomEventList);
 		
 		return "home";
 	}

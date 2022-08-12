@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="true" %>
 
 <html>
@@ -45,8 +46,6 @@
 	<br>
 
 	<main style="margin: 5% 19% 10% 19%; flex: 1;">
-	<br>
-
 	<!-- 
 	07.28 김하진 role 별로 로그인을 하고 navi바에서 들어가시길 바랍니다. 
 	불편하시면 따로 링크를 빼셔도 됩니다. 
@@ -85,7 +84,8 @@
  			<div class="card-body">
  				<h5 class="card-title title2-1" class=""><a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">${c.placeName}</a></h5>
  				<p class="card-text">${c.address}</p>
- 				<span class="card-text title3">${c.price}</span><span>원/시간</span>
+ 				<!-- 08.09 김하진 가격 단위 추가 -->
+ 				<span class="card-text title3"><fmt:formatNumber value="${c.price}" type="currency"/></span><span>원/시간</span>
  				<i class="fa-regular fa-star" style="float:right">별점</i>
  				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
   			</div>
@@ -128,7 +128,7 @@
  			<div class="card-body">
  				<h5 class="card-title title2-1" class=""><a href="<%=request.getContextPath()%>/place/view.do?pidx=${e.pidx}">${e.placeName}</a></h5>
  				<p class="card-text">${e.address}</p>
- 				<span class="card-text title3">${e.price}</span><span>원/시간</span>
+ 				<span class="card-text title3"><fmt:formatNumber value="${e.price}" type="currency"/></span><span>원/시간</span>
  				<i class="fa-regular fa-star" style="float:right">별점</i>
  				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
   			</div>
