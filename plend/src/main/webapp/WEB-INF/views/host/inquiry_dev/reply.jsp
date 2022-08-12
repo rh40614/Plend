@@ -37,10 +37,8 @@
 	<script type="text/javascript">
 		
  			$('.summernote').summernote({
- 				width: 1400,
 	 			height: 400,		// 기본 높이값
 			    minHeight: 450,		// 최소 높이값(null은 제한 없음)
-			    maxHeight: null,  	// 최대 높이값(null은 제한 없음)
 			    focus: true,          // 페이지가 열릴때 포커스를 지정함
 			    placeholder: '성심성의것 답변을 작성해 주시길 바랍니다.',
 			    lang: 'ko-KR'    

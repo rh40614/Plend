@@ -4,7 +4,7 @@
 <section>
 	<span class="title1 spaceL">문의 내용  </span>
 	<br>
-	<table class="spaceL border border-3 rounded w-75" style="border-collapse: initial;" >
+	<table class="table spaceL rounded w-75" style="border-collapse: initial;" >
 		<tbody>
 			<tr>
 				<td colspan="2" class="fs-5"  style="padding: 30px;">${inquiry.title}</td>
