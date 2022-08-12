@@ -1,5 +1,6 @@
 package three.people.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,8 +77,8 @@ public class MainServiceImpl implements MainService{
 	}
 
 	@Override
-	public List<FaqVO> faqAll(FaqVO vo) {
-		return mainDao.faqAll(vo);
+	public List<FaqVO> faqAll(HashMap<String, String> param) {
+		return mainDao.faqAll(param);
 	}
 
 	@Override

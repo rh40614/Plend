@@ -1,5 +1,6 @@
 package three.people.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import three.people.vo.FaqVO;
@@ -18,7 +19,7 @@ public interface MainService {
 	public int noticeModify(NoticeVO vo);
 	public int noticeTotal(SearchVO sv);
 	public int insertFaq(FaqVO vo);
-	public List<FaqVO> faqAll(FaqVO vo);
+	public List<FaqVO> faqAll(HashMap<String, String> param);
 	public FaqVO faqOne(int fidx);
 	public int faqModify(FaqVO vo);
 }

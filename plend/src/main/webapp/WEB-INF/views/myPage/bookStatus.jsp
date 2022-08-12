@@ -99,10 +99,12 @@
 	      <div class="modal-body">
 	          <div class="mb-3">
 	            <input name="title" type="text" class="form-control" id="recipient-name" placeholder="제목">
+	            <br>
 	            <input name="pidx" type="hidden" class="pidx">
 	            <input name="bidx" type="hidden" class="bidx">
 	            <input name="uidx" type="hidden" value="${login.uidx}"> 
 	            <textarea name="content" id="summernote" required></textarea>
+	            <br>
 	          	<input type="file" name="reviewImgs" id="reviewImgs" multiple="multiple">
 	          </div>
 	      </div>
@@ -144,7 +146,7 @@
 		<h5><strong>| 예약 현황</strong></h5>
 		<br>
 		<c:forEach var = "vo" items = "${list}">
-		<c:if test = "${vo.approvalYN ne 'Y' }">
+		<c:if test = "${vo.successBook ne 'Y' }">
 		<div id = "bookView">
 			<table>
 				<tr>
@@ -165,13 +167,27 @@
 				</tr>
 				<tr>
 					<th>업체 승인 여부 : </th>
-					<td>${vo.approvalYN }</td>
+					<c:if test ="${vo.approvalYN eq 'N'}">
+					<td>승인 대기 중</td>
+					</c:if>
+					<c:if test ="${vo.approvalYN eq 'Y'}">
+					<td>승인 완료</td>
+					</c:if>
+					<c:if test ="${vo.approvalYN eq 'R'}">
+					<td>거절</td>
+					</c:if>
 				</tr>
+				<c:if test ="${vo.rejectContent ne '거절 사유 없음'}">
+				<tr>
+					<th>거절 사유 : </th>
+					<td>${vo.rejectContent}</td>
+				</tr>
+				</c:if>
 			</table>
 		</div>
-		</c:if>
-		</c:forEach>
 		<br>
+		</c:if>
+		</c:forEach> 
 		<hr style = "height:2px;background:black;">
 		<h5><strong>| 이용 리스트</strong></h5>
 		<br>
@@ -197,8 +213,22 @@
 				</tr>
 				<tr>
 					<th>업체 승인 여부 : </th>
-					<td>${vo.approvalYN }</td>
+					<c:if test ="${vo.approvalYN eq 'N'}">
+					<td>승인 대기 중</td>
+					</c:if>
+					<c:if test ="${vo.approvalYN eq 'Y'}">
+					<td>승인 완료</td>
+					</c:if>
+					<c:if test ="${vo.approvalYN eq 'R'}">
+					<td>반려</td>
+					</c:if>
 				</tr>
+				<c:if test ="${vo.rejectContent ne '거절 사유 없음'}">
+				<tr>
+					<th>반려 사유 : </th>
+					<td>${vo.rejectContent}</td>
+				</tr>
+				</c:if>
 			</table>
 			</div>
 			<br>
@@ -216,7 +246,7 @@
 			  	<c:forEach begin="${pagenation.startPage }" end="${pagenation.endPage }" var="p">
 					<c:choose>
 						<c:when test="${p == pagenation.nowPage }">
-							<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" href="bookStatusdo?nowPage=${p}">${p}</a></li>
+							<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" href="bookStatus.do?nowPage=${p}">${p}</a></li>
 						</c:when>
 						<c:when test="${p != pagenation.nowPage }">
 							<li class="page-item"><a class="page-link" href="bookStatus.do?nowPage=${p}">${p}</a></li>
