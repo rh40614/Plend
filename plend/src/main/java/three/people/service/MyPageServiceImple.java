@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import three.people.dao.MyPageDAO;
 import three.people.vo.BookVO;
+import three.people.vo.ImageVO;
+import three.people.vo.PlaceVO;
 import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
@@ -80,6 +82,33 @@ public class MyPageServiceImple implements MyPageService{
 	public UserVO inquirePwd(int uidx) {
 		
 		return mypageDao.inquirePwd(uidx);
+	}
+
+	@Override
+	public List<PlaceVO> selectPlace(HashMap<String, Integer> param) {
+		List<PlaceVO> result =  mypageDao.selectPlace(param);
+		//장소 이름 자르기
+				for(PlaceVO place: result) {
+					//단일 공백 정규식 : \\s
+					String[] ad = place.getAddress().split("\\s");
+					String twoFromStart = ad[0] +" " +ad[1];
+					//System.out.println("twoFromStart: "+twoFromStart);
+					
+					place.setAddress(twoFromStart);
+				}
+		return result;
+	}
+
+	@Override
+	public ImageVO selectImg(PlaceVO vo) {
+		
+		return mypageDao.selectImg(vo);
+	}
+
+	@Override
+	public int likeListTotal(int uidx) {
+		
+		return mypageDao.likeListTotal(uidx);
 	}
 
 	

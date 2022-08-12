@@ -100,6 +100,6 @@
 <!-- formReset -->
 <script type="text/javascript">
 	$(".formReset").click(function(){
-		$(":input", "#frm").val('');
+		location.replace("<%=request.getContextPath()%>/developer/event.do");
 	})
 </script>

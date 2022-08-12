@@ -40,7 +40,7 @@ public class MainController {
 	MainService mainService;
 
 	
-	@RequestMapping(value = "notice.do")
+	@RequestMapping(value = "notice.do", method = RequestMethod.GET)
 	public String notice(Model model, NoticeVO vo, SearchVO sv) {
 		
 		if(sv.getNowPage() == 0 && sv.getCntPerPage() == 0) {
@@ -207,7 +207,7 @@ public class MainController {
 		System.out.println("내용 :"+vo.getContent());
 		System.out.println("파일 이름 :"+vo.getFileName());
 		System.out.println("nidx : " +vo.getNidx());
-		
+		System.out.println("카테고리 : " + vo.getCategory());
 		int result = mainService.noticeModify(vo);
 		System.out.println("result = "+ result);
 		response.setContentType("text/html;charset=utf-8");
@@ -250,18 +250,30 @@ public class MainController {
 	}
 	
 	@RequestMapping(value = "/faq.do")
-	public String faq(Model model, FaqVO vo) {
+	public String faq(Model model, FaqVO vo ,SearchVO sv) {
 		
-		List<FaqVO> list = mainService.faqAll(vo);
+		HashMap<String, String> param = new HashMap<String,String>();
+		String category = vo.getCategory();
+		String searchValue = sv.getSearchValue();
+		param.put("category", category);
+		param.put("searchValue",searchValue);
+		
+		List<FaqVO> list = mainService.faqAll(param);
 		
 		model.addAttribute("list", list);
 		return "main/faq";
 	}
 	
 	@RequestMapping(value = "/faqList.do")
-	public String faqList(Model model, FaqVO vo) {
+	public String faqList(Model model, FaqVO vo,SearchVO sv) {
 		
-		List<FaqVO> list = mainService.faqAll(vo);
+		HashMap<String, String> param = new HashMap<String,String>();
+		String category = vo.getCategory();
+		String searchValue = sv.getSearchValue();
+		param.put("category", category);
+		param.put("searchValue",searchValue);
+		
+		List<FaqVO> list = mainService.faqAll(param);
 		
 		model.addAttribute("list", list);
 		

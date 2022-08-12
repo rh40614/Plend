@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="true" %>
 
 <html>
@@ -26,7 +27,7 @@
 	<script>
 
 	function like (obj, idx){
-		
+
 		if(${login ne null}){
 			if($(obj).hasClass("fa-regular") == true){
 				$.ajax({
@@ -45,7 +46,7 @@
 						alert("찜목록 등록에 실패했습니다.");
 					}
 				});
-				
+
 			}else{
 				$.ajax({
 					url: "<%=request.getContextPath()%>/place/heart.do?pidx="+idx+"&like=delete",
@@ -70,7 +71,7 @@
 
 	</script>
 	<!--데이터   -->
-	<script>	
+	<script>
 		$(function(){
 			$.ajax({
 				url: "recommendPlace.do",
@@ -108,11 +109,9 @@
 	<br>
 
 	<main style="margin: 5% 19% 10% 19%; flex: 1;">
-	<br>
-
-	<!-- 
-	07.28 김하진 role 별로 로그인을 하고 navi바에서 들어가시길 바랍니다. 
-	불편하시면 따로 링크를 빼셔도 됩니다. 
+	<!--
+	07.28 김하진 role 별로 로그인을 하고 navi바에서 들어가시길 바랍니다.
+	불편하시면 따로 링크를 빼셔도 됩니다.
 	 -->
 	<a href="host/managePlace.do">장소등록 </a>
     <a href="developer/userList.do">유저리스트 </a>
@@ -126,20 +125,21 @@
 	</section>
 	<hr>
 	<br>
+
 	
 	<div style="display: flex; justify-content:space-between;">
     	<h3 class="navbar-brand title1" >| 이벤트</h3>
 		<button  class="btn" onclick="newEvent()" style="vertical-align: bottom;"><i class="fa-solid fa-arrow-rotate-right">  더보기</i></button>
   	</div>
-  	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start" id="eventPlace">	
+  	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start" id="eventPlace">
 	</section>
 	<hr>
 	<br>
-	
+
 	<div>
     	<h3 class="navbar-brand title1">| 리뷰존</h3>
   	</div>
-  	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start" id="randomReview">	
+  	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start" id="randomReview">
 	</section>
 
 

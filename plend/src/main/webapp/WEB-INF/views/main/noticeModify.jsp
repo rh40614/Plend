@@ -51,6 +51,28 @@
 		});
 	</script>
 	
+	<script>
+		function noticeReg(){
+			
+			var frm = document.frm;
+			
+			if ($('select[name=category] option:selected').val() == "" ){
+				
+				alert("카테고리를 선택해주세요.");
+				return;
+				
+			} else if (frm.title.value == ""){
+				alert("제목을 입력해주세요.");
+				return;
+			} else if (frm.content.value == "") {
+				alert("내용을 입력해주세요.");
+				return;
+			} else {
+				frm.submit();
+			}
+		}
+	
+	</script>
 	
 	<script>
 	//파일추가 할 때 이름 가져오는 스크립트
@@ -87,8 +109,7 @@
 <div id="wrap">	
 	<header id="header"></header>
 	<br>
-	<form action = "noticeModify.do?nidx=${vo.nidx}" method = "post" enctype = "multipart/form-data">
-		<input type = "hidden" value = "1" name = "category">
+	<form action = "noticeModify.do?nidx=${vo.nidx}" method = "post" enctype = "multipart/form-data" name = "frm">
 		<div style="margin-left:23%;margin-right:23%;">
 			<h2 >| 공지사항 수정</h2>
 			<br>
@@ -110,7 +131,7 @@
         	    <input type="file" id="ex_filename" class="upload-hidden" name = "file"> 
 			</div>
 			<br>
-			<input type = "submit" value = "수정하기">
+			<input type = "button" value = "수정하기" onclick = "noticeReg();" id = "regBtn">
 		</div>
 	</form>
 	<footer id="footer" class="mt-5"></footer>

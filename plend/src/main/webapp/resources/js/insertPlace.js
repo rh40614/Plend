@@ -234,9 +234,6 @@
 		$("#price").val(x);
 	}
 
-
-
-
 	//영업시간 설정
 	$("#kt_datepicker_1").flatpickr({
 		enableTime: true,

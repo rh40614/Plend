@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="true" %>
 
 <html>
@@ -107,7 +108,7 @@
 		flex-direction: row;
 		align-items: center;
     	justify-content: flex-start;
-    	
+    	flex-wrap: wrap;
 		} 
 	
 		.bolt{
@@ -128,7 +129,7 @@
    		<div id = "MyPageBox">
    			<br>
    			<br>
-     		<h4>My Page</h4>
+     		<h4 style = "margin-top:20px;">My Page</h4>
     	</div>
     	<div>
  		<ul id = "naviBar">
@@ -147,113 +148,60 @@
    <div id = "infoBox">
    	<br>
 		<h5><strong>찜 목록</strong></h5>
-		<br>
 		<section>
-			<div class="card " style="width: 16rem; margin-right: 20px;">
-  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
-  				<i class="fa-solid fa-bolt bolt"></i>
- 			<div class="card-body">
- 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
- 				<p class="card-text">장소위치</p>
- 				<p class="card-text">가격</p>
- 				<i class="fa-regular fa-star" style="float:right">별점</i>
- 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
-
-  			</div>
-		</div>
-		
-		<div class="card " style="width: 16rem; margin-right: 20px;">
-  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
-  				<i class="fa-solid fa-bolt bolt"></i>
- 			<div class="card-body">
- 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
- 				<p class="card-text">장소위치</p>
- 				<p class="card-text">가격</p>
- 				<i class="fa-regular fa-star" style="float:right">별점</i>
- 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
-
-  			</div>
-		</div>
-		<div class="card " style="width: 16rem; margin-right: 20px;">
-  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
-  				<i class="fa-solid fa-bolt bolt"></i>
- 			<div class="card-body">
- 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
- 				<p class="card-text">장소위치</p>
- 				<p class="card-text">가격</p>
- 				<i class="fa-regular fa-star" style="float:right">별점</i>
- 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
-
-  			</div>
-		</div>
-		<div class="card " style="width: 16rem; margin-right: 20px;">
-  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
-  				<i class="fa-solid fa-bolt bolt"></i>
- 			<div class="card-body">
- 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
- 				<p class="card-text">장소위치</p>
- 				<p class="card-text">가격</p>
- 				<i class="fa-regular fa-star" style="float:right">별점</i>
- 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
-
-  			</div>
-		</div>
+		<c:if test="${list.size() == 0}">
+			<div class=" m-auto" style="height: 400px;">	
+				<P class="title2 m-auto">찜한 장소가 없습니다. </P>
+			</div>
+		</c:if>
+		<c:if test="${list.size() > 0 }">
+			<c:forEach var ="e" items="${list}" varStatus="status"> 
+				<div class="card " style="width: 16rem; margin-right: 20px;margin-top:20px;">
+					<!-- imageView 아주 잘 썼습니다. -->
+	  				<img  src="<%=request.getContextPath()%>/imageView.do?originFileName=${e.placeImg}" class="card-img-top" alt="...">
+	  				<i class="fa-solid fa-bolt bolt"></i>
+	 			<div class="card-body">
+	 				<h5 class="card-title"><a href="<%=request.getContextPath()%>/place/view.do?pidx=${e.pidx}" class="">${e.placeName}</a></h5>
+	 				<p class="card-text">${e.address}</p>
+	 				<p class="card-text"><fmt:formatNumber value="${e.price}" type="currency"/>원</p>
+	 				<i class="fa-regular fa-star" style="float:right">별점</i>
+	 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
+	
+	  			</div>
+			</div>
+			</c:forEach>
+		</c:if>
 		
 		</section>
 		<br>
 		<br>
-		<section>
-			<div class="card " style="width: 16rem; margin-right: 20px;">
-  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
-  				<i class="fa-solid fa-bolt bolt"></i>
- 			<div class="card-body">
- 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
- 				<p class="card-text">장소위치</p>
- 				<p class="card-text">가격</p>
- 				<i class="fa-regular fa-star" style="float:right">별점</i>
- 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
-
-  			</div>
-		</div>
+  <c:if test="${not empty list}">
+			<nav id="pagenation" class="row">
+			  <ul class="pagination justify-content-center">
+			  	<c:if test="${pagenation.startPage > 5}">
+				    <li class="page-item">
+				      <a class="page-link" href="heartList.do?nowPage=4">&laquo;</a>
+				    </li>
+			  	</c:if>
+			  	<c:forEach begin="${pagenation.startPage }" end="${pagenation.endPage }" var="p">
+					<c:choose>
+						<c:when test="${p == pagenation.nowPage }">
+							<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" href="heartList.do?nowPage=${p}">${p}</a></li>
+						</c:when>
+						<c:when test="${p != pagenation.nowPage }">
+							<li class="page-item"><a class="page-link" href="heartList.do?nowPage=${p}">${p}</a></li>
+						</c:when>
+					</c:choose>
+				</c:forEach>
+			    <c:if test="${pagenation.endPage != pagenation.lastPage}">
+				    <li class="page-item">
+				      <a class="page-link" href="heartList.do?nowPage=${pagenation.endPage +1}">&raquo;</a>
+				    </li>
+			    </c:if>
+			  </ul>
+			</nav>
+		</c:if>
 		
-		<div class="card " style="width: 16rem; margin-right: 20px;">
-  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
-  				<i class="fa-solid fa-bolt bolt"></i>
- 			<div class="card-body">
- 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
- 				<p class="card-text">장소위치</p>
- 				<p class="card-text">가격</p>
- 				<i class="fa-regular fa-star" style="float:right">별점</i>
- 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
-
-  			</div>
-		</div>
-		<div class="card " style="width: 16rem; margin-right: 20px;">
-  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
-  				<i class="fa-solid fa-bolt bolt"></i>
- 			<div class="card-body">
- 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
- 				<p class="card-text">장소위치</p>
- 				<p class="card-text">가격</p>
- 				<i class="fa-regular fa-star" style="float:right">별점</i>
- 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
-
-  			</div>
-		</div>
-		<div class="card " style="width: 16rem; margin-right: 20px;">
-  				<img  src="<%=request.getContextPath()%>/resources/image/place/placeImg.png" class="card-img-top" alt="...">
-  				<i class="fa-solid fa-bolt bolt"></i>
- 			<div class="card-body">
- 				<h5 class="card-title"><a href="#" class="">장소이름</a></h5>
- 				<p class="card-text">장소위치</p>
- 				<p class="card-text">가격</p>
- 				<i class="fa-regular fa-star" style="float:right">별점</i>
- 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
-
-  			</div>
-		</div>
-		
-		</section>
    </div>
    </div>
    </div>

@@ -68,7 +68,7 @@
 		<table class="table table-striped">
    			<tr>
    				<th>공간 이름</th>
-   				<td>${bv.title }</td>
+   				<td>${bv.placeName }</td>
    			</tr>
    			<tr>
    				<th>시간</th>
@@ -92,11 +92,25 @@
    				${bv.option1 }
    				</c:if>
    				</td>
-   			</tr>
+   			</tr> 
    			<tr>
    				<th>승인 여부</th>
-   				<td>${bv.approvalYN }</td>
+   					<c:if test ="${bv.approvalYN eq 'N'}">
+					<td>승인 대기 중</td>
+					</c:if>
+					<c:if test ="${bv.approvalYN eq 'Y'}">
+					<td>승인 완료</td>
+					</c:if>
+					<c:if test ="${bv.approvalYN eq 'R'}">
+					<td>거절</td>
+					</c:if>
    			</tr>
+   			<c:if test ="${bv.rejectContent ne '거절 사유 없음'}">
+				<tr>
+					<th>거절 사유 </th>
+					<td>${bv.rejectContent}</td>
+				</tr>
+			</c:if>
    		</table>
    		<br>
    		<div style = "text-align:center;">
