@@ -17,13 +17,20 @@
   		  ON a.uidx = b.uidx
   	   WHERE a.delyn = 'N' 
   	     AND category = '1'
+  	     <include refid = "searchTitle"></include>
   	ORDER BY nidx desc
   	   LIMIT #{start}, #{cntPerPage}
 	</select>	
+	<sql id = "searchTitle">
+		<if test = "searchValue != null">
+			AND (title LIKE CONCAT('%',#{searchValue},'%'))
+		</if>
+	</sql>
 	<select id = "noticeTotal" parameterType = "SearchVO" resultType = "Integer">
 		SELECT count(*) 
 		  FROM notice
 		 WHERE delyn = 'N'
+		 <include refid = "searchTitle"></include>
 	</select>
 	<select id = "prevNextTitle" resultType = "NoticeVO" parameterType="int">
 		SELECT * FROM (
@@ -62,7 +69,7 @@
 		  SET hit = hit + 1
 		WHERE nidx = #{nidx}
 	</update>
-	<select id="faqAll" resultType="FaqVO" parameterType="FaqVO">
+	<select id="faqAll" resultType="FaqVO" parameterType="HashMap">
 		SELECT 
 			 fidx
 			,question
@@ -73,13 +80,25 @@
 		FROM faq a
   INNER JOIN user_plend b
   		  ON a.uidx = b.uidx
+  		  <include refid = "searchQuestion1"></include>
   		  <if test='category != null'>
   	   WHERE category = #{category}
+  	   <include refid = "searchQuestion1"></include>
   	   	  </if>
   	   	  <if test = 'category == null'>
   	   	  </if>
   	ORDER BY fidx desc
 	</select>
+	<sql id = "searchQuestion1">
+		<if test = "searchValue != null"> 
+			AND (question LIKE CONCAT('%',#{searchValue},'%'))
+		</if>
+	</sql>
+	<sql id = "searchQuestion2">
+		<if test = "searchValue != null"> 
+			WHERE (question LIKE CONCAT('%',#{searchValue},'%'))
+		</if>
+	</sql>
 	<select id = "faqOne" resultType ="faqVO" parameterType = "int">
 		SELECT 
 			 fidx
