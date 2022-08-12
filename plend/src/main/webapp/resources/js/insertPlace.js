@@ -213,6 +213,7 @@
 
 		$("#avaliableTime").change(function(){
 
+
 			if($("#avaliableTime").is(":checked")){
 				$('#kt_datepicker_1').attr('disabled', 'true').css("color","#d2d2d2	");
 				$('#kt_datepicker_2').attr('disabled', 'true').css("color","#d2d2d2");
@@ -233,6 +234,7 @@
 		
 		$("#price").val(x);
 	}
+
 
 	//영업시간 설정
 	$("#kt_datepicker_1").flatpickr({
