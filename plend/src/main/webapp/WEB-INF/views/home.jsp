@@ -115,20 +115,21 @@
 	불편하시면 따로 링크를 빼셔도 됩니다. 
 	 -->
 	<a href="host/managePlace.do">장소등록 </a>
-	<button type="button" onclick="check();">마이페이지</button>
     <a href="developer/userList.do">유저리스트 </a>
-    <a href="test.do">테스트 </a>
+    
 
-  	<div>
-    	<span class="navbar-brand title1">| 추천 장소 </span>
+  	<div style="display: flex; justify-content:space-between;">
+    	<span class="navbar-brand title1">| 추천 장소   </span>
+    	<button  class="btn" onclick="newList()" style="vertical-align: bottom;"><i class="fa-solid fa-arrow-rotate-right">  더보기</i></button>
   	</div>
 	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start" id="recommendPlace">
 	</section>
 	<hr>
 	<br>
 	
-	<div>
+	<div style="display: flex; justify-content:space-between;">
     	<h3 class="navbar-brand title1" >| 이벤트</h3>
+		<button  class="btn" onclick="newEvent()" style="vertical-align: bottom;"><i class="fa-solid fa-arrow-rotate-right">  더보기</i></button>
   	</div>
   	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start" id="eventPlace">	
 	</section>
