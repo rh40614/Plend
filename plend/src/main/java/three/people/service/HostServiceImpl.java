@@ -226,6 +226,18 @@ public class HostServiceImpl implements HostService {
 	public int reject(BookVO bookVO) {
 		return hostDAO.reject(bookVO);
 	}
+
+
+	@Override
+	public int placeModify(PlaceVO placeVO) {
+		return hostDAO.placeModify(placeVO);
+	}
+
+
+	@Override
+	public int deletePlaceImg(PlaceVO placeVO) {
+		return hostDAO.deletePlaceImg(placeVO);
+	}
 	
 	
 	

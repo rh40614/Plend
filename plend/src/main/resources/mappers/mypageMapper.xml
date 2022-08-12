@@ -57,11 +57,11 @@
 			,b.placename
 			,b.price
 			,a.option1
+			,rejectcontent
 	     FROM book a
    INNER JOIN place b 
    		   ON a.pidx = b.pidx
    		WHERE a.uidx = #{uidx}
-   		  AND a.approvalYN = 'N'
    		  AND a.delyn = 'N'
 	</select>
 	<select id="bookedList" resultType="BookVO" parameterType="HashMap">
@@ -78,11 +78,12 @@
 			,b.placename
 			,b.price
 			,a.option1
+			,rejectcontent
 	     FROM book a
    INNER JOIN place b 
    		   ON a.pidx = b.pidx
    		WHERE a.uidx = #{uidx}
-   		  AND a.approvalYN = 'Y'
+   		  AND a.successbook = 'Y'
    		  AND a.delyn = 'N'
    		LIMIT #{start},#{end}
 	</select>
@@ -91,18 +92,19 @@
 			 bidx
 			,a.pidx
 			,a.uidx
-			,booktime
-			,usetime
-			,cntpeople
+			,a.booktime
+			,a.usetime
+			,a.cntpeople
 			,a.reviewYN
 			,a.approvalyn
 			,a.successbook
 			,b.placename
 			,b.price
 			,a.option1
+			,rejectcontent
 	     FROM book a
    INNER JOIN place b 
-   		   ON a.uidx = b.uidx
+   		   ON a.pidx = b.pidx
    		WHERE bidx = #{bidx}
 	</select>
 	<select id = "bookTotal" parameterType = "UserVO" resultType="Integer" >
@@ -118,9 +120,41 @@
 		 WHERE bidx = #{bidx} 
 	</update>
 	
-	<select id="likeList" resultType="PlaceVO" parameterType="UserVO"></select>
-
-
+	<select id="likeList" resultType="PlaceVO" parameterType="HashMap">
+	<!-- 08.09 김하진 별점 나중에 추가 -->
+		SELECT 
+			 a.pidx
+			,a.uidx
+			,c.placeimg
+			,c.placeName
+			,c.address
+			,c.price
+		FROM heart a 
+		JOIN user_plend b
+		  ON a.uidx = b.uidx
+		JOIN place c 
+		  ON a.pidx = c.pidx 
+	   WHERE b.uidx = #{uidx}
+	   LIMIT #{start}, #{end}
+	</select>
+	<select id = "selectImgOne" parameterType = "PlaceVO" resultType = "ImageVO">
+	<!-- 08.10 김하진 찜 목록 사진 가져오기 추가 -->
+		SELECT 
+			    MIN(imidex)
+			   ,imidex
+			   ,path
+			   ,originfilename
+			   ,realfilename
+			   ,pidx
+			   ,eidx
+		  FROM image
+		 WHERE pidx = #{pidx}
+	</select>
+	<select id = "likeListTotal" parameterType = "int" resultType = "int">
+			SELECT count(*)
+			  FROM heart
+			 WHERE uidx = #{uidx}
+	</select>
 </mapper>
 
 

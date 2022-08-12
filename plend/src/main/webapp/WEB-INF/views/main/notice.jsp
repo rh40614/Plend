@@ -46,8 +46,9 @@
 	<br>
 	<br>
 	<div style = "text-align:center;">
-		<input type = "text" id = "searchBar"> <button type = "button" id = "searchBut">검색</button> 
-		<!-- 나중에 검색 기능 추가할 것 -->
+	<form action = "notice.do" method = "get">
+		<input type = "text" id = "searchBar" name="searchValue"> <button id = "searchBut">검색</button> 
+	</form>
 	</div>
 	<br>
 	<br>
@@ -82,10 +83,10 @@
   </table>
   <br>
   <div style = "margin-left:20%;margin-right:20%;float:right;">
-	  <c:if test="${login != null}">
+	  <c:if test="${login.role == '1'}">
 	  <input type = "button" id = "noticeReg" value = "등록하기" onclick="location.href='noticeReg.do' ">
 	  </c:if>
-	  <c:if test="${login == null}">
+	  <c:if test="${login.role != '1'}">
 	  </c:if>
   </div>
   <br>

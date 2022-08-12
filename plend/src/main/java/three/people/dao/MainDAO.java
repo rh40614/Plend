@@ -1,5 +1,6 @@
 package three.people.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -66,8 +67,8 @@ public class MainDAO {
 		return result;
 	}
 	
-	public List<FaqVO> faqAll(FaqVO vo){
-		return sqlSession.selectList("three.people.mapper.mainMapper.faqAll", vo);
+	public List<FaqVO> faqAll(HashMap<String, String> param){
+		return sqlSession.selectList("three.people.mapper.mainMapper.faqAll", param);
 	}
 	
 	public FaqVO faqOne (int fidx) {

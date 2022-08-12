@@ -32,6 +32,7 @@ import three.people.service.MyPageService;
 import three.people.service.ReviewService;
 import three.people.vo.BookVO;
 import three.people.vo.ImageVO;
+import three.people.vo.PlaceVO;
 import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
@@ -109,7 +110,7 @@ public class MyPageController {
 		HashMap<String, Integer> param = new HashMap<String, Integer>();
 		int uidx = login.getUidx();
 		int start = sv.getStart();
-		int end = sv.getCntPerPage();
+		int end = sv.getCntPerPage();  
 		param.put("uidx", uidx);
 		param.put("start", start);
 		param.put("end", end);
@@ -144,12 +145,12 @@ public class MyPageController {
 		
 		if(result <= 0) { 
 			//등록이 제대로 이루어지지 않음
-			pw.append("<script>alert('수정이 정상적으로 등록되지 못했습니다. 다시 작성해주세요.');location.href = 'bookDetail.do?uidx="+uidx+"'</script>");
+			pw.append("<script>alert('예약 취소에 실패 하였습니다. 다시 시도해주세요.');location.href = 'bookDetail.do?uidx="+uidx+"'</script>");
 			
 			pw.flush();
 		} else {
 			//등록이 제대로 이루어짐
-			pw.append("<script>alert('수정이 완료되었습니다.');location.href = 'bookStatus.do?uidx="+uidx+"'</script>");
+			pw.append("<script>alert('예약 취소가 완료되었습니다.');location.href = 'bookStatus.do?uidx="+uidx+"'</script>");
 			
 			pw.flush();
 		}
@@ -203,7 +204,55 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value = "/heartList.do", method = RequestMethod.GET)
-	public String heartList() {
+	public String heartList(Model model,SearchVO sv,HttpSession session, HttpServletRequest request) {
+		/*
+		 * uidx를 매개변수로 받아올 경우 페이징에서 uidx가 null이 들어갈 수 있다.
+		 * 그르므로 session에 담겨 있는 uidx를 가져와 HashMap에 담아주면 오류가 나지 않는다.
+		 */
+		session = request.getSession();
+		UserVO login = new UserVO();
+		login = (UserVO)session.getAttribute("login");
+		int uidx = login.getUidx();
+		if(sv.getNowPage() == 0 && sv.getCntPerPage() == 0) {
+			sv.setNowPage(1);
+			sv.setCntPerPage(8);
+		} else if (sv.getCntPerPage() == 0) {
+			sv.setCntPerPage(8);
+		} else if (sv.getNowPage() == 0) {
+			sv.setNowPage(1);
+		}
+		
+		int total = mypageService.likeListTotal(uidx);
+		sv.calPaging(total);
+		System.out.println("페이징 시작 = "+sv.getStartPage());
+		System.out.println("페이징 마지막 = "+sv.getEndPage());
+		System.out.println("총 찜 갯수 = "+total);
+		model.addAttribute("pagenation", sv); 
+		
+		
+		HashMap<String, Integer> param = new HashMap<String, Integer>();
+		int start = sv.getStart();
+		int end = sv.getCntPerPage();
+		param.put("uidx", uidx);
+		param.put("start", start);
+		param.put("end", end);
+		
+		System.out.println("찜 목록 uidx = " + uidx);
+		List<PlaceVO> placeList = mypageService.selectPlace(param);
+		for(int i=0; i<placeList.size();i++) {
+			/*
+			 * 기존에 있던 vo자리에 값을 넣는 것이므로 향상된 for문을 사용하지 않고 일반 for문을 사용한다.
+			 * 향상된 for문을 사용하게 되면 java.util.concurrentmodificationexception 오류가 발생한다.
+			 */
+			PlaceVO vo = placeList.get(i);
+			ImageVO image = mypageService.selectImg(vo);
+			String file = image.getOriginFileName();
+			vo.setPlaceImg(file);
+			placeList.set(i,vo);
+			
+		}
+		model.addAttribute("list", placeList);
+		
 		return "myPage/heartList";
 	}
 	// 08.02 김영민: 리뷰등록

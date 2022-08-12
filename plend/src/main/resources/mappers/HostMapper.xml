@@ -67,8 +67,28 @@
 		 
 		 
 	</insert>
-	
-	<update id="placeModify" parameterType="PlaceVO"></update>
+	<!-- 장소 수정 -->
+	<update id="placeModify" parameterType="PlaceVO">
+		UPDATE place
+		   SET category = #{category},
+		       placeName = #{placeName},
+		       placedetail = #{placeDetail},
+		       guide = #{guide},
+		       tag = #{tag},
+		       address = #{address},
+		       option1 = #{option1},
+		       option2 = #{option2},
+		       price = #{price},
+		       availTimeValue = #{availTimeValue},
+		       intervalTime = #{intervalTime},
+		       cntpeople = #{cntPeople}
+		 WHERE pidx = #{pidx}
+	</update>
+	<!-- 장소 이미지 삭제 -->
+	<delete id="deletePlaceImg" parameterType="PlaceVO">
+		DELETE FROM image
+		      WHERE pidx = #{pidx}
+	</delete>
 	<update id="placeDelete" parameterType="PlaceVO"></update>
 	
 	<!-- 2022.07.20 김연희 이벤트 리스트 호출 -->
