@@ -128,7 +128,6 @@
 
 	
 	<div style="display: flex; justify-content:space-between;">
-
     	<h3 class="navbar-brand title1" >| 이벤트</h3>
 		<button  class="btn" onclick="newEvent()" style="vertical-align: bottom;"><i class="fa-solid fa-arrow-rotate-right">  더보기</i></button>
   	</div>
