@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
 
-  	
+
 <c:if test="${list.size() == 0}">
 	<div class=" m-auto" style="height: 400px;">	
 		<P class="title2 m-auto">등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. </P>
@@ -12,7 +12,7 @@
 <c:if test="${list.size() > 0 }">
 	<c:forEach var ="c" items="${list}" varStatus="status"> 
 	
-	<div class="card  mb-5" style="width: 22rem; height: 25rem">
+	<div class="card  mb-5 border-0" style="width: 22rem; height: 25rem">
 				<c:choose>
 					<c:when test="${c.placeImg == null}">
 						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
@@ -25,7 +25,6 @@
 						</a>
 					</c:when>
 				</c:choose>
-				<i class="fa-solid fa-bolt bolt"></i>
 		<div class="card-body">
 			<h5 class="card-title title2-1" class=""><a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">${c.placeName}</a></h5>
 			<p class="card-text">${c.address}</p>
@@ -37,5 +36,18 @@
 	
 	</c:forEach>
 </c:if>
+<script>
+function newList(){
+	
+	
+	$.ajax({
+		url: "recommendPlace.do",
+		type: "GET",
+		success: function(data){
+			$("#recommendPlace").html(data);
+		}
+	});
 
+}
+</script>
 

@@ -15,24 +15,18 @@
 	<!-- 2022.07.13 김연희 : js 파일은 가장 아래쪽에 있음 -->
 	<!-- jQuery -->
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
-	
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-	
 	<!-- bootstrap  -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	
 	<!-- flatPicker -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
 	<!--  fontAwesome -->
 	<script src="https://kit.fontawesome.com/f5807db9d4.js" crossorigin="anonymous"></script>
-	
 	<!-- DAUM POSTCODE  -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<!-- 해쉬 태그  -->
-	
 	<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
@@ -51,8 +45,8 @@
 	<header id="header"></header>
 	
 	<main>
-		<section>
-			<span class="title1">플레이스 등록</span>
+		<section style="border: solid 1px #eeeeee; border-radius: 4px;">
+			<span class="title1 mt-5">플레이스 등록</span>
 			<div style="margin-left: 10%;">
 				<div class="btn-group-lg mt-5" role="group" aria-label="Basic example">
   					<button type="button" class="insertPlaceBtn" value ="gallery" onclick="cate(this)">갤러리</button>
@@ -130,46 +124,78 @@
 							<div>
 								<span class="title3">시설정보</span><br>
 								<table class="table" > 
-									<tr>
-										<td>1.</td>
-										<td><input type="text" id="guide1" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
-									</tr>
-									<tr>
-										<td>2.</td>
-										<td><input type="text" id="guide2" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
-									</tr>
-									<tr>
-										<td>3.</td>
-										<td><input type="text" id="guide3" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
-									</tr>
-									<tr>
-										<td>4.</td>
-										<td><input type="text" id="guide4" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
-									</tr>
-									<tr>
-										<td>5.</td>
-										<td><input type="text" id="guide5" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
-									</tr>
-									<tr>
-										<td>6.</td>
-										<td><input type="text" id="guide6" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
-									</tr>
-									<tr>
-										<td>7.</td>
-										<td><input type="text" id="guide7" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
-									</tr>
-									<tr>
-										<td>8.</td>
-										<td><input type="text" id="guide8" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
-									</tr>
-									<tr>
-										<td>9.</td>
-										<td><input type="text" id="guide9" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
-									</tr>
-									<tr>
-										<td>10.</td>
-										<td><input type="text" id="guide10" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
-									</tr>
+									<tbody>
+										<tr>
+											<td class="col-md-1 guideNum">1.</td>
+											<td class="col-md-11"><input type="text" id="guide1" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0 " onkeydown="slash(this)" onblur="guideValid(this)"></td>
+										</tr>
+										<tr class="guideValid" style="display: none;">
+											<td colspan ="2" class="col-md-12" ></td>
+										</tr>
+										<tr>
+											<td class="col-md-1 guideNum">2.</td>
+											<td><input type="text" id="guide2" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0 " onblur="guideValid(this)" onkeydown="slash(this)"></td>
+										</tr>
+										<tr class="guideValid" style="display: none;">
+											<td colspan ="2" class="col-md-12" ></td>
+										</tr>
+										<tr>
+											<td class="col-md-1 guideNum">3.</td>
+											<td><input type="text" id="guide3" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0 " onblur="guideValid(this)" onkeydown="slash(this)"></td>
+										</tr>
+										<tr class="guideValid" style="display: none;">
+											<td colspan ="2" class="col-md-12" ></td>
+										</tr>
+										<tr>
+											<td class="col-md-1 guideNum">4.</td>
+											<td><input type="text" id="guide4" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0 " onblur="guideValid(this)" onkeydown="slash(this)"></td>
+										</tr>
+										<tr class="guideValid" style="display: none;">
+											<td colspan ="2" class="col-md-12" ></td>
+										</tr>
+										<tr>
+											<td class="col-md-1 guideNum">5.</td>
+											<td><input type="text" id="guide5" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0 " onblur="guideValid(this)" onkeydown="slash(this)"></td>
+										</tr>
+										<tr class="guideValid" style="display: none;">
+											<td colspan ="2" class="col-md-12" ></td>
+										</tr>
+										<tr>
+											<td class="col-md-1 guideNum">6.</td>
+											<td><input type="text" id="guide6" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0 " onblur="guideValid(this)" onkeydown="slash(this)"></td>
+										</tr>
+										<tr class="guideValid" style="display: none;">
+											<td colspan ="2" class="col-md-12" ></td>
+										</tr>
+										<tr>
+											<td class="col-md-1 guideNum">7.</td>
+											<td><input type="text" id="guide7" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0 " onblur="guideValid(this)" onkeydown="slash(this)"></td>
+										</tr>
+										<tr class="guideValid" style="display: none;">
+											<td colspan ="2" class="col-md-12" ></td>
+										</tr>
+										<tr>
+											<td class="col-md-1 guideNum">8.</td>
+											<td><input type="text" id="guide8" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0 " onblur="guideValid(this)" onkeydown="slash(this)"></td>
+										</tr>
+										<tr class="guideValid" style="display: none;">
+											<td colspan ="2" class="col-md-12" ></td>
+										</tr>
+										<tr>
+											<td class="col-md-1 guideNum">9.</td>
+											<td><input type="text" id="guide9" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0" onblur="guideValid(this)"></td>
+										</tr>
+										<tr class="guideValid" style="display: none;">
+											<td colspan ="2" class="col-md-12" ></td>
+										</tr>
+										<tr>
+											<td class="col-md-1 guideNum">10.</td>
+											<td><input type="text" id="guide10" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0" onblur="guideValid(this)"></td>
+										</tr>
+										<tr class="guideValid" style="display: none;">
+											<td colspan ="2" class="col-md-12" ></td>
+										</tr>
+									</tbody>
 								</table>
 								<input type="hidden" name="guide" id="guide">
 							</div>
@@ -190,57 +216,46 @@
 								<div id="option_meeting" class="option1" style="display: none">
 									<div class="commonOption"></div>
 								</div>
-								
 								<!-- 춤 연습실 옵션 -->
 								<div id="option_dancePractice" class="option1" style="display: none">
 									<div class="commonOption"></div>
 								</div>
-								
 								<!-- 헬스장 옵션 -->
 								<div id="option_homeGim" class="option1" style="display: none">
 									<div class="commonOption"></div>
 								</div>
-								
 								<!-- 독립오피스 옵션 -->
 								<div id="option_office" class="option1" style="display: none">
 									<div class="commonOption"></div>
 								</div>
-								
 								<!-- 공유오피스 옵션 -->
 								<div id="option_officeShare" class="option1" style="display: none">
 									<div class="commonOption"></div>
 								</div>
-								
 								<!-- 파티룸 옵션 -->
 								<div id="option_partyRoom" class="option1" style="display: none">
 									<div class="commonOption"></div>
 								</div>
-								
 								<!-- 녹음실 옵션 -->
 								<div id="option_recording" class="option1" style="display: none">
 									<div class="commonOption"></div>
 								</div>
-								
 								<!-- 공유주방 옵션 -->
 								<div id="option_shareKitchen" class="option1" style="display: none">
 									<div class="commonOption"></div>
 								</div>
-								
 								<!-- 노래연습실 옵션 -->
 								<div id="option_singPractice" class="option1" style="display: none">
 									<div class="commonOption"></div>
 								</div>
-								
 								<!-- 스몰웨딩 옵션 -->
 								<div id="option_smallWedding" class="option1" style="display: none">
 									<div class="commonOption"></div>
 								</div>
-								
 								<!-- 스튜디오 옵션 -->
 								<div id="option_studio" class="option1" style="display: none">
 									<div class="commonOption"></div>
 								</div>
-								
 							</div>
 						
 							<label class="mt-3">
@@ -277,7 +292,10 @@
 							<br>
 							<label class="mt-3">
 								<span class="title3">예약시간 단위 </span><br>
-								<span>고객이용가능 시간이 30분일 경우 30분 단위로 예약을 여는 것을 추천합니다.</span><br>
+								<span>
+								설정하신 시간 단위에 맞추어 예약이 열리게 됩니다. <br>
+								예를 들어 9시 영업 시작을 기준으로 4시간 선택시  9시, 13시, 17시, 21시 와 같이 열리게 됩니다. 
+								</span><br>
 									<select name="intervalTime" id="intervalTime" class="mt-3" required>
 										<option value="" disabled selected >예약단위</option>
 										<!-- <option value="1" >30분</option> -->
@@ -286,17 +304,20 @@
 										<option value="4" >4시간</option>
 										<option value="6" >6시간</option>
 									</select>
-							
 							</label>
 							<br>
 							
 							<!-- 최대 수용가능 인원-->
 							<label class="mt-3">
 								<span class="title3">가격 </span><br>
-								시간 당 <input type="text" name="price" id="price" placeholder="ex) 10000">원으로 으로 책정합니다.
+								시간 당 <input type="text" name="price" id="price" placeholder="ex) 10000" onkeyup="commas(this)" onclick="commaRemove()">원으로 으로 책정합니다.<br>
+								
+								
 							</label>
 							<br>
-						<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px; border-radius: 20px; float:right; " onclick="check()" >장소 등록</button>
+						<div style="display: flex; justify-content: flex-end;">
+							<button type="button" class="btnBig mt-5 mb-5" onclick="check()" >장소 등록</button>
+						</div>
 				</form>
 				</div>
 			</div>
@@ -310,6 +331,8 @@
 	<div style="margin:300px;"></div>
 	<footer id="footer"></footer>
 	<script src="<%=request.getContextPath()%>/resources/js/insertPlace.js"></script>
+
+	
 	<!-- 장소 옵션 -->
 	<script>
 	$(function(){

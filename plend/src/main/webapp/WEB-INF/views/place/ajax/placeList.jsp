@@ -24,8 +24,7 @@
  						</a>
  					</c:when>
  				</c:choose>
- 				<i class="fa-solid fa-bolt bolt"></i>
-			<div class="card-body">
+				<div class="card-body">
 				<h5 class="card-title title2-1" class=""><a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">${c.placeName}</a></h5>
 				<p class="card-text">${c.address}</p>
 				<span class="card-text title3">${c.price}</span><span>원/시간</span>

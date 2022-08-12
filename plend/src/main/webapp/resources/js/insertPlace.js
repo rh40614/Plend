@@ -1,87 +1,87 @@
 	'use strict';
 
 	//카테고리 선택
-		function cate(obj){
+	function cate(obj){
 
-			const cate = $(obj).val();
-			console.log(cate);
-			
-			if($(".insertPlaceBtn").hasClass('selectedBtn')){
-				$(".insertPlaceBtn").removeClass('selectedBtn');
-			}
-			
-			//값을 재선택할 때 비우기
-			$("#cate").attr('value','');
-			//카데고리 선택 값
-			$("#cate").attr('value',cate);
-
-			//선택되는 카테고리에 따라서 옵션선택 값 다르게 제공
-			if(cate == 'meeting'){
-				$(".option1").css("display", "none");
-				$("#option_meeting").css("display", "block");
-				$(obj).addClass('selectedBtn');
-			
-			}else if(cate == 'gallery'){
-				$(".option1").css("display", "none");
-				$("#option_gallery").css("display", "block");
-				$(obj).addClass('selectedBtn');
-			
-			}else if(cate == 'dancePractice'){
-				$(".option1").css("display", "none");
-				$("#option_dancePractice").css("display", "block");
-				$(obj).addClass('selectedBtn');
-			
-			}else if(cate == 'homeGym'){
-				$(".option1").css("display", "none");
-				$("#option_homeGim").css("display", "block");
-				$(obj).addClass('selectedBtn');
-			
-			}else if(cate == 'office'){
-				$(".option1").css("display", "none");
-				$("#option_office").css("display", "block");
-				$(obj).addClass('selectedBtn');
-				
-			}else if(cate == 'shareOffice'){
-				$(".option1").css("display", "none");
-				$("#option_officeShare").css("display", "block");
-				$(obj).addClass('selectedBtn');
-				
-			}else if(cate == 'partyRoom'){
-				$(".option1").css("display", "none");
-				$("#option_partyRoom").css("display", "block");
-				$(obj).addClass('selectedBtn');
-				
-			}else if(cate == 'recording'){
-				$(".option1").css("display", "none");
-				$("#option_recording").css("display", "block");
-				$(obj).addClass('selectedBtn');
-				
-			}else if(cate == 'shareKitchen'){
-				$(".option1").css("display", "none");
-				$("#option_shareKitchen").css("display", "block");
-				$(obj).addClass('selectedBtn');
-				
-			}else if(cate == 'singPractice'){
-				$(".option1").css("display", "none");
-				$("#option_singPractice").css("display", "block");
-				$(obj).addClass('selectedBtn');
-				
-			}else if(cate == 'smallWedding'){
-				$(".option1").css("display", "none");
-				$("#option_smallWedding").css("display", "block");
-				$(obj).addClass('selectedBtn');
-				
-			}else if(cate == 'studio'){
-				$(".option1").css("display", "none");
-				$("#option_studio").css("display", "block");
-				$(obj).addClass('selectedBtn');
-				
-			}
-
-
-
-
+		const cate = $(obj).val();
+		console.log(cate);
+		
+		if($(".insertPlaceBtn").hasClass('selectedBtn')){
+			$(".insertPlaceBtn").removeClass('selectedBtn');
 		}
+		
+		//값을 재선택할 때 비우기
+		$("#cate").attr('value','');
+		//카데고리 선택 값
+		$("#cate").attr('value',cate);
+
+		//선택되는 카테고리에 따라서 옵션선택 값 다르게 제공
+		if(cate == 'meeting'){
+			$(".option1").css("display", "none");
+			$("#option_meeting").css("display", "block");
+			$(obj).addClass('selectedBtn');
+		
+		}else if(cate == 'gallery'){
+			$(".option1").css("display", "none");
+			$("#option_gallery").css("display", "block");
+			$(obj).addClass('selectedBtn');
+		
+		}else if(cate == 'dancePractice'){
+			$(".option1").css("display", "none");
+			$("#option_dancePractice").css("display", "block");
+			$(obj).addClass('selectedBtn');
+		
+		}else if(cate == 'homeGym'){
+			$(".option1").css("display", "none");
+			$("#option_homeGim").css("display", "block");
+			$(obj).addClass('selectedBtn');
+		
+		}else if(cate == 'office'){
+			$(".option1").css("display", "none");
+			$("#option_office").css("display", "block");
+			$(obj).addClass('selectedBtn');
+			
+		}else if(cate == 'shareOffice'){
+			$(".option1").css("display", "none");
+			$("#option_officeShare").css("display", "block");
+			$(obj).addClass('selectedBtn');
+			
+		}else if(cate == 'partyRoom'){
+			$(".option1").css("display", "none");
+			$("#option_partyRoom").css("display", "block");
+			$(obj).addClass('selectedBtn');
+			
+		}else if(cate == 'recording'){
+			$(".option1").css("display", "none");
+			$("#option_recording").css("display", "block");
+			$(obj).addClass('selectedBtn');
+			
+		}else if(cate == 'shareKitchen'){
+			$(".option1").css("display", "none");
+			$("#option_shareKitchen").css("display", "block");
+			$(obj).addClass('selectedBtn');
+			
+		}else if(cate == 'singPractice'){
+			$(".option1").css("display", "none");
+			$("#option_singPractice").css("display", "block");
+			$(obj).addClass('selectedBtn');
+			
+		}else if(cate == 'smallWedding'){
+			$(".option1").css("display", "none");
+			$("#option_smallWedding").css("display", "block");
+			$(obj).addClass('selectedBtn');
+			
+		}else if(cate == 'studio'){
+			$(".option1").css("display", "none");
+			$("#option_studio").css("display", "block");
+			$(obj).addClass('selectedBtn');
+			
+		}
+
+
+
+
+	}
 
 
 
@@ -126,215 +126,290 @@
 	//주소
     function DaumPostcode() {
         new daum.Postcode({
-            oncomplete: function(data) {
-
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-                var extraAddr = ''; // 참고항목 변수
-
-
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.jibunAddress;
-                }
-
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                if(data.userSelectedType === 'R'){
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("extraAddress").value = extraAddr;
-
-                } else {
-                    document.getElementById("extraAddress").value = '';
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('postcode').value = data.zonecode;
-                document.getElementById("address").value = addr;
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("detailAddress").focus();
-            }
-        }).open();
-    }
+	        oncomplete: function(data) {
+	
+	            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+	            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	            var addr = ''; // 주소 변수
+	            var extraAddr = ''; // 참고항목 변수
+	
+	
+	            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+	            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+	                addr = data.roadAddress;
+	            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+	                addr = data.jibunAddress;
+	            }
+	
+	            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+	            if(data.userSelectedType === 'R'){
+	                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+	                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+	                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	                    extraAddr += data.bname;
+	                }
+	                // 건물명이 있고, 공동주택일 경우 추가한다.
+	                if(data.buildingName !== '' && data.apartment === 'Y'){
+	                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                }
+	                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+	                if(extraAddr !== ''){
+	                    extraAddr = ' (' + extraAddr + ')';
+	                }
+	                // 조합된 참고항목을 해당 필드에 넣는다.
+	                document.getElementById("extraAddress").value = extraAddr;
+	
+	            } else {
+	                document.getElementById("extraAddress").value = '';
+	            }
+	
+	            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	            document.getElementById('postcode').value = data.zonecode;
+	            document.getElementById("address").value = addr;
+	            // 커서를 상세주소 필드로 이동한다.
+	            document.getElementById("detailAddress").focus();
+	        }
+	    }).open();
+	}
 
 	//주소합치기
+	function concatAddr(){
 
-		function concatAddr(){
+		var a = $("#address").val();
+		var b = $("#detailAddress").val();
+		var addr =  a+"&nbsp"+b;
 
-			var a = $("#address").val();
-			var b = $("#detailAddress").val();
-			var addr =  a+"&nbsp"+b;
+		$("#addr").val(addr);
 
-			$("#addr").val(addr);
-
-		}
-
-
-
+	}
 
 
 
 	//시설이용 정보 합치기
-		function facilities(){
+	function facilities(){
 
-			var g1 = $("#guide1").val();
-			var g2 = $("#guide2").val();
-			var g3 = $("#guide3").val();
-			var g4 = $("#guide4").val();
-			var g5 = $("#guide5").val();
-			var g6 = $("#guide6").val();
-			var g7 = $("#guide7").val();
-			var g8 = $("#guide8").val();
-			var g9 = $("#guide9").val();
-			var g10 = $("#guide10").val();
+		var g1 = $("#guide1").val();
+		var g2 = $("#guide2").val();
+		var g3 = $("#guide3").val();
+		var g4 = $("#guide4").val();
+		var g5 = $("#guide5").val();
+		var g6 = $("#guide6").val();
+		var g7 = $("#guide7").val();
+		var g8 = $("#guide8").val();
+		var g9 = $("#guide9").val();
+		var g10 = $("#guide10").val();
 
-			var guide = g1+"/"+g2+"/"+g3+"/"+g4+"/"+g5+"/"+g6+"/"+g7+"/"+g8+"/"+g9+"/"+g10;
-			console.log(g1);
-			$("#guide").val(guide);
-			console.log($("#guide").val());
+		var guide = g1+"/"+g2+"/"+g3+"/"+g4+"/"+g5+"/"+g6+"/"+g7+"/"+g8+"/"+g9+"/"+g10;
+		console.log(g1);
+		$("#guide").val(guide);
+		console.log($("#guide").val());
 
-		}
+	}
 
 
 
 	//이용가능 시간대 설정
+	$(document).ready(function(){
 
-		$(document).ready(function(){
-
-			$("#avaliableTime").change(function(){
-
-   				if($("#avaliableTime").is(":checked")){
-   					$('#kt_datepicker_1').attr('disabled', 'true').css("color","#d2d2d2	");
-   					$('#kt_datepicker_2').attr('disabled', 'true').css("color","#d2d2d2");
-
-   				}else{
-   					$('#kt_datepicker_1').removeAttr('disabled', 'true').css("color","#8c8c8c");
-   					$('#kt_datepicker_2').removeAttr('disabled', 'true').css("color","#8c8c8c");
+		$("#avaliableTime").change(function(){
 
 
-   				}
+			if($("#avaliableTime").is(":checked")){
+				$('#kt_datepicker_1').attr('disabled', 'true').css("color","#d2d2d2	");
+				$('#kt_datepicker_2').attr('disabled', 'true').css("color","#d2d2d2");
 
-			});
-			
+			}else{
+				$('#kt_datepicker_1').removeAttr('disabled', 'true').css("color","#8c8c8c");
+				$('#kt_datepicker_2').removeAttr('disabled', 'true').css("color","#8c8c8c");
+			}
 		});
+	});
+
+	//가격 콤마 떼기 
+	function commaRemove(){
+		//가격 콤마 빼고 
+		var x = $("#price").val();
+		//var x = t.value;			
+		x = x.replace(/,/gi, '');
 		
-	//영업시간 설정
-		$("#kt_datepicker_1").flatpickr({
-    		enableTime: true,
-    		noCalendar: true,
-    		dateFormat: "H:i",
-		});
+		$("#price").val(x);
+	}
 
-		$("#kt_datepicker_2").flatpickr({
-    		enableTime: true,
-    		noCalendar: true,
-    		dateFormat: "H:i",
-		});
+
+	//영업시간 설정
+	$("#kt_datepicker_1").flatpickr({
+		enableTime: true,
+		noCalendar: true,
+		dateFormat: "H:i",
+	});
+
+	$("#kt_datepicker_2").flatpickr({
+		enableTime: true,
+		noCalendar: true,
+		dateFormat: "H:i",
+	});
 
 
 	// 영업 시간 24시간 설정
-
-
-
-		$("#avaliableTime").change(function(){
-		console.log("체크박스");
-				$('#kt_datepicker_1').val('00');
-				$('#kt_datepicker_2').val('00');
-		})
-
-
+	$("#avaliableTime").change(function(){
+	console.log("체크박스");
+			$('#kt_datepicker_1').val('00');
+			$('#kt_datepicker_2').val('00');
+	})
 
 
 
 	//장소 등록
-		function check(){
+	function check(){
+		commaRemove();
+		concatAddr();
+		facilities();
 
+		if($("#cate").val() == ""){
+			alert("장소 카테고리를 선택해 주세요.");
+			$("#cate").focus();
 
+		}else if($("#placeName").val() == ""){
+			alert("장소 이름을 입력해 주세요.");
+			$("#placeName").focus();
 
-			concatAddr();
-			facilities();
+		}else if($("#placeImgs").val() == ""){
+			alert("공간에 대한 사진을 등록해주세요.");
+			$("#placeImgs").focus();
 
-			if($("#cate").val() == ""){
-				alert("장소 카테고리를 선택해 주세요.");
-				$("#cate").focus();
+		}else if($("#placeDetail").val() == ""){
+			alert("장소에 대한 설명을 입력해주세요.");
+			$("#placeDetail").focus();
 
-			}else if($("#placeName").val() == ""){
-				alert("장소 이름을 입력해 주세요.");
-				$("#placeName").focus();
+		}else if($("#cntPeople").val() == ""){
+			alert("최대 수용가능 인원을 입력해주세요");
+			$("#cntPeople").focus();
 
-			}else if($("#placeImgs").val() == ""){
-				alert("공간에 대한 사진을 등록해주세요.");
-				$("#placeImgs").focus();
+		}else if($("#placeImgs").val() == ""){
+			alert("공간에 대한 사진을 등록해주세요.");
+			$("#placeImgs").focus();
 
-			}else if($("#placeDetail").val() == ""){
-				alert("장소에 대한 설명을 입력해주세요.");
-				$("#placeDetail").focus();
+		}else if($("#guide1").val() == ""){
+			alert("시설 이용정보를 최소 3개이상 작성해주세요");
+			$("#guide1").focus();
 
-			}else if($("#cntPeople").val() == ""){
-				alert("최대 수용가능 인원을 입력해주세요");
-				$("#cntPeople").focus();
+		}else if($("#guide2").val() == ""){
+			alert("시설 이용정보를 최소 3개이상 작성해주세요");
+			$("#guide2").focus();
 
-			}else if($("#placeImg").val() == ""){
-				alert("공간에 대한 사진을 등록해주세요.");
-				$("#placeImg").focus();
+		}else if($("#guide3").val() == ""){
+			alert("시설 이용정보를 최소 3개이상 작성해주세요");
+			$("#guide3").focus();
 
-			}else if($("#guide1").val() == ""){
-				alert("시설 이용정보를 최소 3개이상 작성해주세요");
-				$("#guide1").focus();
+		}else if($("#address").val() == ""){
+			alert("주소를 입력해 주세요");
+			$("#address").focus();
 
-			}else if($("#guide2").val() == ""){
-				alert("시설 이용정보를 최소 3개이상 작성해주세요");
-				$("#guide2").focus();
+		}else if($("#kt_datepicker_1").val() == ""){
+			alert("장소의 영업시작 시각을 입력해주세요");
+			$("#kt_datepicker_1").focus();
 
-			}else if($("#guide3").val() == ""){
-				alert("시설 이용정보를 최소 3개이상 작성해주세요");
-				$("#guide3").focus();
+		}else if($("#kt_datepicker_2").val() == ""){
+			alert("장소의 영업종료 시각을 입력해주세요");
+			$("#kt_datepicker_2").focus();
 
-			}else if($("#address").val() == ""){
-				alert("주소를 입력해 주세요");
-				$("#address").focus();
+		}else if($("#intervalTime > option:selected").val()==""){
+			alert("예약시간 단위를 입력해주세요. 입력하신 시간마다 예약이 열립니다.");
+			$("#intervalTime").focus();
 
-			}else if($("#kt_datepicker_1").val() == ""){
-				alert("장소의 영업시작 시각을 입력해주세요");
-				$("#kt_datepicker_1").focus();
+		}else if($("#price").val() == ""){
+			alert("시간당 금액을 입력해주세요.");
+			$("#price").focus();
 
-  			}else if($("#kt_datepicker_2").val() == ""){
-				alert("장소의 영업종료 시각을 입력해주세요");
-				$("#kt_datepicker_2").focus();
+		}else{
+		
+		
+		
+			confirm("등록하시겠습니까?");
 
-			}else if($("#intervalTime > option:selected").val()==""){
-				alert("예약시간 단위를 입력해주세요. 입력하신 시간마다 예약이 열립니다.");
-				$("#intervalTime").focus();
+			$("#frm").action ="host/insertPlace.do";
+			$("#frm").method ="post";
+			$("#frm").submit();
 
-			}else if($("#price").val() == ""){
-				alert("시간당 금액을 입력해주세요.");
-				$("#price").focus();
-
-			}else{
-
-				confirm("등록하시겠습니까?");
-
-				$("#frm").action ="host/insertPlace.do";
-				$("#frm").method ="post";
-				$("#frm").submit();
-
-			}
-
-
-
+		}
 	}
+	
+	
+	//시설 가이드 유효성
+		function guideValid(obj){
+			
+			var guideVal = $(obj).val();
+			var guideLength = $(obj).val().length;
+			
+			if(guideLength > 100){
+				console.log("시설정보 100자 이상");
+				//alert("시설 정보는 100자 이내로 작성해주시길 바랍니다.");
+				$(obj).removeClass('border-0');
+				$(obj).addClass('alertBox');
+				$(obj).closest('tr').next().css({'color':'#CD0000','display':'table-row'});
+				$(obj).closest('tr').next().children().html("시설 정보는 100자이내로 작성해주시길 바랍니다.").css('text-align', 'center')
+				return false;
+			}else if(guideLength < 100) {
+				$(obj).removeClass('alertBox');
+				$(obj).addClass('border-0');
+				$(obj).closest('tr').next().css({'color':'#CD0000','display':'none'});
+			
+			}else{
+			
+			}
+				
+		}
+	//시설 정보 입력막기 
+	function slash(obj){
+		 if(event.keyCode == 111 || event.which == 191 ) {
+		 	alert("/는 입력이 불가합니다.");
+		 	event.preventDefault();
+		 }
+		 return;
+	}
+
+
+
+
+	
+	//가격에 , 추가 
+	function commas(t) {
+	
+		// 콤마 빼고 
+		var x = t.value;			
+		x = x.replace(/,/gi, '');
+	
+	    // 숫자 정규식 확인
+		var regexp = /^[0-9]*$/;
+		if(!regexp.test(x)){ 
+			$(t).val(""); 
+			alert("숫자만 입력 가능합니다.");
+		} else {
+			x = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");			
+			$(t).val(x);			
+		}
+	}
+	
+	
+	
+	
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

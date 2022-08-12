@@ -133,9 +133,8 @@
 
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-		<!-- 예약 승인 및 거절 -->
 		<script>
-	
+			<!-- 예약 승인 및 거절 -->
 		var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
 			  keyboard: false
 			})
@@ -196,16 +195,13 @@
 				}
 			}
 		}
+		
 		/* 취소 (창 닫기) */
 		function reject (){
 			myModal.hide();
 		}
-		
 	
-	
-	
-	
-	</script>
+	</script>	
 
 
 </body>
