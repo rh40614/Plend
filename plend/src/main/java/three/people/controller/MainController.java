@@ -207,7 +207,7 @@ public class MainController {
 		System.out.println("내용 :"+vo.getContent());
 		System.out.println("파일 이름 :"+vo.getFileName());
 		System.out.println("nidx : " +vo.getNidx());
-		
+		System.out.println("카테고리 : " + vo.getCategory());
 		int result = mainService.noticeModify(vo);
 		System.out.println("result = "+ result);
 		response.setContentType("text/html;charset=utf-8");
