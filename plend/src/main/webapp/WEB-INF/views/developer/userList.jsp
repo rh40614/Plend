@@ -11,9 +11,6 @@
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/developer.css" rel="stylesheet">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
 		
 	<script type="text/javascript">
 		$(function(){
@@ -34,34 +31,36 @@
 					<p class="h5 fw-bold category-title"> 회원리스트 </p>
 				</div>
 			</div>
-			<section class="row px-1">
-				<table class="col table text-center table-hover">
-				  <thead class="table-light">
-				    <tr>
-				      <th scope="col">회원번호</th>
-				      <th scope="col">아이디</th>
-				      <th scope="col">이름</th>
-				      <th scope="col">관리</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				  	<!-- 07.14 김영민 데이터반영 회원리스트 -->
-				  	<c:if test="${empty userList}">
-				  		<tr>
-							<td colspan="4"> 결과와 맞는 유저가 없습니다. </td>
-				  		</tr>
-				  	</c:if>
-				  	<c:forEach var="user" items="${userList}">
-				  		<tr>
-					      <th scope="row">${user.uidx}</th>
-					      <td>${user.id}</td>
-					      <td>${user.name}</td>
-					      <td><a class="btn btn-primary btn-sm rounded-3" href="userModify.do?uidx=${user.uidx}" role="button">수정</a></td>
-				    	</tr>
-				  	</c:forEach>
-				  </tbody>
-				</table>
-			</section>
+			<div class="distancePagination">
+				<section class="row px-1">
+					<table class="col table text-center table-hover">
+					  <thead class="table-light">
+					    <tr>
+					      <th scope="col">회원번호</th>
+					      <th scope="col">아이디</th>
+					      <th scope="col">이름</th>
+					      <th scope="col">관리</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  	<!-- 07.14 김영민: 데이터반영 회원리스트 -->
+					  	<c:if test="${empty userList}">
+					  		<tr>
+								<td colspan="4"> 결과와 맞는 유저가 없습니다. </td>
+					  		</tr>
+					  	</c:if>
+					  	<c:forEach var="user" items="${userList}">
+					  		<tr>
+						      <th scope="row">${user.uidx}</th>
+						      <td>${user.id}</td>
+						      <td>${user.name}</td>
+						      <td><a class="btn btn-primary btn-sm rounded-3" href="userModify.do?uidx=${user.uidx}" role="button">수정</a></td>
+					    	</tr>
+					  	</c:forEach>
+					  </tbody>
+					</table>
+				</section>
+			</div>
 			<c:if test="${ not empty userList}">
 				<nav id="pagenation" class="row">
 				  <ul class="pagination justify-content-center">
@@ -104,8 +103,8 @@
 		</main>
 		<footer id="footer" class="row"></footer>
 	</div>
-	<!-- JavaScript Bundle with Popper -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
 

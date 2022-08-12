@@ -48,21 +48,21 @@
 			<span class="title1">플레이스 등록</span>
 			<div style="margin-left: 10%;">
 				<div class="btn-group-lg mt-5" role="group" aria-label="Basic example">
-  					<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px;" value ="gallery" onclick="cate(this)">갤러리</button>
-  					<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px;" value ="shareKitchen" onclick="cate(this)">공유주방</button>
-  					<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px;" value ="recording" onclick="cate(this)">녹음실</button>
-  					<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px;" value ="singPractice" onclick="cate(this)">노래 연습실</button>
-  					<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px;" value ="shareOffice" onclick="cate(this)">공유 오피스</button>
-  					<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px;" value ="office" onclick="cate(this)">독립 오피스</button>
+  					<button type="button" class="insertPlaceBtn" value ="gallery" onclick="cate(this)">갤러리</button>
+  					<button type="button" class="insertPlaceBtn" value ="shareKitchen" onclick="cate(this)">공유주방</button>
+  					<button type="button" class="insertPlaceBtn" value ="recording" onclick="cate(this)">녹음실</button>
+  					<button type="button" class="insertPlaceBtn" value ="singPractice" onclick="cate(this)">노래 연습실</button>
+  					<button type="button" class="insertPlaceBtn" value ="shareOffice" onclick="cate(this)">공유 오피스</button>
+  					<button type="button" class="insertPlaceBtn" value ="office" onclick="cate(this)">독립 오피스</button>
 				
 				</div>
 				<div class="btn-group-lg mt-1" role="group" aria-label="Basic example">
-  					<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px;" value ="smallWedding" onclick="cate(this)">스몰웨딩</button>
-  					<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px;" value ="homeGym" onclick="cate(this)">운동시설</button>
-  					<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px;" value ="studio" onclick="cate(this)">촬영 스튜디오</button>
-  					<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px;" value ="dancePractice" onclick="cate(this)">춤 연습실</button>
-  					<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px;" value ="partyRoom" onclick="cate(this)">파티룸</button>
-  					<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px;" value ="meeting" onclick="cate(this)">회의실</button>
+  					<button type="button" class="insertPlaceBtn" value ="smallWedding" onclick="cate(this)">스몰웨딩</button>
+  					<button type="button" class="insertPlaceBtn" value ="homeGym" onclick="cate(this)">운동시설</button>
+  					<button type="button" class="insertPlaceBtn" value ="studio" onclick="cate(this)">촬영 스튜디오</button>
+  					<button type="button" class="insertPlaceBtn" value ="dancePractice" onclick="cate(this)">춤 연습실</button>
+  					<button type="button" class="insertPlaceBtn" value ="partyRoom" onclick="cate(this)">파티룸</button>
+  					<button type="button" class="insertPlaceBtn" value ="meeting" onclick="cate(this)">회의실</button>
 					<br>
 				</div>
 				<br>
@@ -169,101 +169,68 @@
 							
 							<br>
 							<div class="mt-3" >
-								<span class="title3">플레이스 옵션(선택) </span><br>
+								<span class="title3">플레이스 옵션 </span><br>
+								<!-- 카테고리가 선택되어있지 않을 경우  -->
+								<div class="option1" style="display: block">
+									<p>카테고리가 선택되지 않았습니다. 카테고리를 먼저 선택해주세요.</p>
+								</div>
 								<!-- 갤러리 옵션 -->
 								<div id="option_gallery" class="option1" style="display: none">
-								<label><input type="checkbox" name="option1" value="playStation" > 플레이 스테이션 </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 노트북 </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 크롬케스트  </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 헤어 드라이기 </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 마우스 </label>
+									<div class="commonOption"></div>
 								</div>
 								<!-- 회의실 옵션 -->
 								<div id="option_meeting" class="option1" style="display: none">
-								<label><input type="checkbox" name="option1" value="chair" > 의자 </label>
-								<label><input type="checkbox" name="option1" value="whiteBoard"> 화이트보드 </label>
-								<label><input type="checkbox" name="option1" value="blackBoard"> 블랙보드  </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 탕비실 </label>
+									<div class="commonOption"></div>
 								</div>
 								
 								<!-- 춤 연습실 옵션 -->
 								<div id="option_dancePractice" class="option1" style="display: none">
-								<label><input type="checkbox" name="option1" value="playStation" > ㅁㅇㄻㄴ </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 화이트보드 </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 블랙보드  </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 탕비실 </label>
+									<div class="commonOption"></div>
 								</div>
 								
 								<!-- 헬스장 옵션 -->
 								<div id="option_homeGim" class="option1" style="display: none">
-								<label><input type="checkbox" name="option1" value="playStation" > ㄹㅇㄻ </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 화이트보드 </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 블랙보드  </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 탕비실 </label>
+									<div class="commonOption"></div>
 								</div>
 								
 								<!-- 독립오피스 옵션 -->
 								<div id="option_office" class="option1" style="display: none">
-								<label><input type="checkbox" name="option1" value="playStation" > 의자 </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 화이트보드 </label>
-								<label><input type="checkbox" name="option1" value="laptop"> ㅁㅇㄹ  </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 탕비실 </label>
+									<div class="commonOption"></div>
 								</div>
 								
 								<!-- 공유오피스 옵션 -->
 								<div id="option_officeShare" class="option1" style="display: none">
-								<label><input type="checkbox" name="option1" value="playStation" > 의자 </label>
-								<label><input type="checkbox" name="option1" value="laptop"> ㅁㅇㄹ </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 블랙보드  </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 탕비실 </label>
+									<div class="commonOption"></div>
 								</div>
 								
 								<!-- 파티룸 옵션 -->
 								<div id="option_partyRoom" class="option1" style="display: none">
-								<label><input type="checkbox" name="option1" value="playStation" > 의자 </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 화이트보드 </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 블랙ㅁㅇㄴㄹ보드  </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 탕비실 </label>
+									<div class="commonOption"></div>
 								</div>
 								
 								<!-- 녹음실 옵션 -->
 								<div id="option_recording" class="option1" style="display: none">
-								<label><input type="checkbox" name="option1" value="playStation" > 의자 </label>
-								<label><input type="checkbox" name="option1" value="laptop"> ㅁㅇㄹ </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 블랙보드  </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 탕비실 </label>
+									<div class="commonOption"></div>
 								</div>
 								
 								<!-- 공유주방 옵션 -->
 								<div id="option_shareKitchen" class="option1" style="display: none">
-								<label><input type="checkbox" name="option1" value="playStation" > 의자 </label>
-								<label><input type="checkbox" name="option1" value="laptop"> ㅁㅇㄴㄹ </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 블랙보드  </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 탕비실 </label>
+									<div class="commonOption"></div>
 								</div>
 								
 								<!-- 노래연습실 옵션 -->
 								<div id="option_singPractice" class="option1" style="display: none">
-								<label><input type="checkbox" name="option1" value="playStation" > 의자 </label>
-								<label><input type="checkbox" name="option1" value="laptop"> ㅁㅇㄴㄹ </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 블랙보드  </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 탕비실 </label>
+									<div class="commonOption"></div>
 								</div>
 								
 								<!-- 스몰웨딩 옵션 -->
 								<div id="option_smallWedding" class="option1" style="display: none">
-								<label><input type="checkbox" name="option1" value="playStation" > 의자 </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 화이트보드 </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 블랙ㅇㄹ  </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 탕비실 </label>
+									<div class="commonOption"></div>
 								</div>
 								
 								<!-- 스튜디오 옵션 -->
 								<div id="option_studio" class="option1" style="display: none">
-								<label><input type="checkbox" name="option1" value="playStation" > 의자 </label>
-								<label><input type="checkbox" name="option1" value="laptop"> ㅇㄴㄹ </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 블랙보드  </label>
-								<label><input type="checkbox" name="option1" value="laptop"> 탕비실 </label>
+									<div class="commonOption"></div>
 								</div>
 								
 							</div>
@@ -328,6 +295,12 @@
 	<div style="margin:300px;"></div>
 	<footer id="footer"></footer>
 	<script src="<%=request.getContextPath()%>/resources/js/placeModify.js"></script>
+<!-- 장소 옵션 -->
+<script>
+$(function(){
+	$(".commonOption").load("<%=request.getContextPath()%>/resources/article/placeOptionList.jsp");
+});
+</script>
 <!-- 로딩 이후 인풋에 데이터 뿌려주기 -->
 <!-- guide -->
 <c:set var="guide" value="${place.guide.split('/')}"/>

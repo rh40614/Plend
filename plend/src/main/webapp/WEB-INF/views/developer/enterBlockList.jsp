@@ -27,7 +27,7 @@
 					<td>${block.delYN}</td>
 					<td>${block.date}</td>
 					<td>${block.content}</td>
-					<td><a class="btn btn-sm" href="blockDelete.do?rbidx=${block.rbidx}">삭제</a></td>
+					<td><a class="btn btn-sm" onclick="blockDelete('${block.rbidx}')">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</c:otherwise>
@@ -60,3 +60,11 @@
 	  </ul>
 	</nav>
 </c:if>
+<!-- 삭제 전 물어보기 -->
+<script>
+function blockDelete(rbidx){
+	if(confirm("삭제하시겠습니까?")){
+		location.replace("blockDelete.do?rbidx="+rbidx)
+	}
+}
+</script>
