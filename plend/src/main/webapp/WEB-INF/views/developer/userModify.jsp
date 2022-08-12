@@ -31,7 +31,7 @@
 				<p class="h5 fw-bold category-title" style="padding-left: 10%;"> 회원정보수정 </p>
 			</div>
 		</div>
-		<form name="frm" action="userModify.do?uidx=${user.uidx}" method="post" onsubmit="modifySubmit()">
+		<form name="frm" action="userModify.do?uidx=${user.uidx}" method="post" onsubmit="return modifySubmit()">
 			<section class="row px-1" style="margin-bottom: 80px;">
 				<div class="modify-div col me-5 mt-5">
 					<p class="blockquote-footer mt-1"> 회원기본정보 </p>
@@ -39,19 +39,19 @@
 					  <tbody>
 					    <tr>
 					      <td scope="row" class="align-middle text-center">아이디</td>
-					      <td> <input type="text" class="form-control" name="id" value="${user.id}"> </td>
+					      <td> <input type="text" class="form-control" name="id" value="${user.id}" required> </td>
 					    </tr>
 					    <tr>
 					      <td scope="row" class="align-middle text-center">비밀번호</td>
-					      <td> <input type="text" class="form-control" name="password" value="${user.password}"></td>
+					      <td> <input type="text" class="form-control" name="password" value="${user.password}" required></td>
 					    </tr>
 					    <tr>
 					      <td scope="row" class="align-middle text-center">이름</td>
-					      <td> <input type="text" class="form-control" name="name" value="${user.name}"></td>
+					      <td> <input type="text" class="form-control" name="name" value="${user.name}" required></td>
 					    </tr>
 					    <tr>
 					      <td scope="row" class="align-middle text-center">이메일</td>
-					      <td> <input type="text" class="form-control" name="email" value="${user.email}"></td>
+					      <td> <input type="text" class="form-control" name="email" value="${user.email}" required></td>
 					    </tr>
 					  </tbody>
 				   </table>
@@ -72,15 +72,15 @@
 					  <tbody>
 					    <tr>
 					      <td scope="row" class="align-middle text-center">생년월일</td>
-					      <td><input type="text" class="form-control" name="birth" value="${user.birth}"></td>
+					      <td><input type="text" class="form-control" name="birth" value="${user.birth}" required></td>
 					    </tr>
 					    <tr>
 					      <td scope="row" class="align-middle text-center">닉네임</td>
-					      <td><input type="text" class="form-control" name="nickName" value="${user.nickName}"></td>
+					      <td><input type="text" class="form-control" name="nickName" value="${user.nickName}" required></td>
 					    </tr>
 					    <tr>
 					      <td scope="row" class="align-middle text-center">연락처</td>
-					      <td><input type="text" class="form-control" name="userPhone" value="${user.userPhone}"></td>
+					      <td><input type="text" class="form-control" name="userPhone" value="${user.userPhone}" required></td>
 					    </tr>
 					  </tbody>
 					</table>

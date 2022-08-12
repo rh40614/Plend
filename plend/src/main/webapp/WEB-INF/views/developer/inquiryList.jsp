@@ -34,54 +34,56 @@
 					<p class="h5 fw-bold category-title"> 업체 문의 내역 </p>
 				</div>
 			</div>
-			<section class="row px-1">
-				<table class="col table text-center table-hover">
-				  <thead class="table-dark">
-				    <tr>
-				      <th scope="col">번호</th>
-				      <th scope="col">업체명</th>
-				      <th scope="col">유형</th>
-				      <th scope="col">제목</th>
-				      <th scope="col">답변 여부</th>
-				      <th scope="col">등록일</th>
-				      <th scope="col">답변</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				  	<c:if test="${empty list}">
-				  		<tr>
-				  			<td colspan="7"> 아직 등록된 문의가 없습니다. </td>
-				  		</tr>
-				  	</c:if>
-				  	<c:forEach var="inquiryVO" items="${list}">
-				  		<tr>
-				  			<td> ${inquiryVO.iqidx} </td>
-				  			<td> ${inquiryVO.nickName} </td>
-				  			<td> ${inquiryVO.category} </td>
-				  			<td> ${inquiryVO.title} </td>
-				  			<td> ${inquiryVO.answerYN} </td>
-				  			<td> ${inquiryVO.date.substring(0,10)} </td>
-					  		<td class="col-2">
-					  			<c:choose>
-					  				<c:when test="${inquiryVO.answerYN eq 'N'}">
-							  			<a onclick="replyOpen(${inquiryVO.uidx},${inquiryVO.iqidx})" class="btn btn-sm">답변</a>
-					  				</c:when>
-					  				<c:when test="${inquiryVO.answerYN ne 'N'}">
-							  			<a onclick="replyOpen(${inquiryVO.uidx},${inquiryVO.iqidx})" class="btn btn-sm">수정</a>
-					  				</c:when>
-					  			</c:choose>
-					  		</td>
-				  		</tr>
-				  		<tr>
-				  			<td id="viewOne${inquiryVO.iqidx}" class="replyTD d-none" colspan="7"></td>
-				  		</tr>
-				  		<tr>
-				  			<td id="reply${inquiryVO.iqidx}" class="replyTD d-none" colspan="7"></td>
-				  		</tr>
-				  	</c:forEach>
-				  </tbody>
-				</table>
-			</section>
+			<div class="distancePagination">
+				<section class="row px-1">
+					<table class="col table text-center table-hover">
+					  <thead class="table-dark">
+					    <tr>
+					      <th scope="col">번호</th>
+					      <th scope="col">업체명</th>
+					      <th scope="col">유형</th>
+					      <th scope="col">제목</th>
+					      <th scope="col">답변 여부</th>
+					      <th scope="col">등록일</th>
+					      <th scope="col">답변</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  	<c:if test="${empty list}">
+					  		<tr>
+					  			<td colspan="7"> 아직 등록된 문의가 없습니다. </td>
+					  		</tr>
+					  	</c:if>
+					  	<c:forEach var="inquiryVO" items="${list}">
+					  		<tr>
+					  			<td> ${inquiryVO.iqidx} </td>
+					  			<td> ${inquiryVO.nickName} </td>
+					  			<td> ${inquiryVO.category} </td>
+					  			<td> ${inquiryVO.title} </td>
+					  			<td> ${inquiryVO.answerYN} </td>
+					  			<td> ${inquiryVO.date.substring(0,10)} </td>
+						  		<td class="col-2">
+						  			<c:choose>
+						  				<c:when test="${inquiryVO.answerYN eq 'N'}">
+								  			<a onclick="replyOpen(${inquiryVO.uidx},${inquiryVO.iqidx})" class="btn btn-sm">답변</a>
+						  				</c:when>
+						  				<c:when test="${inquiryVO.answerYN ne 'N'}">
+								  			<a onclick="replyOpen(${inquiryVO.uidx},${inquiryVO.iqidx})" class="btn btn-sm">수정</a>
+						  				</c:when>
+						  			</c:choose>
+						  		</td>
+					  		</tr>
+					  		<tr>
+					  			<td id="viewOne${inquiryVO.iqidx}" class="replyTD d-none" colspan="7"></td>
+					  		</tr>
+					  		<tr>
+					  			<td id="reply${inquiryVO.iqidx}" class="replyTD d-none" colspan="7"></td>
+					  		</tr>
+					  	</c:forEach>
+					  </tbody>
+					</table>
+				</section>
+			</div>
 			<c:if test="${not empty list}">
 				<nav id="pagenation" class="row">
 				  <ul class="pagination justify-content-center">
@@ -130,31 +132,36 @@
 <script type="text/javascript">
 	function replyOpen(uidx,iqidx){
 		console.log("답변 창 오픈");
-	
-		$.ajax({
-			url: "replyInquiry.do?uidx="+uidx+"&iqidx="+iqidx,
-			success: function(html){
-				console.log("답변 창 오픈 성공");
-				$(".replyTD").addClass("d-none");
-				$("#reply"+iqidx).removeClass("d-none");
-				$("#reply"+iqidx).html(html);
-				$.ajax({
-					url:"<%= request.getContextPath()%>/inquiry_dev/inquiryViewOne.do?uidx="+uidx+"&iqidx="+iqidx,
-					success: function(html){
-						$("#viewOne"+iqidx).removeClass("d-none");
-						$("#viewOne"+iqidx).html(html);
-					},
-					error: function(){
-						console.log("답변 창 오픈 실패");
-					}
-				});
-			},
-			error: function(){
-				console.log("답변 창 오픈 실패");
-			}
-		});
-		
-
+	    console.log($("#viewOne"+iqidx).text() == "");
+	    if($("#viewOne"+iqidx).text() == ""){
+			$.ajax({
+				url: "replyInquiry.do?uidx="+uidx+"&iqidx="+iqidx,
+				success: function(html){
+					console.log("답변 창 오픈 성공");
+					$(".replyTD").addClass("d-none");
+					$("#reply"+iqidx).removeClass("d-none");
+					$("#reply"+iqidx).html(html);
+					$.ajax({
+						url:"<%= request.getContextPath()%>/inquiry_dev/inquiryViewOne.do?uidx="+uidx+"&iqidx="+iqidx,
+						success: function(html){
+							$("#viewOne"+iqidx).removeClass("d-none");
+							$("#viewOne"+iqidx).html(html);
+						},
+						error: function(){
+							console.log("답변 창 오픈 실패");
+						}
+					});
+				},
+				error: function(){
+					console.log("답변 창 오픈 실패");
+				}
+			});
+	    }else{
+	    	$("#viewOne"+iqidx).empty();
+	    	$("#reply"+iqidx).empty();
+	    	$("#viewOne"+iqidx).addClass("d-none");
+	    	$("#reply"+iqidx).addClass("d-none");
+	    }
 	}
 </script>
 </body>

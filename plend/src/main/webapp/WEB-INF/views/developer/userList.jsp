@@ -31,34 +31,36 @@
 					<p class="h5 fw-bold category-title"> 회원리스트 </p>
 				</div>
 			</div>
-			<section class="row px-1">
-				<table class="col table text-center table-hover">
-				  <thead class="table-light">
-				    <tr>
-				      <th scope="col">회원번호</th>
-				      <th scope="col">아이디</th>
-				      <th scope="col">이름</th>
-				      <th scope="col">관리</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				  	<!-- 07.14 김영민: 데이터반영 회원리스트 -->
-				  	<c:if test="${empty userList}">
-				  		<tr>
-							<td colspan="4"> 결과와 맞는 유저가 없습니다. </td>
-				  		</tr>
-				  	</c:if>
-				  	<c:forEach var="user" items="${userList}">
-				  		<tr>
-					      <th scope="row">${user.uidx}</th>
-					      <td>${user.id}</td>
-					      <td>${user.name}</td>
-					      <td><a class="btn btn-primary btn-sm rounded-3" href="userModify.do?uidx=${user.uidx}" role="button">수정</a></td>
-				    	</tr>
-				  	</c:forEach>
-				  </tbody>
-				</table>
-			</section>
+			<div class="distancePagination">
+				<section class="row px-1">
+					<table class="col table text-center table-hover">
+					  <thead class="table-light">
+					    <tr>
+					      <th scope="col">회원번호</th>
+					      <th scope="col">아이디</th>
+					      <th scope="col">이름</th>
+					      <th scope="col">관리</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  	<!-- 07.14 김영민: 데이터반영 회원리스트 -->
+					  	<c:if test="${empty userList}">
+					  		<tr>
+								<td colspan="4"> 결과와 맞는 유저가 없습니다. </td>
+					  		</tr>
+					  	</c:if>
+					  	<c:forEach var="user" items="${userList}">
+					  		<tr>
+						      <th scope="row">${user.uidx}</th>
+						      <td>${user.id}</td>
+						      <td>${user.name}</td>
+						      <td><a class="btn btn-primary btn-sm rounded-3" href="userModify.do?uidx=${user.uidx}" role="button">수정</a></td>
+					    	</tr>
+					  	</c:forEach>
+					  </tbody>
+					</table>
+				</section>
+			</div>
 			<c:if test="${ not empty userList}">
 				<nav id="pagenation" class="row">
 				  <ul class="pagination justify-content-center">

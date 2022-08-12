@@ -50,9 +50,31 @@ function DaumPostcode() {
     
 <!-- submit 할 때  주소 합쳐 보내기-->
 function modifySubmit(){
-	var address = $("#address").val();
-	var detailAddress = $("#detailAddress").val();
-	var addr = address + " " + detailAddress;
-	
-	$("#addr").val(addr);
+	if(confirm("수정하시겠습니까?")){
+		if($("input[name='id']").val().length > 10){
+			alert("아이디를 열글자 이하로 수정해주세요.");
+			return false;
+		}else if($("input[name='name']").val().length > 10){
+			alert("이름을 열글자 이하로 수정해주세요.");
+			return false;
+		}else if($("input[name='nickName']").val().length > 10){
+			alert("닉네임을 열글자 이하로 수정해주세요.");
+			return false;
+		}else if($("input[name='userPhone']").val().length > 15){
+			alert("연락처를 다시 한번 확인 해주세요.");
+			return false;
+		}else if(!/^\d{3}-\d{3,4}-\d{4}$/.test($("input[name='userPhone']").val())){
+			alert("연락처에 '-'과 숫자만 사용해주세요.");
+			return false;
+		}else{
+			var address = $("#address").val();
+			var detailAddress = $("#detailAddress").val();
+			var addr = address + " " + detailAddress;
+			
+			$("#addr").val(addr);
+			return true;
+		}
+	}else{
+		return false;
+	}
 }

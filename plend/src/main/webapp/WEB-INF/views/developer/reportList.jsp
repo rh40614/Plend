@@ -30,44 +30,46 @@
 					<p class="h5 fw-bold category-title"> 회원신고리스트 </p>
 				</div>
 			</div>
-			<section class="row px-1">
-				<table class="col table text-center table-hover">
-				  <thead class="table-light">
-				    <tr>
-				      <th scope="col">신고번호</th>
-				      <th scope="col">신고항목</th>
-				      <th scope="col">신고내용</th>
-				      <th scope="col">신고자</th>
-				      <th scope="col">신고일자</th>
-				      <th scope="col">관리</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				  	<c:if test="${empty reportList}">
-				  		<tr>
-				  			<td colspan="6"> 아직 접수된 신고가 없습니다. </td>
-				  		</tr>
-				  	</c:if>
-				  	<c:forEach var="report" items="${reportList}" varStatus="status">
-						<tr>
-					      <th scope="row">${report.rbidx}</th>
-					      <td>${report.category.replace(",",'/')}</td>
-					      <td>${report.content}</td>
-					      <td>${report.name}</td>
-					      <td>${report.date.substring(0,10)}</td>
-					      <c:choose>
-					      	<c:when test="${report.delYN eq 'N'}">
-						      <td><a id="blind${status.index}" class="btn btn-sm rounded-3" onclick="doBlind(${report.rvidx},${report.rbidx},${status.index})">블라인드처리</a></td>
-					      	</c:when>
-					      	<c:otherwise>
-					      	  <td><a class="btn btn-sm grayBtn rounded-3">블라인드처리</a></td>
-					      	</c:otherwise>
-					      </c:choose>
-					    </tr>			  		
-				  	</c:forEach>
-				  </tbody>
-				</table>
-			</section>
+			<div class="distancePagination">
+				<section class="row px-1">
+					<table class="col table text-center table-hover">
+					  <thead class="table-light">
+					    <tr>
+					      <th scope="col">신고번호</th>
+					      <th scope="col">신고항목</th>
+					      <th scope="col">신고내용</th>
+					      <th scope="col">신고자</th>
+					      <th scope="col">신고일자</th>
+					      <th scope="col">관리</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  	<c:if test="${empty reportList}">
+					  		<tr>
+					  			<td colspan="6"> 아직 접수된 신고가 없습니다. </td>
+					  		</tr>
+					  	</c:if>
+					  	<c:forEach var="report" items="${reportList}" varStatus="status">
+							<tr>
+						      <th scope="row">${report.rbidx}</th>
+						      <td>${report.category.replace(",",'/')}</td>
+						      <td>${report.content}</td>
+						      <td>${report.name}</td>
+						      <td>${report.date.substring(0,10)}</td>
+						      <c:choose>
+						      	<c:when test="${report.delYN eq 'N'}">
+							      <td><a id="blind${status.index}" class="btn btn-sm rounded-3" onclick="doBlind(${report.rvidx},${report.rbidx},${status.index})">블라인드처리</a></td>
+						      	</c:when>
+						      	<c:otherwise>
+						      	  <td><a class="btn btn-sm grayBtn rounded-3">블라인드처리</a></td>
+						      	</c:otherwise>
+						      </c:choose>
+						    </tr>			  		
+					  	</c:forEach>
+					  </tbody>
+					</table>
+				</section>
+			</div>
 			<c:if test="${not empty reportList}">
 				<nav id="pagenation" class="row">
 				  <ul class="pagination justify-content-center">

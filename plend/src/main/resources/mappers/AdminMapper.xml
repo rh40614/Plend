@@ -345,7 +345,7 @@
 		  FROM block b 
 		  JOIN user_plend u 
 		    ON b.reporter_uidx = u.uidx
-		 WHERE b.uidx = #{blockVO.uidx}
+		 WHERE uidx = #{blockVO.uidx}
 		   AND b.bdelyn = 'N'
 		 LIMIT #{searchVO.start}, #{searchVO.cntPerPage}
 	</select>
@@ -355,7 +355,7 @@
 		  FROM block b
 		  JOIN user_plend u
 		    ON b.reporter_uidx = u.uidx
-		 WHERE b.uidx = #{uidx}
+		 WHERE uidx = #{uidx}
 	</select>
 	<!-- 블랙리스트 삭제 -->
 	<update id="blockDelete" parameterType="BlockVO" >

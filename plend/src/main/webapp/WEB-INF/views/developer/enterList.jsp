@@ -30,59 +30,61 @@
 					<p class="h5 fw-bold category-title"> 업체리스트 </p>
 				</div>
 			</div>
-			<section class="row px-1">
-				<table class="col table text-center table-hover">
-				  <thead class="table-dark">
-				    <tr>
-				      <th scope="col">번호</th>
-				      <th scope="col">업체명</th>
-				      <th scope="col">대표자명</th>
-				      <th scope="col">업체번호</th>
-				      <th scope="col">사업자번호</th>
-				      <th scope="col">등록일</th>
-				      <th scope="col">삭제여부</th>
-				      <th scope="col">삭제</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				  	<!-- 07.15 김영민: 데이터 반영 업체리스트 -->
-				  	<c:if test="${empty enterList }">
-				  		<tr>
-				  			<td colspan="8"> 결과와 맞는 업체가 없습니다. </td>
-				  		</tr>
-				  	</c:if>
-		  			<!-- 삭제된 업체의 버튼은 회색으로 -->
-				  	<c:forEach var="enter" items="${enterList}">
-				  		<c:choose>
-				  			<c:when test="${enter.delYN eq 'Y' }">
-						  		<tr>
-								  <th scope="row">${enter.uidx}</th>
-							      <td><a href="enterModify.do?uidx=${enter.uidx}">${enter.nickName}</a></td>
-							      <td>${enter.name}</td>
-							      <td>${enter.userPhone}</td>
-							      <td>${enter.regnum}</td>
-							      <td>${enter.jdate.substring(0,10)}</td>
-							      <td>${enter.delYN}</td>
-							      <td><a class="btn btn-primary btn-sm rounded-3" style="background-color: gray !important; border-color: gray !important;" role="button">삭제</a></td>			  			
-						  		</tr>
-				  			</c:when>
-				  			<c:when test="${enter.delYN eq 'N' }">
-					  			<tr>
-								  <th scope="row">${enter.uidx}</th>
-							      <td><a href="enterModify.do?uidx=${enter.uidx}">${enter.nickName}</a></td>
-							      <td>${enter.name}</td>
-							      <td>${enter.userPhone}</td>
-							      <td>${enter.regnum}</td>
-							      <td>${enter.jdate.substring(0,10)}</td>
-							      <td>${enter.delYN}</td>
-							      <td><a class="btn btn-primary btn-sm rounded-3" href="enterDelete.do?uidx=${enter.uidx}" role="button">삭제</a></td>			  			
-						  		</tr>
-				  			</c:when>
-				  		</c:choose>
-				  	</c:forEach>
-				  </tbody>
-				</table>
-			</section>
+			<div class="distancePagination">
+				<section class="row px-1">
+					<table class="col table text-center table-hover">
+					  <thead class="table-dark">
+					    <tr>
+					      <th scope="col">번호</th>
+					      <th scope="col">업체명</th>
+					      <th scope="col">대표자명</th>
+					      <th scope="col">업체번호</th>
+					      <th scope="col">사업자번호</th>
+					      <th scope="col">등록일</th>
+					      <th scope="col">삭제여부</th>
+					      <th scope="col">삭제</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  	<!-- 07.15 김영민: 데이터 반영 업체리스트 -->
+					  	<c:if test="${empty enterList }">
+					  		<tr>
+					  			<td colspan="8"> 결과와 맞는 업체가 없습니다. </td>
+					  		</tr>
+					  	</c:if>
+			  			<!-- 삭제된 업체의 버튼은 회색으로 -->
+					  	<c:forEach var="enter" items="${enterList}">
+					  		<c:choose>
+					  			<c:when test="${enter.delYN eq 'Y' }">
+							  		<tr>
+									  <th scope="row">${enter.uidx}</th>
+								      <td><a href="enterModify.do?uidx=${enter.uidx}">${enter.nickName}</a></td>
+								      <td>${enter.name}</td>
+								      <td>${enter.userPhone}</td>
+								      <td>${enter.regnum}</td>
+								      <td>${enter.jdate.substring(0,10)}</td>
+								      <td>${enter.delYN}</td>
+								      <td><a class="btn btn-primary btn-sm rounded-3" style="background-color: gray !important; border-color: gray !important;" role="button">삭제</a></td>			  			
+							  		</tr>
+					  			</c:when>
+					  			<c:when test="${enter.delYN eq 'N' }">
+						  			<tr>
+									  <th scope="row">${enter.uidx}</th>
+								      <td><a href="enterModify.do?uidx=${enter.uidx}">${enter.nickName}</a></td>
+								      <td>${enter.name}</td>
+								      <td>${enter.userPhone}</td>
+								      <td>${enter.regnum}</td>
+								      <td>${enter.jdate.substring(0,10)}</td>
+								      <td>${enter.delYN}</td>
+								      <td><a class="btn btn-primary btn-sm rounded-3" onclick="confirmDelete('${enter.uidx}')" role="button">삭제</a></td>			  			
+							  		</tr>
+					  			</c:when>
+					  		</c:choose>
+					  	</c:forEach>
+					  </tbody>
+					</table>
+				</section>
+			</div>
 			<c:if test="${not empty enterList}">
 				<nav id="pagenation" class="row">
 				  <ul class="pagination justify-content-center">
@@ -127,6 +129,14 @@
 	</div>
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!-- 삭제버튼 유효성 검사 -->
+<script type="text/javascript">
+	function confirmDelete(uidx){
+		if(confirm("삭제하시겠습니까?")){
+			location.replace("enterDelete.do?uidx="+uidx)
+		}
+	}
+</script>
 </body>
 </html>
 

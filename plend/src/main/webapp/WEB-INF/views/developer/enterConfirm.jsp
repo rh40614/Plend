@@ -30,80 +30,82 @@
 					<p class="h5 fw-bold category-title"> 업체장소 등록승인 </p>
 				</div>
 			</div>
-			<section class="row px-1">
-				<table class="col table text-center table-hover">
-				  <thead class="table-dark">
-				    <tr>
-				      <th scope="col">번호</th>
-				      <th scope="col">장소</th>
-				      <th scope="col">업체명</th>
-				      <th scope="col">장소명</th>
-				      <th scope="col">대표자명</th>
-				      <th scope="col">업체번호</th>
-				      <th scope="col">등록일</th>
-				      <th scope="col">승인/반려</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				  	<!-- 07.15 김영민: 데이터 반영 업체리스트-->
-				  	<!-- 07.16 김영민: pagination, search, 승인 여부에 따라 색상변경 -->
-				  	<c:if test="${empty placeList }">
-				  		<tr>
-				  			<td colspan="8"> 결과와 맞는 업체가 없습니다. </td>
-				  		</tr>
-				  	</c:if>
-				  	<c:forEach var="place" items="${placeList}">
-					  	<c:choose>
-					  		<c:when test="${place.approvalYN eq '승인대기'}">
-					  			<tr>
-							      <th scope="row">${place.pidx} </th>
-							      <td>${place.category}</td>
-							      <td>${place.nickName}</td>
-							      <td><a href="<%=request.getContextPath()%>/place/view.do?pidx=${place.pidx}">${place.placeName}</a></td>
-							      <td>${place.name}</td>
-							      <td>${place.userPhone}</td>
-							      <td>2022-07-13</td>
-							      <td>
-							      	<a class="btn btn-primary btn-sm rounded-3 confirm" href="confirm.do?pidx=${place.pidx}&approvalYN=승인" role="button">승인</a>
-							      	<a class="btn btn-primary btn-sm rounded-3 reject" href="confirm.do?pidx=${place.pidx}&approvalYN=승인거절" role="button">반려</a>
-							      </td>
-							    </tr>
-					  		</c:when>
-					  		<c:when test="${place.approvalYN eq '승인거절'}">
-					  			<tr style="color: red !important;">
-							      <th scope="row">${place.pidx} </th>
-							      <td>${place.category}</td>
-							      <td>${place.nickName}</td>
-							      <td>${place.placeName}</td>
-							      <td>${place.name}</td>
-							      <td>${place.userPhone}</td>
-							      <td>2022-07-13</td>
-							      <td>
-							      	<a class="btn btn-primary btn-sm rounded-3" style="background-color: gray !important; border-color: gray !important;" >승인</a>
-							      	<a class="btn btn-primary btn-sm rounded-3" >반려</a>
-							      </td>
-							    </tr>
-					  		</c:when>
-					  		<c:when test="${place.approvalYN eq '승인'}">
-					  			<tr style="color: graytext !important;">
-							      <th scope="row">${place.pidx} </th>
-							      <td>${place.category}</td>
-							      <td>${place.nickName}</td>
-							      <td>${place.placeName}</td>
-							      <td>${place.name}</td>
-							      <td>${place.userPhone}</td>
-							      <td>2022-07-13</td>
-							      <td>
-							      	<a class="btn btn-primary btn-sm rounded-3">승인</a>
-							      	<a class="btn btn-primary btn-sm rounded-3" style="background-color: gray !important; border-color: gray !important;">반려</a>
-							      </td>
-							    </tr>
-					  		</c:when>	
-				  		</c:choose>
-				  	</c:forEach>
-				  </tbody>
-				</table>
-			</section>
+			<div class="distancePagination">
+				<section class="row px-1">
+					<table class="col table text-center table-hover">
+					  <thead class="table-dark">
+					    <tr>
+					      <th scope="col">번호</th>
+					      <th scope="col">장소</th>
+					      <th scope="col">업체명</th>
+					      <th scope="col">장소명</th>
+					      <th scope="col">대표자명</th>
+					      <th scope="col">업체번호</th>
+					      <th scope="col">등록일</th>
+					      <th scope="col">승인/반려</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  	<!-- 07.15 김영민: 데이터 반영 업체리스트-->
+					  	<!-- 07.16 김영민: pagination, search, 승인 여부에 따라 색상변경 -->
+					  	<c:if test="${empty placeList }">
+					  		<tr>
+					  			<td colspan="8"> 결과와 맞는 업체가 없습니다. </td>
+					  		</tr>
+					  	</c:if>
+					  	<c:forEach var="place" items="${placeList}">
+						  	<c:choose>
+						  		<c:when test="${place.approvalYN eq '승인대기'}">
+						  			<tr>
+								      <th scope="row">${place.pidx} </th>
+								      <td>${place.category}</td>
+								      <td>${place.nickName}</td>
+								      <td><a href="<%=request.getContextPath()%>/place/view.do?pidx=${place.pidx}">${place.placeName}</a></td>
+								      <td>${place.name}</td>
+								      <td>${place.userPhone}</td>
+								      <td>2022-07-13</td>
+								      <td>
+								      	<a class="btn btn-primary btn-sm rounded-3 confirm" href="confirm.do?pidx=${place.pidx}&approvalYN=승인" role="button">승인</a>
+								      	<a class="btn btn-primary btn-sm rounded-3 reject" href="confirm.do?pidx=${place.pidx}&approvalYN=승인거절" role="button">반려</a>
+								      </td>
+								    </tr>
+						  		</c:when>
+						  		<c:when test="${place.approvalYN eq '승인거절'}">
+						  			<tr style="color: red !important;">
+								      <th scope="row">${place.pidx} </th>
+								      <td>${place.category}</td>
+								      <td>${place.nickName}</td>
+								      <td>${place.placeName}</td>
+								      <td>${place.name}</td>
+								      <td>${place.userPhone}</td>
+								      <td>2022-07-13</td>
+								      <td>
+								      	<a class="btn btn-primary btn-sm rounded-3" style="background-color: gray !important; border-color: gray !important;" >승인</a>
+								      	<a class="btn btn-primary btn-sm rounded-3" >반려</a>
+								      </td>
+								    </tr>
+						  		</c:when>
+						  		<c:when test="${place.approvalYN eq '승인'}">
+						  			<tr style="color: graytext !important;">
+								      <th scope="row">${place.pidx} </th>
+								      <td>${place.category}</td>
+								      <td>${place.nickName}</td>
+								      <td>${place.placeName}</td>
+								      <td>${place.name}</td>
+								      <td>${place.userPhone}</td>
+								      <td>2022-07-13</td>
+								      <td>
+								      	<a class="btn btn-primary btn-sm rounded-3">승인</a>
+								      	<a class="btn btn-primary btn-sm rounded-3" style="background-color: gray !important; border-color: gray !important;">반려</a>
+								      </td>
+								    </tr>
+						  		</c:when>	
+					  		</c:choose>
+					  	</c:forEach>
+					  </tbody>
+					</table>
+				</section>
+			</div>
 			<c:if test="${not empty placeList}">
 				<nav id="pagenation" class="row">
 				  <ul class="pagination justify-content-center">

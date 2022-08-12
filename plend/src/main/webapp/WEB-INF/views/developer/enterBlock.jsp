@@ -32,28 +32,30 @@
 					<p class="h5 fw-bold category-title">업체리스트</p>
 				</div>
 			</div>
-			<section class="row px-1">
-				<table class="col table text-center table-hover">
-				  <thead class="table-dark">
-				    <tr>
-				      <th scope="col">번호</th>
-				      <th scope="col">업체명</th>
-				      <th scope="col">대표자명</th>
-				      <th scope="col">업체번호</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				  	<c:forEach var="enter" items="${enterList}">
-						<tr>
-					      <th scope="row">${enter.uidx}</th>
-					      <td> <a onclick="callEnterBlockList(${enter.uidx},0)" role="button">${enter.nickName}</a> </td>
-					      <td>${enter.name}</td>
-					      <td>${enter.userPhone}</td>
-					    </tr>			  	
-				  	</c:forEach>
-				  </tbody>
-				</table>
-			</section>
+			<div class="blockAndEvent">
+				<section class="row px-1">
+					<table class="col table text-center table-hover">
+					  <thead class="table-dark">
+					    <tr>
+					      <th scope="col">번호</th>
+					      <th scope="col">업체명</th>
+					      <th scope="col">대표자명</th>
+					      <th scope="col">업체번호</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  	<c:forEach var="enter" items="${enterList}">
+							<tr>
+						      <th scope="row">${enter.uidx}</th>
+						      <td><a onclick="callEnterBlockList(${enter.uidx},0)" role="button">${enter.nickName}</a></td>
+						      <td>${enter.name}</td>
+						      <td>${enter.userPhone}</td>
+						    </tr>			  	
+					  	</c:forEach>
+					  </tbody>
+					</table>
+				</section>
+			</div>
 			<c:if test="${not empty enterList}">
 				<nav id="pagenation" class="row">
 				  <ul class="pagination justify-content-center">

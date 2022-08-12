@@ -37,39 +37,41 @@
 					<p class="h5 fw-bold category-title"> 이벤트 관리 </p>
 				</div>
 			</div>
-			<section class="row px-1">
-				<table class="col table text-center table-hover">
-				  <thead class="table-light">
-				    <tr>
-				      <th scope="col">번호</th>
-				      <th scope="col">진행여부</th>
-				      <th scope="col">이벤트명</th>
-				      <th scope="col">기간</th>
-				      <th scope="col">수정/삭제</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				  	<!-- 07.18 김영민: 데이터 반영 이벤트리스트 -->
-				  	<c:if test="${empty eventList }">
-				  		<tr>
-				  			<td colspan="5"> 결과와 맞는 업체가 없습니다. </td>
-				  		</tr>
-				  	</c:if>
-				  	<c:forEach var="event" items="${eventList}">
-				  		<tr>
-					      <th scope="row">${event.eidx}</th>
-					      <td>${event.startEnd}</td>
-					      <td>${event.title}</td>
-					      <td>${event.edate.replace("to","~")}</td>
-					      <td>
-					      	<button class="btn btn-primary btn-sm rounded-3" onclick="modifyEvent(${event.eidx})">수정</button>
-					      	<a class="btn btn-primary btn-sm rounded-3" onclick="deleteConfirm(${event.eidx},'${event.category}')" role="button">삭제</a>
-				      	  </td>
+			<div class="blockAndEvent">
+				<section class="row px-1">
+					<table class="col table text-center table-hover">
+					  <thead class="table-light">
+					    <tr>
+					      <th scope="col">번호</th>
+					      <th scope="col">진행여부</th>
+					      <th scope="col">이벤트명</th>
+					      <th scope="col">기간</th>
+					      <th scope="col">수정/삭제</th>
 					    </tr>
-				  	</c:forEach>
-				  </tbody>
-				</table>
-			</section>
+					  </thead>
+					  <tbody>
+					  	<!-- 07.18 김영민: 데이터 반영 이벤트리스트 -->
+					  	<c:if test="${empty eventList }">
+					  		<tr>
+					  			<td colspan="5"> 결과와 맞는 업체가 없습니다. </td>
+					  		</tr>
+					  	</c:if>
+					  	<c:forEach var="event" items="${eventList}">
+					  		<tr>
+						      <th scope="row">${event.eidx}</th>
+						      <td>${event.startEnd}</td>
+						      <td>${event.title}</td>
+						      <td>${event.edate.replace("to","~")}</td>
+						      <td>
+						      	<button class="btn btn-primary btn-sm rounded-3" onclick="modifyEvent(${event.eidx})">수정</button>
+						      	<a class="btn btn-primary btn-sm rounded-3" onclick="deleteConfirm(${event.eidx},'${event.category}')" role="button">삭제</a>
+					      	  </td>
+						    </tr>
+					  	</c:forEach>
+					  </tbody>
+					</table>
+				</section>
+			</div>
 			<c:if test="${not empty eventList}">
 				<nav id="pagenation" class="row">
 				  <ul class="pagination justify-content-center">

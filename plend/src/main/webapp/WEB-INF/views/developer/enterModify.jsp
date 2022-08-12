@@ -31,7 +31,7 @@
 				<p class="h5 fw-bold category-title" style="padding-left: 10%;"> 업체정보수정 </p>
 			</div>
 		</div>
-		<form name="frm" action="enterModify.do?uidx=${enter.uidx}" method="post" onsubmit="modifySubmit()">
+		<form name="frm" action="enterModify.do?uidx=${enter.uidx}" method="post" onsubmit="return modifySubmit()">
 			<section class="row px-1">
 				<div class="modify-div col me-5 mt-5">
 					<p class="blockquote-footer mt-1"> 업체기본정보 </p>
