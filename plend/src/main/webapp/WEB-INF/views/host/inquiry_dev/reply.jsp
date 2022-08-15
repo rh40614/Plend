@@ -80,10 +80,12 @@
 				data: replyContent,
 				success: function(data){
 					console.log("답변 저장 성공");
+					alert("수정되었습니다.");
 					$(".replyTD").addClass("d-none");
 				}, 
 				error: function(){
 					console.log("답변저장 실패");
+					alert("실패 하셨습니다.");
 					$(".replyTD").addClass("d-none");
 				}
 				

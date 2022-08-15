@@ -201,8 +201,7 @@
 			,depth
 			,answerRate
 		FROM inquiry
-		WHERE uidx = #{uidx}
-		AND iqidx = #{iqidx}
+		WHERE iqidx = #{iqidx}
 		ORDER BY iqidx DESC
 		
 	</select>

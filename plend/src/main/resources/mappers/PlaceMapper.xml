@@ -296,6 +296,12 @@
 			ORDER BY pidx DESC
 	
 	</select>
+	<!-- 김영민 장소 삭제 -->
+	<update id="deletePlace" parameterType="PlaceVO">
+		UPDATE place
+		   SET delyn = 'Y' 
+		 WHERE pidx = #{pidx}
+	</update>
 	
 	<!-- 2022.08.05 김연희: 비슷한 장소 추천-->
 	<!-- <select id="recommendPlace" parameterType="PlaceVO" resultType="PlaceVO"></select> -->

@@ -41,7 +41,7 @@
 					      <th scope="col">업체번호</th>
 					      <th scope="col">사업자번호</th>
 					      <th scope="col">등록일</th>
-					      <th scope="col">삭제여부</th>
+					      <th scope="col">탈퇴여부</th>
 					      <th scope="col">삭제</th>
 					    </tr>
 					  </thead>
@@ -63,7 +63,7 @@
 								      <td>${enter.userPhone}</td>
 								      <td>${enter.regnum}</td>
 								      <td>${enter.jdate.substring(0,10)}</td>
-								      <td>${enter.delYN}</td>
+								      <td> 탈퇴 </td>
 								      <td><a class="btn btn-primary btn-sm rounded-3" style="background-color: gray !important; border-color: gray !important;" role="button">삭제</a></td>			  			
 							  		</tr>
 					  			</c:when>
@@ -75,7 +75,7 @@
 								      <td>${enter.userPhone}</td>
 								      <td>${enter.regnum}</td>
 								      <td>${enter.jdate.substring(0,10)}</td>
-								      <td>${enter.delYN}</td>
+								      <td>가입</td>
 								      <td><a class="btn btn-primary btn-sm rounded-3" onclick="confirmDelete('${enter.uidx}')" role="button">삭제</a></td>			  			
 							  		</tr>
 					  			</c:when>

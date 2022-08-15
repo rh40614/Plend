@@ -59,8 +59,26 @@
 					  			<td> ${inquiryVO.iqidx} </td>
 					  			<td> ${inquiryVO.nickName} </td>
 					  			<td> ${inquiryVO.category} </td>
-					  			<td> ${inquiryVO.title} </td>
-					  			<td> ${inquiryVO.answerYN} </td>
+					  			<td>
+					  				<c:choose>
+						  				<c:when test="${inquiryVO.answerYN eq 'N'}">
+								  			${inquiryVO.title}
+						  				</c:when>
+						  				<c:when test="${inquiryVO.answerYN ne 'N'}">
+								  			<a href="<%=request.getContextPath()%>/inquiry_dev/inquiryView_dev.do?iqidx=${inquiryVO.iqidx}&uidx=${inquiryVO.uidx}">${inquiryVO.title}</a>
+						  				</c:when>
+						  			</c:choose>
+					  			</td>
+					  			<td>
+					  			 	<c:choose>
+						  				<c:when test="${inquiryVO.answerYN eq 'N'}">
+								  			답변 대기
+						  				</c:when>
+						  				<c:when test="${inquiryVO.answerYN ne 'N'}">
+						  					답변 완료
+						  				</c:when>
+						  			</c:choose>
+					  			</td>
 					  			<td> ${inquiryVO.date.substring(0,10)} </td>
 						  		<td class="col-2">
 						  			<c:choose>

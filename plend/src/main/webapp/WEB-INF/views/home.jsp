@@ -23,7 +23,7 @@
 			$("#footer").load("resources/article/footer.jsp");
 		})
 	</script>
-
+	
 	<script>
 
 	function like (obj, idx){
