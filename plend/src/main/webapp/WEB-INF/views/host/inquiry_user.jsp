@@ -39,11 +39,10 @@
 	
 	<main>
 		<section style="margin-top: 100px;">
-			<span class="title1">문의관리</span>
+			<span class="title1">이용자 문의관리</span>
 			
 				
 				<div class=".table-responsive container " style="margin: 80px 0px 0px 100px;" >
-					
 					<table class="table table-hover text-center clearfix" >
 						<thead class="table-dark">
 							<tr style="text-al">

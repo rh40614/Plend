@@ -65,17 +65,18 @@
 		      ],
 		      order_id: 'order_id_${placeOne.pidx}'+timeString, //고유 주문번호
 		  }).error(function (data) {
-		      //결제 진행시 에러가 발생하면 수행됩니다.
+		      //결제 진행시 에러가 발생하면 수행
 		      console.log(data);
 		      alert("결제 중 오류가 발생하였습니다. 다시 시도해주시길 바랍니다.");
 		  }).cancel(function (data) {
-		      //결제가 취소되면 수행됩니다.
+		      //결제취소
 		      console.log(data);
+		      alert("결제가 취소되었습니다.");
 		  }).close(function (data) {
-		      // 결제창이 닫힐때 수행됩니다. (성공,실패,취소에 상관없이 모두 수행됨)
+		      // 결제창이 닫힐때 수행 (성공,실패,취소에 상관없이 모두 수행됨)
 		      console.log(data);
 		  }).done(function (data) {
-		      //결제가 정상적으로 완료되면 수행됩니다
+		      //결제가 정상
 		      console.log(data);
 		    
 		      //안쪽 ajax 디비에 넣을 예약 정보들
@@ -99,18 +100,22 @@
 		    		  html ="";
 		    		  html += "<td>결제 완료 시각:</td>";
 		    		  html += "<td>"+ obj.purchased_at +"</td>";
-		    		  html += "<td>결제 완료 금액:</td>";
-		    		  html += "<td>"+obj.price+"</td>";
-		    		   $("#bookDone").html(html);
+		    		  html2 ="";
+		    		  html2 += "<td>결제 완료 금액:</td>";
+		    		  html2 += "<td>"+obj.price+"</td>";
+		    		  html3 ='';
+		    		  html3 +="<th colspan='2' style='text-align: center; font-size: 24px;padding-bottom: 50px;' > 예약이 완료되었습니다. <br> 예약정보를 확인해주시길 바랍니다.</th>";
+		    		  $("#bookDone").html(html);
+		    		   $("#bookDone2").html(html2);
 		    		   
 		    		   //하단 버튼 변경
 		    		   html2 ="";
-		    		   html2 +="<div class='d-inline-flex'>";
+		    		   html2 +="<div class='d-flex' style='justify-content: flex-end;'>";
 		    		   html2 +="<button type='button' class='btn btn-sm me-2' onclick='goMain()'>확인</button>";
 		    		   html2 +="</div>";
 		    		   
 		    		   $("#bookDonebtn").html(html2);
-		    		   
+		    		  
 		    		   
 			    		   //예약정보 디비에 넣기 
 			    		   $.ajax({
@@ -124,10 +129,12 @@
 			    				  console.log("결과 실패");
 			    			  },
 			    		   });
+			    	alert("성공적으로 결제되었습니다.");
 
 		    	  },
 		    	  error: function(){
 		    		  console.log("실패");
+		    		  alert("예약결제에 실패하였습니다. 문의 사항은 1599-0000 으로 연락해주시길 바랍니다.");
 		    	  }
 		      });
 		  });
@@ -143,14 +150,14 @@
 
 <body>
 
-<div class="container">	
+<div class="container" style="min-height: 1000px;">	
 	<header class="row" id="header"></header>
 	<br>
 	<main class="row">
 			<table class="table beforeBook">
 				<thead>
-					<tr> 
-						<th colspan="2"> &bull; 예약 정보를 확인해주시길 바랍니다. </th>
+					<tr id="payDone"> 
+						<th colspan="2" style="padding-bottom: 20px;"> 예약정보를 확인해주시길 바랍니다.</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -202,6 +209,7 @@
 						</c:when>
 					</c:choose>
 							<tr id="bookDone"></tr>
+							<tr id="bookDone2"></tr>
 				</tbody>
 			</table>
 			<div id="bookDonebtn">
@@ -213,8 +221,7 @@
 					  </label>
 					</div> 
 					<div class="d-inline-flex">
-						<button type="button" class="btn btn-sm me-2">옵션 변경하기</button>
-						
+						<!--옵션 변경 버튼 삭제 <button type="button" class="btn btn-sm me-2">옵션 변경하기</button> -->
 						<button type="button" class="btn btn-sm" onclick="payment()">결제하기</button>
 					</div>
 				</div>

@@ -58,7 +58,7 @@
 <div id="wrap">	
 	<header id="header" style = "height:0;"></header>
    <br>
-   	<div style="display:flex; ">
+   	<div style="display:flex;  min-height: 800px; flex: 1;">
    	<nav style="display: flex;flex-direction: column;width:11%;margin-top:48px;background: #CFCFCF">
    		<div id = "MyPageBox">
    			<br>
