@@ -65,7 +65,6 @@
 				<div class=".table-responsive container " style="margin: 20px 0px 0px 100px;" >
 					
 					<!-- 검색폼 -->
-					
 						<form  name="frm" onsubmit="return false;">
 							<div class="row search-form mb-5" style="float:right;">
 								<div class="input-group justify-content-center">
@@ -167,7 +166,7 @@
 		</section>
 		
 	</main>
-	<div style="margin:300px;"></div>
+	<div style="margin:300px;"></div> 
 	<footer id="footer"></footer>
 	
 	
