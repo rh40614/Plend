@@ -21,12 +21,19 @@
 	<!-- 07.29 김연희 : 플랫피커 -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
+	<!-- 헤더 해당하는 카테고리에 색 넣기 -->
+	<style type="text/css">
+	.active {
+		border-bottom: 3px solid #2F506D !important;
+	}
+	</style>
 	<script type="text/javascript">
 		$(function(){
-			$("#header").load("<%=request.getContextPath()%>/resources/article/headerwithCate.jsp");
+			$("#header").load("<%=request.getContextPath()%>/resources/article/headerwithCate.jsp", function(){
+				$(".${category.category}").addClass("active");
+			});
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
-		})
+		});
 	</script>
 	<!-- 찜 -->
 	<script>
@@ -227,8 +234,8 @@
 
 
 <footer id="footer" class="mt-5"></footer>
-	<!-- JavaScript Bundle with Popper -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </div>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
