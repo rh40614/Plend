@@ -32,7 +32,12 @@
 	<!-- 검색 -->	
 	<script>
 	function noticeSearch(){
-		console.log("진입");
+		
+		if($("select option:selected").text() == "카테고리"){
+			alert("검색 카테고리를 선택해주십시오.")
+			return;
+		} 
+		
 		var searchContent = $("form[name=frm]").serialize();
 		
 		console.log(searchContent);
@@ -44,8 +49,9 @@
 				console.log("검색성공");
 				$("#afterSearch").html(data);
 			},
-			error: function(){
+			error: function(data){
 				console.log("검색실패");
+				console.log(data)
 			}
 			
 		});
@@ -63,15 +69,16 @@
 			<span class="title1">공지사항</span>
 		
 				<div class=".table-responsive container " style="margin: 20px 0px 0px 100px;" >
-					
+				
 					<!-- 검색폼 -->
-						<form  name="frm" onsubmit="return false;">
+						<form  name="frm" id="frm" >
 							<div class="row search-form mb-5" style="float:right;">
 								<div class="input-group justify-content-center">
+								<button type="button" class="me-3" style="background: #eceeef; border: none; color: grey; width: 80px; border-radius: 4px" onclick="location.href='<%=request.getContextPath()%>/host/notice_dev.do'">초기화</button>
 									<select class="form-select-sm" name="searchType" required>
 										<c:choose>
 											<c:when test="${pagination.searchType eq null}">
-												<option value="" disabled selected>카테고리</option>
+												<option value="" disabled selected >카테고리</option>
 												<option value="title">제목</option>
 					  							<option value="content">내용</option>
 											</c:when>
@@ -81,10 +88,15 @@
 					  							<option value="content">내용</option>
 											</c:when>
 											<c:when test="${pagination.searchType eq 'content'}">
-												<option value="" disabled >카테고리</option>
+												<option value="" disabled>카테고리</option>
 												<option value="title" >제목</option>
 					  							<option value="content" selected >내용</option>
 											</c:when>
+											<c:otherwise>
+												<option value="" disabled selected >카테고리</option>
+												<option value="title">제목</option>
+					  							<option value="content">내용</option>
+											</c:otherwise>
 										</c:choose>
 									
 									</select>
@@ -95,7 +107,7 @@
 										<input type="text" name="searchValue" class="mx-1">
 									</c:if>
 									
-									<button type="button" id="searchbtn" class="btnDefault" onclick="noticeSearch()">검색</button>
+									<button type="button" id="searchbtn" style="background: #2F506D; border: none; color: white; width: 80px; border-radius: 4px" onclick="noticeSearch()">검색</button>
 									
 								</div>
 							</div>
@@ -103,6 +115,7 @@
 					
 				<div id=afterSearch>
 					<!-- 공지사항 -->
+					<div style="height:	580px;">
 					<table class="table table-hover text-center clearfix " >
 						<thead class="table-dark">
 							<tr style="text-al">
@@ -119,16 +132,16 @@
 							<c:if test="${list.size() > 0}">
 								<c:forEach var="n" items="${list}">
 									<tr >
-										<td style="width: 10%">${n.nidx}</td>
-										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/noticeView.do?nidx=${n.nidx}&searchType=${pagination.searchType}&searchValue=${pagination.searchValue}">${n.title}</a></td>
-										<td>${n.hit}</td>
-										<td>${n.date}</td>
+										<td class="col-md-1">${n.rnum}</td>
+										<td class="col-md-8" style="text-align: left;"><a href="<%=request.getContextPath()%>/host/noticeView.do?nidx=${n.nidx}&searchType=${pagination.searchType}&searchValue=${pagination.searchValue}&rnum=${n.rnum}">${n.title}</a></td>
+										<td class="col-md-1">${n.hit}</td>
+										<td class="col-md-2">${n.date.substring(0,10)}</td>
 									</tr>
 								</c:forEach>
 							</c:if> 
 						</tbody>
 					</table>
-					
+				</div>	
 				<!-- 페이징 -->
 				<c:if test="${not empty list}">
 					<nav aria-label="Page navigation example" class="m-auto">
@@ -143,8 +156,8 @@
 						<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="p">
 							<c:choose>
 								<c:when test="${p == pagination.nowPage }">
-									 <li class="page-item text-secondary active">
-									 <a class="page-link text-secondary" href="notice_dev.do?nowPage=${p}&searchType=${pagination.searchType}&searchValue=${pagination.searchValue}">${p}</a></li>
+									 <li class="page-item text-secondary ">
+									 <a class="page-link text-secondary activePage" href="notice_dev.do?nowPage=${p}&searchType=${pagination.searchType}&searchValue=${pagination.searchValue}">${p}</a></li>
 								</c:when>
 								<c:when test="${p != pagination.nowPage }">
 									<li class="page-item text-secondary">

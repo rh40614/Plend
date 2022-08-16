@@ -134,6 +134,7 @@
 <body>
 <div id="wrap">	
 	<header id="header"></header>
+	<main>
 	<div>
 	<div style = "text-align:center;">
 	<form action = "faq.do" method = "get">
@@ -195,6 +196,8 @@
 	 	 <c:if test="${login.role != '1'}">
 	 	 </c:if>
 	</div>
+	
+	</main>
 	<footer id="footer" class="mt-5"></footer>
 </div>
 <script>

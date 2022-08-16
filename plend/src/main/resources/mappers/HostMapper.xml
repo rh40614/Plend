@@ -166,8 +166,10 @@
 	
 	<!-- 2022.07.21 김연희 : 문의 내역 전체 불러오기 -->
 	<select id="selectInquiry" parameterType="HashMap" resultType="InquiryVO">
+		SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
+          FROM (SELECT @ROWNUM := 0 )rnum, (	
 		SELECT 
-			iqidx
+		  	iqidx
 			,uidx
 			,category
 			,title
@@ -181,8 +183,9 @@
 		FROM inquiry
 		WHERE depth = '0'
 		  AND uidx = #{uidx}
-		ORDER BY iqidx DESC
-		LIMIT #{start},#{cntPerPage}
+		 ORDER BY iqidx DESC) sub
+       ORDER BY rnum ASC
+        LIMIT #{start}, #{cntPerPage}
 		
 	</select>
 
@@ -347,13 +350,16 @@
 	
 	<!-- 2022.07.26 김연희 : notice 쿼리 가져옴 -->
 	<select id="selectNoticeAll" parameterType="SearchVO" resultType="NoticeVO">
-			SELECT 
-				 nidx
+		 SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
+      	   FROM (SELECT @ROWNUM := 0 )rnum, (
+		 
+		  SELECT 
+				nidx
 				,title
 				,n.date
 				,hit
 			FROM notice n
-	  INNER JOIN user_plend u
+	  INNER JOIN user_plend u 
 	  		  ON n.uidx = u.uidx
 	  	   WHERE n.delyn = 'N' 
 	  	     AND category = '2'
@@ -363,7 +369,9 @@
 			 <if test="searchType =='content'">
 				AND content LIKE '%'  #{searchValue}  '%'
 			</if>
-	  	ORDER BY nidx desc
+			AND (@rownum:=0)=0
+			ORDER BY nidx DESC) sub
+	  		ORDER BY rnum ASC
 	  	   LIMIT #{start}, #{cntPerPage}
 	</select>
 	
@@ -516,11 +524,6 @@
 	</update>
 	
 	
-	<insert id="insertReject" parameterType="BookVO" >
-	
-	</insert>
-	
-	
 	
 	<update id="reject" parameterType="BookVO">
 			UPDATE book
@@ -529,6 +532,7 @@
 			 WHERE bidx = #{bidx}
 	</update>
 	
+
 
 	
 	

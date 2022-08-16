@@ -19,8 +19,8 @@
 				</a>
 			</c:when>
 			<c:when test="${r.reviewImg != null}">
-				<a href="<%=request.getContextPath()%>/place/view.do?pidx=${r.pidx}">
-					<img src="<%=request.getContextPath()%>/reviewImg.do?originFileName=${r.reviewImg}" class="card-img-top" alt="사진 로딩 오류" style="height: 13rem;">
+				<a href="<%=request.getContextPath()%>/place/view.do?pidx=${r.pidx}#review">
+					<img src="<%=request.getContextPath()%>/reviewImg.do?originFileName=${r.reviewImg}#review" class="card-img-top" alt="사진 로딩 오류" style="height: 13rem;">
 				</a>
 			</c:when>
 			
