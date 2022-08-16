@@ -52,5 +52,12 @@ public class UserServieImpl implements UserService {
 		
 		return commonDao.selectID(vo);
 	}
+	
+	@Override
+	public int selectPwd(UserVO vo) {
+		
+		return commonDao.selectPwd(vo);
+	}
+
 
 }

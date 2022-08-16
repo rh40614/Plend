@@ -125,7 +125,7 @@
 	<header id="header" style = "height:0;"></header>
    <br>
    	<div style="display:flex; ">
-   	<nav style="display: flex;flex-direction: column;width:11%;margin-top:48px;background: #CFCFCF">
+   	<nav style="display: flex;flex-direction: column;width:11%;margin-top:3%;background: #CFCFCF">
    		<div id = "MyPageBox">
    			<br>
    			<br>
@@ -158,7 +158,7 @@
 			<c:forEach var ="e" items="${list}" varStatus="status"> 
 				<div class="card " style="width: 16rem; margin-right: 20px;margin-top:20px;">
 					<!-- imageView 아주 잘 썼습니다. -->
-	  				<img  src="<%=request.getContextPath()%>/imageView.do?originFileName=${e.placeImg}" class="card-img-top" alt="...">
+	  				<img  src="<%=request.getContextPath()%>/imageView.do?originFileName=${e.placeImg}" class="card-img-top" alt="..." style = "height:13rem;">
 	  				<i class="fa-solid fa-bolt bolt"></i>
 	 			<div class="card-body">
 	 				<h5 class="card-title"><a href="<%=request.getContextPath()%>/place/view.do?pidx=${e.pidx}" class="">${e.placeName}</a></h5>

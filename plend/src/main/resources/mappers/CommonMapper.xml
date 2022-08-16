@@ -68,8 +68,13 @@
 	   WHERE name = #{name}
 	     AND email = #{email}
 	</select>
-	<select id="selectPwd" resultType = "int">
-
+	<select id="selectPwd" parameterType = "UserVO" resultType = "int">
+		SELECT 
+			 count(*)
+		FROM user_Plend
+	   WHERE name = #{name}
+	     AND email = #{email}
+	     AND id = #{id}		
 	</select>
 
 	<select id="idCheck" parameterType="String" resultType="Integer">

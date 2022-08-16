@@ -45,6 +45,10 @@ public class CommonDAO {
 		return sqlSession.selectOne("three.people.mapper.commonMapper.selectID", vo);
 	}
 	
+	public int selectPwd (UserVO vo) {
+		return sqlSession.selectOne("three.people.mapper.commonMapper.selectPwd", vo);
+	}
+	
 	public UserVO userInfoByUidx(int uidx){
 		return  sqlSession.selectOne("three.people.mapper.commonMapper.userInfoByUidx", uidx);
 		

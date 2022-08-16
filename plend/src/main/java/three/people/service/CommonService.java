@@ -9,4 +9,5 @@ public interface CommonService {
 	
 	int totalCountUser(SearchVO searchvo);
 	UserVO userInfoByUidx(int uidx);
+	
 }

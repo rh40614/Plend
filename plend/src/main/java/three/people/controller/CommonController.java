@@ -32,6 +32,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import three.people.service.GoogleService;
 import three.people.service.KakaoService;
+import three.people.service.MailSendService;
 import three.people.service.NaverService;
 
 import three.people.service.UserService;
@@ -57,6 +58,8 @@ public class CommonController  {
 	UserService userService;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private MailSendService mailSend;
 	
 	
 	
@@ -232,12 +235,17 @@ public class CommonController  {
 	}
 
 	@RequestMapping(value = "/searchPwd.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String searchPwd(UserVO vo, Model model,@RequestParam("email") String email, @RequestParam("name") String name,@RequestParam("id") String id) {
 
-	public String searchPwd(UserVO vo, Model model) {
+		int being = userService.selectPwd(vo);
+		
+		if (being == 1) {
+			return mailSend.TempPwdEmail(email);
+		} else {
+			return null;
+		}
 
-
-
-		return "common/searchPwd";
 	}
 
 	@RequestMapping(value = "/googleLogin.do")
