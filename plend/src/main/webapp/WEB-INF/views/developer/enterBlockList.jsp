@@ -22,7 +22,7 @@
 		<c:otherwise>
 			<c:forEach var="block" items="${blockList}"> 
 				<tr>
-					<td>${block.rbidx}</td>
+					<td>${block.rnum}</td>
 					<td>${block.name}</td>
 					<td>${block.delYN}</td>
 					<td>${block.date}</td>

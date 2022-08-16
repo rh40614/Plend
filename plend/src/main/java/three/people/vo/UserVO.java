@@ -15,7 +15,16 @@ public class UserVO{
 	private int role;
 	private String delYN;
 	private String jdate;
+	// rownum
+	private int rnum;
 	
+	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	public String getJdate() {
 		return jdate;
 	}

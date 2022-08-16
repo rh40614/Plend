@@ -98,5 +98,8 @@ public class PlaceDAO {
 	public int deletePlace(PlaceVO placeVO) {
 		return sqlSession.update(namespace+".deletePlace", placeVO);
 	}
-
+	//08.16 김영민: 헤더 검색 장소
+	public List<PlaceVO> searchPlace(SearchVO searchVO){
+		return sqlSession.selectList(namespace+".searchPlace", searchVO);
+	}
 }

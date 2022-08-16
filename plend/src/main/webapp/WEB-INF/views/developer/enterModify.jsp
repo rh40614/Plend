@@ -26,7 +26,7 @@
 	<div id="wrap" class="container-fluid">	
 		<header id="header" class="row"></header>
 		<br><br>
-		<div class="row mt-3">
+		<div class="row" style="margin-top: 80px;">
 			<div class="col category">
 				<p class="h5 fw-bold category-title" style="padding-left: 10%;"> 업체정보수정 </p>
 			</div>
@@ -43,7 +43,7 @@
 					    </tr>
 					    <tr>
 					      <td scope="row" class="align-middle text-center">비밀번호</td>
-					      <td> <input type="text" class="form-control" name="password" value="${enter.password}"></td>
+					      <td> <input type="text" class="form-control" name="password"></td>
 					    </tr>
 					    <tr>
 					      <td scope="row" class="align-middle text-center">대표자명</td>

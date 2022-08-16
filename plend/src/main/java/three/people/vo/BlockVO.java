@@ -9,7 +9,15 @@ public class BlockVO extends UserVO {
 	private String bdelYN;
 	private int reporter_uidx;
 	private int respondent_uidx;
+	// rownum
+	private int rnum;
 	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	public String getBdelYN() {
 		return bdelYN;
 	}

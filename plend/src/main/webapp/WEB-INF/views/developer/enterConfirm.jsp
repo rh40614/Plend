@@ -57,7 +57,7 @@
 						  	<c:choose>
 						  		<c:when test="${place.approvalYN eq '승인대기'}">
 						  			<tr>
-								      <th scope="row">${place.pidx} </th>
+								      <th scope="row">${place.rnum} </th>
 								      <td>${place.category}</td>
 								      <td>${place.nickName}</td>
 								      <td><a href="<%=request.getContextPath()%>/place/view.do?pidx=${place.pidx}">${place.placeName}</a></td>
@@ -72,7 +72,7 @@
 						  		</c:when>
 						  		<c:when test="${place.approvalYN eq '승인거절'}">
 						  			<tr style="color: red !important;">
-								      <th scope="row">${place.pidx} </th>
+								      <th scope="row">${place.rnum} </th>
 								      <td>${place.category}</td>
 								      <td>${place.nickName}</td>
 								      <td>${place.placeName}</td>
@@ -87,7 +87,7 @@
 						  		</c:when>
 						  		<c:when test="${place.approvalYN eq '승인'}">
 						  			<tr style="color: graytext !important;">
-								      <th scope="row">${place.pidx} </th>
+								      <th scope="row">${place.rnum} </th>
 								      <td>${place.category}</td>
 								      <td>${place.nickName}</td>
 								      <td>${place.placeName}</td>

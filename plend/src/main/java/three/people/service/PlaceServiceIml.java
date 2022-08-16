@@ -254,5 +254,10 @@ public class PlaceServiceIml implements PlaceService{
 	public int deletePlace(PlaceVO placeVO) {
 		return placeDAO.deletePlace(placeVO);
 	}
+
+	@Override
+	public List<PlaceVO> searchPlace(SearchVO searchVO) {
+		return placeDAO.searchPlace(searchVO);
+	}
 	
 }

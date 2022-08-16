@@ -57,7 +57,7 @@
 					  		<c:choose>
 					  			<c:when test="${enter.delYN eq 'Y' }">
 							  		<tr>
-									  <th scope="row">${enter.uidx}</th>
+									  <th scope="row">${enter.rnum}</th>
 								      <td><a href="enterModify.do?uidx=${enter.uidx}">${enter.nickName}</a></td>
 								      <td>${enter.name}</td>
 								      <td>${enter.userPhone}</td>
@@ -69,7 +69,7 @@
 					  			</c:when>
 					  			<c:when test="${enter.delYN eq 'N' }">
 						  			<tr>
-									  <th scope="row">${enter.uidx}</th>
+									  <th scope="row">${enter.rnum}</th>
 								      <td><a href="enterModify.do?uidx=${enter.uidx}">${enter.nickName}</a></td>
 								      <td>${enter.name}</td>
 								      <td>${enter.userPhone}</td>

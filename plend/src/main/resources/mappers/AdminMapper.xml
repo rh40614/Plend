@@ -6,29 +6,32 @@
 <mapper namespace="three.people.mapper.adminMapper">
 	
 	<select id="userList" parameterType="SearchVO" resultType="UserVO">
-		SELECT uidx,
-			   id,
-			   password,
-			   name,
-			   nickname,
-			   birth,
-			   userphone,
-			   email,
-			   gender,
-			   addr,
-			   regnum,
-			   role,
-			   delyn,
-			   jdate
-		  FROM user_plend
-		 WHERE role = #{role}
-		 <if test="role == 2">
-		 	<include refid="searchUser"></include> 
-		 </if>
-		 <if test="role == 3">
-		 	<include refid="searchEnter"></include>
-		 </if>
-	  ORDER BY uidx DESC
+		SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
+		FROM (SELECT @ROWNUM := 0 )rnum, (
+			SELECT uidx,
+				   id,
+				   password,
+				   name,
+				   nickname,
+				   birth,
+				   userphone,
+				   email,
+				   gender,
+				   addr,
+				   regnum,
+				   role,
+				   delyn,
+				   jdate
+			  FROM user_plend
+			 WHERE role = #{role}
+			 <if test="role == 2">
+			 	<include refid="searchUser"></include> 
+			 </if>
+			 <if test="role == 3">
+			 	<include refid="searchEnter"></include>
+			 </if>
+		 ORDER BY uidx DESC) sub
+		 ORDER BY rnum ASC
 	 	 LIMIT #{start}, #{cntPerPage}
 	</select>
 	
@@ -103,7 +106,9 @@
 	</select>
 	<!-- 07.16 김영민: 업체 장소 승인여부 리스트 -->
 	<select id="approvalPlace" parameterType="SearchVO" resultType="PlaceVO">
-		SELECT u.uidx,
+		SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
+		FROM (SELECT @ROWNUM := 0 )rnum, (
+			SELECT u.uidx,
 			   u.id,
 			   u.name,
 			   u.nickname,
@@ -112,7 +117,6 @@
 			   u.addr,
 			   u.regnum,
 			   u.role,
-			   u.delyn,
 			   u.jdate,
 			   p.pidx,
 			   p.category,
@@ -133,15 +137,17 @@
 		  FROM user_plend u
 		  JOIN place p
 		    ON u.uidx = p.uidx
+		 WHERE p.delyn = 'N'
 		    <if test="searchType != null">
 				<if test='searchType.equals("name")'>
-			   		WHERE (u.name LIKE CONCAT('%',#{searchValue},'%'))
+			   		AND (u.name LIKE CONCAT('%',#{searchValue},'%'))
 			 	</if>
 			 	<if test='searchType.equals("nickName")'>
-			   		WHERE (u.nickname LIKE CONCAT('%',#{searchValue},'%'))
+			   		AND (u.nickname LIKE CONCAT('%',#{searchValue},'%'))
 			 	</if>		
 			</if>
-   	  ORDER BY p.pidx DESC
+	  ORDER BY p.pidx DESC) sub											
+   	  ORDER BY rnum ASC
 		 LIMIT #{start}, #{cntPerPage}
 	</select>
 	<!-- 07.16 김영민: 업체 장소 리스트 총 갯수 -->
@@ -150,6 +156,7 @@
 		  FROM user_plend u
 		  JOIN place p
 		    ON u.uidx = p.uidx
+		 WHERE p.delyn = 'N'
 		  <if test="searchType != null">
 			<if test='searchType.equals("name")'>
 		   		WHERE (u.name LIKE CONCAT('%',#{searchValue},'%'))
@@ -203,17 +210,20 @@
 	</insert>
 	<!-- 07.18 김영민: 이벤트 불러오기/ 이벤트 게시글 총 갯수 -->
 	<select id="eventList" parameterType="SearchVO" resultType="EventVO">
-		SELECT e.eidx,
-			   e.title,
-			   e.semititle,
-			   e.content,
-			   e.conditions,
-			   e.edate,
-			   e.startend,
-			   e.eventimg,
-			   e.category
-		  FROM event e
-	  ORDER BY e.eidx DESC	    
+		SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
+		FROM (SELECT @ROWNUM := 0 )rnum, (
+			SELECT e.eidx,
+				   e.title,
+				   e.semititle,
+				   e.content,
+				   e.conditions,
+				   e.edate,
+				   e.startend,
+				   e.eventimg,
+				   e.category
+			  FROM event e
+		  ORDER BY e.eidx DESC) sub
+		  ORDER BY rnum ASC	    
          LIMIT #{start}, #{cntPerPage} 
 	</select>
 	<select id="totalEvent" resultType="Integer">
@@ -284,30 +294,33 @@
 	
 	<!-- 08.09 김영민: 리뷰 신고 내역 불러오기 -->	
 	<select id="reportList" resultType="ReportVO" parameterType="SearchVO">
-		SELECT r.rbidx,
-			   r.rvidx,
-			   r.category,
-			   r.content,
-			   r.date,
-			   r.reporter_uidx,
-			   r.respondent_uidx,
-			   r.delyn,
-			   u.uidx,
-			   u.id,
-			   u.name,
-			   u.nickname
-	      FROM report r
-	      join user_plend u
-	        ON r.respondent_uidx = u.uidx
-	        <if test="searchType != null">
-				<if test='searchType.equals("name")'>
-			   		WHERE (u.name LIKE CONCAT('%',#{searchValue},'%'))
-			 	</if>
-			 	<if test='searchType.equals("category")'>
-			   		WHERE (r.category LIKE CONCAT('%',#{searchValue},'%'))
-			 	</if>		
-		    </if> 
-      ORDER BY rbidx DESC
+		SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
+		FROM (SELECT @ROWNUM := 0 )rnum, (
+			SELECT r.rbidx,
+				   r.rvidx,
+				   r.category,
+				   r.content,
+				   r.date,
+				   r.reporter_uidx,
+				   r.respondent_uidx,
+				   r.delyn,
+				   u.uidx,
+				   u.id,
+				   u.name,
+				   u.nickname
+		      FROM report r
+		      join user_plend u
+		        ON r.respondent_uidx = u.uidx
+		        <if test="searchType != null">
+					<if test='searchType.equals("name")'>
+				   		WHERE (u.name LIKE CONCAT('%',#{searchValue},'%'))
+				 	</if>
+				 	<if test='searchType.equals("category")'>
+				   		WHERE (r.category LIKE CONCAT('%',#{searchValue},'%'))
+				 	</if>		
+			    </if> 
+	      ORDER BY rbidx DESC) sub
+	      ORDER BY rnum ASC
          LIMIT #{start}, #{cntPerPage} 
 	</select> 
 	<!-- 리뷰갯수 가져오기 -->
@@ -339,19 +352,22 @@
 	
 	<!-- 08.10 김영민: 업체별 블랙리스트 불러오기 -->
 	<select id="blockUser" resultType="BlockVO" parameterType="HashMap">
-		SELECT b.rbidx,
-			   b.category,
-			   b.content, 
-			   b.date,
-			   b.bdelyn, 
-			   u.uidx, 
-			   u.name, 
-			   u.delyn 
-		  FROM block b 
-		  JOIN user_plend u 
-		    ON b.reporter_uidx = u.uidx
-		 WHERE uidx = #{blockVO.uidx}
-		   AND b.bdelyn = 'N'
+		SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
+		FROM (SELECT @ROWNUM := 0 )rnum, (
+			SELECT b.rbidx,
+				   b.category,
+				   b.content, 
+				   b.date,
+				   b.bdelyn, 
+				   u.uidx, 
+				   u.name, 
+				   u.delyn 
+			  FROM block b 
+			  JOIN user_plend u 
+			    ON b.reporter_uidx = u.uidx
+			 WHERE uidx = #{blockVO.uidx}
+			   AND b.bdelyn = 'N') sub
+		 ORDER BY rnum ASC
 		 LIMIT #{searchVO.start}, #{searchVO.cntPerPage}
 	</select>
 	<!-- 블랙리스트 갯수 -->
