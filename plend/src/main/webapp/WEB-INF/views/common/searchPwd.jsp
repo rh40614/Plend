@@ -32,22 +32,22 @@
 		} 
 		var name = $("input[name=name]").val();
 		var email = $("input[name=email]").val();
+		var id = $("input[name=id]").val();
 		
-		console.log("name = "+name+" email = " +email);
+		console.log("name = "+name+" email = " +email + " id = " + id);
 		
-		var sendData = "name="+name+"&email="+email;
-		
+		var sendData = 'name='+name+'&email='+email+'&id='+id;
+		console.log(sendData);
 		$.ajax({
-			url : "searchId.do",
+			url : "searchPwd.do",
 			method : "post",
 			data : sendData,
 			dataType : "text",
 			success : function(text) {
 				if (text != null) {
-					$("#searchedId").html("등록된 아이디는  " + text +" 입니다.");
-					console.log(text);
+					$("#searchedPwd").html("임시 비밀번호를 등록된 이메일로 발송 했습니다.");
 				} else{
-					$("#searchedId").html("등록된 정보가 없습니다.");
+					$("#searchedPwd").html("등록된 정보가 없습니다.");
 				}
 			},
 			error : function(xhr) {
@@ -66,7 +66,7 @@
 		<br>
 		<br>
 		<br>
-		<form action = "signIn.do" method ="post" name = "frm" id = "frm">
+		<form action = "signPwd.do" method ="post" name = "frm" id = "frm">
 		
 			<input type = "text" name = "name" placeholder = "이름" class = "textbox"> <br><br>
 			<input type = "text" name = "id" placeholder = "아이디" class = "textbox"> <br><br>
@@ -77,7 +77,7 @@
  			<hr style = "margin-left : 300px; margin-right: 300px;">
 			<a href = "signIn.do">로그인 하러 가기</a>
 		</form>
-		<div id = "searchedId">
+		<div id = "searchedPwd">
 			
 		</div>
 	</div>

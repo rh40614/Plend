@@ -43,10 +43,9 @@
 	<script>
 	
 		function del() {
-			if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+			if (confirm("정말 삭제하시겠습니까??")){    //확인
 
-				window.location = "noticeDel.do?nidx=${vo.nidx}";
-				window.location = "notice.do";
+				location.replace("noticeDel.do?nidx=${vo.nidx}");
 			 }else{   //취소
 
 			     return false;

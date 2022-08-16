@@ -197,7 +197,7 @@
 			<table>
 				<tr>
 					<th>장소 이름 : </th>
-					<td>${vo.placeName }</td>
+					<td><a href = "bookDetail.do?bidx=${vo.bidx }"><strong>${vo.placeName }</strong></a></td>
 				</tr>
 				<tr>
 					<th>이용 날짜 :</th>

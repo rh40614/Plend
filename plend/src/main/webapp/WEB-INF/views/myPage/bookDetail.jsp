@@ -28,7 +28,7 @@
 	function canChk() {
 		
 		if(confirm("예약을 취소하시겠습니까?")){
-			location.href = "bookDetail.do";  
+			location.replace("bookDel.do?bidx=${bv.bidx}");
 		} else {
 			return;
 		}
@@ -114,8 +114,12 @@
    		</table>
    		<br>
    		<div style = "text-align:center;">
-	   		<input type = "button" value = "예약정보 변경하기" id = "modiBtn" onclick = "location.href = ''">
-	   		<input type = "button" value = "예약 취소하기" id = "canBtn" onclick = "location.href='bookDel.do?bidx=${bv.bidx}'">
+   			<c:if test = "${bv.successBook eq 'N' }">
+	   			<input type = "button" value = "예약 취소하기" id = "canBtn" onclick = "canChk();">
+   			</c:if>
+   			<c:if test = "${bv.successBook eq 'Y' }">
+	   			
+   			</c:if>
    		</div>
    </div>
    </div>
