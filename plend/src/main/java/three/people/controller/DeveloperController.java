@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -350,7 +351,7 @@ public class DeveloperController {
 		}
 		
 		searchVO.calPaging(hostService.countInquiry(searchVO));
-		
+			
 		model.addAttribute("pagination", searchVO);
 		model.addAttribute("list", hostService.developerInquiry(searchVO));
 		

@@ -218,7 +218,7 @@
 								<td>${answer.content}</td>
 							</tr>
 							<tr>
-								<td><button class="btn-sm" onclick="replyOpen('${inquiry.iqidx}')">수정</button></td>
+								<td><button class="btn btn-sm" onclick="history.back();">되돌아가기</button></td>
 							</tr>
 						</tbody>
 					</table>
