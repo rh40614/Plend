@@ -8,21 +8,15 @@
 <title>Hostcenter-이벤트</title>
 
 	<link href="<%=request.getContextPath()%>/resources/css/global_Host.css" rel="stylesheet">
-	<link href="<%=request.getContextPath()%>/resources/css/slideBanner_HOST.css" rel="stylesheet">
-	
 	
 	<!-- jQuery -->
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
-	
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-	
 	<!-- bootstrap  -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	
 	<!--  fontAwesome -->
 	<script src="https://kit.fontawesome.com/f5807db9d4.js" crossorigin="anonymous"></script>
-	
 	<!-- 프론트 디자인 -->
 	<script type="text/javascript">
 	
@@ -40,7 +34,6 @@
 		$("#eventON").removeClass("btnDisabled");	 
 		$("#eventON").addClass("btnBig");
 
-		
 		$.ajax({
 			url: "startList.do",
 			type: "GET",
@@ -82,10 +75,6 @@
 		}
 		
 		</script>
-		<!-- 2022.08.09 이벤트 배너 가지고 오기  -->
-		
-		
-
 	
 </head>
 <body>
@@ -110,22 +99,28 @@
 		  
 		  </div>
 		  <div class="carousel-inner">
-			  <c:forEach var ="b" items="${list}" varStatus="status">
-		 		 <c:choose>
-		 		 	<c:when test="${status.index == '0'}">
-				    	<div class="carousel-item active">
-	      					<img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${b.banner}" alt='${b.semiTitle}' onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}" class="d-block w-100" style="height: 400px;" alt="...">
-	    				</div>
-    				</c:when>
-    				<c:otherwise >
-				    	<div class="carousel-item">
-	      					<img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${b.banner}" alt='${b.semiTitle}' onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}" class="d-block w-100 " style="height: 400px;" alt="...">
-	    				</div>
-    				</c:otherwise>
+		  		<c:if test="${empty list}">
+			    	<div class="carousel-item active">
+	   					<img src="<%=request.getContextPath()%>/img/alternative/noEventNow.png" alt='진행중인 이벤트가 없습니다. ' class="d-block w-100 " style="height: 400px;" >
+	   				</div>
+	   			</c:if>	
+			  	<c:forEach var ="b" items="${list}" varStatus="status">
+			 		 <c:choose>
+			 		 	<c:when test="${status.index == '0'}">
+					    	<div class="carousel-item active">
+		      					<img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${b.banner}" alt='${b.semiTitle}' onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}" class="d-block w-100" style="height: 400px;" >
+		    				</div>
+	    				</c:when>
+	    				<c:otherwise >
+					    	<div class="carousel-item">
+		      					<img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${b.banner}" alt='${b.semiTitle}' onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}" class="d-block w-100 " style="height: 400px;" >
+		    				</div>
+	    				</c:otherwise>
     			</c:choose>
 			  </c:forEach>
 		    
 		  </div>
+		  <c:if test="${not empty list}"> 
 		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
 		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 		    <span class="visually-hidden">Previous</span>
@@ -134,6 +129,7 @@
 		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
 		    <span class="visually-hidden">Next</span>
 		  </button>
+		  </c:if>
 		</div>
 	
 	
