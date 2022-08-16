@@ -26,10 +26,11 @@
 			}
 		})
 
-	function check() {
+	function check1() {
 		var frm = document.frm;
+		var keyCode = window.event.keyCode;
 		var idChk = $("#idChk").is(":checked");
-
+		if (keyCode == 13){
 		if (frm.id.value == "") {
 			alert("아이디를 입력해주세요.");
 			return;
@@ -41,15 +42,41 @@
 			// 체크박스가 선택된 경우 Cookie_id 라는 이름으로 id 값이 3일간 저장
 
 		} else if(!idChk){
+			
 			frm.submit();
 		}else {
 
 			deleteCookie("Cookie_id");
 		}
 		frm.submit();
-
+	}
 	}
 
+	function check2(){
+		var frm = document.frm;
+		var idChk = $("#idChk").is(":checked");
+		
+		if (frm.id.value == "") {
+			alert("아이디를 입력해주세요.");
+			return;
+		} else if (frm.password.value == "") {
+			alert("비밀번호를 입력해주세요.");
+			return;
+		} else if (idChk){
+			setCookie("Cookie_id", frm.id.value, 3);
+			// 체크박스가 선택된 경우 Cookie_id 라는 이름으로 id 값이 3일간 저장
+
+		} else if(!idChk){
+			
+			frm.submit();
+		}else {
+
+			deleteCookie("Cookie_id");
+		}
+		frm.submit();
+		
+	}
+	
 	//쿠키 생성 함수(쿠키이름, 쿠키값, 저장기간)
 	function setCookie(cookieName, value , exdays){
 		var exdate = new Date();
@@ -78,9 +105,10 @@
 		expireData.setData(expireData.getData() - 1);
 		document.cookie = cookieName + "=" + "; expires = " + expireData.toGMTString();
 	}
+	
 	</script>
 </head>
-<body>
+<body onkeyup = "javascript:check1();">
 <div id="wrap">
 	<header id="header"></header>
 		<!-- 08.10 김연희 : flex 1 으로 하단 고정 -->
@@ -94,12 +122,12 @@
 			<div class="loginBox">
 			<p  class="mb-4 mt-5 loginLetter">로그인</p>
 				<form action = "signIn.do" method ="post" name = "frm" id = "frm">
-					<input type = "text" name = "id" placeholder = "아이디" class = "textbox loginId" ><br>
-					<input type = "password" name = "password" placeholder = "비밀번호" class = "textbox mb-3 loginpwd" >
+					<input type = "text" name = "id" placeholder = "아이디" class = "textbox loginId" id = "ID"><br>
+					<input type = "password" name = "password" placeholder = "비밀번호" class = "textbox mb-3 loginpwd" id = "PWD">
 					<div style="margin-right: auto;" class="mb-3">
 						<input type = "checkbox" id = "idChk" > 아이디 기억하기
 					</div>
-			 			<input type = "button" onclick = "check();" value = "로그인" id = "signBtn">
+			 			<input type = "button" onclick = "check2();" value = "로그인" id = "signBtn">
 			 			<hr style = "margin-left : 280px; margin-right: 280px;">
 					<div class="d-flex;">
 			 			<a href = "searchId.do">아이디 찾기</a> | <a href = "searchPwd.do">비밀번호 찾기</a>

@@ -117,6 +117,7 @@
     <a href="developer/userList.do">유저리스트 </a>
     
 
+
   	<div style="display: block; align-items: center; text-align: center;" class="mb-5">
     	<span class="navbar-brand title1" style="padding-left: 100px;">| 추천 장소  |</span>
     	<button  class="btn" onclick="newList()" style="float: right; margin-top: 38px;"><i class="fa-solid fa-arrow-rotate-right" style=" color: grey;">  더보기</i></button>
@@ -127,10 +128,11 @@
 	<hr>
 	<br>
 
+
 	<div style="display: block; align-items: center; text-align: center;" class="mb-5">
     	<h3 class="navbar-brand title1" style="padding-left: 100px;">| 이벤트  |</h3>
 		<button  class="btn" onclick="newEvent()" style="float: right; margin-top: 38px;"><i class="fa-solid fa-arrow-rotate-right" style=" color: grey;">  더보기</i></button>
-  	</div>
+  </div>
   	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start" id="eventPlace">
 	</section>
 	<hr>

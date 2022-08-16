@@ -10,4 +10,5 @@ public interface UserService {
 	int idCheck(String id);
 	int nickNameCheck(String nickName);
 	UserVO selectID(UserVO vo);
+	public int selectPwd(UserVO vo);
 }

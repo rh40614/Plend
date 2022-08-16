@@ -103,10 +103,10 @@
 
 		
 		<div class="btn-group spaceL w-75 d-flex justify-content-end" role="group" id="btnGroup" >
-			<%-- <c:if> --%>
-			<button type="button" class="btnDefault me-3 ms-3" onclick="location.href='noticeModify.do?nidx=${notice.nidx}'">수정</button>
-			<button type="button" class="btnDefault me-3" onclick="noticeDelete(${notice.nidx})" >삭제</button>
-			<%-- </c:if> --%>
+			<c:if test = "${login.role == 3}">
+				<button type="button" class="btnDefault me-3 ms-3" onclick="location.href='noticeModify.do?nidx=${notice.nidx}'">수정</button>
+				<button type="button" class="btnDefault me-3" onclick="noticeDelete(${notice.nidx})" >삭제</button>
+			</c:if>
 			<button type="button" class="btnDefault" onclick="location.href='notice_dev.do?&searchType=${pagination.searchType}&searchValue=${pagination.searchValue}'">목록</button>
 		</div>
 		

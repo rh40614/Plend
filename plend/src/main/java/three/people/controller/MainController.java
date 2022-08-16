@@ -174,7 +174,7 @@ public class MainController {
 	public String noticeDel(int nidx) {
 		System.out.println("nidx = " +nidx);
 		mainService.noticeDelete(nidx);
-		return "main/notice";
+		return "redirect:/main/notice.do";
 	}
 
 	@RequestMapping(value = "/noticeModify.do", method = RequestMethod.GET)

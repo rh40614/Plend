@@ -175,8 +175,6 @@
 				                	<c:if test="${login.role == '1'}">
 								  	<input type = "button" value = "수정" id = "modiBtn" onclick="location.href='faqModify.do?fidx=${vo.fidx}'">
 								 	 </c:if>
-								 	 <c:if test="${login != '1'}">
-								 	 </c:if>
 				              </div>
 				            </div>
 				          </td>
@@ -196,7 +194,7 @@
 	 	 <c:if test="${login.role != '1'}">
 	 	 </c:if>
 	</div>
-	
+
 	</main>
 	<footer id="footer" class="mt-5"></footer>
 </div>

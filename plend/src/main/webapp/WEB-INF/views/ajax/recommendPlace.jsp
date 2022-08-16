@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="true" %>
 
 
@@ -28,7 +29,7 @@
 		<div class="card-body">
 			<h5 class="card-title title2-1" class=""><a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">${c.placeName}</a></h5>
 			<p class="card-text">${c.address}</p>
-			<span class="card-text title3">${c.price}</span><span>원/시간</span>
+			<span class="card-text title3"><fmt:formatNumber value="${c.price}" type="currency"/></span><span>원/시간</span>
 			<i class="fa-regular fa-star" style="float:right">${c.avgRate}</i>
 			<!-- 찜하기 -->
 			<c:choose>
