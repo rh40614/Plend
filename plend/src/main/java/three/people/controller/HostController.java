@@ -815,4 +815,10 @@ public class HostController {
 	public String host2() {
 		return "host/host2";
 	}
+	
+	@RequestMapping(value="/deletePlace.do")
+	public String deletePlace(PlaceVO placeVO) {
+		placeService.deletePlace(placeVO);
+		return "redirect:/host/managePlace.do";
+	}
 }

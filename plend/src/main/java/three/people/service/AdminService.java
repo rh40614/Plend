@@ -38,4 +38,5 @@ public interface AdminService {
 	List<BlockVO> blockUser(HashMap<String, Object> hashMap);
 	int countBlockUser(BlockVO blockVO);
 	int blockDelete(BlockVO blockVO);
+	int deleteEventImg(ImageVO imageVO);
 }

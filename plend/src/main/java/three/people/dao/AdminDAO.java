@@ -118,7 +118,10 @@ public class AdminDAO {
 	public int blockDelete(BlockVO blockVO) {
 		return sqlSession.update("three.people.mapper.adminMapper.blockDelete", blockVO);
 	}
-	
+	// 김영민 이벤이 이미지 삭제
+	public int deleteEventImg(ImageVO imageVO) {
+		return sqlSession.delete("three.people.mapper.adminMapper.deleteEventImg", imageVO);
+	}
 	
 	
 	

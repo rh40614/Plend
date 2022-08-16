@@ -253,6 +253,11 @@
                realfilename = #{realFileName}
          WHERE eidx = #{eidx}
 	</update>
+	<!-- 이벤트 수정시 이전 이벤트 이미지 삭제 -->
+	<delete id="deleteEventImg" parameterType="ImageVO">
+		DELETE FROM image 
+		      WHERE eidx = #{eidx};
+	</delete>
 	<!-- img가 있는지 확인 -->
 	<select id="checkImg" parameterType="ImageVO" resultType="Integer">
 		SELECT count(*)

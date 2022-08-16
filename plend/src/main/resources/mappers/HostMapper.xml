@@ -201,8 +201,7 @@
 			,depth
 			,answerRate
 		FROM inquiry
-		WHERE uidx = #{uidx}
-		AND iqidx = #{iqidx}
+		WHERE iqidx = #{iqidx}
 		ORDER BY iqidx DESC
 		
 	</select>
@@ -482,12 +481,13 @@
 		       FROM inquiry i
 		       JOIN user_plend u
 		         ON i.uidx = u.uidx
+		      WHERE depth = '0'
 	      <if test="searchType != null">
 		 	<if test='searchType.equals("nickName")'>
-		   		WHERE (u.nickname LIKE CONCAT('%',#{searchValue},'%'))
+		   		AND (u.nickname LIKE CONCAT('%',#{searchValue},'%'))
 		 	</if>		
 			<if test='searchType.equals("title")'>
-		   		WHERE (i.title LIKE CONCAT('%',#{searchValue},'%'))
+		   		AND (i.title LIKE CONCAT('%',#{searchValue},'%'))
 		 	</if>
 		  </if>
 	</select>

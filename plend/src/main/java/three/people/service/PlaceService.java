@@ -34,5 +34,6 @@ public interface PlaceService {
 	public int[] RandomPlace(List<PlaceVO> methodList);
 	//검색
 	public List<PlaceVO> filter_search(PlaceVO placeVO);
+	public int deletePlace(PlaceVO placeVO);
 
 }

@@ -59,7 +59,7 @@
 			$.ajax({
 				url: "reply.do",
 				type: "GET",
-				data: "iqidx="+ $(obj).val(),
+				data: "iqidx="+ obj,
 				success: function(html){
 					console.log("답변 창 오픈 성공");
 					$("#reply").html(html);
@@ -216,6 +216,9 @@
 							<tr>
 								<td class="ps-4 pe-2 " style="width: 80px; vertical-align: top;">내용 :</td>
 								<td>${answer.content}</td>
+							</tr>
+							<tr>
+								<td><button class="btn btn-sm" onclick="history.back();">되돌아가기</button></td>
 							</tr>
 						</tbody>
 					</table>
