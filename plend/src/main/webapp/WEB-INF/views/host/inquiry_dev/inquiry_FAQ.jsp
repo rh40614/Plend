@@ -96,7 +96,7 @@
 			
 				<!-- 검색폼 -->
 				<div class="mt-5 ms-5">
-					<form action=".do" method="get">
+					<form action="faqSearch.do" method="get">
 						<div class="row search-form mb-5" style="float:right;">
 							<div class="input-group justify-content-center">
 								<select class="form-select-sm" name="searchType">
@@ -116,27 +116,34 @@
 			
 			<!-- Faq:플레이스 등록 -->
 				<div class="accordion accordion-flush spaceL mt-5 w-75" id="place" >
-				  
 				  <div class="accordion-item ">
 				    <h2 class="accordion-header FAQ" id="flush-headingOne">
 				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
 				        Q. 장소등록이 안된다고하는 알림창이 뜹니다.
 				      </button>
 				    </h2>
-				    
 				    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" >
-				      <div class="accordion-body">안녕하세요. P:)end입니다. 이용 중 불편을 드려 죄송합니다. <br>장소등록이 되지않을 경우 새로고침 이후 다시 시도해주시길바랍니다. 새로 고침이후에도 장소가 등록되지않는다면 고객센터로 연락 부탁드립니다. 감사합니다.</div>
+				      <div class="accordion-body">
+				      안녕하세요. P:)end입니다. 이용 중 불편을 드려 죄송합니다. <br>
+				      장소등록이 되지않을 경우 새로고침 이후 다시 시도해주시길바랍니다.
+				       새로 고침이후에도 장소가 등록되지않는다면 고객센터로 연락 부탁드립니다. 감사합니다.</div>
 				    </div>
 				  </div>
 				  
 				  <div class="accordion-item">
 				    <h2 class="accordion-header" id="flush-headingTwo">
 				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-				        Accordion Item #2
+				        Q. 등록한 장소가 뜨지 않아요.
 				      </button>
 				    </h2>
 				    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" >
-				      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+				      <div class="accordion-body">
+				      안녕하세요. P:)end입니다. 이용 중 불편을 드려 죄송합니다. <br>
+				      호스트님께서 등록한 장소는 운영자의 승인 후 게시 됩니다. <br>
+				      승인은 12시간 이내에 이루어집니다. 24시간 이후에도 승인이 완료되지않는다면 1:1 문의를 이용해주시길바랍니다. <br>
+				      감사합니다.
+				      
+				      </div>
 				    </div>
 				  </div>
 				  <div class="accordion-item">
@@ -268,7 +275,7 @@
 				
 				<!-- a 태그는 inline-block이라 text-align 안먹음 -->
 				<div style="text-align: center;" class="mt-5">
-					<a href="<%=request.getContextPath()%>/inquiry_dev/inquiry_dev.do">원하는 답변이 없어요. 운영자에게 질문하러 가기</a>
+					<a href="<%=request.getContextPath()%>/inquiry_dev/inquiry_dev.do" style="text-decoration: underline;">원하는 답변이 없어요. 운영자에게 질문하러 가기</a>
 				</div>
 				
 		

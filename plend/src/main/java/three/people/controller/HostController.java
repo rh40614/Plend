@@ -712,22 +712,15 @@ public class HostController {
 	}
 	
 	
-	
+	//예약거절
 	@RequestMapping(value="/reportReject.do", method=RequestMethod.GET)
 	public String reportReject(BookVO bookVO) {
-		System.out.println("진입");
 		/* hostService.insertReject(bookVO); */
 		hostService.reject(bookVO);
 		return "redirect:/host/managePlace.do";
 	}
 
 
-	
-	
-	@RequestMapping(value="/placeView.do", method= RequestMethod.GET)
-	public String placeView() {
-		return "host/placeView";
-	}
 	
 	//08.11 김영민: 장소등록 수정
 	@RequestMapping(value="/placeModfy.do", method=RequestMethod.GET)

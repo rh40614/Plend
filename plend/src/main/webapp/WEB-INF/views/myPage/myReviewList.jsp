@@ -29,7 +29,8 @@
 <div id="wrap">	
 	<header id="header" style = "height:0;"></header>
    	<br>
-   	<div style="display:flex; ">
+   	<!-- 08.15 김연희 : 푸터하단고정 및 화면 최소 크기 지정 -->
+   	<div style="display:flex; flex: 1; min-height: 800px;">
 	   	<nav style="display: flex;flex-direction: column;width:11%;margin-top:72px;background: #CFCFCF">
 	   		<div id = "MyPageBox">
 	   			<br>
@@ -103,10 +104,11 @@
 			</c:if>
    		</div>
    </div>
-<div style="margin-top: -48px;">
-<footer id="footer" class="mt-5 fixed-bottom" style="float:none;display:inline-block;"></footer>
-</div>
-</div>
+<!-- <div style="margin-top: -48px;"> -->
+<!-- 08.15 김연희 : 푸터하단 고정 -->
+<footer id="footer" class=" " style="float:none;display:inline-block;"></footer>
+<!-- </div> -->
+</div> 
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>

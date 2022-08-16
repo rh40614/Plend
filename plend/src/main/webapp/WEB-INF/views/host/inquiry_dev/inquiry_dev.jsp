@@ -74,17 +74,18 @@
 			<br>문의하시기 전에 <a href="inquiry_FAQ.do">FAQ</a>를 참고 해주시길 바랍니다. 자주 묻는 질문은 <a href="inquiry_FAQ.do">FAQ</a>에 올라와있습니다. 
 			<br> 문의를 등록하신 이후에는 삭제가 불가능합니다. <a href="inquiry_FAQ.do">FAQ</a>를 먼저 확인해 주시길 바랍니다. 
 			</span>
+			<br>
 			<!-- 썸머노트 -->
 			<div class="spaceL mt-2">
 				<form action="inquiry_dev.do" method="POST" name="frm">
 				<select name="category">
-					<option value="place">장소</option>
-					<option value="payment">결제</option>
-					<option value="refund">환불</option>
-					<option value="report">신고</option>
+					<option value="장소">장소</option>
+					<option value="결제">결제</option>
+					<option value="환불">환불</option>
+					<option value="신고">신고</option>
 					
 				</select>
-					<span>문의제목 </span><input type="text" name="title" size="50" required>
+					<span class="mb-3">문의제목 : </span><input  class="mb-3" type="text" name="title" size="50" required>
 					<textarea id="summernote" name="content" required></textarea> 
 					<button type="submit" class="btnBig" onclick="insert()">문의 등록</button>
 				</form>
@@ -92,7 +93,7 @@
 		</section >
 			
 		<!-- 이전 문의 내역 -->
-		<section>	
+		<section id="pagingTable">	
 			<span class="title1 mt-5" >이전 문의내역</span>	
 				<div class=".table-responsive container " style="margin: 50px 0px 0px 100px;" >
 					
@@ -143,15 +144,14 @@
 							<c:choose>
 								<c:when test="${p == pagination.nowPage }">
 									 <li class="page-item text-secondary active">
-									 <a class="page-link text-secondary" href="inquiry_dev.do?nowPage=${p}">${p}</a></li>
+									 <a class="page-link text-secondary" onclick="nowPage(${p})" <%-- href="inquiry_dev.do?nowPage=${p}" --%>>${p}</a></li>
 								</c:when>
 								<c:when test="${p != pagination.nowPage }">
 									<li class="page-item text-secondary">
-									 <a class="page-link text-secondary" href="inquiry_dev.do?nowPage=${p}">${p}</a></li>
+									 <a class="page-link text-secondary" onclick="nowPage(${p})" <%-- href="inquiry_dev.do?nowPage=${p}" --%>>${p}</a></li>
 								</c:when>
 							</c:choose>
 						</c:forEach>
-					
 				    	<c:if test="${pagination.endPage != pagination.lastPage}">
 						    <li class="page-item">
 						      <a class="page-link" href="inquiry_dev.do?nowPage=${pagination.endPage +1}">&raquo;</a>
@@ -170,7 +170,24 @@
 	</main>
 	
 	<footer id="footer"></footer>
-	
+	<script>
+		function nowPage(p){
+			$.ajax({/* 이전문의 내역 부분만 분리하기  */
+				url: "inquiry_dev.do",
+				type: "GET",
+				data: "nowPage="+p,
+				success: function(data){
+					//console.log("에이작스 페이징");
+					$("#pagingTable").html(data);
+				},
+				error: function(){
+					console.log("페이징 실패");
+				}
+				
+			});
+		}
+		
+	</script>
 	
 	
 </body>

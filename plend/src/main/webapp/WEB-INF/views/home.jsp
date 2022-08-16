@@ -117,8 +117,11 @@
     <a href="developer/userList.do">유저리스트 </a>
     
 
-  	<div style="display: flex; justify-content:space-between;">
-    	<span class="navbar-brand title1">| 추천 장소   </span>
+  	<div style="    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;">
+    	<span class="navbar-brand title1">| 추천 장소 |</span>
     	<button  class="btn" onclick="newList()" style="vertical-align: bottom;"><i class="fa-solid fa-arrow-rotate-right">  더보기</i></button>
   	</div>
 	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start" id="recommendPlace">
