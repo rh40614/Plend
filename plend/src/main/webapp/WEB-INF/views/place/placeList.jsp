@@ -120,7 +120,7 @@
 					$("#search_result").html(obj);
 				},
 				error: function(){
-					console.log("실패요");
+					console.log("실패");
 				}
 				
 			});
