@@ -340,6 +340,70 @@ public class InquiryController {
 	}
 	
 	
+	@RequestMapping(value="/inquiryPaging.do")
+	public String inquiryPaging(InquiryVO inquiryVO, Model model, SearchVO searchVO, HttpServletRequest request, HttpSession session) {
+		
+		session = request.getSession();
+		UserVO login = (UserVO)session.getAttribute("login");
+		inquiryVO.setUidx(login.getUidx()); 
+		
+		//페이징
+		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
+			searchVO.setNowPage(1);
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getCntPerPage() == 0) {
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getNowPage() == 0) {
+			searchVO.setNowPage(1);
+		}
+		
+		//토탈 갯수
+		int total = hostService.cntIqidx(inquiryVO);
+		searchVO.calPaging(total);
+		
+		//페이지 갯수가지고가기
+		HashMap<String, Integer> page = new HashMap<>();
+		
+		int start = searchVO.getStart();
+		int cntPerPage = searchVO.getCntPerPage();
+		int uidx = login.getUidx();
+		
+		page.put("start", start);
+		page.put("cntPerPage", cntPerPage);
+		page.put("uidx", uidx );
+		
+		//이전 문의 내역 불러오기
+		List<InquiryVO> list = hostService.selectInquiry(page);
+		
+		model.addAttribute("pagination", searchVO);
+		model.addAttribute("list",list);
+		
+		
+		return "host/ajax/inquiry_dev";
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

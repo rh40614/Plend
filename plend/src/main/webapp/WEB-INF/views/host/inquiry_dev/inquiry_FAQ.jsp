@@ -83,18 +83,19 @@
 	
 	<main>
 		<section style="margin-top: 100px;">
-			<span class="title1">FAQ</span>
+			<span class="title1 mb-5">FAQ</span>
 			
-			<div style="display: flex; align-items: center; ">
 			<!-- 카테고리 -->
+			<div style="display: flex; align-items: center; flex-direction: column; " >
 				<div class="btn-group spaceL" role="group" id="btnGroup" >
 					<button type="button" class="btnBig me-3" onclick="btn(this)" value="place">플레이스 등록</button>
 					<button type="button" class="btnBig me-3 btnDisabled"  onclick="btn(this)" value="payment">결제</button>
 					<button type="button" class="btnBig me-3 btnDisabled"  onclick="btn(this)" value="refund">환불</button>
 					<button type="button" class="btnBig me-3 btnDisabled"  onclick="btn(this)" value="report">신고</button>
 				</div>
+			</div> 
 			
-				<!-- 검색폼 -->
+			<!-- 검색폼
 				<div class="mt-5 ms-5">
 					<form action="faqSearch.do" method="get">
 						<div class="row search-form mb-5" style="float:right;">
@@ -111,8 +112,7 @@
 							</div>
 						</div>
 					</form>
-				</div>			
-			</div>
+				</div>	-->		
 			
 			<!-- Faq:플레이스 등록 -->
 				<div class="accordion accordion-flush spaceL mt-5 w-75" id="place" >

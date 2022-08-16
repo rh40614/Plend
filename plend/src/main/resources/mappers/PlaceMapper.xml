@@ -6,9 +6,10 @@
 <mapper namespace="three.people.mapper.placeMapper">
 	
 	<select id="selectPlaceAll" resultType="PlaceVO" parameterType="HashMap">
-			
-			SELECT
-				  @rownum:=@rownum+1 AS rnum,
+		
+		SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
+          FROM (SELECT @ROWNUM := 0 )rnum, (	
+	    SELECT
 				  pidx
 				 ,uidx
 				 ,category
@@ -29,8 +30,9 @@
 			FROM place , (SELECT @rownum:=0) rnum
 		   WHERE delYN ='N'
 		   	 AND uidx = #{uidx}
-		ORDER BY rnum ASC
-		LIMIT #{start},#{cntPerPage}
+		ORDER BY pidx DESC) sub
+       ORDER BY rnum ASC
+        LIMIT #{start}, #{cntPerPage}
 		   
 	</select>
 	<!-- 2022.07.19 김연희: 페이징 처리 위해 만듬 -->
@@ -201,7 +203,7 @@
 				 ,approvalYN
 				 ,availTimeValue
 				 ,intervalTime 
-			FROM place
+			FROM place 
 		   WHERE delYN ='N'
 		   AND approvalYN ='승인'
 		ORDER BY pidx DESC

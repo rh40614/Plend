@@ -74,7 +74,7 @@
 		<c:choose>
 			<c:when test="${p == pagination2.nowPage }">
 				 <li class="page-item text-secondary">
-				 <a class="page-link text-secondary" onclick="nowPage2(${p})">${p}</a></li>
+				 <a class="page-link text-secondary activePage" onclick="nowPage2(${p})">${p}</a></li>
 			</c:when>
 			<c:when test="${p != pagination2.nowPage }">
 				<li class="page-item text-secondary">

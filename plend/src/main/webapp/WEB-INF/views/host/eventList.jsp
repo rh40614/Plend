@@ -100,10 +100,10 @@
 		  	<c:forEach var ="b" items="${list}" varStatus="status">
 		 		 <c:choose>
 		 		 	<c:when test="${status.index == '0'}">
- 						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+ 						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class=" active " aria-current="true" aria-label="Slide 1"></button>
     				</c:when>
     				<c:otherwise>
-				    	<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>   				
+				    	<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${status.index}" aria-label="Slide 2" class=""></button>   				
 				    </c:otherwise>
     			</c:choose>
 			  </c:forEach>

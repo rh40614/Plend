@@ -389,6 +389,32 @@
 	    vertical-align: middle;
 	}
 	
+	/* 페이지 네이션  */
+	
+	.activePage{
+		background-color: #cfd3d7!important;
+		border-color: #cfd3d7!important;
+	} 
+	/* 이벤트 배너 버튼 */
+	.active{
+		border-radius: 100px!important;
+		background-color: #606e79!important;
+		border-color: #606e79!important;
+	
+	} 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

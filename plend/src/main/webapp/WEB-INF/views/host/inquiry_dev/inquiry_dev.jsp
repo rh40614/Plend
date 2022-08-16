@@ -55,7 +55,7 @@
 		}); 
 
 	</script>
-	
+	<!-- 유효성  -->
 	
 
 	
@@ -71,8 +71,8 @@
 			<span class="title1">운영자 문의- 문의 등록하기 </span>
 			<br>
 			<span class="spaceL">문의해주셔서 감사합니다. 
-			<br>문의하시기 전에 <a href="inquiry_FAQ.do">FAQ</a>를 참고 해주시길 바랍니다. 자주 묻는 질문은 <a href="inquiry_FAQ.do">FAQ</a>에 올라와있습니다. 
-			<br> 문의를 등록하신 이후에는 삭제가 불가능합니다. <a href="inquiry_FAQ.do">FAQ</a>를 먼저 확인해 주시길 바랍니다. 
+			<br>문의하시기 전에 <a style="text-decoration:underline;" href="inquiry_FAQ.do">FAQ</a>를 참고 해주시길 바랍니다. 자주 묻는 질문은 <a style="text-decoration:underline;" href="inquiry_FAQ.do">FAQ</a>에 올라와있습니다. 
+			<br> 문의를 등록하신 이후에는 삭제가 불가능합니다. <a style="text-decoration:underline;" href="inquiry_FAQ.do">FAQ</a>를 먼저 확인해 주시길 바랍니다. 
 			</span>
 			<br>
 			<!-- 썸머노트 -->
@@ -85,22 +85,31 @@
 					<option value="신고">신고</option>
 					
 				</select>
-					<span class="mb-3">문의제목 : </span><input  class="mb-3" type="text" name="title" size="50" required>
+					<span class="mb-3">문의제목 : </span><input class="mb-3" type="text" name="title" id="title" size="50" required>
 					<textarea id="summernote" name="content" required></textarea> 
 					<button type="submit" class="btnBig" onclick="insert()">문의 등록</button>
 				</form>
 			</div>
 		</section >
 			
+			
+			
 		<!-- 이전 문의 내역 -->
-		<section id="pagingTable">	
+		<hr style="width: 1300px; color: grey;" class="spaceL" >
+		<section id="pagingTable" class="mt-5" >	
+			
 			<span class="title1 mt-5" >이전 문의내역</span>	
-				<div class=".table-responsive container " style="margin: 50px 0px 0px 100px;" >
-					
-					<table class="table table-hover text-center clearfix table-striped" >
-						<thead class="">
-							<tr style="text-al">
-								<td>번호</td><td>유형</td><td>제목</td><td>답변여부</td><td>작성일</td>
+				
+				<div class=".table-responsive container d-flex flex-column" style="margin: 50px 0px 0px 100px; ">
+					<div class="d-flex flex-column" style ="height: 300px;">
+					<table class="table table-hover text-center clearfix table-striped"  >
+						<thead>
+							<tr>
+								<td class="col-md-1">번호</td>
+								<td class="col-md-2">유형</td>
+								<td class="col-md-5">제목</td>
+								<td class="col-md-2">답변여부</td>
+								<td class="col-md-2">작성일</td>
 							</tr>
 						<thead>
 						<tbody>
@@ -112,8 +121,8 @@
 							<c:if test="${list.size() > 0}">
 								<c:forEach var="i" items="${list}">
 									<c:if  test="${i.uidx == login.uidx }">
-										<tr >
-											<td>${i.iqidx}</td>
+										<tr>
+											<td>${i.rnum}</td>
 											<td>${i.category}</td>
 											<td style="text-align: left;"><a href="<%=request.getContextPath()%>/inquiry_dev/inquiryView_dev.do?iqidx=${i.iqidx}&uidx=${i.uidx}">${i.title}</a></td>
 											<c:if test="${i.answerYN eq 'Y'}">
@@ -129,6 +138,7 @@
 							</c:if>
 						</tbody>
 					</table>
+				</div>
 				<!-- 페이징 -->
 				<c:if test="${not empty list}">
 					<nav aria-label="Page navigation example" class="m-auto">
@@ -143,8 +153,8 @@
 						<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="p">
 							<c:choose>
 								<c:when test="${p == pagination.nowPage }">
-									 <li class="page-item text-secondary active">
-									 <a class="page-link text-secondary" onclick="nowPage(${p})" <%-- href="inquiry_dev.do?nowPage=${p}" --%>>${p}</a></li>
+									 <li class="page-item text-secondary  " >
+									 <a class="page-link text-secondary activePage" onclick="nowPage(${p})" <%-- href="inquiry_dev.do?nowPage=${p}" --%>>${p}</a></li>
 								</c:when>
 								<c:when test="${p != pagination.nowPage }">
 									<li class="page-item text-secondary">
@@ -162,18 +172,17 @@
 				</c:if>
 			</div>
 		</section>
-		
-		
-		
+	
 		
 
 	</main>
 	
 	<footer id="footer"></footer>
+	
 	<script>
 		function nowPage(p){
 			$.ajax({/* 이전문의 내역 부분만 분리하기  */
-				url: "inquiry_dev.do",
+				url: "<%=request.getContextPath()%>/inquiry_dev/inquiryPaging.do",
 				type: "GET",
 				data: "nowPage="+p,
 				success: function(data){
