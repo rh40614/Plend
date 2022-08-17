@@ -387,9 +387,9 @@
 	} 
 	/* 이벤트 배너 버튼 */
 	.active{
-		border-radius: 100px!important;
-		background-color: #606e79!important;
-		border-color: #606e79!important;
+		border-radius: 50px!important;
+		background-color: #dee1e3!important;
+		border-color: #dee1e3!important;
 	
 	} 
 	

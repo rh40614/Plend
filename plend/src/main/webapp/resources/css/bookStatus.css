@@ -15,12 +15,12 @@
 		}
 	#select:before{
 		content: '';
-		position: absolute; /*부모 요소에는 position: relative를 주어야 함*/
+		position: absolute; /*遺�紐� �슂�냼�뿉�뒗 position: relative瑜� 二쇱뼱�빞 �븿*/
 		background-color: #FF007F;
 		height: 50px;
-		width: 0; /*초기에 보이지 않도록*/
-		bottom: -5px; /*a태그 아래에 위치*/
-		transition: 0.7s; /*애니메이션 동작 실행 시간 정의*/
+		width: 0; /*珥덇린�뿉 蹂댁씠吏� �븡�룄濡�*/
+		bottom: -5px; /*a�깭洹� �븘�옒�뿉 �쐞移�*/
+		transition: 0.7s; /*�븷�땲硫붿씠�뀡 �룞�옉 �떎�뻾 �떆媛� �젙�쓽*/
 		margin-left:29px;
 		left:0;
 		z-index : -1;
@@ -69,9 +69,9 @@
 		width:600px;
 		
 	}
-	/* 마이리뷰 리스트 */
+	/* 留덉씠由щ럭 由ъ뒪�듃 */
 	#reviewTable {
-		margin : 100px 0 0 18%;
+		margin : 12% 0 0 18%;
 		float : right;
 		width : 45%;
 		height: 100%;

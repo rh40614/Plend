@@ -29,7 +29,7 @@
 	</style>
 	<script type="text/javascript">
 		$(function(){
-			$("#header").load("<%=request.getContextPath()%>/resources/article/headerwithCate.jsp", function(){
+			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp", function(){
 				$(".${category.category}").addClass("active");
 			});
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");

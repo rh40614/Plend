@@ -1,14 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-	
-<!-- go UP -->
-<div class="footer_text goUP"  >
-   	<p class="float-end mb-1">
-   	 	<button onclick="location.href='#'" style="border: none; background-color:transparent; ">
-   	 			<img alt="" src="<%=request.getContextPath()%>/img/up.png" style=" width:50px; height:40px;">
-   	 	</button>
-   	</p>
-</div>
+
 <footer class="text-muted py-5" style="background: #2F506D">
   <div class="container" style="display:flex; justify-content: space-between;">
 	   	<div class="footer_text">

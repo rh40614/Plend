@@ -18,7 +18,7 @@
 	<script type="text/javascript">
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
-			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
+			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer_mypage.jsp");
 		})
 	</script>
 	
@@ -59,7 +59,7 @@
 			}
 		
 	#infoBox{
-			margin : 5% 0 10% 10%;
+			margin : 10% 0 10% 10%;
 			float : right;
 			width : 70%;
 			height: 70%;
@@ -124,7 +124,7 @@
 <div id="wrap">	
 	<header id="header" style = "height:0;"></header>
    <br>
-   	<div style="display:flex; ">
+   	<div style="display:flex; flex:1; ">
    	<nav style="display: flex;flex-direction: column;width:11%;margin-top:3%;background: #CFCFCF">
    		<div id = "MyPageBox">
    			<br>
@@ -145,7 +145,7 @@
 	    </div>
    	</nav>  	
    	
-   <div id = "infoBox">
+   <div id = "infoBox" style="flex:1;">
    	<br>
 		<h5><strong>찜 목록</strong></h5>
 		<section>
@@ -203,6 +203,14 @@
 		</c:if>
 		
    </div>
+	   <!-- 08.17 김연희: go UP -->
+		<div class="footer_text goUP" >
+		   	<p class="float-end mb-1">
+		   	 	<button onclick="location.href='#'" style="border: none; background-color:transparent; ">
+		   	 			<img alt="" src="<%=request.getContextPath()%>/img/up.png" style=" width:50px; ">
+		   	 	</button>
+		   	</p>
+		</div>
    </div>
    </div>
 <div style="margin-top: -48px;">
