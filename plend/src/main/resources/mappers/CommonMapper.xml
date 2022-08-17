@@ -169,4 +169,30 @@
 		  	WHERE naver_id = #{naver_id}
 		  </if>
 	</select>
+	<!-- 08.17 김영민: sns 회원가입 -->
+	<insert id="insertSnsUser" parameterType="UserVO">
+		INSERT INTO user_plend(
+			 id
+			,name
+			,nickName
+			,userPhone
+			,email
+			,gender
+			,role
+			,kakao_id
+			,naver_id
+			,user_type
+		) VALUES (
+			 #{id}
+			,#{name}
+			,#{nickName}
+			,#{userPhone}
+			,#{email}
+			,#{gender}
+			,#{role}
+			,#{kakao_id}
+			,#{naver_id}
+			,#{user_type}
+		)
+	</insert>
 </mapper>

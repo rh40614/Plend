@@ -28,4 +28,9 @@ public class CommonServiceImpl implements CommonService {
 		return commonDAO.snsIdCheck(userVO);
 	}
 
+	@Override
+	public int insertSnsUser(UserVO userVO) {
+		return commonDAO.insertSnsUser(userVO);
+	}
+
 }

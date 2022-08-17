@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
 <html>
@@ -44,14 +45,14 @@
 			<br>
 			<div class="loginBox">
 			<p  class="mb-4 mt-5 loginLetter">추가 사항</p>
-				<form action = "signUp.do" method ="post" name = "frm" id = "frm">
+				<form action = "signUp.do" method ="post">
 					<input type="hidden" name="user_type" value="${user_type}">
+					<input type="hidden" name="role" value="2">
 					<input type="hidden" name="${user_type}_id" value="${snsId.id}">
-					<input type = "text" name = "id" placeholder = "아이디" class = "textbox" id = "ID"><br>
-					<input type = "text" name = "name" placeholder = "이름" class = "textbox"><br>
-					<input type = "text" name = "nickName" placeholder = "닉네임" class = "textbox"><br>
-					<input type = "email" name = "email" placeholder = "이메일" class = "textbox"><br>
-					<input type = "text" name = "userPhone" placeholder = "핸드폰 번호" class = "textbox"><br>
+					<input type = "text" name = "name" placeholder = "이름" class = "textbox" value="${userProfile.name}"><br>
+					<input type = "text" name = "nickName" placeholder = "닉네임" class = "textbox" value="${userProfile.nickname}"><br>
+					<input type = "email" name = "email" placeholder = "이메일" class = "textbox" value="${userProfile.email}"><br>
+					<input type = "text" name = "userPhone" placeholder = "핸드폰 번호" class = "textbox" value="${userProfile.mobile}"><br>
 					<div class="form-check form-check-inline">
 					  <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="M">
 					  <label class="form-check-label" for="inlineRadio1">남</label>
@@ -60,14 +61,7 @@
 					  <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="F">
 					  <label class="form-check-label" for="inlineRadio2">여</label>
 					</div>
-		 			<input type = "button" onclick = "check2();" value = "로그인" id = "signBtn">
-		 			<hr style = "margin-left : 280px; margin-right: 280px;">
-					<div class="d-flex;">
-			 			<a href = "searchId.do">아이디 찾기</a> | <a href = "searchPwd.do">비밀번호 찾기</a>
-			 		</div>
-			 		<div style = "align-items: center; " class="mt-2">
-						<a href = "signUp.do" >회원가입</a>
-					</div>
+		 			<button id = "signBtn">회원가입</button>
 				</form>
 			</div>
 		</main>
@@ -76,11 +70,22 @@
 </div>
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!-- 가입할건지 확인 모달 -->
 <script type="text/javascript">
 const myModal = new bootstrap.Modal('#signUpModal', {
 	backdrop: 'static'
 });
 myModal.show();
+</script>
+<!-- value값 있는 input에 값 넣어주기/ 값 있으면 히든으로 없는 값만 입력받기 -->
+<script type="text/javascript">
+	$(function(){
+		$("form>input[type!='radio']").each(function(i){
+			if($(this).val() != ""){
+				$(this).prop("type","hidden");
+			}
+		});
+	});
 </script>
 </body>
 </html>

@@ -3,7 +3,9 @@ package three.people.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +34,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import three.people.service.CommonService;
 import three.people.service.GoogleService;
 import three.people.service.KakaoService;
 import three.people.service.MailSendService;
@@ -56,6 +59,8 @@ public class CommonController  {
 	private GoogleService googleService;
 	@Autowired
 	private NaverService naverService;
+	@Autowired
+	private CommonService commonService;
 	@Autowired
 	UserService userService;
 	@Autowired
@@ -90,13 +95,21 @@ public class CommonController  {
 			return "common/snsSignUp";
 		}else {
 			System.out.println("not null");
+			session = request.getSession();
+
+//			UserVO login = new UserVO();
+//			login.setUidx(user.getUidx());
+//			System.out.println(user.getUidx());
+//			login.setId(user.getId());
+//			login.setRole(user.getRole());
+//			login.setNickName(user.getNickName());
+//			
+//			session.setMaxInactiveInterval(1800);
+//			session.setAttribute("login", login);
 		}
 		
 		// snsProfile = kakaoService.getUserProfile(snsvo);
-
-
-		kakaoService.snsUnlink(snsProfile);
-		return "common/kakao";
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value = "/googleloginGo.do") 
@@ -109,7 +122,7 @@ public class CommonController  {
 		return "common/googleloginGo";
 	}
 	
-	//sns 회원가입 취소
+	//sns 로그인 연결 끊기
 	@RequestMapping(value="/cancelSnsSignUp.do")
 	public String cancelSnsSignUp(SnsProfileVO snsProfileVO) throws IOException {
 		kakaoService.snsUnlink(snsProfileVO);
@@ -127,23 +140,6 @@ public class CommonController  {
 		return "redirect:/";
 	}
 	
-	/*
-	 * @RequestMapping(value="/logout") public String logout(HttpSession session )
-	 * throws IOException { //KakaoVO id = new KakaoVO(); //Long KakaoId =
-	 * id.getKakaoId();
-	 * 
-	 * //System.out.println(session.getAttribute("access_Token"));
-	 * //System.out.println(KakaoId);
-	 * 
-	 * Long kakaoId = (Long)session.getAttribute("kakaoId");
-	 * 
-	 * // kakaoService.logout((String)session.getAttribute("access_Token"),
-	 * kakaoId); session.removeAttribute("access_Token");
-	 * session.removeAttribute("nickname"); session.removeAttribute("kakaoId");
-	 * 
-	 * return "redirect:/"; }
-	 */
-	
 	@RequestMapping(value="/signUp.do", method = RequestMethod.GET)
 	public String signUp(Model model) throws UnsupportedEncodingException {
 		model.addAttribute("SNS", kakaoService.loginApiURL());
@@ -152,9 +148,23 @@ public class CommonController  {
 
 	@RequestMapping(value="/signUp.do", method = RequestMethod.POST)
 	public String signUp(UserVO vo) {
-		String encodedPassword = passwordEncoder.encode(vo.getPassword());
-		vo.setPassword(encodedPassword);
-		int result = userService.insertUser(vo);
+		if(vo.getUser_type() == null) {
+			String encodedPassword = passwordEncoder.encode(vo.getPassword());
+			vo.setPassword(encodedPassword);
+			int result = userService.insertUser(vo);
+		}else {
+			System.out.println("kakao_id: "+vo.getKakao_id());
+			Date now =new Date();
+			SimpleDateFormat simple = new SimpleDateFormat("SSS");
+			String distinct = simple.format(now);
+			if(vo.getUser_type().equals("kakao")) {
+				vo.setId(vo.getKakao_id()+distinct);
+			}else {
+				vo.setId(vo.getNaver_id()+distinct);
+			}
+			commonService.insertSnsUser(vo);
+		}
+		
 		return "redirect:/";
 	}
 
@@ -218,13 +228,13 @@ public class CommonController  {
 			//System.out.println("role ="+user.getRole());
 			//System.out.println("nickname = "+user.getNickName());
 			
-			//자동 로그아웃 시간 30분
-			//움직이지 않고 가만히 있을 경우 시간이 흘러 30분이 경과됐을 때 자동 로그아웃
+			//�옄�룞 濡쒓렇�븘�썐 �떆媛� 30遺�
+			//��吏곸씠吏� �븡怨� 媛�留뚰엳 �엳�쓣 寃쎌슦 �떆媛꾩씠 �쓽�윭 30遺꾩씠 寃쎄낵�릱�쓣 �븣 �옄�룞 濡쒓렇�븘�썐
 			session.setMaxInactiveInterval(1800);
 			session.setAttribute("login", login);
 			return "redirect:/";
 		} else {
-			out.println("<script>alert('로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요.')</script>");
+			out.println("<script>alert('濡쒓렇�씤�뿉 �떎�뙣�븯���뒿�땲�떎. �븘�씠�뵒�� 鍮꾨�踰덊샇瑜� �솗�씤�빐二쇱꽭�슂.')</script>");
 			out.flush();
 			return "common/signIn";
 
@@ -307,7 +317,7 @@ public class CommonController  {
 			return "redirect:/";
 
 		} else {
-			pw.append("<script>alert('로그인에 실패하였습니다.');location.href = 'login.do'</script>");
+			pw.append("<script>alert('濡쒓렇�씤�뿉 �떎�뙣�븯���뒿�땲�떎.');location.href = 'login.do'</script>");
 			
 			pw.flush();
 			return "common/login";
