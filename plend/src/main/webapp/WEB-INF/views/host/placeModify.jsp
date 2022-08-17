@@ -124,45 +124,76 @@
 								<span class="title3">시설정보</span><br>
 								<table class="table" > 
 									<tr>
-										<td>1.</td>
-										<td><input type="text" id="guide1" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+										<td class="col-md-1 guideNum">1.</td>
+										<td class="col-md-11"><input type="text" id="guide1" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0 " onkeydown="slash(this)" onblur="guideValid(this)"></td>
+									</tr>
+									<tr class="guideValid" style="display: none;">
+										<td colspan ="2" class="col-md-12" ></td>
 									</tr>
 									<tr>
-										<td>2.</td>
-										<td><input type="text" id="guide2" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+										<td class="col-md-1 guideNum">2.</td>
+										<td><input type="text" id="guide2" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0 " onblur="guideValid(this)" onkeydown="slash(this)"></td>
+									</tr>
+									<tr class="guideValid" style="display: none;">
+										<td colspan ="2" class="col-md-12" ></td>
 									</tr>
 									<tr>
-										<td>3.</td>
-										<td><input type="text" id="guide3" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+										<td class="col-md-1 guideNum">3.</td>
+										<td><input type="text" id="guide3" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0 " onblur="guideValid(this)" onkeydown="slash(this)"></td>
+									</tr>
+									<tr class="guideValid" style="display: none;">
+										<td colspan ="2" class="col-md-12" ></td>
 									</tr>
 									<tr>
-										<td>4.</td>
-										<td><input type="text" id="guide4" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+										<td class="col-md-1 guideNum">4.</td>
+										<td><input type="text" id="guide4" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0 " onblur="guideValid(this)" onkeydown="slash(this)"></td>
+									</tr>
+									<tr class="guideValid" style="display: none;">
+										<td colspan ="2" class="col-md-12" ></td>
 									</tr>
 									<tr>
-										<td>5.</td>
-										<td><input type="text" id="guide5" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+										<td class="col-md-1 guideNum">5.</td>
+										<td><input type="text" id="guide5" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0 " onblur="guideValid(this)" onkeydown="slash(this)"></td>
+									</tr>
+									<tr class="guideValid" style="display: none;">
+										<td colspan ="2" class="col-md-12" ></td>
 									</tr>
 									<tr>
-										<td>6.</td>
-										<td><input type="text" id="guide6" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+										<td class="col-md-1 guideNum">6.</td>
+										<td><input type="text" id="guide6" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0 " onblur="guideValid(this)" onkeydown="slash(this)"></td>
+									</tr>
+									<tr class="guideValid" style="display: none;">
+										<td colspan ="2" class="col-md-12" ></td>
 									</tr>
 									<tr>
-										<td>7.</td>
-										<td><input type="text" id="guide7" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+										<td class="col-md-1 guideNum">7.</td>
+										<td><input type="text" id="guide7" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0 " onblur="guideValid(this)" onkeydown="slash(this)"></td>
+									</tr>
+									<tr class="guideValid" style="display: none;">
+										<td colspan ="2" class="col-md-12" ></td>
 									</tr>
 									<tr>
-										<td>8.</td>
-										<td><input type="text" id="guide8" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+										<td class="col-md-1 guideNum">8.</td>
+										<td><input type="text" id="guide8" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0 " onblur="guideValid(this)" onkeydown="slash(this)"></td>
+									</tr>
+									<tr class="guideValid" style="display: none;">
+										<td colspan ="2" class="col-md-12" ></td>
 									</tr>
 									<tr>
-										<td>9.</td>
-										<td><input type="text" id="guide9" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+										<td class="col-md-1 guideNum">9.</td>
+										<td><input type="text" id="guide9" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0" onblur="guideValid(this)"></td>
+									</tr>
+									<tr class="guideValid" style="display: none;">
+										<td colspan ="2" class="col-md-12" ></td>
 									</tr>
 									<tr>
-										<td>10.</td>
-										<td><input type="text" id="guide10" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0"></td>
+										<td class="col-md-1 guideNum">10.</td>
+										<td><input type="text" id="guide10" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0" onblur="guideValid(this)"></td>
 									</tr>
+									<tr class="guideValid" style="display: none;">
+										<td colspan ="2" class="col-md-12" ></td>
+									</tr>
+								</tbody>
 								</table>
 								<input type="hidden" name="guide" id="guide">
 							</div>
@@ -245,9 +276,9 @@
 								<span class="title3">주소 </span><br>
 								<input type="text" id="postcode" placeholder="우편번호">
 								<input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
-								<input type="text"  id="address" size="50" class="mt-2" value="${address[0]}"><br>
+								<input type="text"  id="address" size="50" class="mt-2" value="${address[0]}">
+								<input type="text"  id="extraAddress"  size="50"placeholder="참고항목" class="mt-2"><br>
 								<input type="text"  id="detailAddress"  size="50" placeholder="상세주소" value="${address[1]}" class="mt-2">
-								<input type="text"  id="extraAddress"  size="50"placeholder="참고항목" class="mt-2">
 								
 								<input type="hidden" name="address" id="addr" >
 							</label>
@@ -333,5 +364,43 @@ $(function(){
 		$(".some_class_name").val(tag);
 	});
 </script>
+<!-- 시설 가이드 유효성 -->
+<script>
+
+function guideValid(obj){
+	
+	var guideVal = $(obj).val();
+	var guideLength = $(obj).val().length;
+	
+	if(guideLength > 100){
+		console.log("시설정보 100자 이상");
+		//alert("시설 정보는 100자 이내로 작성해주시길 바랍니다.");
+		$(obj).removeClass('border-0');
+		$(obj).addClass('alertBox');
+		$(obj).closest('tr').next().css({'color':'#CD0000','display':'table-row'});
+		$(obj).closest('tr').next().children().html("시설 정보는 100자이내로 작성해주시길 바랍니다.").css('text-align', 'center')
+		return false;
+	}else if(guideLength < 100) {
+		$(obj).removeClass('alertBox');
+		$(obj).addClass('border-0');
+		$(obj).closest('tr').next().css({'color':'#CD0000','display':'none'});
+	
+	}else{
+	
+	}
+		
+}
+
+//시설 정보 입력막기 
+function slash(obj){
+ if(event.keyCode == 111 || event.which == 191 ) {
+ 	alert("/는 입력이 불가합니다.");
+ 	event.preventDefault();
+ }
+ return;
+}
+
+</script>
+
 </body>
 </html>

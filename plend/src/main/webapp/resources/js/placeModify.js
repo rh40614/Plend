@@ -249,8 +249,6 @@
 
 	// 영업 시간 24시간 설정
 
-
-
 		$("#avaliableTime").change(function(){
 		console.log("체크박스");
 				$('#kt_datepicker_1').val('00');
@@ -263,9 +261,7 @@
 
 	//장소 등록
 		function check(){
-
-
-
+		
 			concatAddr();
 			facilities();
 
@@ -336,5 +332,7 @@
 			}
 
 
+
+	
 
 	}
