@@ -51,7 +51,7 @@
 					  	</c:if>
 					  	<c:forEach var="report" items="${reportList}" varStatus="status">
 							<tr>
-						      <th scope="row">${report.rbidx}</th>
+						      <th scope="row">${report.rnum}</th>
 						      <td>${report.category.replace(",",'/')}</td>
 						      <td>${report.content}</td>
 						      <td>${report.name}</td>

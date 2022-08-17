@@ -3,56 +3,51 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page session="true" %>
-
+<style>
+#category {
+	padding-top: 50px;
+	margin-bottom: 15px;
+}
+#category>a {
+	color: #646d75;
+	padding-bottom: 3px;
+	margin-right: 8px;
+	border-bottom: 3px solid #dfe1e2;
+}
+</style>  
   <nav class="navbar navbar-light shadow-sm pt-4 fixed-top bg-white">
- 
-  <div class="container" style="align-items: center; flex-wrap: wrap; justify-content: center;">
-  <div style=" display: flex; flex-direction: row; align-items: center; width: 100%;">
-
-    <a class="navbar-brand" style=" margin-right:auto; " href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/image/plend.png" alt="logo not found"></a>
-
-    <div id="searchBar" style="border: 3px solid grey; border-radius: 10px; height: 47px; width: 750px;">
-    	<form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="원하는 장소를 검색해보세요!" aria-label="Search" style="border: none;">
-          <button class="btn " type="submit" style="border:none;" ><img alt="searchBtn" src="<%=request.getContextPath()%>/resources/image/searchBtn.png" ></button>
+  <div class="container" style="flex-wrap: wrap; justify-content: center;">
+  	<div style=" display: flex; flex-direction: row; align-items: center; width: 100%;">
+      <a class="navbar-brand" style="margin-right:auto;" href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/image/plend.png" alt="logo not found"></a>
+   	  <div id="searchBar" style="margin-right:auto; border-radius: 50px; height: 47px; width: 500px; background-color: #eceeee;">
+    	<form class="d-flex" method="GET" action="<%=request.getContextPath()%>/place/searchPlace.do">
+          <input class="form-control me-2" name="searchValue" type="search" placeholder="원하는 장소를 검색해보세요!" aria-label="Search" style="margin-top:5px; border: none; background-color: #eceeee; border-radius: 50px;">
+          <button class="btn " type="submit" style="border:none; align-self: center;" ><img alt="searchBtn" src="<%=request.getContextPath()%>/resources/image/searchBtn.png" ></button>
         </form> 			
-    </div>
+      </div>
+      <div class="d-flex">
+		<div id="categoryList" class="fw-bold" style="color: #838a90; cursor: pointer;">카테고리 &nbsp;</div>
+		<div class="fw-bold" style="color: #838a90;"> | </div>
+		<div class="fw-bold" style="color: #838a90; cursor: pointer;">&nbsp; 공간등록</div>
+	  </div>			
       <button class="navbar-toggler" type="button" style="border: none; margin-left:auto;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+        <span class="navbar-toggler-icon"></span>
+      </button>
     </div>
-    
-    <div class="mt-5 row" id="category">
-    	<div class="col-lg-12 col-sm-10 col-xs-8">
-    	<button style="border:none; background:none; " onclick="location.href='<%=request.getContextPath()%>/place/placeList.do?category=partyRoom'">
-    	<img src="<%=request.getContextPath()%>/resources/image/category/i_partyRoom.png" alt="파티룸" ></button> 
-    	<button style="border:none; background:none; " onclick="location.href='<%=request.getContextPath()%>/place/placeList.do?category=dancePractice'">
-    	<img src="<%=request.getContextPath()%>/resources/image/category/i_dancePractice.png" alt="춤연습실" ></button> 
-    	<button style="border:none; background:none; " onclick="location.href='<%=request.getContextPath()%>/place/placeList.do?category=homeGim'">
-    	<img src="<%=request.getContextPath()%>/resources/image/category/i_homeGim.png" alt="운동시설" ></button> 
-    	<button style="border:none; background:none; " onclick="location.href='<%=request.getContextPath()%>/place/placeList.do?category=meeting'">
-    	<img src="<%=request.getContextPath()%>/resources/image/category/i_meeting.png" alt="회의실" ></button> 
-    	<button style="border:none; background:none; " onclick="location.href='<%=request.getContextPath()%>/place/placeList.do?category=office'">
-    	<img src="<%=request.getContextPath()%>/resources/image/category/i_office.png" alt="독립 오피스" ></button> 
-    	<button style="border:none; background:none; " onclick="location.href='<%=request.getContextPath()%>/place/placeList.do?category=officeShare'">
-    	<img src="<%=request.getContextPath()%>/resources/image/category/i_officeShare.png" alt="공유오피스" ></button> 
-    	<button style="border:none; background:none; " onclick="location.href='<%=request.getContextPath()%>/place/placeList.do?category=recording'">
-    	<img src="<%=request.getContextPath()%>/resources/image/category/i_recording.png" alt="녹음실" ></button> 
-    	<button style="border:none; background:none; " onclick="location.href='<%=request.getContextPath()%>/place/placeList.do?category=singPractice'">
-    	<img src="<%=request.getContextPath()%>/resources/image/category/i_singPractice.png" alt="노래연습실" ></button>
-    	<button style="border:none; background:none; " onclick="location.href='<%=request.getContextPath()%>/place/placeList.do?category=smallWedding'">
-    	<img src="<%=request.getContextPath()%>/resources/image/category/i_smallWedding.png" alt="스몰웨딩" ></button> 
-    	<button style="border:none; background:none; " onclick="location.href='<%=request.getContextPath()%>/place/placeList.do?category=studio'">
-    	<img src="<%=request.getContextPath()%>/resources/image/category/i_studio.png" alt="스튜디오" ></button> 
-    	<button style="border:none; background:none; " onclick="location.href='<%=request.getContextPath()%>/place/placeList.do?category=gallery'">
-    	<img src="<%=request.getContextPath()%>/resources/image/category/i_gallery.png" alt="갤러리" ></button> 
-    	<button style="border:none; background:none; " onclick="location.href='<%=request.getContextPath()%>/place/placeList.do?category=shareKitchen'">
-    	<img src="<%=request.getContextPath()%>/resources/image/category/i_shareKitchen.png" alt="공유주방" ></button>
-    	</div>
+    <div id="category" class="d-none">
+    	<a href="<%=request.getContextPath()%>/place/placeList.do?category=partyRoom" class="partyRoom" >파티룸</a>
+    	<a href="<%=request.getContextPath()%>/place/placeList.do?category=dancePractice" class="dancePractice" >춤연습실</a>
+    	<a href="<%=request.getContextPath()%>/place/placeList.do?category=homeGim" class="homeGim" >운동시설</a>
+    	<a href="<%=request.getContextPath()%>/place/placeList.do?category=meeting" class="meeting" >회의실</a>
+    	<a href="<%=request.getContextPath()%>/place/placeList.do?category=office" class="office" >독립 오피스</a>
+    	<a href="<%=request.getContextPath()%>/place/placeList.do?category=officeShare" class="officeShare" >공유 오피스</a>
+    	<a href="<%=request.getContextPath()%>/place/placeList.do?category=recording" class="recording" >녹음실</a>
+    	<a href="<%=request.getContextPath()%>/place/placeList.do?category=singPractice" class="singPractice" >노래연습실</a>
+    	<a href="<%=request.getContextPath()%>/place/placeList.do?category=smallWedding" class="smallWedding" >스몰웨딩</a>
+    	<a href="<%=request.getContextPath()%>/place/placeList.do?category=studio" class="studio" >스튜디오</a>
+    	<a href="<%=request.getContextPath()%>/place/placeList.do?category=gallery" class="gallery" >갤러리</a>
+    	<a href="<%=request.getContextPath()%>/place/placeList.do?category=shareKitchen" class="shareKitchen" >공유주방</a>
     </div>
-    
-    
-    
     <!-- 오른쪽 캔버스  -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header" style="background: #364F6B; height: 250px; flex-direction: column">
@@ -111,25 +106,41 @@
 	          </li>
           </c:if>
         </ul>
-        
       </div>
     </div>
   </div>
 </nav>
+<!-- category 호버시 상세 category 보여주기 -->
+<script>
+$("#categoryList").hover(
+	function(){
+		$("#category").removeClass("d-none");	
+	}
+);
+$(".navbar.navbar-light").mouseleave(function() {
+	$("#category").addClass("d-none");
+});
+</script>
+<script>
+$("#categoryList").click(function(){
+		$("#category").toggleClass("d-none");	
+	}
+);
+</script>
 
 
 
 
-    <!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 
-   
-  </body>
-  
-  
-  
-</html>
 
 
-  
+
+
+
+
+
+
+
+
+

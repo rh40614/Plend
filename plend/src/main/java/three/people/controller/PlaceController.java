@@ -136,21 +136,6 @@ public final class PlaceController {
 		
 	}
 	
-	@RequestMapping(value="/test.do", method=RequestMethod.GET)
-	public String test() {
-		return "place/test";
-	}
-
-
-
-
-	
-	
-	
-	
-	
-	
-	
 	@RequestMapping(value="/placeList.do", method = RequestMethod.GET)
 	public String placeList(PlaceVO placeVO, Model model) {
 		//카테고리에 해당하는 장소 리스트
@@ -220,18 +205,30 @@ public final class PlaceController {
 		session.getAttribute("login");
 		UserVO login = (UserVO)session.getAttribute("login");
 		bookVO.setUidx(login.getUidx());
-		
-//		System.out.println("pidx"+bookVO.getPidx());
-//		System.out.println("UseTime: "+bookVO.getUseTime());
-//		System.out.println("cntpeople : "+ bookVO.getCntPeople());
-//		System.out.println("option1: "+ bookVO.getOption1());
-		
+
 		int result = bookService.insertBook(bookVO);
 		return result;
 		
 	}
 
-
+	@RequestMapping(value="/searchPlace.do", method=RequestMethod.GET)
+	public String searchPlace(SearchVO searchVO, Model model) {
+		model.addAttribute("searchValue", searchVO.getSearchValue());
+		
+		List<PlaceVO> list = placeService.searchPlace(searchVO);
+		
+		for(PlaceVO place: list) {
+			int pidx = place.getPidx();
+			//사진을 pidx 값으로 찾기 때문에 설정
+			place.setPidx(pidx);
+			//사진도 list에 담기 
+			ImageVO imageOne = placeService.selectImageOne(place);
+			String file = imageOne.getOriginFileName();
+			place.setPlaceImg(file);
+		}
+		model.addAttribute("list", list);
+		return "place/searchPlace";
+	}
 
 
 

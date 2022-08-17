@@ -43,7 +43,7 @@
 					    </tr>
 					    <tr>
 					      <td scope="row" class="align-middle text-center">비밀번호</td>
-					      <td> <input type="text" class="form-control" name="password" value="${user.password}" required></td>
+					      <td> <input type="text" class="form-control" name="password"></td>
 					    </tr>
 					    <tr>
 					      <td scope="row" class="align-middle text-center">이름</td>

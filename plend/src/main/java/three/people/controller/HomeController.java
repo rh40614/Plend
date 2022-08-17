@@ -204,21 +204,6 @@ public class HomeController {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	@RequestMapping(value="emailCheck.do")
 	@ResponseBody
 	public void emailCheck(String email) {

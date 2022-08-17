@@ -56,7 +56,7 @@
 					  	</c:if>
 					  	<c:forEach var="inquiryVO" items="${list}">
 					  		<tr>
-					  			<td> ${inquiryVO.iqidx} </td>
+					  			<td> ${inquiryVO.rnum} </td>
 					  			<td> ${inquiryVO.nickName} </td>
 					  			<td> ${inquiryVO.category} </td>
 					  			<td>

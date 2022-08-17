@@ -17,9 +17,15 @@ public class EventVO {
 	private String category;
 	private String image;
 	private String banner;
+	// rownum
+	private int rnum;
 	
-
-	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	public MultipartFile[] getEventImg() {
 		return eventImg;
 	}

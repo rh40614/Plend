@@ -58,7 +58,7 @@
 					  	</c:if>
 					  	<c:forEach var="event" items="${eventList}">
 					  		<tr>
-						      <th scope="row">${event.eidx}</th>
+						      <th scope="row">${event.rnum}</th>
 						      <td>
 						      	<c:choose>
 						      		<c:when test="${event.startEnd eq 'end'}">
