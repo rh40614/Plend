@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import three.people.vo.SnsProfileVO;
 import three.people.vo.SnsVO;
+import three.people.vo.UserVO;
 
 @Service
 public class NaverService implements SnsService {
@@ -140,9 +141,9 @@ public class NaverService implements SnsService {
 	}
 
 	@Override
-	public int userCheck(SnsProfileVO snsProfileVO) throws IOException {
+	public UserVO userCheck(SnsProfileVO snsProfileVO) throws IOException {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 

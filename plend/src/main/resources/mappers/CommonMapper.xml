@@ -143,6 +143,15 @@
 			FROM user_plend
 		   WHERE uidx = #{uidx}
 	</select>
-	
-	
+	<!-- 08.17 김영민: SNS ID CHECK -->
+	<select id="snsIdCheck" parameterType="UserVO" resultType="UserVO">
+		SELECT COUNT(*)
+		  FROM user_plend
+		  <if test="kakao_id != null">
+		  	WHERE kakao_id = #{kakao_id}
+		  </if>
+		  <if test="naver_id != null">
+		  	WHERE naver_id = #{naver_id}
+		  </if>
+	</select>
 </mapper>

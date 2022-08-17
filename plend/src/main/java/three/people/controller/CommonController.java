@@ -76,20 +76,14 @@ public class CommonController  {
 	
 	@RequestMapping(value="/kakaoLogin")
 	public String login(SnsVO snsvo , HttpServletRequest request, HttpSession session) throws IOException {
+		SnsProfileVO snsProfile = new SnsProfileVO();
+		
 		snsvo = kakaoService.getAccessToken(snsvo);
-//		System.out.println("code: "+snsvo.getCode());
-//		System.out.println("idToken: "+snsvo.getId_token());
-//		System.out.println("accessToken: "+snsvo.getAccess_token());
-		SnsProfileVO snsProfile = kakaoService.getUserProfile(snsvo);
-//		System.out.println("name: "+snsProfile.getName());
-//		System.out.println("nickName: "+snsProfile.getNickname());
-//		System.out.println("age: "+snsProfile.getAge());
-//		System.out.println("day: "+snsProfile.getBirthday());
-//		System.out.println("year: "+snsProfile.getBirthyear());
-//		System.out.println("email: "+snsProfile.getEmail());
-//		System.out.println("gender: "+snsProfile.getGender());
-//		System.out.println("kakaoId: "+snsProfile.getKakaoid());
-//		System.out.println("id: "+snsProfile.getId());
+		snsProfile.setAccess_token(snsvo.getAccess_token());
+		kakaoService.userCheck(snsProfile);
+		
+		// snsProfile = kakaoService.getUserProfile(snsvo);
+
 
 		//kakaoService.snsUnlink(snsProfile);
 		return "common/kakao";

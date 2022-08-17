@@ -51,6 +51,8 @@ public class CommonDAO {
 	
 	public UserVO userInfoByUidx(int uidx){
 		return  sqlSession.selectOne("three.people.mapper.commonMapper.userInfoByUidx", uidx);
-		
+	}
+	public UserVO snsIdCheck(UserVO userVO) {
+		return sqlSession.selectOne("three.people.mapper.commonMapper.snsIdCheck", userVO);
 	}
 }

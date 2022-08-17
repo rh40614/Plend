@@ -13,6 +13,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -20,11 +21,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import three.people.vo.SnsProfileVO;
 import three.people.vo.SnsVO;
+import three.people.vo.UserVO;
 
 @Service
 public class KakaoService implements SnsService {
 	
-	SnsVO vo = new SnsProfileVO(); 
+	SnsVO vo = new SnsProfileVO();
+	@Autowired
+	private CommonService commonService;
 	
 	public SnsVO loginApiURL() throws UnsupportedEncodingException {
 		
@@ -139,9 +143,37 @@ public class KakaoService implements SnsService {
 	}
 
 	@Override
-	public int userCheck(SnsProfileVO snsProfileVO) throws IOException {
-		// TODO Auto-generated method stub
-		return 0;
+	public UserVO userCheck(SnsProfileVO snsProfileVO) throws IOException {
+		String reqURL = "https://kapi.kakao.com/v1/user/access_token_info";
+		UserVO userVO = new UserVO();
+		try {
+			URL url = new URL(reqURL);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Authorization", "Bearer "+snsProfileVO.getAccess_token());
+			
+			int responseCode = con.getResponseCode();
+			System.out.println(responseCode);
+			
+			if(responseCode == 200) {
+				BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(),"utf-8"));
+				String line = "";
+				while((line = br.readLine()) != null) {
+					ObjectMapper mapper = new ObjectMapper();
+					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+					snsProfileVO = mapper.readValue(line, SnsProfileVO.class);
+					System.out.println("id: "+snsProfileVO.getId());
+				}
+				br.close();
+				userVO.setKakao_id(snsProfileVO.getId());
+				userVO = commonService.snsIdCheck(userVO);
+				
+			}
+		}catch(MalformedURLException e) {
+			e.printStackTrace();
+		}
+		return userVO;
 	}
 
 }
