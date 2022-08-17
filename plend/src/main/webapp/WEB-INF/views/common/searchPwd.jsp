@@ -44,9 +44,10 @@
 			data : sendData,
 			dataType : "text",
 			success : function(text) {
-				if (text != null) {
-					$("#searchedPwd").html("임시 비밀번호를 등록된 이메일로 발송 했습니다.");
-				} else{
+				if (text != "") {
+					$("#searchedPwd").html("임시 비밀번호를 등록된 이메일로 발송 했습니다. 이메일을 확인해주세요.");
+					console.log("text"+text);
+				} else if (text == ""){
 					$("#searchedPwd").html("등록된 정보가 없습니다.");
 				}
 			},
