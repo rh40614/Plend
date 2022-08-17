@@ -19,7 +19,7 @@
 
 	<script type="text/javascript">
 		$(function(){
-			$("#header").load("resources/article/headerwithCate.jsp");
+			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
 			$("#footer").load("resources/article/footer.jsp");
 		})
 	</script>

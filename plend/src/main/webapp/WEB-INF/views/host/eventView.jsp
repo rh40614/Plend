@@ -34,7 +34,6 @@
 	</script>
 	<!--이벤트 버튼 -->
 	<script>
-			
 		function btn(obj){
 			
 			if($(obj).hasClass("btnDisabled") == true){
@@ -42,13 +41,9 @@
 			
 				$(obj).removeClass("btnDisabled");	 
 				$(obj).addClass("btnBig");
-				
 			}
-			
 		}
-			
 	</script>
-	
 	<script>
 		$(function(){
 			$.ajax({
@@ -73,20 +68,18 @@
 	<!-- 2022.07.18 김연희: main에 margin top150 기본으로 되어있으나 배너 부분은  딱맞게 시작하게 설정 -->
 	<main style="margin-top: 53px;" >
 		<!--제목  -->
-		<section>
-			<span class="title1 mb-5" style="margin-top:100px; margin-left: 30px;">이벤트</span>
-		
-			<div class="">
-			
-				<table class="table" id="promotionTable">
-					<thead>
-						<tr>
-							<td colpan="3"class="title2 col-md-12">${e.title}</td>
-						</tr>
-					</thead>
+		<section class="w-100">
+			<span class="title1 mb-5" style="margin-top:100px; margin-left: 5%;">이벤트</span>
+			<div class="w-100">
+				<table class="table " id="promotionTable">
 					<tbody>
+						
+						<tr class="border-top">
+							<td rowspan="5" class="col-md-5" style="text-align: center;"><img style="width: 25rem; height: 22rem;"  src="<%=request.getContextPath()%>/eventImg.do?originFileName=${e.image}" alt="이벤트 이미지"></td>
+							<td class="col-md-2">제목: </td>
+							<td class=" col-md-5">${e.title}</td>
+						</tr>
 						<tr>
-							<td rowspan="4" class="col-md-5" style="text-align: center;"><img style="width: 25rem; height: 22rem;"  src="<%=request.getContextPath()%>/eventImg.do?originFileName=${e.image}" alt="이벤트 이미지"></td>
 							<td class="col-md-2">부제목: </td>
 							<td class="col-md-5">${e.semiTitle}</td>
 						</tr>
@@ -106,9 +99,9 @@
 				</table>
 			<br>
 			</div>
-			
-			<button class="btnBig" onclick="location.href='<%=request.getContextPath()%>/host/eventList.do?startEnd=start'" >목록</button>
-		
+			<div class="d-flex" style="display: flex!important; width: 100%; justify-content: flex-end;">
+				<button class="btnBig" onclick="location.href='<%=request.getContextPath()%>/host/eventList.do?startEnd=start'" >목록</button>
+			</div>
 		</section>
 
 	</main>

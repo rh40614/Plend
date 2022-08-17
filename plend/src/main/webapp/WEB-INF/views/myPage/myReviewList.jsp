@@ -20,7 +20,7 @@
 	<script type="text/javascript">
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
-			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
+			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer_mypage.jsp");
 		})
 	</script>
 </head>
@@ -30,7 +30,7 @@
 	<header id="header" style = "height:0;"></header>
    	<br>
    	<!-- 08.15 김연희 : 푸터하단고정 및 화면 최소 크기 지정 -->
-   	<div style="display:flex; flex: 1; min-height: 800px;">
+   	<div style="display:flex; flex: 1; min-height: 1000px;">
 	   	<nav style="display: flex;flex-direction: column;width:11%;margin-top:72px;background: #CFCFCF">
 	   		<div id = "MyPageBox">
 	   			<br>
