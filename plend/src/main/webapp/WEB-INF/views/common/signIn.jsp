@@ -15,7 +15,7 @@
 	<script type="text/javascript">
 	<!--08.08 김하진 아이디 저장 쿠키 생성 -->
 	$(function(){
-			$("#header").load("../resources/article/header.jsp");
+			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
 			$("#footer").load("../resources/article/footer.jsp");
 			//쿠키값 읽어오기
 			var id = getCookie("Cookie_id");

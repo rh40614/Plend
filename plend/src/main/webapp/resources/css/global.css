@@ -3,7 +3,7 @@
     input:focus{outline:none;}
     /* 07.07 */
     #header{
-    height: 200px;
+    height: 150px;
     }
     #aticleHeader{
     	padding-top: 32px;
@@ -200,16 +200,22 @@
 		
 	} 
 	
-	
-	
-	
-	
 	/* 08.10 김연희: 자식요소 크기확장해서 푸터 하단 고정*/
 	main{
 		flex:1;
 	}
 	
+	.footer_text{
 	
-	
+		color: #eceeee;
+	}
+	.goUP{
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		align-items: flex-end;
+		margin: 50px;
+		height:50px;
+	}
 	
 			 

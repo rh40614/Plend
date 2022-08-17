@@ -21,7 +21,7 @@
 	<!-- header/footer -->	
 	<script type="text/javascript">
 		$(function(){
-			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
+			$("#header").load("<%=request.getContextPath()%>/resources/article/headerwithCate.jsp");
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
 		})
 	</script>

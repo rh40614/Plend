@@ -67,18 +67,6 @@ public class HostController {
 
 	
 	
-
-	@RequestMapping(value = "/host.do", method = RequestMethod.GET)
-	public String host() {
-		return "host/host";
-	}
-	
-	@RequestMapping(value = "/host2.do", method = RequestMethod.GET)
-	public String host2() {
-		return "host/host2";
-	}
-	
-	
 	@RequestMapping(value = "/insertPlace.do", method = RequestMethod.GET )
 	public String insertPlace() {  
 		return "host/insertPlace";

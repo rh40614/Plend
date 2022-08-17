@@ -26,7 +26,7 @@
 <link rel="mask-icon" href="/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
 <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
 <meta name="theme-color" content="#7952b3">
-<script src="../resources/js/jquery-3.6.0.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 
 
     <style>
@@ -71,6 +71,41 @@
 	  h4{
 	  	margin-right:50px;
 	  }
+		a{
+			text-decoration: none;
+		}
+		a:link{
+			text-decoration: none;
+			color: black;
+		}
+		a:visited{
+			text-decoration: none;
+			color: black;
+		}
+		a:hover{
+			color: #6e6e6e;
+		}
+		a:active{
+			color: #6e6e6e;
+		}
+		
+		.hostLogin{
+			color:white;
+			font-weight: bold;
+			border-radius: 20px;
+			text-align:center;
+			width: 300px;
+			height:100px;
+			background-color:#2F506D; 
+			font-size: 1.5rem;
+			border: none;
+		}
+		.selectedBtn{
+		background:#f9f9fa;
+		color: #2F506D;
+		box-shadow: 5px 5px 5px 5px  #a7a7a7;
+	}
+		
     </style>
 
     <script>
@@ -78,75 +113,50 @@
     <!-- Custom styles for this template -->
     <link href="sticky-footer-navbar.css" rel="stylesheet">
 </head>
-  <body class="d-flex flex-column h-100">
-<div id = "wrap">
-<header>
-  <!-- Fixed navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top" style = "background-color:#2F506D;">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#" style = "margin-left:50px;">HOSTING CENTER</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse text-white" id="navbarCollapse" style = "margin-right:50px;">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            
-          </li>
-          <li class="nav-item">
-          </li>
-          <li class="nav-item">
-          </li>
-        </ul>
-        [<a href = "" id = "link">로그아웃</a>&nbsp|&nbsp<a href = "" id = "link">마이페이지</a>]
-      </div>
-    </div>
-  </nav>
-</header>
-<!-- Begin page content -->
-<main class="flex-shrink-0">
-<br>
-<br>
-<br>
-<br>
-<br>
-<span>
-	<h3>플레이스를 만들고 관리해보세요!</h3>
-	<h3>P:)end가 당신의 플레이스 운영을 도와줄거에요.</h3>
-</span>
-<br>
-<hr style = "height:2px;">
-<br>
-<br>
-<span style = "text-align:right;">
-	<h4>등록한 플레이스를 관리하세요.</h4>
-	<h4>호스트에게 필요한 관리 정보를 제공합니다.</h4>
-</span>
-<br>
-<br>
-<div style = "display:flex;justify-content: space-evenly;">
-	<img src="../resources/image/money.png" style ="width:120px;height:120px;">
-	<img src="../resources/image/earth.png" style ="width:120px;height:120px;">
-	<img src="../resources/image/people.png" style ="width:120px;height:120px;">
-	<img src="../resources/image/consulting.png" style ="width:120px;height:120px;">
-</div>
-<br>
-<br>
-<div style = "text-align:center;height:70px;padding:17px 0;background-color:#2F506D;margin-top: 243px;">
-	<a href = "#" id = "link" style = "font-size:25px;">플레이스 시작하기</a>
-</div>
-</main>
+<body style="background:#E8DCD5;">
+	<div id = "wrap">
 
-<footer class="footer mt-auto py-3 bg-light">
-  <div class="container">
-    <span class="text-muted">Place sticky footer content here.</span>
-  </div>
-</footer>
-
+		  <!--header -->
+		   <nav class="navbar navbar-expand-md navbar-dark " style = "background-color:#2F506D; height: 80px;">
+		    <div class="container-fluid">
+		      <a class="navbar-brand" href="#" style = "margin-left:50px;">HOSTING CENTER</a>
+		      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+		        <span class="navbar-toggler-icon"></span>
+		      </button>
+		    </div>
+		  </nav> 
+	
+			<!-- content -->
+			<main class="flex-shrink-0" style="flex:1;" >
+				<img alt="호스트센터 " src="<%=request.getContextPath()%>/img/hostCenter.png" style="width:100%; height:30%;">
+				<div style="height: 300px;"></div>
+				<img alt="호스트센터 " src="<%=request.getContextPath()%>/img/hostCenter2.png" style="width:100%">
+				<div style="height: 200px;"></div>
+				<div class="d-flex" style="flex-direction: column; align-items: center;">
+					<button onclick="location.href='<%=request.getContextPath()%>/common/signIn.do'" class="hostLogin" id="hostLogin">내 공간 등록하기</button>
+				</div>
+				<div style="height: 400px;"></div>
+			</main>
+			
 
     <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-</div>
+	</div>
+	<script>
+		$(function(){
+			//마우스 hover
+			$("#hostLogin").on('mouseenter', function(){
+				$("#hostLogin").addClass("selectedBtn");
+			})
+			//마무스 out
+			$("#hostLogin").on('mouseleave', function(){
+				$("#hostLogin").removeClass("selectedBtn");
+			})
+		})
+		
+		
+	</script>
+
   </body>
   
 </html>

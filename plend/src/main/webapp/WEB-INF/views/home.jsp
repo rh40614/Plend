@@ -59,7 +59,7 @@
 							alert("찜목록 삭제에 실패했습니다.");
 						}
 					},
-					error: function(){
+					error: function(){ 
 						alert("찜목록 삭제에 실패했습니다.");
 					}
 				});
@@ -104,56 +104,35 @@
 </head>
 
 <body>
-<div id="wrap">
-	<header id="header"></header>
-	<br>
-
-	<main style="margin: 5% 19% 10% 19%; flex: 1;">
-	<!--
-	07.28 김하진 role 별로 로그인을 하고 navi바에서 들어가시길 바랍니다.
-	불편하시면 따로 링크를 빼셔도 됩니다.
-	 -->
-	<a href="host/managePlace.do">장소등록 </a>
-    <a href="developer/userList.do">유저리스트 </a>
-    
-
-
-  	<div style="display: block; align-items: center; text-align: center;" class="mb-5">
-    	<span class="navbar-brand title1" style="padding-left: 100px;">| 추천 장소  |</span>
-    	<button  class="btn" onclick="newList()" style="float: right; margin-top: 38px;"><i class="fa-solid fa-arrow-rotate-right" style=" color: grey;">  더보기</i></button>
-  	</div>
+	<div id="wrap">
+		<header id="header"></header>
+		<br>
 	
-	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start" id="recommendPlace">
-	</section>
-	<hr>
-	<br>
-
-
-	<div style="display: block; align-items: center; text-align: center;" class="mb-5">
-    	<h3 class="navbar-brand title1" style="padding-left: 100px;">| 이벤트  |</h3>
-		<button  class="btn" onclick="newEvent()" style="float: right; margin-top: 38px;"><i class="fa-solid fa-arrow-rotate-right" style=" color: grey;">  더보기</i></button>
-  </div>
-  	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start" id="eventPlace">
-	</section>
-	<hr>
-	<br>
-
-	<div style="display: block; align-items: center; text-align: center;" class="mb-5">
-    	<h3 class="navbar-brand title1" style="padding-left: 100px;">| 리뷰존  |</h3>
-  	</div>
-  	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start" id="randomReview">
-	</section>
-
-
-
-
-
-</main>
-
-
-<footer id="footer" class="mt-5"></footer>
-	<!-- JavaScript Bundle with Popper -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-</div>
+		<main style="margin: 5% 19% 10% 19%; flex: 1;">
+		  	<div style="display: block; align-items: center; text-align: center;" class="mb-5">
+		    	<span class="navbar-brand title1" style="padding-left: 100px;">| 추천 장소  |</span>
+		    	<button  class="btn" onclick="newList()" style="float: right; margin-top: 38px;"><i class="fa-solid fa-arrow-rotate-right" style=" color: grey;">  더보기</i></button>
+		  	</div>
+			<section class=" d-flex flex-row flex-wrap justify-content-start" id="recommendPlace"></section>
+				<hr>
+				<br>
+			<div style="display: block; align-items: center; text-align: center;" class="mb-5">
+		    	<h3 class="navbar-brand title1" style="padding-left: 100px;">| 이벤트  |</h3>
+				<button  class="btn" onclick="newEvent()" style="float: right; margin-top: 38px;"><i class="fa-solid fa-arrow-rotate-right" style=" color: grey;">  더보기</i></button>
+		  	</div>
+		  	<section class=" d-flex flex-row flex-wrap justify-content-start" id="eventPlace"></section>
+				<hr>
+				<br>
+			<div style="display: block; align-items: center; text-align: center;" class="mb-5">
+		    	<h3 class="navbar-brand title1" style="padding-left: 100px;">| 리뷰존  |</h3>
+		  	</div>
+		  	<section class=" d-flex, flex-row justify-content-start flex-wrap  " id="randomReview"></section>
+		</main>
+	
+	
+		<footer id="footer" class="mt-5"></footer>
+		<!-- JavaScript Bundle with Popper -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	</div>
 </body>
 </html>

@@ -15,10 +15,11 @@
 	border-bottom: 3px solid #dfe1e2;
 }
 </style>  
+
   <nav class="navbar navbar-light shadow-sm pt-4 fixed-top bg-white">
   <div class="container" style="flex-wrap: wrap; justify-content: center;">
   	<div style=" display: flex; flex-direction: row; align-items: center; width: 100%;">
-      <a class="navbar-brand" style="margin-right:auto;" href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/image/plend.png" alt="logo not found"></a>
+      <a class="navbar-brand" style="margin-right:auto;" href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/image/logoTrial2.png" alt="logo not found" style="width: 200px; height:60px;"></a>
    	  <div id="searchBar" style="margin-right:auto; border-radius: 50px; height: 47px; width: 500px; background-color: #eceeee;">
     	<form class="d-flex" method="GET" action="<%=request.getContextPath()%>/place/searchPlace.do">
           <input class="form-control me-2" name="searchValue" type="search" placeholder="원하는 장소를 검색해보세요!" aria-label="Search" style="margin-top:5px; border: none; background-color: #eceeee; border-radius: 50px;">
@@ -28,7 +29,9 @@
       <div class="d-flex">
 		<div id="categoryList" class="fw-bold" style="color: #838a90; cursor: pointer;">카테고리 &nbsp;</div>
 		<div class="fw-bold" style="color: #838a90;"> | </div>
-		<div class="fw-bold" style="color: #838a90; cursor: pointer;">&nbsp; 공간등록</div>
+		
+		<div class="fw-bold"><a href="<%=request.getContextPath()%>/host.do" style="color: #838a90;" target="_blank">&nbsp; 공간 등록 </a></div>
+	  
 	  </div>			
       <button class="navbar-toggler" type="button" style="border: none; margin-left:auto;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
         <span class="navbar-toggler-icon"></span>

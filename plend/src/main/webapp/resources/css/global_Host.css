@@ -95,15 +95,21 @@
 
 /* ------------------------------a-------------------------- */
 	a{
-		decoration: none;
+		text-decoration: none;
 	}
-	
 	a:link{
-	
+		text-decoration: none;
+		color: black;
 	}
-
+	a:visited{
+		text-decoration: none;
+		color: black;
+	}
 	a:hover{
-	
+		color: #6e6e6e;
+	}
+	a:active{
+		color: #6e6e6e;
 	}
 	
 /* ----------------------------body----------------------------------------- */
@@ -357,23 +363,7 @@
 	
 	
 	
-	a{
-		text-decoration: none;
-	}
-	a:link{
-		text-decoration: none;
-		color: black;
-	}
-	a:visited{
-		text-decoration: none;
-		color: black;
-	}
-	a:hover{
-		color: #6e6e6e;
-	}
-	a:active{
-		color: #6e6e6e;
-	}
+	
 	
 	
 	

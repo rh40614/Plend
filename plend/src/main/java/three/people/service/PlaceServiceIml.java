@@ -16,6 +16,7 @@ import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
 import three.people.vo.SearchVO;
+import three.people.vo.UserVO;
 
 @Service
 public class PlaceServiceIml implements PlaceService{
@@ -95,8 +96,8 @@ public class PlaceServiceIml implements PlaceService{
 	}
 
 	@Override
-	public List<PlaceVO> selectPlace() {
-		List<PlaceVO> result = placeDAO.selectPlace();
+	public List<PlaceVO> selectPlace(UserVO userVO) {
+		List<PlaceVO> result = placeDAO.selectPlace(userVO);
 		//장소 이름 자르기
 		for(PlaceVO place: result) {
 			//단일 공백 정규식 : \\s
@@ -126,8 +127,8 @@ public class PlaceServiceIml implements PlaceService{
 	}
 
 	@Override
-	public List<PlaceVO> eventPlace() {
-		return placeDAO.eventPlace();
+	public List<PlaceVO> eventPlace(UserVO userVO) {
+		return placeDAO.eventPlace(userVO);
 	}
 
 	
