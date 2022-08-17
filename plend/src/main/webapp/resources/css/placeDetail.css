@@ -48,7 +48,7 @@ nav > a.active {
 
 #simple-list-example {
 	position: sticky;
-	top: 96px;
+	top: 88px;
 	z-index:2;
 }
 

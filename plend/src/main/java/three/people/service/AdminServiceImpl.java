@@ -148,6 +148,11 @@ public class AdminServiceImpl implements AdminService {
 	public int blockDelete(BlockVO blockVO) {
 		return adminDAO.blockDelete(blockVO);
 	}
+
+	@Override
+	public int deleteEventImg(ImageVO imageVO) {
+		return adminDAO.deleteEventImg(imageVO);
+	}
 	
 
 }

@@ -127,9 +127,9 @@ public class InquiryController {
 	public String inquiryView_dev(InquiryVO inquiryVO, Model model, HttpServletRequest request, HttpSession session, SearchVO searchVO) {
 		
 		//로그인 정보 
-		session = request.getSession();
-		UserVO login = (UserVO)session.getAttribute("login");
-		inquiryVO.setUidx(login.getUidx()); 
+//		session = request.getSession();
+//		UserVO login = (UserVO)session.getAttribute("login");
+//		inquiryVO.setUidx(login.getUidx()); 
 		
 		
 		//페이징
@@ -151,7 +151,7 @@ public class InquiryController {
 		
 		int start = searchVO.getStart();
 		int cntPerPage = searchVO.getCntPerPage();
-		int uidx = login.getUidx();
+//		int uidx = login.getUidx();
 		
 		page.put("start", start);
 		page.put("cntPerPage", cntPerPage);
@@ -257,15 +257,15 @@ public class InquiryController {
 	public String reply(InquiryVO inquiryVO, HttpSession session, HttpServletRequest request, Model model) {
 		
 		//혹시나해서 첨부 //답변을 작성하려는 사람의 uidx
-		session = request.getSession();
-		UserVO login = (UserVO)session.getAttribute("login");
-		inquiryVO.setUidx(login.getUidx()); 
+//		session = request.getSession();
+//		UserVO login = (UserVO)session.getAttribute("login");
+//		inquiryVO.setUidx(login.getUidx()); 
 		
 		System.out.println("답변 작성칸");
 		//답변을 달 문의 사항에 대한 정보 
 		InquiryVO inquiry = hostService.selectInquiryOne(inquiryVO);
 		model.addAttribute("inquiry",inquiry);
-	
+		model.addAttribute("reply", hostService.selectReplyOne(inquiryVO));
 		return "host/inquiry_dev/reply";
 	
 	}
@@ -310,7 +310,8 @@ public class InquiryController {
 	//답변 수정
 	@Transactional
 	@RequestMapping(value="/replyModify.do", method=RequestMethod.POST)
-	public void replyModify(@RequestBody String reply, InquiryVO inquiryVO, HttpSession session, HttpServletRequest request, Model model) {
+	@ResponseBody
+	public int replyModify(@RequestBody String reply, InquiryVO inquiryVO, HttpSession session, HttpServletRequest request, Model model) {
 		System.out.println("답변 저장하기");
 		
 		//답변을 작성하려는 사람의 uidx
@@ -322,6 +323,7 @@ public class InquiryController {
 		
 		
 		model.addAttribute("answer", hostService.replyModify(inquiryVO));
+		return 1;
 		
 	}
 	
@@ -336,6 +338,70 @@ public class InquiryController {
 		return "host/inquiry_dev/inquiryView";
 
 	}
+	
+	
+	@RequestMapping(value="/inquiryPaging.do")
+	public String inquiryPaging(InquiryVO inquiryVO, Model model, SearchVO searchVO, HttpServletRequest request, HttpSession session) {
+		
+		session = request.getSession();
+		UserVO login = (UserVO)session.getAttribute("login");
+		inquiryVO.setUidx(login.getUidx()); 
+		
+		//페이징
+		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
+			searchVO.setNowPage(1);
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getCntPerPage() == 0) {
+			searchVO.setCntPerPage(5);
+		}else if(searchVO.getNowPage() == 0) {
+			searchVO.setNowPage(1);
+		}
+		
+		//토탈 갯수
+		int total = hostService.cntIqidx(inquiryVO);
+		searchVO.calPaging(total);
+		
+		//페이지 갯수가지고가기
+		HashMap<String, Integer> page = new HashMap<>();
+		
+		int start = searchVO.getStart();
+		int cntPerPage = searchVO.getCntPerPage();
+		int uidx = login.getUidx();
+		
+		page.put("start", start);
+		page.put("cntPerPage", cntPerPage);
+		page.put("uidx", uidx );
+		
+		//이전 문의 내역 불러오기
+		List<InquiryVO> list = hostService.selectInquiry(page);
+		
+		model.addAttribute("pagination", searchVO);
+		model.addAttribute("list",list);
+		
+		
+		return "host/ajax/inquiry_dev";
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

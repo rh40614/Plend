@@ -5,7 +5,7 @@
     .scriptCalendar { text-align:center; }
     .scriptCalendar > thead > tr > td { width:50px;height:50px; }
     .scriptCalendar > thead > tr:first-child > td { font-weight:bold; }
-    .scriptCalendar > thead > tr:last-child > td { background-color:#90EE90; }
+    .scriptCalendar > thead > tr:last-child > td { background-color:#2F506D; color: white; }
     .scriptCalendar > tbody > tr > td { width:50px;height:50px; }
 </style>
 <table class="scriptCalendar">
@@ -127,7 +127,8 @@
 
                     // @details 현재일보다 이전인 경우이면서 현재월에 포함되는 일인경우
                     if(date.getDate() > day && Math.sign(day) == 1) {
-                        column.style.backgroundColor = "#E5E5E5";
+                        column.style.backgroundColor = "#f9f9fa";
+                        column.style.color = "#afb4b7";
                     }
 
                     // @details 현재일보다 이후이면서 현재월에 포함되는 일인경우
@@ -139,7 +140,7 @@
 
                     // @details 현재일인 경우
                     else if(date.getDate() == day) {
-                        column.style.backgroundColor = "#FFFFE6";
+                        column.style.backgroundColor = "#c5d6d6";
                         column.style.cursor = "pointer";
                         column.onclick = function(){ calendarChoiceDay(this); }
                     }
@@ -192,11 +193,13 @@
         // @param 기존 선택일이 존재하는 경우 기존 선택일의 표시형식을 초기화 한다.
         if(document.getElementsByClassName("choiceDay")[0]) {
             document.getElementsByClassName("choiceDay")[0].style.backgroundColor = "#FFFFFF";
+            document.getElementsByClassName("choiceDay")[0].style.color = "black";
             document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
         }
 
         // @param 선택일 체크 표시
-        column.style.backgroundColor = "#FF9999";
+        column.style.backgroundColor = "#639190";
+        column.style.color = "white";
 
 
         // @param 선택일 클래스명 변경

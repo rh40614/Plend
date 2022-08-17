@@ -66,6 +66,19 @@ public class HostController {
 	ReviewService reviewService;
 
 	
+	
+
+	@RequestMapping(value = "/host.do", method = RequestMethod.GET)
+	public String host() {
+		return "host/host";
+	}
+	
+	@RequestMapping(value = "/host2.do", method = RequestMethod.GET)
+	public String host2() {
+		return "host/host2";
+	}
+	
+	
 	@RequestMapping(value = "/insertPlace.do", method = RequestMethod.GET )
 	public String insertPlace() {  
 		return "host/insertPlace";
@@ -530,9 +543,10 @@ public class HostController {
 
 	}
 	
-	@RequestMapping(value="noticeSearch.do", method= RequestMethod.GET)
-	public String notice_dev(@RequestBody String searchContent, Model model, SearchVO searchVO) {
-
+	//RequestBody 는 body안에 있는 걸 찾는데 get은 헤더로 옴
+	@RequestMapping(value="noticeSearch.do", method= RequestMethod.GET )
+	public String notice_dev(Model model, SearchVO searchVO) {
+		System.out.println("진입");
 		//페이징
 		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
 			searchVO.setNowPage(1);
@@ -568,7 +582,7 @@ public class HostController {
 	
 	@RequestMapping(value="/noticeView.do", method= RequestMethod.GET)
 	public String noticeView(NoticeVO noticeVO, Model model, HttpServletRequest request, HttpServletResponse response, SearchVO searchVO) {
-		
+		System.out.println("공지");
 		//조회수 중복방지
 		Cookie oldCookie = null;
 	    Cookie[] cookies = request.getCookies();
@@ -610,9 +624,7 @@ public class HostController {
 		
 		//공지 하나
 		NoticeVO notice = hostService.noticeOne(noticeVO);
-		//일자 자르기 
-		String date = notice.getDate().substring(0,10);
-		notice.setDate(date);
+		notice.setRnum(noticeVO.getRnum());
 		
 		model.addAttribute("notice",notice);
 		//이전글 다음글(nidx)
@@ -806,13 +818,13 @@ public class HostController {
 		return "redirect:/host/managePlace.do";
 	}
 	
-	@RequestMapping(value = "/host.do", method = RequestMethod.GET)
-	public String host() {
-		return "host/host";
+	
+	@RequestMapping(value="/deletePlace.do")
+	public String deletePlace(PlaceVO placeVO) {
+		placeService.deletePlace(placeVO);
+		return "redirect:/host/managePlace.do";
 	}
 	
-	@RequestMapping(value = "/host2.do", method = RequestMethod.GET)
-	public String host2() {
-		return "host/host2";
-	}
+	
+	
 }

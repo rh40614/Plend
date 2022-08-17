@@ -183,14 +183,14 @@
 										</tr>
 										<tr>
 											<td class="col-md-1 guideNum">9.</td>
-											<td><input type="text" id="guide9" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0" onblur="guideValid(this)"></td>
+											<td><input type="text" id="guide9" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0" onblur="guideValid(this)" onkeydown="slash(this)"></td>
 										</tr>
 										<tr class="guideValid" style="display: none;">
 											<td colspan ="2" class="col-md-12" ></td>
 										</tr>
 										<tr>
 											<td class="col-md-1 guideNum">10.</td>
-											<td><input type="text" id="guide10" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0" onblur="guideValid(this)"></td>
+											<td><input type="text" id="guide10" placeholder="시설의 이용하면서 주의해야할 사항을 알려주세요" size="100" class="border-0" onblur="guideValid(this)" onkeydown="slash(this)"></td>
 										</tr>
 										<tr class="guideValid" style="display: none;">
 											<td colspan ="2" class="col-md-12" ></td>

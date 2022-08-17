@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -167,7 +168,7 @@ public class DeveloperController {
 	// 실제 이벤트 수정
 	@Transactional
 	@RequestMapping(value="/modifyEvent.do", method=RequestMethod.POST)
-	public String modifyEvent(EventVO eventvo, HttpServletRequest request) throws IllegalStateException, IOException {
+	public String modifyEvent(EventVO eventvo, HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {
 		int result = adminService.updateEvent(eventvo);
 		if(result == 1) {
 			if(eventvo.getStartEnd().equals("start")) {
@@ -175,11 +176,14 @@ public class DeveloperController {
 			}else {
 				adminService.placeEventDone(eventvo);
 			}
-			String path = request.getSession().getServletContext().getRealPath("/resources/upload/event");
+			String path = request.getSession().getServletContext().getRealPath("/resources/upload/eventImg");
 			File dir = new File(path);
 			if(!dir.exists()) {
 				dir.mkdirs();
 			}
+			ImageVO img = new ImageVO();
+			img.setEidx(eventvo.getEidx());
+			adminService.deleteEventImg(img);
 			for(MultipartFile files : eventvo.getEventImg()) {
 				if(!files.getOriginalFilename().isEmpty()) {	//화면에서 넘어온 파일이 존재한다면
 					//화면에서 넘어온 파일을 path위치에 새로쓰는 로직
@@ -202,7 +206,6 @@ public class DeveloperController {
 					System.out.println("realFileName: "+realFileName);
 					
 					ImageVO imageVO = new ImageVO();
-					
 					imageVO.setEidx(eventvo.getEidx());
 					imageVO.setPath(path);
 					imageVO.setOriginFileName(originFileName);
@@ -348,7 +351,7 @@ public class DeveloperController {
 		}
 		
 		searchVO.calPaging(hostService.countInquiry(searchVO));
-		
+			
 		model.addAttribute("pagination", searchVO);
 		model.addAttribute("list", hostService.developerInquiry(searchVO));
 		

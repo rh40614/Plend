@@ -13,8 +13,16 @@ public class InquiryVO extends UserVO {
 	private int depth;
 	private float answerRate; // 답변 만족도
 	private int uidx;
+	// rownum
+	private int rnum;
 	
 	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	public int getUidx() {
 		return uidx;
 	}
@@ -80,6 +88,12 @@ public class InquiryVO extends UserVO {
 	}
 	public void setAnswerRate(float answerRate) {
 		this.answerRate = answerRate;
+	}
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 	
 	

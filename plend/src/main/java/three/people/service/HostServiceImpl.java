@@ -79,6 +79,11 @@ public class HostServiceImpl implements HostService {
 	@Override
 	public List<InquiryVO> selectInquiry(HashMap<String, Integer> page) {
 		List<InquiryVO> result= hostDAO.selectInquiry(page);
+		//작성일자 절삭
+		for(InquiryVO i : result) {
+			String date = i.getDate().substring(0,10);
+			i.setDate(date);
+		}
 		return result;
 	}
 

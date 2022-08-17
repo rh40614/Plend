@@ -36,8 +36,16 @@
 							$("#tag${pv.pidx}").html(tag);
 						</script>
 						<td style="text-align: left;">${pv.placeDetail}</td>
-						<td>${pv.approvalYN}</td>
-						<td><button class="btnDefault" type="button" onclick="location.href='placeModfy.do?pidx=${pv.pidx}'">수정</button></td>
+						<c:choose>
+							<c:when test="${pv.approvalYN eq '승인거절'}">
+								<td>${pv.approvalYN}</td>
+								<td><button class="btnDefault" type="button" onclick="if(confirm('삭제하시겠습니까?')){location.href='deletePlace.do?pidx=${pv.pidx}'}">삭제</button></td>
+							</c:when>
+							<c:otherwise>
+								<td>${pv.approvalYN}</td>
+								<td><button class="btnDefault" type="button" onclick="location.href='placeModfy.do?pidx=${pv.pidx}'">수정</button></td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -59,7 +67,7 @@
 		<c:choose>
 			<c:when test="${p == pagination.nowPage }">
 				 <li class="page-item text-secondary">
-				 <a class="page-link text-secondary" onclick="nowPage(${p})">${p}</a></li>
+				 <a class="page-link text-secondary activePage" onclick="nowPage(${p})">${p}</a></li>
 			</c:when>
 			<c:when test="${p != pagination.nowPage }">
 				<li class="page-item text-secondary">

@@ -42,7 +42,8 @@
 			<span class="title1">이용자 문의관리</span>
 			
 				
-				<div class=".table-responsive container " style="margin: 80px 0px 0px 100px;" >
+				<div class=".table-responsive container " style="margin: 80px 0px 0px 100px; " >
+					<div style="height: 400px;" >
 					<table class="table table-hover text-center clearfix" >
 						<thead class="table-dark">
 							<tr style="text-al">
@@ -69,7 +70,7 @@
 							</c:if>
 						</tbody>
 					</table>
-					
+				</div>
 				<!-- 페이징 -->
 				<c:if test="${not empty list}">
 					<nav aria-label="Page navigation example" class="m-auto">
@@ -84,8 +85,8 @@
 						<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="p">
 							<c:choose>
 								<c:when test="${p == pagination.nowPage }">
-									 <li class="page-item text-secondary active">
-									 <a class="page-link text-secondary" href="inquiry_user.do?nowPage=${p}">${p}</a></li>
+									 <li class="page-item text-secondary ">
+									 <a class="page-link text-secondary activePage" href="inquiry_user.do?nowPage=${p}">${p}</a></li>
 								</c:when>
 								<c:when test="${p != pagination.nowPage }">
 									<li class="page-item text-secondary">

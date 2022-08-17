@@ -46,7 +46,7 @@
 					  <tbody>
 					  	<c:forEach var="enter" items="${enterList}">
 							<tr>
-						      <th scope="row">${enter.uidx}</th>
+						      <th scope="row">${enter.rnum}</th>
 						      <td><a onclick="callEnterBlockList(${enter.uidx},0)" role="button">${enter.nickName}</a></td>
 						      <td>${enter.name}</td>
 						      <td>${enter.userPhone}</td>

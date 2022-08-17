@@ -16,6 +16,15 @@ main{
 	margin: 5% 20% 20% 20%;
 }
 
+/* header */
+/* 대분류 */
+.cLevel_1 {
+	border-bottom: 3px solid #D9D9D9;
+}
+.cLevel_1.active {
+	border-bottom: 3px solid #2F506D;
+}
+
 /* userList */
 .container-fluid {
 	padding: 0;

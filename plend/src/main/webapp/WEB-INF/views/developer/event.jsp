@@ -58,8 +58,17 @@
 					  	</c:if>
 					  	<c:forEach var="event" items="${eventList}">
 					  		<tr>
-						      <th scope="row">${event.eidx}</th>
-						      <td>${event.startEnd}</td>
+						      <th scope="row">${event.rnum}</th>
+						      <td>
+						      	<c:choose>
+						      		<c:when test="${event.startEnd eq 'end'}">
+						      			종료
+						      		</c:when>
+						      		<c:otherwise>
+						      			진행중
+						      		</c:otherwise>
+						      	</c:choose>
+						      </td>
 						      <td>${event.title}</td>
 						      <td>${event.edate.replace("to","~")}</td>
 						      <td>

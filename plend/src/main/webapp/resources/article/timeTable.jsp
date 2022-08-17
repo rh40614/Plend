@@ -2,22 +2,23 @@
     pageEncoding="UTF-8"%>
 <style type="text/css">
 	.btn-group {
-		background-color: lightgray !important;
+		background-color: var(--bs-gray-300) !important;
 	}
 	
 	.btn-group > .btn {
+		color: #838a90;
 		border-radius: 0 !important;
 	}
 	
 	.chooseTime {
-		background-color: #2F506D !important;
+		background-color: #639190 !important;
 		color: white !important;
 	}
 </style>
 <table class="table timeTable d-none">
 	<tbody>
 		<tr>
-			<td class="text-center" colspan="4">AM</td>
+			<td class="text-center" colspan="4" style="background-color: #2F506D; color: white;">AM</td>
 		</tr>
 		<tr class="btn-group w-100">
 			<td class="btn w-100">01:00</td>
@@ -38,7 +39,7 @@
 			<td class="btn w-100">12:00</td>
 		</tr>
 		<tr>
-			<td class="text-center" colspan="4">PM</td>
+			<td class="text-center" colspan="4" style="background-color: #2F506D; color: white;">PM</td>
 		</tr>
 		<tr class="btn-group w-100">
 			<td class="btn w-100">13:00</td>

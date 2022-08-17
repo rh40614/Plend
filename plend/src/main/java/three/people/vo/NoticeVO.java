@@ -18,6 +18,10 @@ public class NoticeVO extends UserVO {
 	private int next;
 	private String preTitle;
 	private String nextTitle;
+	private int rnum; 
+	
+	
+	
 	
 	public String getPreTitle() {
 		return preTitle;
@@ -102,6 +106,12 @@ public class NoticeVO extends UserVO {
 	}
 	public void setHit(int hit) {
 		this.hit = hit;
+	}
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 	
 	

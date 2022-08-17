@@ -51,7 +51,7 @@
 					  	</c:if>
 					  	<c:forEach var="user" items="${userList}">
 					  		<tr>
-						      <th scope="row">${user.uidx}</th>
+						      <th scope="row">${user.rnum}</th>
 						      <td>${user.id}</td>
 						      <td>${user.name}</td>
 						      <td><a class="btn btn-primary btn-sm rounded-3" href="userModify.do?uidx=${user.uidx}" role="button">수정</a></td>

@@ -23,7 +23,7 @@
 			$("#footer").load("resources/article/footer.jsp");
 		})
 	</script>
-
+	
 	<script>
 
 	function like (obj, idx){
@@ -117,30 +117,29 @@
     <a href="developer/userList.do">유저리스트 </a>
     
 
-  	<div style="    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;">
-    	<span class="navbar-brand title1">| 추천 장소 |</span>
-    	<button  class="btn" onclick="newList()" style="vertical-align: bottom;margin-bottom:10px;"><i class="fa-solid fa-arrow-rotate-right">  더보기</i></button>
+
+  	<div style="display: block; align-items: center; text-align: center;" class="mb-5">
+    	<span class="navbar-brand title1" style="padding-left: 100px;">| 추천 장소  |</span>
+    	<button  class="btn" onclick="newList()" style="float: right; margin-top: 38px;"><i class="fa-solid fa-arrow-rotate-right" style=" color: grey;">  더보기</i></button>
   	</div>
+	
 	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start" id="recommendPlace">
 	</section>
 	<hr>
 	<br>
 
-	
-	<div style="display: flex; justify-content:space-between;">
-    	<h3 class="navbar-brand title1" >| 이벤트</h3>
-		<button  class="btn" onclick="newEvent()" style="vertical-align: bottom;margin-bottom:10px;"><i class="fa-solid fa-arrow-rotate-right">  더보기</i></button>
-  	</div>
+
+	<div style="display: block; align-items: center; text-align: center;" class="mb-5">
+    	<h3 class="navbar-brand title1" style="padding-left: 100px;">| 이벤트  |</h3>
+		<button  class="btn" onclick="newEvent()" style="float: right; margin-top: 38px;"><i class="fa-solid fa-arrow-rotate-right" style=" color: grey;">  더보기</i></button>
+  </div>
   	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start" id="eventPlace">
 	</section>
 	<hr>
 	<br>
 
-	<div>
-    	<h3 class="navbar-brand title1">| 리뷰존</h3>
+	<div style="display: block; align-items: center; text-align: center;" class="mb-5">
+    	<h3 class="navbar-brand title1" style="padding-left: 100px;">| 리뷰존  |</h3>
   	</div>
   	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start" id="randomReview">
 	</section>

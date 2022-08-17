@@ -18,10 +18,12 @@ import three.people.service.PlaceService;
 import three.people.service.ReviewService;
 import three.people.service.Scheduler;
 import three.people.vo.EventVO;
+import three.people.vo.HeartVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
+import three.people.vo.UserVO;
 
 
 @Controller
@@ -45,11 +47,25 @@ public class HomeController {
 
 
 	@RequestMapping(value = "/recommendPlace", method = RequestMethod.GET)
-	public String recommendPlace(SearchVO searchVO, Model model, HttpServletRequest request, HttpSession session) {
+	public String recommendPlace(PlaceVO placeVO,SearchVO searchVO, Model model, HttpServletRequest request, HttpSession session) {
 
 		//장소리스트
 		List<PlaceVO> placeList = placeService.selectPlace();
-
+		
+		for(PlaceVO p: placeList) {
+			placeVO.setPidx( p.getPidx()); 
+		}
+		
+		session = request.getSession();
+		if(session.getAttribute("login") != null) {
+			UserVO login = (UserVO) session.getAttribute("login");
+			HeartVO heartvo = new HeartVO();
+			heartvo.setUidx(login.getUidx());
+			heartvo.setPidx(placeVO.getPidx());
+			
+			model.addAttribute("heartList", placeService.selectHeart(heartvo));
+		}
+		
 		//1. 장소 랜덤
 		List<PlaceVO> randomPlaceList = new ArrayList<PlaceVO>();
 		//화면 초기에 장소가 3개이하이면 랜덤없이 그냥 장소가지고 오기
@@ -186,21 +202,6 @@ public class HomeController {
 
 	return "ajax/randomReview";
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	@RequestMapping(value="emailCheck.do")

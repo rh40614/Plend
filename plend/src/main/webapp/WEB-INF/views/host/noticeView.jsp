@@ -53,21 +53,21 @@
 		
 		<table class="table spaceL w-75 mt-5">
 		  <thead>
-		 	<tr>
-				<td colspan="10" class="">${notice.title}</td>
-			</tr>
 			<tr style="vertical-align: top; ">
 				<td class="text-left" style="width: 10%">글번호</td>
-				<td class="text-left" style="width: 10%">${notice.nidx}</td>
+				<td class="text-left" style="width: 10%">${notice.rnum}</td>
 				<td class="" style="width: 10%">조회수</td>
 				<td class="" style="width: 5%">${notice.hit}</td>
 				<td class="" style="width: 10%">작성자</td>
 				<td class="" style="width: 16.66%">${notice.nickName}</td>
 				<td class="" style="width: 10%">작성일</td>
-				<td class="" style="width: 16.66%">${notice.date}</td>
+				<td class="" style="width: 16.66%">${notice.date.substring(0,10)}</td>
 			</tr>
 		  </thead>
 		  <tbody>
+		  	<tr >
+				<td colspan="10" class="noticeArea" style="height: 50px!important;">제목 : ${notice.title}</td>
+			</tr>
 		  	<tr>
 				<td colspan="10" class="noticeArea">${notice.content}</td>
 			</tr>
@@ -79,8 +79,8 @@
 						<td class="ps-5" >이전글  &blacktriangle; </td><td colspan="7"> 이전글이 없습니다.</td>
 					</c:when>
 					<c:when test="${PN.pre ne null}">
-						<td class="ps-5" style="width: 16.66%"><a href="<%=request.getContextPath()%>/host/noticeView.do?nidx=${PN.pre}">이전글 &blacktriangle;</a></td>
-						<td colspan="7"><a href="<%=request.getContextPath()%>/host/noticeView.do?nidx=${PN.pre}">${PNT.preTitle}</a></td>
+						<td class="ps-5" style="width: 16.66%"><a href="<%=request.getContextPath()%>/host/noticeView.do?nidx=${PN.pre}&rnum=${notice.rnum + 1}">이전글 &blacktriangle;</a></td>
+						<td colspan="7"><a href="<%=request.getContextPath()%>/host/noticeView.do?nidx=${PN.pre}&rnum=${notice.rnum + 1}">${PNT.preTitle}</a></td>
 					</c:when>
 				</c:choose>
 			</tr>
@@ -90,8 +90,8 @@
 						<td class="ps-5" >다음글 &blacktriangledown;</td><td colspan="7"> 다음글이 없습니다. </td>
 					</c:when>
 					<c:when test="${PN.next ne null}">
-						<td class="ps-5" style="width: 16.66%"><a href="<%=request.getContextPath()%>/host/noticeView.do?nidx=${PN.next}">다음글  &blacktriangledown; </a></td>
-						<td colspan="7" class="text-left"><a href="<%=request.getContextPath()%>/host/noticeView.do?nidx=${PN.next}">${PNT.nextTitle}</a></td>
+						<td class="ps-5" style="width: 16.66%"><a href="<%=request.getContextPath()%>/host/noticeView.do?nidx=${PN.next}&rnum=${notice.rnum -1}">다음글  &blacktriangledown; </a></td>
+						<td colspan="7" class="text-left"><a href="<%=request.getContextPath()%>/host/noticeView.do?nidx=${PN.next}&rnum=${notice.rnum - 1}">${PNT.nextTitle}</a></td>
 					</c:when>
 				</c:choose>
 			</tr>

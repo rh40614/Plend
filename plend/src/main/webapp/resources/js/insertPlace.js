@@ -225,15 +225,7 @@
 		});
 	});
 
-	//가격 콤마 떼기 
-	function commaRemove(){
-		//가격 콤마 빼고 
-		var x = $("#price").val();
-		//var x = t.value;			
-		x = x.replace(/,/gi, '');
-		
-		$("#price").val(x);
-	}
+	
 
 
 	//영업시간 설정
@@ -391,7 +383,15 @@
 	}
 	
 	
-	
+	//가격 콤마 떼기 
+	function commaRemove(){
+		//가격 콤마 빼고 
+		var x = $("#price").val();
+		//var x = t.value;			
+		x = x.replace(/,/gi, '');
+		
+		$("#price").val(x);
+	}
 	
 		
 	

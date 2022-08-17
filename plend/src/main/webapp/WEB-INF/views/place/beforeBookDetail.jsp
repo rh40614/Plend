@@ -221,7 +221,6 @@
 					  </label>
 					</div> 
 					<div class="d-inline-flex">
-						<!--옵션 변경 버튼 삭제 <button type="button" class="btn btn-sm me-2">옵션 변경하기</button> -->
 						<button type="button" class="btn btn-sm" onclick="payment()">결제하기</button>
 					</div>
 				</div>
