@@ -33,4 +33,9 @@ public class CommonServiceImpl implements CommonService {
 		return commonDAO.insertSnsUser(userVO);
 	}
 
+	@Override
+	public UserVO selectSnsUser(UserVO userVO) {
+		return commonDAO.selectSnsUser(userVO);
+	}
+
 }

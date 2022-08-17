@@ -69,13 +69,36 @@ public class CommonController  {
 	private MailSendService mailSend;
 	
 	
-	
 	@RequestMapping(value="/naverLogin.do")
-	public String naverLogin(SnsVO snsvo, Model model, HttpServletRequest request) throws IOException {
-		System.out.println("callback success");
+	public String naverLogin(SnsVO snsvo, Model model, HttpServletRequest request, HttpSession session) throws IOException {
+		System.out.println("naver 로그인 들어옴");
+		SnsProfileVO snsProfile = new SnsProfileVO();
+
 		snsvo = naverService.getAccessToken(snsvo);
-		SnsProfileVO snsProfile = naverService.getUserProfile(snsvo);
-		return "common/naverCallback";
+		snsProfile = naverService.getUserProfile(snsvo);
+		UserVO userVO = new UserVO();
+		userVO.setNaver_id(snsProfile.getId());
+		userVO = commonService.snsIdCheck(userVO);
+		if(userVO == null) {
+			System.out.println("null");
+			model.addAttribute("userProfile", snsProfile);
+			model.addAttribute("snsId", snsProfile);
+			model.addAttribute("access_token",snsvo.getAccess_token());
+			model.addAttribute("user_type","naver");
+			model.addAttribute("state", snsvo.getState());
+			return "common/snsSignUp";
+		}else {
+			System.out.println("not null");
+			
+			UserVO login = new UserVO(); 
+			login.setNaver_id(snsProfile.getId());
+			System.out.println("snsId: "+snsProfile.getId());
+			login = commonService.selectSnsUser(login);
+			session.setMaxInactiveInterval(1800);
+			session.setAttribute("login", login);
+		}
+
+		return "redirect:/";
 	}
 	 
 	
@@ -86,29 +109,26 @@ public class CommonController  {
 		snsvo = kakaoService.getAccessToken(snsvo);
 		snsProfile.setAccess_token(snsvo.getAccess_token());
 		UserVO userVO = kakaoService.userCheck(snsProfile);
+		SnsProfileVO snsId = kakaoService.getUserId(snsProfile);
 		if(userVO == null) {
 			System.out.println("null");
 			model.addAttribute("userProfile", kakaoService.getUserProfile(snsvo));
-			model.addAttribute("snsId", kakaoService.getUserId(snsProfile));
+			model.addAttribute("snsId", snsId);
 			model.addAttribute("access_token",snsProfile.getAccess_token());
 			model.addAttribute("user_type","kakao");
 			return "common/snsSignUp";
 		}else {
 			System.out.println("not null");
 			session = request.getSession();
-
-//			UserVO login = new UserVO();
-//			login.setUidx(user.getUidx());
-//			System.out.println(user.getUidx());
-//			login.setId(user.getId());
-//			login.setRole(user.getRole());
-//			login.setNickName(user.getNickName());
-//			
-//			session.setMaxInactiveInterval(1800);
-//			session.setAttribute("login", login);
+			
+			UserVO login = new UserVO(); 
+			login.setKakao_id(snsId.getId());
+			System.out.println("snsId: "+snsId.getId());
+			login = commonService.selectSnsUser(login);
+			session.setMaxInactiveInterval(1800);
+			session.setAttribute("login", login);
 		}
 		
-		// snsProfile = kakaoService.getUserProfile(snsvo);
 		return "redirect:/";
 	}
 	
@@ -124,8 +144,14 @@ public class CommonController  {
 	
 	//sns 로그인 연결 끊기
 	@RequestMapping(value="/cancelSnsSignUp.do")
-	public String cancelSnsSignUp(SnsProfileVO snsProfileVO) throws IOException {
-		kakaoService.snsUnlink(snsProfileVO);
+	public String cancelSnsSignUp(SnsProfileVO snsProfileVO, UserVO userVO) throws IOException {
+		if(userVO.getUser_type().equals("kakao")) {
+			kakaoService.snsUnlink(snsProfileVO);
+		}else if(userVO.getUser_type().equals("naver")) {
+			System.out.println("at: "+snsProfileVO.getAccess_token());
+			
+			naverService.snsUnlink(snsProfileVO);
+		}
 		return "redirect:/";
 	}
 	
@@ -142,27 +168,37 @@ public class CommonController  {
 	
 	@RequestMapping(value="/signUp.do", method = RequestMethod.GET)
 	public String signUp(Model model) throws UnsupportedEncodingException {
-		model.addAttribute("SNS", kakaoService.loginApiURL());
+		model.addAttribute("kakao", kakaoService.loginApiURL());
+		model.addAttribute("naver", naverService.loginApiURL());
 		return "common/signUp";
 	}
 
 	@RequestMapping(value="/signUp.do", method = RequestMethod.POST)
-	public String signUp(UserVO vo) {
+	public String signUp(UserVO vo, SnsVO snsVO, HttpServletRequest request, HttpSession session) throws UnsupportedEncodingException {
 		if(vo.getUser_type() == null) {
 			String encodedPassword = passwordEncoder.encode(vo.getPassword());
 			vo.setPassword(encodedPassword);
 			int result = userService.insertUser(vo);
 		}else {
-			System.out.println("kakao_id: "+vo.getKakao_id());
+			System.out.println("naver_id: "+vo.getNaver_id());
 			Date now =new Date();
 			SimpleDateFormat simple = new SimpleDateFormat("SSS");
 			String distinct = simple.format(now);
 			if(vo.getUser_type().equals("kakao")) {
 				vo.setId(vo.getKakao_id()+distinct);
+				commonService.insertSnsUser(vo);
+				snsVO = kakaoService.loginApiURL();
+				return "redirect:" + snsVO.getApiURL();
 			}else {
 				vo.setId(vo.getNaver_id()+distinct);
+				int result = commonService.insertSnsUser(vo);
+				if(result == 1) {
+					UserVO login = commonService.selectSnsUser(vo);
+					session = request.getSession();
+					session.setMaxInactiveInterval(1800);
+					session.setAttribute("login", login);
+				}
 			}
-			commonService.insertSnsUser(vo);
 		}
 		
 		return "redirect:/";
@@ -326,9 +362,17 @@ public class CommonController  {
 
 	}
 	@RequestMapping(value = "/signOut.do")
-	public String logout(HttpServletRequest request, HttpSession session) {
-
-		request.getSession();
+	public String logout(HttpServletRequest request, HttpSession session) throws IOException {
+		
+		session = request.getSession();
+		UserVO login = (UserVO) session.getAttribute("login");
+		if(login.getUser_type().equals("kakao")) {
+			SnsVO snsVO = new SnsVO();
+			snsVO = kakaoService.getAccessToken(snsVO);
+			kakaoService.snsLogOut(snsVO);
+		}else if(login.getUser_type().equals("naver")) {
+			
+		}
 		session.invalidate();
 
 		return "redirect:/";

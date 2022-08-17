@@ -11,4 +11,5 @@ public interface CommonService {
 	UserVO userInfoByUidx(int uidx);
 	UserVO snsIdCheck(UserVO userVO);
 	int insertSnsUser(UserVO userVO);
+	UserVO selectSnsUser(UserVO userVO);
 }

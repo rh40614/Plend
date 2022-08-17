@@ -59,6 +59,13 @@ public class GoogleService implements SnsService{
 	}
 
 
+	@Override
+	public void snsLogOut(SnsVO snsVO) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 		
 }

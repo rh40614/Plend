@@ -1,9 +1,11 @@
 package three.people.service;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
@@ -135,9 +137,27 @@ public class NaverService implements SnsService {
 	}
 
 	@Override
-	public void snsUnlink(SnsProfileVO snsProfileVO) {
-		// TODO Auto-generated method stub
+	public void snsUnlink(SnsProfileVO snsProfileVO) throws UnsupportedEncodingException {
+		snsProfileVO.setAccess_token(URLEncoder.encode(snsProfileVO.getAccess_token(), "UTF-8"));
 		
+		String apiURL;
+	    apiURL = "https://openapi.naver.com/v1/nid/me?grant_type=delete&";
+	    apiURL += "client_id=" + snsProfileVO.getNaver_client_id();
+	    apiURL += "&client_secret=" + snsProfileVO.getNaver_client_secret();
+	    apiURL += "&access_token=" + snsProfileVO.getAccess_token();
+		try {
+			URL url = new URL(apiURL);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			
+			con.setRequestMethod("GET");
+			con.setDoOutput(true);
+			
+			int responseCode = con.getResponseCode();
+			System.out.println("responseCode: "+responseCode);
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("unlink ok");
 	}
 
 	@Override
@@ -150,6 +170,12 @@ public class NaverService implements SnsService {
 	public SnsProfileVO getUserId(SnsProfileVO snsProfileVO) throws IOException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void snsLogOut(SnsVO snsVO) throws IOException {
+		// TODO Auto-generated method stub
+		
 	}
 
 

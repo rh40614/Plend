@@ -101,11 +101,10 @@ public class KakaoService implements SnsService {
 				BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(),"utf-8"));
 				String line = "";
 				while((line = br.readLine()) != null) {
-					System.out.println("line: "+line);
 					ObjectMapper mapper = new ObjectMapper();
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					snsProfile = mapper.readValue(line, SnsProfileVO.class);
-					//snsProfile = mapper.readValue(snsProfile.getKakao_account().toString(), SnsProfileVO.class);
+					snsProfile = mapper.readValue(snsProfile.getKakao_account().toString(), SnsProfileVO.class);
 				}
 				br.close();
 				return snsProfile;
@@ -133,7 +132,6 @@ public class KakaoService implements SnsService {
 				BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(),"utf-8"));
 				String line = "";
 				while((line = br.readLine()) != null) {
-					System.out.println("line: "+line);
 				}
 				br.close();
 			}
@@ -163,7 +161,6 @@ public class KakaoService implements SnsService {
 					ObjectMapper mapper = new ObjectMapper();
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					snsProfileVO = mapper.readValue(line, SnsProfileVO.class);
-					System.out.println("id: "+snsProfileVO.getId());
 				}
 				br.close();
 				userVO.setKakao_id(snsProfileVO.getId());
@@ -196,7 +193,6 @@ public class KakaoService implements SnsService {
 					ObjectMapper mapper = new ObjectMapper();
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					snsProfileVO = mapper.readValue(line, SnsProfileVO.class);
-					System.out.println("id: "+snsProfileVO.getId());
 				}
 				br.close();
 			}
@@ -204,6 +200,23 @@ public class KakaoService implements SnsService {
 			e.printStackTrace();
 		}
 		return snsProfileVO;
+	}
+
+	@Override
+	public void snsLogOut(SnsVO snsVO) throws IOException {
+		String reqURL = "https://kapi.kakao.com/v1/user/logout";
+		try {
+			URL url = new URL(reqURL);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+			con.setRequestMethod("POST");
+			con.setRequestProperty("Authorization", "Bearer "+snsVO.getAccess_token());
+			
+			int responseCode = con.getResponseCode();
+			System.out.println(responseCode);
+		}catch(MalformedURLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

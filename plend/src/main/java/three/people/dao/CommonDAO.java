@@ -58,4 +58,7 @@ public class CommonDAO {
 	public int insertSnsUser(UserVO userVO) {
 		return sqlSession.insert("three.people.mapper.commonMapper.insertSnsUser", userVO);
 	}
+	public UserVO selectSnsUser(UserVO userVO) {
+		return sqlSession.selectOne("three.people.mapper.commonMapper.selectSnsUser", userVO);
+	}
 }

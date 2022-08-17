@@ -13,5 +13,6 @@ public interface SnsService {
 	public void snsUnlink(SnsProfileVO snsProfileVO) throws IOException;
 	public UserVO userCheck(SnsProfileVO snsProfileVO) throws IOException;
 	public SnsProfileVO getUserId(SnsProfileVO snsProfileVO) throws IOException;
+	public void snsLogOut(SnsVO snsVO) throws IOException;
 	
 }

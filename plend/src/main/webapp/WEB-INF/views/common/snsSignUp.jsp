@@ -31,7 +31,7 @@
 	        <h6>추가 정보를 입력하고 회원가입 하시겠습니까?</h6>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" onclick="location.href='cancelSnsSignUp.do?access_token=${access_token}'">취소</button>
+	        <button type="button" class="btn btn-secondary" onclick="location.href='cancelSnsSignUp.do?access_token=${access_token}&user_type=${user_type}'">취소</button>
 	        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
 	      </div>
 	    </div>
