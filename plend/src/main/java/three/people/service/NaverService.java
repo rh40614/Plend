@@ -133,6 +133,18 @@ public class NaverService implements SnsService {
 		}
 	}
 
+	@Override
+	public void snsUnlink(SnsProfileVO snsProfileVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int userCheck(SnsProfileVO snsProfileVO) throws IOException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 
 	

@@ -3,10 +3,10 @@ package three.people.vo;
 public class SnsVO {
 	
 	//kakao
-	private String kakao_client_id = "ab7da9e9cfc38c18cc1cac5e5ddc71f0";
+	private String kakao_client_id = "9eeaaad82ff062eca88a250baa02bf00";
 	private String kakaoAK = "82ee6c3c0d09a5994f67a32f32867738";
 	private String id_token;
-	private String kakao_redirect_uri = "http://localhost:8090/controller/common/kakaoLogin";
+	private String kakao_redirect_uri = "http://localhost:8080/controller/common/kakaoLogin";
 	
 	//naver
 	private String naver_client_id = "yuDMbMbNqBLt1ltRxtOG";

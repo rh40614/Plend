@@ -2,6 +2,7 @@ package three.people.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,8 +28,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import three.people.service.GoogleService;
 import three.people.service.KakaoService;
@@ -74,10 +76,22 @@ public class CommonController  {
 	
 	@RequestMapping(value="/kakaoLogin")
 	public String login(SnsVO snsvo , HttpServletRequest request, HttpSession session) throws IOException {
-		
 		snsvo = kakaoService.getAccessToken(snsvo);
+//		System.out.println("code: "+snsvo.getCode());
+//		System.out.println("idToken: "+snsvo.getId_token());
+//		System.out.println("accessToken: "+snsvo.getAccess_token());
 		SnsProfileVO snsProfile = kakaoService.getUserProfile(snsvo);
-	
+//		System.out.println("name: "+snsProfile.getName());
+//		System.out.println("nickName: "+snsProfile.getNickname());
+//		System.out.println("age: "+snsProfile.getAge());
+//		System.out.println("day: "+snsProfile.getBirthday());
+//		System.out.println("year: "+snsProfile.getBirthyear());
+//		System.out.println("email: "+snsProfile.getEmail());
+//		System.out.println("gender: "+snsProfile.getGender());
+//		System.out.println("kakaoId: "+snsProfile.getKakaoid());
+//		System.out.println("id: "+snsProfile.getId());
+
+		//kakaoService.snsUnlink(snsProfile);
 		return "common/kakao";
 	}
 	
@@ -120,8 +134,8 @@ public class CommonController  {
 	 */
 	
 	@RequestMapping(value="/signUp.do", method = RequestMethod.GET)
-	public String signUp() {
-
+	public String signUp(Model model) throws UnsupportedEncodingException {
+		model.addAttribute("SNS", kakaoService.loginApiURL());
 		return "common/signUp";
 	}
 
