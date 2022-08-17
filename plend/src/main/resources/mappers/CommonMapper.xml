@@ -145,7 +145,22 @@
 	</select>
 	<!-- 08.17 김영민: SNS ID CHECK -->
 	<select id="snsIdCheck" parameterType="UserVO" resultType="UserVO">
-		SELECT COUNT(*)
+		SELECT   uidx
+				,id
+				,password
+				,name
+				,nickName
+				,birth
+				,userPhone
+				,email
+				,gender
+				,addr
+				,regnum
+				,role
+				,delYN
+				,jdate
+				,kakao_id
+				,naver_id
 		  FROM user_plend
 		  <if test="kakao_id != null">
 		  	WHERE kakao_id = #{kakao_id}

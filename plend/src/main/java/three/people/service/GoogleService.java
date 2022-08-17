@@ -52,6 +52,13 @@ public class GoogleService implements SnsService{
 	}
 
 
+	@Override
+	public SnsProfileVO getUserId(SnsProfileVO snsProfileVO) throws IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 		
 }

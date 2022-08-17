@@ -75,17 +75,27 @@ public class CommonController  {
 	 
 	
 	@RequestMapping(value="/kakaoLogin")
-	public String login(SnsVO snsvo , HttpServletRequest request, HttpSession session) throws IOException {
+	public String login(SnsVO snsvo , HttpServletRequest request, HttpSession session, Model model) throws IOException {
 		SnsProfileVO snsProfile = new SnsProfileVO();
 		
 		snsvo = kakaoService.getAccessToken(snsvo);
 		snsProfile.setAccess_token(snsvo.getAccess_token());
-		kakaoService.userCheck(snsProfile);
+		UserVO userVO = kakaoService.userCheck(snsProfile);
+		if(userVO == null) {
+			System.out.println("null");
+			model.addAttribute("userProfile", kakaoService.getUserProfile(snsvo));
+			model.addAttribute("snsId", kakaoService.getUserId(snsProfile));
+			model.addAttribute("access_token",snsProfile.getAccess_token());
+			model.addAttribute("user_type","kakao");
+			return "common/snsSignUp";
+		}else {
+			System.out.println("not null");
+		}
 		
 		// snsProfile = kakaoService.getUserProfile(snsvo);
 
 
-		//kakaoService.snsUnlink(snsProfile);
+		kakaoService.snsUnlink(snsProfile);
 		return "common/kakao";
 	}
 	
@@ -98,7 +108,14 @@ public class CommonController  {
 		
 		return "common/googleloginGo";
 	}
-
+	
+	//sns 회원가입 취소
+	@RequestMapping(value="/cancelSnsSignUp.do")
+	public String cancelSnsSignUp(SnsProfileVO snsProfileVO) throws IOException {
+		kakaoService.snsUnlink(snsProfileVO);
+		return "redirect:/";
+	}
+	
 	@RequestMapping(value= "/join.do", method = RequestMethod.GET)
 	public String join() {
 		return "common/join";

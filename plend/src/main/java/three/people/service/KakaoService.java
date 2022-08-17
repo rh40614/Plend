@@ -168,12 +168,42 @@ public class KakaoService implements SnsService {
 				br.close();
 				userVO.setKakao_id(snsProfileVO.getId());
 				userVO = commonService.snsIdCheck(userVO);
-				
+				return userVO;
 			}
 		}catch(MalformedURLException e) {
 			e.printStackTrace();
 		}
 		return userVO;
+	}
+
+	@Override
+	public SnsProfileVO getUserId(SnsProfileVO snsProfileVO) throws IOException {
+		String reqURL = "https://kapi.kakao.com/v1/user/access_token_info";
+		try {
+			URL url = new URL(reqURL);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Authorization", "Bearer "+snsProfileVO.getAccess_token());
+			
+			int responseCode = con.getResponseCode();
+			System.out.println(responseCode);
+			
+			if(responseCode == 200) {
+				BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(),"utf-8"));
+				String line = "";
+				while((line = br.readLine()) != null) {
+					ObjectMapper mapper = new ObjectMapper();
+					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+					snsProfileVO = mapper.readValue(line, SnsProfileVO.class);
+					System.out.println("id: "+snsProfileVO.getId());
+				}
+				br.close();
+			}
+		}catch(MalformedURLException e) {
+			e.printStackTrace();
+		}
+		return snsProfileVO;
 	}
 
 }

@@ -20,8 +20,15 @@ public class UserVO{
 	// sns login id
 	private String kakao_id;
 	private String naver_id;
+	private String user_type;
 	
 	
+	public String getUser_type() {
+		return user_type;
+	}
+	public void setUser_type(String user_type) {
+		this.user_type = user_type;
+	}
 	public String getKakao_id() {
 		return kakao_id;
 	}

@@ -146,6 +146,12 @@ public class NaverService implements SnsService {
 		return null;
 	}
 
+	@Override
+	public SnsProfileVO getUserId(SnsProfileVO snsProfileVO) throws IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 	
