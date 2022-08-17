@@ -17,6 +17,8 @@ public class UserVO{
 	private String jdate;
 	// rownum
 	private int rnum;
+	//2022.08.17 김연희 : 하트 여부 
+	private int heart;
 	
 	
 	public int getRnum() {
@@ -109,7 +111,12 @@ public class UserVO{
 	public void setDelYN(String delYN) {
 		this.delYN = delYN;
 	}
-
+	public int getHeart() {
+		return heart;
+	}
+	public void setHeart(int heart) {
+		this.heart = heart;
+	}
 	
 	
 }

@@ -1,4 +1,3 @@
-	'use strict';
 
 	//카테고리 선택
 	function cate(obj){

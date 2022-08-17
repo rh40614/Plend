@@ -110,9 +110,15 @@
 							<!-- 사진 등록 -->
 							<label class="mt-3">
 								<span class=" title3">공간 이미지 </span><br>	
-								<input type="file" name="placeImgs" id="placeImgs" multiple="multiple">
+								<input type="file" name="placeImgs" id="placeImgs" multiple="multiple" onchange="setDetailImage(event); removePicture()">
 							</label>
 							<!-- 사진 미리보기 이후 구현 -->
+							<div id="images_container" class="mt-2"></div>
+								
+							
+							</div>
+							
+							
 							<br>
 							
 							<label class="mt-3">
@@ -339,5 +345,37 @@
 		$(".commonOption").load("<%=request.getContextPath()%>/resources/article/placeOptionList.jsp");
 	});
 	</script>
+	
+	<!-- 사진 미리보기 -->
+	<script>
+		function setDetailImage(event){
+			
+			
+			for(var image of event.target.files){
+				var reader = new FileReader();
+				
+				reader.onload = function(event){
+					var img = document.createElement("img");
+					img.setAttribute("src", event.target.result);
+					img.setAttribute("class", "col-lg-2 me-2");
+					
+					
+					document.querySelector("div#images_container").appendChild(img);
+				};
+				
+				console.log(image);
+				reader.readAsDataURL(image);
+			}
+		}
+		
+		function removePicture(){
+			$("#images_container > img").remove();
+		}
+		
+		
+	</script>
+	
+	
+	
 </body>
 </html>

@@ -27,7 +27,7 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 	<script type="text/javascript">
 		$(function(){
-			$("#header").load("<%=request.getContextPath()%>/resources/article/headerwithCate.jsp");
+			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
 		})
 	</script>

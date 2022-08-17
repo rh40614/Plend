@@ -26,7 +26,7 @@
 <link rel="mask-icon" href="/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
 <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
 <meta name="theme-color" content="#7952b3">
-<script src="../resources/js/jquery-3.6.0.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 
 
     <style>
@@ -67,7 +67,7 @@
 
 		    var loadingImg = '';      
 		    loadingImg += "<div id='loadingImg'>";
-		    loadingImg += " <img src='../resources/image/Pulse2.gif' style='position: relative; display: block; margin: 270px auto;'>";
+		    loadingImg += "<img src='<%=request.getContextPath()%>/resources/image/Pulse2.gif' style='position: relative; display: block; margin: 270px auto;'>";
 		    loadingImg += "</div>";
 
 		    //화면에 레이어 추가
@@ -82,7 +82,7 @@
 			$('#loadingImg').hide();
 			$('#loadingImg').remove();  
 			window.location.href = 'host2.do';
-		},3000);
+		},1000);
 		
 		
 	})
@@ -94,24 +94,12 @@
     
 <header>
   <!-- Fixed navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top" style = "background-color:#2F506D">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top" style = "background-color:#2F506D; height: 80px;">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">HOSTING CENTER</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse text-white" id="navbarCollapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            
-          </li>
-          <li class="nav-item">
-          </li>
-          <li class="nav-item">
-          </li>
-        </ul>
-        [<a href = "">로그아웃</a>&nbsp|&nbsp<a href = "">마이페이지</a>]
-      </div>
     </div>
   </nav>
 </header>

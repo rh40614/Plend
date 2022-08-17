@@ -41,6 +41,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String mains(SearchVO searchVO, Model model, HttpServletRequest request, HttpSession session) {
 		scheduler.autoUpdate();
+		
 		return "home";
 	}
 
@@ -48,60 +49,103 @@ public class HomeController {
 
 	@RequestMapping(value = "/recommendPlace", method = RequestMethod.GET)
 	public String recommendPlace(PlaceVO placeVO,SearchVO searchVO, Model model, HttpServletRequest request, HttpSession session) {
-
+		
 		//장소리스트
-		List<PlaceVO> placeList = placeService.selectPlace();
+		List<PlaceVO> placeList;
 		
-		for(PlaceVO p: placeList) {
-			placeVO.setPidx( p.getPidx()); 
-		}
-		
-		session = request.getSession();
+		//로그인했을 경우 
 		if(session.getAttribute("login") != null) {
-			UserVO login = (UserVO) session.getAttribute("login");
-			HeartVO heartvo = new HeartVO();
-			heartvo.setUidx(login.getUidx());
-			heartvo.setPidx(placeVO.getPidx());
 			
-			model.addAttribute("heartList", placeService.selectHeart(heartvo));
-		}
+			session = request.getSession();
+			UserVO login = (UserVO) session.getAttribute("login");
+			
+			placeList = placeService.selectPlace(login);
+			
+			//1. 장소 랜덤
+			List<PlaceVO> randomPlaceList = new ArrayList<PlaceVO>();
+			//화면 초기에 장소가 3개이하이면 랜덤없이 그냥 장소가지고 오기
+			if(placeList.size()<6) {
+				for(PlaceVO p: placeList ) {
+					//장소 사진 가지고 오기
+					ImageVO imageOne = placeService.selectImageOne(p);
+					String file = imageOne.getOriginFileName();
+					p.setPlaceImg(file);
+					//평균 별점
+					int avgRate = reviewService.avgRevew(p);
+					p.setAvgRate(avgRate);
+					//넣기
+					randomPlaceList.add(p);
+				}
+
+			}else {
+				//랜덤으로 뽑기
+				int[] idx = placeService.RandomPlace(placeList);
+				//인덱스 배열이 완성되면 장소 가지고 오기
+				for(int i:idx) {
+					//장소 가지고 오기
+					PlaceVO randomPlace =  placeList.get(i);
+					//장소 사진 가지고 오기
+					ImageVO imageOne = placeService.selectImageOne(randomPlace);
+					String file = imageOne.getOriginFileName();
+					randomPlace.setPlaceImg(file);
+					//평균 별점
+					int avgRate = reviewService.avgRevew(randomPlace);
+					randomPlace.setAvgRate(avgRate);
+					//넣기
+					randomPlaceList.add(randomPlace);
+
+				}
+			}
+			model.addAttribute("list", randomPlaceList);
+
 		
-		//1. 장소 랜덤
-		List<PlaceVO> randomPlaceList = new ArrayList<PlaceVO>();
-		//화면 초기에 장소가 3개이하이면 랜덤없이 그냥 장소가지고 오기
-		if(placeList.size()<6) {
-			for(PlaceVO p: placeList ) {
-				//장소 사진 가지고 오기
-				ImageVO imageOne = placeService.selectImageOne(p);
-				String file = imageOne.getOriginFileName();
-				p.setPlaceImg(file);
-				//평균 별점
-				int avgRate = reviewService.avgRevew(p);
-				p.setAvgRate(avgRate);
-				//넣기
-				randomPlaceList.add(p);
-			}
-
+		
 		}else {
-			//랜덤으로 뽑기
-			int[] idx = placeService.RandomPlace(placeList);
-			//인덱스 배열이 완성되면 장소 가지고 오기
-			for(int i:idx) {
-				//장소 가지고 오기
-				PlaceVO randomPlace =  placeList.get(i);
-				//장소 사진 가지고 오기
-				ImageVO imageOne = placeService.selectImageOne(randomPlace);
-				String file = imageOne.getOriginFileName();
-				randomPlace.setPlaceImg(file);
-				//평균 별점
-				int avgRate = reviewService.avgRevew(randomPlace);
-				randomPlace.setAvgRate(avgRate);
-				//넣기
-				randomPlaceList.add(randomPlace);
+			//로그인 안했을 경우 
+			UserVO userVO = new UserVO();
+			placeList = placeService.selectPlace(userVO);
+			
+			//1. 장소 랜덤
+			List<PlaceVO> randomPlaceList = new ArrayList<PlaceVO>();
+			//화면 초기에 장소가 3개이하이면 랜덤없이 그냥 장소가지고 오기
+			if(placeList.size()<6) {
+				for(PlaceVO p: placeList ) {
+					//장소 사진 가지고 오기
+					ImageVO imageOne = placeService.selectImageOne(p);
+					String file = imageOne.getOriginFileName();
+					p.setPlaceImg(file);
+					//평균 별점
+					int avgRate = reviewService.avgRevew(p);
+					p.setAvgRate(avgRate);
+					//넣기
+					randomPlaceList.add(p);
+				}
 
+			}else {
+				//랜덤으로 뽑기
+				int[] idx = placeService.RandomPlace(placeList);
+				//인덱스 배열이 완성되면 장소 가지고 오기
+				for(int i:idx) {
+					//장소 가지고 오기
+					PlaceVO randomPlace =  placeList.get(i);
+					//장소 사진 가지고 오기
+					ImageVO imageOne = placeService.selectImageOne(randomPlace);
+					String file = imageOne.getOriginFileName();
+					randomPlace.setPlaceImg(file);
+					//평균 별점
+					int avgRate = reviewService.avgRevew(randomPlace);
+					randomPlace.setAvgRate(avgRate);
+					//넣기
+					randomPlaceList.add(randomPlace);
+
+				}
 			}
+			model.addAttribute("list", randomPlaceList);
+
+			
+			
 		}
-		model.addAttribute("list", randomPlaceList);
+
 
 		return "ajax/recommendPlace";
 	}
@@ -114,45 +158,105 @@ public class HomeController {
 	public String eventPlace(Model model, HttpServletRequest request, HttpSession session) {
 
 		//이벤트 리스트
-		List<PlaceVO> eventList = placeService.eventPlace();
+		List<PlaceVO> eventList;
+		//로그인 했을 경우 
+		if(session.getAttribute("login") != null) {
+			
+			session = request.getSession();
+			UserVO login = (UserVO) session.getAttribute("login");
+			
+			eventList = placeService.eventPlace(login);
+			
+			
+			//2. 이벤트 랜덤
+			List<PlaceVO> randomEventList = new ArrayList<PlaceVO>();
 
-		//2. 이벤트 랜덤
-		List<PlaceVO> randomEventList = new ArrayList<PlaceVO>();
+			if(eventList.size()<6) {
+				for(PlaceVO e: eventList ) {
+					//장소 사진 가지고 오기
+					ImageVO imageOne = placeService.selectImageOne(e);
+					String file = imageOne.getOriginFileName();
+					e.setPlaceImg(file);
+					//평균 별점
+					int avgRate = reviewService.avgRevew(e);
+					e.setAvgRate(avgRate);
+					//넣기
+					randomEventList.add(e);
+				}
 
-		if(eventList.size()<6) {
-			for(PlaceVO e: eventList ) {
-				//장소 사진 가지고 오기
-				ImageVO imageOne = placeService.selectImageOne(e);
-				String file = imageOne.getOriginFileName();
-				e.setPlaceImg(file);
-				//평균 별점
-				int avgRate = reviewService.avgRevew(e);
-				e.setAvgRate(avgRate);
-				//넣기
-				randomEventList.add(e);
+			}else {
+				//랜덤으로 뽑기
+				int[] idx2 = placeService.RandomPlace(eventList);
+				PlaceVO randomPlace;
+				//인덱스 배열이 완성되면 장소 가지고 오기
+				for(int i:idx2) {
+					//장소 가지고 오기
+					randomPlace = eventList.get(i);
+					//사진가지고오기
+					ImageVO imageOne = placeService.selectImageOne(randomPlace);
+					String file = imageOne.getOriginFileName();
+					randomPlace.setPlaceImg(file);
+					//평균 별점
+					int avgRate = reviewService.avgRevew(randomPlace);
+					randomPlace.setAvgRate(avgRate);
+					//넣기
+					randomEventList.add(randomPlace);
+				}
 			}
 
+			model.addAttribute("list2", randomEventList);
 		}else {
-			//랜덤으로 뽑기
-			int[] idx2 = placeService.RandomPlace(eventList);
-			PlaceVO randomPlace;
-			//인덱스 배열이 완성되면 장소 가지고 오기
-			for(int i:idx2) {
-				//장소 가지고 오기
-				randomPlace = eventList.get(i);
-				//사진가지고오기
-				ImageVO imageOne = placeService.selectImageOne(randomPlace);
-				String file = imageOne.getOriginFileName();
-				randomPlace.setPlaceImg(file);
-				//평균 별점
-				int avgRate = reviewService.avgRevew(randomPlace);
-				randomPlace.setAvgRate(avgRate);
-				//넣기
-				randomEventList.add(randomPlace);
-			}
-		}
+		//로그인 안했을 경우 	
+			
+			UserVO userVO = new UserVO();
+			eventList = placeService.eventPlace(userVO);
+			
+			//2. 이벤트 랜덤
+			List<PlaceVO> randomEventList = new ArrayList<PlaceVO>();
 
-		model.addAttribute("list2", randomEventList);
+			if(eventList.size()<6) {
+				for(PlaceVO e: eventList ) {
+					//장소 사진 가지고 오기
+					ImageVO imageOne = placeService.selectImageOne(e);
+					String file = imageOne.getOriginFileName();
+					e.setPlaceImg(file);
+					//평균 별점
+					int avgRate = reviewService.avgRevew(e);
+					e.setAvgRate(avgRate);
+					//넣기
+					randomEventList.add(e);
+				}
+
+			}else {
+				//랜덤으로 뽑기
+				int[] idx2 = placeService.RandomPlace(eventList);
+				PlaceVO randomPlace;
+				//인덱스 배열이 완성되면 장소 가지고 오기
+				for(int i:idx2) {
+					//장소 가지고 오기
+					randomPlace = eventList.get(i);
+					//사진가지고오기
+					ImageVO imageOne = placeService.selectImageOne(randomPlace);
+					String file = imageOne.getOriginFileName();
+					randomPlace.setPlaceImg(file);
+					//평균 별점
+					int avgRate = reviewService.avgRevew(randomPlace);
+					randomPlace.setAvgRate(avgRate);
+					//넣기
+					randomEventList.add(randomPlace);
+				}
+			}
+
+			model.addAttribute("list2", randomEventList);
+			
+			
+		}
+		
+		
+		
+		
+		
+		
 
 
 	return "ajax/eventPlace";
@@ -234,8 +338,16 @@ public class HomeController {
 		return "place/ajax/placeList";
 	}
 
-
-
+	
+	@RequestMapping(value = "/host.do", method = RequestMethod.GET)
+	public String host() {
+		return "host/host";
+	}
+	
+	@RequestMapping(value = "/host2.do", method = RequestMethod.GET)
+	public String host2() {
+		return "host/host2";
+	}
 
 
 
