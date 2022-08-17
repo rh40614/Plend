@@ -59,5 +59,11 @@ public class UserServieImpl implements UserService {
 		return commonDao.selectPwd(vo);
 	}
 
+	@Override
+	public int tempPwd(UserVO vo) {
+		int result = commonDao.tempPwd(vo);
+		return result;
+	}
+
 
 }
