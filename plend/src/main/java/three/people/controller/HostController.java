@@ -232,12 +232,12 @@ public class HostController {
 		//System.out.println("total: "+total);
 		
 		//파라미터 전달
-		HashMap<String, Integer> page = new HashMap<String, Integer>();
+		HashMap<String, Object> page = new HashMap<String, Object>();
 		
 		int start = searchVO.getStart();
 		int cntPerPage = searchVO.getCntPerPage(); 
 		
-		page.put("uidx", uidx);
+		page.put("placeVO", placeVO);
 		page.put("start", start);
 		page.put("cntPerPage", cntPerPage);
 		
@@ -613,6 +613,7 @@ public class HostController {
 		//공지 하나
 		NoticeVO notice = hostService.noticeOne(noticeVO);
 		notice.setRnum(noticeVO.getRnum());
+		
 		
 		model.addAttribute("notice",notice);
 		//이전글 다음글(nidx)

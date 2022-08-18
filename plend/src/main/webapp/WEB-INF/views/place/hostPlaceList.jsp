@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="true" %>
 
 <html>
@@ -24,14 +23,14 @@
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 	<!-- 헤더 해당하는 카테고리에 색 넣기 -->
 	<style type="text/css">
-	.active3 {
+	.active {
 		border-bottom: 3px solid #2F506D !important;
 	}
 	</style>
 	<script type="text/javascript">
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp", function(){
-				$(".${category.category}").addClass("active3");
+				$(".${category.category}").addClass("active");
 			});
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
 		});
@@ -44,9 +43,9 @@
 	<header id="header" style ="background: white; "></header>
 	<main style="margin: 5% 19% 10% 19%; flex: 1; min-height: 450px;">
 	
-	<!-- 검색 버튼 그룹 -->
+	<%-- <!-- 검색 버튼 그룹 -->
 	<form id="frm">
-		<div  style="margin-top: 15px; float: right; width: 300px; justify-content: space-around; " class="d-flex">
+		<div  style="margin-top: 25; float: right; width: 300px; justify-content: space-around; " class="d-flex">
 			<input type="hidden" name="category" value="${category.category}">
 			<!-- 날짜 -->
 			<input class="selector" placeholder="날짜" style="width:100px; text-align: center;" >
@@ -71,7 +70,6 @@
 				<option value="">지역</option>
 				<option value="서울">서울</option>
 				<option value="경기">경기</option>
-				<option value="세종">세종</option>
 				<option value="인천">인천</option>
 				<option value="부산">부산</option> 
 				<option value="광주">광주</option>
@@ -91,55 +89,17 @@
 			
 			<button type="button" class="btn btn-secondary me-2" onclick="search()">검색</button>
 		</div>
-	</form>
+	</form> --%>
 	
 	<!-- 카테고리 제목 -->
-	<div>
-    	<c:choose>
-    		<c:when test="${category.category == 'gallery'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">갤러리</span>
-    		</c:when>
-    		<c:when test="${category.category == 'homeGym'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">운동시설</span>
-    		</c:when>
-    		<c:when test="${category.category == 'meeting'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">회의실</span>
-    		</c:when>
-    		<c:when test="${category.category == 'dancePractice'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">춤연습실</span>
-    		</c:when>
-    		<c:when test="${category.category == 'office'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">독립오피스</span>
-    		</c:when>
-    		<c:when test="${category.category == 'shareOffice'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">공유오피스</span>
-    		</c:when>
-    		<c:when test="${category.category == 'partyRoom'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">파티룸</span>
-    		</c:when>
-    		<c:when test="${category.category == 'recording'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">녹음실</span>
-    		</c:when>
-    		<c:when test="${category.category == 'shareKitchen'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">공유주방</span>
-    		</c:when>
-    		<c:when test="${category.category == 'singPractice'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">노래연습실</span>
-    		</c:when>
-    		<c:when test="${category.category == 'studio'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">스튜디오</span>
-    		</c:when>
-    		<c:when test="${category.category == 'smallWedding'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">스몰웨딩</span>
-    		</c:when>
-    	</c:choose>
-  		<div style=" width: 100%;background: grey; height: 3px;"></div>
-  		<br>
+	<div class="mb-5">
+    	<span class="title2" style="font-size: 18px; font-weight: 100;">'${host.nickName}' 님의 공간이 마음에 드셨나요?<br>
+    	'${host.nickName}' 님이 플렌드와 함께 공유하고 있는 공간들입니다. </span>
   	</div>
   	
   	
   <div id="search_result">
-	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start ">
+	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-start align-items-start ">
 		<c:if test="${list.size() == 0}">
 			<P class="m-auto" style="min-height:300px; display: inline-block; margin: 20px 0px 20px 0px; vertical-align: top; font-size: 20px; color: grey; padding-top: 200px;">
 				등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. 
@@ -149,7 +109,7 @@
 		<c:if test="${list.size() > 0 }">
 			<c:forEach var ="c" items="${list}" varStatus="status"> 
 			
-			<div class="card border-0 mb-5" style="width: 22rem; height: 25rem">
+			<div class="card border-0 mb-5" style="width: 22rem; height: 25rem; margin-right: 30px; ">
   				<c:choose>
   					<c:when test="${c.placeImg == null}">
   						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
@@ -166,7 +126,7 @@
  				<h5 class="card-title title2-1" class=""><a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">${c.placeName}</a></h5>
  				<p class="card-text">${c.address}</p>
  				<span class="card-text title3">${c.price}</span><span>원/시간</span>
- 				<i class="fa-regular fa-star" style="float:right"> ${c.avgRate}</i>
+ 				<i class="fa-regular fa-star" style="float:right">${c.avgRate}</i>
  				<!-- 찜하기 -->
 				 <c:choose>
 					<c:when test="${c.heart eq '0'}">
@@ -286,10 +246,11 @@
 			});
 		}
 	</script>
-		<!-- 찜하기 -->
+	<!-- 찜하기 -->
 	<script>
 
 		function like (obj, idx){
+	
 			if(${login ne null}){
 				if($(obj).hasClass("fa-regular") == true){
 					$.ajax({
@@ -309,7 +270,6 @@
 						}
 					});
 	
-
 				}else{
 					$.ajax({
 						url: "<%=request.getContextPath()%>/place/heart.do?pidx="+idx+"&like=delete",
@@ -332,99 +292,7 @@
 			}
 		}
 
-	<!-- 검색 버튼 그룹 -->
-	<form id="frm">
-		<div  style="margin-top: 25; float: right;" class="d-flex">
-			<input type="hidden" name="category" value="${category.category}">
-			<!-- 날짜 -->
-			<input class="selector" placeholder="날짜" style="width:100px; text-align: center;" >
-			<!-- 인원 -->
-			<div class="filter_btn"  onclick="filter()">
-				<div>인원</div>
-			</div>
-			<!-- 인원: 상위 div안에 넣으면 작동 x, absolute로 설정-->
-			<div class="filter_human" >
-				<div class="filter_human_inside">
-					<div class="filter_human_inside_text">총 인원수</div>
-					<div class="filter_human_inside_number">
-						<input type="text" name ="cntPeople" class="filter_human_inside_number" placeholder="1" style="text-align: center;" value="0"  id="cntPeople">
-					</div>
-					<div>
-						<button type="button" class="btnDefault" onclick="filter_human_set()">완료</button>
-					</div>
-				</div>
-			</div>
-			<!-- 지역 -->
-			 <select name="address">
-				<option value="">지역</option>
-				<option value="서울">서울</option>
-				<option value="경기">경기</option>
-				<option value="인천">인천</option>
-				<option value="부산">부산</option> 
-				<option value="광주">광주</option>
-				<option value="제주">제주</option>
-				<option value="대전">대전</option>
-				<option value="울산">울산</option>
-				<option value="대구">대구</option>
-				<option value="충북">충북</option>
-				<option value="충남">충남</option>
-				<option value="강원">강원</option>
-				<option value="전북">전북</option>
-				<option value="전남">전남</option>
-				<option value="경북">경북</option>
-				<option value="경남">경남</option>
-				
-			</select>
-			
-			<button type="button" class="btn btn-secondary me-2" onclick="search()">검색</button>
-		</div>
-	</form>
-	
-	<!-- 카테고리 제목 -->
-	<div>
-    	<span class="navbar-brand title1">|  ${category.category}</span>
-  	</div>
-  <div id="search_result">
-	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start ">
-		<c:if test="${list.size() == 0}">
-			<P class="title2 m-auto">등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. </P>
-		</c:if>
-	
-		<c:if test="${list.size() > 0 }">
-			<c:forEach var ="c" items="${list}" varStatus="status"> 
-			
-			<div class="card  mb-5" style="width: 22rem; height: 25rem">
-  				<c:choose>
-  					<c:when test="${c.placeImg == null}">
-  						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
-  							<img src="<%=request.getContextPath()%>/imageView.do?originFileName=매실1.PNG" class="card-img-top" alt="등록된 사진이 없습니다." style="height: 13rem;">
-  						</a>
-  					</c:when>
-  					<c:when test="${c.placeImg != null}">
-  						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
-  							<img src="<%=request.getContextPath()%>/imageView.do?originFileName=${c.placeImg}" class="card-img-top" alt="사진 로딩 오류" style="height: 13rem;">
-  						</a>
-  					</c:when>
-  				</c:choose>
-  				<i class="fa-solid fa-bolt bolt"></i>
- 			<div class="card-body">
- 				<h5 class="card-title title2-1" class=""><a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">${c.placeName}</a></h5>
- 				<p class="card-text">${c.address}</p>
- 				<span class="card-text title3"><fmt:formatNumber value="${c.price}" type="currency"/></span><span>원/시간</span>
- 				<i class="fa-regular fa-star" style="float:right">별점</i>
- 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
-  			</div>
-			</div>
-			
-			</c:forEach>
-		</c:if>
-	</section>
-</div>
-
-
-
 	</script>
-
 
 </body>
 </html>

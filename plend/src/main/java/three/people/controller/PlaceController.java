@@ -2,6 +2,7 @@ package three.people.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import three.people.service.BookService;
+import three.people.service.CommonService;
+import three.people.service.HostService;
 import three.people.service.PlaceService;
 import three.people.service.ReviewService;
 import three.people.vo.BookVO;
@@ -41,6 +44,11 @@ public final class PlaceController {
 	@Autowired
 	ReviewService reviewService;
 	
+	@Autowired
+	CommonService commonService;
+	
+
+	
 	// 한 장소의 상세보기 페이지
 	@RequestMapping(value="/view.do", method=RequestMethod.GET)
 	public String view(PlaceVO placevo, ReviewVO reviewVO, SearchVO searchVO, Model model, HttpServletRequest request,HttpSession session) {
@@ -65,10 +73,15 @@ public final class PlaceController {
 		hashMap.put("searchVO", searchVO);
 		hashMap.put("reviewVO", reviewVO);
 		
+		//08.18 김연희: 평균 별점 추가
+		PlaceVO p = placeService.placeOne(placevo);
+		int avgRate = reviewService.avgRevew(p);
+		p.setAvgRate(avgRate);
+		
 		model.addAttribute("pagination", searchVO);
 		model.addAttribute("reviewList", reviewService.selectPlaceReview(hashMap));
 		model.addAttribute("imageList", placeService.selectImage(placevo));
-		model.addAttribute("placeOne", placeService.placeOne(placevo));
+		model.addAttribute("placeOne", p);
 		model.addAttribute("QnaList", placeService.selectQnA(placevo));
 		return "place/placeDetail";
 	}
@@ -137,22 +150,55 @@ public final class PlaceController {
 	}
 	
 	@RequestMapping(value="/placeList.do", method = RequestMethod.GET)
-	public String placeList(PlaceVO placeVO, Model model) {
-		//카테고리에 해당하는 장소 리스트
-		List<PlaceVO> list = placeService.categoryPlace(placeVO);
+	public String placeList(PlaceVO placeVO, Model model, HttpServletRequest request, HttpSession session) {
 		
-			for(PlaceVO place: list) {
-				int pidx = place.getPidx();
-				//사진을 pidx 값으로 찾기 때문에 설정
-				placeVO.setPidx(pidx);
-				//사진도 list에 담기 
-				ImageVO imageOne = placeService.selectImageOne(place);
-				String file = imageOne.getOriginFileName();
-				place.setPlaceImg(file);
-			}
+		session = request.getSession();
 		
-		model.addAttribute("list", list);
-		
+		//로그인 했을 경우 
+		if(session.getAttribute("login") != null) {
+			UserVO login = (UserVO) session.getAttribute("login");
+			int uidx = login.getUidx();
+			PlaceVO heart = new PlaceVO();
+			heart.setUidx(uidx);
+			heart.setCategory(placeVO.getCategory());
+			
+			//카테고리에 해당하는 장소 리스트
+			List<PlaceVO> list = placeService.categoryPlace(heart);
+			
+				for(PlaceVO place: list) {
+					int pidx = place.getPidx();
+					//사진을 pidx 값으로 찾기 때문에 설정
+					placeVO.setPidx(pidx);
+					//사진도 list에 담기 
+					ImageVO imageOne = placeService.selectImageOne(place);
+					String file = imageOne.getOriginFileName();
+					place.setPlaceImg(file);
+					//평균 별점
+					int avgRate = reviewService.avgRevew(place);
+					place.setAvgRate(avgRate);
+				}
+			
+			model.addAttribute("list", list);
+		}else {
+			//로그인 정보가 없을 경우 
+			//카테고리에 해당하는 장소 리스트
+			List<PlaceVO> list = placeService.categoryPlace(placeVO);
+			
+				for(PlaceVO place: list) {
+					int pidx = place.getPidx();
+					//사진을 pidx 값으로 찾기 때문에 설정
+					placeVO.setPidx(pidx);
+					//사진도 list에 담기 
+					ImageVO imageOne = placeService.selectImageOne(place);
+					String file = imageOne.getOriginFileName();
+					place.setPlaceImg(file);
+					//평균 별점
+					int avgRate = reviewService.avgRevew(place);
+					place.setAvgRate(avgRate);
+				}
+			
+			model.addAttribute("list", list);
+		}
 		//헤더 카테고리 나타내기 
 		model.addAttribute("category", placeVO);
 		
@@ -163,21 +209,53 @@ public final class PlaceController {
 
 
 	@RequestMapping(value="/filter_search.do", method = RequestMethod.GET)
-	public String filter_search(PlaceVO placeVO, Model model) {
+	public String filter_search(PlaceVO placeVO, Model model, HttpServletRequest request, HttpSession session) {
 		
-		List<PlaceVO> list = placeService.filter_search(placeVO);
-		System.out.println("검색 결과 : " + list);
+		session = request.getSession();
 		
-		for(PlaceVO place: list) {
-			int pidx = place.getPidx();
-			placeVO.setPidx(pidx);
-			ImageVO imageOne = placeService.selectImageOne(place);
-			String file = imageOne.getOriginFileName();
-			place.setPlaceImg(file);
+		//로그인 했을 경우 
+		if(session.getAttribute("login") != null) {
+			UserVO login = (UserVO) session.getAttribute("login");
+			int uidx = login.getUidx();
+			PlaceVO heart = new PlaceVO();
+			heart.setUidx(uidx);
+			heart.setCategory(placeVO.getCategory());
+			heart.setAddress(placeVO.getAddress());
+			heart.setCntPeople(placeVO.getCntPeople());
+			
+			List<PlaceVO> list = placeService.filter_search(heart);
+			
+			for(PlaceVO place: list) {
+				int pidx = place.getPidx();
+				placeVO.setPidx(pidx);
+				ImageVO imageOne = placeService.selectImageOne(place);
+				String file = imageOne.getOriginFileName();
+				place.setPlaceImg(file);
+				//평균 별점
+				int avgRate = reviewService.avgRevew(place);
+				place.setAvgRate(avgRate);
+			}
+		
+			model.addAttribute("list", list);
+			
+		}else {
+		
+			List<PlaceVO> list = placeService.filter_search(placeVO);
+			System.out.println("검색 결과 : " + list);
+			
+			for(PlaceVO place: list) {
+				int pidx = place.getPidx();
+				placeVO.setPidx(pidx);
+				ImageVO imageOne = placeService.selectImageOne(place);
+				String file = imageOne.getOriginFileName();
+				place.setPlaceImg(file);
+				//평균 별점
+				int avgRate = reviewService.avgRevew(place);
+				place.setAvgRate(avgRate);
+			}
+		
+			model.addAttribute("list", list);
 		}
-	
-		model.addAttribute("list", list);
-		
 		return "place/ajax/placeList";
 	}
 	
@@ -212,26 +290,116 @@ public final class PlaceController {
 	}
 
 	@RequestMapping(value="/searchPlace.do", method=RequestMethod.GET)
-	public String searchPlace(SearchVO searchVO, Model model) {
+	public String searchPlace(SearchVO searchVO, Model model, HttpServletRequest request, HttpSession session) {
 		model.addAttribute("searchValue", searchVO.getSearchValue());
 		
-		List<PlaceVO> list = placeService.searchPlace(searchVO);
+		HashMap<String, Object> search = new HashMap<String, Object>();
+		search.put("searchValue", searchVO.getSearchValue());
+		session = request.getSession();
 		
-		for(PlaceVO place: list) {
-			int pidx = place.getPidx();
-			//사진을 pidx 값으로 찾기 때문에 설정
-			place.setPidx(pidx);
-			//사진도 list에 담기 
-			ImageVO imageOne = placeService.selectImageOne(place);
-			String file = imageOne.getOriginFileName();
-			place.setPlaceImg(file);
+		//로그인 했을 경우 
+		//searchValue랑 로그인한 사람의 uidx
+		if(session.getAttribute("login") != null) {
+			UserVO login = (UserVO) session.getAttribute("login");
+			int uidx = login.getUidx();
+			search.put("uidx", uidx);
+			
+			List<PlaceVO> list = placeService.searchPlace(search);
+			
+			for(PlaceVO place: list) {
+				int pidx = place.getPidx();
+				//사진을 pidx 값으로 찾기 때문에 설정
+				place.setPidx(pidx);
+				//사진도 list에 담기 
+				ImageVO imageOne = placeService.selectImageOne(place);
+				String file = imageOne.getOriginFileName();
+				place.setPlaceImg(file);
+				//평균 별점
+				int avgRate = reviewService.avgRevew(place);
+				place.setAvgRate(avgRate);
+			}
+			
+			model.addAttribute("list", list);
+			
+		}else {
+			
+			List<PlaceVO> list = placeService.searchPlace(search);
+			
+			for(PlaceVO place: list) {
+				int pidx = place.getPidx();
+				//사진을 pidx 값으로 찾기 때문에 설정
+				place.setPidx(pidx);
+				//사진도 list에 담기 
+				ImageVO imageOne = placeService.selectImageOne(place);
+				String file = imageOne.getOriginFileName();
+				place.setPlaceImg(file);
+				//평균 별점
+				int avgRate = reviewService.avgRevew(place);
+				place.setAvgRate(avgRate);
+			}
+			
+			model.addAttribute("list", list);
+			
 		}
-		model.addAttribute("list", list);
+		
+		
 		return "place/searchPlace";
 	}
 
 
-
+	@RequestMapping(value="/host.do")
+	public String host(Model model, PlaceVO placeVO,  HttpServletRequest request, HttpSession session) {
+		
+		
+		HashMap<String, Object> page = new HashMap<String, Object>();
+		//호스트의 uidx
+		page.put("placeVO", placeVO);
+		
+		session = request.getSession();
+		//로그인 했을 때 
+		if(session.getAttribute("login") != null) {
+			UserVO login = (UserVO) session.getAttribute("login");
+			page.put("userVO", login);
+			
+			List<PlaceVO> list = placeService.selectPlaceAll(page);
+			
+			for(PlaceVO p : list) {
+				ImageVO image = placeService.selectImageOne(p);
+				String file =image.getOriginFileName();
+				p.setPlaceImg(file);
+				//평균 별점
+				int avgRate = reviewService.avgRevew(p);
+				p.setAvgRate(avgRate);
+			}
+			
+			model.addAttribute("list", list);
+			
+			
+		}else {
+		//로그인 안했을 때  
+			List<PlaceVO> list = placeService.selectPlaceAll(page);
+			
+			for(PlaceVO p : list) {
+				ImageVO image = placeService.selectImageOne(p);
+				String file =image.getOriginFileName();
+				p.setPlaceImg(file);
+				//평균 별점
+				int avgRate = reviewService.avgRevew(p);
+				p.setAvgRate(avgRate);
+			}
+			System.out.println("asdf : "+ list);
+			model.addAttribute("list", list);
+			
+		}
+		
+		
+		
+		//경로로 받은 호스트의 uidx
+		int uidx = placeVO.getUidx();
+		model.addAttribute("host",commonService.userInfoByUidx(uidx));
+		
+		return "place/hostPlaceList" ;
+	}
 
 
 

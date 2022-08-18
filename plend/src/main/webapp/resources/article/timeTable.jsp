@@ -83,10 +83,12 @@
 			$(".btn.w-100").removeClass("chooseTime");
 			$(this).addClass("chooseTime");
 			$(".selectTime").val(num+","+ pnum);
+
 		}else if(num < lastTime){
 			$(".btn.w-100").removeClass("chooseTime");
 			$(this).addClass("chooseTime");
 			$(".selectTime").val(num+","+ pnum);
+
 		}else if(num > minTime){
 			if(minTime > 0 && !$(".btn.w-100").slice(minTime,num).is(".diableTime")){
 				$(".btn.w-100").slice(minTime,num).addClass("chooseTime");
