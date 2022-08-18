@@ -66,6 +66,77 @@
 			</section>
 			<!-- 장소 이름/주소/짧은 기능 -->
 			<section id="placeTitle" class="col-5 ms-3">
+				<div class="ms-5 me-5" >
+					<a href="<%=request.getContextPath()%>/place/host.do?uidx=${placeOne.uidx}" style="color: #7f8b93;">
+						<i class="fa-solid fa-angles-right" title="이 호스트의 다른 공간 보러가기"> ${placeOne.nickName}</i>
+					</a>
+					&nbsp;
+					<%-- <a href="<%=request.getContextPath()%>/place/placeList.do?category=${placeOne.category}" style="color: #7f8b93">
+						<i class="fa-solid fa-angles-right" >갤러리</i>
+					</a> --%>
+					<c:choose>
+			    		<c:when test="${placeOne.category == 'gallery'}">
+				    		<a href="<%=request.getContextPath()%>/place/placeList.do?category=${placeOne.category}" style="color: #7f8b93">
+								<i class="fa-solid fa-angles-right" > 갤러리</i>
+							</a>
+			    		</c:when>
+			    		<c:when test="${placeOne.category == 'homeGym'}">
+				    		<a href="<%=request.getContextPath()%>/place/placeList.do?category=${placeOne.category}" style="color: #7f8b93">
+								<i class="fa-solid fa-angles-right" > 운동시설</i>
+							</a>
+			    		</c:when>
+			    		<c:when test="${placeOne.category == 'meeting'}">
+				    		<a href="<%=request.getContextPath()%>/place/placeList.do?category=${placeOne.category}" style="color: #7f8b93">
+								<i class="fa-solid fa-angles-right" > 회의실</i>
+							</a>
+			    		</c:when>
+			    		<c:when test="${placeOne.category == 'dancePractice'}">
+				    		<a href="<%=request.getContextPath()%>/place/placeList.do?category=${placeOne.category}" style="color: #7f8b93">
+								<i class="fa-solid fa-angles-right" > 춤연습실</i>
+							</a>
+			    		</c:when>
+			    		<c:when test="${placeOne.category == 'office'}">
+				    		<a href="<%=request.getContextPath()%>/place/placeList.do?category=${placeOne.category}" style="color: #7f8b93">
+								<i class="fa-solid fa-angles-right" > 독립오피스</i>
+							</a>
+			    		</c:when>
+			    		<c:when test="${placeOne.category == 'shareOffice'}">
+				    		<a href="<%=request.getContextPath()%>/place/placeList.do?category=${placeOne.category}" style="color: #7f8b93">
+								<i class="fa-solid fa-angles-right" > 공유오피스</i>
+							</a>
+			    		</c:when>
+			    		<c:when test="${placeOne.category == 'partyRoom'}">
+				    		<a href="<%=request.getContextPath()%>/place/placeList.do?category=${placeOne.category}" style="color: #7f8b93">
+								<i class="fa-solid fa-angles-right" > 파티룸</i>
+							</a>
+			    		</c:when>
+			    		<c:when test="${placeOne.category == 'recording'}">
+				    		<a href="<%=request.getContextPath()%>/place/placeList.do?category=${placeOne.category}" style="color: #7f8b93">
+								<i class="fa-solid fa-angles-right" > 녹음실</i>
+							</a>
+			    		</c:when>
+			    		<c:when test="${placeOne.category == 'shareKitchen'}">
+				    		<a href="<%=request.getContextPath()%>/place/placeList.do?category=${placeOne.category}" style="color: #7f8b93">
+								<i class="fa-solid fa-angles-right" > 공유주방</i>
+							</a>
+			    		</c:when>
+			    		<c:when test="${placeOne.category == 'singPractice'}">
+				    		<a href="<%=request.getContextPath()%>/place/placeList.do?category=${placeOne.category}" style="color: #7f8b93">
+								<i class="fa-solid fa-angles-right" > 노래연습실</i>
+							</a>
+			    		</c:when>
+			    		<c:when test="${placeOne.category == 'studio'}">
+				    		<a href="<%=request.getContextPath()%>/place/placeList.do?category=${placeOne.category}" style="color: #7f8b93">
+								<i class="fa-solid fa-angles-right" > 갤러리</i>
+							</a>
+			    		</c:when>
+			    		<c:when test="${placeOne.category == 'smallWedding'}">
+				    		<a href="<%=request.getContextPath()%>/place/placeList.do?category=${placeOne.category}" style="color: #7f8b93">
+								<i class="fa-solid fa-angles-right" > 스몰웨딩</i>
+							</a>
+			    		</c:when>
+			    	</c:choose>
+				</div>
 				<div class="d-flex place_name ms-5 mt-3 mb-2 fs-3 fw-bold">
 					<c:if test="${placeOne.eventYN eq 'Y'}">
 						[특가 진행중] ${placeOne.placeName}
@@ -74,7 +145,7 @@
 						${placeOne.placeName}
 					</c:if> 
 				</div>
-				<div class="d-flex place_tag ms-5 "id="tag${pv.pidx}"></div>
+				<div class="d-flex place_tag ms-5 "id="tag${placeOne.pidx}" style="font-size: 14px; color:#7f8b93 "></div>
 					<script>
 						var tags = JSON.parse('${placeOne.tag}');
 						var tag = "";
@@ -99,7 +170,7 @@
 							<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this)" class="fa-solid fa-heart" style="color: red;"></i></a>
 						</c:when>
 					</c:choose>
-					<i class="fa-regular fa-star me-2 ms-2" style="float:right"></i>
+					<i class="fa-regular fa-star me-2 ms-2" style="float:right"> ${placeOne.avgRate}</i>
 				</div>
 			</section>
 		</section>
@@ -131,7 +202,7 @@
 						</tbody>
 					</table>
 				</section>
-				<section id="facilities">
+				<section id="facilities" style="min-height: 400px; padding-top: 150px;">
 					<table class="table caption-top">
 						<caption class="ms-4 text-black fw-bold fs-5">편의시설</caption>
 						<tbody style="border-top: none;">
@@ -153,7 +224,7 @@
 						</tbody>
 					</table>
 				</section>
-				<section id="notice">
+				<section id="notice"  style="min-height: 400px; padding-top: 150px;">
 					<table class="table caption-top">
 						<caption class="ms-4 text-black fw-bold fs-5">유의사항</caption>
 						<tbody style="border-top: none;">
@@ -175,7 +246,7 @@
 						</tbody>
 					</table>
 				</section>
-				<section id="kakaoMap">
+				<section id="kakaoMap" style="min-height: 400px; padding-top: 150px;">
 					<p class="ms-4 text-black fw-bold fs-5" style="padding-bottom:20px;"> 위치</p>
 					<div style="width: 800; border-top: 1px var(--bs-gray-300)solid; background-color: var(--bs-gray-200);">
 						<p class="ms-4 text-black fw-bold pt-2"><i class="fa-solid fa-location-dot"></i> ${placeOne.placeName} </p>
@@ -190,7 +261,7 @@
 					    </div>
 					</div>
 				</section>
-				<section id="QnA">
+				<section id="QnA" style="min-height: 400px; padding-top: 150px;">
 					<table class="table caption-top">
 						<caption class="ms-4 text-black fw-bold fs-5"> QnA</caption>
 						<tbody>
@@ -292,7 +363,7 @@
 						</div>
 					</c:if>
 				</section>
-				<section id="review">
+				<section id="review" style="min-height: 400px; padding-top: 150px; margin-bottom: 100px;">
 					<table class="table table-borderless caption-top">
 						<caption class="ms-4 text-black fw-bold fs-5">이용후기</caption>
 						<tbody class="reviewListMap" style="border-top: none;">

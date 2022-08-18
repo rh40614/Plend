@@ -25,7 +25,7 @@ public class PlaceServiceIml implements PlaceService{
 	PlaceDAO placeDAO;
 	
 	@Override
-	public List<PlaceVO> selectPlaceAll(HashMap<String, Integer> page) {
+	public List<PlaceVO> selectPlaceAll(HashMap<String, Object> page) {
 		List<PlaceVO> result = placeDAO.selectPlaceAll(page);
 		
 		//장소 소개 35자 이상 자르기
@@ -248,7 +248,20 @@ public class PlaceServiceIml implements PlaceService{
 	//검색 인원, 지역
 	@Override
 	public List<PlaceVO> filter_search(PlaceVO placeVO) {
-		return placeDAO.filter_search(placeVO);
+		
+		List<PlaceVO> result = placeDAO.filter_search(placeVO);
+		
+		//장소 이름 자르기
+		for(PlaceVO place: result) {
+			//단일 공백 정규식 : \\s
+			String[] ad = place.getAddress().split("\\s");
+			String twoFromStart = ad[0] +" " +ad[1];
+			//System.out.println("twoFromStart: "+twoFromStart);
+			
+			place.setAddress(twoFromStart);
+		}
+		
+		return result;
 	}
 
 	@Override
@@ -257,8 +270,8 @@ public class PlaceServiceIml implements PlaceService{
 	}
 
 	@Override
-	public List<PlaceVO> searchPlace(SearchVO searchVO) {
-		return placeDAO.searchPlace(searchVO);
+	public List<PlaceVO> searchPlace(HashMap<String, Object> search) {
+		return placeDAO.searchPlace(search);
 	}
 	
 }
