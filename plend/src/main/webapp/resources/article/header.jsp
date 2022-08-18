@@ -23,7 +23,7 @@
    	  <div id="searchBar" style="margin-right:auto; border-radius: 50px; height: 47px; width: 500px; background-color: #eceeee;">
     	<form class="d-flex" method="GET" action="<%=request.getContextPath()%>/place/searchPlace.do">
           <input class="form-control me-2" name="searchValue" type="search" placeholder="원하는 장소를 검색해보세요!" aria-label="Search" style="margin-top:5px; border: none; background-color: #eceeee; border-radius: 50px;">
-          <button class="btn " type="submit" style="border:none; align-self: center;" ><img alt="searchBtn" src="<%=request.getContextPath()%>/resources/image/searchBtn.png" ></button>
+          <button class="btn " type="submit" style="border:none; align-self: center;margin-top:7px;" ><img alt="searchBtn" src="<%=request.getContextPath()%>/resources/image/searchBtn.png" ></button>
         </form> 			
       </div>
       <div class="d-flex">

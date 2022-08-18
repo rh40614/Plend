@@ -123,6 +123,7 @@
 	
 	function check() {
 		var frm = document.frm;
+		var birth = $("input[name=birth]").val();
 		
 		if (frm.id.value == "") {
 			alert("아이디를 입력해주세요.")
@@ -145,11 +146,17 @@
 		}  else if (frm.userPhone.value == "") {
 			alert("핸드폰 번호를 입력해주세요. ex) 010-1234-1234");
 			return;
+		} else if ((!/^\d{3}-\d{3,4}-\d{4}$/.test($("input[name='userPhone']").val()){
+			alert("연락처에 하이픈(-)을 포함해서 입력해주세요. ex)010-1234-1234");
+			return;
 		} else if (frm.email.value == "") {
 			alert("이메일을 입력해주세요.");
 			return;
 		}  else if (document.querySelector('#regnum').style.display == 'none' && frm.birth.value == "") {
-			alert("생년월일을 입력해주세요.");
+			alert("생년월일을 입력해주세요. ex) 19940324");
+			return;
+		} else if (birth.toString().length != 8) {
+			alert("생년월일을 8자로 입력해주세요. ex) 19940324");
 			return;
 		} else if (isNaN(frm.birth.value) == true){
 			alert("생년월일은 숫자만 입력해주세요. ex) 19990707");
