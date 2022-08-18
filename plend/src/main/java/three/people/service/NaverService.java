@@ -1,9 +1,11 @@
 package three.people.service;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
@@ -20,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import three.people.vo.SnsProfileVO;
 import three.people.vo.SnsVO;
+import three.people.vo.UserVO;
 
 @Service
 public class NaverService implements SnsService {
@@ -131,6 +134,48 @@ public class NaverService implements SnsService {
 		}catch(IOException e) {
 			throw new RuntimeException("API bufferedReader error", e);
 		}
+	}
+
+	@Override
+	public void snsUnlink(SnsProfileVO snsProfileVO) throws UnsupportedEncodingException {
+		snsProfileVO.setAccess_token(URLEncoder.encode(snsProfileVO.getAccess_token(), "UTF-8"));
+		
+		String apiURL;
+	    apiURL = "https://openapi.naver.com/v1/nid/me?grant_type=delete&";
+	    apiURL += "client_id=" + snsProfileVO.getNaver_client_id();
+	    apiURL += "&client_secret=" + snsProfileVO.getNaver_client_secret();
+	    apiURL += "&access_token=" + snsProfileVO.getAccess_token();
+		try {
+			URL url = new URL(apiURL);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			
+			con.setRequestMethod("GET");
+			con.setDoOutput(true);
+			
+			int responseCode = con.getResponseCode();
+			System.out.println("responseCode: "+responseCode);
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("unlink ok");
+	}
+
+	@Override
+	public UserVO userCheck(SnsProfileVO snsProfileVO) throws IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SnsProfileVO getUserId(SnsProfileVO snsProfileVO) throws IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void snsLogOut(SnsVO snsVO) throws IOException {
+		// TODO Auto-generated method stub
+		
 	}
 
 

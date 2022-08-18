@@ -201,8 +201,8 @@
 	 <br>
 	<div style = "text-align:center;height:100%;margin-left:13%;margin-right:13%;background-color:#F2F2F2;"> <br>
 	<div class="g-signin2" data-onsuccess="onSignIn" style = "display: flex; flex-direction: row-reverse;flex-wrap: nowrap;align-content: center;justify-content: center; margin:7px;"></div>
-	 <a href="${navervo.apiURL }"><img height="50" style = "margin:7px;" src="../resources/image/naverLogin.png"/></a> <br>
-	<button type="button" style = "margin:7px;" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=ab7da9e9cfc38c18cc1cac5e5ddc71f0&redirect_uri=http://localhost:8090/controller/common/kakaoLogin&response_type=code'"><img alt="카카오 로그인" src="<%=request.getContextPath()%>/resources/image/kakao_login_medium_narrow.png"></button><br>
+	 <a href="${naver.apiURL}"><img height="45" style = "margin:7px;" src="<%=request.getContextPath()%>/resources/image/btnG_naver.png"/></a> <br>
+	<a href='${kakao.apiURL}'><img alt="카카오 로그인" src="<%=request.getContextPath()%>/resources/image/kakao_login_medium_wide.png"></a><br>
 		<div class="hr-sect">또는</div> 
 		회원 구분 <button id ="user" class = "chkcolor" onclick="role1();">개인</button><button id = "host" class = "chkcolor" onclick="role2();">사업자</button> <br><br>
 			<form action = "signUp.do" method ="post" name = "frm" id = "frm" style = "margin-bottom:0px;">

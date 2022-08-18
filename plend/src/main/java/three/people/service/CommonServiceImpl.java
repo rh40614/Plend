@@ -23,4 +23,19 @@ public class CommonServiceImpl implements CommonService {
 		return commonDAO.userInfoByUidx(uidx);
 	}
 
+	@Override
+	public UserVO snsIdCheck(UserVO userVO) {
+		return commonDAO.snsIdCheck(userVO);
+	}
+
+	@Override
+	public int insertSnsUser(UserVO userVO) {
+		return commonDAO.insertSnsUser(userVO);
+	}
+
+	@Override
+	public UserVO selectSnsUser(UserVO userVO) {
+		return commonDAO.selectSnsUser(userVO);
+	}
+
 }
