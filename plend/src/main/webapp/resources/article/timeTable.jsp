@@ -75,13 +75,20 @@
 			pnum = '0'+ pnum.toString();
 		}
 		let minTime = $(".chooseTime:lt(1)").text().substring(0,2);
-
+		let lastTime = $(".chooseTime:last").text().substring(0,2);
+		
 		$(this).addClass("chooseTime");
 		$(".selectTime").val(num+","+ pnum);
 		if(num < minTime){
 			$(".btn.w-100").removeClass("chooseTime");
 			$(this).addClass("chooseTime");
 			$(".selectTime").val(num+","+ pnum);
+
+		}else if(num < lastTime){
+			$(".btn.w-100").removeClass("chooseTime");
+			$(this).addClass("chooseTime");
+			$(".selectTime").val(num+","+ pnum);
+
 		}else if(num > minTime){
 			if(minTime > 0 && !$(".btn.w-100").slice(minTime,num).is(".diableTime")){
 				$(".btn.w-100").slice(minTime,num).addClass("chooseTime");
