@@ -375,11 +375,11 @@ public class CommonController  {
 		
 		session = request.getSession();
 		UserVO login = (UserVO) session.getAttribute("login");
-		if(login.getUser_type().equals("kakao")) {
+		if(login.getUser_type() != null && login.getUser_type().equals("kakao")) {
 			SnsVO snsVO = new SnsVO();
 			snsVO = kakaoService.getAccessToken(snsVO);
 			kakaoService.snsLogOut(snsVO);
-		}else if(login.getUser_type().equals("naver")) {
+		}else if(login.getUser_type() != null && login.getUser_type().equals("naver")) {
 			
 		}
 		session.invalidate();
