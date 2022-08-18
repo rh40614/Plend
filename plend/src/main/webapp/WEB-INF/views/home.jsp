@@ -21,9 +21,15 @@
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
 			$("#footer").load("resources/article/footer.jsp");
+			/* sns 로그인 했으면 로그인 되었다고 표시 */
 		})
 	</script>
-	
+	<script type="text/javascript">
+		console.log("${msg}");
+		if('${msg}' != ""){
+			alert('${msg}');
+		}
+	</script>
 	<script>
 
 	function like (obj, idx){
