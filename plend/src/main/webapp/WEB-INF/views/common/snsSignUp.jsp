@@ -95,7 +95,7 @@ myModal.show();
 <!-- 유효성 검사 -->
 <script type="text/javascript">
 	function validation(){
-		if(!/^[가-힣]$/.test($("input[name='name']").val())){
+		if(!/^[가-힣]+$/.test($("input[name='name']").val())){
 			alert("이름에는 한글만 입력해주세요.");
 			return false;
 		}else if(!/^\d{3}-\d{3,4}-\d{4}$/.test($("input[name='userPhone']").val())){
