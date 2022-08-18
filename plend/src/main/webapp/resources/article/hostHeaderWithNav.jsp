@@ -39,8 +39,8 @@
  		 <li><a href="<%=request.getContextPath()%>/host/notice_dev.do">공지사항</a></li>
  		
  		
- 		 <li><a href="#" style = "font-size:13px; margin-top: 100%;">판매자 정보</a></li>
- 		 <li><a href="<%=request.getContextPath()%>/inquiry_dev/inquiry_FAQ.do" style ="font-size:13px;">FAQ</a></li>
+ 		<!--  <li><a href="#" >판매자 정보</a></li> -->
+ 		 <li><a href="<%=request.getContextPath()%>/inquiry_dev/inquiry_FAQ.do" style ="font-size:13px; font-size:13px; margin-top: 100%;" >FAQ</a></li>
  		 <li><a href="<%=request.getContextPath()%>/inquiry_dev/inquiry_dev.do" style ="font-size:13px; margin-bottom: 40%">운영자 문의</a></li>
 	    </ul>
       </div>

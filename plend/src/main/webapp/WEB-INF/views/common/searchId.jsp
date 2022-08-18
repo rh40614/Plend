@@ -13,7 +13,7 @@
 	<script src="../resources/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
 	$(function(){
-			$("#header").load("../resources/article/header.jsp");
+			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
 			$("#footer").load("../resources/article/footer.jsp");
 		})
 	

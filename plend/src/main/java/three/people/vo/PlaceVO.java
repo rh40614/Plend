@@ -33,6 +33,7 @@ public class PlaceVO extends UserVO {
 	private float avgRate;
 	
 	
+	
 	public String getUseTime() {
 		return useTime;
 	}
@@ -173,6 +174,7 @@ public class PlaceVO extends UserVO {
 	public void setAvgRate(float avgRate) {
 		this.avgRate = avgRate;
 	}
+	
 	
 	
 }

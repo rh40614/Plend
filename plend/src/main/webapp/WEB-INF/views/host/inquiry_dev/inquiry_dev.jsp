@@ -78,16 +78,18 @@
 			<!-- 썸머노트 -->
 			<div class="spaceL mt-2">
 				<form action="inquiry_dev.do" method="POST" name="frm">
-				<select name="category">
+				<select name="category" class="me-3">
 					<option value="장소">장소</option>
 					<option value="결제">결제</option>
 					<option value="환불">환불</option>
 					<option value="신고">신고</option>
 					
 				</select>
-					<span class="mb-3">문의제목 : </span><input class="mb-3" type="text" name="title" id="title" size="50" required>
+					<span class="mb-3">문의제목 : </span><input class="mb-3" type="text" name="title" id="title" size="70" required maxlength="50">
 					<textarea id="summernote" name="content" required></textarea> 
-					<button type="submit" class="btnBig" onclick="insert()">문의 등록</button>
+					<div style="float: right;">
+						<button type="submit" class="btnBig" onclick="insert()">문의 등록</button>
+					</div>
 				</form>
 			</div>
 		</section >
@@ -95,16 +97,16 @@
 			
 			
 		<!-- 이전 문의 내역 -->
-		<hr style="width: 1300px; color: grey;" class="spaceL" >
+		<hr style="width: 1300px; color: grey; margin-left: 170px;"  >
 		<section id="pagingTable" class="mt-5" >	
 			
 			<span class="title1 mt-5" >이전 문의내역</span>	
 				
-				<div class=".table-responsive container d-flex flex-column" style="margin: 50px 0px 0px 100px; ">
+				<div class="table-responsive container d-flex flex-column" style="margin: 50px 0px 0px 100px; ">
 					<div class="d-flex flex-column" style ="height: 300px;">
-					<table class="table table-hover text-center clearfix table-striped"  >
+					<table class="table  table-hover text-center clearfix ">
 						<thead>
-							<tr>
+							<tr class="table-dark">
 								<td class="col-md-1">번호</td>
 								<td class="col-md-2">유형</td>
 								<td class="col-md-5">제목</td>

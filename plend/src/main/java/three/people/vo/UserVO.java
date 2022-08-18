@@ -17,8 +17,35 @@ public class UserVO{
 	private String jdate;
 	// rownum
 	private int rnum;
+
+	// sns login id
+	private String kakao_id;
+	private String naver_id;
+	private String user_type;
+
+	//2022.08.17 김연희 : 하트 여부 
+	private int heart;
+
 	
 	
+	public String getUser_type() {
+		return user_type;
+	}
+	public void setUser_type(String user_type) {
+		this.user_type = user_type;
+	}
+	public String getKakao_id() {
+		return kakao_id;
+	}
+	public void setKakao_id(String kakao_id) {
+		this.kakao_id = kakao_id;
+	}
+	public String getNaver_id() {
+		return naver_id;
+	}
+	public void setNaver_id(String naver_id) {
+		this.naver_id = naver_id;
+	}
 	public int getRnum() {
 		return rnum;
 	}
@@ -109,7 +136,12 @@ public class UserVO{
 	public void setDelYN(String delYN) {
 		this.delYN = delYN;
 	}
-
+	public int getHeart() {
+		return heart;
+	}
+	public void setHeart(int heart) {
+		this.heart = heart;
+	}
 	
 	
 }

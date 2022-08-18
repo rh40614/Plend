@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import three.people.vo.SnsProfileVO;
 import three.people.vo.SnsVO;
+import three.people.vo.UserVO;
 
 @Service
 public class GoogleService implements SnsService{
@@ -34,6 +35,34 @@ public class GoogleService implements SnsService{
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		SnsProfileVO snsProfile = mapper.readValue(payload, SnsProfileVO.class);
 		return snsProfile;
+	}
+
+
+	@Override
+	public void snsUnlink(SnsProfileVO snsProfileVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public UserVO userCheck(SnsProfileVO snsProfileVO) throws IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public SnsProfileVO getUserId(SnsProfileVO snsProfileVO) throws IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void snsLogOut(SnsVO snsVO) throws IOException {
+		// TODO Auto-generated method stub
+		
 	}
 
 

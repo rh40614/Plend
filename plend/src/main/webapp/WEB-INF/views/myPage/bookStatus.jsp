@@ -24,7 +24,7 @@
 	<script type="text/javascript">
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
-			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
+			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer_mypage.jsp");
 		})
 	</script>
 	<!-- modal style -->

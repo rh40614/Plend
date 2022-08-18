@@ -13,7 +13,7 @@
 <c:if test="${list.size() > 0 }">
 	<c:forEach var ="c" items="${list}" varStatus="status"> 
 	
-	<div class="card  mb-5 border-0" style="width: 22rem; height: 25rem">
+	<div class="card mb-5 border-0 col-md-4" style="width: 22rem; height: 25rem; margin-right: 35px;">
 				<c:choose>
 					<c:when test="${c.placeImg == null}">
 						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
@@ -27,22 +27,22 @@
 					</c:when>
 				</c:choose>
 		<div class="card-body">
-			<h5 class="card-title title2-1" class=""><a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">${c.placeName}</a></h5>
+			<h5 class="card-title title2-1" ><a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">${c.placeName}</a></h5>
 			<p class="card-text">${c.address}</p>
 			<span class="card-text title3"><fmt:formatNumber value="${c.price}" type="currency"/></span><span>원/시간</span>
 			<i class="fa-regular fa-star" style="float:right">${c.avgRate}</i>
-			<!-- 찜하기 -->
-			<c:choose>
-				<c:when test="${empty heartList}">
-					<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this)" class="fa-regular fa-heart" style="color: red;"></i></a>
+			 <!-- 찜하기 -->
+			 <c:choose>
+				<c:when test="${c.heart eq '0'}">
+					<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${c.pidx})" class="fa-regular fa-heart" style="color: red;"></i></a>
 				</c:when>
-				<c:when test="${not empty heartList}">
-					<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this)" class="fa-solid fa-heart" style="color: red;"></i></a>
+				<c:when test="${c.heart eq '1'}">
+					<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${c.pidx})" class="fa-solid fa-heart" style="color: red;" ></i></a>
 				</c:when>
-			</c:choose>
+			</c:choose> 
+			
 			</div>
-	</div>
-	
+		</div>
 	</c:forEach>
 </c:if>
 <script>

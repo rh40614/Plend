@@ -9,5 +9,7 @@ public interface CommonService {
 	
 	int totalCountUser(SearchVO searchvo);
 	UserVO userInfoByUidx(int uidx);
-	
+	UserVO snsIdCheck(UserVO userVO);
+	int insertSnsUser(UserVO userVO);
+	UserVO selectSnsUser(UserVO userVO);
 }

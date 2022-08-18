@@ -18,7 +18,7 @@
 	<script type="text/javascript">
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
-			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
+			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer_mypage.jsp");
 		})
 	</script>
 	
@@ -86,7 +86,7 @@
 <div id="wrap">	
 	<header id="header" style = "height:0;"></header>
    <br>
-   	<div style="display:flex; ">
+   	<div style="display:flex; flex:1; ">
    	<nav style="display: flex;flex-direction: column;width:11%;margin-top:48px;background: #CFCFCF">
    		<div id = "MyPageBox">
    			<br>

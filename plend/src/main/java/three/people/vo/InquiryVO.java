@@ -16,13 +16,7 @@ public class InquiryVO extends UserVO {
 	// rownum
 	private int rnum;
 	
-	
-	public int getRnum() {
-		return rnum;
-	}
-	public void setRnum(int rnum) {
-		this.rnum = rnum;
-	}
+
 	public int getUidx() {
 		return uidx;
 	}
