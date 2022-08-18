@@ -31,7 +31,7 @@ public class NaverService implements SnsService {
 	
 	public SnsVO loginApiURL() throws UnsupportedEncodingException {
 		
-		vo.setNaver_redirect_uri(URLEncoder.encode(vo.getNaver_redirect_uri(), "UTF-8"));
+		//vo.setNaver_redirect_uri(URLEncoder.encode(vo.getNaver_redirect_uri(), "UTF-8"));
 		SecureRandom random = new SecureRandom();
 	    vo.setState(new BigInteger(130, random).toString());
 	    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
@@ -127,6 +127,9 @@ public class NaverService implements SnsService {
 				ObjectMapper mapper = new ObjectMapper();
 				mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 				snsProfile = mapper.readValue(line, SnsProfileVO.class);
+				if(snsProfile.getMessage().contains("Authentication failed")) {
+					return snsProfile;
+				}
 				snsProfile = mapper.readValue(snsProfile.getResponse().toString(), SnsProfileVO.class);
 				
 			}
@@ -141,7 +144,7 @@ public class NaverService implements SnsService {
 		snsProfileVO.setAccess_token(URLEncoder.encode(snsProfileVO.getAccess_token(), "UTF-8"));
 		
 		String apiURL;
-	    apiURL = "https://openapi.naver.com/v1/nid/me?grant_type=delete&";
+	    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=delete&service_provider=NAVER&";
 	    apiURL += "client_id=" + snsProfileVO.getNaver_client_id();
 	    apiURL += "&client_secret=" + snsProfileVO.getNaver_client_secret();
 	    apiURL += "&access_token=" + snsProfileVO.getAccess_token();
@@ -150,7 +153,6 @@ public class NaverService implements SnsService {
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			
 			con.setRequestMethod("GET");
-			con.setDoOutput(true);
 			
 			int responseCode = con.getResponseCode();
 			System.out.println("responseCode: "+responseCode);
