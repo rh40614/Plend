@@ -95,15 +95,21 @@
 
 /* ------------------------------a-------------------------- */
 	a{
-		decoration: none;
+		text-decoration: none;
 	}
-	
 	a:link{
-	
+		text-decoration: none;
+		color: black;
 	}
-
+	a:visited{
+		text-decoration: none;
+		color: black;
+	}
 	a:hover{
-	
+		color: #6e6e6e;
+	}
+	a:active{
+		color: #6e6e6e;
 	}
 	
 /* ----------------------------body----------------------------------------- */
@@ -357,23 +363,7 @@
 	
 	
 	
-	a{
-		text-decoration: none;
-	}
-	a:link{
-		text-decoration: none;
-		color: black;
-	}
-	a:visited{
-		text-decoration: none;
-		color: black;
-	}
-	a:hover{
-		color: #6e6e6e;
-	}
-	a:active{
-		color: #6e6e6e;
-	}
+	
 	
 	
 	
@@ -397,9 +387,9 @@
 	} 
 	/* 이벤트 배너 버튼 */
 	.active{
-		border-radius: 100px!important;
-		background-color: #606e79!important;
-		border-color: #606e79!important;
+		border-radius: 50px!important;
+		background-color: #dee1e3!important;
+		border-color: #dee1e3!important;
 	
 	} 
 	

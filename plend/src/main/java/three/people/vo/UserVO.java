@@ -17,10 +17,15 @@ public class UserVO{
 	private String jdate;
 	// rownum
 	private int rnum;
+
 	// sns login id
 	private String kakao_id;
 	private String naver_id;
 	private String user_type;
+
+	//2022.08.17 김연희 : 하트 여부 
+	private int heart;
+
 	
 	
 	public String getUser_type() {
@@ -131,7 +136,12 @@ public class UserVO{
 	public void setDelYN(String delYN) {
 		this.delYN = delYN;
 	}
-
+	public int getHeart() {
+		return heart;
+	}
+	public void setHeart(int heart) {
+		this.heart = heart;
+	}
 	
 	
 }

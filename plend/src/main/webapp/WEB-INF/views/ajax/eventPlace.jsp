@@ -12,7 +12,7 @@
 <c:if test="${list2.size() > 0 }">
 	<c:forEach var ="e" items="${list2}" varStatus="status"> 
 	
-	<div class="card  mb-5 border-0" style="width: 22rem; height: 25rem">
+	<div class="card  mb-5 border-0" style="width: 22rem; height: 25rem; margin-right: 35px;">
 				<c:choose>
 					<c:when test="${e.placeImg == null}">
 						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${e.pidx}">
@@ -30,7 +30,15 @@
 			<p class="card-text">${e.address}</p>
 			<span class="card-text title3">${e.price}</span><span>원/시간</span>
 			<i class="fa-regular fa-star" style="float:right">${e.avgRate}</i>
-			<i class="fa-regular fa-heart" onclick="like(this,${e.pidx})"  style="color: red;"></i>
+			 <!-- 찜하기 -->
+			 <c:choose>
+				<c:when test="${e.heart eq '0'}">
+					<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${e.pidx})" class="fa-regular fa-heart" style="color: red;"></i></a>
+				</c:when>
+				<c:when test="${e.heart eq '1'}">
+					<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${e.pidx})" class="fa-solid fa-heart" style="color: red;" ></i></a>
+				</c:when>
+			</c:choose> 
 		</div>
 	</div>
 	

@@ -95,24 +95,6 @@
 				</div>
 			</div> 
 			
-			<!-- 검색폼
-				<div class="mt-5 ms-5">
-					<form action="faqSearch.do" method="get">
-						<div class="row search-form mb-5" style="float:right;">
-							<div class="input-group justify-content-center">
-								<select class="form-select-sm" name="searchType">
-									<option value="place">플레이스</option>
-				  					<option value="payment">결제</option>
-				  					<option value="refund">환불</option>
-				  					<option value="report">신고</option>
-								</select>
-								
-								<input name="searchValue" class="mx-1">
-								<button class="btnDefault">검색</button>
-							</div>
-						</div>
-					</form>
-				</div>	-->		
 			
 			<!-- Faq:플레이스 등록 -->
 				<div class="accordion accordion-flush spaceL mt-5 w-75" id="place" >

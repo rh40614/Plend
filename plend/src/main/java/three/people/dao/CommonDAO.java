@@ -49,6 +49,9 @@ public class CommonDAO {
 		return sqlSession.selectOne("three.people.mapper.commonMapper.selectPwd", vo);
 	}
 	
+	public int tempPwd(UserVO vo) {
+		return sqlSession.update("three.people.mapper.commonMapper.tempPwd", vo);
+	}
 	public UserVO userInfoByUidx(int uidx){
 		return  sqlSession.selectOne("three.people.mapper.commonMapper.userInfoByUidx", uidx);
 	}

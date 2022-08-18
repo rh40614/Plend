@@ -19,7 +19,7 @@
 	<script type="text/javascript">
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
-			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
+			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer_mypage.jsp");
 		})
 	</script>
 	<script>
@@ -58,7 +58,7 @@
 <div id="wrap">	
 	<header id="header" style = "height:0;"></header>
    <br>
-   	<div style="display:flex;  min-height: 800px; flex: 1;">
+   	<div style="display:flex;  min-height: 1000px; flex: 1;">
    	<nav style="display: flex;flex-direction: column;width:11%;margin-top:48px;background: #CFCFCF">
    		<div id = "MyPageBox">
    			<br>
@@ -78,8 +78,8 @@
 	    </ul>
 	    </div>
    	</nav>  	
-   	
-   <div id = "infoBox">
+
+   <div id = "infoBox" style="flex:1; margin-right: 20%; ">
    	<br>
 		<h4>내 정보</h4>
 		<hr>
@@ -121,7 +121,10 @@
 		<br>
 		<br>
    </div>
+      	
+		
    </div>
+   
    </div>
 <div style="margin-top: -48px;">
 <footer id="footer" class="mt-5" style = "float:none;display:inline-block;"></footer>

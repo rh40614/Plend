@@ -76,7 +76,12 @@
 	     AND email = #{email}
 	     AND id = #{id}		
 	</select>
-
+	<update id = "tempPwd" parameterType = "UserVO">
+		UPDATE user_Plend
+		   SET password = #{password}
+		 WHERE id = #{id} 
+		   AND name = #{name}
+	</update>
 	<select id="idCheck" parameterType="String" resultType="Integer">
 		SELECT
 			 count(*)

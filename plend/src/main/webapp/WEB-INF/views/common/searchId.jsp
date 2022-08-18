@@ -13,7 +13,7 @@
 	<script src="../resources/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
 	$(function(){
-			$("#header").load("../resources/article/header.jsp");
+			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
 			$("#footer").load("../resources/article/footer.jsp");
 		})
 	
@@ -40,10 +40,10 @@
 			data : sendData,
 			dataType : "text",
 			success : function(text) {
-				if (text != null) {
+				if (text != "") {
 					$("#searchedId").html("<h2>등록된 아이디는  " + text +" 입니다.</h2>");
 					console.log(text);
-				} else{
+				} else if (text == ""){
 					$("#searchedId").html("등록된 정보가 없습니다.");
 				}
 			},

@@ -14,6 +14,7 @@ import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.QnaVO;
 import three.people.vo.SearchVO;
+import three.people.vo.UserVO;
 
 
 @Repository
@@ -68,8 +69,8 @@ public class PlaceDAO {
 		return sqlSession.selectOne(namespace+".selectImageOne", placeVO);
 	}
 	//07.27 김연희 : 랜덤용 장소 리스트 
-	public List<PlaceVO> selectPlace() {
-		List<PlaceVO> result = sqlSession.selectList(namespace+".selectPlace");
+	public List<PlaceVO> selectPlace(UserVO userVO) {
+		List<PlaceVO> result = sqlSession.selectList(namespace+".selectPlace", userVO);
 		return result;
 	}
 
@@ -85,8 +86,8 @@ public class PlaceDAO {
 	}
 
 	//07.27 김연희 : 랜덤용 할인 리스트 
-	public List<PlaceVO> eventPlace() {			
-		List<PlaceVO> result = sqlSession.selectList(namespace+".eventPlace");
+	public List<PlaceVO> eventPlace(UserVO userVO) {			
+		List<PlaceVO> result = sqlSession.selectList(namespace+".eventPlace", userVO);
 		return result;
 	}
 	//08.01 김연희 : 장소 검색

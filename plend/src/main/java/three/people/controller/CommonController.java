@@ -287,11 +287,9 @@ public class CommonController  {
 	@RequestMapping(value = "/searchId.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String searchId(@RequestParam("name") String name, @RequestParam("email") String email,UserVO vo) {
-		System.out.println("name = " +name);
-		System.out.println("email = " + email);
-
+		
 		if (userService.searchID(vo) == null) {
-			return null;
+			return "";
 		} else {
 			return userService.searchID(vo).getId();
 		}
@@ -312,10 +310,21 @@ public class CommonController  {
 		int being = userService.selectPwd(vo);
 		
 		if (being == 1) {
-			return mailSend.TempPwdEmail(email);
+			String pwd = mailSend.TempPwdEmail(email);
+			System.out.println("임시 비밀번호 : "+pwd);
+			String encodedPassword = passwordEncoder.encode(pwd);
+			vo.setPassword(encodedPassword);
+			int result = userService.tempPwd(vo);
+			if (result == 1) {
+				return pwd;                     
+			} else {
+				return "";
+			}
+		} else if (being == 0) {
+			return "";
 		} else {
-			return null;
-		}
+			return "";
+		} 
 
 	}
 
