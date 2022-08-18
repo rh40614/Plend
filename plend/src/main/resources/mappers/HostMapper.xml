@@ -426,6 +426,7 @@
 			,nickName
 			,n.date
 			,hit
+			,fileName
 		FROM notice n
   INNER JOIN user_plend u
   		  ON n.uidx = u.uidx 
@@ -531,6 +532,7 @@
 			UPDATE book
 			  SET  approvalyn = 'R'
 			  	   ,rejectContent = #{rejectContent}
+			  	   ,successbook = 'Y'
 			 WHERE bidx = #{bidx}
 	</update>
 	

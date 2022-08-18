@@ -273,7 +273,7 @@
 <c:set var="loop" value="true"/>
 <c:forEach var="findReviewN" items="${list2}">
 	<c:if test="${loop}">
-		<c:if test="${findReviewN.reviewYN eq 'N' && findReviewN.successBook eq 'Y'}">
+		<c:if test="${findReviewN.reviewYN eq 'N' && findReviewN.successBook eq 'Y' && findReviewN.approvalYN eq 'Y'}">
 			<script type="text/javascript">
 			const myModal = new bootstrap.Modal('#reviewModal', {});
 			myModal.show();

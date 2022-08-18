@@ -16,7 +16,8 @@
 		
 	<script type="text/javascript">
 		$(function(){
-			$("#header").load("<%=request.getContextPath()%>/resources/article/developerHeader.jsp");
+			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
+			$("#nav").load("<%=request.getContextPath()%>/resources/article/developerNav.jsp");
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
 		})
 	</script>	
@@ -25,7 +26,7 @@
 <body>
 	<div id="wrap" class="container-fluid overflow-auto">	
 		<header id="header" class="row"></header>
-		<br><br>
+		<nav id="nav" style="margin: 0% 20% 0% 20%;"></nav>
 		<div class="row" style="margin-top: 80px;">
 			<div class="col category">
 				<p class="h5 fw-bold category-title" style="padding-left: 10%;"> 회원정보수정 </p>

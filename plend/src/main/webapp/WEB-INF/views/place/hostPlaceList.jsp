@@ -43,9 +43,9 @@
 	<header id="header" style ="background: white; "></header>
 	<main style="margin: 5% 19% 10% 19%; flex: 1; min-height: 450px;">
 	
-	<!-- 검색 버튼 그룹 -->
+	<%-- <!-- 검색 버튼 그룹 -->
 	<form id="frm">
-		<div  style="margin-top: 15px; float: right; width: 300px; justify-content: space-around; " class="d-flex">
+		<div  style="margin-top: 25; float: right; width: 300px; justify-content: space-around; " class="d-flex">
 			<input type="hidden" name="category" value="${category.category}">
 			<!-- 날짜 -->
 			<input class="selector" placeholder="날짜" style="width:100px; text-align: center;" >
@@ -70,7 +70,6 @@
 				<option value="">지역</option>
 				<option value="서울">서울</option>
 				<option value="경기">경기</option>
-				<option value="세종">세종</option>
 				<option value="인천">인천</option>
 				<option value="부산">부산</option> 
 				<option value="광주">광주</option>
@@ -90,55 +89,17 @@
 			
 			<button type="button" class="btn btn-secondary me-2" onclick="search()">검색</button>
 		</div>
-	</form>
+	</form> --%>
 	
 	<!-- 카테고리 제목 -->
-	<div>
-    	<c:choose>
-    		<c:when test="${category.category == 'gallery'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">갤러리</span>
-    		</c:when>
-    		<c:when test="${category.category == 'homeGym'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">운동시설</span>
-    		</c:when>
-    		<c:when test="${category.category == 'meeting'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">회의실</span>
-    		</c:when>
-    		<c:when test="${category.category == 'dancePractice'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">춤연습실</span>
-    		</c:when>
-    		<c:when test="${category.category == 'office'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">독립오피스</span>
-    		</c:when>
-    		<c:when test="${category.category == 'shareOffice'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">공유오피스</span>
-    		</c:when>
-    		<c:when test="${category.category == 'partyRoom'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">파티룸</span>
-    		</c:when>
-    		<c:when test="${category.category == 'recording'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">녹음실</span>
-    		</c:when>
-    		<c:when test="${category.category == 'shareKitchen'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">공유주방</span>
-    		</c:when>
-    		<c:when test="${category.category == 'singPractice'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">노래연습실</span>
-    		</c:when>
-    		<c:when test="${category.category == 'studio'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">스튜디오</span>
-    		</c:when>
-    		<c:when test="${category.category == 'smallWedding'}">
-	    		<span class="navbar-brand title1" style="margin:0px;">스몰웨딩</span>
-    		</c:when>
-    	</c:choose>
-  		<div style=" width: 100%;background: grey; height: 3px;"></div>
-  		<br>
+	<div class="mb-5">
+    	<span class="title2" style="font-size: 18px; font-weight: 100;">'${host.nickName}' 님의 공간이 마음에 드셨나요?<br>
+    	'${host.nickName}' 님이 플렌드와 함께 공유하고 있는 공간들입니다. </span>
   	</div>
   	
   	
   <div id="search_result">
-	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start ">
+	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-start align-items-start ">
 		<c:if test="${list.size() == 0}">
 			<P class="m-auto" style="min-height:300px; display: inline-block; margin: 20px 0px 20px 0px; vertical-align: top; font-size: 20px; color: grey; padding-top: 200px;">
 				등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. 
@@ -148,7 +109,7 @@
 		<c:if test="${list.size() > 0 }">
 			<c:forEach var ="c" items="${list}" varStatus="status"> 
 			
-			<div class="card border-0 mb-5" style="width: 22rem; height: 25rem">
+			<div class="card border-0 mb-5" style="width: 22rem; height: 25rem; margin-right: 30px; ">
   				<c:choose>
   					<c:when test="${c.placeImg == null}">
   						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
@@ -165,7 +126,7 @@
  				<h5 class="card-title title2-1" class=""><a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">${c.placeName}</a></h5>
  				<p class="card-text">${c.address}</p>
  				<span class="card-text title3">${c.price}</span><span>원/시간</span>
- 				<i class="fa-regular fa-star" style="float:right"> ${c.avgRate}</i>
+ 				<i class="fa-regular fa-star" style="float:right">${c.avgRate}</i>
  				<!-- 찜하기 -->
 				 <c:choose>
 					<c:when test="${c.heart eq '0'}">
@@ -285,10 +246,11 @@
 			});
 		}
 	</script>
-		<!-- 찜하기 -->
+	<!-- 찜하기 -->
 	<script>
 
 		function like (obj, idx){
+	
 			if(${login ne null}){
 				if($(obj).hasClass("fa-regular") == true){
 					$.ajax({
@@ -331,7 +293,6 @@
 		}
 
 	</script>
-
 
 </body>
 </html>
