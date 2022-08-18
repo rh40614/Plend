@@ -271,13 +271,13 @@ public class CommonController  {
 			//System.out.println("role ="+user.getRole());
 			//System.out.println("nickname = "+user.getNickName());
 			
-			//�옄�룞 濡쒓렇�븘�썐 �떆媛� 30遺�
-			//��吏곸씠吏� �븡怨� 媛�留뚰엳 �엳�쓣 寃쎌슦 �떆媛꾩씠 �쓽�윭 30遺꾩씠 寃쎄낵�릱�쓣 �븣 �옄�룞 濡쒓렇�븘�썐
+			//자동 로그아웃 시간 30분
+			//움직이지 않고 가만히 있을 경우 식ㄴ이 흘러 30분이 경과됐을 때 자동 로그아웃
 			session.setMaxInactiveInterval(1800);
 			session.setAttribute("login", login);
 			return "redirect:/";
 		} else {
-			out.println("<script>alert('濡쒓렇�씤�뿉 �떎�뙣�븯���뒿�땲�떎. �븘�씠�뵒�� 鍮꾨�踰덊샇瑜� �솗�씤�빐二쇱꽭�슂.')</script>");
+			out.println("<script>alert('로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요.')</script>");
 			out.flush();
 			return "common/signIn";
 
@@ -369,7 +369,7 @@ public class CommonController  {
 			return "redirect:/";
 
 		} else {
-			pw.append("<script>alert('濡쒓렇�씤�뿉 �떎�뙣�븯���뒿�땲�떎.');location.href = 'login.do'</script>");
+			pw.append("<script>alert('로그인에 실패하였습니다.');location.href = 'login.do'</script>");
 			
 			pw.flush();
 			return "common/login";

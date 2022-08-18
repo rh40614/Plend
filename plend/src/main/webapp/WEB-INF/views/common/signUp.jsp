@@ -8,9 +8,9 @@
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<meta name="google-signin-client_id" content="229501873706-7g1g5tqh1jeitmnhmnkft67koof6th6e.apps.googleusercontent.com">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<link href="../resources/css/global.css" rel="stylesheet">
-	<link href="../resources/css/signUp.css" rel="stylesheet">
-	<script src="../resources/js/jquery-3.6.0.min.js"></script>
+	<link href="<%=request.getContextPath() %>/resources/css/global.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/resources/css/signUp.css" rel="stylesheet">
+	<script src="<%=request.getContextPath() %>/resources/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
 	$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
