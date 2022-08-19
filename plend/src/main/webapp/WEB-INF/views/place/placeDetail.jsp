@@ -192,7 +192,7 @@
 							<c:forEach var="img" items="${imageList}">
 								<tr> 
 									<td style="padding: 0;"> 
-										<img width="800" height="400" alt="img" src="<%=request.getContextPath() %>/imageView.do?originFileName=${img.originFileName}"/>
+										<img width="700" height="400" alt="img" src="<%=request.getContextPath() %>/imageView.do?originFileName=${img.originFileName}"/>
 									</td>
 								</tr>		
 							</c:forEach>

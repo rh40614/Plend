@@ -35,7 +35,6 @@
 			FROM place a , (SELECT @rownum:=0) rnum
 		   WHERE delYN ='N'
 		   	 AND uidx = #{placeVO.uidx}
-		   	 AND approvalYN = '승인'
 		ORDER BY pidx DESC) sub
        ORDER BY rnum ASC
         <if test="start != null">
