@@ -110,7 +110,7 @@
 		SELECT usetime
 		  FROM book
 		 WHERE delyn= 'N'
-		   AND pidx = 3 
+		   AND pidx = #{pidx} 
 		   AND (usetime >= #{useTime} AND usetime < DATE_ADD(#{useTime}, INTERVAL 24 HOUR))
 		   ]]>
 	</select>

@@ -159,10 +159,10 @@
 		 WHERE p.delyn = 'N'
 		  <if test="searchType != null">
 			<if test='searchType.equals("name")'>
-		   		WHERE (u.name LIKE CONCAT('%',#{searchValue},'%'))
+		   		AND (u.name LIKE CONCAT('%',#{searchValue},'%'))
 		 	</if>
 		 	<if test='searchType.equals("nickName")'>
-		   		WHERE (u.nickname LIKE CONCAT('%',#{searchValue},'%'))
+		   		AND (u.nickname LIKE CONCAT('%',#{searchValue},'%'))
 		 	</if>		
 		  </if> 
 	</select>

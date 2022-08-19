@@ -157,7 +157,7 @@
 		}  else if (document.querySelector('#regnum').style.display == 'none' && frm.birth.value == "") {
 			alert("생년월일을 입력해주세요. ex) 19940324");
 			return;
-		} else if (birth.toString().length != 8) {
+		} else if (document.querySelector('#regnum').style.display == 'none' && birth.toString().length != 8) {
 			alert("생년월일을 8자로 입력해주세요. ex) 19940324");
 			return;
 		} else if (isNaN(frm.birth.value) == true){

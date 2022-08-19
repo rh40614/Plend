@@ -151,12 +151,12 @@
 			          		<c:forEach var="img" items="${imgs}" varStatus="status">
 						        <c:if test="${status.index eq 0 }">
 							        <div class="carousel-item active">
-										<img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="736" height="414" alt="img" src="<%=request.getContextPath() %>/reviewImg.do?originFileName=${img.originFileName}"/>
+										<img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="606" height="414" alt="img" src="<%=request.getContextPath() %>/reviewImg.do?originFileName=${img.originFileName}"/>
 							        </div>
 						        </c:if>
 						        <c:if test="${status.index ne 0 }">
 							        <div class="carousel-item">
-										<img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="736" height="414" alt="img" src="<%=request.getContextPath() %>/reviewImg.do?originFileName=${img.originFileName}"/>
+										<img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="606" height="414" alt="img" src="<%=request.getContextPath() %>/reviewImg.do?originFileName=${img.originFileName}"/>
 							        </div>
 						        </c:if>
 							</c:forEach>

@@ -331,7 +331,7 @@ $(function(){
 <c:set var="guide" value="${place.guide.split('/')}"/>
 <script type="text/javascript">
 	<c:forEach var="g" items="${guide}" varStatus="status">
-		$("#guide"+${status.count}).val('${g}');
+		$("#guide"+${status.count}).val("${g}");
 	</c:forEach>
 </script>
 <!-- option -->
