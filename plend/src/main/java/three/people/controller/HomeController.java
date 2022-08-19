@@ -349,7 +349,10 @@ public class HomeController {
 		return "host/host2";
 	}
 
-
+	@RequestMapping(value="test.do")
+	public String test() {
+		return "common/snsSignUp";
+	}
 
 
 }

@@ -23,14 +23,14 @@
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 	<!-- 헤더 해당하는 카테고리에 색 넣기 -->
 	<style type="text/css">
-	.active {
+	.active3 {
 		border-bottom: 3px solid #2F506D !important;
 	}
 	</style>
 	<script type="text/javascript">
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp", function(){
-				$(".${category.category}").addClass("active");
+				$(".${category.category}").addClass("active3");
 			});
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
 		});
@@ -307,7 +307,6 @@
 							alert("찜목록 등록에 실패했습니다.");
 						}
 					});
-	
 				}else{
 					$.ajax({
 						url: "<%=request.getContextPath()%>/place/heart.do?pidx="+idx+"&like=delete",

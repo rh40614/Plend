@@ -528,6 +528,9 @@
 			const time = $(".selectTime").val().split(",");
 			let year = selectDate[0];
 			let month = selectDate[1];
+			if(month < 10){
+				month = '0' + month;
+			}
 			let date = selectDate[2];
 			
 			var data = new Date();
@@ -652,6 +655,38 @@
 			}
 		});
 	}
+</script>
+<!-- 이미 예약시간이 있는 시간 처리를 위한 ajax -->
+<script type="text/javascript">
+	$(function(){
+		$(".selectDate").change(function(){
+			$(".btn.w-100").removeClass("diableTime");
+			$(".btn.w-100").removeClass("chooseTime");
+			const selectDate = $(".selectDate").val().split(",");
+			let year = selectDate[0];
+			let month = selectDate[1];
+			if(month < 10){
+				month = '0' + month;
+			}
+			let date = selectDate[2];
+			var useTime = year+"-"+month+"-"+date;
+			
+			var pre = 0;
+			var next = 0;
+			$.ajax({
+				url:"<%=request.getContextPath()%>/ajax/disableTime.do?pidx=" +${placeOne.pidx}+ "&useTime=" +useTime,
+				success: function(data){
+					data.forEach(function(element){
+						pre = element.substring(0,2);
+						next = element.substring(3,5);
+						$(".btn.w-100").slice(pre,next).addClass("diableTime");
+						$(".btn.w-100").slice(pre,next).prop("disabled",true);
+					});
+				}
+			})
+			
+		});
+	});
 </script>
 </body>
 </html>

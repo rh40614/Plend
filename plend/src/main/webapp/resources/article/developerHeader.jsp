@@ -4,21 +4,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page session="true" %>
 
-  <nav class="navbar navbar-light mt-4 pb-0">
-
- 
-  <div class="container" style="align-items: center; flex-wrap: wrap; justify-content: center;">
+  <nav class="navbar navbar-light pt-4 fixed-top bg-white">
+  <div class="container" style="flex-wrap: wrap; justify-content: center;">
   	<div style=" display: flex; flex-direction: row; align-items: center; width: 100%;">
-    <a class="navbar-brand" style=" margin-right:auto; " href="/controller/"><img src="<%=request.getContextPath() %>/resources/image/plend.png" alt="logo not found"></a>
-    <div id="searchBar" style="border: 3px solid grey; border-radius: 10px; height: 47px; width: 750px;">
-      <form class="d-flex" method="GET" action="<%=request.getContextPath()%>/place/searchPlace.do">
-          <input class="form-control me-2" name="searchValue" type="search" placeholder="원하는 장소를 검색해보세요!" aria-label="Search" style="border: none;">
-          <button class="btn " type="submit" style="border:none;" ><img alt="searchBtn" src="<%=request.getContextPath() %>/resources/image/searchBtn.png" ></button>
-      </form> 			
-    </div>
-    <button class="navbar-toggler" type="button" style="border: none; margin-left:auto;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+      <a class="navbar-brand" style="margin-right:auto;" href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/image/logoTrial2.png" alt="logo not found" style="width: 200px; height:60px;"></a>
+   	  <div id="searchBar" style="margin-right:auto; border-radius: 50px; height: 47px; width: 500px; background-color: #eceeee;">
+    	<form class="d-flex" method="GET" action="<%=request.getContextPath()%>/place/searchPlace.do">
+          <input class="form-control me-2" name="searchValue" type="search" placeholder="원하는 장소를 검색해보세요!" aria-label="Search" style="margin-top:5px; border: none; background-color: #eceeee; border-radius: 50px;">
+          <button class="btn " type="submit" style="border:none; align-self: center;" ><img alt="searchBtn" src="<%=request.getContextPath()%>/resources/image/searchBtn.png" ></button>
+        </form> 			
+      </div>
+      <button class="navbar-toggler" type="button" style="border: none; margin-left:auto;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
     </div>
     </div>
     <!-- 하단 nav -->
@@ -54,7 +52,6 @@
       	
         <button type="button" class="btn-close text-reset" style="margin-left: auto;" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
      
-      <button type="button" class="btn-close text-reset" style="margin-left: auto;" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
 		<c:if test="${login == null}">
 		<br>
         <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: white; font-size:20px;">Plend</h5>

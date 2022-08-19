@@ -206,7 +206,7 @@
         column.classList.add("choiceDay");
         // 선택날짜 값 받기
         let chooseDate = "";
-        $(".selectDate").val(chooseDate.concat(today.getFullYear(),",",today.getMonth()+1, ",",$(".choiceDay").text()));
+        $(".selectDate").val(chooseDate.concat(today.getFullYear(),",",today.getMonth()+1, ",",$(".choiceDay").text())).trigger('change');
     }
 
     /**

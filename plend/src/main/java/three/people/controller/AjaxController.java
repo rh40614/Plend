@@ -1,5 +1,6 @@
 package three.people.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import three.people.service.AdminService;
+import three.people.service.BookService;
 import three.people.service.ReviewService;
 import three.people.service.HostService;
 import three.people.vo.BlockVO;
@@ -29,6 +31,8 @@ public class AjaxController {
 	ReviewService reviewService;
 	@Autowired
 	HostService hostService;
+	@Autowired
+	BookService bookService;
 
 	
 	// 리뷰 블라인드처리, 신고내역 버튼 회색처리
@@ -89,7 +93,20 @@ public class AjaxController {
 		return result;
 	}
 	
-	
+	//08.18 김영민: 날짜에 해당하는 예약만 가져오기
+	@ResponseBody
+	@RequestMapping(value="disableTime.do", produces="application/json; utf-8")
+	public List<String> disableTime(BookVO bookVO){
+		
+		List<BookVO> timeList = bookService.disableUseTime(bookVO);
+		List<String> disableTime = new ArrayList<String>();
+		for(BookVO bookTime :timeList) {
+			String[] time = bookTime.getUseTime().split(" ~ ");
+			disableTime.add(time[0].substring(11,13) + "-" + time[1].substring(11,13)); 
+		}
+		
+		return disableTime;
+	}
 	
 	
 	

@@ -21,7 +21,8 @@
   	<div style=" display: flex; flex-direction: row; align-items: center; width: 100%;">
       <a class="navbar-brand" style="margin-right:auto;" href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/image/logoTrial2.png" alt="logo not found" style="width: 150px; height:45px;"></a>
    	  <div id="searchBar" style="margin-right:auto; border-radius: 50px; height: 47px; width: 500px; background-color: #eceeee;">
-    	<form class="d-flex" method="GET" action="<%=request.getContextPath()%>/place/searchPlace.do">
+
+    	  <form class="d-flex" method="GET" action="<%=request.getContextPath()%>/place/searchPlace.do">
           <input class="form-control me-2" name="searchValue" type="search" placeholder="원하는 장소를 검색해보세요!" aria-label="Search" style="margin-top:5px; border: none; background-color: #eceeee; border-radius: 50px;">
           <button class="btn " type="submit" style="border:none; align-self: center;" ><i class="fa-solid fa-magnifying-glass" style="padding-right: 5;padding-top: 6;color: #7f8b93;"></i></button>
         </form> 			

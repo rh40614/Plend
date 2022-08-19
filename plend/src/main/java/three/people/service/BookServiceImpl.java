@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import three.people.dao.BookDAO;
 import three.people.vo.BookVO;
+import three.people.vo.PlaceVO;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -43,6 +44,16 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public int bookCancel(BookVO bookVO) {
 		return bookDAO.bookCancel(bookVO);
+	}
+
+	@Override
+	public List<BookVO> placeBookOne(PlaceVO placeVO) {
+		return bookDAO.placeBookOne(placeVO);
+	}
+
+	@Override
+	public List<BookVO> disableUseTime(BookVO bookVO) {
+		return bookDAO.disableUseTime(bookVO);
 	}
 
 }
