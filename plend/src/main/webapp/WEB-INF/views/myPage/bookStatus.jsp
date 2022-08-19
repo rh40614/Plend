@@ -174,12 +174,12 @@
 					<td>승인 완료</td>
 					</c:if>
 					<c:if test ="${vo.approvalYN eq 'R'}">
-					<td style ="color:red"><strong>반려</strong></td>
+					<td>거절</td>
 					</c:if>
 				</tr>
 				<c:if test ="${vo.rejectContent ne '거절 사유 없음'}">
 				<tr>
-					<th>반려 사유 : </th>
+					<th>거절 사유 : </th>
 					<td>${vo.rejectContent}</td>
 				</tr>
 				</c:if>
@@ -192,7 +192,7 @@
 		<h5><strong>| 이용 리스트</strong></h5>
 		<br>
 		<c:forEach var = "vo" items = "${list2}">
-		<c:if test = "${vo.successBook  ne 'N' }">
+		<c:if test = "${vo.approvalYN ne 'N' }">
 		<div id = "bookView">
 			<table>
 				<tr>
@@ -220,7 +220,7 @@
 					<td>승인 완료</td>
 					</c:if>
 					<c:if test ="${vo.approvalYN eq 'R'}">
-					<td style ="color:red"><strong>반려</strong></td>
+					<td>반려</td>
 					</c:if>
 				</tr>
 				<c:if test ="${vo.rejectContent ne '거절 사유 없음'}">

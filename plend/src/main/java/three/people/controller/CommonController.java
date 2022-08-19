@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -77,10 +76,6 @@ public class CommonController  {
 
 		snsvo = naverService.getAccessToken(snsvo);
 		snsProfile = naverService.getUserProfile(snsvo);
-		//정보 동의 취소 누를시 메인화면으로 이동
-		if(snsProfile.getMessage() != null && snsProfile.getMessage().contains("Authentication failed")) {
-			return "redirect:/";
-		}
 		UserVO userVO = new UserVO();
 		userVO.setNaver_id(snsProfile.getId());
 		userVO = commonService.snsIdCheck(userVO);
@@ -108,7 +103,7 @@ public class CommonController  {
 	 
 	
 	@RequestMapping(value="/kakaoLogin")
-	public String login(SnsVO snsvo , HttpServletRequest request, HttpSession session,Model model, RedirectAttributes rttr) throws IOException {
+	public String login(SnsVO snsvo , HttpServletRequest request, HttpSession session, Model model) throws IOException {
 		SnsProfileVO snsProfile = new SnsProfileVO();
 		
 		snsvo = kakaoService.getAccessToken(snsvo);
@@ -132,7 +127,6 @@ public class CommonController  {
 			login = commonService.selectSnsUser(login);
 			session.setMaxInactiveInterval(1800);
 			session.setAttribute("login", login);
-			rttr.addFlashAttribute("msg", "로그인 되셨습니다.");
 		}
 		
 		return "redirect:/";
@@ -180,12 +174,13 @@ public class CommonController  {
 	}
 
 	@RequestMapping(value="/signUp.do", method = RequestMethod.POST)
-	public String signUp(UserVO vo, SnsVO snsVO, Model model, HttpServletRequest request, HttpSession session,RedirectAttributes rttr) throws IOException {
+	public String signUp(UserVO vo, SnsVO snsVO, HttpServletRequest request, HttpSession session) throws UnsupportedEncodingException {
 		if(vo.getUser_type() == null) {
 			String encodedPassword = passwordEncoder.encode(vo.getPassword());
 			vo.setPassword(encodedPassword);
 			int result = userService.insertUser(vo);
 		}else {
+			System.out.println("naver_id: "+vo.getNaver_id());
 			Date now =new Date();
 			SimpleDateFormat simple = new SimpleDateFormat("SSS");
 			String distinct = simple.format(now);
@@ -202,8 +197,6 @@ public class CommonController  {
 					session = request.getSession();
 					session.setMaxInactiveInterval(1800);
 					session.setAttribute("login", login);
-					rttr.addFlashAttribute("msg", "회원가입 되셨습니다.");
-					
 				}
 			}
 		}

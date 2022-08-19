@@ -25,8 +25,6 @@
 	<script>
 		function pwdChk(){
 			var frm = document.frm;
-			var birth = $("input[name=birth]").val();
-			var phone = $("input[name=userPhone]").val();
 			
 			if (frm.password.value == "") {
 				alert("비밀번호를 입력해주세요.");
@@ -38,10 +36,7 @@
 				alert("비밀번호가 일치하지 않습니다.");
 				return;
 			} else if (frm.userPhone.value == "") {
-				alert("연락처를 입력해주세요. ex)010-1234-1234");
-				return;
-			} else if (!/^\d{3}-\d{3,4}-\d{4}$/.test($("input[name='userPhone']").val())) {
-				alert("연락처에 하이픈(-)을 포함해서 입력해주세요. ex)010-1234-1234");
+				alert("연락처를 입력해주세요. ex)010-7777-7777");
 				return;
 			} else if (frm.email.value == "") {
 				alert("이메일을 입력해주세요.");
@@ -51,9 +46,6 @@
 				return;
 			} else if (isNaN(frm.birth.value) == true) {
 				alert("생년월일은 숫자만 입력해주세요.");
-				return;
-			} else if (birth.toString().length != 8){
-				alert("생년월일을 8자로 입력해주세요. ex) 19940324");
 				return;
 			} else {
 				frm.submit();
@@ -82,55 +74,55 @@
  		 <li><a href="heartList.do?uidx=${login.uidx}" id = "select">찜 목록</a></li>
  		 <li><a href="myReviewList.do?uidx=${login.uidx}" id = "select">마이 리뷰</a></li>
  		 <li><a href="withdraw.do?uidx=${login.uidx}" id = "select">회원 탈퇴</a></li>
+ 		 <br>
 	    </ul>
 	    </div>
-   	</nav>  
-      	
-      	
-      	<br>
-      	<br>
-      	<br>
-      	<section class="row px-1" style="margin-left:25%;">
-      	<form name = "frm" action = "myInfo.do?uidx=${vo.uidx}" method = "post">
-      	<div style = "text-align:center;">
-      	<span style = "font-size: 1.25rem;font-weight: 700!important;">내 정보</span>
-      	</div>
-      	<br>
-      	<table class="col table border-top border-dark">
-					  <tbody>
-					    <tr>
-					      <td scope="row" class="align-middle text-center">아이디</td>
-					      <td><span style = "font-weight: 700!important;">${vo.id }</span></td>
-					    </tr>
-					    <tr>
-					      <td scope="row" class="align-middle text-center">비밀번호</td>
-					      <td> <input type="password" class="form-control" name="password" value = "" required></td>
-					    </tr>
-					    <tr>
-					      <td scope="row" class="align-middle text-center">비밀번호 확인</td>
-					      <td> <input type="password" class="form-control" name="pwdCheck" value="" required></td>
-					    </tr>
-					    <tr>
-					      <td scope="row" class="align-middle text-center">닉네임</td>
-					      <td><span style = "font-weight: 700!important;">${vo.nickName }</span></td>
-					    </tr>
-					    <tr>
-					      <td scope="row" class="align-middle text-center">연락처</td>
-					      <td> <input type="text" class="form-control" name="userPhone" value="${vo.userPhone }" required></td>
-					    </tr>
-					    <tr>
-					      <td scope="row" class="align-middle text-center">이메일</td>
-					      <td> <input type="text" class="form-control" name="email" value="${vo.email }" required></td>
-					    </tr>
-					    <tr>
-					      <td scope="row" class="align-middle text-center">생년월일</td>
-					      <td> <input type="text" class="form-control" name="birth" value="${vo.birth }" required></td>
-					    </tr>
-					  </tbody>
-				   </table>
-				   <button type = "button" id = "regBtn" onclick = "pwdChk();">수정하기</button>
+   	</nav>  	
+
+   <div id = "infoBox" style="flex:1; margin-right: 20%; ">
+   	<br>
+		<h4>내 정보</h4>
+		<hr>
+		<br>
+		<form name = "frm" action = "myInfo.do?uidx=${vo.uidx}" method = "post">
+			<table>
+				<tr>
+					<th>아이디</th>
+					<td colspan = "3">${vo.id }</td>
+				</tr>
+				<tr>
+					<th>비밀번호</th>
+					<td colspan = "3"><input type = "password" name = "password" value = "" id = "infoText"></td>
+				</tr>
+				<tr>
+					<th>비밀번호 확인</th>
+					<td colspan = "3"><input type = "password" name = "pwdCheck" value = "" id = "infoText"></td>
+				</tr>
+				<tr>
+					<th>닉네임</th>
+					<td colspan = "3">${vo.nickName }</td>
+				</tr>
+				<tr>
+					<th>연락처</th>
+					<td colspan = "3"><input type = "text" name = "userPhone" value = "${vo.userPhone }" id = "infoText" required></td>
+				</tr>
+				<tr>
+					<th>이메일</th>
+					<td colspan = "3"><input type = "email" name = "email" value = "${vo.email }" id = "infoText" required></td>
+				</tr>
+				<tr>
+					<th>생년월일</th>
+					<td colspan = "3"><input type = "text" name = "birth" id = "infoText" value = "${vo.birth }" required></td>
+				</tr>
+			</table>
+			<br>
+			<button type = "button" id = "regBtn" onclick = "pwdChk();">수정하기</button>
 		</form>
-		</section>
+		<br>
+		<br>
+   </div>
+      	
+		
    </div>
    
    </div>
