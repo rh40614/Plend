@@ -237,8 +237,9 @@ public class CommonController  {
 
 
 	@RequestMapping(value = "signIn.do", method = RequestMethod.GET)
-	public String signIn() {
-
+	public String signIn(Model model) throws UnsupportedEncodingException {
+		model.addAttribute("kakao", kakaoService.loginApiURL());
+		model.addAttribute("naver", naverService.loginApiURL());
 		return "common/signIn";
 	}
 

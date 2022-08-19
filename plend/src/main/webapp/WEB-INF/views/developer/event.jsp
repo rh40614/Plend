@@ -54,7 +54,7 @@
 					  	<!-- 07.18 김영민: 데이터 반영 이벤트리스트 -->
 					  	<c:if test="${empty eventList }">
 					  		<tr>
-					  			<td colspan="5"> 결과와 맞는 업체가 없습니다. </td>
+					  			<td colspan="5"> 결과와 맞는 이벤트가 없습니다. </td>
 					  		</tr>
 					  	</c:if>
 					  	<c:forEach var="event" items="${eventList}">

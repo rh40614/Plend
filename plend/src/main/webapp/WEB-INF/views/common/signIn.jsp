@@ -136,6 +136,9 @@
 						<a href = "signUp.do" >회원가입</a>
 					</div>
 				</form>
+				<div class="mb-1" style="color: gray;">--------------------- 또는 ---------------------</div>
+				<a href="${naver.apiURL}"><img height="45" width="183" style = "margin:7px;" src="<%=request.getContextPath()%>/resources/image/btnG_naver.png"/></a>
+	 			<a href='${kakao.apiURL}'><img alt="카카오 로그인" src="<%=request.getContextPath()%>/resources/image/kakao_login_medium_narrow.png"></a>
 			</div>
 		</main>
 
