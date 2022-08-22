@@ -137,7 +137,7 @@
 						<c:when test="${login == null }">
 							<button onclick="location.href='<%=request.getContextPath()%>/common/signIn.do'" class="hostLogin" id="hostLogin">내 공간 등록하기</button>
 						</c:when>
-						<c:when test="${login.role eq '1' && login.role eq '3'}">
+						<c:when test="${login.role eq '1' || login.role eq '3'}">
 							<button onclick="location.href='<%=request.getContextPath()%>/host/managePlace.do'" class="hostLogin" id="hostLogin">내 공간 등록하기</button>
 						</c:when>
 						<c:when test="${login.role eq '2' }">

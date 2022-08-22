@@ -149,12 +149,12 @@
 						${placeOne.placeName}
 					</c:if> 
 				</div>
-				<div class="d-flex place_tag ms-5 "id="tag${placeOne.pidx}" style="font-size: 14px; color:#7f8b93 "></div>
+				<div class="d-flex place_tag ms-5 "id="tag${placeOne.pidx}" style="font-size: 14px; color:#7f8b93; flex-wrap: wrap;"></div>
 					<script>
 						var tags = JSON.parse('${placeOne.tag}');
 						var tag = "";
 						tags.forEach(element => 
-							tag += "#"+ element.value + "&nbsp;" 
+							tag += "<a href='<%=request.getContextPath()%>/place/searchPlace.do?searchValue="+element.value+"'> #"+ element.value + "&nbsp;</a>" 
 						);
 						console.log(tag);
 						
@@ -465,6 +465,16 @@
 	</div>
 	<!-- 2022.08.22 김연희 : 해쉬태그 기반 장소 추천 -->
 	<section>
+	<hr>
+		<c:if test="${login.nickName != null}">
+			<p style="padding-left: 100px; font-weight: bold;" class="mt-5">${login.nickName}님 이 장소가 마음에 드셨나요? 비슷한 장소를 추천해 드릴게요!</p>
+			<p style="padding-left: 100px; font-weight: bold;">이런 장소는 어떠세요?</p>
+			<br>
+		</c:if>
+		<c:if test="${login.nickName == null}">
+			<p style="text-align: center; font-weight: bold;" class="mt-5">이런 장소는 어떠세요?</p>
+			<br>
+		</c:if>
 		<div id="hashList"></div>
 	</section>
 		
