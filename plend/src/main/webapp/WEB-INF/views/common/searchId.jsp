@@ -8,9 +8,9 @@
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<meta name="google-signin-client_id" content="229501873706-7g1g5tqh1jeitmnhmnkft67koof6th6e.apps.googleusercontent.com">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<link href="../resources/css/global.css" rel="stylesheet">
-	<link href="../resources/css/searchId.css" rel="stylesheet">
-	<script src="../resources/js/jquery-3.6.0.min.js"></script>
+	<link href="<%=request.getContextPath() %>/resources/css/global.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/resources/css/signUp.css" rel="stylesheet">
+	<script src="<%=request.getContextPath() %>/resources/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
 	$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
@@ -58,25 +58,17 @@
 </head>
 <body>
 	<header id="header"></header>
-<main>
-	<div style = "text-align:center;height:75%;margin-left:13%;margin-right:13%;background-color:#F2F2F2;">
-		<br>
-		<br>
-		<br>
-		<form action = "signIn.do" method ="post" name = "frm" id = "frm">
-		
-			<input type = "text" name = "name" placeholder = "이름" class = "textbox"> <br><br>
-			<input type = "email" name = "email" placeholder = "이메일" class = "textbox"> <br><br>
-			
+<main style="flex: 1; margin: 0px 20% 20% 20%; display: flex; flex-direction: column; align-items: center;">
+	<div class="searchBoxB">
+	<p  class="mb-2 mt-5" style="font-size: 24px;font-weight:bold; ">아이디 찾기</p>
+		<form class="mt-2" action = "signIn.do" method ="post" name = "frm" id = "frm">
+			<input type = "text" name = "name" placeholder = "이름" >
+			<input type = "email" name = "email" placeholder = "이메일">
  			<input type = "button" onclick = "check();" value = "아이디 찾기" id = "searchBtn">
- 			<br>
- 			<hr style = "margin-left : 300px; margin-right: 300px;">
+ 			<div style="height: 1px; width: 300px; background-color: lightgrey; margin-bottom: 20px;"></div>
 			<a href = "signIn.do">로그인 하러 가기</a>
 		</form>
-		<br>
-		<br>
 		<div id = "searchedId">
-			
 		</div>
 	</div>
 </main>

@@ -62,15 +62,17 @@ function check(){
 	    	<span class="navbar-brand title1">|  '${searchValue}' 관련 장소</span>
 	  	</div>
 		<div id="search_result">
-			<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start ">
+			<section class=" d-flex, flex-row flex-start flex-wrap justify-content-start align-items-start ">
 				<c:if test="${list.size() == 0}">
-					<P class="title2 m-auto">등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. </P>
+					<P class="m-auto" style="min-height:300px; display: inline-block; margin: 20px 0px 20px 0px; vertical-align: top; font-size: 20px; color: grey; padding-top: 200px;">
+						등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. 
+					</P>
 				</c:if>
 			
 				<c:if test="${list.size() > 0 }">
 					<c:forEach var ="c" items="${list}" varStatus="status"> 
 					
-					<div class="card  mb-5" style="width: 22rem; height: 25rem">
+					<div class="card border-0 mb-5" style="width: 22rem; height: 25rem; margin-right: 40px;">
 		  				<c:choose>
 		  					<c:when test="${c.placeImg == null}">
 		  						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
@@ -83,13 +85,20 @@ function check(){
 		  						</a>
 		  					</c:when>
 		  				</c:choose>
-		  				<i class="fa-solid fa-bolt bolt"></i>
 		 			<div class="card-body">
 		 				<h5 class="card-title title2-1" class=""><a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">${c.placeName}</a></h5>
 		 				<p class="card-text">${c.address}</p>
 		 				<span class="card-text title3">${c.price}</span><span>원/시간</span>
-		 				<i class="fa-regular fa-star" style="float:right">별점</i>
-		 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
+		 				<i class="fa-regular fa-star" style="float:right"> ${c.avgRate}</i>
+		 				<!-- 찜하기 -->
+						 <c:choose>
+							<c:when test="${c.heart eq '0'}">
+								<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${c.pidx})" class="fa-regular fa-heart" style="color: red;"></i></a>
+							</c:when>
+							<c:when test="${c.heart eq '1'}">
+								<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${c.pidx})" class="fa-solid fa-heart" style="color: red;" ></i></a>
+							</c:when>
+						</c:choose> 
 		  			</div>
 					</div>
 					
@@ -101,6 +110,53 @@ function check(){
 	<footer id="footer" class="mt-5"></footer>
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<!-- 찜하기 -->
+	<script>
+
+		function like (obj, idx){
+	
+			if(${login ne null}){
+				if($(obj).hasClass("fa-regular") == true){
+					$.ajax({
+						url: "<%=request.getContextPath()%>/place/heart.do?pidx="+idx+"&like=add",
+						success: function(data){
+							console.log(data);
+							if(data == 1){
+								$(obj).removeClass("fa-regular");
+								$(obj).addClass("fa-solid");
+								alert("찜목록에 등록되었습니다.");
+							}else{
+								alert("찜목록 등록에 실패했습니다.");
+							}
+						},
+						error: function(){
+							alert("찜목록 등록에 실패했습니다.");
+						}
+					});
+	
+				}else{
+					$.ajax({
+						url: "<%=request.getContextPath()%>/place/heart.do?pidx="+idx+"&like=delete",
+						success: function(data){
+							if(data == 1){
+								$(obj).removeClass("fa-solid");
+								$(obj).addClass("fa-regular");
+								alert("찜목록에서 삭제했습니다.");
+							}else{
+								alert("찜목록 삭제에 실패했습니다.");
+							}
+						},
+						error: function(){ 
+							alert("찜목록 삭제에 실패했습니다.");
+						}
+					});
+				}
+			}else{
+				alert("로그인을 해주세요.");
+			}
+		}
+
+	</script>
 </div>
 </body>
 </html>

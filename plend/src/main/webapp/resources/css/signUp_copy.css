@@ -1,0 +1,88 @@
+#wrap{
+		display:flex;
+		min-height:100vh;
+		flex-direction:column;
+		justiy-content:flex-end;
+	}
+	.chkcolor{
+		border : 0px;
+		background-color :#2F506D;
+		color:white;
+		padding:2px 100px 2px 100px;
+		border-radius:5px;
+	}
+	.chkcolor:hover {
+		border : 0px;
+		background-color:#3FC1C9;
+	}
+	.textbox{
+		border :2px solid;
+		border-radius:5px;
+		width : 550px;
+		height : 35px;
+		background: transparent;
+	}
+	
+	#chkbox {
+		border :2px solid;
+		border-radius:5px;
+		width:450px;
+	}
+	#dbchk {
+		border :0px;
+		background-color :#2F506D;
+		color:white;
+		padding: 5px 15px 5px 15px;
+		border-radius:5px;
+	}
+	#dbchk:hover {
+		border : 0px;
+		background-color:#3FC1C9;
+	}
+	#dbchk2 {
+		border :0px;
+		background-color :#2F506D;
+		color:white;
+		padding: 5px 15px 5px 15px;
+		border-radius:5px;
+	}
+	#dbchk2:hover {
+		border : 0px;
+		background-color:#3FC1C9;
+	}
+	#joinBtn{
+		border :0px;
+		background-color :#2F506D;
+		color:white;
+		padding: 8px 250px 8px 250px;
+		border-radius:5px;
+	}
+	#joinBtn:hover {
+		border : 0px;
+		background-color:#3FC1C9;
+	}
+	.hr-sect {
+        display: flex;
+        flex-basis: 100%;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.35);
+        font-size: 15px;
+        margin: 8px 0px;
+      }
+      .hr-sect::before,
+      .hr-sect::after {
+        content: "";
+        flex-grow: 1;
+        background: rgba(0, 0, 0, 0.35);
+        height: 1px;
+        font-size: 0px;
+        line-height: 0px;
+        margin: 0px 16px;
+      }
+      
+      #sum {
+      	padding :0;
+      	background: white;
+      	height:100%;
+      	
+      }

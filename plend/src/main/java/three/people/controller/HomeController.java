@@ -39,9 +39,9 @@ public class HomeController {
 	Scheduler scheduler;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String mains(SearchVO searchVO, Model model) {
+	public String mains(SearchVO searchVO, Model model, HttpServletRequest request, HttpSession session) {
 		scheduler.autoUpdate();
-	    
+		
 		return "home";
 	}
 
@@ -349,7 +349,10 @@ public class HomeController {
 		return "host/host2";
 	}
 
-
+	@RequestMapping(value="test.do")
+	public String test() {
+		return "common/snsSignUp";
+	}
 
 
 }

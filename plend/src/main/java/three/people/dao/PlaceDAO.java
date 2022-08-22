@@ -25,7 +25,7 @@ public class PlaceDAO {
 	
 	String namespace="three.people.mapper.placeMapper";
 	
-	public List<PlaceVO> selectPlaceAll(HashMap<String, Integer> page) {
+	public List<PlaceVO> selectPlaceAll(HashMap<String, Object> page) {
 		List<PlaceVO> result = sqlSession.selectList(namespace+".selectPlaceAll", page);
 		return result;
 	}
@@ -100,7 +100,7 @@ public class PlaceDAO {
 		return sqlSession.update(namespace+".deletePlace", placeVO);
 	}
 	//08.16 김영민: 헤더 검색 장소
-	public List<PlaceVO> searchPlace(SearchVO searchVO){
-		return sqlSession.selectList(namespace+".searchPlace", searchVO);
+	public List<PlaceVO> searchPlace( HashMap<String, Object> search){
+		return sqlSession.selectList(namespace+".searchPlace", search);
 	}
 }

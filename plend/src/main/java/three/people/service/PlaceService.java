@@ -14,7 +14,7 @@ import three.people.vo.UserVO;
 
 public interface PlaceService {
 	
-	public List<PlaceVO> selectPlaceAll(HashMap<String, Integer> page);
+	public List<PlaceVO> selectPlaceAll(HashMap<String, Object> page);
 	public int cntPlace(PlaceVO placeVO);
 	public PlaceVO placeOne(PlaceVO placevo);
 	public int insertQnA(QnaVO qnavo);
@@ -37,6 +37,6 @@ public interface PlaceService {
 	public List<PlaceVO> filter_search(PlaceVO placeVO);
 	public int deletePlace(PlaceVO placeVO);
 	
-	public List<PlaceVO> searchPlace(SearchVO searchVO);
+	public List<PlaceVO> searchPlace(HashMap<String, Object> search);
 
 }

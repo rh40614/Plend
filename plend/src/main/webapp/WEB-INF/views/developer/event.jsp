@@ -21,7 +21,8 @@
 		
 	<script type="text/javascript">
 		$(function(){
-			$("#header").load("<%=request.getContextPath()%>/resources/article/developerHeader.jsp");
+			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
+			$("#nav").load("<%=request.getContextPath()%>/resources/article/developerNav.jsp");
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
 		})
 	</script>	
@@ -30,7 +31,7 @@
 <body>
 	<div id="wrap" class="container-fluid overflow-auto">	
 		<header id="header" class="row"></header>
-		<br><br>
+		<nav id="nav" style="margin: 0% 20% 0% 20%;"></nav>
 		<main>
 			<div class="row mt-3">
 				<div class="col category">
@@ -53,7 +54,7 @@
 					  	<!-- 07.18 김영민: 데이터 반영 이벤트리스트 -->
 					  	<c:if test="${empty eventList }">
 					  		<tr>
-					  			<td colspan="5"> 결과와 맞는 업체가 없습니다. </td>
+					  			<td colspan="5"> 결과와 맞는 이벤트가 없습니다. </td>
 					  		</tr>
 					  	</c:if>
 					  	<c:forEach var="event" items="${eventList}">
