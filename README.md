@@ -38,7 +38,7 @@
 
 ## Frontend
 
-<img alt="HTML" src ="https://img.shields.io/badge/HTML5-E34F26.svg?&style=for-the-badge&logo=HTML5&logoColor=white"/><img alt="CSS" src ="https://img.shields.io/badge/CSS3-1572B6.svg?&style=for-the-badge&logo=CSS3&logoColor=white"/><img alt="JavaScript" src ="https://img.shields.io/badge/JavaScriipt-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=black"/><img alt="jQuery" src ="https://img.shields.io/badge/jQuery-0769AD.svg?&style=for-the-badge&logo=jQuery&logoColor=white"/><img alt="Bootstrap" src ="https://img.shields.io/badge/Bootstrap-7952B3.svg?&style=for-the-badge&logo=Bootstrap&logoColor=white"/>
+<img alt="HTML" src ="https://img.shields.io/badge/HTML5-E34F26.svg?&style=for-the-badge&logo=HTML5&logoColor=white"/> <img alt="CSS" src ="https://img.shields.io/badge/CSS3-1572B6.svg?&style=for-the-badge&logo=CSS3&logoColor=white"/> <img alt="JavaScript" src ="https://img.shields.io/badge/JavaScriipt-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=black"/> <img alt="jQuery" src ="https://img.shields.io/badge/jQuery-0769AD.svg?&style=for-the-badge&logo=jQuery&logoColor=white"/> <img alt="Bootstrap" src ="https://img.shields.io/badge/Bootstrap-7952B3.svg?&style=for-the-badge&logo=Bootstrap&logoColor=white"/>
 
 - 부트스트랩을 사용해 디자인 했습니다.
 - DOM 이벤트는 주로 jQuery를 사용해 처리했습니다.
@@ -46,7 +46,7 @@
 
 ## Backend
 
-<img alt="Spring" src ="https://img.shields.io/badge/Spring-6DB33F.svg?&style=for-the-badge&logo=Spring&logoColor=white"/><img alt="Spring" src ="https://img.shields.io/badge/Java-E34F26.svg?&style=for-the-badge&logoColor=white"/><img alt="MyBatis" src ="https://img.shields.io/badge/MyBatis-0769AD.svg?&style=for-the-badge&logoColor=white"/>
+<img alt="Spring" src ="https://img.shields.io/badge/Spring-6DB33F.svg?&style=for-the-badge&logo=Spring&logoColor=white"/> <img alt="Spring" src ="https://img.shields.io/badge/Java-E34F26.svg?&style=for-the-badge&logoColor=white"/> <img alt="MyBatis" src ="https://img.shields.io/badge/MyBatis-0769AD.svg?&style=for-the-badge&logoColor=white"/>
 
 - MVC 디자인 패턴을 적용했습니다.
 - Spring Security로 회원의 비밀번호 암호화했습니다.
