@@ -201,7 +201,6 @@ public final class PlaceController {
 					//찜한 사람 수 
 					place.setCntHeart(placeService.countHeart(place));
 				}
-			
 			model.addAttribute("list", list);
 		}
 		//헤더 카테고리 나타내기 
@@ -242,7 +241,6 @@ public final class PlaceController {
 				//찜한 사람 수 
 				place.setCntHeart(placeService.countHeart(place));
 			}
-		
 			model.addAttribute("list", list);
 			
 		}else {
@@ -262,7 +260,6 @@ public final class PlaceController {
 				//찜한 사람 수 
 				place.setCntHeart(placeService.countHeart(place));
 			}
-		
 			model.addAttribute("list", list);
 		}
 		return "place/ajax/placeList";
@@ -325,7 +322,6 @@ public final class PlaceController {
 				//찜한 사람 수 
 				place.setCntHeart(placeService.countHeart(place));
 			}
-			
 			model.addAttribute("list", list);
 			
 		}else {
@@ -346,11 +342,8 @@ public final class PlaceController {
 				//찜한 사람 수 
 				place.setCntHeart(placeService.countHeart(place));
 			}
-			
 			model.addAttribute("list", list);
-			
 		}
-		
 		
 		return "place/searchPlace";
 	}
@@ -358,7 +351,6 @@ public final class PlaceController {
 
 	@RequestMapping(value="/host.do")
 	public String host(Model model, PlaceVO placeVO,  HttpServletRequest request, HttpSession session) {
-		
 		
 		HashMap<String, Object> page = new HashMap<String, Object>();
 		//호스트의 uidx
@@ -385,7 +377,6 @@ public final class PlaceController {
 			
 			model.addAttribute("list", list);
 			
-			
 		}else {
 		//로그인 안했을 때  
 			List<PlaceVO> list = placeService.selectPlaceAll(page);
@@ -402,16 +393,15 @@ public final class PlaceController {
 			}
 			System.out.println("asdf : "+ list);
 			model.addAttribute("list", list);
-			
 		}
-		
 		//경로로 받은 호스트의 uidx
 		int uidx = placeVO.getUidx();
 		model.addAttribute("host",commonService.userInfoByUidx(uidx));
 		
 		return "place/hostPlaceList" ;
 	}
-
+	
+	//동일한 해쉬태그가 있을경우 추천
 	@RequestMapping(value="/hashList.do", method=RequestMethod.GET)
 	public String hashlist(PlaceVO placeVO, Model model, HttpServletRequest request, HttpSession session) {
 		

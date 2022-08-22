@@ -7,19 +7,19 @@
 </c:if>
 <c:if test="${hashList.size() > 0 }">
 	<!-- 슬릭 슬라이더 -->
-	<div style="padding:300px 100px; background-color: white;">
+	<div style=" background-color: white;">
 	  	<div id="slider-div" style="display: flex;">
 			<c:forEach var ="c" items="${hashList}" varStatus="status">
 				<div class="card border-0 mb-5 me-5" style="width: 22rem; height: 25rem; margin-right: 35px;  display: flex; flex-direction: column;">
 					<c:choose>
 						<c:when test="${c.placeImg == null}">
 							<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
-								<img src="<%=request.getContextPath()%>/imageView.do?originFileName=매실1.PNG" class="card-img-top" alt="등록된 사진이 없습니다." style="height: 13rem; width:22rem;">
+								<img src="<%=request.getContextPath()%>/imageView.do?originFileName=매실1.PNG" class="card-img-top" alt="등록된 사진이 없습니다." style="height: 13rem; width:20rem;">
 							</a>
 						</c:when>
 						<c:otherwise >
 							<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
-								<img src="<%=request.getContextPath()%>/imageView.do?originFileName=${c.placeImg}" class="card-img-top" alt="사진 로딩 오류" style="height: 13rem; width:22rem;">
+								<img src="<%=request.getContextPath()%>/imageView.do?originFileName=${c.placeImg}" class="card-img-top" alt="사진 로딩 오류" style="height: 13rem; width:20rem;">
 							</a>
 						</c:otherwise>
 						
@@ -50,8 +50,8 @@ $('#slider-div').slick({
 	  slidesToScroll: 1,
 	  autoplay: true,
 	  autoplaySpeed: 2000,
-	  prevArrow : "<button type='button' class='slick-prev' style='border:none; background: white;'><i class='fa-solid fa-angle-left' style='font-size:40px; '></i></button>",		// 이전 화살표 모양 설정
-	  nextArrow : "<button type='button' class='slick-next' style='border:none; background: white;'><i class='fa-solid fa-angle-right' style='font-size:40px; '></i></button>",		// 다음 화살표 모양 설정
+	  prevArrow : "<button type='button' class='slick-prev' style='border:none; background: white; padding: 0px 40px 130px 40px'><i class='fa-solid fa-angle-left' style='font-size:40px; '></i></button>",		// 이전 화살표 모양 설정
+	  nextArrow : "<button type='button' class='slick-next' style='border:none; background: white; padding: 0px 40px 130px 40px'><i class='fa-solid fa-angle-right' style='font-size:40px; '></i></button>",		// 다음 화살표 모양 설정
 	});
 			
 

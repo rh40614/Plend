@@ -29,16 +29,24 @@
 
 <c:choose>
 	<c:when test="${pageScope.status eq '400'}">
+		<div id="header"></div>
 		<img src="<%=request.getContextPath()%>/resources/image/400ERROR.png">
+		<div id="footer"></div>
 	</c:when>
 	<c:when test="${pageScope.status eq '404'}">
+		<div id="header"></div>
 		<img src="<%=request.getContextPath()%>/resources/image/404ERROR.png">
+		<div id="footer"></div>
 	</c:when>
 	<c:when test="${pageScope.status eq '405'}">
+		<div id="header"></div>
 		<img src="<%=request.getContextPath()%>/resources/image/405ERROR.png">
+		<div id="footer"></div>
 	</c:when>
 	<c:when test="${pageScope.status eq '500'}">
+		<div id="header"></div>
 		<img src="<%=request.getContextPath()%>/resources/image/500ERROR.png">
+		<div id="footer"></div>
 	</c:when>
 	
 </c:choose>

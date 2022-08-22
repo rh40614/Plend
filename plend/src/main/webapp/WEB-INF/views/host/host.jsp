@@ -67,7 +67,7 @@
 
 		    var loadingImg = '';      
 		    loadingImg += "<div id='loadingImg'>";
-		    loadingImg += "<img src='<%=request.getContextPath()%>/resources/image/Pulse2.gif' style='position: relative; display: block; margin: 270px auto;'>";
+		    loadingImg += "<img src='<%=request.getContextPath()%>/img/host.gif' style='position: relative; display: block; margin: 270px auto;'>";
 		    loadingImg += "</div>";
 
 		    //화면에 레이어 추가
@@ -87,31 +87,15 @@
 		
 	})
     </script>
-    <!-- Custom styles for this template -->
+    <!-- Custom styles for this template --> 
     <link href="sticky-footer-navbar.css" rel="stylesheet">
 </head>
   <body class="d-flex flex-column h-100">
     
-<header>
-  <!-- Fixed navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top" style = "background-color:#2F506D; height: 80px;">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">HOSTING CENTER</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-  </nav>
-</header>
+
 
 <!-- Begin page content -->
 
-
-<footer class="footer mt-auto py-3 bg-light">
-  <div class="container">
-    <span class="text-muted">Place sticky footer content here.</span>
-  </div>
-</footer>
 
 
     <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
