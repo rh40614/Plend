@@ -155,17 +155,6 @@ public class CommonController  {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value= "/join.do", method = RequestMethod.GET)
-	public String join() {
-		return "common/join";
-	}
-	
-	@RequestMapping(value = "/join.do", method = RequestMethod.POST)
-	public String join(UserVO vo) {
-		int result = userService.insertUser(vo);
-		return "redirect:/";
-	}
-	
 	@RequestMapping(value="/signUp.do", method = RequestMethod.GET)
 	public String signUp(Model model) throws UnsupportedEncodingException {
 		model.addAttribute("kakao", kakaoService.loginApiURL());
@@ -287,12 +276,16 @@ public class CommonController  {
 
 	@RequestMapping(value = "/searchId.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String searchId(@RequestParam("name") String name, @RequestParam("email") String email,UserVO vo) {
+	public String searchId(UserVO vo) {
 		
-		if (userService.searchID(vo) == null) {
+		vo = userService.searchID(vo);
+		
+		if (vo == null) {
 			return "";
-		} else {
-			return userService.searchID(vo).getId();
+		}else if(vo.getUser_type() != null) {
+			return vo.getUser_type();
+		}else {
+			return vo.getId();
 		}
 
 

@@ -14,16 +14,12 @@
 	   	<div class="footer_text">
 		   	<img alt="logo" src="<%=request.getContextPath()%>/resources/image/logoWhite.png" style="width: 300px; height: 100px;" class="mb-3">
 		    <p class="mb-1 ">welcome to Plend! We offer you very special experiences! </p>
-		    <p class="mb-1 ">github: https://github.com/rh40614/Plend</p>
-		    <p class="mb-1 ">notion: https://url.kr/u8syia   </p>
-	    </div>
-	    <div style="display: flex; flex-direction: column; justify-content: flex-end;" class="footer_text">
-	    	<p class="mb-1 ">대표메일: representative@email.com</p>
-	    	<p class="mb-0 ">대표연락처: 010-0000-0000</p>
+		    <p class="mb-1 ">대표메일: representative@email.com</p>
+	    	<a href="https://github.com/rh40614/Plend" target="blank" rel="noreferrer" style="color: white;"><i class="fa-brands fa-github"></i></a>
+	    	<a href="https://www.figma.com/file/NSaJG9ooa17Fb6ovLdXpiM/plend?node-id=0%3A1" target="blank" rel="noreferrer" style="margin-left: 10px; color: white;"><i class="fa-brands fa-figma"></i></a>
 	    </div>
 	    <div style="display: flex; flex-direction: column; justify-content: flex-end;" class="footer_text">
 	  		<p class=" footer_text">ⓒCopyrights Plend. All rights reserved.</p>
 	  	</div>
-	  	
   </div>
 </footer>

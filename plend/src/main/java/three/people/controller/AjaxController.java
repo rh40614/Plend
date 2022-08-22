@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +23,7 @@ import three.people.vo.BookVO;
 import three.people.vo.ReportVO;
 import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
+import three.people.vo.UserVO;
 
 @RequestMapping(value="/ajax")
 @Controller
@@ -108,7 +112,18 @@ public class AjaxController {
 		return disableTime;
 	}
 	
+	// 김영민: 유저 블랙리스트 등록하기
+	@ResponseBody
+	@RequestMapping(value="/blockUser.do", method=RequestMethod.POST)
+	public int blockUser(BlockVO blockVO, HttpServletRequest request, HttpSession session) {
 	
+		session = request.getSession();
+		UserVO login = (UserVO)session.getAttribute("login");
+		blockVO.setReporter_uidx(login.getUidx());
+		int result = hostService.insertBlockUser(blockVO);
+		
+		return result;
+	}
 	
 	
 	

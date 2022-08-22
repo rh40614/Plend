@@ -68,7 +68,7 @@
    						<c:if test="${myReview.delYN eq 'N'}">
 	   						<tr>
 		   						<td scope="row">${myReview.rvidx}</td>
-		   						<td><a href="<%=request.getContextPath()%>/review/detail.do?rvidx=${myReview.rvidx}">${myReview.title}</a></td>
+		   						<td><a href="<%=request.getContextPath()%>/place/view.do?pidx=${myReview.pidx}#review">${myReview.title}</a></td>
 								<td>${myReview.rate}점</td>	
 								<td>${myReview.date.substring(0,10)}</td>	
 		   					</tr>

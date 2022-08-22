@@ -40,11 +40,13 @@
 			data : sendData,
 			dataType : "text",
 			success : function(text) {
-				if (text != "") {
-					$("#searchedId").html("<h2>등록된 아이디는  " + text +" 입니다.</h2>");
+				if (text == "kakao" || text == "naver") {
+					$("#searchedId").html(text+"로 가입된 아이디 입니다.");
 					console.log(text);
 				} else if (text == ""){
 					$("#searchedId").html("등록된 정보가 없습니다.");
+				}else{
+					$("#searchedId").html("등록된 아이디는  " + text +" 입니다.");
 				}
 			},
 			error : function(xhr) {

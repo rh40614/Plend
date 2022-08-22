@@ -64,6 +64,7 @@
 			 name
 			,email
 			,id
+			,user_type
 		FROM user_plend
 	   WHERE name = #{name}
 	     AND email = #{email}

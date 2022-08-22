@@ -24,8 +24,15 @@
 				<tr>
 					<td>${block.rnum}</td>
 					<td>${block.name}</td>
-					<td>${block.delYN}</td>
-					<td>${block.date}</td>
+					<c:choose>
+						<c:when test="${block.delYN eq 'N'}">
+							<td>가입</td>
+						</c:when>
+						<c:otherwise>
+							<td>탈퇴</td>
+						</c:otherwise>
+					</c:choose>
+					<td>${block.date.substring(0,10)}</td>
 					<td>${block.content}</td>
 					<td><a class="btn btn-sm" onclick="blockDelete('${block.rbidx}')">삭제</a></td>
 				</tr>
