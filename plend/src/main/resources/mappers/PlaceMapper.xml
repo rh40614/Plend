@@ -367,12 +367,14 @@
 		WHERE pidx = #{pidx}
 	</select>
 
-	<select id="hashList" parameterType="String" resultType="PlaceVO">
+	<select id="hashList"  resultType="PlaceVO">
 		SELECT * 
 		FROM place 
-		WHERE tag LIKE '%'#{array}'%'
-		<!-- 해쉬태그리스트 배열로 받기 -->
-		  AND tag LIKE '%'#{array}'%'
+		WHERE 
+		  <foreach collection="array" item="arr" separator="or" open="(" close=")" index="index">
+				tag LIKE CONCAT('%',#{arr},'%')
+		  </foreach>
+		
 	</select>
 	
 	

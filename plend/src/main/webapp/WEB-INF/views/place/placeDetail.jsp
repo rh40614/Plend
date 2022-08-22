@@ -17,6 +17,10 @@
 	<link href="<%=request.getContextPath()%>/resources/css/placeDetail.css" rel="stylesheet">
 	<!-- kakaoMap api -->
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b685739baf5af3ec44e96933a3116f08&libraries=services,clusterer,drawing"></script>
+	<!-- 슬릭 슬라이더 -->
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+				
 	<!-- header/footer -->	
 	<script type="text/javascript">
 		$(function(){
@@ -434,8 +438,7 @@
 				</section>
 			</div>
 		</section>
-		<!-- 2022.08.22 김연희 : 해쉬태그 기반 장소 추천 -->
-		<div id="hashList"></div>
+		
 	</main>
 	<!-- 예약하기 -->
 	<div class="d-flex flex-column col-3">
@@ -460,7 +463,10 @@
 			</form>
 		</div>
 	</div>
-	
+	<!-- 2022.08.22 김연희 : 해쉬태그 기반 장소 추천 -->
+	<section>
+		<div id="hashList"></div>
+	</section>
 		
 	</div>
 </div>
@@ -719,6 +725,7 @@
 		});
 	});
 </script>
+
 </body>
 </html>
 

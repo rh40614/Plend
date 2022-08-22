@@ -3,6 +3,7 @@ package three.people.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -277,8 +278,16 @@ public class PlaceServiceIml implements PlaceService{
 		return placeDAO.countHeart(placeVO);
 	}
 	@Override
-	public List<PlaceVO> hashList(String[] tag) {
-		return placeDAO.hashList(tag);
+	public List<PlaceVO> hashList(String[] array) {
+		 List<PlaceVO> list = placeDAO.hashList(array);
+		 for(PlaceVO place: list){
+			
+			String[] ad = place.getAddress().split("\\s");
+			String twoFromStart = ad[0] +" " +ad[1];
+			place.setAddress(twoFromStart);
+		 }
+		
+		 return list;
 	}
 	
 }

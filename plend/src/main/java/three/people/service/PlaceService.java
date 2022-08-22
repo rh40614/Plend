@@ -2,6 +2,7 @@ package three.people.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import three.people.vo.BookVO;
 import three.people.vo.EventVO;
@@ -39,6 +40,6 @@ public interface PlaceService {
 	public int deletePlace(PlaceVO placeVO);
 	
 	public List<PlaceVO> searchPlace(HashMap<String, Object> search);
-	public List<PlaceVO> hashList(String[] tag);
+	public List<PlaceVO> hashList(String[] array);
 
 }
