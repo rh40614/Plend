@@ -69,7 +69,10 @@
 				<td colspan="10" class="noticeArea" style="height: 50px!important;">제목 : ${notice.title}</td>
 			</tr>
 		  	<tr>
-				<td colspan="10" class="noticeArea">${notice.content}</td>
+				<td colspan="10" class="noticeArea">
+				<img alt="사진" src="<%=request.getContextPath()%>/noticeImg.do?originFileName=${notice.fileName}">
+				${notice.content}
+				</td>
 			</tr>
 		  </tbody>
 		  <tfoot>

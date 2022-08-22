@@ -76,7 +76,7 @@
 		      // 결제창이 닫힐때 수행 (성공,실패,취소에 상관없이 모두 수행됨)
 		      console.log(data);
 		  }).done(function (data) {
-		      //결제가 정상
+			  //결제정상 처리
 		      console.log(data);
 		    
 		      //안쪽 ajax 디비에 넣을 예약 정보들

@@ -27,13 +27,19 @@
 				 ,approvalYN
 				 ,availTimeValue
 				 ,intervalTime
-			FROM place , (SELECT @rownum:=0) rnum
+				 <if test="userVO != null">
+					 <if test="userVO.uidx != null">
+					 , (SELECT COUNT(*) FROM heart WHERE uidx=#{UserVO.uidx} AND pidx=a.pidx) AS heart
+					 </if>
+				</if>
+			FROM place a , (SELECT @rownum:=0) rnum
 		   WHERE delYN ='N'
-		   	 AND uidx = #{uidx}
+		   	 AND uidx = #{placeVO.uidx}
 		ORDER BY pidx DESC) sub
        ORDER BY rnum ASC
-        LIMIT #{start}, #{cntPerPage}
-		   
+        <if test="start != null">
+        	LIMIT #{start}, #{cntPerPage}
+		</if>  
 	</select>
 	<!-- 2022.07.19 김연희: 페이징 처리 위해 만듬 -->
 	<select id="cntPlace" parameterType="PlaceVO" resultType="int">
@@ -45,12 +51,12 @@
 	</select>
 	<!-- 07.20 김영민: 장소하나 가져오는 쿼리 -->
 	<select id="placeOne" resultType="PlaceVO" parameterType="PlaceVO">
-		SELECT pidx,
-		       uidx,
-		       category,
-		       placename,
-		       eventyn,
-		       placedetail,
+		SELECT p.pidx,
+		       p.uidx,
+		       p.category,
+		       p.placename,
+		       p.eventyn,
+		       p.placedetail,
 		       guide,
 		       tag,
 		       placeimg,
@@ -58,13 +64,17 @@
 		       option1,
 		       option2,
 		       price,
-		       delyn,
+		       p.delyn,
 		       approvalyn,
 		       availTimeValue,
 		       intervalTime,
-		       cntpeople
-		  FROM place
-		 WHERE pidx = #{pidx}
+		       p.cntpeople,
+		       u.nickname
+		  FROM place p
+		  JOIN user_plend u
+		    ON p.uidx =u.uidx
+		 WHERE p.pidx = #{pidx}
+	 
 	</select>
 	<!-- QnA 데이터 입력하기 -->
 	<insert id="insertQnA" parameterType="QnaVO">
@@ -161,9 +171,13 @@
 				 ,approvalYN
 				 ,availTimeValue
 				 ,intervalTime 
-			FROM place
+				 <if test="uidx != null">
+				 , (SELECT COUNT(*) FROM heart WHERE uidx=#{uidx} AND pidx=a.pidx) AS heart
+				 </if>
+			FROM place a
 		   WHERE category =#{category}
 		     AND delYN = 'N'
+		     AND approvalYN = '승인'
 		ORDER BY pidx DESC
 		<!--   LIMIT #{start},#{cntPerPage} -->
 	
@@ -291,7 +305,10 @@
 				 ,availTimeValue
 				 ,intervalTime
 				 ,cntPeople
-			FROM place
+				  <if test="uidx != null">
+				 , (SELECT COUNT(*) FROM heart WHERE uidx=#{uidx} AND pidx=a.pidx) AS heart
+				 </if>
+			FROM place a
 		   WHERE category = #{category}
 		     AND delYN = 'N'
 		     AND approvalYN ='승인'
@@ -299,7 +316,7 @@
 		     AND address LIKE '%' #{address} '%'
 		    </if>
 		    <if test="cntPeople !=null" >
-		     AND cntPeople > #{cntPeople}
+		     AND cntPeople >= #{cntPeople}
 		    </if>
 			ORDER BY pidx DESC
 	
@@ -311,7 +328,7 @@
 		 WHERE pidx = #{pidx}
 	</update>
 	<!-- 08.16 김영민 헤더 상단 검색 장소 불러오기 -->
-	<select id="searchPlace" parameterType="SearchVO" resultType="PlaceVO">
+	<select id="searchPlace" parameterType="HashMap" resultType="PlaceVO">
 		SELECT    pidx
 				 ,uidx
 				 ,category
@@ -330,7 +347,10 @@
 				 ,availTimeValue
 				 ,intervalTime
 				 ,cntPeople
-			FROM place
+				 <if test="uidx != null">
+				 , (SELECT COUNT(*) FROM heart WHERE uidx=#{uidx} AND pidx=a.pidx) AS heart
+				 </if>
+			FROM place a
 		   WHERE (delYN = 'N'
 		     AND approvalYN ='승인')
 			 AND ((placeName LIKE CONCAT('%',#{searchValue},'%'))
@@ -340,8 +360,20 @@
 	<!-- 2022.08.05 김연희: 비슷한 장소 추천-->
 	<!-- <select id="recommendPlace" parameterType="PlaceVO" resultType="PlaceVO"></select> -->
 	
-	
+	<select id="countHeart" parameterType="PlaceVO" resultType="int">
+		SELECT
+		      COUNT(*) 
+		 FROM heart 
+		WHERE pidx = #{pidx}
+	</select>
 
+	<select id="hashList" parameterType="String" resultType="PlaceVO">
+		SELECT * 
+		FROM place 
+		WHERE tag LIKE '%'#{array}'%'
+		<!-- 해쉬태그리스트 배열로 받기 -->
+		  AND tag LIKE '%'#{array}'%'
+	</select>
 	
 	
 	

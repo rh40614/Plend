@@ -103,13 +103,9 @@ public class MyPageController {
 			sv.setNowPage(1);
 		}
 		
-		
 		int total = mypageService.bookTotal(login);
 		sv.calPaging(total);
-		System.out.println("총 예약 갯수 = "+total);
 		model.addAttribute("pagenation", sv);
-		System.out.println("페이징 시작 = "+sv.getStartPage());
-		System.out.println("페이징 마지막 = "+sv.getEndPage());
 		
 		HashMap<String, Integer> param = new HashMap<String, Integer>();
 		int uidx = login.getUidx();
@@ -119,7 +115,7 @@ public class MyPageController {
 		param.put("start", start);
 		param.put("end", end);
 		
-		List<BookVO> list = mypageService.BookList(login);
+		List<BookVO> list = mypageService.BookList(vo);
 		model.addAttribute("list", list);
 		model.addAttribute("list2", mypageService.BookedList(param));
 		

@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -77,10 +76,6 @@ public class CommonController  {
 
 		snsvo = naverService.getAccessToken(snsvo);
 		snsProfile = naverService.getUserProfile(snsvo);
-		//정보 동의 취소 누를시 메인화면으로 이동
-		if(snsProfile.getMessage() != null && snsProfile.getMessage().contains("Authentication failed")) {
-			return "redirect:/";
-		}
 		UserVO userVO = new UserVO();
 		userVO.setNaver_id(snsProfile.getId());
 		userVO = commonService.snsIdCheck(userVO);
@@ -108,7 +103,7 @@ public class CommonController  {
 	 
 	
 	@RequestMapping(value="/kakaoLogin")
-	public String login(SnsVO snsvo , HttpServletRequest request, HttpSession session,Model model, RedirectAttributes rttr) throws IOException {
+	public String login(SnsVO snsvo , HttpServletRequest request, HttpSession session, Model model) throws IOException {
 		SnsProfileVO snsProfile = new SnsProfileVO();
 		
 		snsvo = kakaoService.getAccessToken(snsvo);
@@ -132,7 +127,6 @@ public class CommonController  {
 			login = commonService.selectSnsUser(login);
 			session.setMaxInactiveInterval(1800);
 			session.setAttribute("login", login);
-			rttr.addFlashAttribute("msg", "로그인 되셨습니다.");
 		}
 		
 		return "redirect:/";
@@ -180,12 +174,13 @@ public class CommonController  {
 	}
 
 	@RequestMapping(value="/signUp.do", method = RequestMethod.POST)
-	public String signUp(UserVO vo, SnsVO snsVO, Model model, HttpServletRequest request, HttpSession session,RedirectAttributes rttr) throws IOException {
+	public String signUp(UserVO vo, SnsVO snsVO, HttpServletRequest request, HttpSession session) throws UnsupportedEncodingException {
 		if(vo.getUser_type() == null) {
 			String encodedPassword = passwordEncoder.encode(vo.getPassword());
 			vo.setPassword(encodedPassword);
 			int result = userService.insertUser(vo);
 		}else {
+			System.out.println("naver_id: "+vo.getNaver_id());
 			Date now =new Date();
 			SimpleDateFormat simple = new SimpleDateFormat("SSS");
 			String distinct = simple.format(now);
@@ -202,8 +197,6 @@ public class CommonController  {
 					session = request.getSession();
 					session.setMaxInactiveInterval(1800);
 					session.setAttribute("login", login);
-					rttr.addFlashAttribute("msg", "회원가입 되셨습니다.");
-					
 				}
 			}
 		}
@@ -244,8 +237,9 @@ public class CommonController  {
 
 
 	@RequestMapping(value = "signIn.do", method = RequestMethod.GET)
-	public String signIn() {
-
+	public String signIn(Model model) throws UnsupportedEncodingException {
+		model.addAttribute("kakao", kakaoService.loginApiURL());
+		model.addAttribute("naver", naverService.loginApiURL());
 		return "common/signIn";
 	}
 
@@ -271,13 +265,13 @@ public class CommonController  {
 			//System.out.println("role ="+user.getRole());
 			//System.out.println("nickname = "+user.getNickName());
 			
-			//�옄�룞 濡쒓렇�븘�썐 �떆媛� 30遺�
-			//��吏곸씠吏� �븡怨� 媛�留뚰엳 �엳�쓣 寃쎌슦 �떆媛꾩씠 �쓽�윭 30遺꾩씠 寃쎄낵�릱�쓣 �븣 �옄�룞 濡쒓렇�븘�썐
+			//자동 로그아웃 시간 30분
+			//움직이지 않고 가만히 있을 경우 식ㄴ이 흘러 30분이 경과됐을 때 자동 로그아웃
 			session.setMaxInactiveInterval(1800);
 			session.setAttribute("login", login);
 			return "redirect:/";
 		} else {
-			out.println("<script>alert('濡쒓렇�씤�뿉 �떎�뙣�븯���뒿�땲�떎. �븘�씠�뵒�� 鍮꾨�踰덊샇瑜� �솗�씤�빐二쇱꽭�슂.')</script>");
+			out.println("<script>alert('로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요.')</script>");
 			out.flush();
 			return "common/signIn";
 
@@ -369,7 +363,7 @@ public class CommonController  {
 			return "redirect:/";
 
 		} else {
-			pw.append("<script>alert('濡쒓렇�씤�뿉 �떎�뙣�븯���뒿�땲�떎.');location.href = 'login.do'</script>");
+			pw.append("<script>alert('로그인에 실패하였습니다.');location.href = 'login.do'</script>");
 			
 			pw.flush();
 			return "common/login";

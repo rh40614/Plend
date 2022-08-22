@@ -1,66 +1,3 @@
-#wrap{
-		display:flex;
-		min-height:100vh;
-		flex-direction:column;
-		justiy-content:flex-end;
-	}
-	.chkcolor{
-		border : 0px;
-		background-color :#2F506D;
-		color:white;
-		padding:2px 100px 2px 100px;
-		border-radius:5px;
-	}
-	.chkcolor:hover {
-		border : 0px;
-		background-color:#3FC1C9;
-	}
-	.textbox{
-		border :2px solid;
-		border-radius:5px;
-		width : 550px;
-		height : 35px;
-		background: transparent;
-	}
-	
-	#chkbox {
-		border :2px solid;
-		border-radius:5px;
-		width:450px;
-	}
-	#dbchk {
-		border :0px;
-		background-color :#2F506D;
-		color:white;
-		padding: 5px 15px 5px 15px;
-		border-radius:5px;
-	}
-	#dbchk:hover {
-		border : 0px;
-		background-color:#3FC1C9;
-	}
-	#dbchk2 {
-		border :0px;
-		background-color :#2F506D;
-		color:white;
-		padding: 5px 15px 5px 15px;
-		border-radius:5px;
-	}
-	#dbchk2:hover {
-		border : 0px;
-		background-color:#3FC1C9;
-	}
-	#joinBtn{
-		border :0px;
-		background-color :#2F506D;
-		color:white;
-		padding: 8px 250px 8px 250px;
-		border-radius:5px;
-	}
-	#joinBtn:hover {
-		border : 0px;
-		background-color:#3FC1C9;
-	}
 	.hr-sect {
         display: flex;
         flex-basis: 100%;
@@ -69,8 +6,8 @@
         font-size: 15px;
         margin: 8px 0px;
       }
-      .hr-sect::before,
-      .hr-sect::after {
+	.hr-sect::before,
+	.hr-sect::after {
         content: "";
         flex-grow: 1;
         background: rgba(0, 0, 0, 0.35);
@@ -79,10 +16,106 @@
         line-height: 0px;
         margin: 0px 16px;
       }
-      
-      #sum {
-      	padding :0;
-      	background: white;
-      	height:100%;
-      	
-      }
+	.textbox{
+		border :2px solid;
+		border-radius:5px;
+		width : 300px;
+		height : 35px;
+		background: transparent;
+	}
+	.btn.btn-sm{
+		margin-bottom: 8px;
+		border :0px;
+		background-color :#2F506D;
+		color:white;
+		height: 33px;
+		border-radius:5px;
+	}
+	.btn.btn-l{
+		margin-bottom: 8px;
+		border :0px;
+		background-color :#2F506D;
+		color:white;
+		height: 25px;
+		border-radius:5px;
+		padding: 0px;
+	}
+	#signBtn:hover {
+		border : 0px;
+		background-color:#6b818c;
+	}
+	a{
+		text-decoration : none;
+		color : black;
+	}
+	#frm{
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		width: 300px;
+	}
+	
+	.signUpBox{
+	    width: 400px;
+	    height: 850px;
+	    background: #f9f9fa;
+	    border-radius: 20px;
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
+	    box-shadow: 10px 10px 10px 10px #a7a7a7;
+	}
+	
+	input:not([type='checkbox']) {
+		background: white;
+	    border: 1px solid #a7a7a7;
+	    border-radius: 5px;
+	    width: 300px;
+	    height: 35px;
+	    margin-bottom: 15px;
+	}
+	
+	.checkInput {
+		width: 220px !important;
+	}
+	
+	#joinBtn {
+		margin-top: 5px;
+		background-color :#2F506D;
+		color:white;
+	}
+	
+	.w300 {
+		width: 300px !important;
+	}
+	
+	.searchBoxB{
+	    width: 400px;
+	    height: 400px;
+	    background: #f9f9fa;
+	    border-radius: 20px;
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
+	    box-shadow: 10px 10px 10px 10px #a7a7a7;
+	}
+	
+	.searchBoxA{
+	    width: 400px;
+	    height: 500px;
+	    background: #f9f9fa;
+	    border-radius: 20px;
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
+	    box-shadow: 10px 10px 10px 10px #a7a7a7;
+	}
+	
+	#searchBtn {
+		margin-top: 5px;
+		background-color :#2F506D;
+		color:white;
+	}
+	
+	
+	

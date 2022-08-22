@@ -116,7 +116,6 @@
 							<div id="images_container" class="mt-2"></div>
 								
 							
-							</div>
 							
 							
 							<br>

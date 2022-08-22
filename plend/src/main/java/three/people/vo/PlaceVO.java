@@ -31,9 +31,19 @@ public class PlaceVO extends UserVO {
 	private int rnum;
 	//2022.08.10 김연희 : 평균 평점 
 	private float avgRate;
+	private int heart;
+	//08.22 김연희 
+	private int cntHeart;
+		
 	
 	
 	
+	public int getHeart() {
+		return heart;
+	}
+	public void setHeart(int heart) {
+		this.heart = heart;
+	}
 	public String getUseTime() {
 		return useTime;
 	}
@@ -174,7 +184,12 @@ public class PlaceVO extends UserVO {
 	public void setAvgRate(float avgRate) {
 		this.avgRate = avgRate;
 	}
-	
+	public int getCntHeart() {
+		return cntHeart;
+	}
+	public void setCntHeart(int cntHeart) {
+		this.cntHeart = cntHeart;
+	}
 	
 	
 }

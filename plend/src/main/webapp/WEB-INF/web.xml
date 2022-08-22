@@ -68,5 +68,25 @@
     <session-config> 
 		<session-timeout>1</session-timeout> <!-- 분 단위 - 10분 -->
 	</session-config>
-
+	
+	<!-- 에러페이지 변경 -->
+	<error-page>
+		<error-code>400</error-code>
+		<location>/resources/article/Exception.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/resources/article/Exception.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>405</error-code>
+		<location>/resources/article/Exception.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/resources/article/Exception.jsp</location>
+	</error-page>
+	
+	
+	
 </web-app>
