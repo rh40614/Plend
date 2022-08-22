@@ -360,8 +360,20 @@
 	<!-- 2022.08.05 김연희: 비슷한 장소 추천-->
 	<!-- <select id="recommendPlace" parameterType="PlaceVO" resultType="PlaceVO"></select> -->
 	
-	
+	<select id="countHeart" parameterType="PlaceVO" resultType="int">
+		SELECT
+		      COUNT(*) 
+		 FROM heart 
+		WHERE pidx = #{pidx}
+	</select>
 
+	<select id="hashList" parameterType="String" resultType="PlaceVO">
+		SELECT * 
+		FROM place 
+		WHERE tag LIKE '%'#{array}'%'
+		<!-- 해쉬태그리스트 배열로 받기 -->
+		  AND tag LIKE '%'#{array}'%'
+	</select>
 	
 	
 	

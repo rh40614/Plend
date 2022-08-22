@@ -45,10 +45,10 @@
 	
 	<!-- 검색 버튼 그룹 -->
 	<form id="frm">
-		<div  style="margin-top: 15px; float: right; width: 300px; justify-content: space-around; " class="d-flex">
+		<div  style="margin-top: 15px; float: right; width: 200px; justify-content: space-around; " class="d-flex">
 			<input type="hidden" name="category" value="${category.category}">
 			<!-- 날짜 -->
-			<input class="selector" placeholder="날짜" style="width:100px; text-align: center;" >
+			<!-- <input class="selector" placeholder="날짜" style="width:100px; text-align: center;" > -->
 			<!-- 인원 -->
 			<div class="filter_btn"  onclick="filter()">
 				<div>인원</div>
@@ -66,7 +66,7 @@
 				</div>
 			</div>
 			<!-- 지역 -->
-			 <select name="address">
+			 <select name="address" style="border-radius: 4px; border: solid 1px grey;">
 				<option value="">지역</option>
 				<option value="서울">서울</option>
 				<option value="경기">경기</option>
@@ -161,21 +161,21 @@
   						</a>
   					</c:when>
   				</c:choose>
- 			<div class="card-body" >
- 				<h5 class="card-title title2-1" class=""><a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">${c.placeName}</a></h5>
- 				<p class="card-text">${c.address}</p>
- 				<span class="card-text title3">${c.price}</span><span>원/시간</span>
- 				<i class="fa-regular fa-star" style="float:right"> ${c.avgRate}</i>
- 				<!-- 찜하기 -->
-				 <c:choose>
-					<c:when test="${c.heart eq '0'}">
-						<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${c.pidx})" class="fa-regular fa-heart" style="color: red;"></i></a>
-					</c:when>
-					<c:when test="${c.heart eq '1'}">
-						<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${c.pidx})" class="fa-solid fa-heart" style="color: red;" ></i></a>
-					</c:when>
-				</c:choose> 
-  			</div>
+	 			<div class="card-body" >
+	 				<h5 class="card-title title2-1" class=""><a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">${c.placeName}</a></h5>
+	 				<p class="card-text">${c.address}</p>
+	 				<span class="card-text title3">${c.price}</span><span>원/시간</span>
+	 				<i class="fa-regular fa-star" style="float:right"> ${c.avgRate}</i>
+	 				<!-- 찜하기 -->
+					 <c:choose>
+						<c:when test="${c.heart eq '0'}">
+							<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${c.pidx})" class="fa-regular fa-heart" style="color: red;"> ${c.cntHeart}</i></a>
+						</c:when>
+						<c:when test="${c.heart eq '1'}">
+							<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${c.pidx})" class="fa-solid fa-heart" style="color: red;" > ${c.cntHeart}</i></a>
+						</c:when>
+					</c:choose> 
+	  			</div>
 			</div>
 			
 			</c:forEach>

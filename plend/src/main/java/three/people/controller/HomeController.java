@@ -59,11 +59,12 @@ public class HomeController {
 			session = request.getSession();
 			UserVO login = (UserVO) session.getAttribute("login");
 			
-			placeList = placeService.selectPlace(login);
 			
 			//1. 장소 랜덤
-			List<PlaceVO> randomPlaceList = new ArrayList<PlaceVO>();
 			//화면 초기에 장소가 3개이하이면 랜덤없이 그냥 장소가지고 오기
+			placeList = placeService.selectPlace(login);
+			List<PlaceVO> randomPlaceList = new ArrayList<PlaceVO>();
+			//6개 이하 
 			if(placeList.size()<6) {
 				for(PlaceVO p: placeList ) {
 					//장소 사진 가지고 오기
@@ -73,6 +74,8 @@ public class HomeController {
 					//평균 별점
 					int avgRate = reviewService.avgRevew(p);
 					p.setAvgRate(avgRate);
+					//찜한 사람 수 
+					p.setCntHeart(placeService.countHeart(p));
 					//넣기
 					randomPlaceList.add(p);
 				}
@@ -91,11 +94,14 @@ public class HomeController {
 					//평균 별점
 					int avgRate = reviewService.avgRevew(randomPlace);
 					randomPlace.setAvgRate(avgRate);
+					//찜한 사람 수 
+					randomPlace.setCntHeart(placeService.countHeart(randomPlace));
 					//넣기
 					randomPlaceList.add(randomPlace);
 
 				}
 			}
+			
 			model.addAttribute("list", randomPlaceList);
 
 		
@@ -117,6 +123,8 @@ public class HomeController {
 					//평균 별점
 					int avgRate = reviewService.avgRevew(p);
 					p.setAvgRate(avgRate);
+					//찜한 사람 수 
+					p.setCntHeart(placeService.countHeart(p));
 					//넣기
 					randomPlaceList.add(p);
 				}
@@ -135,6 +143,8 @@ public class HomeController {
 					//평균 별점
 					int avgRate = reviewService.avgRevew(randomPlace);
 					randomPlace.setAvgRate(avgRate);
+					//찜한 사람 수 
+					randomPlace.setCntHeart(placeService.countHeart(randomPlace));
 					//넣기
 					randomPlaceList.add(randomPlace);
 
@@ -180,6 +190,8 @@ public class HomeController {
 					//평균 별점
 					int avgRate = reviewService.avgRevew(e);
 					e.setAvgRate(avgRate);
+					//찜한 사람 수 
+					e.setCntHeart(placeService.countHeart(e));
 					//넣기
 					randomEventList.add(e);
 				}
@@ -199,6 +211,8 @@ public class HomeController {
 					//평균 별점
 					int avgRate = reviewService.avgRevew(randomPlace);
 					randomPlace.setAvgRate(avgRate);
+					//찜한 사람 수 
+					randomPlace.setCntHeart(placeService.countHeart(randomPlace));
 					//넣기
 					randomEventList.add(randomPlace);
 				}
@@ -223,6 +237,8 @@ public class HomeController {
 					//평균 별점
 					int avgRate = reviewService.avgRevew(e);
 					e.setAvgRate(avgRate);
+					//찜한 사람 수 
+					e.setCntHeart(placeService.countHeart(e));
 					//넣기
 					randomEventList.add(e);
 				}
@@ -242,6 +258,8 @@ public class HomeController {
 					//평균 별점
 					int avgRate = reviewService.avgRevew(randomPlace);
 					randomPlace.setAvgRate(avgRate);
+					//찜한 사람 수 
+					randomPlace.setCntHeart(placeService.countHeart(randomPlace));
 					//넣기
 					randomEventList.add(randomPlace);
 				}
@@ -251,14 +269,7 @@ public class HomeController {
 			
 			
 		}
-		
-		
-		
-		
-		
-		
-
-
+	
 	return "ajax/eventPlace";
 	}
 
