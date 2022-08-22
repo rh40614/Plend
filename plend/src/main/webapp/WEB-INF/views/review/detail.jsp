@@ -332,7 +332,7 @@ function openBlockModal(){
 function blockUser(){
 	var formData = $("#blockUser").serialize();
 	$.ajax({
-		url: "<%= request.getContextPath()%>/host/blockUser.do",
+		url: "<%= request.getContextPath()%>/ajax/blockUser.do",
 		method: "POST",
 		data: formData,
 		success: function(data){

@@ -85,17 +85,6 @@ public class HostController {
 		//세션에있는 회원의 uidx placeVo에 담기 (UserVo 상속 중)
 		placeVO.setUidx(login.getUidx()); 
 		
-//		System.out.println("장소등록을 하는 사람: "+ placeVO.getUidx());
-//		System.out.println("주소: "+ placeVO.getAddress());
-//		System.out.println("장소설명: "+ placeVO.getPlaceDetail());
-//		System.out.println("금액: "+ placeVO.getPrice());
-//		System.out.println("getCategory: "+ placeVO.getCategory());
-//		System.out.println("getGuide: "+ placeVO.getGuide());
-//		System.out.println("getIntervalTime: "+ placeVO.getIntervalTime());
-//		System.out.println("getOption1: "+ placeVO.getOption1());
-//		System.out.println("getOption2: "+ placeVO.getOption2());
-//		System.out.println("getPlaceName: "+ placeVO.getPlaceName());
-
 		System.out.println("tag: "+placeVO.getTag());
 		
 		String availTimeValue= "";
@@ -699,19 +688,6 @@ public class HostController {
 		}
 	
 	}
-	
-	@ResponseBody
-	@RequestMapping(value="/blockUser.do", method=RequestMethod.POST)
-	public int blockUser(BlockVO blockVO, HttpServletRequest request, HttpSession session) {
-	
-		session = request.getSession();
-		UserVO login = (UserVO)session.getAttribute("login");
-		blockVO.setReporter_uidx(login.getUidx());
-		int result = hostService.insertBlockUser(blockVO);
-		
-		return result;
-	}
-	
 	
 	//예약거절
 	@RequestMapping(value="/reportReject.do", method=RequestMethod.GET)

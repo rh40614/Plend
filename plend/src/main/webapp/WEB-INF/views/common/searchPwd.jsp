@@ -38,6 +38,9 @@
 		
 		var sendData = 'name='+name+'&email='+email+'&id='+id;
 		console.log(sendData);
+		
+		$(".loadingImg").removeClass("d-none");
+		$("#searchBtn").addClass("pe-none");
 		$.ajax({
 			url : "searchPwd.do",
 			method : "post",
@@ -45,6 +48,8 @@
 			dataType : "text",
 			success : function(text) {
 				if (text != "") {
+					$(".loadingImg").addClass("d-none");
+					$("#searchBtn").removeClass("pe-none");
 					$("#searchedPwd").html("임시 비밀번호를 등록된 이메일로 발송 했습니다.<br> 이메일을 확인해주세요.");
 					console.log("text"+text);
 				} else if (text == ""){
@@ -74,7 +79,7 @@
 			<a href = "signIn.do">로그인 하러 가기</a>
 		</form>
 		<div id = "searchedPwd">
-			
+			<img class="d-none loadingImg" width="35" height="35" alt="로딩화면" src="<%=request.getContextPath()%>/resources/image/sand-timer.gif" style="margin-top: 20px;">
 		</div>
 	</div>
 </main>

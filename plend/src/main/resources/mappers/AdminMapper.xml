@@ -307,10 +307,13 @@
 				   u.uidx,
 				   u.id,
 				   u.name,
-				   u.nickname
+				   u.nickname,
+				   p.pidx
 		      FROM report r
-		      join user_plend u
+		      JOIN user_plend u
 		        ON r.respondent_uidx = u.uidx
+	          JOIN review p
+	            ON r.rvidx = p.rvidx
 		        <if test="searchType != null">
 					<if test='searchType.equals("name")'>
 				   		WHERE (u.name LIKE CONCAT('%',#{searchValue},'%'))
