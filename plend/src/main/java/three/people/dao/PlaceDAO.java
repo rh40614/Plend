@@ -103,4 +103,13 @@ public class PlaceDAO {
 	public List<PlaceVO> searchPlace( HashMap<String, Object> search){
 		return sqlSession.selectList(namespace+".searchPlace", search);
 	}
+	//08.22 김연희 : 찜한 사람 수 
+	public int countHeart(PlaceVO placeVO) {
+		return sqlSession.selectOne(namespace+".countHeart", placeVO);
+	}
+	//08.22 김연희 : 해쉬태그 리스트 
+	public List<PlaceVO> hashList(String[] tag) {
+		return sqlSession.selectList(namespace+".hashList", tag);
+	}
+	
 }

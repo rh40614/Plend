@@ -268,10 +268,17 @@ public class PlaceServiceIml implements PlaceService{
 	public int deletePlace(PlaceVO placeVO) {
 		return placeDAO.deletePlace(placeVO);
 	}
-
 	@Override
 	public List<PlaceVO> searchPlace(HashMap<String, Object> search) {
 		return placeDAO.searchPlace(search);
+	}
+	@Override
+	public int countHeart(PlaceVO placeVO) {
+		return placeDAO.countHeart(placeVO);
+	}
+	@Override
+	public List<PlaceVO> hashList(String[] tag) {
+		return placeDAO.hashList(tag);
 	}
 	
 }

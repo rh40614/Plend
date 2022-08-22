@@ -1,5 +1,6 @@
 package three.people.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -176,6 +177,8 @@ public final class PlaceController {
 					//평균 별점
 					int avgRate = reviewService.avgRevew(place);
 					place.setAvgRate(avgRate);
+					//찜한 사람 수 
+					place.setCntHeart(placeService.countHeart(place));
 				}
 			
 			model.addAttribute("list", list);
@@ -195,6 +198,8 @@ public final class PlaceController {
 					//평균 별점
 					int avgRate = reviewService.avgRevew(place);
 					place.setAvgRate(avgRate);
+					//찜한 사람 수 
+					place.setCntHeart(placeService.countHeart(place));
 				}
 			
 			model.addAttribute("list", list);
@@ -234,6 +239,8 @@ public final class PlaceController {
 				//평균 별점
 				int avgRate = reviewService.avgRevew(place);
 				place.setAvgRate(avgRate);
+				//찜한 사람 수 
+				place.setCntHeart(placeService.countHeart(place));
 			}
 		
 			model.addAttribute("list", list);
@@ -252,6 +259,8 @@ public final class PlaceController {
 				//평균 별점
 				int avgRate = reviewService.avgRevew(place);
 				place.setAvgRate(avgRate);
+				//찜한 사람 수 
+				place.setCntHeart(placeService.countHeart(place));
 			}
 		
 			model.addAttribute("list", list);
@@ -273,12 +282,9 @@ public final class PlaceController {
 		return bootpayVO;
 	}
 	
-	
-	
 	@ResponseBody
 	@RequestMapping(value="/insertBook.do", method = RequestMethod.POST)
 	public int insertBook(BookVO bookVO, HttpServletRequest request, HttpSession session) {
-		
 		session = request.getSession();
 		session.getAttribute("login");
 		UserVO login = (UserVO)session.getAttribute("login");
@@ -286,7 +292,6 @@ public final class PlaceController {
 
 		int result = bookService.insertBook(bookVO);
 		return result;
-		
 	}
 
 	@RequestMapping(value="/searchPlace.do", method=RequestMethod.GET)
@@ -317,6 +322,8 @@ public final class PlaceController {
 				//평균 별점
 				int avgRate = reviewService.avgRevew(place);
 				place.setAvgRate(avgRate);
+				//찜한 사람 수 
+				place.setCntHeart(placeService.countHeart(place));
 			}
 			
 			model.addAttribute("list", list);
@@ -336,6 +343,8 @@ public final class PlaceController {
 				//평균 별점
 				int avgRate = reviewService.avgRevew(place);
 				place.setAvgRate(avgRate);
+				//찜한 사람 수 
+				place.setCntHeart(placeService.countHeart(place));
 			}
 			
 			model.addAttribute("list", list);
@@ -370,6 +379,8 @@ public final class PlaceController {
 				//평균 별점
 				int avgRate = reviewService.avgRevew(p);
 				p.setAvgRate(avgRate);
+				//찜한 사람 수 
+				p.setCntHeart(placeService.countHeart(p));
 			}
 			
 			model.addAttribute("list", list);
@@ -386,13 +397,13 @@ public final class PlaceController {
 				//평균 별점
 				int avgRate = reviewService.avgRevew(p);
 				p.setAvgRate(avgRate);
+				//찜한 사람 수 
+				p.setCntHeart(placeService.countHeart(p));
 			}
 			System.out.println("asdf : "+ list);
 			model.addAttribute("list", list);
 			
 		}
-		
-		
 		
 		//경로로 받은 호스트의 uidx
 		int uidx = placeVO.getUidx();
@@ -401,8 +412,46 @@ public final class PlaceController {
 		return "place/hostPlaceList" ;
 	}
 
+	@RequestMapping(value="/hashList.do", method=RequestMethod.GET)
+	public String hashlist(PlaceVO placeVO, Model model, HttpServletRequest request, HttpSession session) {
+		
+		String tagAll = placeVO.getTag();
+		System.out.println("tag: "+placeVO.getTag());
+		List<PlaceVO> hashList = new ArrayList<PlaceVO>();
+		
+		String[] tag = tagAll.split(",");
+		List<PlaceVO> list = placeService.hashList(tag);
+//		for(int i =0; i < tag.length; i++) {
+//			System.out.println(tag[i]);
+//			List<PlaceVO> list = placeService.hashList(tag[i]);
+			for(PlaceVO place: list) {
+				//사진
+				ImageVO image = placeService.selectImageOne(place);
+				String file =image.getOriginFileName();
+				place.setPlaceImg(file);
+				//평균 별점
+				int avgRate = reviewService.avgRevew(place);
+				place.setAvgRate(avgRate);
+				//찜한 사람 수 
+				place.setCntHeart(placeService.countHeart(place));
+				
+				hashList.add(place);
+			}
+			
+//		}
+		model.addAttribute("hashList", hashList);
+		System.out.println("hashlist: " + hashList);
+		return "place/ajax/hashList";
+	}
 
+	
 
-
+	
+	
+	
+	
+	
+	
+	
 
 }

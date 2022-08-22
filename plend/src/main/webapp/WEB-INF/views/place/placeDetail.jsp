@@ -434,6 +434,8 @@
 				</section>
 			</div>
 		</section>
+		<!-- 2022.08.22 김연희 : 해쉬태그 기반 장소 추천 -->
+		<div id="hashList"></div>
 	</main>
 	<!-- 예약하기 -->
 	<div class="d-flex flex-column col-3">
@@ -458,11 +460,40 @@
 			</form>
 		</div>
 	</div>
+	
+		
 	</div>
 </div>
 <footer id="footer" class="row mt-5"></footer>
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!-- 해쉬 태그 기반 장소  -->
+<script>
+	$(function(){
+		
+		var tags = JSON.parse('${placeOne.tag}');
+		var tag = "";
+		tags.forEach(element => 
+			tag += element.value + ","
+		);
+		console.log(tag);
+	
+		$.ajax({
+			url: "hashList.do",
+			data: "tag=" + tag,
+			ContentType: "text/plain; charset=utf-8",
+			success: function(data){
+				console.log("해쉬성공");
+				$("#hashList").html(data);
+			},
+			error: function(data){
+				console.log("해쉬 실패");
+			}
+		})
+	});
+	
+</script>
+
 <!-- 질문하기/답변 버튼 클릭시 토글 -->
 <script type="text/javascript">
 	function QnAToggle(obj){

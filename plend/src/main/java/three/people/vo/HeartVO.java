@@ -8,6 +8,7 @@ public class HeartVO extends PlaceVO{
 	private int pidx;
 	private String like;
 	
+	
 	public String getLike() {
 		return like;
 	}
@@ -32,6 +33,7 @@ public class HeartVO extends PlaceVO{
 	public void setPidx(int pidx) {
 		this.pidx = pidx;
 	}
+	
 	
 	
 }
