@@ -31,6 +31,7 @@ import three.people.service.BookService;
 import three.people.service.MyPageService;
 import three.people.service.ReviewService;
 import three.people.vo.BookVO;
+import three.people.vo.HeartVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.ReviewVO;
@@ -204,10 +205,10 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value = "/heartList.do", method = RequestMethod.GET)
-	public String heartList(Model model,SearchVO sv,HttpSession session, HttpServletRequest request) {
+	public String heartList(Model model,SearchVO sv,HttpSession session, HttpServletRequest request, PlaceVO pv) {
 		/*
 		 * uidx를 매개변수로 받아올 경우 페이징에서 uidx가 null이 들어갈 수 있다.
-		 * 그르므로 session에 담겨 있는 uidx를 가져와 HashMap에 담아주면 오류가 나지 않는다.
+		 * 그러므로 session에 담겨 있는 uidx를 가져와 HashMap에 담아주면 오류가 나지 않는다.
 		 */
 		session = request.getSession();
 		UserVO login = new UserVO();
@@ -237,24 +238,50 @@ public class MyPageController {
 		param.put("start", start);
 		param.put("end", end);
 		
+		
 		System.out.println("찜 목록 uidx = " + uidx);
 		List<PlaceVO> placeList = mypageService.selectPlace(param);
+		
 		for(int i=0; i<placeList.size();i++) {
 			/*
 			 * 기존에 있던 vo자리에 값을 넣는 것이므로 향상된 for문을 사용하지 않고 일반 for문을 사용한다.
 			 * 향상된 for문을 사용하게 되면 java.util.concurrentmodificationexception 오류가 발생한다.
 			 */
+			
 			PlaceVO vo = placeList.get(i);
 			ImageVO image = mypageService.selectImg(vo);
+			int avgRate = mypageService.avgRevew(vo);
 			String file = image.getOriginFileName();
+			vo.setAvgRate(avgRate);
 			vo.setPlaceImg(file);
 			placeList.set(i,vo);
-			
 		}
+
 		model.addAttribute("list", placeList);
 		
 		return "myPage/heartList";
 	}
+	
+	//찜목록 등록, 삭제
+		@ResponseBody
+		@RequestMapping(value="/heart.do" , method=RequestMethod.GET, produces="application/json; utf-8")
+		public int like(HeartVO hvo, HttpServletRequest request, HttpSession session) {
+			
+			session = request.getSession();
+			UserVO login = (UserVO) session.getAttribute("login");
+			hvo.setUidx(login.getUidx());
+			
+			// like의 값에 따라 다른 sql구문 전송
+			if(hvo.getLike().equals("add")) {
+				return mypageService.likeAdd(hvo);
+			}else if(hvo.getLike().equals("delete")) {
+				return mypageService.likeDelete(hvo);
+			}else {
+				return 0;
+			}
+			
+		}
+		
 	// 08.02 김영민: 리뷰등록
 	@Transactional
 	@RequestMapping(value="/addReview.do", method=RequestMethod.POST)

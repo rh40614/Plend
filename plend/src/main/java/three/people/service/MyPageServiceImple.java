@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import three.people.dao.MyPageDAO;
 import three.people.vo.BookVO;
+import three.people.vo.HeartVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.ReviewVO;
@@ -111,7 +112,29 @@ public class MyPageServiceImple implements MyPageService{
 		return mypageDao.likeListTotal(uidx);
 	}
 
-	
+	@Override
+	public int likeAdd(HeartVO heartvo) {
+		
+		return mypageDao.likeAdd(heartvo);
+	}
+
+	@Override
+	public int likeDelete(HeartVO heartvo) {
+		
+		return mypageDao.likeDelete(heartvo);
+	}
+
+	@Override
+	public List<HeartVO> selectHeart(HeartVO heartvo) {
+		
+		return mypageDao.selectHeart(heartvo);
+	}
+
+	@Override
+	public int avgRevew(PlaceVO placeVO) {
+		
+		return mypageDao.avgRevew(placeVO);
+	}
 
 	
 }

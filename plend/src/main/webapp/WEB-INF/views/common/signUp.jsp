@@ -277,7 +277,7 @@ $(document).ready(function(){
 	$("#M1").trigger('click');
 });
 
-$('input[name=id]').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z]/g,"") );});
+$('input[name=id]').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|A-Z]/g,"") );});
 $('input[name=name]').on("keyup", function() {$(this).val( $(this).val().replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
 $('input[name=nickName]').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
 </script>
