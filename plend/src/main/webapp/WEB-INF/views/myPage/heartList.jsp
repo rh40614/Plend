@@ -164,8 +164,16 @@
 	 				<h5 class="card-title"><a href="<%=request.getContextPath()%>/place/view.do?pidx=${e.pidx}" class="">${e.placeName}</a></h5>
 	 				<p class="card-text">${e.address}</p>
 	 				<p class="card-text"><fmt:formatNumber value="${e.price}" type="currency"/>원</p>
-	 				<i class="fa-regular fa-star" style="float:right">별점</i>
-	 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
+	 				<i class="fa-regular fa-star" style="float:right">${e.avgRate}</i>
+	 				<!-- 찜하기 -->
+			 <c:choose>
+				<c:when test="${e.heart eq '0'}">
+					<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${e.pidx})" class="fa-regular fa-heart" style="color: red;"></i></a>
+				</c:when>
+				<c:when test="${e.heart eq '1'}">
+					<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${e.pidx})" class="fa-solid fa-heart" style="color: red;" ></i></a>
+				</c:when>
+			</c:choose> 
 	
 	  			</div>
 			</div>
@@ -216,10 +224,54 @@
 <div style="margin-top: -48px;">
 <footer id="footer" class="mt-5" style = "float:none;display:inline-block;"></footer>
 </div>
-</div>
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script>
 
+		function like (obj, idx){
+	
+			if(${login ne null}){
+				if($(obj).hasClass("fa-regular") == true){
+					$.ajax({
+						url: "<%=request.getContextPath()%>/myPage/heart.do?pidx="+idx+"&like=add",
+						success: function(data){
+							console.log(data);
+							if(data == 1){
+								$(obj).removeClass("fa-regular");
+								$(obj).addClass("fa-solid");
+								alert("찜목록에 등록되었습니다.");
+							}else{
+								alert("찜목록 등록에 실패했습니다.");
+							}
+						},
+						error: function(){
+							alert("찜목록 등록에 실패했습니다.");
+						}
+					});
+	
+				}else{
+					$.ajax({
+						url: "<%=request.getContextPath()%>/myPage/heart.do?pidx="+idx+"&like=delete",
+						success: function(data){
+							if(data == 1){
+								$(obj).removeClass("fa-solid");
+								$(obj).addClass("fa-regular");
+								alert("찜목록에서 삭제했습니다.");
+							}else{
+								alert("찜목록 삭제에 실패했습니다.");
+							}
+						},
+						error: function(){ 
+							alert("찜목록 삭제에 실패했습니다.");
+						}
+					});
+				}
+			}else{
+				alert("로그인을 해주세요.");
+			}
+		}
+
+	</script>
 </body>
 </html>
 

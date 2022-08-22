@@ -121,7 +121,6 @@
 	</update>
 	
 	<select id="likeList" resultType="PlaceVO" parameterType="HashMap">
-	<!-- 08.09 김하진 별점 나중에 추가 -->
 		SELECT 
 			 a.pidx
 			,a.uidx
@@ -129,6 +128,7 @@
 			,c.placeName
 			,c.address
 			,c.price
+			, (SELECT COUNT(*) FROM heart WHERE uidx=#{uidx} AND pidx=a.pidx) AS heart
 		FROM heart a 
 		JOIN user_plend b
 		  ON a.uidx = b.uidx
@@ -136,6 +136,37 @@
 		  ON a.pidx = c.pidx 
 	   WHERE b.uidx = #{uidx}
 	   LIMIT #{start}, #{end}
+	</select>
+	<insert id="likeAdd" parameterType="HeartVO">
+		INSERT INTO heart(
+			uidx,
+			pidx
+		)VALUES(
+			#{uidx},
+			#{pidx}
+		)
+	</insert>
+	<select id="avgRevew" parameterType="PlaceVO" resultType="int">
+		SELECT 
+				IFNULL(AVG(rate), 0) as rate 
+		   FROM review
+	  	  WHERE pidx = #{pidx}
+
+	</select>
+	<delete id="likeDelete" parameterType="HeartVO">
+		DELETE FROM heart
+		      WHERE uidx = #{uidx}
+		        AND pidx = #{pidx}
+	</delete>
+	<select id="selectHeart" parameterType="HeartVO" resultType="HeartVO">
+		SELECT hidx,
+			   uidx,
+			   pidx
+		  FROM heart
+		 WHERE uidx = #{uidx}
+		 <if test="pidx != null">
+		 	AND pidx = #{pidx} 
+		 </if>
 	</select>
 	<select id = "selectImgOne" parameterType = "PlaceVO" resultType = "ImageVO">
 	<!-- 08.10 김하진 찜 목록 사진 가져오기 추가 -->
