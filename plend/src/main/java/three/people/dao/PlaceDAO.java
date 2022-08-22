@@ -2,6 +2,7 @@ package three.people.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,8 +109,8 @@ public class PlaceDAO {
 		return sqlSession.selectOne(namespace+".countHeart", placeVO);
 	}
 	//08.22 김연희 : 해쉬태그 리스트 
-	public List<PlaceVO> hashList(String[] tag) {
-		return sqlSession.selectList(namespace+".hashList", tag);
+	public List<PlaceVO> hashList(String[] array) {
+		return sqlSession.selectList(namespace+".hashList", array);
 	}
 	
 }

@@ -420,27 +420,23 @@ public final class PlaceController {
 		List<PlaceVO> hashList = new ArrayList<PlaceVO>();
 		
 		String[] tag = tagAll.split(",");
+		//태그 일치하는 리스트
 		List<PlaceVO> list = placeService.hashList(tag);
-//		for(int i =0; i < tag.length; i++) {
-//			System.out.println(tag[i]);
-//			List<PlaceVO> list = placeService.hashList(tag[i]);
 			for(PlaceVO place: list) {
 				//사진
 				ImageVO image = placeService.selectImageOne(place);
 				String file =image.getOriginFileName();
+				System.out.println("file: "+file);
 				place.setPlaceImg(file);
 				//평균 별점
 				int avgRate = reviewService.avgRevew(place);
 				place.setAvgRate(avgRate);
 				//찜한 사람 수 
 				place.setCntHeart(placeService.countHeart(place));
-				
 				hashList.add(place);
 			}
-			
-//		}
+
 		model.addAttribute("hashList", hashList);
-		System.out.println("hashlist: " + hashList);
 		return "place/ajax/hashList";
 	}
 
