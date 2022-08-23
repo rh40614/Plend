@@ -359,7 +359,12 @@ public class HomeController {
 	public String host2() {
 		return "host/host2";
 	}
-
+	
+	@RequestMapping(value = "teamInfo.do", method = RequestMethod.GET)
+	public String teamInfo() {
+		return "main/teamInfo";
+	}
+	
 	@RequestMapping(value="test.do")
 	public String test() {
 		return "main/teamInfo";

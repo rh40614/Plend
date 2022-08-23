@@ -10,8 +10,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<script src="resources/js/jquery-3.6.0.min.js"></script>
 	<link href="resources/css/global.css" rel="stylesheet">
-	<link href="resources/css/home.css" rel="stylesheet">
-
+	
 	<script type="text/javascript">
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
@@ -82,7 +81,7 @@
 		<main class="d-flex" style="margin: 5% 19% 10% 19%; flex: 1; justify-content: space-between;">
 			<div>
 				<div class="circle">
-				    <img class="teamImg" width="250" height="250" src="https://i.imgur.com/KQBJ9a0.jpg">
+				    <img class="teamImg" width="270" height="270" src="<%=request.getContextPath()%>/resources/image/KYH.png">
 				        <ul class="social">
 				            <li><a href="https://github.com/rh40614" style="color: white"><i class="fa-brands fa-github"></i></a></li>
 				            <li><a href="https://jealous-gasoline-34d.notion.site/Plend-238f743c7343490081d1364f1e1eeb20" target="blank" rel="noreferrer" style="color: white;">
@@ -101,7 +100,7 @@
 			</div>
 			<div>
 				<div class="circle">
-				    <img class="teamImg" width="250" height="250" src="https://i.imgur.com/KQBJ9a0.jpg">
+				    <img class="teamImg" width="270" height="270" src="<%=request.getContextPath()%>/resources/image/KYM.png" alt="kr.freepik.com가 제작한 people벡터">
 				        <ul class="social">
 				            <li><a href="https://github.com/seohakman" style="color: white"><i class="fa-brands fa-github"></i></a></li>
 				            <li><a href="https://jealous-gasoline-34d.notion.site/Plend-238f743c7343490081d1364f1e1eeb20" target="blank" rel="noreferrer" style="color: white;">
@@ -119,7 +118,7 @@
 			</div>
 			<div>
 				<div class="circle">
-				    <img class="teamImg" width="250" height="250" src="https://i.imgur.com/KQBJ9a0.jpg">
+				    <img class="teamImg" width="270" height="270" src="<%=request.getContextPath()%>/resources/image/KHJ.png">
 				        <ul class="social">
 				            <li><a href="https://github.com/0378hajin" style="color: white"><i class="fa-brands fa-github"></i></a></li>
 				            <li><a href="https://jealous-gasoline-34d.notion.site/Plend-238f743c7343490081d1364f1e1eeb20" target="blank" rel="noreferrer" style="color: white;">
