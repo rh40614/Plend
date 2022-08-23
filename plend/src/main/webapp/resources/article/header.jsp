@@ -86,7 +86,7 @@
             <a class="nav-link" href="<%=request.getContextPath()%>/main/faq.do">FAQ</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">1:1 문의</a>
+            <a class="nav-link" onclick = "alert('서비스 준비중 입니다.');" href="#">1:1 문의</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
