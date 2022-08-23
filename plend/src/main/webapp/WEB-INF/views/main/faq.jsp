@@ -12,7 +12,7 @@
 	<script src="https://kit.fontawesome.com/f5807db9d4.js" crossorigin="anonymous"></script>
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<script src="../resources/js/jquery-3.6.0.min.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/home.css" rel="stylesheet"> 
 
@@ -22,21 +22,6 @@
 			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
 		})
-	</script>
-	
-	<script>
-	
-	function like (obj){
-		if($(obj).hasClass("fa-regular") == true){
-			$(obj).removeClass("fa-regular");
-			$(obj).addClass("fa-solid");
-		}else{
-			$(obj).removeClass("fa-solid");
-			$(obj).addClass("fa-regular");
-		}
-		
-	}
-	
 	</script>
 	<style>
 	#searchBar {
@@ -97,6 +82,7 @@
 			float:right;
 			border : 0px;
 			margin-right:10px;
+			margin-bottom : 20px;
 		}
 		
 		#modiBtn:hover {
@@ -124,7 +110,7 @@
 		.active1 {
 			display: block;
 		  /* 높이를 정해줘야지만 transition이 적용됨 */
-		  height:120px;
+		  height:100%;
 		}
 	
 	</style>
@@ -273,8 +259,8 @@
 			});
 		});
 		
-		//질문 답변 작동하는 로직
-		$(document).on('click',function(){
+	//질문 답변 작동하는 로직
+	$(document).on('click',function(){
 	  // panel-faq-container
 	  const panelFaqContainer = document.querySelectorAll(".panel-faq-container"); // NodeList 객체
 	  
@@ -290,6 +276,8 @@
 	  };
 	});
 	</script>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	
 </body>
 </html>

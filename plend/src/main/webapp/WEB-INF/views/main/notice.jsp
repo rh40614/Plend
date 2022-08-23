@@ -71,7 +71,7 @@
   <c:if test = "${list.size() > 0}">
   	<c:forEach var = "vo" items = "${list}">
     <tr>
-      <td scope="row">${vo.nidx}</td>
+      <td scope="row">${vo.rnum}</td>
       <td id = "title"><a href = "noticeView.do?nidx=${vo.nidx}">${vo.title}</a></td>
       <td id = "write">${vo.nickName}</td>
       <td id = "write">${vo.date.substring(0,10)}</td>
