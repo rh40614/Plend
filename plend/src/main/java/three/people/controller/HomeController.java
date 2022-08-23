@@ -365,10 +365,11 @@ public class HomeController {
 		return "main/teamInfo";
 	}
 	
-	@RequestMapping(value="test.do")
-	public String test() {
-		return "main/teamInfo";
+	@RequestMapping(value = "projectInfo.do", method = RequestMethod.GET)
+	public String projectInfo() {
+		return "main/projectInfo";
 	}
+	
 
 
 }

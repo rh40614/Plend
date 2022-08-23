@@ -93,12 +93,11 @@
             	 서비스 소개
             </a>
             <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-              <li><a class="dropdown-item" href="#">프로젝트 소개</a></li>
+              <li><a class="dropdown-item" href="<%=request.getContextPath()%>/projectInfo.do">프로젝트 소개</a></li>
               <li><a class="dropdown-item" href="<%=request.getContextPath()%>/teamInfo.do">팀원 소개</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
           </li>
            <c:if test = "${login != null }">
