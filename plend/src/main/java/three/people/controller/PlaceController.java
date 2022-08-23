@@ -1,5 +1,6 @@
 package three.people.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -176,6 +177,8 @@ public final class PlaceController {
 					//평균 별점
 					int avgRate = reviewService.avgRevew(place);
 					place.setAvgRate(avgRate);
+					//찜한 사람 수 
+					place.setCntHeart(placeService.countHeart(place));
 				}
 			
 			model.addAttribute("list", list);
@@ -195,8 +198,9 @@ public final class PlaceController {
 					//평균 별점
 					int avgRate = reviewService.avgRevew(place);
 					place.setAvgRate(avgRate);
+					//찜한 사람 수 
+					place.setCntHeart(placeService.countHeart(place));
 				}
-			
 			model.addAttribute("list", list);
 		}
 		//헤더 카테고리 나타내기 
@@ -234,8 +238,9 @@ public final class PlaceController {
 				//평균 별점
 				int avgRate = reviewService.avgRevew(place);
 				place.setAvgRate(avgRate);
+				//찜한 사람 수 
+				place.setCntHeart(placeService.countHeart(place));
 			}
-		
 			model.addAttribute("list", list);
 			
 		}else {
@@ -252,8 +257,9 @@ public final class PlaceController {
 				//평균 별점
 				int avgRate = reviewService.avgRevew(place);
 				place.setAvgRate(avgRate);
+				//찜한 사람 수 
+				place.setCntHeart(placeService.countHeart(place));
 			}
-		
 			model.addAttribute("list", list);
 		}
 		return "place/ajax/placeList";
@@ -273,12 +279,9 @@ public final class PlaceController {
 		return bootpayVO;
 	}
 	
-	
-	
 	@ResponseBody
 	@RequestMapping(value="/insertBook.do", method = RequestMethod.POST)
 	public int insertBook(BookVO bookVO, HttpServletRequest request, HttpSession session) {
-		
 		session = request.getSession();
 		session.getAttribute("login");
 		UserVO login = (UserVO)session.getAttribute("login");
@@ -286,7 +289,6 @@ public final class PlaceController {
 
 		int result = bookService.insertBook(bookVO);
 		return result;
-		
 	}
 
 	@RequestMapping(value="/searchPlace.do", method=RequestMethod.GET)
@@ -317,8 +319,9 @@ public final class PlaceController {
 				//평균 별점
 				int avgRate = reviewService.avgRevew(place);
 				place.setAvgRate(avgRate);
+				//찜한 사람 수 
+				place.setCntHeart(placeService.countHeart(place));
 			}
-			
 			model.addAttribute("list", list);
 			
 		}else {
@@ -336,12 +339,11 @@ public final class PlaceController {
 				//평균 별점
 				int avgRate = reviewService.avgRevew(place);
 				place.setAvgRate(avgRate);
+				//찜한 사람 수 
+				place.setCntHeart(placeService.countHeart(place));
 			}
-			
 			model.addAttribute("list", list);
-			
 		}
-		
 		
 		return "place/searchPlace";
 	}
@@ -349,7 +351,6 @@ public final class PlaceController {
 
 	@RequestMapping(value="/host.do")
 	public String host(Model model, PlaceVO placeVO,  HttpServletRequest request, HttpSession session) {
-		
 		
 		HashMap<String, Object> page = new HashMap<String, Object>();
 		//호스트의 uidx
@@ -370,10 +371,11 @@ public final class PlaceController {
 				//평균 별점
 				int avgRate = reviewService.avgRevew(p);
 				p.setAvgRate(avgRate);
+				//찜한 사람 수 
+				p.setCntHeart(placeService.countHeart(p));
 			}
 			
 			model.addAttribute("list", list);
-			
 			
 		}else {
 		//로그인 안했을 때  
@@ -386,23 +388,56 @@ public final class PlaceController {
 				//평균 별점
 				int avgRate = reviewService.avgRevew(p);
 				p.setAvgRate(avgRate);
+				//찜한 사람 수 
+				p.setCntHeart(placeService.countHeart(p));
 			}
 			System.out.println("asdf : "+ list);
 			model.addAttribute("list", list);
-			
 		}
-		
-		
-		
 		//경로로 받은 호스트의 uidx
 		int uidx = placeVO.getUidx();
 		model.addAttribute("host",commonService.userInfoByUidx(uidx));
 		
 		return "place/hostPlaceList" ;
 	}
+	
+	//동일한 해쉬태그가 있을경우 추천
+	@RequestMapping(value="/hashList.do", method=RequestMethod.GET)
+	public String hashlist(PlaceVO placeVO, Model model, HttpServletRequest request, HttpSession session) {
+		
+		String tagAll = placeVO.getTag();
+		System.out.println("tag: "+placeVO.getTag());
+		List<PlaceVO> hashList = new ArrayList<PlaceVO>();
+		
+		String[] tag = tagAll.split(",");
+		//태그 일치하는 리스트
+		List<PlaceVO> list = placeService.hashList(tag);
+			for(PlaceVO place: list) {
+				//사진
+				ImageVO image = placeService.selectImageOne(place);
+				String file =image.getOriginFileName();
+				System.out.println("file: "+file);
+				place.setPlaceImg(file);
+				//평균 별점
+				int avgRate = reviewService.avgRevew(place);
+				place.setAvgRate(avgRate);
+				//찜한 사람 수 
+				place.setCntHeart(placeService.countHeart(place));
+				hashList.add(place);
+			}
 
+		model.addAttribute("hashList", hashList);
+		return "place/ajax/hashList";
+	}
 
+	
 
-
+	
+	
+	
+	
+	
+	
+	
 
 }

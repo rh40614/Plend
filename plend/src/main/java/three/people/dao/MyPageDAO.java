@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import three.people.vo.BookVO;
+import three.people.vo.HeartVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.ReviewVO;
@@ -19,6 +20,10 @@ public class MyPageDAO {
 	
 	@Autowired
 	SqlSession sqlSession;
+	
+	public UserVO myPageCheck(UserVO vo) {
+		return sqlSession.selectOne("three.people.mapper.mypageMapper.myPageCheck", vo);
+	}
 	
 	public UserVO userInfo(int uidx) {
 		
@@ -85,5 +90,17 @@ public class MyPageDAO {
 	public int likeListTotal(int uidx) {
 		return sqlSession.selectOne("three.people.mapper.mypageMapper.likeListTotal", uidx);
 	}
-
+	
+	public int likeAdd(HeartVO heartvo) {
+		return sqlSession.insert("three.people.mapper.mypageMapper.likeAdd", heartvo);
+	}
+	public int likeDelete(HeartVO heartvo) {
+		return sqlSession.delete("three.people.mapper.mypageMapper.likeDelete", heartvo);
+	}
+	public List<HeartVO> selectHeart(HeartVO heartvo){
+		return sqlSession.selectList("three.people.mapper.mypageMapper.selectHeart", heartvo);
+	}
+	public int avgRevew(PlaceVO placeVO) {
+		return sqlSession.selectOne("three.people.mapper.mypageMapper.avgRevew", placeVO);
+	}
 } 

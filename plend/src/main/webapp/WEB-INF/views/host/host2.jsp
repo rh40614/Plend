@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,6 @@
     <title>호스트 페이지</title>
 
     <link rel="canonical" href="https://getbootstrap.kr/docs/5.1/examples/sticky-footer-navbar/">
-
     
 
     <!-- Bootstrap core CSS -->
@@ -133,7 +133,17 @@
 				<img alt="호스트센터 " src="<%=request.getContextPath()%>/img/hostCenter2.png" style="width:100%">
 				<div style="height: 200px;"></div>
 				<div class="d-flex" style="flex-direction: column; align-items: center;">
-					<button onclick="location.href='<%=request.getContextPath()%>/common/signIn.do'" class="hostLogin" id="hostLogin">내 공간 등록하기</button>
+					<c:choose>
+						<c:when test="${login == null }">
+							<button onclick="location.href='<%=request.getContextPath()%>/common/signIn.do'" class="hostLogin" id="hostLogin">내 공간 등록하기</button>
+						</c:when>
+						<c:when test="${login.role eq '1' || login.role eq '3'}">
+							<button onclick="location.href='<%=request.getContextPath()%>/host/managePlace.do'" class="hostLogin" id="hostLogin">내 공간 등록하기</button>
+						</c:when>
+						<c:when test="${login.role eq '2' }">
+							<button onclick="hostLogin()" class="hostLogin" id="hostLogin">내 공간 등록하기</button>
+						</c:when>
+					</c:choose>
 				</div>
 				<div style="height: 400px;"></div>
 			</main>
@@ -153,8 +163,16 @@
 				$("#hostLogin").removeClass("selectedBtn");
 			})
 		})
-		
-		
+	</script>
+	<!-- 공간 등록 분기  -->
+	<script>
+		function hostLogin (){
+			
+			if(confirm("현재 일반회원으로 로그인 되어있습니다. 사업자로 회원가입 하시겠습니까?") == true){
+				location.href = '<%=request.getContextPath()%>/common/signUp.do';			
+			}else{
+			}
+		}
 	</script>
 
   </body>

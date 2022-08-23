@@ -28,15 +28,15 @@
 		<div class="card-body">
 			<h5 class="card-title title2-1" ><a href="<%=request.getContextPath()%>/place/view.do?pidx=${e.pidx}">[특가 진행중] ${e.placeName}</a></h5>
 			<p class="card-text">${e.address}</p>
-			<span class="card-text title3">${e.price}</span><span>원/시간</span>
+			<span class="card-text title3"><fmt:formatNumber value="${e.price}" pattern="#,###"/></span><span>원/시간</span>
 			<i class="fa-regular fa-star" style="float:right">${e.avgRate}</i>
 			 <!-- 찜하기 -->
 			 <c:choose>
 				<c:when test="${e.heart eq '0'}">
-					<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${e.pidx})" class="fa-regular fa-heart" style="color: red;"></i></a>
+					<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${e.pidx})" class="fa-regular fa-heart" style="color: red;"> ${e.cntHeart}</i></a>
 				</c:when>
 				<c:when test="${e.heart eq '1'}">
-					<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${e.pidx})" class="fa-solid fa-heart" style="color: red;" ></i></a>
+					<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${e.pidx})" class="fa-solid fa-heart" style="color: red;" > ${e.cntHeart}</i></a>
 				</c:when>
 			</c:choose> 
 		</div>

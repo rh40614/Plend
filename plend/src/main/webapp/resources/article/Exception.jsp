@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,34 +22,34 @@
 </head>
 <body>
 <%
-int status = response.getStatus();
+	int status = response.getStatus(); 
+	pageContext.setAttribute("status", status); 
+%> 
 
-	if(status == 404){
-		%>
+
+<c:choose>
+	<c:when test="${pageScope.status eq '400'}">
 		<div id="header"></div>
-		<img src="<%=request.getContextPath()%>/resources/image/404ERROR.png" ">
+		<img src="<%=request.getContextPath()%>/resources/image/400ERROR.png">
 		<div id="footer"></div>
-		<%
-	}else if(status == 405){
-		%>
+	</c:when>
+	<c:when test="${pageScope.status eq '404'}">
+		<div id="header"></div>
+		<img src="<%=request.getContextPath()%>/resources/image/404ERROR.png">
+		<div id="footer"></div>
+	</c:when>
+	<c:when test="${pageScope.status eq '405'}">
 		<div id="header"></div>
 		<img src="<%=request.getContextPath()%>/resources/image/405ERROR.png">
 		<div id="footer"></div>
-		<%
-	}else if(status == 400){
-	%>
-	<div id="header"></div>
-	<img src="<%=request.getContextPath()%>/resources/image/400ERROR.png">
-	<div id="footer"></div>
-	<%
-	}else if(status == 500){
-		%>
+	</c:when>
+	<c:when test="${pageScope.status eq '500'}">
 		<div id="header"></div>
 		<img src="<%=request.getContextPath()%>/resources/image/500ERROR.png">
 		<div id="footer"></div>
-		<%
-}
-%>
+	</c:when>
+	
+</c:choose>
 
 </body>
 </html>

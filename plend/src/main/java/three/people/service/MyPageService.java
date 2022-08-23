@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import three.people.vo.BookVO;
+import three.people.vo.HeartVO;
 import three.people.vo.ImageVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.ReviewVO;
@@ -12,6 +13,7 @@ import three.people.vo.UserVO;
 
 public interface MyPageService {
 	
+	public UserVO myPageCheck(UserVO vo);
 	public UserVO userInfo(int uidx);
 	public int userModify(UserVO vo);
 	public List<HashMap<String, Integer>> BookedList(HashMap<String, Integer> param);
@@ -25,4 +27,8 @@ public interface MyPageService {
 	public List<PlaceVO> selectPlace(HashMap<String, Integer> param);
 	public ImageVO selectImg(PlaceVO vo);
 	public int likeListTotal(int uidx);
+	public int likeAdd(HeartVO heartvo);
+	public int likeDelete(HeartVO heartvo);
+	public List<HeartVO> selectHeart(HeartVO heartvo);
+	public int avgRevew(PlaceVO placeVO);
 }

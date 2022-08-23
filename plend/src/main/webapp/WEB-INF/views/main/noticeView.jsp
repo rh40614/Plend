@@ -7,7 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>plend</title>
-	
+
 	<!-- 07.08 김연희: 폰트어썸 - 카드 별, 하트 아이콘   -->
 	<script src="https://kit.fontawesome.com/f5807db9d4.js" crossorigin="anonymous"></script>
 
@@ -24,9 +24,9 @@
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
 		})
 	</script>
-	
+
 	<script>
-	
+
 	function like (obj){
 		if($(obj).hasClass("fa-regular") == true){
 			$(obj).removeClass("fa-regular");
@@ -35,13 +35,13 @@
 			$(obj).removeClass("fa-solid");
 			$(obj).addClass("fa-regular");
 		}
-		
+
 	}
 	</script>
-	
+
 	<!-- 게시글 삭제 -->
 	<script>
-	
+
 		function del() {
 			if (confirm("정말 삭제하시겠습니까??")){    //확인
 
@@ -51,9 +51,9 @@
 			     return false;
 
 			 }
-			
+
 		}
-	
+
 	</script>
 	<style type="text/css">
 		img {
@@ -64,12 +64,12 @@
 </head>
 
 <body>
-<div id="wrap">	
+<div id="wrap">
 	<header id="header"></header>
 	<br>
 	<div id = "back">
 		 <br>
-		 <h2>| ${vo.title}</h2>	
+		 <h2>| ${vo.title}</h2>
 		 <br>
 		 <span id = "info">작성자 : ${vo.nickName} | 작성일 : ${vo.date.substring(0,10)} | 조회수 : ${vo.hit}</span>
 		<hr>

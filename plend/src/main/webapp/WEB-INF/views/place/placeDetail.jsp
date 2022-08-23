@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%@ page session="true" %>
 <html>
 <head>
@@ -17,6 +19,10 @@
 	<link href="<%=request.getContextPath()%>/resources/css/placeDetail.css" rel="stylesheet">
 	<!-- kakaoMap api -->
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b685739baf5af3ec44e96933a3116f08&libraries=services,clusterer,drawing"></script>
+	<!-- 슬릭 슬라이더 -->
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+				
 	<!-- header/footer -->	
 	<script type="text/javascript">
 		$(function(){
@@ -145,12 +151,12 @@
 						${placeOne.placeName}
 					</c:if> 
 				</div>
-				<div class="d-flex place_tag ms-5 "id="tag${placeOne.pidx}" style="font-size: 14px; color:#7f8b93 "></div>
+				<div class="d-flex place_tag ms-5 "id="tag${placeOne.pidx}" style="font-size: 14px; color:#7f8b93; flex-wrap: wrap;"></div>
 					<script>
 						var tags = JSON.parse('${placeOne.tag}');
 						var tag = "";
 						tags.forEach(element => 
-							tag += "#"+ element.value + "&nbsp;" 
+							tag += "<a href='<%=request.getContextPath()%>/place/searchPlace.do?searchValue="+element.value+"'> #"+ element.value + "&nbsp;</a>" 
 						);
 						console.log(tag);
 						
@@ -171,6 +177,9 @@
 						</c:when>
 					</c:choose>
 					<i class="fa-regular fa-star me-2 ms-2" style="float:right"> ${placeOne.avgRate}</i>
+				</div>
+				<div style="float: right;" class="me-5 mt-3">
+					<span class="card-text title3" ><fmt:formatNumber value="${placeOne.price}" pattern="#,###"/></span><span>  원/시간</span>
 				</div>
 			</section>
 		</section>
@@ -434,6 +443,7 @@
 				</section>
 			</div>
 		</section>
+		
 	</main>
 	<!-- 예약하기 -->
 	<div class="d-flex flex-column col-3">
@@ -458,11 +468,53 @@
 			</form>
 		</div>
 	</div>
+	<!-- 2022.08.22 김연희 : 해쉬태그 기반 장소 추천 -->
+	<section>
+	<hr>
+		<c:if test="${login.nickName != null}">
+			<p style="padding-left: 100px; font-weight: bold;" class="mt-5">${login.nickName}님 이 장소가 마음에 드셨나요? 비슷한 장소를 추천해 드릴게요!</p>
+			<p style="padding-left: 100px; font-weight: bold;">이런 장소는 어떠세요?</p>
+			<br>
+		</c:if>
+		<c:if test="${login.nickName == null}">
+			<p style="text-align: center; font-weight: bold;" class="mt-5">이런 장소는 어떠세요?</p>
+			<br>
+		</c:if>
+		<div id="hashList"></div>
+	</section>
+		
 	</div>
 </div>
 <footer id="footer" class="row mt-5"></footer>
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!-- 해쉬 태그 기반 장소  -->
+<script>
+	$(function(){
+		
+		var tags = JSON.parse('${placeOne.tag}');
+		var tag = "";
+		tags.forEach(element => 
+			tag += element.value + ","
+		);
+		console.log(tag);
+	
+		$.ajax({
+			url: "hashList.do",
+			data: "tag=" + tag,
+			ContentType: "text/plain; charset=utf-8",
+			success: function(data){
+				console.log("해쉬성공");
+				$("#hashList").html(data);
+			},
+			error: function(data){
+				console.log("해쉬 실패");
+			}
+		})
+	});
+	
+</script>
+
 <!-- 질문하기/답변 버튼 클릭시 토글 -->
 <script type="text/javascript">
 	function QnAToggle(obj){
@@ -688,6 +740,7 @@
 		});
 	});
 </script>
+
 </body>
 </html>
 

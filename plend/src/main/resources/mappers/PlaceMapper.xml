@@ -355,13 +355,27 @@
 		     AND approvalYN ='승인')
 			 AND ((placeName LIKE CONCAT('%',#{searchValue},'%'))
 			  OR (address LIKE CONCAT('%',#{searchValue},'%')))
+			  OR (tag LIKE CONCAT('%',#{searchValue},'%'))
 			ORDER BY pidx DESC
 	</select>
-	<!-- 2022.08.05 김연희: 비슷한 장소 추천-->
-	<!-- <select id="recommendPlace" parameterType="PlaceVO" resultType="PlaceVO"></select> -->
 	
+	<select id="countHeart" parameterType="PlaceVO" resultType="int">
+		SELECT
+		      COUNT(*) 
+		 FROM heart 
+		WHERE pidx = #{pidx}
+	</select>
 	
-
+	<!-- 2022.08.22 김연희: 동일한 해쉬태그를 가진 장소 -->
+	<select id="hashList"  resultType="PlaceVO">
+		SELECT * 
+		FROM place 
+		WHERE 
+		  <foreach collection="array" item="arr" separator="or" open="(" close=")" index="index">
+				tag LIKE CONCAT('%',#{arr},'%')
+		  </foreach>
+		AND approvalYN ='승인'
+	</select>
 	
 	
 	
