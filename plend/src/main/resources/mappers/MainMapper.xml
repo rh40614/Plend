@@ -6,6 +6,8 @@
 <mapper namespace="three.people.mapper.mainMapper">
 
 	<select id="noticeAll" parameterType="SearchVO" resultType="NoticeVO">
+	SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
+	FROM (SELECT @ROWNUM := 0 )rnum, (
 		SELECT 
 			 nidx
 			,title
@@ -18,7 +20,8 @@
   	   WHERE a.delyn = 'N' 
   	     AND category = '1'
   	     <include refid = "searchTitle"></include>
-  	ORDER BY nidx desc
+  	ORDER BY nidx asc) sub
+		  ORDER BY rnum desc
   	   LIMIT #{start}, #{cntPerPage}
 	</select>	
 	<sql id = "searchTitle">
@@ -80,23 +83,18 @@
 		FROM faq a
   INNER JOIN user_plend b
   		  ON a.uidx = b.uidx
-  		  <include refid = "searchQuestion1"></include>
   		  <if test='category != null'>
   	   WHERE category = #{category}
-  	   <include refid = "searchQuestion1"></include>
   	   	  </if>
   	   	  <if test = 'category == null'>
+  	      	<include refid = "searchQuestionAnswer"></include>
   	   	  </if>
   	ORDER BY fidx desc
 	</select>
-	<sql id = "searchQuestion1">
-		<if test = "searchValue != null"> 
-			AND (question LIKE CONCAT('%',#{searchValue},'%'))
-		</if>
-	</sql>
-	<sql id = "searchQuestion2">
+	<sql id = "searchQuestionAnswer">
 		<if test = "searchValue != null"> 
 			WHERE (question LIKE CONCAT('%',#{searchValue},'%'))
+			 OR (answer LIKE CONCAT('%',#{searchValue},'%'))
 		</if>
 	</sql>
 	<select id = "faqOne" resultType ="faqVO" parameterType = "int">

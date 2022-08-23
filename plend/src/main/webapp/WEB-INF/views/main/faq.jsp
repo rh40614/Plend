@@ -97,6 +97,7 @@
 			float:right;
 			border : 0px;
 			margin-right:10px;
+			margin-bottom : 20px;
 		}
 		
 		#modiBtn:hover {
@@ -124,7 +125,7 @@
 		.active1 {
 			display: block;
 		  /* 높이를 정해줘야지만 transition이 적용됨 */
-		  height:120px;
+		  height:100%;
 		}
 	
 	</style>
