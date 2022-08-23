@@ -125,10 +125,8 @@ public class HostController {
 				if(!files.getOriginalFilename().isEmpty()) {	//화면에서 넘어온 파일이 존재한다면
 					//화면에서 넘어온 파일을 path위치에 새로쓰는 로직
 					files.transferTo(new File(path, files.getOriginalFilename()));	//error는 throw	
-					
 					//originName(사용자가 저장한 이름) 가지고 오기
 					String originFileName = files.getOriginalFilename();
-					
 					//확장자 추출(이후 호출 할때 확장자가 두번 붙어버림) 
 					String extention = originFileName.substring(originFileName.lastIndexOf("."));
 					//확장자를 제거한 파일 이름
