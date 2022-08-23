@@ -351,7 +351,7 @@ public class HomeController {
 
 	@RequestMapping(value="test.do")
 	public String test() {
-		return "common/snsSignUp";
+		return "main/teamInfo";
 	}
 
 

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-	
+<script src="https://kit.fontawesome.com/f5807db9d4.js" crossorigin="anonymous"></script>
 <!-- go UP -->
 <div class="footer_text goUP"  >
    	<p class="float-end mb-1">
