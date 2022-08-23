@@ -21,6 +21,10 @@ public class MyPageDAO {
 	@Autowired
 	SqlSession sqlSession;
 	
+	public UserVO myPageCheck(UserVO vo) {
+		return sqlSession.selectOne("three.people.mapper.mypageMapper.myPageCheck", vo);
+	}
+	
 	public UserVO userInfo(int uidx) {
 		
 		return sqlSession.selectOne("three.people.mapper.mypageMapper.userInfo", uidx);

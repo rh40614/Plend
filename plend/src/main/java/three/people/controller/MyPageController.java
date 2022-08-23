@@ -53,6 +53,39 @@ public class MyPageController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
+	
+	
+	@RequestMapping(value = "myPageCheck.do", method = RequestMethod.GET)
+	public String myPageCheck(Model model,int uidx) {
+		UserVO vo = mypageService.userInfo(uidx);
+		model.addAttribute("vo", vo);
+		return "myPage/myPageCheck";
+	}
+	@RequestMapping(value = "myPageCheck.do", method = RequestMethod.POST)
+	public String myPageCheck(String password, UserVO vo, int uidx, HttpServletResponse response) throws IOException {
+		
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = response.getWriter();
+		
+		UserVO pwd = mypageService.myPageCheck(vo);
+		
+		if(encoder.matches(password, pwd.getPassword())) {
+			
+			pw.append("<script>location.href = 'myInfo.do?uidx="+uidx+"'</script>");
+			
+			pw.flush();
+		} else {
+			
+			pw.append("<script>alert('비밀번호가 일치하지 않습니다.');location.href = 'myPageCheck.do?uidx="+uidx+"'</script>");
+			
+			pw.flush();
+		}
+		
+		return "myPage/myInfo";
+	}
 	@RequestMapping(value = "/myInfo.do", method = RequestMethod.GET)
 	public String myInfo(Model model, int uidx) {
 		
@@ -116,7 +149,7 @@ public class MyPageController {
 		param.put("start", start);
 		param.put("end", end);
 		
-		List<BookVO> list = mypageService.BookList(vo);
+		List<BookVO> list = mypageService.BookList(login);
 		model.addAttribute("list", list);
 		model.addAttribute("list2", mypageService.BookedList(param));
 		

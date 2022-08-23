@@ -54,8 +54,7 @@
 	});
 	
 	var idchk = 0;
-	$(function() {
-		$("#dbchk").click(function(){
+	function checkId(){
 			var id = $("input[name=id]").val();
 			
 			$.ajax({
@@ -66,31 +65,31 @@
 				dataType :"json",
 				contentType : "application/json; charset=UTF-8",
 				success : function(data) {
+					console.log('data' + data);
+					console.log('data.cnt' + data.cnt);
 					if (data.cnt > 0) {
-						alert("중복된 아이디가 존재합니다.");
-						$("input[name=id]").focus();
+						
+						$('.id_already').css("display","inline-block");
+	                    $('.id_ok').css("display", "none");
+	                    $('input[name=id]').val('');
 					} else if(id == "") {
 						alert("사용하실 아이디를 입력해주세요.")
 						$("input[name=id]").focus();
 					} else {
-						alert("사용가능한 아이디입니다.");
-						$("#dbchk").css("display", "none");
-						$("input[name=id]").attr('readonly', true);
-						$("input[name=id]").addClass("w300");
+						$('.id_ok').css("display","inline-block"); 
+	                    $('.id_already').css("display", "none");
 						idchk = 0;
 					}
 				},
 				error : function(error){
-					alert("error : " + error);
+					alert("error1 : " + error);
 					console.log(JSON.stringify(error));
 				}
 			});
-		});
-	});
-	
+
+	}
 	var nickchk = 0;
-	$(function() {
-		$("#dbchk2").click(function(){
+	function checkNick(){
 			var nickName = $("input[name=nickName]").val();
 			
 			$.ajax({
@@ -101,27 +100,27 @@
 				dataType :"json",
 				contentType : "application/json; charset=UTF-8",
 				success : function(data) {
+					console.log('data' + data);
+					console.log('data.cnt' + data.cnt);
 					if (data.cnt > 0) {
-						alert("중복된 닉네임이 존재합니다.");
-						$("input[name=nickName]").focus();
+						$('.nick_already').css("display","inline-block");
+	                    $('.nick_ok').css("display", "none");
+	                    $('input[name=nickName]').val('');
 					} else if(nickName == "") {
 						alert("사용하실 닉네임을 입력해주세요.")
-						$("input[name=id]").focus();
+						$("input[name=nickName]").focus();
 					} else {
-						alert("사용가능한 닉네임입니다.");
-						$("#dbchk2").css("display", "none");
-						$("input[name=nickName]").attr('readonly', true);
-						$("input[name=nickName]").addClass("w300");
+						$('.nick_ok').css("display","inline-block"); 
+	                    $('.nick_already').css("display", "none");
 						nickchk = 0;
 					}
 				},
 				error : function(error){
-					alert("error : " + error);
+					alert("error2 : " + error);
 					console.log(JSON.stringify(error));
 				}
 			});
-		});
-	});
+	}
 	
 	function check() {
 		var frm = document.frm;
@@ -201,6 +200,26 @@
 	}
 	
 	</script>
+	<style>
+	.id_ok{
+color:#008000;
+display: none;
+}
+
+.id_already{
+color:#6A82FB; 
+display: none;
+}
+.nick_ok{
+color:#008000;
+display: none;
+}
+
+.nick_already{
+color:#6A82FB; 
+display: none;
+}
+	</style>
 
 </head>
 <body>
@@ -218,8 +237,9 @@
 		</div>
 		<form action = "signUp.do" method ="post" name = "frm" id = "frm" style = "margin-bottom:0px;">
 			<div class="identity">
-				<input type = "text" name = "id" placeholder = "아이디" id = "chkbox" maxlength='20' class="checkInput"> 
-				<button type="button" id="dbchk" class="btn btn-sm">중복확인</button>
+				<input type = "text" name = "id" placeholder = "아이디" maxlength='20' class="checkInput" onchange = "checkId()"> 
+				<span class="id_ok" style = "margin-top:-15px;margin-bottom:15px;">사용 가능한 아이디입니다.</span>
+				<span class="id_already" style = "margin-top:-15px;margin-bottom:15px;">사용중인 아이디입나다.</span>
 			</div>
 			<div class="pwd">
 				<input type = "password" name = "password" placeholder = "비밀번호" maxlength='20'>
@@ -227,8 +247,9 @@
 				<input type = "text" name = "name" placeholder = "이름" maxlength='8'>
 			</div>
 			<div class="nick">	
-				<input type = "text" name = "nickName" placeholder = "닉네임" id = "chkbox" maxlength='15' class="checkInput"> 
-				<button type = "button" id = "dbchk2" class="btn btn-sm">중복확인</button>
+				<input type = "text" name = "nickName" placeholder = "닉네임" maxlength='15' class="checkInput" onchange = "checkNick()"> 
+				<span class="nick_ok" style = "margin-top:-15px;margin-bottom:15px;">사용 가능한 닉네임입니다.</span>
+				<span class="nick_already" style = "margin-top:-15px;margin-bottom:15px;">사용중인 닉네임입니다.</span>
 			</div>
 			<div class="gender mb-1">
 				<input type = "hidden" name = "gender" value = "" id ="hidden">
@@ -280,6 +301,8 @@ $(document).ready(function(){
 $('input[name=id]').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|A-Z]/g,"") );});
 $('input[name=name]').on("keyup", function() {$(this).val( $(this).val().replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
 $('input[name=nickName]').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
+
+
 </script>
 	<footer id="footer"></footer>
 	<!-- JavaScript Bundle with Popper -->

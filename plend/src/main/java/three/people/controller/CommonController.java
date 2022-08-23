@@ -219,7 +219,7 @@ public class CommonController  {
 
 		count = userService.nickNameCheck(nickName);
 
-		map.put("cnt2", count);
+		map.put("cnt", count);
 
 		return map;
 	}
