@@ -110,7 +110,7 @@
 		.active1 {
 			display: block;
 		  /* 높이를 정해줘야지만 transition이 적용됨 */
-		  height:100%;
+		  height:auto;
 		}
 	
 	</style>
@@ -158,7 +158,7 @@
 				              <div class="panel-faq-answer">
 				              <hr>
 				                	${vo.answer}
-				                	<c:if test="${login.role == '1'}">
+				                	<c:if test="${login.role eq '1'}">
 								  	<input type = "button" value = "수정" id = "modiBtn" onclick="location.href='faqModify.do?fidx=${vo.fidx}'">
 								 	 </c:if>
 				              </div>
