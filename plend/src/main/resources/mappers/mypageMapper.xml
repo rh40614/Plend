@@ -112,7 +112,7 @@
 		  FROM book
 		 WHERE delyn = 'N'
 		   AND uidx = #{uidx}
-		   AND approvalYN = 'Y'
+		   AND successbook = 'Y'
 	</select>
 	<update	 id = "cancelBook" parameterType = "int">
 		UPDATE book
