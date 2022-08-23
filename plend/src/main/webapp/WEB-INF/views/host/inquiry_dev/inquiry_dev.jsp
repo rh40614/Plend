@@ -39,24 +39,7 @@
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
-	
-	<!-- 썸머노트 -->
-	<script type="text/javascript">
-		$(document).ready(function() {
- 			$('#summernote').summernote({
- 				width: 1250,
-	 			height: 400,		// 기본 높이값
-			    minHeight: 450,		// 최소 높이값(null은 제한 없음)
-			    maxHeight: null,  	// 최대 높이값(null은 제한 없음)
-			    focus: true,          // 페이지가 열릴때 포커스를 지정함
-			    placeholder: '문의를 작성해주세요.',
-			    lang: 'ko-KR'    
- 			});
-		}); 
 
-	</script>
-	<!-- 유효성  -->
-	
 
 	
 	</head>
@@ -77,14 +60,14 @@
 			<br>
 			<!-- 썸머노트 -->
 			<div class="spaceL mt-2">
-				<form action="inquiry_dev.do" method="POST" name="frm">
-				<select name="category" class="me-3">
-					<option value="장소">장소</option>
-					<option value="결제">결제</option>
-					<option value="환불">환불</option>
-					<option value="신고">신고</option>
-					
-				</select>
+				
+				<form action="inquiry_dev.do" method="POST" name="frm" enctype="multipart/form-data">
+					<select name="category" class="me-3" required>
+						<option value="장소">장소</option>
+						<option value="결제">결제</option>
+						<option value="환불">환불</option>
+						<option value="신고">신고</option>
+					</select>
 					<span class="mb-3">문의제목 : </span><input class="mb-3" type="text" name="title" id="title" size="70" required maxlength="50">
 					<textarea id="summernote" name="content" required></textarea> 
 					<div style="float: right;">
@@ -197,6 +180,24 @@
 				
 			});
 		}
+		
+	</script>
+		
+	<!-- 썸머노트 -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+ 			$('#summernote').summernote({
+ 				width: 1250,
+	 			height: 400,		// 기본 높이값
+			    minHeight: 450,		// 최소 높이값(null은 제한 없음)
+			    maxHeight: null,  	// 최대 높이값(null은 제한 없음)
+			    focus: true,          // 페이지가 열릴때 포커스를 지정함
+			    placeholder: '문의를 작성해주세요.',
+			    lang: 'ko-KR'
+			    
+ 			});
+		}); 
+		
 		
 	</script>
 	

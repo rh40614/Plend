@@ -40,8 +40,9 @@
 	<!-- 수정하기 -->
 	<script>
 		function inquiryEdit_dev(obj){
+			
 			$.ajax({
-				url:"inquiryEdit_dev.do?iqidx=" + obj,
+				url:"inquiryEdit_dev.do?iqidx=" + $(obj).val(),
 				type: "GET", 
 				success: function(edit){
 					console.log($(obj).val());

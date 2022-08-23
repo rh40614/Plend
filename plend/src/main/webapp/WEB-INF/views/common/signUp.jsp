@@ -125,7 +125,9 @@
 	function check() {
 		var frm = document.frm;
 		var birth = $("input[name=birth]").val();
-
+		var reg = /^\d{3}-\d{3,4}-\d{4}$/;
+		
+		
 		if (frm.id.value == "") {
 			alert("아이디를 입력해주세요.")
 			return;
@@ -147,7 +149,7 @@
 		}  else if (frm.userPhone.value == "") {
 			alert("핸드폰 번호를 입력해주세요. ex) 010-1234-1234");
 			return;
-		} else if ((!/^\d{3}-\d{3,4}-\d{4}$/.test($("input[name='userPhone']")).val())){
+		} else if (!reg.test($("input[name='userPhone']").val())){
 			alert("연락처에 하이픈(-)을 포함해서 입력해주세요. ex)010-1234-1234");
 			return;
 		} else if (frm.email.value == "") {
@@ -156,20 +158,14 @@
 		}  else if (document.querySelector('#regnum').style.display == 'none' && frm.birth.value == "") {
 			alert("생년월일을 입력해주세요. ex) 19940324");
 			return;
-		} else if (birth.toString().length != 8) {
+		} else if (document.querySelector('#regnum').style.display == 'none' && birth.toString().length != 8) {
 			alert("생년월일을 8자로 입력해주세요. ex) 19940324");
 			return;
-		} else if (isNaN(frm.birth.value) == true){
+		} else if (document.querySelector('#regnum').style.display == 'none' && isNaN(frm.birth.value) == true){
 			alert("생년월일은 숫자만 입력해주세요. ex) 19990707");
 			return;
 		}  else if (document.querySelector('#birth').style.display == 'none' && frm.regnum.value == "") {
 			alert("사업자 번호를 입력해주세요.");
-			return;
-		} else if (document.querySelector('#dbchk').style.display != 'none') {
-			alert("아이디 중복확인을 해주세요.");
-			return;
-		} else if (document.querySelector('#dbchk2').style.display != 'none') {
-			alert("닉네임 중복확인을 해주세요.");
 			return;
 		} else if (!frm.essential.checked) {
 			alert("필수항목을 체크해주세요.");
@@ -263,7 +259,7 @@ display: none;
 				 생년월일 <input type = "text" name = "birth" placeholder = "ex)19990707" class = "textbox" style = "width:200px;" id = "birthRole"> <br><br>
 			</div>
 			<div id = "regnum">
-					사업자 번호 <input type = "text" name = "regnum" placeholder = "사업자 번호" class = "textbox" style = "width:200px;" id = "regnumRole"> <br>
+				사업자 번호 <input type = "text" name = "regnum" placeholder = "사업자 번호" class = "textbox" style = "width:200px;" id = "regnumRole"> <br>
 			</div>
 				<div>
 					<details>
