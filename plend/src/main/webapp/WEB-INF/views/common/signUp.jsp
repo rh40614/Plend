@@ -8,13 +8,13 @@
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<meta name="google-signin-client_id" content="229501873706-7g1g5tqh1jeitmnhmnkft67koof6th6e.apps.googleusercontent.com">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<link href="../resources/css/global.css" rel="stylesheet">
-	<link href="../resources/css/signUp.css" rel="stylesheet">
-	<script src="../resources/js/jquery-3.6.0.min.js"></script>
+	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/resources/css/signUp.css" rel="stylesheet">
+	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
 	$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
-			$("#footer").load("../resources/article/footer.jsp");
+			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
 		})
 
 	$(document).ready(function(){
@@ -147,7 +147,7 @@
 		}  else if (frm.userPhone.value == "") {
 			alert("핸드폰 번호를 입력해주세요. ex) 010-1234-1234");
 			return;
-		} else if ((!/^\d{3}-\d{3,4}-\d{4}$/.test($("input[name='userPhone']").val()){
+		} else if ((!/^\d{3}-\d{3,4}-\d{4}$/.test($("input[name='userPhone']")).val())){
 			alert("연락처에 하이픈(-)을 포함해서 입력해주세요. ex)010-1234-1234");
 			return;
 		} else if (frm.email.value == "") {
@@ -225,7 +225,7 @@ display: none;
 <div id = "wrap">
 	<header id="header"></header>
 <main style = "height:100%;">
-	<div style = "text-align:center;">
+	<div style = "text-align:center;display: flex; justify-content: center;">
 	 <br>
 	<div class="signUpBox">
 		<p  class="mb-2 mt-3" style="font-size: 24px;font-weight:bold; ">회원가입</p>
@@ -260,18 +260,16 @@ display: none;
 			<input type = "email" name = "email" placeholder = "이메일 ex) plend@naver.com">
 
 			<div id = "birth">
-				 생년월일 <input type = "text" name = "birth" placeholder = "ex)19990707" class = "textbox" style = "width:200px;margin-right:280px;" id = "birthRole"> <br><br>
+				 생년월일 <input type = "text" name = "birth" placeholder = "ex)19990707" class = "textbox" style = "width:200px;" id = "birthRole"> <br><br>
 			</div>
-
 			<div id = "regnum">
-					사업자 번호 <input type = "text" name = "regnum" placeholder = "사업자 번호" class = "textbox" style = "width:200px;margin-right:260px;" id = "regnumRole"> <br><br>
+					사업자 번호 <input type = "text" name = "regnum" placeholder = "사업자 번호" class = "textbox" style = "width:200px;" id = "regnumRole"> <br>
 			</div>
-			<hr style = "margin-left : 300px; margin-right: 300px;">
-				<div style = "margin-right:430px;">
+				<div>
 					<details>
 						<summary> <input type = "checkbox" name = "terms" id = "essential"> 이용약관(필수)</summary>
-						<span id = "sum">동의해주세요.</span>
-
+						<span id = "sum">동의해주세요.
+						</span>
 					</details>
 					<details>
 						<summary> <input type = "checkbox"> 이용약관(선택)</summary>
