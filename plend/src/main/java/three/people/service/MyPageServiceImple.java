@@ -22,6 +22,12 @@ public class MyPageServiceImple implements MyPageService{
 	MyPageDAO mypageDao;
 
 	@Override
+	public UserVO myPageCheck(UserVO vo) {
+		
+		return mypageDao.myPageCheck(vo);
+	}
+	
+	@Override
 	public UserVO userInfo(int uidx) {
 		
 		return mypageDao.userInfo(uidx);

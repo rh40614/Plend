@@ -13,6 +13,7 @@ import three.people.vo.UserVO;
 
 public interface MyPageService {
 	
+	public UserVO myPageCheck(UserVO vo);
 	public UserVO userInfo(int uidx);
 	public int userModify(UserVO vo);
 	public List<HashMap<String, Integer>> BookedList(HashMap<String, Integer> param);
