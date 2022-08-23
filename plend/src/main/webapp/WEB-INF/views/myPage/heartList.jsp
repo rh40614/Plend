@@ -159,11 +159,10 @@
 				<div class="card " style="width: 16rem; margin-right: 20px;margin-top:20px;">
 					<!-- imageView 아주 잘 썼습니다. -->
 	  				<img  src="<%=request.getContextPath()%>/imageView.do?originFileName=${e.placeImg}" class="card-img-top" alt="..." style = "height:13rem;">
-	  				<i class="fa-solid fa-bolt bolt"></i>
 	 			<div class="card-body">
 	 				<h5 class="card-title"><a href="<%=request.getContextPath()%>/place/view.do?pidx=${e.pidx}" class="">${e.placeName}</a></h5>
 	 				<p class="card-text">${e.address}</p>
-	 				<p class="card-text"><fmt:formatNumber value="${e.price}" type="currency"/>원</p>
+	 				<p class="card-text"><fmt:formatNumber value="${e.price}" pattern="#,###"/>원</p>
 	 				<i class="fa-regular fa-star" style="float:right">${e.avgRate}</i>
 	 				<!-- 찜하기 -->
 			 <c:choose>

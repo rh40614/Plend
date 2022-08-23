@@ -192,7 +192,7 @@
 		<h5><strong>| 이용 리스트</strong></h5>
 		<br>
 		<c:forEach var = "vo" items = "${list2}">
-		<c:if test = "${vo.successBook  ne 'N' }">
+		<c:if test = "${vo.successBook ne 'N' }">
 		<div id = "bookView">
 			<table>
 				<tr>

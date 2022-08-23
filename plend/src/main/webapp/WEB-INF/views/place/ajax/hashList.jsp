@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:if test="${hashList.size() == 0}">
 	<P class="m-auto" style="min-height:300px; display: inline-block; margin: 20px 0px 20px 0px; vertical-align: top; font-size: 20px; color: grey; padding-top: 200px;">
 		등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. 
@@ -27,7 +28,7 @@
 					<div class="card-body" >
 						<h5 class="card-title title2-1" ><a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">${c.placeName}</a></h5>
 						<p class="card-text">${c.address}</p>
-						<span class="card-text title3">${c.price}</span><span>원/시간</span>
+						<span class="card-text title3"><fmt:formatNumber value="${c.price}" pattern="#,###"/></span><span>원/시간</span>
 						<i class="fa-regular fa-star" style="float:right"> ${c.avgRate}</i>
 						<!-- 찜하기 -->
 					 <c:choose>
