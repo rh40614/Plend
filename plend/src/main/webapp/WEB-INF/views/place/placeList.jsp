@@ -53,11 +53,11 @@
 			<!-- 날짜 -->
 			<!-- <input class="selector" placeholder="날짜" style="width:100px; text-align: center;" > -->
 			<!-- 인원 -->
-			<div class="filter_btn"  onclick="filter()">
+			<div class="filter_btn"  onclick="filter()" style="cursor: pointer;">
 				<div>인원</div>
 			</div>
 			<!-- 인원: 상위 div안에 넣으면 작동 x, absolute로 설정-->
-			<div class="filter_human" >
+			<div class="filter_human" style="cursor: pointer;">
 				<div class="filter_human_inside">
 					<div class="filter_human_inside_text">총 인원수</div>
 					<div class="filter_human_inside_number">
@@ -69,8 +69,8 @@
 				</div>
 			</div>
 			<!-- 지역 -->
-			 <select name="address" style="border-radius: 4px; border: solid 1px grey;" id= "address" onchange="setRegion()">
-				<option value="">지역</option>
+			 <select name="address" style="border-radius: 4px; border: solid 1px grey; cursor: pointer;" id= "address" onchange="setRegion()" >
+				<option value="" >지역</option>
 				<option value="서울">서울</option>
 				<option value="경기">경기</option>
 				<option value="세종">세종</option>
@@ -280,7 +280,10 @@
 		var region = $("#address").val();
 		console.log(region);
 		$("#region_value").html(region).css("color","#678eaa");
-		 
+		 if(region == ''){
+			$("#region_value").css("display","none");
+			$("#address").val('');
+		 }
 	 }
 	 
 	 function region_reset(){

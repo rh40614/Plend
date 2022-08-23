@@ -160,7 +160,7 @@
 		/* 승인  */
 		function approval(idx){
 
-			if($("#approvalN"+idx).html() == '승인 완료'){
+			if($("#approvalN"+idx).html() == '승인 완료' || $("#approvalY"+idx).html() == '승인 완료' ){
 				alert("이미 승인된 요청입니다.");
 			
 			}else if($("#approvalR"+idx).html() == '승인 거절'){
