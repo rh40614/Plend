@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<script src="https://kit.fontawesome.com/f5807db9d4.js" crossorigin="anonymous"></script>
 <footer class="text-muted py-5" style="background: #2F506D">
   <div class="container" style="display:flex; justify-content: space-between;">
    		<div class="footer_text">
