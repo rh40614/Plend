@@ -76,6 +76,9 @@ public final class PlaceController {
 		
 		//08.18 김연희: 평균 별점 추가
 		PlaceVO p = placeService.placeOne(placevo);
+		p.setCntHeart(placeService.countHeart(placevo));
+		System.out.println("pidx: "+p.getPidx());
+		System.out.println("heart: "+p.getCntHeart());
 		int avgRate = reviewService.avgRevew(p);
 		p.setAvgRate(avgRate);
 		

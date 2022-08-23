@@ -170,10 +170,10 @@
 					<!-- 찜하기 -->
 					<c:choose>
 						<c:when test="${empty heartList}">
-							<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this)" class="fa-regular fa-heart" style="color: red;"></i></a>
+							<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this)" class="fa-regular fa-heart" style="color: red;"> ${placeOne.cntHeart}</i></a>
 						</c:when>
 						<c:when test="${not empty heartList}">
-							<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this)" class="fa-solid fa-heart" style="color: red;"></i></a>
+							<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this)" class="fa-solid fa-heart" style="color: red;"> ${placeOne.cntHeart}</i></a>
 						</c:when>
 					</c:choose>
 					<i class="fa-regular fa-star me-2 ms-2" style="float:right"> ${placeOne.avgRate}</i>
