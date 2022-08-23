@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="true" %>
 
-	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start ">
+	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-start align-items-start ">
 	<c:if test="${list.size() == 0}">
 		<P class="m-auto" style="min-height:300px; display: inline-block; margin: 20px 0px 20px 0px; vertical-align: top; font-size: 20px; color: grey; padding-top: 200px;">
 				등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. 
@@ -14,7 +14,7 @@
 	<c:if test="${list.size() > 0 }">
 		<c:forEach var ="c" items="${list}" varStatus="status"> 
 		
-		<div class="card border-0 mb-5" style="width: 22rem; height: 25rem">
+		<div class="card border-0 mb-5" style="width: 22rem; height: 25rem;  margin-right: 40px;">
  				<c:choose>
  					<c:when test="${c.placeImg == null}">
  						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
@@ -35,10 +35,10 @@
 				<!-- 찜하기 -->
 				 <c:choose>
 					<c:when test="${c.heart eq '0'}">
-						<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${c.pidx})" class="fa-regular fa-heart" style="color: red;"></i></a>
+						<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${c.pidx})" class="fa-regular fa-heart" style="color: red;"> ${c.cntHeart}</i></a>
 					</c:when>
 					<c:when test="${c.heart eq '1'}">
-						<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${c.pidx})" class="fa-solid fa-heart" style="color: red;" ></i></a>
+						<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${c.pidx})" class="fa-solid fa-heart" style="color: red;" > ${c.cntHeart}</i></a>
 					</c:when>
 				</c:choose> 
  			</div>
