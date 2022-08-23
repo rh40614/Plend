@@ -28,7 +28,7 @@
 		<div class="card-body">
 			<h5 class="card-title title2-1" ><a href="<%=request.getContextPath()%>/place/view.do?pidx=${e.pidx}">[특가 진행중] ${e.placeName}</a></h5>
 			<p class="card-text">${e.address}</p>
-			<span class="card-text title3">${e.price}</span><span>원/시간</span>
+			<span class="card-text title3"><fmt:formatNumber value="${e.price}" pattern="#,###"/></span><span>원/시간</span>
 			<i class="fa-regular fa-star" style="float:right">${e.avgRate}</i>
 			 <!-- 찜하기 -->
 			 <c:choose>

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%@ page session="true" %>
 <html>
 <head>
@@ -175,6 +177,9 @@
 						</c:when>
 					</c:choose>
 					<i class="fa-regular fa-star me-2 ms-2" style="float:right"> ${placeOne.avgRate}</i>
+				</div>
+				<div style="float: right;" class="me-5 mt-3">
+					<span class="card-text title3" ><fmt:formatNumber value="${placeOne.price}" pattern="#,###"/></span><span>  원/시간</span>
 				</div>
 			</section>
 		</section>

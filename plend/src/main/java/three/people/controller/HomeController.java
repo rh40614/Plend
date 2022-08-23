@@ -39,7 +39,7 @@ public class HomeController {
 	Scheduler scheduler;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String mains(SearchVO searchVO, Model model, HttpServletRequest request, HttpSession session) {
+	public String mains(SearchVO searchVO, Model model) {
 		scheduler.autoUpdate();
 		
 		return "home";
