@@ -147,18 +147,25 @@
 		}  else if (frm.userPhone.value == "") {
 			alert("핸드폰 번호를 입력해주세요. ex) 010-1234-1234");
 			return;
+<<<<<<< HEAD
 		} else if (!/^\d{3}-\d{3,4}-\d{4}$/.test($("input[name='userPhone']").val())){
 			alert("연락처에 하이픈(-)을 포함해서 입력해주세요. ex)010-1234-1234");
 			return;
 
+=======
+>>>>>>> parent of e181fe8 (내 정보 화면 수정, 예약 현황 수정)
 		} else if (frm.email.value == "") {
 			alert("이메일을 입력해주세요.");
 			return;
 		}  else if (document.querySelector('#regnum').style.display == 'none' && frm.birth.value == "") {
+<<<<<<< HEAD
 			alert("생년월일을 입력해주세요. ex) 19940324");
 			return;
 		} else if (document.querySelector('#regnum').style.display == 'none' && birth.toString().length != 8) {
 			alert("생년월일을 8자로 입력해주세요. ex) 19940324");
+=======
+			alert("생년월일을 입력해주세요.");
+>>>>>>> parent of e181fe8 (내 정보 화면 수정, 예약 현황 수정)
 			return;
 		} else if (isNaN(frm.birth.value) == true){
 			alert("생년월일은 숫자만 입력해주세요. ex) 19990707");

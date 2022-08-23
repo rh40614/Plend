@@ -288,6 +288,7 @@
 		<!-- 찜하기 -->
 	<script>
 
+<<<<<<< HEAD
 		function like (obj, idx){
 			if(${login ne null}){
 				if($(obj).hasClass("fa-regular") == true){
@@ -330,6 +331,101 @@
 		}
 
 	</script>
+=======
+<body>
+<div id="wrap">
+	<header id="header" style ="background: white; "></header>
+	<main style="margin: 5% 19% 10% 19%; flex: 1;">
+	
+	<!-- 검색 버튼 그룹 -->
+	<form id="frm">
+		<div  style="margin-top: 25; float: right;" class="d-flex">
+			<input type="hidden" name="category" value="${category.category}">
+			<!-- 날짜 -->
+			<input class="selector" placeholder="날짜" style="width:100px; text-align: center;" >
+			<!-- 인원 -->
+			<div class="filter_btn"  onclick="filter()">
+				<div>인원</div>
+			</div>
+			<!-- 인원: 상위 div안에 넣으면 작동 x, absolute로 설정-->
+			<div class="filter_human" >
+				<div class="filter_human_inside">
+					<div class="filter_human_inside_text">총 인원수</div>
+					<div class="filter_human_inside_number">
+						<input type="text" name ="cntPeople" class="filter_human_inside_number" placeholder="1" style="text-align: center;" value="0"  id="cntPeople">
+					</div>
+					<div>
+						<button type="button" class="btnDefault" onclick="filter_human_set()">완료</button>
+					</div>
+				</div>
+			</div>
+			<!-- 지역 -->
+			 <select name="address">
+				<option value="">지역</option>
+				<option value="서울">서울</option>
+				<option value="경기">경기</option>
+				<option value="인천">인천</option>
+				<option value="부산">부산</option> 
+				<option value="광주">광주</option>
+				<option value="제주">제주</option>
+				<option value="대전">대전</option>
+				<option value="울산">울산</option>
+				<option value="대구">대구</option>
+				<option value="충북">충북</option>
+				<option value="충남">충남</option>
+				<option value="강원">강원</option>
+				<option value="전북">전북</option>
+				<option value="전남">전남</option>
+				<option value="경북">경북</option>
+				<option value="경남">경남</option>
+				
+			</select>
+			
+			<button type="button" class="btn btn-secondary me-2" onclick="search()">검색</button>
+		</div>
+	</form>
+	
+	<!-- 카테고리 제목 -->
+	<div>
+    	<span class="navbar-brand title1">|  ${category.category}</span>
+  	</div>
+  <div id="search_result">
+	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-between align-items-start ">
+		<c:if test="${list.size() == 0}">
+			<P class="title2 m-auto">등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. </P>
+		</c:if>
+	
+		<c:if test="${list.size() > 0 }">
+			<c:forEach var ="c" items="${list}" varStatus="status"> 
+			
+			<div class="card  mb-5" style="width: 22rem; height: 25rem">
+  				<c:choose>
+  					<c:when test="${c.placeImg == null}">
+  						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
+  							<img src="<%=request.getContextPath()%>/imageView.do?originFileName=매실1.PNG" class="card-img-top" alt="등록된 사진이 없습니다." style="height: 13rem;">
+  						</a>
+  					</c:when>
+  					<c:when test="${c.placeImg != null}">
+  						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
+  							<img src="<%=request.getContextPath()%>/imageView.do?originFileName=${c.placeImg}" class="card-img-top" alt="사진 로딩 오류" style="height: 13rem;">
+  						</a>
+  					</c:when>
+  				</c:choose>
+  				<i class="fa-solid fa-bolt bolt"></i>
+ 			<div class="card-body">
+ 				<h5 class="card-title title2-1" class=""><a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">${c.placeName}</a></h5>
+ 				<p class="card-text">${c.address}</p>
+ 				<span class="card-text title3">${c.price}</span><span>원/시간</span>
+ 				<i class="fa-regular fa-star" style="float:right">별점</i>
+ 				<i class="fa-regular fa-heart" onclick="like(this)"  style="color: red;"></i>
+  			</div>
+			</div>
+			
+			</c:forEach>
+		</c:if>
+	</section>
+</div>
+>>>>>>> parent of e181fe8 (내 정보 화면 수정, 예약 현황 수정)
 
 
 </body>
