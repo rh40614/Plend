@@ -15,12 +15,12 @@
 			}
 		#select:before{
 			content: '';
-			position: absolute; /*遺�紐� �슂�냼�뿉�뒗 position: relative瑜� 二쇱뼱�빞 �븿*/
+			position: absolute; /*�겫占쏙쭗占� 占쎌뒄占쎈꺖占쎈퓠占쎈뮉 position: relative�몴占� 雅뚯눘堉깍옙鍮� 占쎈맙*/
 			background-color: #FF007F;
 			height: 50px;
-			width: 0; /*珥덇린�뿉 蹂댁씠吏� �븡�룄濡�*/
-			bottom: -5px; /*a�깭洹� �븘�옒�뿉 �쐞移�*/
-			transition: 0.7s; /*�븷�땲硫붿씠�뀡 �룞�옉 �떎�뻾 �떆媛� �젙�쓽*/
+			width: 0; /*�룯�뜃由곤옙肉� 癰귣똻�뵠筌욑옙 占쎈륫占쎈즲嚥∽옙*/
+			bottom: -5px; /*a占쎄묶域뱄옙 占쎈툡占쎌삋占쎈퓠 占쎌맄燁삼옙*/
+			transition: 0.7s; /*占쎈막占쎈빍筌롫뗄�뵠占쎈�� 占쎈짗占쎌삂 占쎈뼄占쎈뻬 占쎈뻻揶쏉옙 占쎌젟占쎌벥*/
 			margin-left:29px;
 			left:0;
 			z-index : -1;
@@ -78,4 +78,7 @@
 			border : 0;
 			background : #D8D8D8;
 			width : 250px;
+		}
+		input[type=text]{
+			width : 350px;
 		}

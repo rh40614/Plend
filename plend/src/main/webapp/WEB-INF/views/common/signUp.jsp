@@ -8,9 +8,9 @@
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<meta name="google-signin-client_id" content="229501873706-7g1g5tqh1jeitmnhmnkft67koof6th6e.apps.googleusercontent.com">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<link href="<%=request.getContextPath() %>/resources/css/global.css" rel="stylesheet">
-	<link href="<%=request.getContextPath() %>/resources/css/signUp.css" rel="stylesheet">
-	<script src="<%=request.getContextPath() %>/resources/js/jquery-3.6.0.min.js"></script>
+	<link href="../resources/css/global.css" rel="stylesheet">
+	<link href="../resources/css/signUp.css" rel="stylesheet">
+	<script src="../resources/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
 	$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
@@ -76,7 +76,6 @@
 						alert("사용가능한 아이디입니다.");
 						$("#dbchk").css("display", "none");
 						$("input[name=id]").attr('readonly', true);
-						$("input[name=id]").addClass("w300");
 						idchk = 0;
 					}
 				},
@@ -111,7 +110,6 @@
 						alert("사용가능한 닉네임입니다.");
 						$("#dbchk2").css("display", "none");
 						$("input[name=nickName]").attr('readonly', true);
-						$("input[name=nickName]").addClass("w300");
 						nickchk = 0;
 					}
 				},
@@ -125,6 +123,7 @@
 	
 	function check() {
 		var frm = document.frm;
+		var birth = $("input[name=birth]").val();
 		
 		if (frm.id.value == "") {
 			alert("아이디를 입력해주세요.")
@@ -147,7 +146,7 @@
 		}  else if (frm.userPhone.value == "") {
 			alert("핸드폰 번호를 입력해주세요. ex) 010-1234-1234");
 			return;
-		} else if (!/^\d{3}-\d{3,4}-\d{4}$/.test($("input[name='userPhone']").val())){
+		} else if ((!/^\d{3}-\d{3,4}-\d{4}$/.test($("input[name='userPhone']").val()){
 			alert("연락처에 하이픈(-)을 포함해서 입력해주세요. ex)010-1234-1234");
 			return;
 		} else if (frm.email.value == "") {
@@ -156,7 +155,7 @@
 		}  else if (document.querySelector('#regnum').style.display == 'none' && frm.birth.value == "") {
 			alert("생년월일을 입력해주세요. ex) 19940324");
 			return;
-		} else if (document.querySelector('#regnum').style.display == 'none' && birth.toString().length != 8) {
+		} else if (birth.toString().length != 8) {
 			alert("생년월일을 8자로 입력해주세요. ex) 19940324");
 			return;
 		} else if (isNaN(frm.birth.value) == true){
@@ -178,7 +177,6 @@
 			frm.submit();
 		}
 	}
-	
 	
 	function gender1() {
 		var val = $('#M1').val();
@@ -205,61 +203,50 @@
 <body>
 <div id = "wrap">
 	<header id="header"></header>
-<main style="flex: 1; margin: 0px 20% 20% 20%; display: flex; flex-direction: column; align-items: center;">
+<main style = "height:100%;">
 	<div style = "text-align:center;">
 	 <br>
-	<div class="signUpBox">
-		<p  class="mb-2 mt-3" style="font-size: 24px;font-weight:bold; ">회원가입</p>
-		<div class="role mt-4 mb-1">
-			회원 구분 
-			<button id ="user" class = "chkcolor btn btn-l" onclick="role1();" style="width: 100px;">개인</button>
-			<button id = "host" class = "chkcolor btn btn-l" onclick="role2();" style="width: 100px;">사업자</button> <br>
-		</div>
-		<form action = "signUp.do" method ="post" name = "frm" id = "frm" style = "margin-bottom:0px;">
-			<div class="identity">
-				<input type = "text" name = "id" placeholder = "아이디" id = "chkbox" maxlength='20' class="checkInput"> 
-				<button type="button" id="dbchk" class="btn btn-sm">중복확인</button>
-			</div>
-			<div class="pwd">
-				<input type = "password" name = "password" placeholder = "비밀번호" maxlength='20'>
-				<input type = "password" name = "passwordOk" placeholder = "비밀번호 확인" maxlength='20'>
-				<input type = "text" name = "name" placeholder = "이름" maxlength='8'>
-			</div>
-			<div class="nick">	
-				<input type = "text" name = "nickName" placeholder = "닉네임" id = "chkbox" maxlength='15' class="checkInput"> 
-				<button type = "button" id = "dbchk2" class="btn btn-sm">중복확인</button>
-			</div>
-			<div class="gender mb-1">
-				<input type = "hidden" name = "gender" value = "" id ="hidden">
-				성별 
-				<button type = "button" value = "M" id = "M1" class = "chkcolor btn btn-l" onclick = "gender1();" style="width: 125px;">남</button>
-				<button type = "button" value = "F" id = "F1" class = "chkcolor btn btn-l" onclick = "gender2();" style="width: 125px;">여</button>
-			</div>
-			<input type = text name = "userPhone" placeholder = "핸드폰 번호 ex) 010-1234-1234">
-			<input type = "email" name = "email" placeholder = "이메일 ex) plend@naver.com">	
+	<div style = "text-align:center;height:100%;margin-left:13%;margin-right:13%;background-color:#F2F2F2;"> <br>
+	<div class="g-signin2" data-onsuccess="onSignIn" style = "display: flex; flex-direction: row-reverse;flex-wrap: nowrap;align-content: center;justify-content: center; margin:7px;"></div>
+	 <a href="${naver.apiURL}"><img height="45" style = "margin:7px;" src="<%=request.getContextPath()%>/resources/image/btnG_naver.png"/></a> <br>
+	<a href='${kakao.apiURL}'><img alt="카카오 로그인" src="<%=request.getContextPath()%>/resources/image/kakao_login_medium_wide.png"></a><br>
+		<div class="hr-sect">또는</div> 
+		회원 구분 <button id ="user" class = "chkcolor" onclick="role1();">개인</button><button id = "host" class = "chkcolor" onclick="role2();">사업자</button> <br><br>
+			<form action = "signUp.do" method ="post" name = "frm" id = "frm" style = "margin-bottom:0px;">
+			<input type = "text" name = "id" placeholder = "아이디" id = "chkbox" class = "textbox" maxlength='20'> <button type = "button" id = "dbchk">중복확인</button><br><br>
+			<input type = "password" name = "password" placeholder = "비밀번호" class = "textbox" maxlength='20'> <br><br>
+			<input type = "password" name = "passwordOk" placeholder = "비밀번호 확인" class = "textbox" maxlength='20'> <br><br>
+			<input type = "text" name = "name" placeholder = "이름" class = "textbox" maxlength='8'> <br><br>
+			<input type = "text" name = "nickName" placeholder = "닉네임" id = "chkbox" class = "textbox" maxlength='15'> <button type = "button" id = "dbchk2">중복확인</button> <br><br>
+			<input type = "hidden" name = "gender" value = "" id ="hidden">
+			성별 <button type = "button" value = "M" id = "M1" class = "chkcolor" onclick = "gender1();">남</button><button type = "button" value = "F" id = "F1" class = "chkcolor" onclick = "gender2();">여</button> <br><br>
+			<input type = text name = "userPhone" placeholder = "핸드폰 번호 ex) 010-1234-1234" class = "textbox"> <br><br>
+			<input type = "email" name = "email" placeholder = "이메일 ex) plend@naver.com" class = "textbox"> <br><br> 	
 		
 			<div id = "birth">
-				<input type = "text" name = "birth" placeholder = "생년월일 ex)19990707" id = "birthRole">
+				 생년월일 <input type = "text" name = "birth" placeholder = "ex)19990707" class = "textbox" style = "width:200px;margin-right:280px;" id = "birthRole"> <br><br>
 			</div>
+			
 			<div id = "regnum">
-				<input type = "text" name = "regnum" placeholder = "사업자 번호 숫자만 입력" id = "regnumRole">
+					사업자 번호 <input type = "text" name = "regnum" placeholder = "사업자 번호" class = "textbox" style = "width:200px;margin-right:260px;" id = "regnumRole"> <br><br>
 			</div>
-			<div class="detail">
-				<details>
-					<summary> <input type = "checkbox" name = "terms" id = "essential"> 이용약관(필수)</summary>
-					<span id = "sum">동의해주세요.</span>
-				</details>
-				<details>
-					<summary> <input type = "checkbox"> 이용약관(선택)</summary>
-					<span id = "sum">필수는 아닙니다.</span>
-				</details>
-			</div>
-			<input type = "hidden" name = "role" value = "">
+			<hr style = "margin-left : 300px; margin-right: 300px;">
+				<div style = "margin-right:430px;">
+					<details>
+						<summary> <input type = "checkbox" name = "terms" id = "essential"> 이용약관(필수)</summary>
+						<span id = "sum">동의해주세요.</span>
+						
+					</details>
+					<details>
+						<summary> <input type = "checkbox"> 이용약관(선택)</summary>
+						<span id = "sum">필수는 아닙니다.</span>
+					</details>
+					<br><br>
+				</div>
+				<input type = "hidden" name = "role" value = "">
  			<input type = "button" onclick = "check();" value = "회원가입" id = "joinBtn">
 		</form>
-		<div class="mb-2" style="color: gray;">--------------------- 또는 ---------------------</div>
-		<a href="${naver.apiURL}"><img height="45" width="183" style = "margin:7px;" src="<%=request.getContextPath()%>/resources/image/btnG_naver.png"/></a>
-	 	<a href='${kakao.apiURL}'><img alt="카카오 로그인" src="<%=request.getContextPath()%>/resources/image/kakao_login_medium_narrow.png"></a>
+		<br>
 	</div>
 	</div>
 </main>
@@ -276,7 +263,7 @@ $(document).ready(function(){
 	$("#M1").trigger('click');
 });
 
-$('input[name=id]').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|A-Z]/g,"") );});
+$('input[name=id]').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z]/g,"") );});
 $('input[name=name]').on("keyup", function() {$(this).val( $(this).val().replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
 $('input[name=nickName]').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
 </script>
