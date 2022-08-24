@@ -260,9 +260,6 @@ public class CommonController  {
 			login.setRole(user.getRole());
 			login.setNickName(user.getNickName());
 			
-			//System.out.println("role ="+user.getRole());
-			//System.out.println("nickname = "+user.getNickName());
-			
 			//자동 로그아웃 시간 30분
 			//움직이지 않고 가만히 있을 경우 식ㄴ이 흘러 30분이 경과됐을 때 자동 로그아웃
 			session.setMaxInactiveInterval(1800);
@@ -358,9 +355,6 @@ public class CommonController  {
 			login.setRole(user.getRole());
 			login.setNickName(user.getNickName());
 			
-			//System.out.println("role = "+user.getRole());
-			//System.out.println("nickname = "+user.getNickName());
-
 			session.setAttribute("login", login);
 			return "redirect:/";
 
