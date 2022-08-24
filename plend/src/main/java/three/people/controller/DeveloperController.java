@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import three.people.service.AdminService;
 import three.people.service.CommonService;
 import three.people.service.HostService;
+import three.people.service.SearchService;
 import three.people.vo.BlockVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
@@ -51,23 +52,15 @@ public class DeveloperController {
 	private BCryptPasswordEncoder passwordEncoder;
 	@Autowired
 	HostService hostService;
+	@Autowired
+	SearchService searchService; 
 	
 	// 회원 리스트로 이동
 	@RequestMapping(value="/userList.do", method = RequestMethod.GET)
 	public String userList(SearchVO searchvo,Model model) {
-		if(searchvo.getNowPage() == 0 && searchvo.getCntPerPage() == 0) {
-			searchvo.setNowPage(1);
-			searchvo.setCntPerPage(10);
-		}else if(searchvo.getCntPerPage() == 0) {
-			searchvo.setCntPerPage(10);
-		}else if(searchvo.getNowPage() == 0) {
-			searchvo.setNowPage(1);
-		}
-
-		searchvo.setRole(2);
-		int total = commonService.totalCountUser(searchvo);
-		searchvo.calPaging(total);
-
+		searchvo = searchService.setPageCntPerPage(searchvo, 10, 2);
+		searchvo.calPaging(commonService.totalCountUser(searchvo));
+		
 		model.addAttribute("pagenation", searchvo);
 		model.addAttribute("userList", adminService.userList(searchvo));
 
@@ -96,10 +89,7 @@ public class DeveloperController {
 
 	@RequestMapping(value="/event.do", method=RequestMethod.GET)
 	public String event(SearchVO searchvo, Model model ) {
-		if(searchvo.getNowPage() == 0) {
-			searchvo.setNowPage(1);
-		}
-		searchvo.setCntPerPage(5);
+		searchService.setPageCntPerPage(searchvo, 5);
 		searchvo.calPaging(adminService.totalEvent());
 
 		model.addAttribute("pagenation", searchvo);
@@ -228,18 +218,8 @@ public class DeveloperController {
 	//업체 리스트 페이지로 이동
 	@RequestMapping(value="/enterList.do", method=RequestMethod.GET)
 	public String enterList(SearchVO searchvo, Model model) {
-		if(searchvo.getNowPage() == 0 && searchvo.getCntPerPage() == 0) {
-			searchvo.setNowPage(1);
-			searchvo.setCntPerPage(10);
-		}else if(searchvo.getCntPerPage() == 0) {
-			searchvo.setCntPerPage(10);
-		}else if(searchvo.getNowPage() == 0) {
-			searchvo.setNowPage(1);
-		}
-		
-		searchvo.setRole(3);
-		int total = commonService.totalCountUser(searchvo);
-		searchvo.calPaging(total);
+		searchvo = searchService.setPageCntPerPage(searchvo, 10, 3);
+		searchvo.calPaging(commonService.totalCountUser(searchvo));
 		model.addAttribute("pagenation", searchvo);
 		model.addAttribute("enterList", adminService.userList(searchvo));
 
@@ -271,17 +251,8 @@ public class DeveloperController {
 	//업체 장소 등록 승인 페이지
 	@RequestMapping(value="/enterConfirm.do", method=RequestMethod.GET)
 	public String enterConfirm(SearchVO searchvo, Model model) {
-		if(searchvo.getNowPage() == 0 && searchvo.getCntPerPage() == 0) {
-			searchvo.setNowPage(1);
-			searchvo.setCntPerPage(10);
-		}else if(searchvo.getCntPerPage() == 0) {
-			searchvo.setCntPerPage(10);
-		}else if(searchvo.getNowPage() == 0) {
-			searchvo.setNowPage(1);
-		}
-
-		int total = adminService.totalPlace(searchvo);
-		searchvo.calPaging(total);
+		searchvo = searchService.setPageCntPerPage(searchvo, 10);
+		searchvo.calPaging(adminService.totalPlace(searchvo));
 		model.addAttribute("pagenation", searchvo);
 		model.addAttribute("placeList", adminService.apPlace(searchvo));
 		return "developer/enterConfirm";
@@ -296,17 +267,8 @@ public class DeveloperController {
 	// 08.09 김영민: 리뷰신고 리스트 데이터 가져오기 추가
 	@RequestMapping(value="/reportList.do", method=RequestMethod.GET)
 	public String reportList(SearchVO searchVO, Model model) {
-		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
-			searchVO.setNowPage(1);
-			searchVO.setCntPerPage(10);
-		}else if(searchVO.getCntPerPage() == 0) {
-			searchVO.setCntPerPage(10);
-		}else if(searchVO.getNowPage() == 0) {
-			searchVO.setNowPage(1);
-		}
-		
-		int total = adminService.countReport(searchVO);
-		searchVO.calPaging(total);
+		searchVO = searchService.setPageCntPerPage(searchVO, 10);
+		searchVO.calPaging(adminService.countReport(searchVO));
 		
 		model.addAttribute("reportList", adminService.reportList(searchVO));
 		model.addAttribute("pagenation", searchVO);
@@ -315,17 +277,8 @@ public class DeveloperController {
 	//업체가 등록한 블랙리스트 
 	@RequestMapping(value="/enterBlock.do", method=RequestMethod.GET)
 	public String enterBlock(SearchVO searchVO,Model model) {
-		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
-			searchVO.setNowPage(1);
-			searchVO.setCntPerPage(5);
-		}else if(searchVO.getCntPerPage() == 0) {
-			searchVO.setCntPerPage(5);
-		}else if(searchVO.getNowPage() == 0) {
-			searchVO.setNowPage(1);
-		}
-		searchVO.setRole(3);
-		int total = commonService.totalCountUser(searchVO);
-		searchVO.calPaging(total);
+		searchVO = searchService.setPageCntPerPage(searchVO, 5, 3);
+		searchVO.calPaging(commonService.totalCountUser(searchVO));
 		
 		model.addAttribute("enterList", adminService.userList(searchVO));
 		model.addAttribute("pagination", searchVO);
@@ -341,15 +294,7 @@ public class DeveloperController {
 	// 07.28 김영민: 개발자 페이지에서 호스트의 문의 내역보기
 	@RequestMapping(value="/inquiryList.do", method=RequestMethod.GET)
 	public String inquiryList(SearchVO searchVO, Model model) {
-		if(searchVO.getNowPage() == 0 && searchVO.getCntPerPage() == 0) {
-			searchVO.setNowPage(1);
-			searchVO.setCntPerPage(10);
-		}else if(searchVO.getCntPerPage() == 0) {
-			searchVO.setCntPerPage(10);
-		}else if(searchVO.getNowPage() == 0) {
-			searchVO.setNowPage(1);
-		}
-		
+		searchVO = searchService.setPageCntPerPage(searchVO, 10);
 		searchVO.calPaging(hostService.countInquiry(searchVO));
 			
 		model.addAttribute("pagination", searchVO);
