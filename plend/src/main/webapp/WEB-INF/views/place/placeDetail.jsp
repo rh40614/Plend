@@ -15,8 +15,8 @@
 	<!-- jquery -->
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	<!-- css -->
-	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/placeDetail.css" rel="stylesheet">
+	
 	<!-- kakaoMap api -->
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b685739baf5af3ec44e96933a3116f08&libraries=services,clusterer,drawing"></script>
 	<!-- 슬릭 슬라이더 -->
@@ -742,6 +742,7 @@
 </script>
 
 </body>
+<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 </html>
 
 
