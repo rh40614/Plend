@@ -39,4 +39,5 @@ public interface AdminService {
 	int countBlockUser(BlockVO blockVO);
 	int blockDelete(BlockVO blockVO);
 	int deleteEventImg(ImageVO imageVO);
+	int checkEventStartDate();
 }
