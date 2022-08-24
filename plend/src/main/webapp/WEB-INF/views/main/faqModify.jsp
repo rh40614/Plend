@@ -88,32 +88,7 @@
 		}
 	}	
 	</script>
-	<style>
-	select {
-		width : 90px;
-		height : 30px;
-		color : white;
-		background : #2F506D;
-		-webkit-appearance: none;
-		border-radius : 5px;
-		text-align:center;
-	}
-		
-	input[type=button] {
-		float:right;
-		border-radius:15px;
-		border : 1px solid #2F506D;
-		background : #2F506D;
-		color : white;
-		width : 100px;
-		height : 35px;
-	}
-	input[type=button]:hover{
-		border : 0px;
-		background-color:#3FC1C9;
-	}
-	
-	</style>
+
 </head>
 
 <body>
@@ -124,7 +99,7 @@
 		<div style="margin-left:23%;margin-right:23%;">
 			<h2 >| FAQ 수정</h2>
 			<br>
-			<select name = "category">
+			<select name = "category" style = "color:white;">
 				<option value = "">- 카테고리 -</option>
 				<option value = "book">예약</option>
 				<option value = "use">이용</option>

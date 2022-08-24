@@ -82,7 +82,7 @@ public class CommonController  {
 		userVO = commonService.snsIdCheck(userVO);
 		if(userVO == null) {
 			System.out.println("null");
-			model.addAttribute("userProfile", snsProfile);
+			model.addAttribute("userProfile", snsProfile); 
 			model.addAttribute("snsId", snsProfile);
 			//정보 동의 취소 누를시 메인화면으로 이동
 			if(snsProfile.getMessage() != null && snsProfile.getMessage().contains("Authentication failed")) {
@@ -167,10 +167,11 @@ public class CommonController  {
 		model.addAttribute("naver", naverService.loginApiURL());
 		return "common/signUp";
 	}
-
+	//김하진 회원가입(sns로그인 제외)
 	@RequestMapping(value="/signUp.do", method = RequestMethod.POST)
 	public String signUp(UserVO vo, SnsVO snsVO, Model model, HttpServletRequest request, HttpSession session,RedirectAttributes rttr) throws IOException {
 		if(vo.getUser_type() == null) {
+			//비밀번호 암호화
 			String encodedPassword = passwordEncoder.encode(vo.getPassword());
 			vo.setPassword(encodedPassword);
 			int result = userService.insertUser(vo);
@@ -199,13 +200,13 @@ public class CommonController  {
 		
 		return "redirect:/";
 	}
-
+	//김하진 아이디 중복확인
 	@RequestMapping(value = "/idCheck.do")
 	@ResponseBody
 	public Map<Object, Object> idCheck(@RequestBody String id) {
-
+		
 		int count = 0;
-
+		//화면에서 받아온 값을 haspMap에 넣어서 돌린다.
 		Map<Object, Object> map = new HashMap<Object, Object>();
 
 		count = userService.idCheck(id);
@@ -215,13 +216,13 @@ public class CommonController  {
 
 		return map;
 	}
-
+	//김하진 닉네임 중복확인
 	@RequestMapping(value = "/nickNameCheck.do")
 	@ResponseBody
 	public Map<Object, Object> nickNameCheck(@RequestBody String nickName){
 
 		int count = 0;
-
+		//화면에서 받아온 값을 haspMap에 넣어서 돌린다.
 		Map<Object, Object> map = new HashMap<Object, Object>();
 
 		count = userService.nickNameCheck(nickName);
@@ -231,23 +232,24 @@ public class CommonController  {
 		return map;
 	}
 
-
+	//김하진 로그인 (sns 제외)
 	@RequestMapping(value = "signIn.do", method = RequestMethod.GET)
 	public String signIn(Model model) throws UnsupportedEncodingException {
 		model.addAttribute("kakao", kakaoService.loginApiURL());
 		model.addAttribute("naver", naverService.loginApiURL());
 		return "common/signIn";
 	}
-
+	//김하진 로그인 (sns 제외)
 	@RequestMapping(value = "signIn.do", method = RequestMethod.POST)
 	public String signIn(String password, UserVO vo, HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
 
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
+		//비밀번호 복호화하는 객체 생성
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		UserVO id = userService.selectID(vo);
 		UserVO user = userService.login(vo);
-
+		//화면에서 받아온 비밀번호 값과 BD에 저장된 비밀번호를 복호화해서 맞으면 로그인
 		if (user != null && encoder.matches(password, id.getPassword())) {
 			session = request.getSession();
 
@@ -274,13 +276,13 @@ public class CommonController  {
 		}
 
 	}
-
+	//김하진 아이디 찾기
 	@RequestMapping(value = "/searchId.do", method = RequestMethod.GET)
 	public String searchId() {
 
 		return "common/searchId";
 	}
-
+	//김하진 ajax로 아이디 찾기
 	@RequestMapping(value = "/searchId.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String searchId(UserVO vo) {
@@ -297,22 +299,22 @@ public class CommonController  {
 
 
 	}
-
+	//김하진 비밀번호 찾기
 	@RequestMapping(value = "/searchPwd.do", method = RequestMethod.GET)
 	public String searchPwd() {
 
 		return "common/searchPwd";
 	}
-
+	//김하진 ajax로 비밀번호 찾기
 	@RequestMapping(value = "/searchPwd.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String searchPwd(UserVO vo, Model model,@RequestParam("email") String email, @RequestParam("name") String name,@RequestParam("id") String id) {
-
-		int being = userService.selectPwd(vo);
 		
+		int being = userService.selectPwd(vo);
+		//being 값이 1이면 임시비밀번호를 발급, 발급한 임시 비밀번호를 암호화 한 후 
+		//등록된 이메일로 임시 비밀번호 발송
 		if (being == 1) {
 			String pwd = mailSend.TempPwdEmail(email);
-			System.out.println("임시 비밀번호 : "+pwd);
 			String encodedPassword = passwordEncoder.encode(pwd);
 			vo.setPassword(encodedPassword);
 			int result = userService.tempPwd(vo);
@@ -335,42 +337,7 @@ public class CommonController  {
 		return "common/googleLogin";
 	}
 
-	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
-	public String login() {
-		return "common/login";
-	}
-
-	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String login(UserVO vo, HttpServletRequest request, HttpSession session,HttpServletResponse response) throws IOException {
-
-		UserVO user = userService.login(vo);
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter pw = response.getWriter();
-
-		if (user != null) {
-			session = request.getSession();
-
-			UserVO login = new UserVO();
-			login.setId(user.getId());
-			login.setPassword(user.getPassword());
-			login.setRole(user.getRole());
-			login.setNickName(user.getNickName());
-			
-			//System.out.println("role = "+user.getRole());
-			//System.out.println("nickname = "+user.getNickName());
-
-			session.setAttribute("login", login);
-			return "redirect:/";
-
-		} else {
-			pw.append("<script>alert('로그인에 실패하였습니다.');location.href = 'login.do'</script>");
-			
-			pw.flush();
-			return "common/login";
-		}
-
-
-	}
+	//김하진 로그아웃
 	@RequestMapping(value = "/signOut.do")
 	public String logout(HttpServletRequest request, HttpSession session) throws IOException {
 		

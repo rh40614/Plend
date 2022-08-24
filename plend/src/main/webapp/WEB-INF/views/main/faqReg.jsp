@@ -14,7 +14,6 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
-	<link href="<%=request.getContextPath()%>/resources/css/home.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/faqReg.css" rel="stylesheet">
 
 <!-- include summernote css/js -->
@@ -67,39 +66,6 @@
 	
 	</script>
 	
-	<style>
-		select {
-			width : 90px;
-			height : 30px;
-			color : white;
-			background : #2F506D;
-			-webkit-appearance: none;
-			border-radius : 5px;
-			text-align:center;
-		}
-		
-		#regBtn{
-			float:right;
-			border-radius:15px;
-			border : 1px solid #2F506D;
-			background : #2F506D;
-			color : white;
-			width : 100px;
-			height : 35px;
-		}
-		#regBtn:hover{
-			border : 0px;
-			background-color:#3FC1C9;
-		}
-		
-		input[name=question]{
-		width : 100%;
-		height : 37px;
-		border : 0;
-		background : #F3F3F3;
-			}
-	
-	</style>
 </head>
 
 <body>

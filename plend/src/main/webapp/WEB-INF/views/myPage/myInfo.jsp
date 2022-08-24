@@ -99,6 +99,11 @@
       	<br>
       	<table class="col table border-top border-dark">
 					  <tbody>
+					  <c:if test = "${vo.user_type == 'naver'}">
+					  </c:if>
+					  <c:if test = "${vo.user_type == 'kakao'}">
+					  </c:if>
+					  <c:if test = "${vo.user_type == null}">
 					    <tr>
 					      <td scope="row" class="align-middle text-center">아이디</td>
 					      <td><span style = "font-weight: 700!important;">${vo.id }</span></td>
@@ -111,6 +116,7 @@
 					      <td scope="row" class="align-middle text-center">비밀번호 확인</td>
 					      <td> <input type="password" class="form-control" name="pwdCheck" value="" required></td>
 					    </tr>
+					  </c:if>
 					    <tr>
 					      <td scope="row" class="align-middle text-center">닉네임</td>
 					      <td><span style = "font-weight: 700!important;">${vo.nickName }</span></td>

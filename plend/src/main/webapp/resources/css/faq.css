@@ -1,4 +1,4 @@
-#searchBar {
+	#faqSearch {
 			width : 500px;
 			height : 38px;
 			border-radius:15px;
@@ -56,6 +56,7 @@
 			float:right;
 			border : 0px;
 			margin-right:10px;
+			margin-bottom : 20px;
 		}
 		
 		#modiBtn:hover {
@@ -72,7 +73,7 @@
 			cursor: pointer;
 		}
 		.panel-faq-answer {
-			height: 0;
+			height: 0px;
 			overflow: hidden;
 			text-align:left;
 		  /* 변화가 시작되는 쪽에다가 transition 적용해준다 0 -> 300px 
@@ -83,5 +84,5 @@
 		.active1 {
 			display: block;
 		  /* 높이를 정해줘야지만 transition이 적용됨 */
-		  height:120px;
+		  height:auto;
 		}

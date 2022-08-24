@@ -2,9 +2,10 @@
 			width : 90px;
 			height : 30px;
 			color : white;
-			background : url(../resources/image/caret_down_icon_160309.png) no-repeat left 55px center #2F506D;
+			background : #2F506D;
 			-webkit-appearance: none;
 			border-radius : 5px;
+			text-align:center;
 		}
 
 	input[name=question]{
@@ -12,7 +13,7 @@
 		height : 37px;
 		border : 0;
 		background : #F3F3F3;
-	}
+			}
 	
 	textarea {
 		width : 100%;
@@ -77,17 +78,18 @@
 		background-color: #999999;
 		border-color: #999999;
 	}
+	#regBtn{
+			float:right;
+			border-radius:15px;
+			border : 1px solid #2F506D;
+			background : #2F506D;
+			color : white;
+			width : 100px;
+			height : 35px;
+		}
+		#regBtn:hover{
+			border : 0px;
+			background-color:#3FC1C9;
+		}
+		
 	
-	input[type=submit]{
-		float:right;
-		border-radius:15px;
-		border : 1px solid #2F506D;
-		background : #2F506D;
-		color : white;
-		width : 100px;
-		height : 35px;
-	}
-	input[type=submit]:hover{
-		border : 0px;
-		background-color:#3FC1C9;
-	}

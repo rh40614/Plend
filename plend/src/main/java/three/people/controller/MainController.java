@@ -39,10 +39,11 @@ public class MainController {
 	@Autowired
 	MainService mainService;
 
-	
+	//김하진 공지사항
 	@RequestMapping(value = "notice.do", method = RequestMethod.GET)
 	public String notice(Model model, NoticeVO vo, SearchVO sv) {
-		
+		//페이징 처리 
+		//한번에 10개씩 보여줌
 		if(sv.getNowPage() == 0 && sv.getCntPerPage() == 0) {
 			sv.setNowPage(1);
 			sv.setCntPerPage(10);
@@ -54,9 +55,6 @@ public class MainController {
 		
 		int total = mainService.noticeTotal(sv);
 		sv.calPaging(total);
-		System.out.println(sv.getStartPage());
-		System.out.println(sv.getEndPage());
-		System.out.println(total);
 		model.addAttribute("pagenation", sv);
 		
 		
@@ -70,7 +68,7 @@ public class MainController {
 		
 		return "main/noticeReg";
 	}
-	
+	//김하진 공지사항 등록
 	@RequestMapping(value = "noticeReg.do", method = RequestMethod.POST)
 	public String noticeReg(NoticeVO vo,HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IllegalStateException,IOException {
 		
@@ -84,7 +82,7 @@ public class MainController {
 		UserVO login = (UserVO) session.getAttribute("login");
 		String path = request.getSession().getServletContext().getRealPath("/resources/upload");
 		
-
+		//파일 업로드
 		File dir = new File(path);
 		vo.setUidx(login.getUidx());
 		vo.setFileName(vo.getFile().getOriginalFilename());
@@ -127,7 +125,7 @@ public class MainController {
 		return "main/notice";
 		
 	}
-	
+	//김하진 세부 공지사항 + 조회수 쿠키에 저장
 	@RequestMapping(value = "/noticeView.do", method = RequestMethod.GET)
 	public String noticeView(int nidx, Model model, HttpServletRequest request, HttpServletResponse response) {
 	
@@ -169,14 +167,14 @@ public class MainController {
 		
 		return "main/noticeView";
 	}
-	
+	//김하진 공지사항 삭제
 	@RequestMapping(value = "/noticeDel.do")
 	public String noticeDel(int nidx) {
-		System.out.println("nidx = " +nidx);
+
 		mainService.noticeDelete(nidx);
 		return "redirect:/main/notice.do";
 	}
-
+	//김하진 공지사항 수정
 	@RequestMapping(value = "/noticeModify.do", method = RequestMethod.GET)
 	public String noticeModify(Model model, int nidx) {
 		
@@ -185,7 +183,7 @@ public class MainController {
 		
 		return "main/noticeModify";
 	}
-	
+	//김하진 공지사항 수정
 	@RequestMapping(value = "noticeModify.do", method = RequestMethod.POST)
 	public String noticeModify(NoticeVO vo,HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
 		
@@ -199,17 +197,12 @@ public class MainController {
 		UserVO login = (UserVO) session.getAttribute("login");
 		String path = request.getSession().getServletContext().getRealPath("/resources/upload");
 		
+		//파일 업로드
 		File dir = new File(path);
 		vo.setUidx(login.getUidx());
 		vo.setFileName(vo.getFile().getOriginalFilename());
 		
-		System.out.println("제목 :"+vo.getTitle());
-		System.out.println("내용 :"+vo.getContent());
-		System.out.println("파일 이름 :"+vo.getFileName());
-		System.out.println("nidx : " +vo.getNidx());
-		System.out.println("카테고리 : " + vo.getCategory());
 		int result = mainService.noticeModify(vo);
-		System.out.println("result = "+ result);
 		response.setContentType("text/html;charset=utf-8");
 		
 		PrintWriter pw = response.getWriter();
@@ -249,9 +242,11 @@ public class MainController {
 	
 	}
 	
+	//김하진 FAQ
 	@RequestMapping(value = "/faq.do")
 	public String faq(Model model, FaqVO vo ,SearchVO sv) {
 		
+		//FAQ 카테고리와 검색어 구현
 		HashMap<String, String> param = new HashMap<String,String>();
 		String category = vo.getCategory();
 		String searchValue = sv.getSearchValue();
@@ -279,13 +274,13 @@ public class MainController {
 		
 		return "main/faqList";
 	}
-	
+	//김하진 공지사항 등록
 	@RequestMapping(value = "/faqReg.do", method = RequestMethod.GET)
 	public String faqReg() {
 		
 		return "main/faqReg";
 	}
-	
+	//김하진 공지사항 등록
 	@RequestMapping(value = "/faqReg.do", method = RequestMethod.POST)
 	public void faqReg(FaqVO vo, HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
 		
@@ -312,7 +307,7 @@ public class MainController {
 			pw.flush();
 		}
 	}
-	
+	//김하진 공지사항 수정
 	@RequestMapping(value = "/faqModify.do", method = RequestMethod.GET)
 	public String faqModify(Model model, int fidx) {
 		
@@ -321,15 +316,14 @@ public class MainController {
 		
 		return "main/faqModify";
 	}
-	
+	//김하진 공지사항 수정
 	@RequestMapping(value = "/faqModify.do", method = RequestMethod.POST)
 	public String faqModify(FaqVO vo,HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
 		
 		session = request.getSession();
-		UserVO login = (UserVO) session.getAttribute("login");
 		
 		int result = mainService.faqModify(vo);
-		System.out.println("faq수정 result = " + result);
+		
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter pw = response.getWriter();
 		

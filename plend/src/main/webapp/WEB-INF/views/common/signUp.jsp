@@ -199,26 +199,6 @@
 	}
 
 	</script>
-	<style>
-	.id_ok{
-color:#008000;
-display: none;
-}
-
-.id_already{
-color:#6A82FB;
-display: none;
-}
-.nick_ok{
-color:#008000;
-display: none;
-}
-
-.nick_already{
-color:#6A82FB;
-display: none;
-}
-	</style>
 
 </head>
 <body>

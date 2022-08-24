@@ -86,31 +86,7 @@
 		}
 	
 	</script>
-	
-	<style>
-		#regBtn{
-			float:right;
-			border-radius:15px;
-			border : 1px solid #2F506D;
-			background : #2F506D;
-			color : white;
-			width : 100px;
-			height : 35px;
-		}
-		#regBtn:hover{
-			border : 0px;
-			background-color:#3FC1C9;
-		}
-		select {
-			width : 90px;
-			height : 30px;
-			color : white;
-			background : #2F506D;
-			-webkit-appearance: none;
-			border-radius : 5px;
-			text-align: center;
-		}
-	</style>
+
 </head>
 
 <body>

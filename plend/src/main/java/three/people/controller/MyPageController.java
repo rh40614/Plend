@@ -53,17 +53,38 @@ public class MyPageController {
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	
-	
+	//김하진 마이페이지(sns 로그인과 일반 로그인 분기 )
 	@RequestMapping(value = "myPageCheck.do", method = RequestMethod.GET)
-	public String myPageCheck(Model model,int uidx) {
+	public String myPageCheck(Model model,int uidx,HttpServletRequest request, HttpSession session) {
+		
+		/*
+		 * sns 로그인은 비밀번호를 받아오지 않으므로 
+		 * user_type을 확인한다. 
+		 * 확인 후 비밀번호 확인 없이 내 정보 페이지로 이동시킨다.
+		 */
+		
 		UserVO vo = mypageService.userInfo(uidx);
 		model.addAttribute("vo", vo);
-		return "myPage/myPageCheck";
+		
+		session = request.getSession();
+		UserVO login = new UserVO();
+		login = (UserVO)session.getAttribute("login");
+		
+		if(login.getUser_type() == null) {
+			return "myPage/myPageCheck";
+		} else if (login.getUser_type().equals("naver") || login.getUser_type().equals("kakao")) {
+			return "myPage/myInfo";
+		} else {
+			return "myPage/myPageCheck";
+		}
+		
 	}
+	
+	//김하진 마이페이지 들어올 시 비밀번호 한번 더 입력
 	@RequestMapping(value = "myPageCheck.do", method = RequestMethod.POST)
 	public String myPageCheck(String password, UserVO vo, int uidx, HttpServletResponse response) throws IOException {
 		
-		
+		//비밀번호 복호화 객체 생성
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
 		response.setContentType("text/html;charset=utf-8");
@@ -71,6 +92,7 @@ public class MyPageController {
 		
 		UserVO pwd = mypageService.myPageCheck(vo);
 		
+		//화면에 받아온 비밀번호화 DB에 저장된 비밀번호를 matches() 함수에 넣어 맞으면 페이지 이동
 		if(encoder.matches(password, pwd.getPassword())) {
 			
 			pw.append("<script>location.href = 'myInfo.do?uidx="+uidx+"'</script>");
@@ -85,6 +107,8 @@ public class MyPageController {
 		
 		return "myPage/myInfo";
 	}
+	
+	//김하진 내 정보
 	@RequestMapping(value = "/myInfo.do", method = RequestMethod.GET)
 	public String myInfo(Model model, int uidx) {
 		
@@ -94,8 +118,11 @@ public class MyPageController {
 		return "myPage/myInfo";
 	}
 	
+	//김하진 내 정보 수정
 	@RequestMapping(value = "/myInfo.do", method = RequestMethod.POST)
 	public String myInfo(int uidx,UserVO vo, HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
+		
+		//화면에서 받아온 비밀번호를 암호화 하여 DB에 저장
 		String encodedPassword = passwordEncoder.encode(vo.getPassword());
 		vo.setPassword(encodedPassword);
 		int result = mypageService.userModify(vo);
@@ -120,13 +147,15 @@ public class MyPageController {
 		return "myPage/myInfo";
 	}
 	
+	//김하진 예약 현황
 	@RequestMapping(value = "/bookStatus.do", method = RequestMethod.GET)
 	public String bookstatus(UserVO vo, Model model, SearchVO sv, HttpSession session, HttpServletRequest request) {
 		
 		session = request.getSession();
 		UserVO login = new UserVO();
 		login = (UserVO)session.getAttribute("login");
-
+		
+		//페이징 처리
 		if(sv.getNowPage() == 0 && sv.getCntPerPage() == 0) {
 			sv.setNowPage(1);
 			sv.setCntPerPage(2);
@@ -139,11 +168,9 @@ public class MyPageController {
 		
 		int total = mypageService.bookTotal(login);
 		sv.calPaging(total);
-		System.out.println("총 예약 갯수 = "+total);
 		model.addAttribute("pagenation", sv);
-		System.out.println("페이징 시작 = "+sv.getStartPage());
-		System.out.println("페이징 마지막 = "+sv.getEndPage());
 		
+		//mapper와 uidx와 페이지의 시작과 끝을 넣기 위해 hashMap을 이용
 		HashMap<String, Integer> param = new HashMap<String, Integer>();
 		int uidx = login.getUidx();
 		int start = sv.getStart();
@@ -159,6 +186,7 @@ public class MyPageController {
 		return "myPage/bookStatus";
 	}
 	
+	//김하진 세부 예약 정보
 	@RequestMapping(value = "/bookDetail.do", method = RequestMethod.GET)
 	public String bookDetail(int bidx,BookVO vo, Model model) {
 		
@@ -168,12 +196,14 @@ public class MyPageController {
 		return "myPage/bookDetail";
 	}
 	
+	//김하진 예약 취소
 	@RequestMapping(value = "/bookDel.do", method = RequestMethod.GET)
 	public String bookDel(int bidx, BookVO vo, HttpServletResponse response, HttpServletRequest request, HttpSession session) throws IOException {
 		
 		session = request.getSession();
 		UserVO login = new UserVO();
 		login = (UserVO)session.getAttribute("login");
+		//session에서 uidx를 받아옴
 		int uidx = login.getUidx();
 		int result = mypageService.cancelBook(bidx);	
 		
@@ -195,17 +225,21 @@ public class MyPageController {
 		return "myPage/bookStatus";
 	}
 	
+	//김하진 회원탈퇴
 	@RequestMapping(value = "/withdraw.do", method = RequestMethod.GET)
 	public String withdraw() {
 		
 		return "myPage/withdraw";
 	}
+	
+	//김하진 ajax 회원탈퇴
 	@RequestMapping(value = "/withdraw.do", method = RequestMethod.POST, produces="application/json;charset=utf8")
 	@ResponseBody
 	public int withdraw(@RequestParam String password,@RequestParam int uidx , HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
-
-		System.out.println("password = " + password);
-		System.out.println("uidx = " + uidx);
+		/*
+		 * 화면에서 받아온 비밀번호를 DB에 있는 비밀번호화 일치한지 검증
+		 * 검증이 완료되면 정말 탈퇴 할 것인지 한번 더 물어본다. 
+		 */
 		session = request.getSession();
 		UserVO login = new UserVO();
 		login = (UserVO)session.getAttribute("login");
@@ -213,7 +247,7 @@ public class MyPageController {
 		UserVO encPwd = mypageService.inquirePwd(uidx);
 		//String sessionPwd = login.getPassword();
 		
-		System.out.println("encPwd.getPassword() =" +encPwd.getPassword());
+		
 		if(encoder.matches(password, encPwd.getPassword())) {
 			
 			return mypageService.checkUser(uidx);
@@ -221,10 +255,16 @@ public class MyPageController {
 			return 0;
 		}
 	}
+	
+	//김하진 ajax 회원탈퇴2
 	@RequestMapping(value = "/withdraw2.do", method = RequestMethod.POST, produces="application/json;charset=utf8")
 	@ResponseBody
 	public int withdraw2(@RequestParam int uidx, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
-		System.out.println("uidx2 =" + uidx);
+		/*
+		 * 검증이 완료되고 거기서 한번 더 확인을 누르면
+		 * session에 저장된 uidx를 가져와서 delyn을 Y로 변경하고 
+		 * 회원 탈퇴를 마무리한다.
+		 */
 		
 		session = request.getSession();
 		UserVO login = new UserVO();
@@ -240,12 +280,14 @@ public class MyPageController {
 		}
 	}
 	
+	//김하진 찜 목록
 	@RequestMapping(value = "/heartList.do", method = RequestMethod.GET)
 	public String heartList(Model model,SearchVO sv,HttpSession session, HttpServletRequest request) {
 		/*
 		 * uidx를 매개변수로 받아올 경우 페이징에서 uidx가 null이 들어갈 수 있다.
-		 * 그르므로 session에 담겨 있는 uidx를 가져와 HashMap에 담아주면 오류가 나지 않는다.
+		 * 그러므로 session에 담겨 있는 uidx를 가져와 HashMap에 담아주면 오류가 나지 않는다.
 		 */
+		//페이징
 		session = request.getSession();
 		UserVO login = new UserVO();
 		login = (UserVO)session.getAttribute("login");
@@ -261,9 +303,6 @@ public class MyPageController {
 		
 		int total = mypageService.likeListTotal(uidx);
 		sv.calPaging(total);
-		System.out.println("페이징 시작 = "+sv.getStartPage());
-		System.out.println("페이징 마지막 = "+sv.getEndPage());
-		System.out.println("총 찜 갯수 = "+total);
 		model.addAttribute("pagenation", sv); 
 		
 		
@@ -274,7 +313,6 @@ public class MyPageController {
 		param.put("start", start);
 		param.put("end", end);
 		
-		System.out.println("찜 목록 uidx = " + uidx);
 		List<PlaceVO> placeList = mypageService.selectPlace(param);
 		for(int i=0; i<placeList.size();i++) {
 			/*
