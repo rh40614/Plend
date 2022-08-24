@@ -387,7 +387,24 @@
 		   SET bdelyn = 'Y'
 		 WHERE rbidx = #{rbidx}
 	</update>
-	
+	<!-- 이벤트 시작기간 지나면 자동으로 진행으로 바꾸기 -->
+	<select id="checkEventStartDate" resultType="EventVO">
+		<![CDATA[
+		SELECT eidx,
+		  	   title,
+		  	   semititle,
+		  	   content,
+		  	   conditions,
+		  	   edate,
+		  	   startend,
+		  	   eventimg,
+		  	   category 
+		  FROM event 
+		 WHERE SUBSTRING(edate,1,10) <= NOW() 
+		   AND SUBSTRING(edate,15,10) >= NOW() 
+		   AND startend = 'end'
+		]]>
+	</select>
 </mapper>
 
 
