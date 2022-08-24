@@ -243,6 +243,8 @@ public class HostServiceImpl implements HostService {
 	public int deletePlaceImg(PlaceVO placeVO) {
 		return hostDAO.deletePlaceImg(placeVO);
 	}
+
+
 	
 	
 	

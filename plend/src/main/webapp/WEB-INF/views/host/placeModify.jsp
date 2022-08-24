@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <!-- 08.11 김영민 -->
-<html>
+<html style=" font-size: initial;"><!-- 08.24 김연희 : 썸머노트로 변경 : 글시 크기 초기화 -->
 <head>
 <meta charset="UTF-8">
 <title>Hostcenter-장소 수정</title>
@@ -104,8 +104,10 @@
 							<label class="mt-3">
 								<span class="title3">공간 이미지 </span><br>
 								<span style="font-size: small; color: red;">이미지를 새로 등록해주세요.</span><br>
-								<input type="file" name="placeImgs" id="placeImgs" multiple="multiple">
+								<input type="file" name="placeImgs" id="placeImgs" multiple="multiple" onchange="setDetailImage(event); removePicture()">
 							</label>
+							<!-- 사진 미리보기 이후 구현 -->
+							<div id="images_container" class="mt-2"></div>
 							<br>
 							
 							<label class="mt-3">
@@ -320,81 +322,103 @@
 	<div style="margin:300px;"></div>
 	<footer id="footer"></footer>
 	<script src="<%=request.getContextPath()%>/resources/js/placeModify.js"></script>
-<!-- 장소 옵션 -->
-<script>
-$(function(){
-	$(".commonOption").load("<%=request.getContextPath()%>/resources/article/placeOptionList.jsp");
-});
-</script>
-<!-- 로딩 이후 인풋에 데이터 뿌려주기 -->
-<!-- guide -->
-<c:set var="guide" value="${place.guide.split('/')}"/>
-<script type="text/javascript">
-	<c:forEach var="g" items="${guide}" varStatus="status">
-		$("#guide"+${status.count}).val("${g}");
-	</c:forEach>
-</script>
-<!-- option -->
-<c:set var="option" value="${place.option1.split(',')}"/>
-<script type="text/javascript">
-	var input = $("div#option_${place.category} > label > input");
-	var length = $("div#option_${place.category} > label > input").length;
-	<c:forEach var="opt" items="${option}" varStatus="status">
-		if(input.eq(${status.index}).val() == '${opt}'){
-			input.eq(${status.index}).prop("checked", true);
-		}
-	</c:forEach>
-</script>
-<!-- category, tag, availTimeValue" -->
-<script type="text/javascript">
+	<!-- 장소 옵션 -->
+	<script>
 	$(function(){
-		/* category */
-		$(".option1").css("display", "none");
-		$("#option_${place.category}").css("display", "block");
-		
-		/* tag */
-		var tag = "";
-		${place.tag}.forEach(element => tag += element['value']+',');
-		$(".some_class_name").val(tag);
+		$(".commonOption").load("<%=request.getContextPath()%>/resources/article/placeOptionList.jsp");
 	});
-</script>
-<!-- 시설 가이드 유효성 -->
-<script>
-
-function guideValid(obj){
+	</script>
+	<!-- 로딩 이후 인풋에 데이터 뿌려주기 -->
+	<!-- guide -->
+	<c:set var="guide" value="${place.guide.split('/')}"/>
+	<script type="text/javascript">
+		<c:forEach var="g" items="${guide}" varStatus="status">
+			$("#guide"+${status.count}).val("${g}");
+		</c:forEach>
+	</script>
+	<!-- option -->
+	<c:set var="option" value="${place.option1.split(',')}"/>
+	<script type="text/javascript">
+		var input = $("div#option_${place.category} > label > input");
+		var length = $("div#option_${place.category} > label > input").length;
+		<c:forEach var="opt" items="${option}" varStatus="status">
+			if(input.eq(${status.index}).val() == '${opt}'){
+				input.eq(${status.index}).prop("checked", true);
+			}
+		</c:forEach>
+	</script>
+	<!-- category, tag, availTimeValue" -->
+	<script type="text/javascript">
+		$(function(){
+			/* category */
+			$(".option1").css("display", "none");
+			$("#option_${place.category}").css("display", "block");
+			
+			/* tag */
+			var tag = "";
+			${place.tag}.forEach(element => tag += element['value']+',');
+			$(".some_class_name").val(tag);
+		});
+	</script>
+	<!-- 시설 가이드 유효성 -->
+	<script>
 	
-	var guideVal = $(obj).val();
-	var guideLength = $(obj).val().length;
-	
-	if(guideLength > 100){
-		console.log("시설정보 100자 이상");
-		//alert("시설 정보는 100자 이내로 작성해주시길 바랍니다.");
-		$(obj).removeClass('border-0');
-		$(obj).addClass('alertBox');
-		$(obj).closest('tr').next().css({'color':'#CD0000','display':'table-row'});
-		$(obj).closest('tr').next().children().html("시설 정보는 100자이내로 작성해주시길 바랍니다.").css('text-align', 'center')
-		return false;
-	}else if(guideLength < 100) {
-		$(obj).removeClass('alertBox');
-		$(obj).addClass('border-0');
-		$(obj).closest('tr').next().css({'color':'#CD0000','display':'none'});
-	
-	}else{
-	
-	}
+	function guideValid(obj){
 		
-}
-
-//시설 정보 입력막기 
-function slash(obj){
- if(event.keyCode == 111 || event.which == 191 ) {
- 	alert("/는 입력이 불가합니다.");
- 	event.preventDefault();
- }
- return;
-}
-
-</script>
+		var guideVal = $(obj).val();
+		var guideLength = $(obj).val().length;
+		
+		if(guideLength > 100){
+			console.log("시설정보 100자 이상");
+			//alert("시설 정보는 100자 이내로 작성해주시길 바랍니다.");
+			$(obj).removeClass('border-0');
+			$(obj).addClass('alertBox');
+			$(obj).closest('tr').next().css({'color':'#CD0000','display':'table-row'});
+			$(obj).closest('tr').next().children().html("시설 정보는 100자이내로 작성해주시길 바랍니다.").css('text-align', 'center')
+			return false;
+		}else if(guideLength < 100) {
+			$(obj).removeClass('alertBox');
+			$(obj).addClass('border-0');
+			$(obj).closest('tr').next().css({'color':'#CD0000','display':'none'});
+		
+		}else{
+		
+		}
+			
+	}
+	
+		//시설 정보 입력막기 
+		function slash(obj){
+			 if(event.keyCode == 111 || event.which == 191 ) {
+			 	alert("/는 입력이 불가합니다.");
+			 	event.preventDefault();
+			 }
+			 return;
+		}
+	
+	</script>
+	<!-- 사진 미리보기 -->
+	<script>
+		function setDetailImage(event){
+			for(var image of event.target.files){
+				var reader = new FileReader();
+				reader.onload = function(event){
+					var img = document.createElement("img");
+					img.setAttribute("src", event.target.result);
+					img.setAttribute("class", "col-lg-2 me-2");
+					
+					document.querySelector("div#images_container").appendChild(img);
+				};
+				
+				console.log(image);
+				reader.readAsDataURL(image);
+			}
+		}
+		
+		function removePicture(){
+			$("#images_container > img").remove();
+		}
+	</script>
 
 </body>
 </html>

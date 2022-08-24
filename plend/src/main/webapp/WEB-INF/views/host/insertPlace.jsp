@@ -1,20 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html style=" font-size: initial; ">
 <head>
 <meta charset="UTF-8">
 <title>Hostcenter-장소 등록</title>
-	<!-- 폰트 적용 시도중 -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
 	
+	<!-- summerNote 제이쿼리랑 부트스트랩이 포함되어있음-->
+		<!-- include libraries(jQuery, bootstrap) -->
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		
+		<!-- include summerNote css/js -->
+		<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+		<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 	
 	<link href="<%=request.getContextPath()%>/resources/css/global_Host.css" rel="stylesheet">
 	<!-- 2022.07.13 김연희 : js 파일은 가장 아래쪽에 있음 -->
 	<!-- jQuery -->
-	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+	<%-- <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script> --%>
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	<!-- bootstrap  -->
@@ -38,6 +43,12 @@
 			
 		})
 	</script>
+	<style>
+		.thin{
+			font-weight: 300;
+		}
+	</style>
+	
 </head>
 
 <body>
@@ -45,9 +56,9 @@
 	<header id="header"></header>
 	
 	<main>
-		<section style="border: solid 1px #eeeeee; border-radius: 4px;">
+		<section style="width: 1240px;">
 			<span class="title1 mt-5">플레이스 등록</span>
-			<div style="margin-left: 10%;">
+			<div style="margin-left: 10%;width: 1000px;">
 				<div class="btn-group-lg mt-5" role="group" aria-label="Basic example">
   					<button type="button" class="insertPlaceBtn" value ="gallery" onclick="cate(this)">갤러리</button>
   					<button type="button" class="insertPlaceBtn" value ="shareKitchen" onclick="cate(this)">공유주방</button>
@@ -89,12 +100,12 @@
 							<br>
 							<label class="mt-3">
 								<span class="title3">공간명칭 </span><br>
-								<input type="text" name="placeName" id="placeName" size="30" placeholder="어떤 공간을 가지고 계신가요?">
+								<input type="text" name="placeName" id="placeName" size="30" placeholder="공간의 이름을 알려주세요" class="thin">
 							</label>
 							<br>
 							<label class="mt-3">
 								<span class="title3">최대 수용가능 인원 </span><br>
-								<input type="number" name="cntPeople" id="cntPeople" min="1">
+								<input type="number" name="cntPeople" id="cntPeople" min="1" class="thin">
 							</label>
 							<br>
 							
@@ -102,7 +113,7 @@
 							<div class=" mt-3" >
 								<span class="title3">태그 </span><br>
 								<p>최대 10개의 태그를 작성할 수있습니다. 태그를 작성하고 공간을 더욱 자세하게 설명해보세요!</p>
-								<input name='tag' class='some_class_name' placeholder='write some tags' value='장소에,어울리는,태그를,달아보세요'>
+								<input name='tag' class='some_class_name' placeholder='write some tags' value='장소에,어울리는,태그를,달아보세요' class="thin">
 								
 							</div>
 							<br>
@@ -110,7 +121,7 @@
 							<!-- 사진 등록 -->
 							<label class="mt-3">
 								<span class=" title3">공간 이미지 </span><br>	
-								<input type="file" name="placeImgs" id="placeImgs" multiple="multiple" onchange="setDetailImage(event); removePicture()">
+								<input type="file" name="placeImgs" id="placeImgs" multiple="multiple" onchange="setDetailImage(event); removePicture()" class="thin">
 							</label>
 							<!-- 사진 미리보기 이후 구현 -->
 							<div id="images_container" class="mt-2"></div>
@@ -122,7 +133,7 @@
 							
 							<label class="mt-3">
 								<span class="title3">공간소개 </span><br>
-								<textarea cols="100" rows="5" name="placeDetail" id="placeDetail" placeholder="등록할 공간을 소개해주세요 :-) "></textarea>
+								<textarea id="summernote" name="placeDetail" id="placeDetail"  required class="thin"></textarea>
 							</label>
 							<br>
 							
@@ -215,7 +226,7 @@
 								</div>
 								<!-- 갤러리 옵션 -->
 								<div id="option_gallery" class="option1" style="display: none">
-									<div class="commonOption"></div>
+									<div class="commonOption "></div>
 								</div>
 								<!-- 회의실 옵션 -->
 								<div id="option_meeting" class="option1" style="display: none">
@@ -265,16 +276,16 @@
 						
 							<label class="mt-3">
 								<span class=" title3">플레이스 옵션2(선택)</span><br>	
-								<textarea  class="ta" cols="100" rows="5" name="option2" placeholder="위 항목 이외에 추가 하실 항목이 있으시다면 작성해주세요 . 관리자의 검토 후 추가하겠습니다." style="resize:none;" ></textarea>
+								<textarea  class="ta thin" cols="100" rows="5" name="option2" placeholder="위 항목 이외에 추가 하실 항목이 있으시다면 작성해주세요 . 관리자의 검토 후 추가하겠습니다." style="resize:none;" ></textarea>
 							</label>
 							<br>
 							<label class="mt-3">
 								<span class="title3">주소 </span><br>
-								<input type="text" id="postcode" placeholder="우편번호">
+								<input type="text" id="postcode" placeholder="우편번호" class="thin">
 								<input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
-								<input type="text"  id="address" size="50" placeholder="주소" class="mt-2">
-								<input type="text"  id="extraAddress"  size="50" placeholder="참고항목" class="mt-2"><br>
-								<input type="text"  id="detailAddress"  size="50" placeholder="상세주소" class="mt-2">
+								<input type="text"  id="address" size="50" placeholder="주소" class="mt-2 thin">
+								<input type="text"  id="extraAddress"  size="50" placeholder="참고항목" class="mt-2 thin"><br>
+								<input type="text"  id="detailAddress"  size="50" placeholder="상세주소" class="mt-2 thin">
 								
 								<input type="hidden" name="address" id="addr" >
 							</label>
@@ -292,16 +303,17 @@
 							</label>
 							<br>
 							<label class="mt-3">
-								<input type="checkbox" name="availTime" id="avaliableTime" value="24hours" class="mr-3"> 24시간 이용가능한 공간입니다.<br>
+								<input type="checkbox" name="availTime" id="avaliableTime" value="24hours" class="mr-3 thin" > 24시간 이용가능한 공간입니다.<br>
 							</label>
 							<br>
 							<label class="mt-3">
 								<span class="title3">예약시간 단위 </span><br>
-								<span>
+								<!-- <span>
 								설정하신 시간 단위에 맞추어 예약이 열리게 됩니다. <br>
 								예를 들어 9시 영업 시작을 기준으로 4시간 선택시  9시, 13시, 17시, 21시 와 같이 열리게 됩니다. 
-								</span><br>
-									<select name="intervalTime" id="intervalTime" class="mt-3" required>
+								</span><br> -->
+								
+									<select name="intervalTime" id="intervalTime" class="mt-3 thin" required >
 										<option value="" disabled selected >예약단위</option>
 										<!-- <option value="1" >30분</option> -->
 										<option value="1" >1시간</option>
@@ -315,9 +327,7 @@
 							<!-- 최대 수용가능 인원-->
 							<label class="mt-3">
 								<span class="title3">가격 </span><br>
-								시간 당 <input type="text" name="price" id="price" placeholder="ex) 10000" onkeyup="commas(this)" onclick="commaRemove()">원으로 으로 책정합니다.<br>
-								
-								
+								시간 당 <input type="text" name="price" id="price" placeholder="ex) 10000" onkeyup="commas(this)" onclick="commaRemove()" class="thin">원으로 으로 책정합니다.<br>
 							</label>
 							<br>
 						<div style="display: flex; justify-content: flex-end;">
@@ -348,16 +358,12 @@
 	<!-- 사진 미리보기 -->
 	<script>
 		function setDetailImage(event){
-			
-			
 			for(var image of event.target.files){
 				var reader = new FileReader();
-				
 				reader.onload = function(event){
 					var img = document.createElement("img");
 					img.setAttribute("src", event.target.result);
 					img.setAttribute("class", "col-lg-2 me-2");
-					
 					
 					document.querySelector("div#images_container").appendChild(img);
 				};
@@ -370,10 +376,23 @@
 		function removePicture(){
 			$("#images_container > img").remove();
 		}
-		
+	</script>
+	<!-- 썸머노트 -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+ 			$('#summernote').summernote({
+ 				width: 1000,
+	 			height: 300,		// 기본 높이값
+			    minHeight: 250,		// 최소 높이값(null은 제한 없음)
+			    maxHeight: null,  	// 최대 높이값(null은 제한 없음)
+			    focus: false,          // 페이지가 열릴때 포커스를 지정함
+			    placeholder: '공간에 대한 소개를 작성해죽세요!',
+			    lang: 'ko-KR'
+			    
+ 			});
+		}); 
 		
 	</script>
-	
 	
 	
 </body>

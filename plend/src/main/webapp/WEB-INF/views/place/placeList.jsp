@@ -161,12 +161,12 @@
   				<c:choose>
   					<c:when test="${c.placeImg == null}">
   						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
-  							<img src="<%=request.getContextPath()%>/imageView.do?originFileName=매실1.PNG" class="card-img-top" alt="등록된 사진이 없습니다." style="height: 13rem;">
+  							<img src="<%=request.getContextPath()%>/imageView.do?realFileName=매실1.PNG" class="card-img-top" alt="등록된 사진이 없습니다." style="height: 13rem;">
   						</a>
   					</c:when>
   					<c:when test="${c.placeImg != null}">
   						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
-  							<img src="<%=request.getContextPath()%>/imageView.do?originFileName=${c.placeImg}" class="card-img-top" alt="사진 로딩 오류" style="height: 13rem;">
+  							<img src="<%=request.getContextPath()%>/imageView.do?realFileName=${c.placeImg}" class="card-img-top" alt="사진 로딩 오류" style="height: 13rem;">
   						</a>
   					</c:when>
   				</c:choose>

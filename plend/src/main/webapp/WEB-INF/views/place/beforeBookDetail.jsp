@@ -106,7 +106,8 @@
 		    		  html3 ='';
 		    		  html3 +="<th colspan='2' style='text-align: center; font-size: 24px;padding-bottom: 50px;' > 예약이 완료되었습니다. <br> 예약정보를 확인해주시길 바랍니다.</th>";
 		    		  $("#bookDone").html(html);
-		    		   $("#bookDone2").html(html2);
+		    		  $("#bookDone2").html(html2);
+		    		  $("#payDone").html(html3);
 		    		   
 		    		   //하단 버튼 변경
 		    		   html2 ="";

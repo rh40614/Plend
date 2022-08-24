@@ -1,7 +1,10 @@
 package three.people.service;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import three.people.vo.BlockVO;
 import three.people.vo.BookVO;
@@ -62,4 +65,5 @@ public interface HostService {
 	public int approval(BookVO bookVO);
 	public int insertReject(BookVO bookVO);
 	public int reject(BookVO bookVO);
+	
 }

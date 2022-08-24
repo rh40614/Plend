@@ -37,6 +37,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import three.people.service.CommonService;
 import three.people.service.GoogleService;
+import three.people.service.ImageServiceImpl;
 import three.people.service.KakaoService;
 import three.people.service.MailSendService;
 import three.people.service.NaverService;
@@ -68,6 +69,7 @@ public class CommonController  {
 	private BCryptPasswordEncoder passwordEncoder;
 	@Autowired
 	private MailSendService mailSend;
+
 	
 	
 	@RequestMapping(value="/naverLogin.do")
