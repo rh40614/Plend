@@ -58,12 +58,12 @@
 	          		<c:forEach var="img" items="${imageList}" varStatus="status">
 				        <c:if test="${status.index eq 0 }">
 					        <div class="carousel-item active">
-								<img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" alt="img" src="<%=request.getContextPath() %>/imageView.do?originFileName=${img.originFileName}"/>
+								<img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" alt="img" src="<%=request.getContextPath() %>/imageView.do?realFileName=${img.realFileName}"/>
 					        </div>
 				        </c:if>
 				        <c:if test="${status.index ne 0 }">
 					        <div class="carousel-item">
-								<img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" alt="img" src="<%=request.getContextPath() %>/imageView.do?originFileName=${img.originFileName}"/>
+								<img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" alt="img" src="<%=request.getContextPath() %>/imageView.do?realFileName=${img.realFileName}"/>
 					        </div>
 				        </c:if>
 					</c:forEach>
@@ -201,7 +201,7 @@
 							<c:forEach var="img" items="${imageList}">
 								<tr> 
 									<td style="padding: 0;"> 
-										<img width="700" height="400" alt="img" src="<%=request.getContextPath() %>/imageView.do?originFileName=${img.originFileName}"/>
+										<img width="700" height="400" alt="img" src="<%=request.getContextPath() %>/imageView.do?realFileName=${img.realFileName}"/>
 									</td>
 								</tr>		
 							</c:forEach>

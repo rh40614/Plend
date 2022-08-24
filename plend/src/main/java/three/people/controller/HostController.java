@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import three.people.service.BookService;
 import three.people.service.CommonService;
 import three.people.service.HostService;
+import three.people.service.ImageServiceImpl;
 import three.people.service.MainService;
 import three.people.service.PlaceService;
 import three.people.service.ReviewService;
@@ -64,7 +65,8 @@ public class HostController {
 	CommonService commonService;
 	@Autowired
 	ReviewService reviewService;
-
+	@Autowired
+	ImageServiceImpl imageService; 
 	
 	
 	@RequestMapping(value = "/insertPlace.do", method = RequestMethod.GET )
@@ -86,14 +88,12 @@ public class HostController {
 		placeVO.setUidx(login.getUidx()); 
 		
 		System.out.println("tag: "+placeVO.getTag());
-		
 		String availTimeValue= "";
 		
 		for(String time:placeVO.getAvailTime()) {
 			if(time.equals("24hours")) {
 				System.out.println("24시간 운영");
 				placeVO.setAvailTimeValue(time);
-			
 			}else {
 				availTimeValue += time;
 				//System.out.println("availTimeValue: "+availTimeValue);
@@ -106,72 +106,16 @@ public class HostController {
 		//화면응답
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
-		
-		if(result ==1) {
-			System.out.println("장소 등록 성공");
-			System.out.println("pidx: "+placeVO.getPidx());
-			
-			//사진이 저장될 경로
-			String path = request.getSession().getServletContext().getRealPath("/resources/upload/placeImg");
-					
-			System.out.println(path);
-			File dir = new File(path);
-			if(!dir.exists()) {	//위치가 존재하는지 확인
-				 dir.mkdirs();	//위치가 존재하지 않는경우 위치를 생성
-			}
-					
-			for(MultipartFile files : placeVO.getPlaceImgs()) {
-						
-				if(!files.getOriginalFilename().isEmpty()) {	//화면에서 넘어온 파일이 존재한다면
-					//화면에서 넘어온 파일을 path위치에 새로쓰는 로직
-					files.transferTo(new File(path, files.getOriginalFilename()));	//error는 throw	
-					//originName(사용자가 저장한 이름) 가지고 오기
-					String originFileName = files.getOriginalFilename();
-					//확장자 추출(이후 호출 할때 확장자가 두번 붙어버림) 
-					String extention = originFileName.substring(originFileName.lastIndexOf("."));
-					//확장자를 제거한 파일 이름
-					String origin = originFileName.replace(extention, "");
-					
-					Date now =new Date();
-					SimpleDateFormat simple = new SimpleDateFormat("SSS");
-					String distinct = simple.format(now);
-					
-					//서버에 저장될 이름(사진이름SSS.확장자)
-					String realFileName = origin + distinct+ extention ;
-					System.out.println("realFileName: "+realFileName);
-					
-					ImageVO imageVO = new ImageVO();
-					
-					imageVO.setPidx(placeVO.getPidx());
-					imageVO.setPath(path);
-					imageVO.setOriginFileName(originFileName);
-					imageVO.setRealFileName(realFileName);
-					
-					 int result_img = hostService.insertPlaceImg(imageVO);
-					 
-					 	if(result_img == 1) {
-					 		System.out.println("이미지 등록 성공");
-						 
-					 	}else {
-					 		System.out.println("이미지 등록 실패");
-					 	}
-						
-					}else {
-					System.out.println("업로드할 파일이 존재하지 않습니다.");
-					}
-					
+			if(result ==1) {
+				//사진 저장
+				imageService.savePlaceImage(request, placeVO);
 				//response를 이용해서 script를 띄우면 redirect가 먹지않기 때문에 script를 이용해서 화면을 이동시켜주어야한다. 
 				pw.append("<script>alert('정상적으로 등록되었습니다.');location.href='"+request.getContextPath()+"/host/managePlace.do';</script>");
 				
-				}
-			
-			
-		}else {
-			System.out.println("장소등록 실패");
-			
-			pw.append("<script>alert('장소등록에 실패하였습니다. 다시 한번 시도해주시길 바랍니다. ');location.href='/insertPlace.do';</script>");
-		}
-	
+			}else {
+				System.out.println("장소등록 실패");
+				pw.append("<script>alert('장소등록에 실패하였습니다. 다시 한번 시도해주시길 바랍니다. ');location.href='/insertPlace.do';</script>");
+			}
 	}
 	
 	//managePlace 화면만 로딩
@@ -419,8 +363,8 @@ public class HostController {
 				//사진 (0번 메인 1번 배너)
 				eventVO.setEidx(event.getEidx());
 				List<ImageVO> imageList = hostService.eventImageList(eventVO);
-				event.setImage(imageList.get(0).getOriginFileName());
-				event.setBanner(imageList.get(1).getOriginFileName());
+				event.setImage(imageList.get(0).getRealFileName());
+				event.setBanner(imageList.get(1).getRealFileName());
 				
 				if(event.getSemiTitle().length() >19) {
 					String semi = event.getSemiTitle().substring(0,19);
@@ -450,8 +394,7 @@ public class HostController {
 			}else {
 				eventVO.setEidx(event.getEidx());
 				List<ImageVO> imageList = hostService.eventImageList(eventVO);
-				event.setImage(imageList.get(0).getOriginFileName());
-				//event.setBanner(imageList.get(1).getOriginFileName());
+				event.setImage(imageList.get(0).getRealFileName());
 				
 				if(event.getSemiTitle().length() >19) {
 					String semi = event.getSemiTitle().substring(0,19);
@@ -473,8 +416,8 @@ public class HostController {
 		EventVO event = hostService.eventOne(eventVO);
 		eventVO.setEidx(event.getEidx());
 		List<ImageVO> image = hostService.eventImageList(eventVO);
-		event.setImage(image.get(0).getOriginFileName());
-		event.setBanner(image.get(1).getOriginFileName());
+		event.setImage(image.get(0).getRealFileName());
+		event.setBanner(image.get(1).getRealFileName());
 		
 		model.addAttribute("e",event);
 		return "host/eventView";
@@ -704,6 +647,7 @@ public class HostController {
 		model.addAttribute("place", placeService.placeOne(placeVO));
 		return "host/placeModify";
 	}
+	
 	@RequestMapping(value="/placeModfy.do", method=RequestMethod.POST)
 	public String placeModfy(PlaceVO placeVO, HttpServletRequest request) throws IllegalStateException, IOException {
 		String availTimeValue= "";
@@ -721,62 +665,7 @@ public class HostController {
 		
 		int result = hostService.placeModify(placeVO);
 		if(result ==1) {
-			System.out.println("장소 등록 성공");
-			// 기존 사진 삭제
-			hostService.deletePlaceImg(placeVO);
-			//사진이 저장될 경로
-			String path = request.getSession().getServletContext().getRealPath("/resources/upload/placeImg");
-					
-			System.out.println(path);
-			File dir = new File(path);
-			if(!dir.exists()) {	//위치가 존재하는지 확인
-				 dir.mkdirs();	//위치가 존재하지 않는경우 위치를 생성
-			}
-					
-			for(MultipartFile files : placeVO.getPlaceImgs()) {
-						
-				if(!files.getOriginalFilename().isEmpty()) {	//화면에서 넘어온 파일이 존재한다면
-					//화면에서 넘어온 파일을 path위치에 새로쓰는 로직
-					files.transferTo(new File(path, files.getOriginalFilename()));	//error는 throw	
-					
-					//originName(사용자가 저장한 이름) 가지고 오기
-					String originFileName = files.getOriginalFilename();
-					
-					//확장자 추출(이후 호출 할때 확장자가 두번 붙어버림) 
-					String extention = originFileName.substring(originFileName.lastIndexOf("."));
-					//확장자를 제거한 파일 이름
-					String origin = originFileName.replace(extention, "");
-					
-					Date now =new Date();
-					SimpleDateFormat simple = new SimpleDateFormat("SSS");
-					String distinct = simple.format(now);
-					
-					//서버에 저장될 이름(사진이름SSS.확장자)
-					String realFileName = origin + distinct+ extention ;
-					System.out.println("realFileName: "+realFileName);
-					
-					ImageVO imageVO = new ImageVO();
-					
-					imageVO.setPidx(placeVO.getPidx());
-					imageVO.setPath(path);
-					imageVO.setOriginFileName(originFileName);
-					imageVO.setRealFileName(realFileName);
-					
-					 int result_img = hostService.insertPlaceImg(imageVO);
-					 
-					 	if(result_img == 1) {
-					 		System.out.println("이미지 등록 성공");
-						 
-					 	}else {
-					 		System.out.println("이미지 등록 실패");
-					 	}
-						
-					}else {
-					System.out.println("업로드할 파일이 존재하지 않습니다.");
-					}
-				}
-			
-			
+			imageService.editPlaceImage(request, placeVO);
 		}
 		return "redirect:/host/managePlace.do";
 	}

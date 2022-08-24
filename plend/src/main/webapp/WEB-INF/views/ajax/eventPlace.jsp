@@ -21,7 +21,7 @@
 					</c:when>
 					<c:when test="${e.placeImg != null}">
 						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${e.pidx}">
-							<img src="<%=request.getContextPath()%>/imageView.do?originFileName=${e.placeImg}" class="card-img-top" alt="사진 로딩 오류" style="height: 13rem;">
+							<img src="<%=request.getContextPath()%>/imageView.do?realFileName=${e.placeImg}" class="card-img-top" alt="사진 로딩 오류" style="height: 13rem;">
 						</a>
 					</c:when>
 				</c:choose>

@@ -120,7 +120,7 @@
 <body>
 <div id="wrap">	
 	<header id="header"></header>
-	<main>
+	<main style="min-height:700px;">
 	<div>
 	<div style = "text-align:center;">
 	<form action = "faq.do" method = "get">

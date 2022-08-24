@@ -163,7 +163,7 @@
 				</tr>
 				<tr>
 					<th>금액 : </th>
-					<td><fmt:formatNumber value="${vo.price }" type="currency"/>원</td>
+					<td><fmt:formatNumber value="${vo.price }" pattern="#,###"/>원</td>
 				</tr>
 				<tr>
 					<th>업체 승인 여부 : </th>
@@ -209,7 +209,7 @@
 				</tr>
 				<tr>
 					<th>금액 : </th>
-					<td><fmt:formatNumber value="${vo.price }" type="currency"/>원</td>
+					<td><fmt:formatNumber value="${vo.price }" pattern="#,###"/>원</td>
 				</tr>
 				<tr>
 					<th>업체 승인 여부 : </th>

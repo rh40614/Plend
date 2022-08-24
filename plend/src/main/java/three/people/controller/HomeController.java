@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import three.people.service.ImageServiceImpl;
 import three.people.service.MailSendService;
 import three.people.service.PlaceService;
 import three.people.service.ReviewService;
@@ -37,6 +38,8 @@ public class HomeController {
 	private MailSendService mailSend;
 	@Autowired
 	Scheduler scheduler;
+	@Autowired
+	ImageServiceImpl imageService; 
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String mains(SearchVO searchVO, Model model) {
@@ -69,7 +72,7 @@ public class HomeController {
 				for(PlaceVO p: placeList ) {
 					//장소 사진 가지고 오기
 					ImageVO imageOne = placeService.selectImageOne(p);
-					String file = imageOne.getOriginFileName();
+					String file = imageOne.getRealFileName();
 					p.setPlaceImg(file);
 					//평균 별점
 					int avgRate = reviewService.avgRevew(p);
@@ -89,7 +92,7 @@ public class HomeController {
 					PlaceVO randomPlace =  placeList.get(i);
 					//장소 사진 가지고 오기
 					ImageVO imageOne = placeService.selectImageOne(randomPlace);
-					String file = imageOne.getOriginFileName();
+					String file = imageOne.getRealFileName();
 					randomPlace.setPlaceImg(file);
 					//평균 별점
 					int avgRate = reviewService.avgRevew(randomPlace);
@@ -118,7 +121,7 @@ public class HomeController {
 				for(PlaceVO p: placeList ) {
 					//장소 사진 가지고 오기
 					ImageVO imageOne = placeService.selectImageOne(p);
-					String file = imageOne.getOriginFileName();
+					String file = imageOne.getRealFileName();
 					p.setPlaceImg(file);
 					//평균 별점
 					int avgRate = reviewService.avgRevew(p);
@@ -138,7 +141,7 @@ public class HomeController {
 					PlaceVO randomPlace =  placeList.get(i);
 					//장소 사진 가지고 오기
 					ImageVO imageOne = placeService.selectImageOne(randomPlace);
-					String file = imageOne.getOriginFileName();
+					String file = imageOne.getRealFileName();
 					randomPlace.setPlaceImg(file);
 					//평균 별점
 					int avgRate = reviewService.avgRevew(randomPlace);
@@ -185,7 +188,7 @@ public class HomeController {
 				for(PlaceVO e: eventList ) {
 					//장소 사진 가지고 오기
 					ImageVO imageOne = placeService.selectImageOne(e);
-					String file = imageOne.getOriginFileName();
+					String file = imageOne.getRealFileName();
 					e.setPlaceImg(file);
 					//평균 별점
 					int avgRate = reviewService.avgRevew(e);
@@ -206,7 +209,7 @@ public class HomeController {
 					randomPlace = eventList.get(i);
 					//사진가지고오기
 					ImageVO imageOne = placeService.selectImageOne(randomPlace);
-					String file = imageOne.getOriginFileName();
+					String file = imageOne.getRealFileName();
 					randomPlace.setPlaceImg(file);
 					//평균 별점
 					int avgRate = reviewService.avgRevew(randomPlace);
@@ -232,7 +235,7 @@ public class HomeController {
 				for(PlaceVO e: eventList ) {
 					//장소 사진 가지고 오기
 					ImageVO imageOne = placeService.selectImageOne(e);
-					String file = imageOne.getOriginFileName();
+					String file = imageOne.getRealFileName();
 					e.setPlaceImg(file);
 					//평균 별점
 					int avgRate = reviewService.avgRevew(e);
@@ -253,7 +256,7 @@ public class HomeController {
 					randomPlace = eventList.get(i);
 					//사진가지고오기
 					ImageVO imageOne = placeService.selectImageOne(randomPlace);
-					String file = imageOne.getOriginFileName();
+					String file = imageOne.getRealFileName();
 					randomPlace.setPlaceImg(file);
 					//평균 별점
 					int avgRate = reviewService.avgRevew(randomPlace);
@@ -288,7 +291,7 @@ public class HomeController {
 			for(ReviewVO r: reviewList ) {
 				//장소 사진 가지고 오기
 				ImageVO imageOne = reviewService.selectImageOne(r);
-				String file = imageOne.getOriginFileName();
+				String file = imageOne.getRealFileName();
 				r.setReviewImg(file);
 				//평균 별점
 				int avgRate = reviewService.avgRevew(r);
@@ -305,7 +308,7 @@ public class HomeController {
 				random = reviewList.get(i);
 				//사진가지고오기
 				ImageVO imageOne = reviewService.selectImageOne(random);
-				String file = imageOne.getOriginFileName();
+				String file = imageOne.getRealFileName();
 				random.setReviewImg(file);
 				//넣기
 				randomReviewList.add(random);
