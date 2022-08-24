@@ -19,7 +19,7 @@
   <nav class="navbar navbar-light shadow-sm pt-3 fixed-top bg-white">
   <div class="container" style="flex-wrap: wrap; justify-content: center;">
   	<div style=" display: flex; flex-direction: row; align-items: center; width: 100%;">
-      <a class="navbar-brand" style="margin-right:auto;" href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/image/logoTrial2.png" alt="logo not found" style="width: 150px; height:45px;"></a>
+      <a class="navbar-brand" style="margin-right:auto;" href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/image/logoTrial2.png" alt="logo not found" style="width: 150px; height:45px;" id="logo"></a>
    	  <div id="searchBar" style="margin-right:auto; border-radius: 50px; height: 47px; width: 500px; background-color: #eceeee;">
 
     	  <form class="d-flex" method="GET" action="<%=request.getContextPath()%>/place/searchPlace.do">
@@ -27,7 +27,7 @@
           <button class="btn " type="submit" style="border:none; align-self: center;" ><i class="fa-solid fa-magnifying-glass" style="padding-right: 5;padding-top: 6;color: #7f8b93;"></i></button>
         </form> 			
       </div>
-      <div class="d-flex">
+      <div class="d-flex" id="CnP">
 		<div id="categoryList" class="fw-bold" style="color: #838a90; cursor: pointer;">카테고리 &nbsp;</div>
 		<div class="fw-bold" style="color: #838a90;"> | </div>
 		<div class="fw-bold"><a href="<%=request.getContextPath()%>/host.do" style="color: #838a90;" target="_blank">&nbsp; 공간 등록 </a></div>
@@ -51,7 +51,7 @@
     	<a href="<%=request.getContextPath()%>/place/placeList.do?category=shareKitchen" class="shareKitchen" >공유주방</a>
     </div>
     <!-- 오른쪽 캔버스  -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" id="offcanvas">
       <div class="offcanvas-header" style="background: #364F6B; height: 250px; flex-direction: column">
       	
         <button type="button" class="btn-close text-reset" style="margin-left: auto;" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
@@ -128,8 +128,6 @@ $("#categoryList").click(function(){
 	}
 );
 </script>
-
-
 
 
 

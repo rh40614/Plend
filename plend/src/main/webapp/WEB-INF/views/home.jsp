@@ -10,7 +10,7 @@
 	<title>plend</title>
 	<!-- 07.08 김연희: 폰트어썸 - 카드 별, 하트 아이콘   -->
 	<script src="https://kit.fontawesome.com/f5807db9d4.js" crossorigin="anonymous"></script>
-
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<script src="resources/js/jquery-3.6.0.min.js"></script>
 	<link href="resources/css/global.css" rel="stylesheet">
@@ -27,7 +27,6 @@
 </head>
 
 
-
 <body>
 	<div id="wrap">
 		<header id="header"></header>
@@ -35,7 +34,7 @@
 	
 		<main style="margin: 5% 19% 10% 19%; flex: 1;">
 		  	<div style="display: block; align-items: center; text-align: center;" class="mb-5">
-		    	<span class="navbar-brand title1" style="padding-left: 100px;  text-decoration: underline; text-underline-position:under; "> 추천 장소  </span>
+		    	<span class="navbar-brand title1" style="padding-left: 90px;  text-decoration: underline; text-underline-position:under; "> 추천 장소  </span>
 		    	<button  class="btn" onclick="newList()" style="float: right; margin-top: 38px;"><i class="fa-solid fa-arrow-rotate-right" style=" color: grey;">  더보기</i></button>
 		  	</div>
 			<section class=" d-flex flex-row flex-wrap justify-content-start" id="recommendPlace"></section>
@@ -49,9 +48,9 @@
 				<hr>
 				<br>
 			<div style="display: block; align-items: center; text-align: center;" class="mb-5">
-		    	<h3 class="navbar-brand title1" style="padding-left: 100px;"> 리뷰존 </h3>
+		    	<h3 class="navbar-brand title1" style="padding-left: 100px;" id="reviewTitle"> 리뷰존 </h3>
 		  	</div>
-		  	<section class=" d-flex, flex-row justify-content-start flex-wrap  " id="randomReview"></section>
+		  	<section class=" d-flex, flex-row  flex-wrap justify-content-start " id="randomReview"></section>
 		</main>
 	
 	
@@ -142,6 +141,8 @@
 			});
 		});
 	</script>
-	
+
+
 </body>
+
 </html>

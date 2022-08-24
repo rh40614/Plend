@@ -57,6 +57,11 @@
 			
 		});
 	</script>
+	<style>
+		tr>td{
+			vertical-align: middle;
+		}
+	</style>
 	
 
 </head>
