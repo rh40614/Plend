@@ -66,7 +66,7 @@ public class HomeController {
 			
 			
 			//1. 장소 랜덤
-			//화면 초기에 장소가 3개이하이면 랜덤없이 그냥 장소가지고 오기
+			//화면 초기에 장소가 6개이하이면 랜덤없이 그냥 장소가지고 오기
 			placeList = placeService.selectPlace(login);
 			List<PlaceVO> randomPlaceList = new ArrayList<PlaceVO>();
 			//6개 이하 

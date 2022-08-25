@@ -245,6 +245,12 @@ public class HostServiceImpl implements HostService {
 	}
 
 
+	@Override
+	public PlaceVO placeView(PlaceVO placeVO) {
+		return hostDAO.placeView(placeVO);
+	}
+
+
 	
 	
 	

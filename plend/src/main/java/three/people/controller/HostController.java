@@ -173,12 +173,12 @@ public class HostController {
 		page.put("cntPerPage", cntPerPage);
 		
 		List<PlaceVO> list_p = placeService.selectPlaceAll(page);
-		
+		String p ="</p>";
 		//장소 소개 35자 이상 자르기
 		for(PlaceVO place: list_p) {
-			if(place.getPlaceDetail().length() > 90) {
-				String pd =place.getPlaceDetail().substring(0, 90);
-				place.setPlaceDetail(pd);
+			if(place.getPlaceDetail().length() > 35) {
+				String pd =place.getPlaceDetail().substring(0, 35);
+				place.setPlaceDetail(pd+"...");
 			}
 		}
 	
@@ -670,6 +670,24 @@ public class HostController {
 		return "redirect:/host/managePlace.do";
 	}
 	
-	
+	//장소 상세보기
+	@RequestMapping(value="/view.do")
+	public String placeView(PlaceVO placeVO, Model model) {
+		/*
+		 * PlaceVO placeOne = hostService.placeView(placeVO);
+		 * model.addAttribute("placeOne",placeOne); System.out.println("효"+placeOne);
+		 */
+		
+		//08.18 김연희: 평균 별점 추가
+		PlaceVO p = placeService.placeOne(placeVO);
+		p.setCntHeart(placeService.countHeart(placeVO));
+		int avgRate = reviewService.avgRevew(p);
+		p.setAvgRate(avgRate);
+		
+		model.addAttribute("imageList", placeService.selectImage(placeVO));
+		model.addAttribute("placeOne", p);
+		
+		return "host/placeView";
+	}
 	
 }

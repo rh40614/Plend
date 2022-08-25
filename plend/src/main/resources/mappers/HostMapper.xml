@@ -529,17 +529,26 @@
 		  WHERE bidx = #{bidx}
 	
 	</update>
-	
-	
-	
+		
 	<update id="reject" parameterType="BookVO">
-			UPDATE book
-			  SET  approvalyn = 'R'
-			  	   ,rejectContent = #{rejectContent}
-			  	   ,successbook = 'Y'
-			 WHERE bidx = #{bidx}
+		UPDATE book
+		  SET  approvalyn = 'R'
+		  	   ,rejectContent = #{rejectContent}
+		  	   ,successbook = 'Y'
+		 WHERE bidx = #{bidx}
 	</update>
 	
+	<!-- 08.25 김연희 : 장소 상세보기  -->
+	<select id="placeView" parameterType="PlaceVO" resultType="PlaceVO">
+		SELECT 
+				* 
+		FROM place
+		WHERE pidx= #{pidx}
+	
+		
+	
+	
+	</select>
 
 
 	
