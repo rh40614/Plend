@@ -103,7 +103,7 @@
 			<button class="mb-3 btnBig " onclick="location.href='<%=request.getContextPath()%>/host/insertPlace.do'">플레이스 등록</button>
 		</div>		
 			<div class=".table-responsive container " style="margin-left: 100px;" >
-				<div id="placeList" style="height:550px;justify-content: space-between;align-items: center;" class="d-flex flex-column" >
+				<div id="placeList" style="min-height:550px;justify-content: space-between;align-items: center;" class="d-flex flex-column" >
 					<!-- 데이터 들어오는 곳 -->
 				</div>
 			    <hr width="100%">
@@ -113,7 +113,7 @@
 		<section>
 			<span class="title1 mt-5 mb-5" style="margin-left: 120px;">예약 현황</span>
 				<div class=".table-responsive container " style="margin-left: 100px;" >
-					<div id="bookList"  style="height:400px; justify-content: space-between;align-items: center;" class="d-flex flex-column ">
+					<div id="bookList"  style="min-height:600px; justify-content: space-between;align-items: center;" class="d-flex flex-column ">
 						<!-- 데이터 들어오는 곳 -->
 					</div>
 					<hr width="100%">
@@ -123,7 +123,7 @@
 		<section>
 			<span class="title1 mt-5 mb-5" style="margin-left: 120px;">후기</span>
 				<div class=".table-responsive container " style="margin-left: 100px;" >
-					<div id="reviewList" style="height:400px; justify-content: space-between;align-items: center;" class="d-flex flex-column">
+					<div id="reviewList" style="min-height:500px; justify-content: space-between;align-items: center;" class="d-flex flex-column">
 						<!-- 데이터 들어오는 곳 -->
 					</div>
 					<hr width="100%">
