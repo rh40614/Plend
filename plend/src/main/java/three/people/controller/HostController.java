@@ -670,6 +670,24 @@ public class HostController {
 		return "redirect:/host/managePlace.do";
 	}
 	
-	
+	//장소 상세보기
+	@RequestMapping(value="/view.do")
+	public String placeView(PlaceVO placeVO, Model model) {
+		/*
+		 * PlaceVO placeOne = hostService.placeView(placeVO);
+		 * model.addAttribute("placeOne",placeOne); System.out.println("효"+placeOne);
+		 */
+		
+		//08.18 김연희: 평균 별점 추가
+		PlaceVO p = placeService.placeOne(placeVO);
+		p.setCntHeart(placeService.countHeart(placeVO));
+		int avgRate = reviewService.avgRevew(p);
+		p.setAvgRate(avgRate);
+		
+		model.addAttribute("imageList", placeService.selectImage(placeVO));
+		model.addAttribute("placeOne", p);
+		
+		return "host/placeView";
+	}
 	
 }
