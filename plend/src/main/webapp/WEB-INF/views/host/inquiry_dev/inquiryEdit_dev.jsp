@@ -19,7 +19,7 @@
 			</select>
 				<span>문의제목 </span><input type="text" name="title" size="50"  value="${inquiry.title}" required>
 				<textarea id="summernote" name="content" required >${inquiry.content}</textarea> 
-				<button type="button" class="btnBig" onclick="saveContent()" >저장</button>
+				<button type="button" class="btnBig" onclick="saveContent()" style="float:right;" >저장</button>
 			</form>
 		</div>
 	</section >

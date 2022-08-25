@@ -23,7 +23,8 @@
 			<!--  -->
 			<c:if test="${list_p.size() > 0}">
 				<c:forEach var="pv" items="${list_p}" >
-					<tr >
+					
+					<tr>
 						<td>${pv.rnum}</td>
 						<td>${pv.placeName}</td>
 						<td id="tag${pv.pidx}" style="text-align: left;"></td>
@@ -35,7 +36,7 @@
 							);
 							$("#tag${pv.pidx}").html(tag);
 						</script>
-						<td style="text-align: left;">${pv.placeDetail}</td>
+						<td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/view.do?pidx=${pv.pidx}">${pv.placeDetail}</a></td>
 						<c:choose>
 							<c:when test="${pv.approvalYN eq '승인거절'}">
 								<td>${pv.approvalYN}</td>
@@ -47,6 +48,7 @@
 							</c:otherwise>
 						</c:choose>
 					</tr>
+					
 				</c:forEach>
 			</c:if>
 		</tbody>

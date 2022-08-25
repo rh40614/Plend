@@ -123,7 +123,7 @@
 								<span class=" title3">공간 이미지 </span><br>	
 								<input type="file" name="placeImgs" id="placeImgs" multiple="multiple" onchange="setDetailImage(event); removePicture()" class="thin">
 							</label>
-							<!-- 사진 미리보기 이후 구현 -->
+							<!-- 사진 미리보기 -->
 							<div id="images_container" class="mt-2"></div>
 								
 							<br>
@@ -360,7 +360,7 @@
 				reader.onload = function(event){
 					var img = document.createElement("img");
 					img.setAttribute("src", event.target.result);
-					img.setAttribute("class", "col-lg-2 me-2");
+					img.setAttribute("style", "width:300px; height: 200px; margin-right:10px; margin-top: 10px;");
 					
 					document.querySelector("div#images_container").appendChild(img);
 				};

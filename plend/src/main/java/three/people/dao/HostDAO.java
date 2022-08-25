@@ -40,10 +40,15 @@ public class HostDAO {
 	public int placeModify(PlaceVO placeVO) {
 		return sqlSession.update(namespace+".placeModify", placeVO);
 	}
-	//사진삭제
+	//장소 상세 보기 
+	public PlaceVO placeView(PlaceVO placeVO) {
+		return sqlSession.selectOne(namespace+".placeView", placeVO);
+	}
+	//장소사진삭제
 	public int deletePlaceImg(PlaceVO placeVO) {
 		return sqlSession.delete(namespace+".deletePlaceImg", placeVO);
 	}
+	
 	//이벤트 리스트
 	public List<EventVO> eventList(EventVO eventVO) {
 		List<EventVO> result= sqlSession.selectList(namespace+".eventList", eventVO);
