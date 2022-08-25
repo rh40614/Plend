@@ -1,7 +1,9 @@
 package three.people.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -152,6 +154,28 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int deleteEventImg(ImageVO imageVO) {
 		return adminDAO.deleteEventImg(imageVO);
+	}
+
+	@Override
+	public int checkEventStartDate() {
+		List<EventVO> eventList = adminDAO.checkEventStartDate();
+		List<String> categoryList = new ArrayList<String>();
+		
+		for(EventVO event: eventList) { 
+			if(categoryList == null || !categoryList.contains(event.getCategory())) {
+				categoryList.add(event.getCategory());
+			}
+			event.setStartEnd("start");
+			adminDAO.updateEvent(event); 
+		}
+		EventVO event = new EventVO();
+		for(String category: categoryList ) {
+			event.setCategory(category);
+			System.out.println("category: "+event.getCategory());
+			adminDAO.placeEventUpdate(event);
+		}
+		
+		return 0;
 	}
 	
 

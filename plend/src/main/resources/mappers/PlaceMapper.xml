@@ -80,7 +80,7 @@
 		<selectKey keyProperty="originQidx" resultType="int" order="BEFORE">
 			<if test="originQidx == 0">
 				<![CDATA[
-				SELECT IF(MAX(qidx)+1 = null, MAX(qidx)+1, 1) as result
+				SELECT IF(MAX(qidx)+1 = null, 1,MAX(qidx)+1) as result
 				  FROM qna
 				]]>
 			</if>

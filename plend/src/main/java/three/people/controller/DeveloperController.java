@@ -1,11 +1,7 @@
 package three.people.controller;
 
 
-import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,8 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import three.people.service.AdminService;
 import three.people.service.CommonService;
@@ -30,11 +24,8 @@ import three.people.service.SearchService;
 
 import three.people.vo.BlockVO;
 import three.people.vo.EventVO;
-import three.people.vo.ImageVO;
 import three.people.vo.InquiryVO;
 import three.people.vo.PlaceVO;
-import three.people.vo.ReportVO;
-import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
@@ -102,7 +93,7 @@ public class DeveloperController {
 		return "developer/event";
 	}
 
-//	 이벤트 등록
+	//	 이벤트 등록
 	@Transactional
 	@RequestMapping(value="/event.do", method=RequestMethod.POST)
 	public String event(EventVO eventvo, HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {

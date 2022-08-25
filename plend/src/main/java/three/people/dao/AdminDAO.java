@@ -122,7 +122,9 @@ public class AdminDAO {
 	public int deleteEventImg(ImageVO imageVO) {
 		return sqlSession.delete("three.people.mapper.adminMapper.deleteEventImg", imageVO);
 	}
-	
+	public List<EventVO> checkEventStartDate(){
+		return sqlSession.selectList("three.people.mapper.adminMapper.checkEventStartDate");
+	}
 	
 	
 	
