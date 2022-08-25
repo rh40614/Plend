@@ -5,9 +5,6 @@
  
 <mapper namespace="three.people.mapper.hostMapper">
 
-	<select id="totalBook" resultType="int" parameterType="UserVO"></select>
-	<select id="tatalName" resultType="int" parameterType="UserVO"></select>
-	
 	
 	<insert id="insertPlace" parameterType="PlaceVO">
 	
@@ -183,8 +180,8 @@
 		FROM inquiry
 		WHERE depth = '0'
 		  AND uidx = #{uidx}
-		 ORDER BY iqidx DESC) sub
-       ORDER BY rnum ASC
+		 ORDER BY iqidx ASC) sub
+       ORDER BY rnum DESC
         LIMIT #{start}, #{cntPerPage}
 		
 	</select>
@@ -293,6 +290,8 @@
 	
 	<!-- 2022.07.25 김연희: 장소에 대한 qna 가지고 오기 -->
 	<select id="selectQna" resultType="QnaVO" parameterType="HashMap">
+		SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
+      	 FROM (SELECT @ROWNUM := 0 ) rnum, (
 		SELECT
 				qidx
 				,p.pidx
@@ -304,15 +303,20 @@
 				,q.date
 				,depth
 				,p.delYN
-				,q.delYN
+				,q.delYN as qd
 				,q.uidx
 			FROM place p
 			JOIN qna q
-			ON p.pidx = q.pidx
-		 WHERE p.uidx = #{uidx}
-		 AND p.delYN = 'N'
-		 AND q.delYN = 'N'
+			  ON p.pidx = q.pidx
+		   WHERE p.uidx = #{uidx}
+		     AND p.delYN = 'N'
+		     AND q.delYN = 'N'
+		     AND depth = 0
+		     AND (@rownum:=0)=0
+			ORDER BY qidx ASC) sub
+	  		ORDER BY rnum DESC
 		 LIMIT #{start},#{cntPerPage}
+		 
 	</select>
 	
 	
@@ -370,8 +374,8 @@
 				AND content LIKE '%'  #{searchValue}  '%'
 			</if>
 			AND (@rownum:=0)=0
-			ORDER BY nidx DESC) sub
-	  		ORDER BY rnum ASC
+			ORDER BY nidx ASC) sub
+	  		ORDER BY rnum DESC
 	  	   LIMIT #{start}, #{cntPerPage}
 	</select>
 	
@@ -480,8 +484,8 @@
 			   		AND (i.title LIKE CONCAT('%',#{searchValue},'%'))
 			 	</if>
 			  </if>
-		ORDER BY i.iqidx DESC) sub
-		ORDER BY rnum ASC
+		ORDER BY i.iqidx ASC) sub
+		ORDER BY rnum DESC
 		LIMIT #{start},#{cntPerPage}
 		
 	</select>

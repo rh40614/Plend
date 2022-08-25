@@ -126,9 +126,6 @@
 							<!-- 사진 미리보기 이후 구현 -->
 							<div id="images_container" class="mt-2"></div>
 								
-							
-							
-							
 							<br>
 							
 							<label class="mt-3">

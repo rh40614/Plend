@@ -26,7 +26,7 @@
 					<tr >
 						<td>${pv.rnum}</td>
 						<td>${pv.placeName}</td>
-						<td id="tag${pv.pidx}"></td>
+						<td id="tag${pv.pidx}" style="text-align: left;"></td>
 						<script>
 							var tags = JSON.parse('${pv.tag}');
 							var tag = "";

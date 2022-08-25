@@ -39,7 +39,7 @@
 	<header id="header"></header>
 	<main>
 		<section>
-			<span class="title1">플레이스 등록</span>
+			<span class="title1">플레이스 수정</span>
 			<div style="margin-left: 10%;">
 				<div class="btn-group-lg mt-5" role="group" aria-label="Basic example">
   					<button type="button" class="insertPlaceBtn" value ="gallery" onclick="cate(this)">갤러리</button>
@@ -313,7 +313,7 @@
 								시간 당 <input type="text" name="price" id="price" value="${place.price}">원으로 으로 책정합니다.
 							</label>
 							<br>
-						<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px; border-radius: 20px; float:right; " onclick="check()" >장소 등록</button>
+						<button type="button" class="btn btn-primary" style="background:#2F506D; border: #2F506D; width: 160px; height: 45px; border-radius: 10px; float:right; " onclick="check()" >수정 완료</button>
 				</form>
 				</div>
 			</div>
