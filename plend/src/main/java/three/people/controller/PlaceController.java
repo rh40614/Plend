@@ -419,7 +419,6 @@ public final class PlaceController {
 				//사진
 				ImageVO image = placeService.selectImageOne(place);
 				String file =image.getRealFileName();
-				System.out.println("file: "+file);
 				place.setPlaceImg(file);
 				//평균 별점
 				int avgRate = reviewService.avgRevew(place);

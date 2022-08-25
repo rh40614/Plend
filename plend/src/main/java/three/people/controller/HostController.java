@@ -176,8 +176,8 @@ public class HostController {
 		
 		//장소 소개 35자 이상 자르기
 		for(PlaceVO place: list_p) {
-			if(place.getPlaceDetail().length() > 35) {
-				String pd =place.getPlaceDetail().substring(0, 35);
+			if(place.getPlaceDetail().length() > 90) {
+				String pd =place.getPlaceDetail().substring(0, 90);
 				place.setPlaceDetail(pd);
 			}
 		}
@@ -323,23 +323,16 @@ public class HostController {
 		//총 갯수를가져오는 쿼리.size()
 		
 		
-		//title따로 안받았음. content 20자까지가 제목
+		//title따로 안받았음. content 40자까지가 제목
 		for(QnaVO q : list) {
 			String con = q.getContent();
-			if(con.length() > 20) {
-				//System.out.println("content 길이"+ con.length());
-				String t =  con.substring(0,20);
-				q.setTitle(t);
+			if(con.length() > 40) {
+				String t =  con.substring(0,40);
+				q.setTitle(t+"...");
 			}else {
 				q.setTitle(con);
 			}
-			//System.out.println("제목: "+q.getTitle());
 		}
-		
-//		System.out.println("size: "+size);
-//		System.out.println("noqPage: "+ searchVO.getNowPage());
-//		System.out.println("cntPerPage: "+searchVO.getCntPerPage());
-//		System.out.println("start: "+searchVO.getStart());
 		
 		model.addAttribute("list", list);		
 		model.addAttribute("pagination" , searchVO);
