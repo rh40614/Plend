@@ -339,7 +339,7 @@ public final class PlaceController {
 				place.setCntHeart(placeService.countHeart(place));
 			}
 			model.addAttribute("list", list);
-			
+			model.addAttribute("searchValue",searchVO.getSearchValue());
 		}else {
 			
 			List<PlaceVO> list = placeService.searchPlace(search);
@@ -359,6 +359,8 @@ public final class PlaceController {
 				place.setCntHeart(placeService.countHeart(place));
 			}
 			model.addAttribute("list", list);
+			model.addAttribute("searchValue",searchVO.getSearchValue());
+
 		}
 		
 		return "place/searchPlace";
@@ -445,26 +447,7 @@ public final class PlaceController {
 		return "place/ajax/hashList";
 	}
 
-	@ResponseBody
-	@RequestMapping(value="/reviewPictures.do")
-	public ImageVO reviewPictures(ReviewVO reviewVO, SearchVO searchVO) {
-		
-		HashMap<String,Object> hashMap = new HashMap<String,Object>();
-		hashMap.put("searchVO", searchVO);
-		hashMap.put("reviewVO", reviewVO);
-		
-		ImageVO reviewImgs = new ImageVO();
-		
-		List<ReviewVO> reviewlist = reviewService.selectPlaceReview(hashMap);
-			for(ReviewVO review: reviewlist) {
-				List<ImageVO> imgs = reviewService.reviewImg(review);
-				for(ImageVO img : imgs) {
-					reviewImgs.setRealFileName(img.getRealFileName());
-				}
-			}
-			return reviewImgs;
-	}
-	
+
 	
 	
 	

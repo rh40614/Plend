@@ -124,7 +124,7 @@
 	<update id="bookModify" parameterType="BookVO"></update>
 	 -->
 	<!-- 정산 테이블에 데이터 추가 -->
-	<insert id="insertIncome" parameterType="IncomeVO">
+<!-- 	<insert id="insertIncome" parameterType="IncomeVO">
 		INSERT INTO income(
 			uidx, 
 			totalincome, 
@@ -135,6 +135,6 @@
 			#{totalPeople}) 
 		ON DUPLICATE KEY
 		UPDATE totalincome = #{totalIncome} + totalIncome, totalpeople = #{totalPeople} + totalpeople
-	</insert>
+	</insert> -->
 
 </mapper>

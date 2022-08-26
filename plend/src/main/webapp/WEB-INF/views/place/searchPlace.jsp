@@ -22,10 +22,21 @@
 
 <script type="text/javascript">
 	$(function(){
-		$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
+		$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp", function(){
+			$("input[name=searchValue]").val('${searchValue}');
+		});
 		$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
+		searchValue();
 	})
 </script>
+<!-- 검색어 유지 -->
+<script>
+	function searchValue(){
+		$("input[name=searchValue]").val('${searchValue}');
+	}
+
+</script>
+
 <!-- 찜 -->
 <script>
 function like (obj){
@@ -52,6 +63,12 @@ function check(){
 	}
 	
 }
+
+
+
+
+    		
+
 </script>
 </head>
 <body>
