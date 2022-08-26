@@ -82,7 +82,13 @@
   		 <li><a href="bookStatus.do?uidx=${login.uidx}" id = "select">예약 현황</a></li>
  		 <li><a href="heartList.do?uidx=${login.uidx}" id = "select">찜 목록</a></li>
  		 <li><a href="myReviewList.do?uidx=${login.uidx}" id = "select">마이 리뷰</a></li>
+ 		 <c:if test = "${vo.user_type == 'naver'}">
+		 </c:if>
+		 <c:if test = "${vo.user_type == 'kakao'}">
+		 </c:if>
+ 		 <c:if test = "${vo.user_type == null}">
  		 <li><a href="withdraw.do?uidx=${login.uidx}" id = "select">회원 탈퇴</a></li>
+ 		 </c:if>
 	    </ul>
 	    </div>
    	</nav>  

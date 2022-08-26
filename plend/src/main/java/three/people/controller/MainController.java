@@ -94,6 +94,7 @@ public class MainController {
 		if(!dir.exists()) {
 			dir.mkdirs();
 		}
+		//업로드할 파일이 있을 때
 		if(!vo.getFile().getOriginalFilename().isEmpty()) {
 			vo.getFile().transferTo(new File(path,time+"+"+vo.getFile().getOriginalFilename())); 
 		if(result <= 0) {
@@ -108,7 +109,8 @@ public class MainController {
 			
 			pw.flush();
 			}
-		} else {
+		
+		} else //업로드할 파일이 없을 때{
 			if(result <= 0) {
 				//�벑濡앹씠 �젣��濡� �씠猷⑥뼱吏�吏� �븡�쓬
 				pw.append("<script>alert('작성하신 글이 등록에 실패하였습니다.');location.href = 'notice.do'</script>");
@@ -121,10 +123,11 @@ public class MainController {
 				
 				pw.flush();
 				}
-		}
-		return "main/notice";
 		
+	
+		return "main/notice";
 	}
+	
 	//김하진 세부 공지사항 + 조회수 쿠키에 저장
 	@RequestMapping(value = "/noticeView.do", method = RequestMethod.GET)
 	public String noticeView(int nidx, Model model, HttpServletRequest request, HttpServletResponse response) {

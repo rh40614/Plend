@@ -47,7 +47,7 @@
 	<br>
 	<div style = "text-align:center;">
 	<form action = "notice.do" method = "get">
-		<input type = "text" id = "searchBar" name="searchValue"> <button id = "searchBut">검색</button> 
+		<input type = "text" id = "noticeSearch" name="searchValue"> <button id = "searchBut">검색</button> 
 	</form>
 	</div>
 	<br>

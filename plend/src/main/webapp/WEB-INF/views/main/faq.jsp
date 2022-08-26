@@ -170,7 +170,7 @@
 		});
 		
 	//질문 답변 작동하는 로직
-	$(document).on('click',function(){
+	$(document).one('click',function(){
 	  // panel-faq-container
 	  const panelFaqContainer = document.querySelectorAll(".panel-faq-container"); // NodeList 객체
 	  

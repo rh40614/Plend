@@ -208,13 +208,14 @@ public class CommonController  {
 		int count = 0;
 		//화면에서 받아온 값을 haspMap에 넣어서 돌린다.
 		Map<Object, Object> map = new HashMap<Object, Object>();
-
+		
 		count = userService.idCheck(id);
 
 
 		map.put("cnt", count);
-
+		
 		return map;
+			
 	}
 	//김하진 닉네임 중복확인
 	@RequestMapping(value = "/nickNameCheck.do")
@@ -255,7 +256,6 @@ public class CommonController  {
 
 			UserVO login = new UserVO();
 			login.setUidx(user.getUidx());
-			System.out.println(user.getUidx());
 			login.setId(user.getId());
 			login.setRole(user.getRole());
 			login.setNickName(user.getNickName());

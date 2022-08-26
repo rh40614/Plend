@@ -53,10 +53,14 @@
 		});
 	});
 
-	var idchk = 0;
+	var idchk = 0;	
 	function checkId(){
 			var id = $("input[name=id]").val();
-
+			var reg_required = /.{5,21}/;
+			if(!reg_required.test(id)){
+				alert("아이디는 5글자 이상 20글자 이하로 작성해주세요");
+				return;
+			} else {
 			$.ajax({
 				async:true,
 				url : "idCheck.do",
@@ -67,7 +71,7 @@
 				success : function(data) {
 					console.log('data' + data);
 					console.log('data.cnt' + data.cnt);
-					if (data.cnt > 0) {
+					 if (data.cnt > 0) {
 
 						$('.id_already').css("display","inline-block");
 	                    $('.id_ok').css("display", "none");
@@ -82,16 +86,21 @@
 					}
 				},
 				error : function(error){
-					alert("error1 : " + error);
+					alert("사용하실 아이디를 입력해주세요.");
 					console.log(JSON.stringify(error));
 				}
 			});
+			}
 
 	}
 	var nickchk = 0;
 	function checkNick(){
 			var nickName = $("input[name=nickName]").val();
-
+			var reg_required = /.{4,21}/;
+			if(!reg_required.test(nickName)){
+				alert("아이디는 4글자 이상 20글자 이하로 작성해주세요");
+				return;
+			} else {
 			$.ajax({
 				async:true,
 				url : "nickNameCheck.do",
@@ -120,8 +129,9 @@
 					console.log(JSON.stringify(error));
 				}
 			});
+		}
 	}
-
+	
 	function check() {
 		var frm = document.frm;
 		var birth = $("input[name=birth]").val();
@@ -277,7 +287,7 @@ $(document).ready(function(){
 	$("#M1").trigger('click');
 });
 
-$('input[name=id]').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z]/g,"") );});
+$('input[name=id]').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|A-Z]/g,"") );});
 $('input[name=name]').on("keyup", function() {$(this).val( $(this).val().replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
 $('input[name=nickName]').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
 
