@@ -1,7 +1,10 @@
 package three.people.service;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import three.people.vo.BlockVO;
 import three.people.vo.BookVO;
@@ -20,9 +23,10 @@ public interface HostService {
 	public int insertPlace(PlaceVO placeVO);
 	public int insertPlaceImg(ImageVO imageVO);
 	public int placeModify(PlaceVO placeVO);
-	
+	public PlaceVO placeView(PlaceVO placeVO);
 	//사진삭제
 	public int deletePlaceImg(PlaceVO placeVO);
+	
 	//이벤트
 	public List<EventVO> eventList(EventVO eventVO);
 	public EventVO eventOne(EventVO eventVO);
@@ -62,4 +66,5 @@ public interface HostService {
 	public int approval(BookVO bookVO);
 	public int insertReject(BookVO bookVO);
 	public int reject(BookVO bookVO);
+	
 }

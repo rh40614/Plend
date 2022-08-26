@@ -15,8 +15,8 @@
 	<!-- jquery -->
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	<!-- css -->
-	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/placeDetail.css" rel="stylesheet">
+	
 	<!-- kakaoMap api -->
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b685739baf5af3ec44e96933a3116f08&libraries=services,clusterer,drawing"></script>
 	<!-- 슬릭 슬라이더 -->
@@ -58,12 +58,12 @@
 	          		<c:forEach var="img" items="${imageList}" varStatus="status">
 				        <c:if test="${status.index eq 0 }">
 					        <div class="carousel-item active">
-								<img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" alt="img" src="<%=request.getContextPath() %>/imageView.do?originFileName=${img.originFileName}"/>
+								<img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" alt="img" src="<%=request.getContextPath() %>/imageView.do?realFileName=${img.realFileName}"/>
 					        </div>
 				        </c:if>
 				        <c:if test="${status.index ne 0 }">
 					        <div class="carousel-item">
-								<img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" alt="img" src="<%=request.getContextPath() %>/imageView.do?originFileName=${img.originFileName}"/>
+								<img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" alt="img" src="<%=request.getContextPath() %>/imageView.do?realFileName=${img.realFileName}"/>
 					        </div>
 				        </c:if>
 					</c:forEach>
@@ -201,7 +201,7 @@
 							<c:forEach var="img" items="${imageList}">
 								<tr> 
 									<td style="padding: 0;"> 
-										<img width="700" height="400" alt="img" src="<%=request.getContextPath() %>/imageView.do?originFileName=${img.originFileName}"/>
+										<img width="700" height="600" alt="img" src="<%=request.getContextPath() %>/imageView.do?realFileName=${img.realFileName}"/>
 									</td>
 								</tr>		
 							</c:forEach>
@@ -472,7 +472,7 @@
 	<section>
 	<hr>
 		<c:if test="${login.nickName != null}">
-			<p style="padding-left: 100px; font-weight: bold;" class="mt-5">${login.nickName}님 이 장소가 마음에 드셨나요? 비슷한 장소를 추천해 드릴게요!</p>
+			<p style="padding-left: 100px; font-weight: bold;" class="mt-5">${login.nickName}님! 이 장소가 마음에 드셨나요? 비슷한 장소를 추천해 드릴게요!</p>
 			<p style="padding-left: 100px; font-weight: bold;">이런 장소는 어떠세요?</p>
 			<br>
 		</c:if>
@@ -742,6 +742,7 @@
 </script>
 
 </body>
+<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
 </html>
 
 

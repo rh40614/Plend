@@ -14,16 +14,16 @@
 	<c:if test="${list.size() > 0 }">
 		<c:forEach var ="c" items="${list}" varStatus="status"> 
 		
-		<div class="card border-0 mb-5" style="width: 22rem; height: 25rem;  margin-right: 40px;">
+		<div class="card border-0 mb-5" style="width: 22rem; height: 25rem;  margin: 20px;">
  				<c:choose>
  					<c:when test="${c.placeImg == null}">
  						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
- 							<img src="<%=request.getContextPath()%>/imageView.do?originFileName=매실1.PNG" class="card-img-top" alt="등록된 사진이 없습니다." style="height: 13rem;">
+ 							<img src="<%=request.getContextPath()%>/img/alternative/noPhoto.png" class="card-img-top" alt="등록된 사진이 없습니다." style="height: 13rem;">
  						</a>
  					</c:when>
  					<c:when test="${c.placeImg != null}">
  						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
- 							<img src="<%=request.getContextPath()%>/imageView.do?originFileName=${c.placeImg}" class="card-img-top" alt="사진 로딩 오류" style="height: 13rem;">
+ 							<img src="<%=request.getContextPath()%>/imageView.do?realFileName=${c.placeImg}" class="card-img-top" alt="사진 로딩 오류" style="height: 13rem;">
  						</a>
  					</c:when>
  				</c:choose>

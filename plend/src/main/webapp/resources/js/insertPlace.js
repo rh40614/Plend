@@ -315,12 +315,16 @@
 		}else{
 		
 		
-		
-			confirm("등록하시겠습니까?");
+			if(confirm("저장하시겠습니까?")== true){
+				$("#frm").action ="host/insertPlace.do";
+				$("#frm").method ="post";
+				$("#frm").submit();
+			}else{
+				alert("취소하셨습니다.");
+			}
+			
 
-			$("#frm").action ="host/insertPlace.do";
-			$("#frm").method ="post";
-			$("#frm").submit();
+			
 
 		}
 	}

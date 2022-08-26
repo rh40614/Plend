@@ -63,7 +63,7 @@
 			<c:forEach var ="e" items="${list}" varStatus="status"> 
 				<div class="card " style="width: 16rem; margin-right: 20px;margin-top:20px;">
 					<!-- imageView 아주 잘 썼습니다. -->
-	  				<img  src="<%=request.getContextPath()%>/imageView.do?originFileName=${e.placeImg}" class="card-img-top" alt="..." style = "height:13rem;">
+	  				<img  src="<%=request.getContextPath()%>/imageView.do?realFileName=${e.placeImg}" class="card-img-top" alt="..." style = "height:13rem;">
 	 			<div class="card-body">
 	 				<h5 class="card-title"><a href="<%=request.getContextPath()%>/place/view.do?pidx=${e.pidx}" class="">${e.placeName}</a></h5>
 	 				<p class="card-text">${e.address}</p>

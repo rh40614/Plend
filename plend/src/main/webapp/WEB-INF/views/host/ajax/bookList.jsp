@@ -6,7 +6,7 @@
 <table class="table table-hover text-center clearfix" >
 	<thead class="table-dark">
 		<tr style="text-al">
-			<td class="col-md-1">No.</td>
+			<td class="col-md-1">번호</td>
 			<td class="col-md-1">예약번호</td>
 			<td class="col-md-2">플레이스명</td>
 			<td class="col-md-3">기간</td>
@@ -44,15 +44,6 @@
 				</c:when>
 			</c:choose> 
 			<td id="canclebtn${pv.bidx}"><button class="btnDefault" type="button" onclick="approval(${pv.bidx})" id="approvalBtn${pv.bidx}">확인</button></td>
-			<!-- 2022.07.15 김연희:
-			 확인 버튼 누르면 예약정보 상세창이 팝업으로 뜨고  승인, 거절 버튼이 주어지고 
-			 승인을 누르면 approval값 변경. 
-			 승인 거절을 누르면 ajax로 팝업 화면을 변경해서
-			 승인거절 항목(selectbox) 선택할 수 있도록하고 
-			 승인 사유 적도록하기 
-			 취소하기, 등록하기 버튼을 제공하고 등록을 누르면  
-			 approval 변경 및 db에 승인 거절 사유 등록
-			 취소를 누르면 예약정보 상세창이 뜨도록 하기  -->
 		</tr>
 	</c:forEach>
 	</c:if>

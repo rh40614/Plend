@@ -5,7 +5,7 @@ public class QnaVO extends PlaceVO {
 	private String title;
 	private String content;
 	private String date;
-	private int originQidx;
+	private int originQidx = 0;
 	private int depth;
 	private String delYN;
 	

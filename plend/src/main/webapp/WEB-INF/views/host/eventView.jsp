@@ -75,7 +75,7 @@
 					<tbody>
 						
 						<tr class="border-top">
-							<td rowspan="5" class="col-md-5" style="text-align: center;"><img style="width: 25rem; height: 22rem;"  src="<%=request.getContextPath()%>/eventImg.do?originFileName=${e.image}" alt="이벤트 이미지"></td>
+							<td rowspan="5" class="col-md-5" style="text-align: center;"><img style="width: 25rem; height: 22rem;"  src="<%=request.getContextPath()%>/eventImg.do?realFileName=${e.image}" alt="이벤트 이미지"></td>
 							<td class="col-md-2">제목: </td>
 							<td class=" col-md-5">${e.title}</td>
 						</tr>

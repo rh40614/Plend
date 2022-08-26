@@ -90,6 +90,7 @@ public class InquiryController {
 	@RequestMapping(value="/inquiry_dev.do", method= RequestMethod.POST)
 	public String inquiry_dev(InquiryVO inquiryVO, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
 		System.out.println("운영자에게 문의등록");
+		System.out.println("category: "+inquiryVO.getCategory());
 		
 		//세션 형성해서 login정보 가지고 오기
 		session = request.getSession();
@@ -100,6 +101,8 @@ public class InquiryController {
 		
 		//문의 등록
 		int result = hostService.insertInquiry_dev(inquiryVO);
+		//문의 사진등록
+		
 		
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html;charset=utf-8");
@@ -208,7 +211,9 @@ public class InquiryController {
 	//url 요청 결과로 return값을 줄때는 응답데이터 이므로 responseBody. ajax가 요청하면서 넘긴 파라미터는(데이터는) RequestBody
 	@RequestMapping(value="/inquiryEdit_dev.do", method=RequestMethod.POST)
 	public String inquiryEdit(InquiryVO inquiryVO, Model model, HttpServletRequest request, HttpSession session) {
-	
+		System.out.println("iqidx: "+ inquiryVO.getIqidx());
+		System.out.println("content: "+ inquiryVO.getContent());
+		
 		//세션 형성해서 login정보 가지고 오기
 		session = request.getSession();
 		UserVO login = (UserVO)session.getAttribute("login");

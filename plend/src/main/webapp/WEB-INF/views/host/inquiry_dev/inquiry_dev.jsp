@@ -18,16 +18,12 @@
 		<!-- include summerNote css/js -->
 		<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 		<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-		
 	<!-- jQuery -->
 	<%-- <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>  --%>
-	
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-	
 	<!-- bootstrap  -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	
 	<!-- 공통 css -->
 	<link href="<%=request.getContextPath()%>/resources/css/global_Host.css" rel="stylesheet">
 		
@@ -39,24 +35,7 @@
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/hostfooter.jsp");
 		})
 	</script>
-	
-	<!-- 썸머노트 -->
-	<script type="text/javascript">
-		$(document).ready(function() {
- 			$('#summernote').summernote({
- 				width: 1250,
-	 			height: 400,		// 기본 높이값
-			    minHeight: 450,		// 최소 높이값(null은 제한 없음)
-			    maxHeight: null,  	// 최대 높이값(null은 제한 없음)
-			    focus: true,          // 페이지가 열릴때 포커스를 지정함
-			    placeholder: '문의를 작성해주세요.',
-			    lang: 'ko-KR'    
- 			});
-		}); 
 
-	</script>
-	<!-- 유효성  -->
-	
 
 	
 	</head>
@@ -77,14 +56,14 @@
 			<br>
 			<!-- 썸머노트 -->
 			<div class="spaceL mt-2">
-				<form action="inquiry_dev.do" method="POST" name="frm">
-				<select name="category" class="me-3">
-					<option value="장소">장소</option>
-					<option value="결제">결제</option>
-					<option value="환불">환불</option>
-					<option value="신고">신고</option>
-					
-				</select>
+				
+				<form action="inquiry_dev.do" method="POST" name="frm" enctype="multipart/form-data">
+					<select name="category" class="me-3" required>
+						<option value="장소">장소</option>
+						<option value="결제">결제</option>
+						<option value="환불">환불</option>
+						<option value="신고">신고</option>
+					</select>
 					<span class="mb-3">문의제목 : </span><input class="mb-3" type="text" name="title" id="title" size="70" required maxlength="50">
 					<textarea id="summernote" name="content" required></textarea> 
 					<div style="float: right;">
@@ -104,7 +83,7 @@
 				
 				<div class="table-responsive container d-flex flex-column" style="margin: 50px 0px 0px 100px; ">
 					<div class="d-flex flex-column" style ="height: 300px;">
-					<table class="table  table-hover text-center clearfix ">
+					<table class="table table-hover text-center clearfix ">
 						<thead>
 							<tr class="table-dark">
 								<td class="col-md-1">번호</td>
@@ -197,6 +176,24 @@
 				
 			});
 		}
+		
+	</script>
+		
+	<!-- 썸머노트 -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+ 			$('#summernote').summernote({
+ 				width: 1250,
+	 			height: 400,		// 기본 높이값
+			    minHeight: 450,		// 최소 높이값(null은 제한 없음)
+			    maxHeight: null,  	// 최대 높이값(null은 제한 없음)
+			    focus: true,          // 페이지가 열릴때 포커스를 지정함
+			    placeholder: '문의를 작성해주세요.',
+			    lang: 'ko-KR'
+			    
+ 			});
+		}); 
+		
 		
 	</script>
 	

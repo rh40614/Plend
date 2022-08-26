@@ -70,7 +70,9 @@
 			</tr>
 		  	<tr>
 				<td colspan="10" class="noticeArea">
-				<img alt="사진" src="<%=request.getContextPath()%>/noticeImg.do?originFileName=${notice.fileName}">
+				<c:if test="${notice.fileName != null} ">
+					<img alt="사진" src="<%=request.getContextPath()%>/noticeImg.do?originFileName=${notice.fileName}">
+				</c:if>
 				${notice.content}
 				</td>
 			</tr>

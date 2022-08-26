@@ -243,6 +243,14 @@ public class HostServiceImpl implements HostService {
 	public int deletePlaceImg(PlaceVO placeVO) {
 		return hostDAO.deletePlaceImg(placeVO);
 	}
+
+
+	@Override
+	public PlaceVO placeView(PlaceVO placeVO) {
+		return hostDAO.placeView(placeVO);
+	}
+
+
 	
 	
 	

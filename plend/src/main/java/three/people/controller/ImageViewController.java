@@ -24,7 +24,7 @@ public class ImageViewController {
 	public ResponseEntity<byte[]> getFile(ImageVO imagevo, HttpServletRequest request, HttpSession session){
 		
 		String path = request.getSession().getServletContext().getRealPath("/resources/upload/placeImg");
-		File file=new File(path, imagevo.getOriginFileName());
+		File file=new File(path, imagevo.getRealFileName());
 	    ResponseEntity<byte[]> result=null;
 	    try {
 	        HttpHeaders headers=new HttpHeaders();
@@ -40,7 +40,7 @@ public class ImageViewController {
 	public ResponseEntity<byte[]> reviewImg(ImageVO imagevo, HttpServletRequest request, HttpSession session){
 		
 		String path = request.getSession().getServletContext().getRealPath("/resources/upload/reviewImg");
-		File file=new File(path, imagevo.getOriginFileName());
+		File file=new File(path, imagevo.getRealFileName());
 	    ResponseEntity<byte[]> result=null;
 	    try {
 	        HttpHeaders headers=new HttpHeaders();
@@ -55,7 +55,7 @@ public class ImageViewController {
 	@RequestMapping(value="/eventImg.do", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> eventImg(ImageVO imagevo, HttpServletRequest request, HttpSession session){
 		String path = request.getSession().getServletContext().getRealPath("/resources/upload/eventImg");
-		File file=new File(path, imagevo.getOriginFileName());
+		File file=new File(path, imagevo.getRealFileName());
 	    ResponseEntity<byte[]> result=null;
 	    try {
 	        HttpHeaders headers=new HttpHeaders();
@@ -72,7 +72,7 @@ public class ImageViewController {
 	@RequestMapping(value="/noticeImg.do", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> noticeImg(ImageVO imagevo, HttpServletRequest request, HttpSession session){
 		String path = request.getSession().getServletContext().getRealPath("/resources/upload/eventImg");
-		File file=new File(path, imagevo.getOriginFileName());
+		File file=new File(path, imagevo.getRealFileName());
 	    ResponseEntity<byte[]> result=null;
 	    try {
 	        HttpHeaders headers=new HttpHeaders();
