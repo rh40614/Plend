@@ -107,10 +107,10 @@
 	    </div>
    	</nav>  	
    	
-   <div id = "withdrawBox">
+   <div id = "withdrawBox" class="checkBox">
    	<br>
    	<br>
-		<h2>회원 탈퇴</h2>
+		<h3>회원 탈퇴</h3>
 		<br>
 		<hr>
 		<br>
@@ -120,10 +120,10 @@
 				비밀번호를 다시 한번 입력해주세요.
 				<br>
 				<br>
-				<input type = "password" name = "password" id = "pwdBox">
+				<input type = "password" name = "password" id = "pwdBox" style="border-radius:5px; background:white; border:1px solid #ededed;" >
 				<br>
 				<br>
-				<button id = "withdrawBtn" type="button" onclick = "chk();">확인</button>
+				<button id = "withdrawBtn" type="button" onclick = "chk();" class="signBtn">확인</button>
 			</div>
 		</form>
 		<br>

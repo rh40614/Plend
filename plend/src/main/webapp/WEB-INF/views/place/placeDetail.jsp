@@ -472,7 +472,7 @@
 	<section>
 	<hr>
 		<c:if test="${login.nickName != null}">
-			<p style="padding-left: 100px; font-weight: bold;" class="mt-5">${login.nickName}님 이 장소가 마음에 드셨나요? 비슷한 장소를 추천해 드릴게요!</p>
+			<p style="padding-left: 100px; font-weight: bold;" class="mt-5">${login.nickName}님! 이 장소가 마음에 드셨나요? 비슷한 장소를 추천해 드릴게요!</p>
 			<p style="padding-left: 100px; font-weight: bold;">이런 장소는 어떠세요?</p>
 			<br>
 		</c:if>

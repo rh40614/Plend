@@ -15,12 +15,12 @@
 			}
 		#select:before{
 			content: '';
-			position: absolute; /*�겫占쏙쭗占� 占쎌뒄占쎈꺖占쎈퓠占쎈뮉 position: relative�몴占� 雅뚯눘堉깍옙鍮� 占쎈맙*/
+			position: absolute; /*占쎄껀�뜝�룞彛쀥뜝占� �뜝�럩�뭵�뜝�럥爰뽩뜝�럥�뱺�뜝�럥裕� position: relative占쎈ご�뜝占� �썒�슣�닔�젆源띿삕�뜮占� �뜝�럥留�*/
 			background-color: #FF007F;
 			height: 50px;
-			width: 0; /*�룯�뜃由곤옙肉� 癰귣똻�뵠筌욑옙 占쎈륫占쎈즲嚥∽옙*/
-			bottom: -5px; /*a占쎄묶域뱄옙 占쎈툡占쎌삋占쎈퓠 占쎌맄燁삼옙*/
-			transition: 0.7s; /*占쎈막占쎈빍筌롫뗄�뵠占쎈�� 占쎈짗占쎌삂 占쎈뼄占쎈뻬 占쎈뻻揶쏉옙 占쎌젟占쎌벥*/
+			width: 0; /*占쎈／占쎈쐝�뵳怨ㅼ삕�굢占� �솻洹ｋ샍占쎈턄嶺뚯쉻�삕 �뜝�럥瑜ュ뜝�럥利꿨슖�댙�삕*/
+			bottom: -5px; /*a�뜝�럡臾뜹윜諭꾩삕 �뜝�럥�닡�뜝�럩�굥�뜝�럥�뱺 �뜝�럩留꾤뇖�궪�삕*/
+			transition: 0.7s; /*�뜝�럥留됧뜝�럥鍮띸춯濡ル뾼占쎈턄�뜝�럥占쏙옙 �뜝�럥吏쀥뜝�럩�굚 �뜝�럥堉꾢뜝�럥六� �뜝�럥六삥뤆�룊�삕 �뜝�럩�젧�뜝�럩踰�*/
 			margin-left:29px;
 			left:0;
 			z-index : -1;
@@ -63,7 +63,7 @@
 		#regBtn {
 			margin-right: 13px;
 			float:right;
-			border-radius:15px;
+			border-radius:5px;
 			border : 1px solid #2F506D;
 			background : #2F506D;
 			color : white;
@@ -72,7 +72,7 @@
 		}
 		#regBtn:hover{
 			border : 0px;
-			background-color:#3FC1C9;
+			background-color:#6b818c;
 		}
 		#infoText {
 			border : 0;

@@ -178,7 +178,7 @@ public class HostController {
 		for(PlaceVO place: list_p) {
 			if(place.getPlaceDetail().length() > 35) {
 				String pd =place.getPlaceDetail().substring(0, 35);
-				place.setPlaceDetail(pd+"...");
+				place.setPlaceDetail(pd+"......");
 			}
 		}
 	
@@ -689,5 +689,28 @@ public class HostController {
 		
 		return "host/placeView";
 	}
+	
+	
+	@RequestMapping(value="/income.do", method= RequestMethod.GET)
+	public String income() {
+		return "host/income";
+	}
+	
+	@RequestMapping(value="/income.do", method= RequestMethod.POST)
+	public String income(Model model) {
+		
+		return "host/income";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

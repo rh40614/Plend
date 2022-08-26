@@ -71,8 +71,8 @@
 		
 		
 
-		/* 07.27 源��쁺�씗 �옣�냼 由ъ뒪�듃 諛섏쓳�삎 */
-		/* �뜑�겙�솕硫� �뜲�뒪�겕�깙 (媛�濡� �빐�긽�룄媛� 1920px 蹂대떎 �옉�� �솕硫댁뿉 �쟻�슜) */
+		/* 07.27 繹먲옙占쎌겫占쎌뵕 占쎌삢占쎈꺖 �뵳�딅뮞占쎈뱜 獄쏆꼷�벓占쎌굨 */
+		/* 占쎈쐭占쎄쿃占쎌넅筌롳옙 占쎈쑓占쎈뮞占쎄쾿占쎄튃 (揶쏉옙嚥∽옙 占쎈퉸占쎄맒占쎈즲揶쏉옙 1920px 癰귣��뼄 占쎌삂占쏙옙 占쎌넅筌롫똻肉� 占쎌읅占쎌뒠) */
 		 
 		/* @media (max-width: 1919px) { 
 			main {
@@ -91,7 +91,7 @@
 			 */
 	
 	
-	/* 湲��뵪 �렪�븯寃� 議곗젅�븯湲� �쐞�빐 �꽕�젙 */		 
+	/* 疫뀐옙占쎈뎁 占쎈젶占쎈릭野껓옙 鈺곌퀣�쟿占쎈릭疫뀐옙 占쎌맄占쎈퉸 占쎄퐬占쎌젟 */		 
 	.title1{
     	display: inline-block;
     	margin: 20px 0px 20px 0px;
@@ -236,7 +236,7 @@
    		font-weight: 900;
 	}
 	
-	/* 08.10 김연희: 자식요소 크기확장해서 푸터 하단 고정*/
+	/* 08.10 源��뿰�씗: �옄�떇�슂�냼 �겕湲고솗�옣�빐�꽌 �뫖�꽣 �븯�떒 怨좎젙*/
 	main{
 		flex:1;
 	}
@@ -257,7 +257,7 @@
 	
 	
 	
-	/* 반응형 */
+	/* 김연희 */
 	@media screen and (max-width: 450px) {
 		main{
 			margin:10%!important;
@@ -287,6 +287,54 @@
 	
 	}
 	
+	@media screen and (min-width: 1440px) {
+		.mainArrangement{
+			margin:5% 10% 10% 12%!important;
+		}
+		.sectionArrangement{
+			width: 1180px;
+		} 
+		#more{
+			margin-rigth: 30px;
+		}
+	}
+	
+	@media screen and (min-width: 1920px) {
+		.mainArrangement{
+			margin:5% 19% 10% 19%!important;
+		}
+		.sectionArrangement{
+			width: 1180px;
+		} 
+	}
+	
 
+
+	.checkBox{
+		    width: 400px;
+		    height: 70%;
+		    background: #f9f9fa!important;
+		    border-radius: 20px;
+		    display: flex;
+		    flex-direction: column;
+		    align-items: center;
+		    box-shadow: 10px 10px 10px 10px #a7a7a7;
+		   
+	}
+	
+	.signBtn{
+		border :0px!important;
+		background-color :#2F506D!important;
+		color:white!important;
+		/* padding: 8px 250px 8px 250px; */
+		width: 150px!important;
+		height: 35px!important;
+		border-radius:5px!important;
+	}
+	.signBtn:hover {
+		border : 0px!important;
+		background-color:#6b818c!important;
+	}
+	
 	
 			 

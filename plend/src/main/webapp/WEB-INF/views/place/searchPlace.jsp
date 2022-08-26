@@ -57,13 +57,13 @@ function check(){
 <body>
 <div id="wrap">
 	<header id="header" style ="background: white; "></header>
-	<main style="margin: 5% 19% 10% 19%; flex: 1;">
+	<main style="margin: 5% 19% 10% 19%; flex: 1;" class="mainArrangement">
 		<!-- 카테고리 제목 -->
 		<div>
 	    	<span class="navbar-brand title1">|  '${searchValue}' 관련 장소</span>
 	  	</div>
 		<div id="search_result">
-			<section class=" d-flex, flex-row flex-start flex-wrap justify-content-start align-items-start ">
+			<section class=" d-flex, flex-row flex-start flex-wrap justify-content-start align-items-start sectionArrangement">
 				<c:if test="${list.size() == 0}">
 					<P class="m-auto" style="min-height:300px; display: inline-block; margin: 20px 0px 20px 0px; vertical-align: top; font-size: 20px; color: grey; padding-top: 200px;">
 						등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. 

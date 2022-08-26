@@ -6,7 +6,7 @@
 <table class="table table-hover text-center clearfix" >
 	<thead class="table-dark">
 		<tr style="text-al">
-			<td class="col-md-1">No.</td>
+			<td class="col-md-1">번호</td>
 			<td class="col-md-1">예약번호</td>
 			<td class="col-md-2">플레이스명</td>
 			<td class="col-md-3">기간</td>

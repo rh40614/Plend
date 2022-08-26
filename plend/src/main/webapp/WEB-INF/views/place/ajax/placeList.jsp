@@ -14,7 +14,7 @@
 	<c:if test="${list.size() > 0 }">
 		<c:forEach var ="c" items="${list}" varStatus="status"> 
 		
-		<div class="card border-0 mb-5" style="width: 22rem; height: 25rem;  margin-right: 40px;">
+		<div class="card border-0 mb-5" style="width: 22rem; height: 25rem;  margin: 20px;">
  				<c:choose>
  					<c:when test="${c.placeImg == null}">
  						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
