@@ -77,16 +77,30 @@ public final class PlaceController {
 		//08.18 김연희: 평균 별점 추가
 		PlaceVO p = placeService.placeOne(placevo);
 		p.setCntHeart(placeService.countHeart(placevo));
-		System.out.println("pidx: "+p.getPidx());
-		System.out.println("heart: "+p.getCntHeart());
 		int avgRate = reviewService.avgRevew(p);
 		p.setAvgRate(avgRate);
+		//08.26 김연희: 리뷰이미지
+		List<ImageVO> hasImgs = new ArrayList<ImageVO>();
 		
+		List<ReviewVO> reviewlistAll = reviewService.placeReviewAll(hashMap);
+			for(ReviewVO review: reviewlistAll) {
+				List<ImageVO> imgs = reviewService.reviewImg(review);
+				
+				for(int i=0; i<imgs.size();i++) {
+					 if(imgs.get(i) != null) {
+						 hasImgs.add(imgs.get(i));
+					 }
+				}
+			}
+			System.out.println("afterimgs: "+hasImgs);
+			
 		model.addAttribute("pagination", searchVO);
 		model.addAttribute("reviewList", reviewService.selectPlaceReview(hashMap));
 		model.addAttribute("imageList", placeService.selectImage(placevo));
 		model.addAttribute("placeOne", p);
 		model.addAttribute("QnaList", placeService.selectQnA(placevo));
+		model.addAttribute("reviewImgs", hasImgs);
+		
 		return "place/placeDetail";
 	}
 	
@@ -432,8 +446,25 @@ public final class PlaceController {
 		return "place/ajax/hashList";
 	}
 
-	
-
+	@ResponseBody
+	@RequestMapping(value="/reviewPictures.do")
+	public ImageVO reviewPictures(ReviewVO reviewVO, SearchVO searchVO) {
+		
+		HashMap<String,Object> hashMap = new HashMap<String,Object>();
+		hashMap.put("searchVO", searchVO);
+		hashMap.put("reviewVO", reviewVO);
+		
+		ImageVO reviewImgs = new ImageVO();
+		
+		List<ReviewVO> reviewlist = reviewService.selectPlaceReview(hashMap);
+			for(ReviewVO review: reviewlist) {
+				List<ImageVO> imgs = reviewService.reviewImg(review);
+				for(ImageVO img : imgs) {
+					reviewImgs.setRealFileName(img.getRealFileName());
+				}
+			}
+			return reviewImgs;
+	}
 	
 	
 	

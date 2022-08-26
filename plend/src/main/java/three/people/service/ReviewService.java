@@ -30,4 +30,6 @@ public interface ReviewService {
 	public ImageVO selectImageOne(ReviewVO reviewVO);
 	public int[] RandomReview(List<ReviewVO> methodList);
 	public List<ImageVO> reviewImages(ReviewVO reviewVO);
+	//08.26 김연희 장소에 대한 리뷰 전체
+	public List<ReviewVO> placeReviewAll(HashMap<String,Object> hashMap);
 }

@@ -1,5 +1,7 @@
 package three.people.vo;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class ReviewVO extends BookVO {
@@ -15,6 +17,7 @@ public class ReviewVO extends BookVO {
 	private String deleteImg;
 	private String reviewImg;
 	private int pidx;
+	private List<ImageVO> reviewPictures;
 	
 	
 	
@@ -84,6 +87,12 @@ public class ReviewVO extends BookVO {
 	}
 	public void setReviewImg(String reviewImg) {
 		this.reviewImg = reviewImg;
+	}
+	public List<ImageVO> getReviewPictures() {
+		return reviewPictures;
+	}
+	public void setReviewPictures(List<ImageVO> reviewPictures) {
+		this.reviewPictures = reviewPictures;
 	}
 	
 	

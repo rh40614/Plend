@@ -229,6 +229,11 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<ImageVO> reviewImages(ReviewVO reviewVO) {
 		return reviewDAO.reviewImages(reviewVO);
 	}
+
+	@Override
+	public List<ReviewVO> placeReviewAll(HashMap<String, Object> hashMap) {
+		return reviewDAO.placeReviewAll(hashMap);
+	}
 	
 	
 	

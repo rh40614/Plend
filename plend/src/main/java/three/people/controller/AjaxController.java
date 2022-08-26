@@ -21,6 +21,7 @@ import three.people.service.SearchService;
 import three.people.service.HostService;
 import three.people.vo.BlockVO;
 import three.people.vo.BookVO;
+import three.people.vo.ImageVO;
 import three.people.vo.ReportVO;
 import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
@@ -76,10 +77,24 @@ public class AjaxController {
 		HashMap<String,Object> hashMap = new HashMap<String,Object>();
 		hashMap.put("searchVO", searchVO);
 		hashMap.put("reviewVO", reviewVO);
+		//08.26 김연희: 리뷰이미지
+		List<ImageVO> hasImgs = new ArrayList<ImageVO>();
 		
+		List<ReviewVO> reviewlistAll = reviewService.placeReviewAll(hashMap);
+			for(ReviewVO review: reviewlistAll) {
+				List<ImageVO> imgs = reviewService.reviewImg(review);
+				
+				for(int i=0; i<imgs.size();i++) {
+					 if(imgs.get(i) != null) {
+						 hasImgs.add(imgs.get(i));
+					 }
+				}
+			}
+			System.out.println("afterimgs: "+hasImgs);
 		model.addAttribute("reviewVO", reviewVO);
 		model.addAttribute("pagination", searchVO);
 		model.addAttribute("reviewList", reviewService.selectPlaceReview(hashMap));
+		model.addAttribute("reviewImgs", hasImgs);
 		
 		return "place/ajax/reviewList";
    }
