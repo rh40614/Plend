@@ -46,14 +46,17 @@
 	</div>
 </c:if>
 <script>
-$('#slider-div').slick({
-	  slidesToShow: 3,
-	  slidesToScroll: 1,
-	  autoplay: true,
-	  autoplaySpeed: 2000,
-	  prevArrow : "<button type='button' class='slick-prev' style='border:none; background: white; padding: 0px 40px 130px 40px'><i class='fa-solid fa-angle-left' style='font-size:40px; '></i></button>",		// 이전 화살표 모양 설정
-	  nextArrow : "<button type='button' class='slick-next' style='border:none; background: white; padding: 0px 40px 130px 40px'><i class='fa-solid fa-angle-right' style='font-size:40px; '></i></button>",		// 다음 화살표 모양 설정
-	});
-			
+	if(${hashList.size() > 3} == true){
+		$('#slider-div').slick({
+			  slidesToShow: 3,
+			  slidesToScroll: 1,
+			  autoplay: true,
+			  autoplaySpeed: 2000,
+			  prevArrow : "<button type='button' class='slick-prev' style='border:none; background: white; padding: 0px 40px 130px 40px'><i class='fa-solid fa-angle-left' style='font-size:40px; '></i></button>",		// 이전 화살표 모양 설정
+			  nextArrow : "<button type='button' class='slick-next' style='border:none; background: white; padding: 0px 40px 130px 40px'><i class='fa-solid fa-angle-right' style='font-size:40px; '></i></button>",		// 다음 화살표 모양 설정
+			});
+	}else{
+		$('#slider-div').css("margin-left","80px");
+	}
 
 </script>

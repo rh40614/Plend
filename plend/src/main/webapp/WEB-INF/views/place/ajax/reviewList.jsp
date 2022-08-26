@@ -3,12 +3,43 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <table class="table table-borderless caption-top">
 	<caption class="ms-4 text-black fw-bold fs-5">이용후기</caption>
+	<tr> 
+		<td>
+			<!-- 08.26 김연희 : 리뷰 사진 슬릭 슬라이더 -->
+			<c:choose>
+				<c:when test="${reviewImgs == ''}">
+					<P class="m-auto" style="min-height:300px; display: inline-block; margin: 20px 0px 20px 0px; vertical-align: top; font-size: 20px; color: grey; padding-top: 200px;">
+						리뷰 사진이 없습니다. 
+					</P>
+				</c:when>
+				<c:otherwise>
+				  	<div id="reviewSlide" style="display: flex; width: 1000px;" >
+						<c:forEach var ="reivewImg" items="${reviewImgs}" >
+							<img src="<%=request.getContextPath()%>/reviewImg.do?realFileName=${reivewImg.realFileName}" class="card-img-top" alt="사진 로딩 오류" style="width: 10rem!important; height: 10rem; margin: 5px;">
+						</c:forEach>
+					</div>
+				</c:otherwise>
+			</c:choose>
+			<script>
+				if(${reviewImgs.size() > 5} == true){
+					$('#reviewSlide').slick({
+						  slidesToShow: 5,
+						  slidesToScroll: 1,
+						  autoplay: true,
+						  autoplaySpeed: 2000,
+						  prevArrow : "<button type='button' class='slick-prev' style='border:none; background: white; padding: 0px 40px 30px 0px'><i class='fa-solid fa-angle-left' style='font-size:40px; '></i></button>",		// 이전 화살표 모양 설정
+						  nextArrow : "<button type='button' class='slick-next' style='border:none; background: white; padding: 0px 40px 30px 40px'><i class='fa-solid fa-angle-right' style='font-size:40px; '></i></button>",		// 다음 화살표 모양 설정
+						});
+				}else{
+				}
+			</script>
+		</td>
+	</tr>
 	<tbody class="reviewListMap" style="border-top: none;">
 		<c:if test="${not empty reviewList}">
 			<c:forEach var="review" items="${reviewList}">
 				<tr>
 					<td>
-						<a href="<%=request.getContextPath()%>/review/detail.do?rvidx=${review.rvidx}">${review.title}</a>
 						<p>
 							<c:choose>
 								<c:when test="${review.rate == '0' || review.rate == '1'}">
@@ -25,6 +56,7 @@
 								</c:otherwise>			
 							</c:choose>
 						</p>
+						<a href="<%=request.getContextPath()%>/review/detail.do?rvidx=${review.rvidx}">${review.title}</a>
 					</td>
 				</tr>
 				<tr>

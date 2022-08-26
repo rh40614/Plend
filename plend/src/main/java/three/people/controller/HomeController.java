@@ -295,15 +295,16 @@ public class HomeController {
 		if(reviewList.size()<6) {
 
 			for(ReviewVO r: reviewList ) {
-				//장소 사진 가지고 오기
-				ImageVO imageOne = reviewService.selectImageOne(r);
-				String file = imageOne.getRealFileName();
-				r.setReviewImg(file);
-				//평균 별점
-				int avgRate = reviewService.avgRevew(r);
-				r.setAvgRate(avgRate);
-				//넣기
-				randomReviewList.add(r);
+				if(reviewService.selectImageOne(r) != null) {
+					ImageVO imageOne = reviewService.selectImageOne(r);
+					String file = imageOne.getRealFileName();
+					r.setReviewImg(file);
+					//평균 별점
+					int avgRate = reviewService.avgRevew(r);
+					r.setAvgRate(avgRate);
+					//넣기
+					randomReviewList.add(r);
+				}
 			}
 
 		}else {
@@ -312,12 +313,13 @@ public class HomeController {
 			ReviewVO random;
 			for(int i:idx) {
 				random = reviewList.get(i);
-				//사진가지고오기
-				ImageVO imageOne = reviewService.selectImageOne(random);
-				String file = imageOne.getRealFileName();
-				random.setReviewImg(file);
-				//넣기
-				randomReviewList.add(random);
+				if( reviewService.selectImageOne(random) != null) {
+					ImageVO imageOne = reviewService.selectImageOne(random);
+					String file = imageOne.getRealFileName();
+					random.setReviewImg(file);
+					//넣기
+					randomReviewList.add(random);
+				}
 			}
 		}
 
