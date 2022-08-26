@@ -173,12 +173,12 @@ public class HostController {
 		page.put("cntPerPage", cntPerPage);
 		
 		List<PlaceVO> list_p = placeService.selectPlaceAll(page);
-		
+		String p ="</p>";
 		//장소 소개 35자 이상 자르기
 		for(PlaceVO place: list_p) {
-			if(place.getPlaceDetail().length() > 90) {
-				String pd =place.getPlaceDetail().substring(0, 90);
-				place.setPlaceDetail(pd);
+			if(place.getPlaceDetail().length() > 35) {
+				String pd =place.getPlaceDetail().substring(0, 35);
+				place.setPlaceDetail(pd+"...");
 			}
 		}
 	

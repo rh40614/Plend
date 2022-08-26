@@ -383,7 +383,7 @@
 			    minHeight: 250,		// 최소 높이값(null은 제한 없음)
 			    maxHeight: null,  	// 최대 높이값(null은 제한 없음)
 			    focus: false,          // 페이지가 열릴때 포커스를 지정함
-			    placeholder: '공간에 대한 소개를 작성해죽세요!',
+			    placeholder: '공간에 대한 소개를 작성해주세요!',
 			    lang: 'ko-KR'
 			    
  			});
