@@ -25,7 +25,6 @@
 			#{totalPrice}
 		)
 	</insert>
-	
 	<!-- 08.01 김영민: 이용시간 지난 예약들 이용완료처리하기 -->
 	<select id="usetimeEnd" resultType="BookVO">
 		<![CDATA[
@@ -124,6 +123,18 @@
 	<!--
 	<update id="bookModify" parameterType="BookVO"></update>
 	 -->
-	
+	<!-- 정산 테이블에 데이터 추가 -->
+	<insert id="insertIncome" parameterType="IncomeVO">
+		INSERT INTO income(
+			uidx, 
+			totalincome, 
+			totalpeople)
+		VALUES(
+			#{uidx}, 
+			#{totalIncome}, 
+			#{totalPeople}) 
+		ON DUPLICATE KEY
+		UPDATE totalincome = #{totalIncome} + totalIncome, totalpeople = #{totalPeople} + totalpeople
+	</insert>
 
 </mapper>

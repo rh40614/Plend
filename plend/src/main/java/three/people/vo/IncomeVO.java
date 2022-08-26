@@ -1,7 +1,6 @@
 package three.people.vo;
 
 public class IncomeVO extends BookVO {
-	private int iidx;
 	private int totalIncome;
 	private String settleDate;
 	private int totalPeople;
@@ -11,12 +10,6 @@ public class IncomeVO extends BookVO {
 	}
 	public void setTotalIncome(int totalIncome) {
 		this.totalIncome = totalIncome;
-	}
-	public int getIidx() {
-		return iidx;
-	}
-	public void setIidx(int iidx) {
-		this.iidx = iidx;
 	}
 	public String getSettleDate() {
 		return settleDate;

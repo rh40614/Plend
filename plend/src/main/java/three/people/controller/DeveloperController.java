@@ -49,7 +49,7 @@ public class DeveloperController {
 	@Autowired
 	ImageServiceImpl imageService;
     @Autowired
-	SearchService searchService; 
+	SearchService searchService;
 
 	
 	// 회원 리스트로 이동

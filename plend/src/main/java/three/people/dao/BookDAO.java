@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import three.people.vo.BookVO;
+import three.people.vo.IncomeVO;
 import three.people.vo.PlaceVO;
 
 @Repository
@@ -42,5 +43,8 @@ public class BookDAO {
 	}
 	public List<BookVO> disableUseTime(BookVO bookVO){
 		return sqlSession.selectList("three.people.mapper.bookMapper.disableUseTime", bookVO);
+	}
+	public int insertIncome(IncomeVO incomeVO) {
+		return sqlSession.insert("three.people.mapper.bookMapper.insertIncome", incomeVO);
 	}
 }
