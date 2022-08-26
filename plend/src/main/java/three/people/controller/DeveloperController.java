@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import three.people.service.AdminService;
+import three.people.service.BookServiceImpl;
 import three.people.service.CommonService;
 import three.people.service.HostService;
 import three.people.service.ImageServiceImpl;
@@ -47,7 +48,7 @@ public class DeveloperController {
 	HostService hostService;
 	@Autowired
 	ImageServiceImpl imageService;
-  @Autowired
+    @Autowired
 	SearchService searchService; 
 
 	

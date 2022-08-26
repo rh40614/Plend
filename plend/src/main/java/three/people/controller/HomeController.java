@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import three.people.service.AdminService;
+import three.people.service.BookService;
+import three.people.service.BookServiceImpl;
 import three.people.service.ImageServiceImpl;
 import three.people.service.MailSendService;
 import three.people.service.PlaceService;
@@ -41,11 +43,13 @@ public class HomeController {
 	Scheduler scheduler;
 	@Autowired
 	ImageServiceImpl imageService;
+	
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String mains(SearchVO searchVO, Model model) {
 		scheduler.autoUpdate();
 		scheduler.eventAutoUpdate();
+		
 		
 		return "home";
 	}

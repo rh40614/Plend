@@ -14,22 +14,29 @@
 			uidx,
 			usetime,
 			cntpeople,
-			option1
+			option1,
+			totalprice
 		)VALUES(
 			#{pidx},
 			#{uidx},
 			#{useTime},
 			#{cntPeople},
-			#{option1}
+			#{option1},
+			#{totalPrice}
 		)
 	</insert>
 	
 	<!-- 08.01 김영민: 이용시간 지난 예약들 이용완료처리하기 -->
 	<select id="usetimeEnd" resultType="BookVO">
 		<![CDATA[
-		SELECT *
-		  FROM book
-		 WHERE SUBSTRING(usetime,20,16) < now() AND approvalyn = 'Y'
+		SELECT b.bidx,
+	   		   b.cntpeople,
+	   		   b.totalprice,
+	   		   p.uidx
+		  FROM book b 
+		  JOIN place p 
+		    ON b.pidx = p.pidx
+		 WHERE SUBSTRING(usetime,20,16) < now() AND b.approvalyn = 'Y'
 		 ]]>
 	</select>
 	<update id="successBook" parameterType="BookVO">
