@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- 
+
 <mapper namespace="three.people.mapper.adminMapper">
-	
+
 	<select id="userList" parameterType="SearchVO" resultType="UserVO">
 		SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
 		FROM (SELECT @ROWNUM := 0 )rnum, (
@@ -25,7 +25,7 @@
 			  FROM user_plend
 			 WHERE role = #{role}
 			 <if test="role == 2">
-			 	<include refid="searchUser"></include> 
+			 	<include refid="searchUser"></include>
 			 </if>
 			 <if test="role == 3">
 			 	<include refid="searchEnter"></include>
@@ -34,7 +34,7 @@
 		 ORDER BY rnum ASC
 	 	 LIMIT #{start}, #{cntPerPage}
 	</select>
-	
+
 	<sql id="searchUser">
 		<if test="searchType != null">
 			<if test='searchType.equals("name")'>
@@ -42,7 +42,7 @@
 		 	</if>
 		 	<if test='searchType.equals("id")'>
 		   		AND (id LIKE CONCAT('%',#{searchValue},'%'))
-		 	</if>		
+		 	</if>
 		</if>
 	</sql>
 	<sql id="searchEnter">
@@ -52,7 +52,7 @@
 		 	</if>
 		 	<if test='searchType.equals("nickName")'>
 		   		AND (nickname LIKE CONCAT('%',#{searchValue},'%'))
-		 	</if>		
+		 	</if>
 		</if>
 	</sql>
 	<select id="userOne" parameterType="UserVO" resultType="UserVO">
@@ -71,10 +71,10 @@
 			   delyn,
 			   jdate
 		  FROM user_plend
-		 WHERE uidx = #{uidx} 
-	</select> 
-	
-	<!-- 07.15 김영민: 유저 정보수정하기 --> 
+		 WHERE uidx = #{uidx}
+	</select>
+
+	<!-- 07.15 김영민: 유저 정보수정하기 -->
 	<update id="userInfo" parameterType="UserVO">
 		UPDATE user_plend
 		   SET id = #{id},
@@ -90,7 +90,7 @@
 	       <if test="role == 3">
 		       regnum = #{regnum}
 	       </if>
-		 WHERE uidx = #{uidx}      
+		 WHERE uidx = #{uidx}
 	</update>
 	<!-- 07.15 김영민: 업체 삭제 -->
 	<update id="enterDelete" parameterType="UserVO">
@@ -144,9 +144,9 @@
 			 	</if>
 			 	<if test='searchType.equals("nickName")'>
 			   		AND (u.nickname LIKE CONCAT('%',#{searchValue},'%'))
-			 	</if>		
+			 	</if>
 			</if>
-	  ORDER BY p.pidx DESC) sub											
+	  ORDER BY p.pidx DESC) sub
    	  ORDER BY rnum ASC
 		 LIMIT #{start}, #{cntPerPage}
 	</select>
@@ -163,8 +163,8 @@
 		 	</if>
 		 	<if test='searchType.equals("nickName")'>
 		   		AND (u.nickname LIKE CONCAT('%',#{searchValue},'%'))
-		 	</if>		
-		  </if> 
+		 	</if>
+		  </if>
 	</select>
 	<!-- 07.18 김영민: 업체 장소 승인 업데이트 -->
 	<update id="approvalYN" parameterType="PlaceVO">
@@ -181,7 +181,7 @@
 				    conditions,
 				    edate,
 				    startend,
-				    category	
+				    category
 		)VALUES(
 					#{title},
 					#{semiTitle},
@@ -223,8 +223,8 @@
 				   e.category
 			  FROM event e
 		  ORDER BY e.eidx DESC) sub
-		  ORDER BY rnum ASC	    
-         LIMIT #{start}, #{cntPerPage} 
+		  ORDER BY rnum ASC
+         LIMIT #{start}, #{cntPerPage}
 	</select>
 	<select id="totalEvent" resultType="Integer">
 		SELECT count(*)
@@ -254,7 +254,7 @@
 		   	   edate = #{edate},
 		   	   startend = #{startEnd},
 		   	   category = #{category}
-		 WHERE eidx  = #{eidx}  
+		 WHERE eidx  = #{eidx}
 	</update>
 	<update id="updateImg" parameterType="ImageVO">
 		UPDATE image
@@ -265,7 +265,7 @@
 	</update>
 	<!-- 이벤트 수정시 이전 이벤트 이미지 삭제 -->
 	<delete id="deleteEventImg" parameterType="ImageVO">
-		DELETE FROM image 
+		DELETE FROM image
 		      WHERE eidx = #{eidx};
 	</delete>
 	<!-- img가 있는지 확인 -->
@@ -291,8 +291,8 @@
 		   SET eventyn = 'N'
 		 WHERE category = #{category}
 	</update>
-	
-	<!-- 08.09 김영민: 리뷰 신고 내역 불러오기 -->	
+
+	<!-- 08.09 김영민: 리뷰 신고 내역 불러오기 -->
 	<select id="reportList" resultType="ReportVO" parameterType="SearchVO">
 		SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
 		FROM (SELECT @ROWNUM := 0 )rnum, (
@@ -320,12 +320,12 @@
 				 	</if>
 				 	<if test='searchType.equals("category")'>
 				   		WHERE (r.category LIKE CONCAT('%',#{searchValue},'%'))
-				 	</if>		
-			    </if> 
+				 	</if>
+			    </if>
 	      ORDER BY rbidx DESC) sub
 	      ORDER BY rnum ASC
-         LIMIT #{start}, #{cntPerPage} 
-	</select> 
+         LIMIT #{start}, #{cntPerPage}
+	</select>
 	<!-- 리뷰갯수 가져오기 -->
 	<select id="countReport" parameterType="SearchVO" resultType="int">
 		SELECT COUNT(*)
@@ -338,9 +338,9 @@
 		 	</if>
 		 	<if test='searchType.equals("category")'>
 		   		WHERE (r.category LIKE CONCAT('%',#{searchValue},'%'))
-		 	</if>		
+		 	</if>
 	    </if>
-	</select>	
+	</select>
 	<!-- 리뷰, 신고 삭제처리 -->
 	<update id="reviewBlind" parameterType="ReportVO">
 		UPDATE review
@@ -352,21 +352,21 @@
 		   SET delyn = 'Y'
 		 WHERE rbidx = #{rbidx}
 	</update>
-	
+
 	<!-- 08.10 김영민: 업체별 블랙리스트 불러오기 -->
 	<select id="blockUser" resultType="BlockVO" parameterType="HashMap">
 		SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
 		FROM (SELECT @ROWNUM := 0 )rnum, (
 			SELECT b.rbidx,
 				   b.category,
-				   b.content, 
+				   b.content,
 				   b.date,
-				   b.bdelyn, 
-				   u.uidx, 
-				   u.name, 
-				   u.delyn 
-			  FROM block b 
-			  JOIN user_plend u 
+				   b.bdelyn,
+				   u.uidx,
+				   u.name,
+				   u.delyn
+			  FROM block b
+			  JOIN user_plend u
 			    ON b.reporter_uidx = u.uidx
 			 WHERE uidx = #{blockVO.uidx}
 			   AND b.bdelyn = 'N') sub
@@ -387,25 +387,53 @@
 		   SET bdelyn = 'Y'
 		 WHERE rbidx = #{rbidx}
 	</update>
-	<!-- 이벤트 시작기간 지나면 자동으로 진행으로 바꾸기 -->
-	<select id="checkEventStartDate" resultType="EventVO">
-		<![CDATA[
-		SELECT eidx,
-		  	   title,
-		  	   semititle,
-		  	   content,
-		  	   conditions,
-		  	   edate,
-		  	   startend,
-		  	   eventimg,
-		  	   category 
-		  FROM event 
-		 WHERE SUBSTRING(edate,1,10) <= NOW() 
-		   AND SUBSTRING(edate,15,10) >= NOW() 
-		   AND startend = 'end'
-		]]>
+	<!-- 08.26 김하진 업체 추가옵션  -->
+	<select id="Option" parameterType = "SearchVO" resultType ="PlaceVO">
+		SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
+		FROM (SELECT @ROWNUM := 0 )rnum, (
+			 SELECT
+			 	    pidx
+			 	   ,option2
+			 	   ,b.name
+			   FROM place a
+		 INNER JOIN user_plend b
+		 		 ON a.uidx = b.uidx
+		 	  WHERE option2 not in('')
+		 		 <include refid="search"></include>) sub
+		   ORDER BY rnum ASC
+		      LIMIT #{start}, #{cntPerPage}
 	</select>
+	<sql id="search">
+		<if test="searchType != null">
+			<if test='searchType.equals("name")'>
+		   		AND (name LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>
+		 	<if test='searchType.equals("option2")'>
+		   		AND (option2 LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>
+		</if>
+	</sql>
+	<select id="totalOption" resultType = "int">
+		SELECT count(*)
+		  FROM place
+		 WHERE option2 not in('')
+	</select>
+  <!-- 이벤트 시작기간 지나면 자동으로 진행으로 바꾸기 -->
+  <select id="checkEventStartDate" resultType="EventVO">
+    <![CDATA[
+    SELECT eidx,
+           title,
+           semititle,
+           content,
+           conditions,
+           edate,
+           startend,
+           eventimg,
+           category
+      FROM event
+     WHERE SUBSTRING(edate,1,10) <= NOW()
+       AND SUBSTRING(edate,15,10) >= NOW()
+       AND startend = 'end'
+    ]]>
+  </select>
 </mapper>
-
-
-

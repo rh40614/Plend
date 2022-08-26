@@ -13,7 +13,7 @@ import three.people.vo.SearchVO;
 import three.people.vo.UserVO;
 
 public interface AdminService {
-		
+
 	List<UserVO> userList(SearchVO searchvo);
 	UserVO userOne(UserVO uservo);
 	int userInfo(UserVO uservo);
@@ -39,5 +39,7 @@ public interface AdminService {
 	int countBlockUser(BlockVO blockVO);
 	int blockDelete(BlockVO blockVO);
 	int deleteEventImg(ImageVO imageVO);
+	List<PlaceVO> Option(SearchVO sv);
+	int totalOption();
 	int checkEventStartDate();
 }

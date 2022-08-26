@@ -58,7 +58,6 @@
 	   WHERE id = #{id}
 	     AND delyn = 'N'
 	</select>
-
 	<select id="selectId" resultType="UserVO" parameterType="UserVO">
 		SELECT
 			 name

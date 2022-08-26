@@ -98,7 +98,7 @@
 			var nickName = $("input[name=nickName]").val();
 			var reg_required = /.{4,21}/;
 			if(!reg_required.test(nickName)){
-				alert("아이디는 4글자 이상 20글자 이하로 작성해주세요");
+				alert("닉네임은 4글자 이상 20글자 이하로 작성해주세요");
 				return;
 			} else {
 			$.ajax({
