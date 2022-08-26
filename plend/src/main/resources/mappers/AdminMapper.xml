@@ -387,7 +387,37 @@
 		   SET bdelyn = 'Y'
 		 WHERE rbidx = #{rbidx}
 	</update>
-	
+	<!-- 08.26 김하진 업체 추가옵션  -->
+	<select id="Option" parameterType = "SearchVO" resultType ="PlaceVO">
+		SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
+		FROM (SELECT @ROWNUM := 0 )rnum, (	  
+			 SELECT 
+			 	    pidx
+			 	   ,option2
+			 	   ,b.name
+			   FROM place a
+		 INNER JOIN user_plend b
+		 		 ON a.uidx = b.uidx 
+		 	  WHERE option2 not in('')
+		 		 <include refid="search"></include>) sub
+		   ORDER BY rnum ASC
+		      LIMIT #{start}, #{cntPerPage}	 
+	</select>
+	<sql id="search">
+		<if test="searchType != null">
+			<if test='searchType.equals("name")'>
+		   		AND (name LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>
+		 	<if test='searchType.equals("option2")'>
+		   		AND (option2 LIKE CONCAT('%',#{searchValue},'%'))
+		 	</if>		
+		</if>
+	</sql>
+	<select id="totalOption" resultType = "int">
+		SELECT count(*)
+		  FROM place
+		 WHERE option2 not in('')
+	</select>
 </mapper>
 
 

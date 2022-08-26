@@ -39,4 +39,6 @@ public interface AdminService {
 	int countBlockUser(BlockVO blockVO);
 	int blockDelete(BlockVO blockVO);
 	int deleteEventImg(ImageVO imageVO);
+	List<PlaceVO> Option(SearchVO sv);
+	int totalOption();
 }

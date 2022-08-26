@@ -122,9 +122,14 @@ public class AdminDAO {
 	public int deleteEventImg(ImageVO imageVO) {
 		return sqlSession.delete("three.people.mapper.adminMapper.deleteEventImg", imageVO);
 	}
+	//김하진 업체 추가옵션
+	public List<PlaceVO> Option(SearchVO sv){
+		return sqlSession.selectList("three.people.mapper.adminMapper.Option", sv);
+	}
 	
+	public int totalOption() {
+		return sqlSession.selectOne("three.people.mapper.adminMapper.totalOption");
+	}
 	
-	
-	
-	
+	 
 }

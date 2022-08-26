@@ -368,5 +368,23 @@ public class DeveloperController {
 		return "host/inquiry_dev/reply";
 	}
 	
-	
+	@RequestMapping(value = "/Option.do", method = RequestMethod.GET)
+	public String Option(SearchVO sv, Model model) {
+		if(sv.getNowPage() == 0 && sv.getCntPerPage() == 0) {
+			sv.setNowPage(1);
+			sv.setCntPerPage(10);
+		}else if(sv.getCntPerPage() == 0) {
+			sv.setCntPerPage(10);
+		}else if(sv.getNowPage() == 0) {
+			sv.setNowPage(1);
+		}
+		
+		int total = adminService.totalOption();
+		sv.calPaging(total);
+		
+		model.addAttribute("pagenation", sv);
+		model.addAttribute("option", adminService.Option(sv));
+		
+		return "developer/Option";
+	}
 }

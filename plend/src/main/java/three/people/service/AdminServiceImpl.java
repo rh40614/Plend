@@ -153,6 +153,18 @@ public class AdminServiceImpl implements AdminService {
 	public int deleteEventImg(ImageVO imageVO) {
 		return adminDAO.deleteEventImg(imageVO);
 	}
+
+	@Override
+	public List<PlaceVO> Option(SearchVO sv) {
+		
+		return adminDAO.Option(sv);
+	}
+
+	@Override
+	public int totalOption() {
+		
+		return adminDAO.totalOption();
+	}
 	
 
 }

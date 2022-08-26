@@ -29,6 +29,7 @@
     		<a href="enterConfirm.do" class="btn  rounded-0">업체장소 등록승인</a>
     		<a href="enterBlock.do" class="btn  rounded-0">사용자 블랙리스트</a>
     		<a href="inquiryList.do" class="btn  rounded-0">업체 문의내역</a>
+    		<a href="Option.do" class="btn  rounded-0">업체 요청/요구 옵션</a>
     	</div>
     </div>
 <!-- 08.16 김영민 대분류 호버 이벤트 -->

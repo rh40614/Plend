@@ -134,7 +134,7 @@ public class MainController {
 	
 	     // 저장된 쿠키 불러오기
 	     Cookie cookies[] = request.getCookies();
-	     Map mapCookie = new HashMap();
+	     Map<String, String> mapCookie = new HashMap<String, String>();
 	    if(request.getCookies() != null){
 	      for (int i = 0; i < cookies.length; i++) {
 	        Cookie obj = cookies[i];
