@@ -24,6 +24,7 @@
         <typeAlias type="three.people.vo.HeartVO" alias="HeartVO"/>
         <typeAlias type="three.people.vo.ReviewVO" alias="ReviewVO"/>
         <typeAlias type="three.people.vo.ReportVO" alias="ReportVO"/>
+        <typeAlias type="three.people.vo.IncomeVO" alias="IncomeVO"/>
 
 
 

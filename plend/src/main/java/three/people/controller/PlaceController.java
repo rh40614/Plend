@@ -126,7 +126,6 @@ public final class PlaceController {
 	// 예약하기
 	@RequestMapping(value="/book.do", method=RequestMethod.POST)
 	public String book(BookVO bookvo, Model model) {
-		
 		model.addAttribute("bookvo", bookvo);
 		model.addAttribute("placeOne", placeService.placeOne(bookvo));
 		
@@ -289,7 +288,7 @@ public final class PlaceController {
 		session.getAttribute("login");
 		UserVO login = (UserVO)session.getAttribute("login");
 		bookVO.setUidx(login.getUidx());
-
+		System.out.println("price: "+ bookVO.getTotalPrice());
 		int result = bookService.insertBook(bookVO);
 		return result;
 	}

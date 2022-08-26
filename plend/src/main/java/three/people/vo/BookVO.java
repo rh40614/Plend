@@ -14,7 +14,16 @@ public class BookVO extends PlaceVO{
 	private String rejectContent;
 	//2022.08.08 김연희 : 페이징후 게시물 넘버
 	private int rnum;
+	private int totalPrice;
 	
+	
+	
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 	public int getRnum() {
 		return rnum;
 	}

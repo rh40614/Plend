@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import three.people.dao.BookDAO;
 import three.people.vo.BookVO;
+import three.people.vo.IncomeVO;
 import three.people.vo.PlaceVO;
 
 @Service
@@ -23,14 +24,37 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public int updateSuccess() {
-		List<BookVO> bookList = bookDAO.usetimeEnd();
+		List<BookVO> bookList = useTimeEnd();
 		int result = 0;
-		for(BookVO book:bookList) {
+		calcIncome(bookList);
+		result = successBookUpdateY(bookList);
+		return result;
+	}
+	
+	public List<BookVO> useTimeEnd(){
+		return bookDAO.usetimeEnd();
+	}
+	public void calcIncome(List<BookVO> bookList) {
+		IncomeVO incomeVO = new IncomeVO();
+		for(BookVO book : bookList) {
+			incomeVO.setTotalIncome(book.getTotalPrice());
+			incomeVO.setTotalPeople(book.getCntPeople());
+			incomeVO.setUidx(book.getUidx());
+			bookDAO.insertIncome(incomeVO);
+		}
+	}
+	@Override
+	public int insertIncome(IncomeVO incomeVO) {
+		return bookDAO.insertIncome(incomeVO);
+	}
+	public int successBookUpdateY(List<BookVO> bookList) {
+		int result = 0;
+		for(BookVO book : bookList) {
 			result = bookDAO.successBook(book);
 		}
 		return result;
 	}
-
+	
 	@Override
 	public List<BookVO> selectBookByHost(HashMap<String, Integer> page2) {
 		return bookDAO.selectBookByHost(page2);
@@ -55,5 +79,6 @@ public class BookServiceImpl implements BookService {
 	public List<BookVO> disableUseTime(BookVO bookVO) {
 		return bookDAO.disableUseTime(bookVO);
 	}
+
 
 }

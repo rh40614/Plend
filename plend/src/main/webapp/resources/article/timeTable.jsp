@@ -20,7 +20,8 @@
 		pointer-events: none;
 	}
 </style>
-<table class="table timeTable d-none">
+<table class="table timeTable d-none caption-top">
+	<caption style="padding-bottom: 10px; font-size: small; text-align: center; color: #db0000;">시작시간과 종료시간을 골라주세요</caption>
 	<tbody>
 		<tr>
 			<td class="text-center" colspan="4" style="background-color: #2F506D; color: white;">AM</td>
@@ -78,23 +79,17 @@
 		let lastTime = $(".chooseTime:last").text().substring(0,2);
 		
 		$(this).addClass("chooseTime");
-		$(".selectTime").val(num+","+ pnum);
-		if(num < minTime){
+		if(num < lastTime){
 			$(".btn.w-100").removeClass("chooseTime");
 			$(this).addClass("chooseTime");
-			$(".selectTime").val(num+","+ pnum);
-
-		}else if(num < lastTime){
-			$(".btn.w-100").removeClass("chooseTime");
-			$(this).addClass("chooseTime");
-			$(".selectTime").val(num+","+ pnum);
-
+			$(".selectTime").val("");
 		}else if(num > minTime){
 			if(minTime > 0 && !$(".btn.w-100").slice(minTime,num).is(".diableTime")){
 				$(".btn.w-100").slice(minTime,num).addClass("chooseTime");
 				$(".selectTime").val(minTime+","+num);
 			}else if(minTime > 0){
 				$(".btn.w-100").removeClass("chooseTime");
+				$(".selectTime").val("");
 			}
 		}
 	});

@@ -455,6 +455,7 @@
 					<div class="timeTable d-none"></div>
 					<input type="hidden" class="selectTime">
 					<input type="hidden" name="useTime" class="useTime">
+					<input type="hidden" name="totalPrice" class="totalPrice">
 					<div class="cntPeople d-none">
 						<div class="d-inline-flex">인원 선택</div>
 						<input name="cntPeople" type="number" class="d-inline-flex form-control m-1" style="width: auto;">
@@ -588,6 +589,7 @@
 			var data = new Date();
 			var usetime = year+"-"+month+"-"+date+" "+time[0]+":00 ~ "+year+"-"+month+"-"+date+" "+time[1]+":00";
 			$(".useTime").val(usetime);
+			$(".totalPrice").val((time[1] - time[0]) * ${placeOne.price});
 		}
 	}
 </script>
