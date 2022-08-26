@@ -19,22 +19,22 @@
   <nav class="navbar navbar-light shadow-sm pt-3 fixed-top bg-white">
   <div class="container" style="flex-wrap: wrap; justify-content: center;">
   	<div style=" display: flex; flex-direction: row; align-items: center; width: 100%;">
-      <a class="navbar-brand" style="margin-right:auto;" href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/image/logoTrial2.png" alt="logo not found" style="width: 150px; height:45px;" id="logo"></a>
-   	  <div id="searchBar" style="margin-right:auto; border-radius: 50px; height: 47px; width: 500px; background-color: #eceeee;">
-
-    	  <form class="d-flex" method="GET" action="<%=request.getContextPath()%>/place/searchPlace.do">
-          <input class="form-control me-2" name="searchValue" type="search" placeholder="원하는 장소를 검색해보세요!" aria-label="Search" style="margin-top:5px; border: none; background-color: #eceeee; border-radius: 50px;">
-          <button class="btn " type="submit" style="border:none; align-self: center;" ><i class="fa-solid fa-magnifying-glass" style="padding-right: 5;padding-top: 6;color: #7f8b93;"></i></button>
-        </form> 			
-      </div>
-      <div class="d-flex" id="CnP">
-		<div id="categoryList" class="fw-bold" style="color: #838a90; cursor: pointer;">카테고리 &nbsp;</div>
-		<div class="fw-bold" style="color: #838a90;"> | </div>
-		<div class="fw-bold"><a href="<%=request.getContextPath()%>/host.do" style="color: #838a90;" target="_blank">&nbsp; 공간 등록 </a></div>
-	  </div>			
-      <button class="navbar-toggler" type="button" style="border: none; margin-left:auto;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+	      <a class="navbar-brand" style="margin-right:auto;" href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/image/logoTrial2.png" alt="logo not found" style="width: 150px; height:45px;" id="logo"></a>
+	   	  
+	   	  <div id="searchBar" style="margin-right:auto; border-radius: 50px; height: 47px; width: 500px; background-color: #eceeee;">
+			<form class="d-flex" id="frm">
+	          	<input class="form-control me-2 searchBtn" name="searchValue" type="search" placeholder="원하는 장소를 검색해보세요!" aria-label="Search" onKeyPress="if( event.keyCode==13 ){searchPlace();}">
+	          	<button class="btn " type="button" style="border:none; align-self: center;" onclick="searchPlace()"><i class="fa-solid fa-magnifying-glass" style="padding-right: 5;padding-top: 6;color: #7f8b93;"></i></button>
+	        </form> 			
+	      </div>
+	      <div class="d-flex" id="CnP">
+			<div id="categoryList" class="fw-bold" style="color: #838a90; cursor: pointer;">카테고리 &nbsp;</div>
+			<div class="fw-bold" style="color: #838a90;"> | </div>
+			<div class="fw-bold"><a href="<%=request.getContextPath()%>/host.do" style="color: #838a90;" target="_blank">&nbsp; 공간 등록 </a></div>
+		  </div>			
+	      <button class="navbar-toggler" type="button" style="border: none; margin-left:auto;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+	        <span class="navbar-toggler-icon"></span>
+	      </button>
     </div>
     <div id="category" class="d-none">
     	<a href="<%=request.getContextPath()%>/place/placeList.do?category=partyRoom" class="partyRoom" >파티룸</a>
@@ -128,6 +128,56 @@ $("#categoryList").click(function(){
 	}
 );
 </script>
+<script type="text/javascript">
+	var en_h = "rRseEfaqQtTdwWczxvg";
+	var reg_h = "[" + en_h + "]";
+	
+	var en_b = {
+	    k:0,o:1,i:2,O:3,j:4,p:5,u:6,P:7,h:8,hk:9,ho:10,hl:11,y:12,n:13,nj:14,np:15,nl:16,b:17,m:18,ml:19,l:20
+	}
+	var reg_b = "hk|ho|hl|nj|np|nl|ml|k|o|i|O|j|p|u|P|h|y|n|b|m|l";
+	
+	var en_f = {
+	    "":0,r:1,R:2,rt:3,s:4,sw:5,sg:6,e:7,f:8,fr:9,fa:10,fq:11,ft:12,fx:13,fv:14,fg:15,a:16,q:17,qt:18,t:19,T:20,d:21,w:22,c:23,z:24,x:25,v:26,g:27
+	}
+	var reg_f = "rt|sw|sg|fr|fa|fq|ft|fx|fv|fg|qt|r|R|s|e|f|a|q|t|T|d|w|c|z|x|v|g|";
+	
+	var reg_exp = new RegExp("("+reg_h+")("+reg_b+")((?:"+reg_f+")(?=(?:"+reg_h+")(?:"+reg_b+"))|(?:"+reg_f+"))","g");
+	
+	function toKorean(str) {
+		var result = str.replace(reg_exp,replace);
+		console.log(result);
+		
+	    return result;
+	}
+	
+	function replace(str,h,b,f) {
+	    return String.fromCharCode(en_h.indexOf(h)*21*28 + en_b[b]*28 + en_f[f] + 44032);
+	}
+
+</script>
+<!-- 검색 -->
+ <script>
+ 	function searchPlace(){
+ 		var searchValue = $("input[name=searchValue]").val();
+ 		
+		//분기 만들어서 테스트 하기()
+ 		<%-- $.(function(){
+ 			url:"<%=request.getContextPath()%>/place/searchPlace.do",
+ 			data: searchValue,
+ 			success:function(data){
+ 				
+ 			}
+ 			
+ 		}) --%>
+ 		
+ 		var result = toKorean(searchValue);
+ 		console.log(result);
+ 		
+ 		$("input[name=searchValue]").val(result);
+ 		$("#frm").attr("action","<%=request.getContextPath()%>/place/searchPlace.do").submit();
+ 	}
+ </script>
 
 
 

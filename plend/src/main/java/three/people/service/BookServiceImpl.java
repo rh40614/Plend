@@ -40,13 +40,13 @@ public class BookServiceImpl implements BookService {
 			incomeVO.setTotalIncome(book.getTotalPrice());
 			incomeVO.setTotalPeople(book.getCntPeople());
 			incomeVO.setUidx(book.getUidx());
-			bookDAO.insertIncome(incomeVO);
+			/* bookDAO.insertIncome(incomeVO); */
 		}
 	}
-	@Override
-	public int insertIncome(IncomeVO incomeVO) {
-		return bookDAO.insertIncome(incomeVO);
-	}
+//	@Override
+//	public int insertIncome(IncomeVO incomeVO) {
+//		return bookDAO.insertIncome(incomeVO);
+//	}
 	public int successBookUpdateY(List<BookVO> bookList) {
 		int result = 0;
 		for(BookVO book : bookList) {

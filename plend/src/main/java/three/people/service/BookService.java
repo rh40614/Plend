@@ -16,5 +16,5 @@ public interface BookService {
 	int bookCancel(BookVO bookVO);
 	List<BookVO> placeBookOne(PlaceVO placeVO);
 	List<BookVO> disableUseTime(BookVO bookVO);
-	int insertIncome(IncomeVO incomeVO);
+	/* int insertIncome(IncomeVO incomeVO); */
 }

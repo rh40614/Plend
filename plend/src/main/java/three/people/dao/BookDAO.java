@@ -44,7 +44,8 @@ public class BookDAO {
 	public List<BookVO> disableUseTime(BookVO bookVO){
 		return sqlSession.selectList("three.people.mapper.bookMapper.disableUseTime", bookVO);
 	}
-	public int insertIncome(IncomeVO incomeVO) {
-		return sqlSession.insert("three.people.mapper.bookMapper.insertIncome", incomeVO);
-	}
+	/*
+	 * public int insertIncome(IncomeVO incomeVO) { return
+	 * sqlSession.insert("three.people.mapper.bookMapper.insertIncome", incomeVO); }
+	 */
 }
