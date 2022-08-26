@@ -175,7 +175,7 @@ public final class PlaceController {
 					placeVO.setPidx(pidx);
 					//사진도 list에 담기 
 					ImageVO imageOne = placeService.selectImageOne(place);
-					String file = imageOne.getOriginFileName();
+					String file = imageOne.getRealFileName();
 					place.setPlaceImg(file);
 					//평균 별점
 					int avgRate = reviewService.avgRevew(place);
@@ -196,7 +196,7 @@ public final class PlaceController {
 					placeVO.setPidx(pidx);
 					//사진도 list에 담기 
 					ImageVO imageOne = placeService.selectImageOne(place);
-					String file = imageOne.getOriginFileName();
+					String file = imageOne.getRealFileName();
 					place.setPlaceImg(file);
 					//평균 별점
 					int avgRate = reviewService.avgRevew(place);
@@ -236,7 +236,7 @@ public final class PlaceController {
 				int pidx = place.getPidx();
 				placeVO.setPidx(pidx);
 				ImageVO imageOne = placeService.selectImageOne(place);
-				String file = imageOne.getOriginFileName();
+				String file = imageOne.getRealFileName();
 				place.setPlaceImg(file);
 				//평균 별점
 				int avgRate = reviewService.avgRevew(place);
@@ -255,7 +255,7 @@ public final class PlaceController {
 				int pidx = place.getPidx();
 				placeVO.setPidx(pidx);
 				ImageVO imageOne = placeService.selectImageOne(place);
-				String file = imageOne.getOriginFileName();
+				String file = imageOne.getRealFileName();
 				place.setPlaceImg(file);
 				//평균 별점
 				int avgRate = reviewService.avgRevew(place);
@@ -317,7 +317,7 @@ public final class PlaceController {
 				place.setPidx(pidx);
 				//사진도 list에 담기 
 				ImageVO imageOne = placeService.selectImageOne(place);
-				String file = imageOne.getOriginFileName();
+				String file = imageOne.getRealFileName();
 				place.setPlaceImg(file);
 				//평균 별점
 				int avgRate = reviewService.avgRevew(place);
@@ -337,7 +337,7 @@ public final class PlaceController {
 				place.setPidx(pidx);
 				//사진도 list에 담기 
 				ImageVO imageOne = placeService.selectImageOne(place);
-				String file = imageOne.getOriginFileName();
+				String file = imageOne.getRealFileName();
 				place.setPlaceImg(file);
 				//평균 별점
 				int avgRate = reviewService.avgRevew(place);
@@ -369,7 +369,7 @@ public final class PlaceController {
 			
 			for(PlaceVO p : list) {
 				ImageVO image = placeService.selectImageOne(p);
-				String file =image.getOriginFileName();
+				String file =image.getRealFileName();
 				p.setPlaceImg(file);
 				//평균 별점
 				int avgRate = reviewService.avgRevew(p);
@@ -386,7 +386,7 @@ public final class PlaceController {
 			
 			for(PlaceVO p : list) {
 				ImageVO image = placeService.selectImageOne(p);
-				String file =image.getOriginFileName();
+				String file =image.getRealFileName();
 				p.setPlaceImg(file);
 				//평균 별점
 				int avgRate = reviewService.avgRevew(p);
@@ -418,8 +418,7 @@ public final class PlaceController {
 			for(PlaceVO place: list) {
 				//사진
 				ImageVO image = placeService.selectImageOne(place);
-				String file =image.getOriginFileName();
-				System.out.println("file: "+file);
+				String file =image.getRealFileName();
 				place.setPlaceImg(file);
 				//평균 별점
 				int avgRate = reviewService.avgRevew(place);

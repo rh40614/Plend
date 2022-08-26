@@ -56,19 +56,17 @@
 	    </div>
    	</nav>  	
 
-   <div id = "infoBox" style="margin-left: 23%;margin-top:15%; ">
+   <div id = "infoBox" style="margin-left: 23%;margin-top:15%;" class="checkBox">
    	<br>
 		<h4>비밀번호 확인</h4>
 		<hr>
 		<br>
 		<form name = "frm" action = "myPageCheck.do?uidx=${vo.uidx}" method = "post">
 			<table>
-				
 				<tr>
-					<th>비밀번호</th>
-					<td colspan = "3"><input type = "password" name = "password" value = "" id = "infoText"></td>
+					<th style="margin-left: 10px;">비밀번호</th>
+					<td colspan = "3"><input type = "password" name = "password" value = "" id = "infoText" style="border-radius:5px; background:white; border:1px solid #ededed;"></td>
 				</tr>
-				
 			</table>
 			<br>
 			<button type = "button" id = "regBtn" onclick = "pwdChk();">확인</button>

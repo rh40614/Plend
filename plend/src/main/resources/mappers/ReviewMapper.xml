@@ -150,9 +150,9 @@
 	   WHERE p.uidx =#{uidx}
 	     AND r.delYN = 'N'
 	     AND P.delYN = 'N'
-    ORDER BY rvidx DESC) r,
+    ORDER BY rvidx ASC) r,
      (SELECT @rownum:=0) rnum
-    ORDER BY rnum ASC
+    ORDER BY rnum DESC
 	   LIMIT #{start},#{cntPerPage}
 	</select>
 

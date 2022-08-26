@@ -53,7 +53,7 @@
 	          	<input type="file" name="reviewImgs" id="reviewImgs" multiple="multiple">
 	          	<div class="mt-1">
 	          		<c:forEach var="img" items="${imgs}">
-	          			<button type="button" class="reviewImg btn btn-light">${img.originFileName}</button>
+	          			<button type="button" class="reviewImg btn btn-light">${img.realFileName}</button>
 	          		</c:forEach>
 	          		<input type="hidden" name="deleteImg" readonly/>
 	          	</div>
@@ -151,12 +151,12 @@
 			          		<c:forEach var="img" items="${imgs}" varStatus="status">
 						        <c:if test="${status.index eq 0 }">
 							        <div class="carousel-item active">
-										<img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="606" height="414" alt="img" src="<%=request.getContextPath() %>/reviewImg.do?originFileName=${img.originFileName}"/>
+										<img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="606" height="414" alt="img" src="<%=request.getContextPath() %>/reviewImg.do?realFileName=${img.realFileName}"/>
 							        </div>
 						        </c:if>
 						        <c:if test="${status.index ne 0 }">
 							        <div class="carousel-item">
-										<img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="606" height="414" alt="img" src="<%=request.getContextPath() %>/reviewImg.do?originFileName=${img.originFileName}"/>
+										<img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="606" height="414" alt="img" src="<%=request.getContextPath() %>/reviewImg.do?realFileName=${img.realFileName}"/>
 							        </div>
 						        </c:if>
 							</c:forEach>

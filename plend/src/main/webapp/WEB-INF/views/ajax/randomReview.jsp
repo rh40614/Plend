@@ -12,7 +12,7 @@
 <c:if test="${list3.size() > 0 }">
 	<c:forEach var ="r" items="${list3}" varStatus="status"> 
 	
-	<div class="card  mb-5 border-0" style="width: 22rem; height: 15rem; margin-right: 35px;">
+	<div class="card  mb-5 border-0" style="width: 22rem; height: 25rem; margin:20px;">
 		<c:choose>
 			<c:when test="${r.reviewImg == null}">
 				<a href="<%=request.getContextPath()%>/place/view.do?pidx=${r.pidx}#review">
@@ -21,7 +21,7 @@
 			</c:when>
 			<c:when test="${r.reviewImg != null}">
 				<a href="<%=request.getContextPath()%>/place/view.do?pidx=${r.pidx}#review">
-					<img src="<%=request.getContextPath()%>/reviewImg.do?originFileName=${r.reviewImg}#review" class="card-img-top" alt="사진 로딩 오류" style="height: 13rem;">
+					<img src="<%=request.getContextPath()%>/reviewImg.do?realFileName=${r.reviewImg}" class="card-img-top" alt="사진 로딩 오류" style="height: 13rem;">
 				</a>
 			</c:when>
 			

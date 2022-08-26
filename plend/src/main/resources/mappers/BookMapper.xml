@@ -62,9 +62,9 @@
 		   WHERE p.uidx = #{uidx}
 			 AND b.delYN ='N'
 			 AND p.delYN ='N'
-		ORDER BY bidx desc) b,
+		ORDER BY bidx ASC) b,
 		 (SELECT @rownum:=0) rnum
-		ORDER BY rnum ASC
+		ORDER BY rnum DESC
 		   LIMIT #{start},#{cntPerPage}
 	</select>
 	

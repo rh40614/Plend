@@ -108,12 +108,12 @@
 			 		 <c:choose>
 			 		 	<c:when test="${status.index == '0'}">
 					    	<div class="carousel-item active">
-		      					<img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${b.banner}" alt='${b.semiTitle}' onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}" class="d-block w-100" style="height: 400px;" >
+		      					<img src="<%=request.getContextPath()%>/eventImg.do?realFileName=${b.banner}" alt='${b.semiTitle}' onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}" class="d-block w-100" style="height: 400px;" >
 		    				</div>
 	    				</c:when>
 	    				<c:otherwise >
 					    	<div class="carousel-item">
-		      					<img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${b.banner}" alt='${b.semiTitle}' onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}" class="d-block w-100 " style="height: 400px;" >
+		      					<img src="<%=request.getContextPath()%>/eventImg.do?realFileName=${b.banner}" alt='${b.semiTitle}' onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${b.eidx}" class="d-block w-100 " style="height: 400px;" >
 		    				</div>
 	    				</c:otherwise>
     			</c:choose>
@@ -156,7 +156,7 @@
 				<c:if test="${not empty list}">
 					<c:forEach var="event" items="${list}">
 						<div class="card mt-3 me-5"  style="width: 18rem; height: 280px;">
-							 <img src="<%=request.getContextPath()%>/eventImg.do?originFileName=${event.image}" style="height: 230px;" class="card-img-top" alt="${event.semiTitle}" onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${event.eidx}">
+							 <img src="<%=request.getContextPath()%>/eventImg.do?realFileName=${event.image}" style="height: 230px;" class="card-img-top" alt="${event.semiTitle}" onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${event.eidx}">
 							 <div class="card-body">
 							    <p class="card-text"  onclick="location.href='<%=request.getContextPath()%>/host/eventView.do?eidx='+${event.eidx}">${event.semiTitle}</p>
 							 </div>

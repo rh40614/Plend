@@ -4,7 +4,7 @@
 <section>
 	<span class="title1 spaceL">문의 내용  </span>
 	<br>
-	<table class="table spaceL rounded w-75" style="border-collapse: initial;" >
+	<table class="table spaceL rounded " style="border-collapse: initial; width:90%" >
 		<tbody>
 			<tr>
 				<td colspan="2" class="fs-5"  style="padding: 30px;">${inquiry.title}</td>
@@ -18,16 +18,16 @@
 				<td>${inquiry.title}</td>
 			</tr>
 			<tr>
-				<td class="ps-4 pe-2 text-break" style="width: 100px; vertical-align: top;">내용 :</td>
-				<td>${inquiry.content}</td>
+				<td class="ps-4 pe-2 text-break" style="width: 100px; vertical-align: top; ">내용 :</td>
+				<td style="height: 400px;">${inquiry.content}</td>
 			</tr>
 		</tbody>
 	</table>
 		<br>
 		<span class="spaceL mb-5">답변이 달린 이후에는 수정이 불가능합니다. </span>
-		<div class="btn-group spaceL" role="group" id="btnGroup" style="text-align: right;" >
+		<div class="btn-group spaceL d-flex w-100" role="group" id="btnGroup" style="text-align: right; justify-content: flex-end;" >
 			<c:if test="${inquiry.answerYN == 'N' && login.role ne '1'}">
-				<button class="btnDefault me-3" type="button" onclick="inquiryEdit_dev(this)" value="${inquiry.iqidx}">수정</button>
+				<button class="btnDefault " type="button" onclick="inquiryEdit_dev(this)" value="${inquiry.iqidx}" style=" margin-right:100px;">수정</button>
 			</c:if>
 		</div>
 </section>

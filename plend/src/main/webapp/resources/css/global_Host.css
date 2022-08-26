@@ -393,6 +393,14 @@
 	
 	} 
 	
+	.triangle{
+		width: 0px;
+	    height: 0px;
+	    border-bottom: 30px solid #424c53;
+	    border-left: 0px solid transparent;
+	    border-right: 30px solid transparent;
+	    transform: rotate( 180deg );
+	}
 	
 	
 	

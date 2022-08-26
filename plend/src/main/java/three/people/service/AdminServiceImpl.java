@@ -1,7 +1,9 @@
 package three.people.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +20,10 @@ import three.people.vo.UserVO;
 
 @Service
 public class AdminServiceImpl implements AdminService {
-	
+
 	@Autowired
 	AdminDAO adminDAO;
-	
+
 //	07.14 김영민: 유저리스트, 페이징, 검색 로직
 	@Override
 	public List<UserVO> userList(SearchVO searchvo) {
@@ -127,7 +129,7 @@ public class AdminServiceImpl implements AdminService {
 	public int countReport(SearchVO searchVO) {
 		return adminDAO.countReport(searchVO);
 	}
-	
+
 	@Override
 	public int reviewBlind(ReportVO reportVO) {
 		adminDAO.reportBlind(reportVO);
@@ -156,15 +158,38 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<PlaceVO> Option(SearchVO sv) {
-		
+
 		return adminDAO.Option(sv);
 	}
 
 	@Override
 	public int totalOption() {
-		
+
 		return adminDAO.totalOption();
+
 	}
-	
+
+	@Override
+	public int checkEventStartDate() {
+		List<EventVO> eventList = adminDAO.checkEventStartDate();
+		List<String> categoryList = new ArrayList<String>();
+
+		for(EventVO event: eventList) {
+			if(categoryList == null || !categoryList.contains(event.getCategory())) {
+				categoryList.add(event.getCategory());
+			}
+			event.setStartEnd("start");
+			adminDAO.updateEvent(event);
+		}
+		EventVO event = new EventVO();
+		for(String category: categoryList ) {
+			event.setCategory(category);
+			System.out.println("category: "+event.getCategory());
+			adminDAO.placeEventUpdate(event);
+		}
+
+		return 0;
+	}
+
 
 }

@@ -21,12 +21,12 @@ public class AdminDAO {
 
 	@Autowired
 	SqlSession sqlSession;
-	
+
 //	07.14 김영민 유저 총인원/ 개별인원 검색 DAO
 	public List<UserVO> userList(SearchVO searchvo){
 		return sqlSession.selectList("three.people.mapper.adminMapper.userList", searchvo);
 	}
-	
+
 	public UserVO userOne(UserVO uservo) {
 		return sqlSession.selectOne("three.people.mapper.adminMapper.userOne", uservo);
 	}
@@ -38,7 +38,7 @@ public class AdminDAO {
 	public int deleteEnter(UserVO uservo) {
 		return sqlSession.update("three.people.mapper.adminMapper.enterDelete", uservo);
 	}
-// 07.15 김영민: 한 업체의 장소	
+// 07.15 김영민: 한 업체의 장소
 	public List<PlaceVO> enterPlace(UserVO uservo){
 		return sqlSession.selectList("three.people.mapper.adminMapper.enterPlace", uservo);
 	}
@@ -94,7 +94,7 @@ public class AdminDAO {
 // 07.25 김영민: 장소 eventyn N으로 설정
 	public int placeEventDone(EventVO eventvo) {
 		return sqlSession.update("three.people.mapper.adminMapper.placeEventDone", eventvo);
-	}	
+	}
 	// 08.09 김영민: 리뷰 신고글 불러오기, 리뷰 갯수 가져오기, 리뷰 삭제하기
 	public List<ReportVO> reportList(SearchVO searchVO){
 		return sqlSession.selectList("three.people.mapper.adminMapper.reportList", searchVO);
@@ -126,10 +126,13 @@ public class AdminDAO {
 	public List<PlaceVO> Option(SearchVO sv){
 		return sqlSession.selectList("three.people.mapper.adminMapper.Option", sv);
 	}
-	
+
 	public int totalOption() {
 		return sqlSession.selectOne("three.people.mapper.adminMapper.totalOption");
+
 	}
-	
-	 
+	public List<EventVO> checkEventStartDate(){
+		return sqlSession.selectList("three.people.mapper.adminMapper.checkEventStartDate");
+	}
+
 }

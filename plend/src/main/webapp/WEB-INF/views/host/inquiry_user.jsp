@@ -60,10 +60,10 @@
 							<c:if test="${list.size() > 0}">
 								<c:forEach var="q" items="${list}">
 									<tr >
-										<td>${q.qidx}</td>
+										<td>${q.rnum}</td>
 										<td>${q.category}</td>
 										<td>${q.placeName}</td>
-										<td style="text-align: left;">${q.title}</td>
+										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/place/view.do?pidx=${q.pidx}#QnA">${q.title}</a></td>
 										<td>${q.date}</td>
 									</tr>
 								</c:forEach>

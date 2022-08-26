@@ -6,7 +6,6 @@
 <mapper namespace="three.people.mapper.placeMapper">
 	
 	<select id="selectPlaceAll" resultType="PlaceVO" parameterType="HashMap">
-		
 		SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
           FROM (SELECT @ROWNUM := 0 )rnum, (	
 	    SELECT
@@ -35,8 +34,8 @@
 			FROM place a , (SELECT @rownum:=0) rnum
 		   WHERE delYN ='N'
 		   	 AND uidx = #{placeVO.uidx}
-		ORDER BY pidx DESC) sub
-       ORDER BY rnum ASC
+		ORDER BY pidx ASC) sub
+       ORDER BY rnum DESC
         <if test="start != null">
         	LIMIT #{start}, #{cntPerPage}
 		</if>  
@@ -81,7 +80,7 @@
 		<selectKey keyProperty="originQidx" resultType="int" order="BEFORE">
 			<if test="originQidx == 0">
 				<![CDATA[
-				SELECT IF(MAX(qidx)+1 = null, MAX(qidx)+1, 1) as result
+				SELECT IF(MAX(qidx)+1 = null, 1,MAX(qidx)+1) as result
 				  FROM qna
 				]]>
 			</if>

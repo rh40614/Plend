@@ -40,8 +40,9 @@
 	<!-- 수정하기 -->
 	<script>
 		function inquiryEdit_dev(obj){
+			
 			$.ajax({
-				url:"inquiryEdit_dev.do?iqidx=" + obj,
+				url:"inquiryEdit_dev.do?iqidx=" + $(obj).val(),
 				type: "GET", 
 				success: function(edit){
 					console.log($(obj).val());
@@ -86,9 +87,9 @@
 				
 				<div class=".table-responsive container d-flex flex-column" style="margin: 50px 0px 0px 100px; ">
 					<div class="d-flex flex-column" style ="height: 300px;">
-					<table class="table table-hover text-center clearfix table-striped"  >
+					<table class="table table-hover text-center clearfix "  >
 						<thead>
-							<tr>
+							<tr class="table-dark">
 								<td class="col-md-1">번호</td>
 								<td class="col-md-2">유형</td>
 								<td class="col-md-5">제목</td>

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import three.people.service.AdminService;
 import three.people.service.BookService;
 import three.people.service.ReviewService;
+import three.people.service.SearchService;
 import three.people.service.HostService;
 import three.people.vo.BlockVO;
 import three.people.vo.BookVO;
@@ -37,7 +38,8 @@ public class AjaxController {
 	HostService hostService;
 	@Autowired
 	BookService bookService;
-
+	@Autowired
+	SearchService searchService;
 	
 	// 리뷰 블라인드처리, 신고내역 버튼 회색처리
 	@ResponseBody
@@ -50,10 +52,7 @@ public class AjaxController {
 	// 업체가 등록한 블랙리스트 불러오기
 	@RequestMapping(value="/callEnterBlockList.do", method=RequestMethod.GET)
 	public String callEnterBlockList(BlockVO blockVO, SearchVO searchVO, Model model) {
-		if(searchVO.getNowPage() == 0) {
-			searchVO.setNowPage(1);
-		}
-		searchVO.setCntPerPage(5);
+		searchVO = searchService.setPageCntPerPage(searchVO, 5);
 		searchVO.calPaging(adminService.countBlockUser(blockVO));
 		
 		HashMap<String,Object> hashMap = new HashMap<String,Object>();

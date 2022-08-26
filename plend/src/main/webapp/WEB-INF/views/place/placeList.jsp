@@ -53,11 +53,11 @@
 			<!-- 날짜 -->
 			<!-- <input class="selector" placeholder="날짜" style="width:100px; text-align: center;" > -->
 			<!-- 인원 -->
-			<div class="filter_btn"  onclick="filter()">
+			<div class="filter_btn"  onclick="filter()" style="cursor: pointer;">
 				<div>인원</div>
 			</div>
 			<!-- 인원: 상위 div안에 넣으면 작동 x, absolute로 설정-->
-			<div class="filter_human" >
+			<div class="filter_human" style="cursor: pointer;">
 				<div class="filter_human_inside">
 					<div class="filter_human_inside_text">총 인원수</div>
 					<div class="filter_human_inside_number">
@@ -69,8 +69,8 @@
 				</div>
 			</div>
 			<!-- 지역 -->
-			 <select name="address" style="border-radius: 4px; border: solid 1px grey;" id= "address" onchange="setRegion()">
-				<option value="">지역</option>
+			 <select name="address" style="border-radius: 4px; border: solid 1px grey; cursor: pointer;" id= "address" onchange="setRegion()" >
+				<option value="" >지역</option>
 				<option value="서울">서울</option>
 				<option value="경기">경기</option>
 				<option value="세종">세종</option>
@@ -157,20 +157,20 @@
 		<c:if test="${list.size() > 0 }">
 			<c:forEach var ="c" items="${list}" varStatus="status"> 
 			
-			<div class="card border-0 mb-5" style="width: 22rem; height: 25rem; margin-right: 40px;">
+			<div class="card border-0 mb-5" style="width: 22rem; height: 25rem; margin: 20px;">
   				<c:choose>
   					<c:when test="${c.placeImg == null}">
   						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
-  							<img src="<%=request.getContextPath()%>/imageView.do?originFileName=매실1.PNG" class="card-img-top" alt="등록된 사진이 없습니다." style="height: 13rem;">
+  							<img src="<%=request.getContextPath()%>/imageView.do?realFileName=매실1.PNG" class="card-img-top" alt="등록된 사진이 없습니다." style="height: 13rem;">
   						</a>
   					</c:when>
   					<c:when test="${c.placeImg != null}">
   						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">
-  							<img src="<%=request.getContextPath()%>/imageView.do?originFileName=${c.placeImg}" class="card-img-top" alt="사진 로딩 오류" style="height: 13rem;">
+  							<img src="<%=request.getContextPath()%>/imageView.do?realFileName=${c.placeImg}" class="card-img-top" alt="사진 로딩 오류" style="height: 13rem;">
   						</a>
   					</c:when>
   				</c:choose>
-	 			<div class="card-body" >
+	 			<div class="card-body">
 	 				<h5 class="card-title title2-1" class=""><a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">${c.placeName}</a></h5>
 	 				<p class="card-text">${c.address}</p>
 	 				<span><fmt:formatNumber value="${c.price}" pattern="#,###"/></span><span>원/시간</span>
@@ -280,7 +280,10 @@
 		var region = $("#address").val();
 		console.log(region);
 		$("#region_value").html(region).css("color","#678eaa");
-		 
+		 if(region == ''){
+			$("#region_value").css("display","none");
+			$("#address").val('');
+		 }
 	 }
 	 
 	 function region_reset(){
