@@ -20,6 +20,7 @@
 			,email
 			,addr
 			,birth
+			,user_type
 		FROM user_plend
 	   WHERE uidx = #{uidx}
 	</select>

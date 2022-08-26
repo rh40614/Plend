@@ -41,10 +41,10 @@
 	 		<ul id = "naviBar">
 	     	<!-- 나중에 해당링크 들어간 곳 글씨 진하게하는 css 추가하기 -->
 	 		 <li><a href="myInfo.do?uidx=${login.uidx}" id = "select">내 정보</a></li>
-	 		 <li><a href="#" id = "select">쿠폰 등록</a></li>
-	  		 <li><a href="bookStatus.do?uidx=${login.uidx}" id = "select"><strong>예약 현황</strong></a></li>
+	 		 <li><a href="#" onclick = "alert('서비스 준비중 입니다.');" id = "select">쿠폰 등록</a></li>
+	  		 <li><a href="bookStatus.do?uidx=${login.uidx}" id = "select">예약 현황</a></li>
 	 		 <li><a href="heartList.do?uidx=${login.uidx}" id = "select">찜 목록</a></li>
-	 		 <li><a href="myReviewList.do?uidx=${login.uidx}" id = "select">마이 리뷰</a></li>
+	 		 <li><a href="myReviewList.do?uidx=${login.uidx}" id = "select"><strong>마이 리뷰</strong></a></li>
 	 		 <li><a href="withdraw.do?uidx=${login.uidx}" id = "select">회원 탈퇴</a></li>
 	 		 <br>
 		    </ul>

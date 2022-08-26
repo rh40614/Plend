@@ -14,6 +14,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	<link href="<%=request.getContextPath()%>/resources/css/global.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/resources/css/heartList.css" rel="stylesheet">
 	
 	<script type="text/javascript">
 		$(function(){
@@ -22,102 +23,6 @@
 		})
 	</script>
 	
-	<style>
-	#naviBar {
-			list-style-type: none;
-			overflow: auto;
-			}
-		
-		#select {
-			display: block;
-			color: black;
-			padding: 8px 16px;
-			text-decoration: none;
-			position : relative;
-			margin-top : 20px;
-			text-align:center;
-			z-index:1;
-			}
-		#select:before{
-			content: '';
-			position: absolute; /*부모 요소에는 position: relative를 주어야 함*/
-			background-color: #FF007F;
-			height: 50px;
-			width: 0; /*초기에 보이지 않도록*/
-			bottom: -5px; /*a태그 아래에 위치*/
-			transition: 0.7s; /*애니메이션 동작 실행 시간 정의*/
-			margin-left:29px;
-			left:0;
-			z-index : -1;
-			}
-			
-		#select:hover:before{
-			width: 83%;
-			}
-		#select:hover{
-			color:white;	
-			}
-		
-	#infoBox{
-			margin : 10% 0 10% 10%;
-			float : right;
-			width : 70%;
-			height: 70%;
-	
-		}
-		table {
-			width : 400px;
-			margin-left:auto;
-			margin-right:auto;
-		
-		}
-		table,tr,td {
-			height : 40px;
-			text-align: center;
-		}
-		
-		
-	#MyPageBox{
-			text-align:center;
-			color:white;
-			height:15%;
-			background:#2F506D;
-		}
-		#regBtn {
-			margin-right: 13px;
-			float:right;
-			border-radius:15px;
-			border : 1px solid #2F506D;
-			background : #2F506D;
-			color : white;
-			width : 90px;
-			height : 30px;
-		}
-		#regBtn:hover{
-			border : 0px;
-			background-color:#3FC1C9;
-		}
-		#infoText {
-			border : 0;
-			background : #D8D8D8;
-			width : 250px;
-		}
-		
-		section{
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-    	justify-content: flex-start;
-    	flex-wrap: wrap;
-		} 
-	
-		.bolt{
-		position: absolute;
-		z-index:5;
-		margin: 10px;
-		
-		}
-	</style>
 </head>
 
 <body>
@@ -135,7 +40,7 @@
  		<ul id = "naviBar">
      	<!-- 나중에 해당링크 들어간 곳 글씨 진하게하는 css 추가하기 -->
  		 <li><a href="myInfo.do?uidx=${login.uidx}" id = "select">내 정보</a></li>
- 		 <li><a href="#" id = "select">쿠폰 등록</a></li>
+ 		 <li><a href="#" onclick = "alert('서비스 준비중 입니다.');" id = "select">쿠폰 등록</a></li>
   		 <li><a href="bookStatus.do?uidx=${login.uidx}" id = "select">예약 현황</a></li>
  		 <li><a href="heartList.do?uidx=${login.uidx}" id = "select"><strong>찜 목록</strong></a></li>
  		 <li><a href="myReviewList.do?uidx=${login.uidx}" id = "select">마이 리뷰</a></li>

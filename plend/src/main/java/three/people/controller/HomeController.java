@@ -328,7 +328,7 @@ public class HomeController {
 	@ResponseBody
 	public void emailCheck(String email) {
 		System.out.println("email: "+email);
-		String result = mailSend.joinEmail(email);
+		String result = mailSend.TempPwdEmail(email);
 		System.out.println(result);
 	}
 
