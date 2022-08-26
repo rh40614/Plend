@@ -33,6 +33,7 @@
      	<ul class="H_ul" style="margin-top: 40px;">
      	<!-- 나중에 해당링크 들어간 곳 글씨 진하게하는 css 추가하기 -->
  		 <!-- <li><a href="#">매출 관리</a></li> -->
+ 		 <li><a href="<%=request.getContextPath()%>/host/income.do">매출&#38;정산</a></li>
  		 <li><a href="<%=request.getContextPath()%>/host/managePlace.do">장소 관리</a></li>
   		 <li><a href="<%=request.getContextPath()%>/host/inquiry_user.do">이용자 문의</a></li>
  		 <li><a href="<%=request.getContextPath()%>/host/eventList.do?startEnd=start">이벤트</a></li>

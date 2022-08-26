@@ -42,65 +42,19 @@
 <body>
 <div id="wrap">
 	<header id="header" style ="background: white; "></header>
-	<main style="margin: 5% 19% 10% 19%; flex: 1; min-height: 450px;">
-	
-	<%-- <!-- 검색 버튼 그룹 -->
-	<form id="frm">
-		<div  style="margin-top: 25; float: right; width: 300px; justify-content: space-around; " class="d-flex">
-			<input type="hidden" name="category" value="${category.category}">
-			<!-- 날짜 -->
-			<input class="selector" placeholder="날짜" style="width:100px; text-align: center;" >
-			<!-- 인원 -->
-			<div class="filter_btn"  onclick="filter()">
-				<div>인원</div>
-			</div>
-			<!-- 인원: 상위 div안에 넣으면 작동 x, absolute로 설정-->
-			<div class="filter_human" >
-				<div class="filter_human_inside">
-					<div class="filter_human_inside_text">총 인원수</div>
-					<div class="filter_human_inside_number">
-						<input type="text" name ="cntPeople" class="filter_human_inside_number" placeholder="1" style="text-align: center;" value="0"  id="cntPeople">
-					</div>
-					<div>
-						<button type="button" class="btnDefault" onclick="filter_human_set()">완료</button>
-					</div>
-				</div>
-			</div>
-			<!-- 지역 -->
-			 <select name="address">
-				<option value="">지역</option>
-				<option value="서울">서울</option>
-				<option value="경기">경기</option>
-				<option value="인천">인천</option>
-				<option value="부산">부산</option> 
-				<option value="광주">광주</option>
-				<option value="제주">제주</option>
-				<option value="대전">대전</option>
-				<option value="울산">울산</option>
-				<option value="대구">대구</option>
-				<option value="충북">충북</option>
-				<option value="충남">충남</option>
-				<option value="강원">강원</option>
-				<option value="전북">전북</option>
-				<option value="전남">전남</option>
-				<option value="경북">경북</option>
-				<option value="경남">경남</option>
-				
-			</select>
-			
-			<button type="button" class="btn btn-secondary me-2" onclick="search()">검색</button>
-		</div>
-	</form> --%>
+	<main style="margin: 5% 19% 10% 19%; flex: 1; min-height: 450px;" class="mainArrangement">
 	
 	<!-- 카테고리 제목 -->
-	<div class="mb-5">
-    	<span class="title2" style="font-size: 18px; font-weight: 100;">'${host.nickName}' 님의 공간이 마음에 드셨나요?<br>
-    	'${host.nickName}' 님이 플렌드와 함께 공유하고 있는 공간들입니다. </span>
+	<div class="mb-5 ms-3" style="border-bottom: 3px solid #6c6c6c;">
+    	<span class="title2" style="font-size: 18px; font-weight: 100;">
+    	'${host.nickName}' 님의 공간이 마음에 드셨나요?<br>
+    	'${host.nickName}' 님이 플렌드와 함께 공유하고 있는 공간들입니다. 
+    	</span>
   	</div>
   	
   	
   <div id="search_result">
-	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-start align-items-start ">
+	<section class=" d-flex, flex-row  flex-start flex-wrap justify-content-start align-items-start sectionArrangement">
 		<c:if test="${list.size() == 0}">
 			<P class="m-auto" style="min-height:300px; display: inline-block; margin: 20px 0px 20px 0px; vertical-align: top; font-size: 20px; color: grey; padding-top: 200px;">
 				등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. 
@@ -110,7 +64,7 @@
 		<c:if test="${list.size() > 0 }">
 			<c:forEach var ="c" items="${list}" varStatus="status"> 
 			
-			<div class="card border-0 mb-5" style="width: 22rem; height: 25rem; margin-right: 30px; ">
+			<div class="card border-0 mb-5" style="width: 22rem; height: 25rem; margin: 20px;">
   				<c:choose>
   					<c:when test="${c.placeImg == null}">
   						<a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">

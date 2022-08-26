@@ -315,7 +315,7 @@
 		}else{
 		
 		
-			if(confirm("등록하시겠습니까?")== true){
+			if(confirm("저장하시겠습니까?")== true){
 				$("#frm").action ="host/insertPlace.do";
 				$("#frm").method ="post";
 				$("#frm").submit();
