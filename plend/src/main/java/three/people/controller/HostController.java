@@ -39,6 +39,7 @@ import three.people.vo.BlockVO;
 import three.people.vo.BookVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
+import three.people.vo.IncomeVO;
 import three.people.vo.NoticeVO;
 import three.people.vo.PagingVO;
 import three.people.vo.PlaceVO;
@@ -692,7 +693,10 @@ public class HostController {
 	
 	
 	@RequestMapping(value="/income.do", method= RequestMethod.GET)
-	public String income() {
+	public String income(HttpSession session, Model model) {
+		UserVO login = (UserVO) session.getAttribute("login");
+		IncomeVO incomeVO = bookService.selectIncomeForOne(login);
+		model.addAttribute("incomeVO", incomeVO);
 		return "host/income";
 	}
 	

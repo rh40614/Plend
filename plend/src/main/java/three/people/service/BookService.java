@@ -6,6 +6,7 @@ import java.util.List;
 import three.people.vo.BookVO;
 import three.people.vo.IncomeVO;
 import three.people.vo.PlaceVO;
+import three.people.vo.UserVO;
 
 public interface BookService {
 
@@ -16,5 +17,7 @@ public interface BookService {
 	int bookCancel(BookVO bookVO);
 	List<BookVO> placeBookOne(PlaceVO placeVO);
 	List<BookVO> disableUseTime(BookVO bookVO);
-	/* int insertIncome(IncomeVO incomeVO); */
+	int insertIncome(IncomeVO incomeVO);
+	int settleUpWithHost();
+	IncomeVO selectIncomeForOne(UserVO userVO);
 }

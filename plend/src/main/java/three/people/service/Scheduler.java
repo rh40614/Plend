@@ -22,4 +22,10 @@ public class Scheduler {
 	public void eventAutoUpdate() {
 		adminService.checkEventStartDate();
 	}
+	
+	@Scheduled(cron = "0 0 0 14 * *")
+	public void settleUpWithHost() {
+		bookService.settleUpWithHost();
+	}
+	
 }
