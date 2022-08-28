@@ -22,13 +22,13 @@
 	      <a class="navbar-brand" style="margin-right:auto;" href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/image/logoTrial2.png" alt="logo not found" style="width: 150px; height:45px;" id="logo"></a>
 	   	  
 	   	  <div id="searchBar" style="margin-right:auto; border-radius: 50px; height: 47px; width: 500px; background-color: #eceeee;">
-			<form class="d-flex" id="frm">
+			<form class="d-flex" id="frm" style="flex-direction: row; width:500px;">
 	          	<input class="form-control me-2 searchBtn" name="searchValue" type="search" placeholder="원하는 장소를 검색해보세요!" aria-label="Search" onKeyPress="if( event.keyCode==13 ){searchPlace();}">
 	          	<input type="hidden" name="originSearchValue">
 	          	<button class="btn " type="button" style="border:none; align-self: center;" onclick="searchPlace()"><i class="fa-solid fa-magnifying-glass" style="padding-right: 5;padding-top: 6;color: #7f8b93;"></i></button>
 	        </form> 			
 	      </div>
-	      <div class="d-flex" id="CnP">
+	      <div class="d-flex" id="CnP" >
 			<div id="categoryList" class="fw-bold" style="color: #838a90; cursor: pointer;">카테고리 &nbsp;</div>
 			<div class="fw-bold" style="color: #838a90;"> | </div>
 			<div class="fw-bold"><a href="<%=request.getContextPath()%>/host.do" style="color: #838a90;" target="_blank">&nbsp; 공간 등록 </a></div>
