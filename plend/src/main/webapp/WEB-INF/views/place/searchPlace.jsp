@@ -23,18 +23,11 @@
 <script type="text/javascript">
 	$(function(){
 		$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp", function(){
-			$("input[name=searchValue]").val('${searchValue}');
+			<!-- 검색어 유지 -->
+			$("input[name=searchValue]").val('${originSearchValue}');
 		});
 		$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
-		searchValue();
 	})
-</script>
-<!-- 검색어 유지 -->
-<script>
-	function searchValue(){
-		$("input[name=searchValue]").val('${searchValue}');
-	}
-
 </script>
 
 <!-- 찜 -->
@@ -63,12 +56,12 @@ function check(){
 	}
 	
 }
-
-
-
-
-    		
-
+</script>
+<!-- 원래 검색 단어로 검색하게하기 -->
+<script>
+  	function searchOrigin(){
+  		location.href="<%=request.getContextPath()%>/place/searchPlace.do?searchValue=${originSearchValue}&originSearchValue=${searchValue}";
+  	}
 </script>
 </head>
 <body>
@@ -77,8 +70,15 @@ function check(){
 	<main style="margin: 5% 19% 10% 19%; flex: 1;" class="mainArrangement">
 		<!-- 카테고리 제목 -->
 		<div>
-	    	<span class="navbar-brand title1">|  '${searchValue}' 관련 장소</span>
+	    	<p class="navbar-brand title1">|  '${searchValue}' 관련 장소
+	    	<c:if test="${searchValue ne originSearchValue}">
+	    		<span style="display:inline-block; font-size:16px; font-weight: 400; ">&nbsp;&nbsp; ${originSearchValue}(으)로 검색하셨나요? 
+    			<a onclick="searchOrigin()">${originSearchValue}에 대한 검색결과 보기</a></span>
+    		</c:if>
+    		</p>
 	  	</div>
+	  	
+	  	
 		<div id="search_result">
 			<section class=" d-flex, flex-row flex-start flex-wrap justify-content-start align-items-start sectionArrangement">
 				<c:if test="${list.size() == 0}">

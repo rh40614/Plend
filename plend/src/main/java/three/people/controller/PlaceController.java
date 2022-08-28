@@ -14,7 +14,7 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import three.people.service.BookService;
@@ -308,8 +308,9 @@ public final class PlaceController {
 	}
 
 	@RequestMapping(value="/searchPlace.do", method=RequestMethod.GET)
-	public String searchPlace(SearchVO searchVO, Model model, HttpServletRequest request, HttpSession session) {
+	public String searchPlace(SearchVO searchVO, Model model, HttpServletRequest request, HttpSession session, @RequestParam("originSearchValue") String originSearchValue) {
 		model.addAttribute("searchValue", searchVO.getSearchValue());
+		model.addAttribute("originSearchValue",originSearchValue);
 		
 		HashMap<String, Object> search = new HashMap<String, Object>();
 		search.put("searchValue", searchVO.getSearchValue());
@@ -359,7 +360,7 @@ public final class PlaceController {
 				place.setCntHeart(placeService.countHeart(place));
 			}
 			model.addAttribute("list", list);
-			model.addAttribute("searchValue",searchVO.getSearchValue());
+			
 
 		}
 		
