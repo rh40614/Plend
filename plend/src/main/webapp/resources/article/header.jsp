@@ -24,6 +24,7 @@
 	   	  <div id="searchBar" style="margin-right:auto; border-radius: 50px; height: 47px; width: 500px; background-color: #eceeee;">
 			<form class="d-flex" id="frm">
 	          	<input class="form-control me-2 searchBtn" name="searchValue" type="search" placeholder="원하는 장소를 검색해보세요!" aria-label="Search" onKeyPress="if( event.keyCode==13 ){searchPlace();}">
+	          	<input type="hidden" name="originSearchValue">
 	          	<button class="btn " type="button" style="border:none; align-self: center;" onclick="searchPlace()"><i class="fa-solid fa-magnifying-glass" style="padding-right: 5;padding-top: 6;color: #7f8b93;"></i></button>
 	        </form> 			
 	      </div>
@@ -128,10 +129,11 @@ $("#categoryList").click(function(){
 	}
 );
 </script>
+<!-- 검색 -->
 <script type="text/javascript">
 	var en_h = "rRseEfaqQtTdwWczxvg";
 	var reg_h = "[" + en_h + "]";
-	
+
 	var en_b = {
 	    k:0,o:1,i:2,O:3,j:4,p:5,u:6,P:7,h:8,hk:9,ho:10,hl:11,y:12,n:13,nj:14,np:15,nl:16,b:17,m:18,ml:19,l:20
 	}
@@ -144,38 +146,41 @@ $("#categoryList").click(function(){
 	
 	var reg_exp = new RegExp("("+reg_h+")("+reg_b+")((?:"+reg_f+")(?=(?:"+reg_h+")(?:"+reg_b+"))|(?:"+reg_f+"))","g");
 	
-	function toKorean(str) {
+	
+ 	function searchPlace(){
+ 		var originSearchValue = $("input[name=searchValue]").val();
+ 		
+ 		if(hasOnlyEnglish(originSearchValue)){
+ 			changeENGtoKOR(originSearchValue);
+	 		submitWithOriginSearchValue(originSearchValue);
+ 		}else{
+ 			setOriginSearchValue(originSearchValue);
+	 		submitWithOriginSearchValue(originSearchValue);
+ 		}
+ 	}
+ 	
+ 	function hasOnlyEnglish(originSearchValue){
+ 		const reg = /^[a-z|A-Z]+$/;
+ 		const result = reg.test(originSearchValue);
+ 		return result;
+ 	}
+ 	function changeENGtoKOR(originSearchValue){
+ 		var searchValue = toKorean(originSearchValue);
+ 		$("input[name=searchValue]").val(searchValue);
+ 	}
+ 	function toKorean(str) {
 		var result = str.replace(reg_exp,replace);
-		console.log(result);
-		
 	    return result;
 	}
-	
 	function replace(str,h,b,f) {
 	    return String.fromCharCode(en_h.indexOf(h)*21*28 + en_b[b]*28 + en_f[f] + 44032);
 	}
-
-</script>
-<!-- 검색 -->
- <script>
- 	function searchPlace(){
- 		var searchValue = $("input[name=searchValue]").val();
- 		
-		//분기 만들어서 테스트 하기()
- 		<%-- $.(function(){
- 			url:"<%=request.getContextPath()%>/place/searchPlace.do",
- 			data: searchValue,
- 			success:function(data){
- 				
- 			}
- 			
- 		}) --%>
- 		
- 		var result = toKorean(searchValue);
- 		console.log(result);
- 		
- 		$("input[name=searchValue]").val(result);
- 		$("#frm").attr("action","<%=request.getContextPath()%>/place/searchPlace.do").submit();
+ 	function submitWithOriginSearchValue(originSearchValue){
+		$("input[name=originSearchValue]").val(originSearchValue);
+		$("#frm").attr("action","<%=request.getContextPath()%>/place/searchPlace.do").submit();
+ 	}
+ 	function setOriginSearchValue(originSearchValue){
+ 		$("input[name=searchValue]").val(originSearchValue);
  	}
  </script>
 
