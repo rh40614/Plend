@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +36,7 @@ import three.people.service.ImageServiceImpl;
 import three.people.service.MainService;
 import three.people.service.PlaceService;
 import three.people.service.ReviewService;
+import three.people.service.SearchService;
 import three.people.vo.BlockVO;
 import three.people.vo.BookVO;
 import three.people.vo.EventVO;
@@ -67,8 +69,9 @@ public class HostController {
 	@Autowired
 	ReviewService reviewService;
 	@Autowired
-	ImageServiceImpl imageService; 
-	
+	ImageServiceImpl imageService;
+	@Autowired
+	SearchService searchService;
 	
 	@RequestMapping(value = "/insertPlace.do", method = RequestMethod.GET )
 	public String insertPlace() {  
@@ -673,11 +676,6 @@ public class HostController {
 	//장소 상세보기
 	@RequestMapping(value="/view.do")
 	public String placeView(PlaceVO placeVO, Model model) {
-		/*
-		 * PlaceVO placeOne = hostService.placeView(placeVO);
-		 * model.addAttribute("placeOne",placeOne); System.out.println("효"+placeOne);
-		 */
-		
 		//08.18 김연희: 평균 별점 추가
 		PlaceVO p = placeService.placeOne(placeVO);
 		p.setCntHeart(placeService.countHeart(placeVO));
@@ -692,8 +690,20 @@ public class HostController {
 	
 	
 	@RequestMapping(value="/income.do", method= RequestMethod.GET)
-	public String income(HttpSession session, Model model) {
+	public String income(SearchVO searchVO, HttpSession session, Model model) {
+		searchService.setPageCntPerPage(searchVO, 10);
 		UserVO login = (UserVO) session.getAttribute("login");
+		int total = bookService.cntBook(login.getUidx());
+		searchVO.calPaging(total);
+		model.addAttribute("pagination", searchVO);
+		
+		HashMap<String,Integer> hashMap = new HashMap<String,Integer>();
+		hashMap.put("uidx", login.getUidx());
+		hashMap.put("cntPerPage", searchVO.getCntPerPage());
+		hashMap.put("start", searchVO.getStart());
+		List<BookVO> bookList = bookService.selectBookByHost(hashMap);
+		model.addAttribute("bookList", bookList);	
+		
 		IncomeVO incomeVO = bookService.selectIncomeForOne(login);
 		model.addAttribute("incomeVO", incomeVO);
 		return "host/income";
