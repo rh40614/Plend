@@ -7,9 +7,9 @@
 		<thead class="table-dark">
 			<tr style="text-al">
 				<td class="col-md-1">번호</td>
+				<td class="col-md-1">카테고리</td>
 				<td class="col-md-2">플레이스명</td>
 				<td class="col-md-3">태그</td>
-				<td class="col-md-4">소개</td>
 				<td class="col-md-1">승인여부</td>
 				<td class="col-md-1">수정</td>
 			</tr>
@@ -25,9 +25,10 @@
 				<c:forEach var="pv" items="${list_p}" >
 					
 					<tr>
-						<td>${pv.rnum}</td>
-						<td>${pv.placeName}</td>
-						<td id="tag${pv.pidx}" style="text-align: left;"></td>
+						<td class="col-md-1">${pv.rnum}</td>
+						<td class="col-md-1">${pv.category}</td>
+						<td class="col-md-2">${pv.placeName}</td>
+						<td class="col-md-3" id="tag${pv.pidx}" style="text-align: left;"></td>
 						<script>
 							var tags = JSON.parse('${pv.tag}');
 							var tag = "";
@@ -36,15 +37,15 @@
 							);
 							$("#tag${pv.pidx}").html(tag);
 						</script>
-						<td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/view.do?pidx=${pv.pidx}">${pv.placeDetail}</a></td>
+						<%-- <td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/view.do?pidx=${pv.pidx}">${pv.placeDetail}</a></td> --%>
 						<c:choose>
 							<c:when test="${pv.approvalYN eq '승인거절'}">
-								<td>${pv.approvalYN}</td>
-								<td><button class="btnDefault" type="button" onclick="if(confirm('삭제하시겠습니까?')){location.href='deletePlace.do?pidx=${pv.pidx}'}">삭제</button></td>
+								<td class="col-md-1">${pv.approvalYN}</td>
+								<td class="col-md-1"><button class="btnDefault" type="button" onclick="if(confirm('삭제하시겠습니까?')){location.href='deletePlace.do?pidx=${pv.pidx}'}">삭제</button></td>
 							</c:when>
 							<c:otherwise>
-								<td>${pv.approvalYN}</td>
-								<td><button class="btnDefault" type="button" onclick="location.href='placeModfy.do?pidx=${pv.pidx}'">수정</button></td>
+								<td class="col-md-1">${pv.approvalYN}</td>
+								<td class="col-md-1" class="col-md-1"><button class="btnDefault" type="button" onclick="location.href='placeModfy.do?pidx=${pv.pidx}'">수정</button></td>
 							</c:otherwise>
 						</c:choose>
 					</tr>

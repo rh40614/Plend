@@ -255,7 +255,7 @@
 		commaRemove();
 		concatAddr();
 		facilities();
-
+		
 		if($("#cate").val() == ""){
 			alert("장소 카테고리를 선택해 주세요.");
 			$("#cate").focus();
@@ -268,10 +268,14 @@
 			alert("공간에 대한 사진을 등록해주세요.");
 			$("#placeImgs").focus();
 
-		}else if($("#placeDetail").val() == ""){
-			alert("장소에 대한 설명을 입력해주세요.");
+		}else if($('#summernote').summernote('isEmpty')) {
+ 	 		alert('장소 상세를 입력해주세요.');
+			$('#summernote').summernote('focus');
+			
+		}else if($.summernote.range > 1000){
+			alert("장소설명은 1000자 이내로 작성해주세요.");
 			$("#placeDetail").focus();
-
+			
 		}else if($("#cntPeople").val() == ""){
 			alert("최대 수용가능 인원을 입력해주세요");
 			$("#cntPeople").focus();
@@ -397,7 +401,6 @@
 	}
 	
 		
-	
 	
 	
 	
