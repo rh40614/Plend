@@ -120,11 +120,8 @@
 		   AND (usetime >= #{useTime} AND usetime < DATE_ADD(#{useTime}, INTERVAL 24 HOUR))
 		   ]]>
 	</select>
-	<!--
-	<update id="bookModify" parameterType="BookVO"></update>
-	 -->
 	<!-- 정산 테이블에 데이터 추가 -->
-<!-- 	<insert id="insertIncome" parameterType="IncomeVO">
+	<insert id="insertIncome" parameterType="IncomeVO">
 		INSERT INTO income(
 			uidx, 
 			totalincome, 
@@ -135,6 +132,20 @@
 			#{totalPeople}) 
 		ON DUPLICATE KEY
 		UPDATE totalincome = #{totalIncome} + totalIncome, totalpeople = #{totalPeople} + totalpeople
-	</insert> -->
-
+	</insert>
+	<!-- 15일마다 정산 처리 -->
+	<update id="settleUpWithHost">
+		UPDATE income
+		SET totalincome = 0,
+			settledate = NOW()
+	</update>
+	<!-- 정산정보 가져오기 -->
+	<select id="selectIncomeForOne" parameterType="UserVO" resultType="IncomeVO">
+		SELECT uidx,
+			   IFNULL(MAX(totalincome),0) AS totalincome,
+			   settledate,
+			   IFNULL(MAX(totalpeople),0) AS totalpeople
+		  FROM income
+		 WHERE uidx = #{uidx}
+	</select>
 </mapper>

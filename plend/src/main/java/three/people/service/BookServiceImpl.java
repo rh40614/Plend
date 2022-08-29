@@ -10,6 +10,7 @@ import three.people.dao.BookDAO;
 import three.people.vo.BookVO;
 import three.people.vo.IncomeVO;
 import three.people.vo.PlaceVO;
+import three.people.vo.UserVO;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -40,13 +41,13 @@ public class BookServiceImpl implements BookService {
 			incomeVO.setTotalIncome(book.getTotalPrice());
 			incomeVO.setTotalPeople(book.getCntPeople());
 			incomeVO.setUidx(book.getUidx());
-			/* bookDAO.insertIncome(incomeVO); */
+			insertIncome(incomeVO);
 		}
 	}
-//	@Override
-//	public int insertIncome(IncomeVO incomeVO) {
-//		return bookDAO.insertIncome(incomeVO);
-//	}
+	@Override
+	public int insertIncome(IncomeVO incomeVO) {
+		return bookDAO.insertIncome(incomeVO);
+	}
 	public int successBookUpdateY(List<BookVO> bookList) {
 		int result = 0;
 		for(BookVO book : bookList) {
@@ -78,6 +79,16 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<BookVO> disableUseTime(BookVO bookVO) {
 		return bookDAO.disableUseTime(bookVO);
+	}
+
+	@Override
+	public int settleUpWithHost() {
+		return bookDAO.settleUpWithHost();
+	}
+
+	@Override
+	public IncomeVO selectIncomeForOne(UserVO userVO) {
+		return bookDAO.selectIncomeForOne(userVO);
 	}
 
 

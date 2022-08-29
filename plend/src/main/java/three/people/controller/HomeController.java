@@ -47,10 +47,6 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String mains(SearchVO searchVO, Model model) {
-		scheduler.autoUpdate();
-		scheduler.eventAutoUpdate();
-		
-		
 		return "home";
 	}
 

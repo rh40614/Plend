@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import three.people.vo.BookVO;
 import three.people.vo.IncomeVO;
 import three.people.vo.PlaceVO;
+import three.people.vo.UserVO;
 
 @Repository
 public class BookDAO {
@@ -44,8 +45,14 @@ public class BookDAO {
 	public List<BookVO> disableUseTime(BookVO bookVO){
 		return sqlSession.selectList("three.people.mapper.bookMapper.disableUseTime", bookVO);
 	}
-	/*
-	 * public int insertIncome(IncomeVO incomeVO) { return
-	 * sqlSession.insert("three.people.mapper.bookMapper.insertIncome", incomeVO); }
-	 */
+	public int insertIncome(IncomeVO incomeVO) { 
+		return sqlSession.insert("three.people.mapper.bookMapper.insertIncome", incomeVO); 
+    }
+	public int settleUpWithHost() {
+		return sqlSession.update("three.people.mapper.bookMapper.settleUpWithHost");
+	}
+	public IncomeVO selectIncomeForOne(UserVO userVO) {
+		return sqlSession.selectOne("three.people.mapper.bookMapper.selectIncomeForOne", userVO);
+	}
+	 
 }
