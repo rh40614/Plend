@@ -132,7 +132,14 @@
 	<update id="deleteQnA" parameterType="QnaVO">
 		UPDATE qna
 	       SET delyn = 'Y'
-		 WHERE qidx = #{qidx}
+	      <choose>
+	      	<when test="depth eq 1">
+	      	 	WHERE qidx = #{qidx}
+	      	</when>
+	      	<otherwise>
+	      		WHERE originqidx = #{qidx}
+	      	</otherwise>
+	      </choose>
 	</update>
 	
 	<!-- 07.26 김영민: 이미지 데이터 가져오기 -->

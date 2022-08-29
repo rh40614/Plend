@@ -6,7 +6,9 @@
 
 <c:if test="${list2.size() == 0}">
 	<div class=" m-auto" style="height: 400px;">	
-		<P class="title2 m-auto">등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. </P>
+		<P class="title2 m-auto" style="min-height:300px; display: inline-block; margin: 20px 0px 20px 0px; vertical-align: top; font-size: 20px; color: grey; padding-top: 200px;">
+			등록된 장소가 없습니다. 더 많은 장소로 찾아오겠습니다. 
+		</P>
 	</div>
 </c:if>
 <c:if test="${list2.size() > 0 }">

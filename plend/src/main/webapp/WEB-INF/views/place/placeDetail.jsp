@@ -282,7 +282,7 @@
 							<c:forEach var="qna" items="${QnaList}" varStatus="status">
 								<!-- QnA 질문 표시 -->
 								<c:if test="${qna.depth eq 0}">
-									<tr class="table-secondary">
+									<tr class="table-secondary connect${qna.qidx}" >
 										<td class="text-center col-2">Q.</td>
 										<td>${qna.content}</td>
 										<td class="col-3 text-end justify-content-md-end">
@@ -291,7 +291,7 @@
 											</c:if>
 											<c:if test="${qna.uidx eq login.uidx}">
 												<a class="btn btn-primary btn-sm rounded-3" onclick="modifyToggle('Modify${status.index}')">수정</a>
-												<button class="btn btn-primary btn-sm rounded-3 me-2" onclick="deleteQna(this)">삭제</button>
+												<button class="btn btn-primary btn-sm rounded-3 me-2" onclick="deleteQna(${qna.qidx},${qna.depth})">삭제</button>
 											</c:if>
 										</td>								
 									</tr>
@@ -329,13 +329,13 @@
 								</c:if>
 								<!-- QnA 답변 표시 -->
 								<c:if test="${QnaList[status.index+1].depth eq 1}">
-									<tr>
+									<tr class="connect${qna.qidx}dp">
 										<td class="text-center col-2">A.</td>
 										<td>${QnaList[status.index+1].content}</td>
 										<td class="col-3 text-end justify-content-md-end">
-											<c:if test="${qna.uidx eq login.uidx}">
+											<c:if test="${placeOne.uidx eq login.uidx}">
 												<a class="btn btn-primary btn-sm rounded-3" onclick="modifyToggle('Modify${status.index+1}')">수정</a>
-												<a class="btn btn-primary btn-sm rounded-3 me-2" href="deleteQna.do?qidx=${QnaList[status.index+1].qidx}&pidx=${placeOne.pidx}">삭제</a>
+												<a class="btn btn-primary btn-sm rounded-3 me-2" onclick="deleteQna(${qna.qidx},${QnaList[status.index+1].depth})">삭제</a>
 											</c:if>
 										</td>
 									</tr>
@@ -778,20 +778,26 @@
 	});
 </script>
 <script>
-	function deleteQna(obj){
-		var deleteData = "qidx="+${qna.qidx}+"&pidx="+${placeOne.pidx};
+	function deleteQna(idx, depth){
+		var deleteData = "qidx="+idx+"&depth="+depth+"&pidx="+${placeOne.pidx};
 		console.log(deleteData);
+
 		if(confirm("삭제하시겠습니까?") == true){
-			
 			$.ajax({
 				url:"<%=request.getContextPath()%>/place/deleteQna.do",
 				data: deleteData,
 				success:function(){
-					$(obj).closest("tr").css("display","none");
+					/* $(".connect+${qna.qidx}").css("display","none"); */
+					if(depth == 0){
+						$(".connect"+idx).html("<td colspan='3'>삭제되었습니다.</td>");
+						$(".connect"+idx+"dp").html("<td colspan='3'>삭제되었습니다.</td>");
+					}else{
+						$(".connect"+idx+"dp").html("<td colspan='3'>삭제되었습니다.</td>");
+					}
 				},
 				error: function(){
 				}
-			})
+			});
 		}
 	}
 </script>

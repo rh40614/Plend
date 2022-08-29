@@ -146,8 +146,16 @@ $("#categoryList").click(function(){
 	
 	var reg_exp = new RegExp("("+reg_h+")("+reg_b+")((?:"+reg_f+")(?=(?:"+reg_h+")(?:"+reg_b+"))|(?:"+reg_f+"))","g");
 	
-	
- 	function searchPlace(){
+	function toKorean(str) {
+		var result = str.replace(reg_exp,replace);
+	    return result;
+	}
+	function replace(str,h,b,f) {
+	    return String.fromCharCode(en_h.indexOf(h)*21*28 + en_b[b]*28 + en_f[f] + 44032);
+	}
+	</script>
+	<script>
+	function searchPlace(){
  		var originSearchValue = $("input[name=searchValue]").val();
  		
  		if(hasOnlyEnglish(originSearchValue)){
@@ -168,13 +176,6 @@ $("#categoryList").click(function(){
  		var searchValue = toKorean(originSearchValue);
  		$("input[name=searchValue]").val(searchValue);
  	}
- 	function toKorean(str) {
-		var result = str.replace(reg_exp,replace);
-	    return result;
-	}
-	function replace(str,h,b,f) {
-	    return String.fromCharCode(en_h.indexOf(h)*21*28 + en_b[b]*28 + en_f[f] + 44032);
-	}
  	function submitWithOriginSearchValue(originSearchValue){
 		$("input[name=originSearchValue]").val(originSearchValue);
 		$("#frm").attr("action","<%=request.getContextPath()%>/place/searchPlace.do").submit();
