@@ -92,7 +92,7 @@ public final class PlaceController {
 					 }
 				}
 			}
-			System.out.println("afterimgs: "+hasImgs);
+			//System.out.println("afterimgs: "+hasImgs);
 			
 		model.addAttribute("pagination", searchVO);
 		model.addAttribute("reviewList", reviewService.selectPlaceReview(hashMap));

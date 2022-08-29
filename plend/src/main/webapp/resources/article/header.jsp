@@ -23,7 +23,7 @@
 	   	  
 	   	  <div id="searchBar" style="margin-right:auto; border-radius: 50px; height: 47px; width: 500px; background-color: #eceeee;">
 			<form class="d-flex" id="frm" style="flex-direction: row; width:500px;">
-	          	<input class="form-control me-2 searchBtn" name="searchValue" type="search" placeholder="원하는 장소를 검색해보세요!" aria-label="Search" onKeyPress="if( event.keyCode==13 ){searchPlace();}">
+	          	<input class="form-control me-2 searchBtn" name="searchValue" type="search" placeholder="원하는 장소를 검색해보세요!" aria-label="Search" onKeyPress="if( event.keyCode==13 ){searchPlace();}" >
 	          	<input type="hidden" name="originSearchValue">
 	          	<button class="btn " type="button" style="border:none; align-self: center;" onclick="searchPlace()"><i class="fa-solid fa-magnifying-glass" style="padding-right: 5;padding-top: 6;color: #7f8b93;"></i></button>
 	        </form> 			

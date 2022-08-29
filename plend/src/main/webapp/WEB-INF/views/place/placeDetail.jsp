@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<% request.setCharacterEncoding("utf-8"); %>
 
 <%@ page session="true" %>
 <html>
@@ -156,7 +157,7 @@
 						var tags = JSON.parse('${placeOne.tag}');
 						var tag = "";
 						tags.forEach(element => 
-							tag += "<a href='<%=request.getContextPath()%>/place/searchPlace.do?searchValue="+element.value+"'> #"+ element.value + "&nbsp;</a>" 
+							tag += "<a href='<%=request.getContextPath()%>/place/searchPlace.do?searchValue="+element.value+"'>#"+ element.value + "&nbsp;</a>" 
 						);
 						console.log(tag);
 						

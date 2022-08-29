@@ -338,10 +338,10 @@
 	
 	
 	.searchBtn{
-		margin-top:5px;
-		border: none;
-		background-color: #eceeee;
-		border-radius: 50px;
+		margin-top:5px!important;
+		border: none!important;
+		background-color: #eceeee!important;
+		border-radius: 50px!important;
 	}
 	
 			 
