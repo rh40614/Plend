@@ -23,11 +23,10 @@
 			<!--  -->
 			<c:if test="${list_p.size() > 0}">
 				<c:forEach var="pv" items="${list_p}" >
-					
 					<tr>
 						<td class="col-md-1">${pv.rnum}</td>
 						<td class="col-md-1">${pv.category}</td>
-						<td class="col-md-2">${pv.placeName}</td>
+						<td class="col-md-2"><a href="<%=request.getContextPath()%>/host/view.do?pidx=${pv.pidx}">${pv.placeName}</a></td>
 						<td class="col-md-3" id="tag${pv.pidx}" style="text-align: left;"></td>
 						<script>
 							var tags = JSON.parse('${pv.tag}');
@@ -49,7 +48,6 @@
 							</c:otherwise>
 						</c:choose>
 					</tr>
-					
 				</c:forEach>
 			</c:if>
 		</tbody>
