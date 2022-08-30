@@ -38,8 +38,8 @@
 	<header id="header"></header>
 	<main>
 		<section style="align-items: center; font-weight: 700; font-size: x-large;">
-			<p>이번달에 정산된 금액은 총 <fmt:formatNumber value="${incomeVO.totalIncome}" pattern="#,###"/> 원이며 </p>
-			<p>현재까지  '호스트닉네임'님의 장소를 총 '${incomeVO.totalPeople}'명이 이용하였습니다.</p>	
+			<p>이번달 매출 금액은 총 <fmt:formatNumber value="${incomeVO.totalIncome}" pattern="#,###"/> 원이며 </p>
+			<p>현재까지  '${login.nickName}'님의 장소를 총 '${incomeVO.totalPeople}'명이 이용하였습니다.</p>	
 			<p>저희 PLEND와 공간을 공유해 주셔서 감사합니다.</p>		
 		</section>
 	
