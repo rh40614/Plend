@@ -64,6 +64,11 @@
    					</tr>
    				</thead>
    				<tbody class="text-center">
+   					<c:if test="${myReviewList eq null}">
+   						<tr>
+   							<td colspan="4">아직 작성한 리뷰가 없습니다.</td>
+   						</tr>
+   					</c:if>
    					<c:forEach var="myReview" items="${myReviewList}" varStatus="status">
    						<c:if test="${myReview.delYN eq 'N'}">
 	   						<tr>
