@@ -127,7 +127,15 @@ public class PlaceServiceIml implements PlaceService{
 
 	@Override
 	public List<PlaceVO> eventPlace(UserVO userVO) {
-		return placeDAO.eventPlace(userVO);
+		List<PlaceVO> result = placeDAO.eventPlace(userVO);
+		for(PlaceVO place: result) {
+			//단일 공백 정규식 : \\s
+			String[] ad = place.getAddress().split("\\s");
+			String twoFromStart = ad[0] +" " +ad[1];
+			
+			place.setAddress(twoFromStart);
+		}
+		return result;
 	}
 
 	
@@ -206,7 +214,13 @@ public class PlaceServiceIml implements PlaceService{
 	}
 	@Override
 	public List<PlaceVO> searchPlace(HashMap<String, Object> search) {
-		return placeDAO.searchPlace(search);
+		List<PlaceVO> result = placeDAO.searchPlace(search);
+		for(PlaceVO place: result) {
+			String[] ad = place.getAddress().split("\\s");
+			String twoFromStart = ad[0] +" " +ad[1];
+			place.setAddress(twoFromStart);
+			}
+		return result;
 	}
 	@Override
 	public int countHeart(PlaceVO placeVO) {

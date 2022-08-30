@@ -30,8 +30,8 @@
 			 <if test="role == 3">
 			 	<include refid="searchEnter"></include>
 			 </if>
-		 ORDER BY uidx DESC) sub
-		 ORDER BY rnum ASC
+		 ORDER BY uidx ASC) sub
+		 ORDER BY rnum DESC
 	 	 LIMIT #{start}, #{cntPerPage}
 	</select>
 
@@ -147,7 +147,7 @@
 			 	</if>
 			</if>
 	  ORDER BY p.pidx DESC) sub
-   	  ORDER BY rnum ASC
+   	  ORDER BY rnum DESC
 		 LIMIT #{start}, #{cntPerPage}
 	</select>
 	<!-- 07.16 김영민: 업체 장소 리스트 총 갯수 -->
@@ -223,7 +223,7 @@
 				   e.category
 			  FROM event e
 		  ORDER BY e.eidx DESC) sub
-		  ORDER BY rnum ASC
+		  ORDER BY rnum DESC
          LIMIT #{start}, #{cntPerPage}
 	</select>
 	<select id="totalEvent" resultType="Integer">
@@ -323,7 +323,7 @@
 				 	</if>
 			    </if>
 	      ORDER BY rbidx DESC) sub
-	      ORDER BY rnum ASC
+	      ORDER BY rnum DESC
          LIMIT #{start}, #{cntPerPage}
 	</select>
 	<!-- 리뷰갯수 가져오기 -->
@@ -370,7 +370,7 @@
 			    ON b.reporter_uidx = u.uidx
 			 WHERE uidx = #{blockVO.uidx}
 			   AND b.bdelyn = 'N') sub
-		 ORDER BY rnum ASC
+		 ORDER BY rnum DESC
 		 LIMIT #{searchVO.start}, #{searchVO.cntPerPage}
 	</select>
 	<!-- 블랙리스트 갯수 -->
@@ -400,7 +400,7 @@
 		 		 ON a.uidx = b.uidx
 		 	  WHERE option2 not in('')
 		 		 <include refid="search"></include>) sub
-		   ORDER BY rnum ASC
+		   ORDER BY rnum DESC
 		      LIMIT #{start}, #{cntPerPage}
 	</select>
 	<sql id="search">

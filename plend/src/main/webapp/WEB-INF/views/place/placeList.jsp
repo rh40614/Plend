@@ -46,7 +46,7 @@
 	
 			
 	<!-- 검색 버튼 그룹 -->
-	<form id="frm">
+	<form id="frm2">
 		<div  style="margin-top: 15px; float: right; width: 300px; justify-content: space-around; " class="d-flex">
 			<input type="hidden" name="category" value="${category.category}">
 			
@@ -91,7 +91,7 @@
 				
 			</select>
 			
-			<button type="button" class="btn btn-secondary me-2" onclick="search()">검색</button>
+			<button type="button" class="btn btn-secondary me-2" onclick="filter_search()">검색</button>
 			<button type="button" class="btn" style ="width: 80px; background:#ededee; color: grey;" onclick="reset_search()">초기화</button>
 		</div>
 	</form>
@@ -173,7 +173,7 @@
 	 			<div class="card-body">
 	 				<h5 class="card-title title2-1" class=""><a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">${c.placeName}</a></h5>
 	 				<p class="card-text">${c.address}</p>
-	 				<span><fmt:formatNumber value="${c.price}" pattern="#,###"/></span><span>원/시간</span>
+	 				<span class="card-text title3"><fmt:formatNumber value="${c.price}" pattern="#,###"/></span><span>원/시간</span>
 	 				<i class="fa-regular fa-star" style="float:right"> ${c.avgRate}</i>
 	 				<!-- 찜하기 -->
 					 <c:choose>
@@ -297,7 +297,7 @@
 		 $("#region_value").css("display","none");
 		 $("#address").val('');
 		 
-		 search();
+		 filter_search();
 	 }
  	
 	
@@ -305,13 +305,13 @@
 	
 	<!-- 검색 -->
 	<script>
-		function search(){
+		function filter_search(){
 			
 			if($("#cntPeople").val() == 0){
 				$("#cntPeople").val(1);
 			}
 			
-		    var formData = $("#frm").serialize();
+		    var formData = $("#frm2").serialize();
 			console.log(formData);
 		    $.ajax({
 				url:"filter_search.do",
