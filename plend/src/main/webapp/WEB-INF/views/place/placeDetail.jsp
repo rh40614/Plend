@@ -157,7 +157,7 @@
 						var tags = JSON.parse('${placeOne.tag}');
 						var tag = "";
 						tags.forEach(element => 
-							tag += "<a href='<%=request.getContextPath()%>/place/searchPlace.do?searchValue="+element.value+"'>#"+ element.value + "&nbsp;</a>" 
+							tag += "<a href='<%=request.getContextPath()%>/place/searchPlace.do?searchValue="+element.value+"&originSearchValue="+element.value+"'>#"+ element.value + "&nbsp;</a>" 
 						);
 						console.log(tag);
 						
