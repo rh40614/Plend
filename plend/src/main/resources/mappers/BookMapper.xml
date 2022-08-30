@@ -35,7 +35,9 @@
 		  FROM book b 
 		  JOIN place p 
 		    ON b.pidx = p.pidx
-		 WHERE SUBSTRING(usetime,20,16) < now() AND b.approvalyn = 'Y'
+		 WHERE SUBSTRING(usetime,20,16) < now() 
+		   AND b.successbook != 'Y'
+		   AND b.approvalyn = 'Y'
 		 ]]>
 	</select>
 	<update id="successBook" parameterType="BookVO">
