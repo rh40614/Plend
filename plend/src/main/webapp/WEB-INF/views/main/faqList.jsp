@@ -14,7 +14,7 @@
 	  for( let i=0; i < panelFaqContainer.length; i++ ) {
 	    panelFaqContainer[i].addEventListener('click', function() { // 클릭시 처리할 일
 	      // FAQ 제목 클릭시 -> 본문이 보이게끔 -> active 클래스 추가
-	      panelFaqAnswer[i].classList.toggle('active');
+	      panelFaqAnswer[i].classList.toggle('active1');
 	    });
 	  };
 	
@@ -30,6 +30,7 @@
 				              <div class="panel-faq-answer">
 				              <hr>
 				                	${vo.answer}
+				                	<br>
 				                	<c:if test="${login.role eq '1'}">
 								  	<input type = "button" value = "수정" id = "modiBtn" onclick="location.href='faqModify.do?fidx=${vo.fidx}'">
 								 	 </c:if>
