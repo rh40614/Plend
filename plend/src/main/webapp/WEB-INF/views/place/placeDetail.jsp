@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<% request.setCharacterEncoding("utf-8"); %>
 
 <%@ page session="true" %>
 <html>
@@ -156,7 +157,7 @@
 						var tags = JSON.parse('${placeOne.tag}');
 						var tag = "";
 						tags.forEach(element => 
-							tag += "<a href='<%=request.getContextPath()%>/place/searchPlace.do?searchValue="+element.value+"'> #"+ element.value + "&nbsp;</a>" 
+							tag += "<a href='<%=request.getContextPath()%>/place/searchPlace.do?searchValue="+element.value+"&originSearchValue="+element.value+"'>#"+ element.value + "&nbsp;</a>" 
 						);
 						console.log(tag);
 						
@@ -282,7 +283,7 @@
 							<c:forEach var="qna" items="${QnaList}" varStatus="status">
 								<!-- QnA 질문 표시 -->
 								<c:if test="${qna.depth eq 0}">
-									<tr class="table-secondary">
+									<tr class="table-secondary connect${qna.qidx}" >
 										<td class="text-center col-2">Q.</td>
 										<td>${qna.content}</td>
 										<td class="col-3 text-end justify-content-md-end">
@@ -291,7 +292,7 @@
 											</c:if>
 											<c:if test="${qna.uidx eq login.uidx}">
 												<a class="btn btn-primary btn-sm rounded-3" onclick="modifyToggle('Modify${status.index}')">수정</a>
-												<a class="btn btn-primary btn-sm rounded-3 me-2" href="deleteQna.do?qidx=${qna.qidx}&pidx=${placeOne.pidx}">삭제</a>
+												<button class="btn btn-primary btn-sm rounded-3 me-2" onclick="deleteQna(${qna.qidx},${qna.depth})">삭제</button>
 											</c:if>
 										</td>								
 									</tr>
@@ -329,13 +330,13 @@
 								</c:if>
 								<!-- QnA 답변 표시 -->
 								<c:if test="${QnaList[status.index+1].depth eq 1}">
-									<tr>
+									<tr class="connect${qna.qidx}dp">
 										<td class="text-center col-2">A.</td>
 										<td>${QnaList[status.index+1].content}</td>
 										<td class="col-3 text-end justify-content-md-end">
-											<c:if test="${qna.uidx eq login.uidx}">
+											<c:if test="${placeOne.uidx eq login.uidx}">
 												<a class="btn btn-primary btn-sm rounded-3" onclick="modifyToggle('Modify${status.index+1}')">수정</a>
-												<a class="btn btn-primary btn-sm rounded-3 me-2" href="deleteQna.do?qidx=${QnaList[status.index+1].qidx}&pidx=${placeOne.pidx}">삭제</a>
+												<a class="btn btn-primary btn-sm rounded-3 me-2" onclick="deleteQna(${qna.qidx},${QnaList[status.index+1].depth})">삭제</a>
 											</c:if>
 										</td>
 									</tr>
@@ -372,9 +373,43 @@
 						</div>
 					</c:if>
 				</section>
-				<section id="review" style="min-height: 400px; padding-top: 150px; margin-bottom: 100px;">
+				<section id="review" style="min-height: 800px; padding-top: 150px; margin-bottom: 100px;">
 					<table class="table table-borderless caption-top">
 						<caption class="ms-4 text-black fw-bold fs-5">이용후기</caption>
+							<tr> 
+								<td>
+									<!-- 08.26 김연희 : 리뷰 사진 슬릭 슬라이더 -->
+									<c:choose>
+										<c:when test="${reviewImgs == ''}">
+											<P class="m-auto" style="min-height:300px; display: inline-block; margin: 20px 0px 20px 0px; vertical-align: top; font-size: 20px; color: grey; padding-top: 200px;">
+												리뷰 사진이 없습니다. 
+											</P>
+										</c:when>
+										<c:otherwise>
+										  	<div id="reviewSlide" style="display: flex; width: 1000px;" >
+												<c:forEach var ="reivewImg" items="${reviewImgs}" varStatus="status">
+													<a href="<%=request.getContextPath()%>/review/detail.do?rvidx=${reviewList[status.index].rvidx}">
+													<img src="<%=request.getContextPath()%>/reviewImg.do?realFileName=${reivewImg.realFileName}" class="card-img-top" alt="사진 로딩 오류" style="width: 10rem!important; height: 10rem; margin: 5px;"></a>
+												</c:forEach>
+											</div>
+										</c:otherwise>
+									</c:choose>
+										<script>
+										if(${reviewImgs.size() > 5} == true){
+											$('#reviewSlide').slick({
+												  slidesToShow: 5,
+												  slidesToScroll: 1,
+												  autoplay: true,
+												  autoplaySpeed: 2000,
+												  prevArrow : "<button type='button' class='slick-prev' style='border:none; background: white; padding: 0px 40px 30px 0px'><i class='fa-solid fa-angle-left' style='font-size:40px; '></i></button>",		// 이전 화살표 모양 설정
+												  nextArrow : "<button type='button' class='slick-next' style='border:none; background: white; padding: 0px 40px 30px 40px'><i class='fa-solid fa-angle-right' style='font-size:40px; '></i></button>",		// 다음 화살표 모양 설정
+												});
+										}else{
+										}
+											
+										</script>
+								</td>
+							</tr>
 						<tbody class="reviewListMap" style="border-top: none;">
 							<c:if test="${empty reviewList}">
 								<tr> 
@@ -385,7 +420,6 @@
 								<c:forEach var="review" items="${reviewList}">
 									<tr>
 										<td>
-											<a href="<%=request.getContextPath()%>/review/detail.do?rvidx=${review.rvidx}">${review.title}</a>
 											<p>
 												<c:choose>
 													<c:when test="${review.rate == '0' || review.rate == '1'}">
@@ -402,10 +436,11 @@
 													</c:otherwise>			
 												</c:choose>
 											</p>
+											<a href="<%=request.getContextPath()%>/review/detail.do?rvidx=${review.rvidx}">${review.title}</a>
 										</td>
 									</tr>
 									<tr>
-										<td>${review.content}</td>
+										<td><a href="<%=request.getContextPath()%>/review/detail.do?rvidx=${review.rvidx}">${review.content}</a></td>
 									</tr>
 									<tr style="border-bottom: 1px solid lightgray; color: gray; font-size: xx-small;">
 										<td style="padding: 0px; padding-bottom: 5px;">${review.date.substring(0,10)}</td>
@@ -455,6 +490,7 @@
 					<div class="timeTable d-none"></div>
 					<input type="hidden" class="selectTime">
 					<input type="hidden" name="useTime" class="useTime">
+					<input type="hidden" name="totalPrice" class="totalPrice">
 					<div class="cntPeople d-none">
 						<div class="d-inline-flex">인원 선택</div>
 						<input name="cntPeople" type="number" class="d-inline-flex form-control m-1" style="width: auto;">
@@ -514,6 +550,7 @@
 	});
 	
 </script>
+
 
 <!-- 질문하기/답변 버튼 클릭시 토글 -->
 <script type="text/javascript">
@@ -588,6 +625,7 @@
 			var data = new Date();
 			var usetime = year+"-"+month+"-"+date+" "+time[0]+":00 ~ "+year+"-"+month+"-"+date+" "+time[1]+":00";
 			$(".useTime").val(usetime);
+			$(".totalPrice").val((time[1] - time[0]) * ${placeOne.price});
 		}
 	}
 </script>
@@ -739,6 +777,30 @@
 			
 		});
 	});
+</script>
+<script>
+	function deleteQna(idx, depth){
+		var deleteData = "qidx="+idx+"&depth="+depth+"&pidx="+${placeOne.pidx};
+		console.log(deleteData);
+
+		if(confirm("삭제하시겠습니까?") == true){
+			$.ajax({
+				url:"<%=request.getContextPath()%>/place/deleteQna.do",
+				data: deleteData,
+				success:function(){
+					/* $(".connect+${qna.qidx}").css("display","none"); */
+					if(depth == 0){
+						$(".connect"+idx).html("<td colspan='3'>삭제되었습니다.</td>");
+						$(".connect"+idx+"dp").html("<td colspan='3'>삭제되었습니다.</td>");
+					}else{
+						$(".connect"+idx+"dp").html("<td colspan='3'>삭제되었습니다.</td>");
+					}
+				},
+				error: function(){
+				}
+			});
+		}
+	}
 </script>
 
 </body>

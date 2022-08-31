@@ -246,6 +246,22 @@
 		  FROM image
 		 WHERE rvidx = #{rvidx}
 	</select>
+	
+	<select id="placeReviewAll" parameterType="HashMap" resultType="ReviewVO">
+		SELECT rvidx,
+			   pidx,
+			   title,
+			   content,
+			   rate,
+			   date,
+			   img,
+			   delyn,
+			   uidx 
+		  FROM review 
+		 WHERE pidx = #{reviewVO.pidx}
+		   AND delyn = 'N'
+	  ORDER BY rvidx DESC
+	</select>
 </mapper>
 
 

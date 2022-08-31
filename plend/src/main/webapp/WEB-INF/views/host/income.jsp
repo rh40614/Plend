@@ -38,8 +38,8 @@
 	<header id="header"></header>
 	<main>
 		<section style="align-items: center; font-weight: 700; font-size: x-large;">
-			<p>이번달에 정산된 금액은 총 <fmt:formatNumber value="1000000" pattern="#,###"/> 원이며 </p>
-			<p>현재까지  '호스트닉네임'님의 장소를 총 '100'명이 이용하였습니다.</p>	
+			<p>이번달 매출 금액은 총 <fmt:formatNumber value="${incomeVO.totalIncome}" pattern="#,###"/> 원이며 </p>
+			<p>현재까지  '${login.nickName}'님의 장소를 총 '${incomeVO.totalPeople}'명이 이용하였습니다.</p>	
 			<p>저희 PLEND와 공간을 공유해 주셔서 감사합니다.</p>		
 		</section>
 	
@@ -56,11 +56,10 @@
 									<td class="col-md-3">플레이스명</td>
 									<td class="col-md-4">기간</td>
 									<td class="col-md-1">인원</td>
-									<td class="col-md-2">예약자</td>
 								</tr>
 							<thead>
 							<tbody>
-								<c:if test="${list.size() == 0}">	
+								<c:if test="${bookList eq null}">	
 									<tr>
 										<td colspan="8">
 										PLEND를 이용하는 고객님들을 위해 공간을 등록해보아요!<br>
@@ -68,21 +67,46 @@
 										</td>
 									</tr>
 								</c:if>
-								<c:if test="${list.size() > 0}">
-									<c:forEach var="pv" items="${list}" >
+								<c:if test="${bookList.size() > 0}">
+									<c:forEach var="pv" items="${bookList}" >
 										<tr>
 											<td>${pv.rnum}</td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
+											<td>${pv.bidx}</td>
+											<td>${pv.placeName}</td>
+											<td>${pv.useTime}</td>
+											<td>${pv.cntPeople}</td>
 										</tr>
 									</c:forEach>
 								</c:if>
 							</tbody>
 						</table>
 					</div>
+					<c:if test="${not empty bookList}">
+						<nav id="pagination" class="row">
+						  <ul class="pagination justify-content-center">
+						  	<c:if test="${pagination.startPage > 5}">
+							    <li class="page-item">
+							      <a class="page-link" href="income.do?nowPage=4">&laquo;</a>
+							    </li>
+						  	</c:if>
+						  	<c:forEach begin="${pagination.startPage }" end="${pagination.endPage }" var="p">
+								<c:choose>
+									<c:when test="${p == pagination.nowPage }">
+										<li class="page-item"><a class="page-link text-white" style="background-color:#2F506D;" href="income.do?nowPage=${p}">${p}</a></li>
+									</c:when>
+									<c:when test="${p != pagination.nowPage }">
+										<li class="page-item"><a class="page-link" href="income.do?nowPage=${p}">${p}</a></li>
+									</c:when>
+								</c:choose>
+							</c:forEach>
+						    <c:if test="${pagination.endPage != pagination.lastPage}">
+							    <li class="page-item">
+							      <a class="page-link" href="income.do?nowPage=${pagination.endPage +1}">&raquo;</a>
+							    </li>
+						    </c:if>
+						  </ul>
+						</nav>
+					</c:if>
 					<hr width="100%">
 				</div>
 		</section>		

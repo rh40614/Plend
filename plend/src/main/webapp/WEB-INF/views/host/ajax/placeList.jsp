@@ -7,9 +7,9 @@
 		<thead class="table-dark">
 			<tr style="text-al">
 				<td class="col-md-1">번호</td>
+				<td class="col-md-1">카테고리</td>
 				<td class="col-md-2">플레이스명</td>
 				<td class="col-md-3">태그</td>
-				<td class="col-md-4">소개</td>
 				<td class="col-md-1">승인여부</td>
 				<td class="col-md-1">수정</td>
 			</tr>
@@ -23,11 +23,48 @@
 			<!--  -->
 			<c:if test="${list_p.size() > 0}">
 				<c:forEach var="pv" items="${list_p}" >
-					
 					<tr>
-						<td>${pv.rnum}</td>
-						<td>${pv.placeName}</td>
-						<td id="tag${pv.pidx}" style="text-align: left;"></td>
+						<td class="col-md-1">${pv.rnum}</td>
+						<c:choose>
+				    		<c:when test="${pv.category == 'gallery'}">
+					    		<td class="col-md-1">갤러리</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'homeGym'}">
+					    		<td class="col-md-1">운동시설</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'meeting'}">
+					    		<td class="col-md-1">회의실</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'dancePractice'}">
+					    		<td class="col-md-1">댄스연습실</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'office'}">
+					    		<td class="col-md-1">오피스</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'shareOffice'}">
+					    		<td class="col-md-1">공유오피스</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'partyRoom'}">
+					    		<td class="col-md-1">파티룸</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'recording'}">
+					    		<td class="col-md-1">녹음실</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'shareKitchen'}">
+					    		<td class="col-md-1">공유주방</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'singPractice'}">
+					    		<td class="col-md-1">녹음실</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'studio'}">
+					    		<td class="col-md-1">스튜디오</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'smallWedding'}">
+					    		<td class="col-md-1">스몰웨딩</td>
+				    		</c:when>
+				    	</c:choose>
+						<td class="col-md-2"><a href="<%=request.getContextPath()%>/host/view.do?pidx=${pv.pidx}">${pv.placeName}</a></td>
+						<td class="col-md-3" id="tag${pv.pidx}" style="text-align: left;"></td>
 						<script>
 							var tags = JSON.parse('${pv.tag}');
 							var tag = "";
@@ -36,19 +73,18 @@
 							);
 							$("#tag${pv.pidx}").html(tag);
 						</script>
-						<td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/view.do?pidx=${pv.pidx}">${pv.placeDetail}</a></td>
+						<%-- <td style="text-align: left;"><a href="<%=request.getContextPath()%>/host/view.do?pidx=${pv.pidx}">${pv.placeDetail}</a></td> --%>
 						<c:choose>
 							<c:when test="${pv.approvalYN eq '승인거절'}">
-								<td>${pv.approvalYN}</td>
-								<td><button class="btnDefault" type="button" onclick="if(confirm('삭제하시겠습니까?')){location.href='deletePlace.do?pidx=${pv.pidx}'}">삭제</button></td>
+								<td class="col-md-1">${pv.approvalYN}</td>
+								<td class="col-md-1"><button class="btnDefault" type="button" onclick="if(confirm('삭제하시겠습니까?')){location.href='deletePlace.do?pidx=${pv.pidx}'}">삭제</button></td>
 							</c:when>
 							<c:otherwise>
-								<td>${pv.approvalYN}</td>
-								<td><button class="btnDefault" type="button" onclick="location.href='placeModfy.do?pidx=${pv.pidx}'">수정</button></td>
+								<td class="col-md-1">${pv.approvalYN}</td>
+								<td class="col-md-1" class="col-md-1"><button class="btnDefault" type="button" onclick="location.href='placeModfy.do?pidx=${pv.pidx}'">수정</button></td>
 							</c:otherwise>
 						</c:choose>
 					</tr>
-					
 				</c:forEach>
 			</c:if>
 		</tbody>

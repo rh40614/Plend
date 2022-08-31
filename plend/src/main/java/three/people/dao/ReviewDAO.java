@@ -87,5 +87,8 @@ public class ReviewDAO {
 	public List<ImageVO> reviewImages(ReviewVO reviewVO) {
 		return sqlSession.selectList("three.people.mapper.reviewMapper.selectImageOne", reviewVO );
 	}
+	public List<ReviewVO> placeReviewAll(HashMap<String,Object> hashMap){
+		return sqlSession.selectList("three.people.mapper.reviewMapper.placeReviewAll", hashMap );
+	}
 
 }

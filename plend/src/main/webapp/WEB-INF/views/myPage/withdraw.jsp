@@ -35,7 +35,8 @@
 		return;
 	}
 	
-	var sendData = "password="+password+"&uidx="+uidx;
+	var sendData = "password="+password+"&uidx="+${login.uidx};
+	/* console.log("sendData: "+sendData); */
 			$.ajax({
 				url : "withdraw.do",
 				method : "post",
@@ -69,7 +70,7 @@
 						alert("회원 탈퇴에 실패하였습니다. 잠시후 다시 시도해주세요.");
 						return;
 					} else if (text > 0) {
-						$("#pwdCheck").html("탈퇴가 완료되었습니다. 그동안 Plend를 이용해주셔서 감사합니다.<br><br><button type ='button' id = 'withdrawBtn2' onclick ='location.href="+"/controller/"+"'>메인으로 가기</button> ");
+						$("#pwdCheck").html("탈퇴가 완료되었습니다. 그동안 Plend를 이용해주셔서 감사합니다.<br><br><button type ='button' id = 'withdrawBtn2' onclick ='location.href=<%=request.getContextPath()%>/'>메인으로 가기</button> ");
 					}
 			},
 			error : function(xhr) {
@@ -116,7 +117,6 @@
 		<br>
 		<form action = "withdraw.do" method = "post" name = "frm">
 			<div id = "pwdCheck">
-			<input type = "hidden" name= "uidx" value = "${login.uidx }">
 				비밀번호를 다시 한번 입력해주세요.
 				<br>
 				<br>

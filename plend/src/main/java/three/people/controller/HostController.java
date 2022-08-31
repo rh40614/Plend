@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -35,10 +36,12 @@ import three.people.service.ImageServiceImpl;
 import three.people.service.MainService;
 import three.people.service.PlaceService;
 import three.people.service.ReviewService;
+import three.people.service.SearchService;
 import three.people.vo.BlockVO;
 import three.people.vo.BookVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
+import three.people.vo.IncomeVO;
 import three.people.vo.NoticeVO;
 import three.people.vo.PagingVO;
 import three.people.vo.PlaceVO;
@@ -66,8 +69,9 @@ public class HostController {
 	@Autowired
 	ReviewService reviewService;
 	@Autowired
-	ImageServiceImpl imageService; 
-	
+	ImageServiceImpl imageService;
+	@Autowired
+	SearchService searchService;
 	
 	@RequestMapping(value = "/insertPlace.do", method = RequestMethod.GET )
 	public String insertPlace() {  
@@ -174,13 +178,12 @@ public class HostController {
 		
 		List<PlaceVO> list_p = placeService.selectPlaceAll(page);
 		String p ="</p>";
-		//장소 소개 35자 이상 자르기
-		for(PlaceVO place: list_p) {
-			if(place.getPlaceDetail().length() > 35) {
-				String pd =place.getPlaceDetail().substring(0, 35);
-				place.setPlaceDetail(pd+"......");
-			}
-		}
+		/*
+		 * //장소 소개 35자 이상 자르기 for(PlaceVO place: list_p) {
+		 * if(place.getPlaceDetail().length() > 35) { String pd
+		 * =place.getPlaceDetail().substring(0, 35); place.setPlaceDetail(pd+"......");
+		 * } }
+		 */
 	
 		//화면단으로 옮기기
 		model.addAttribute("list_p", list_p);
@@ -636,8 +639,9 @@ public class HostController {
 	//08.11 김영민: 장소등록 수정
 	@RequestMapping(value="/placeModfy.do", method=RequestMethod.GET)
 	public String placeModfy(PlaceVO placeVO, Model model) {
-		
-		model.addAttribute("place", placeService.placeOne(placeVO));
+		placeVO = placeService.placeOne(placeVO);
+		placeVO.setPlaceDetail(placeVO.getPlaceDetail().replace("'", "\""));
+		model.addAttribute("place", placeVO );
 		return "host/placeModify";
 	}
 	
@@ -673,11 +677,6 @@ public class HostController {
 	//장소 상세보기
 	@RequestMapping(value="/view.do")
 	public String placeView(PlaceVO placeVO, Model model) {
-		/*
-		 * PlaceVO placeOne = hostService.placeView(placeVO);
-		 * model.addAttribute("placeOne",placeOne); System.out.println("효"+placeOne);
-		 */
-		
 		//08.18 김연희: 평균 별점 추가
 		PlaceVO p = placeService.placeOne(placeVO);
 		p.setCntHeart(placeService.countHeart(placeVO));
@@ -692,7 +691,22 @@ public class HostController {
 	
 	
 	@RequestMapping(value="/income.do", method= RequestMethod.GET)
-	public String income() {
+	public String income(SearchVO searchVO, HttpSession session, Model model) {
+		searchService.setPageCntPerPage(searchVO, 10);
+		UserVO login = (UserVO) session.getAttribute("login");
+		int total = bookService.cntBook(login.getUidx());
+		searchVO.calPaging(total);
+		model.addAttribute("pagination", searchVO);
+		
+		HashMap<String,Integer> hashMap = new HashMap<String,Integer>();
+		hashMap.put("uidx", login.getUidx());
+		hashMap.put("cntPerPage", searchVO.getCntPerPage());
+		hashMap.put("start", searchVO.getStart());
+		List<BookVO> bookList = bookService.selectBookByHost(hashMap);
+		model.addAttribute("bookList", bookList);	
+		
+		IncomeVO incomeVO = bookService.selectIncomeForOne(login);
+		model.addAttribute("incomeVO", incomeVO);
 		return "host/income";
 	}
 	

@@ -14,7 +14,7 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import three.people.service.BookService;
@@ -77,16 +77,30 @@ public final class PlaceController {
 		//08.18 김연희: 평균 별점 추가
 		PlaceVO p = placeService.placeOne(placevo);
 		p.setCntHeart(placeService.countHeart(placevo));
-		System.out.println("pidx: "+p.getPidx());
-		System.out.println("heart: "+p.getCntHeart());
 		int avgRate = reviewService.avgRevew(p);
 		p.setAvgRate(avgRate);
+		//08.26 김연희: 리뷰이미지
+		List<ImageVO> hasImgs = new ArrayList<ImageVO>();
 		
+		List<ReviewVO> reviewlistAll = reviewService.placeReviewAll(hashMap);
+			for(ReviewVO review: reviewlistAll) {
+				List<ImageVO> imgs = reviewService.reviewImg(review);
+				
+				for(int i=0; i<imgs.size();i++) {
+					 if(imgs.get(i) != null) {
+						 hasImgs.add(imgs.get(i));
+					 }
+				}
+			}
+			//System.out.println("afterimgs: "+hasImgs);
+			
 		model.addAttribute("pagination", searchVO);
 		model.addAttribute("reviewList", reviewService.selectPlaceReview(hashMap));
 		model.addAttribute("imageList", placeService.selectImage(placevo));
 		model.addAttribute("placeOne", p);
 		model.addAttribute("QnaList", placeService.selectQnA(placevo));
+		model.addAttribute("reviewImgs", hasImgs);
+		
 		return "place/placeDetail";
 	}
 	
@@ -126,7 +140,6 @@ public final class PlaceController {
 	// 예약하기
 	@RequestMapping(value="/book.do", method=RequestMethod.POST)
 	public String book(BookVO bookvo, Model model) {
-		
 		model.addAttribute("bookvo", bookvo);
 		model.addAttribute("placeOne", placeService.placeOne(bookvo));
 		
@@ -289,14 +302,15 @@ public final class PlaceController {
 		session.getAttribute("login");
 		UserVO login = (UserVO)session.getAttribute("login");
 		bookVO.setUidx(login.getUidx());
-
+		System.out.println("price: "+ bookVO.getTotalPrice());
 		int result = bookService.insertBook(bookVO);
 		return result;
 	}
 
 	@RequestMapping(value="/searchPlace.do", method=RequestMethod.GET)
-	public String searchPlace(SearchVO searchVO, Model model, HttpServletRequest request, HttpSession session) {
+	public String searchPlace(SearchVO searchVO, Model model, HttpServletRequest request, HttpSession session, @RequestParam("originSearchValue") String originSearchValue) {
 		model.addAttribute("searchValue", searchVO.getSearchValue());
+		model.addAttribute("originSearchValue",originSearchValue);
 		
 		HashMap<String, Object> search = new HashMap<String, Object>();
 		search.put("searchValue", searchVO.getSearchValue());
@@ -326,7 +340,7 @@ public final class PlaceController {
 				place.setCntHeart(placeService.countHeart(place));
 			}
 			model.addAttribute("list", list);
-			
+			model.addAttribute("searchValue",searchVO.getSearchValue());
 		}else {
 			
 			List<PlaceVO> list = placeService.searchPlace(search);
@@ -346,6 +360,8 @@ public final class PlaceController {
 				place.setCntHeart(placeService.countHeart(place));
 			}
 			model.addAttribute("list", list);
+			
+
 		}
 		
 		return "place/searchPlace";
@@ -432,9 +448,7 @@ public final class PlaceController {
 		return "place/ajax/hashList";
 	}
 
-	
 
-	
 	
 	
 	

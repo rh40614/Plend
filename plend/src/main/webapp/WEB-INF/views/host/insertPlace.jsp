@@ -378,6 +378,14 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
  			$('#summernote').summernote({
+ 				toolbar: [
+ 				    ['style', ['bold', 'italic', 'underline', 'clear']],
+ 				    ['font', ['strikethrough', 'superscript', 'subscript']],
+ 				    ['fontsize', ['fontsize']],
+ 				    ['color', ['color']],
+ 				    ['para', ['ul', 'ol', 'paragraph']],
+ 				    ['height', ['height']]
+ 				  ],
  				width: 1000,
 	 			height: 300,		// 기본 높이값
 			    minHeight: 250,		// 최소 높이값(null은 제한 없음)
