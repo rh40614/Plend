@@ -26,7 +26,7 @@
 				        <tr>
 				          <td class="text-left" width="50%">
 				            <div class="panel-faq-container">
-				              <p class="panel-faq-title">${vo.question}</p>
+				              <p class="panel-faq-title" style = "margin-bottom:0px;">${vo.question}</p>
 				              <div class="panel-faq-answer">
 				              <hr>
 				                	${vo.answer}
