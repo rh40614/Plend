@@ -641,6 +641,7 @@ public class HostController {
 	public String placeModfy(PlaceVO placeVO, Model model) {
 		placeVO = placeService.placeOne(placeVO);
 		placeVO.setPlaceDetail(placeVO.getPlaceDetail().replace("'", "\""));
+		placeVO.setGuide(placeVO.getGuide().replace("\"", "'"));
 		model.addAttribute("place", placeVO );
 		return "host/placeModify";
 	}

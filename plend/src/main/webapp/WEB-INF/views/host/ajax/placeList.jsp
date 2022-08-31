@@ -54,7 +54,7 @@
 					    		<td class="col-md-1">공유주방</td>
 				    		</c:when>
 				    		<c:when test="${pv.category == 'singPractice'}">
-					    		<td class="col-md-1">녹음실</td>
+					    		<td class="col-md-1">노래연습실</td>
 				    		</c:when>
 				    		<c:when test="${pv.category == 'studio'}">
 					    		<td class="col-md-1">스튜디오</td>
