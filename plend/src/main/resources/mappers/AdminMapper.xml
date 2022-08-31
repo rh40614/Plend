@@ -222,7 +222,7 @@
 				   e.eventimg,
 				   e.category
 			  FROM event e
-		  ORDER BY e.eidx DESC) sub
+		  ORDER BY e.eidx ASC) sub
 		  ORDER BY rnum DESC
          LIMIT #{start}, #{cntPerPage}
 	</select>
