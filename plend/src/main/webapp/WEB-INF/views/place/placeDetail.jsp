@@ -631,20 +631,13 @@
 </script>
 <!-- 클립보드 복사 -->
 <script type="text/javascript">
-	function setClipboard() {
-		const url = window.location.href; 
-	    const type = "text/plain";
-	    const blob = new Blob([url], {type});
-	    const data = [new ClipboardItem({ [type]: blob })];
-	
-	    navigator.clipboard.write(data).then(
-	        function () {
-	        	alert("클립보드에 복사하였습니다.");
-	        },
-	        function () {
-	        	alert("클립보드에 복사 실패했습니다.");
-	        }
-	    );
+	async function setClipboard() {
+   	  try {
+   	    await navigator.clipboard.writeText(location.href);
+   	 	alert("클립보드에 복사하였습니다.");
+   	  } catch (err) {
+   		alert("클립보드에 복사 실패했습니다.");
+   	  }
 	}
 </script>
 <!-- 지도생성 코드 -->

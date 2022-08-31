@@ -127,8 +127,8 @@ public class DeveloperController {
 	@Transactional
 	@RequestMapping(value="/deleteEvent.do")
 	public String deleteEvent(EventVO eventvo) {
-		adminService.deleteEvent(eventvo);
 		adminService.placeEventDone(eventvo);
+		adminService.deleteEvent(eventvo);
 		return "redirect:/developer/event.do";
 	}
 	//업체 리스트 페이지로 이동
