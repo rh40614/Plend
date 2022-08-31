@@ -19,7 +19,15 @@ public class EventVO {
 	private String banner;
 	// rownum
 	private int rnum;
+	private String delYN;
 	
+	
+	public String getDelYN() {
+		return delYN;
+	}
+	public void setDelYN(String delYN) {
+		this.delYN = delYN;
+	}
 	public int getRnum() {
 		return rnum;
 	}

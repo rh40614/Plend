@@ -140,6 +140,8 @@ public class ImageServiceImpl {
 		
 		if(eventvo.getStartEnd().equals("start")) {
 			adminService.placeEventUpdate(eventvo);
+		}else {
+			adminService.placeEventDone(eventvo);
 		}
 		String path = request.getSession().getServletContext().getRealPath("/resources/upload/eventImg");
 		File dir = new File(path);

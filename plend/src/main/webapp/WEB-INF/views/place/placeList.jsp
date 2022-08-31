@@ -42,7 +42,7 @@
 <body>
 <div id="wrap">
 	<header id="header" style ="background: white; "></header>
-	<main style="margin: 5% 19% 10% 19%; flex: 1; min-height: 450px;">
+	<main style="margin: 5% 19% 10% 19%; flex: 1; min-height: 450px;" class="mainArrangement">
 	
 			
 	<!-- 검색 버튼 그룹 -->

@@ -58,25 +58,27 @@
 					  		</tr>
 					  	</c:if>
 					  	<c:forEach var="event" items="${eventList}">
-					  		<tr>
-						      <th scope="row">${event.rnum}</th>
-						      <td>
-						      	<c:choose>
-						      		<c:when test="${event.startEnd eq 'end'}">
-						      			종료
-						      		</c:when>
-						      		<c:otherwise>
-						      			진행중
-						      		</c:otherwise>
-						      	</c:choose>
-						      </td>
-						      <td>${event.title}</td>
-						      <td>${event.edate.replace("to","~")}</td>
-						      <td>
-						      	<button class="btn btn-primary btn-sm rounded-3" onclick="modifyEvent(${event.eidx})">수정</button>
-						      	<a class="btn btn-primary btn-sm rounded-3" onclick="deleteConfirm(${event.eidx},'${event.category}')" role="button">삭제</a>
-					      	  </td>
-						    </tr>
+					  		<c:if test="${event.delYN ne 'Y' }">
+						  		<tr>
+							      <th scope="row">${event.rnum}</th>
+							      <td>
+							      	<c:choose>
+							      		<c:when test="${event.startEnd eq 'end'}">
+							      			종료
+							      		</c:when>
+							      		<c:otherwise>
+							      			진행중
+							      		</c:otherwise>
+							      	</c:choose>
+							      </td>
+							      <td>${event.title}</td>
+							      <td>${event.edate.replace("to","~")}</td>
+							      <td>
+							      	<button class="btn btn-primary btn-sm rounded-3" onclick="modifyEvent(${event.eidx})">수정</button>
+							      	<a class="btn btn-primary btn-sm rounded-3" onclick="deleteConfirm(${event.eidx},'${event.category}')" role="button">삭제</a>
+						      	  </td>
+							    </tr>
+					  		</c:if>
 					  	</c:forEach>
 					  </tbody>
 					</table>
