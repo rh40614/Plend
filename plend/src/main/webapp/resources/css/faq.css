@@ -64,16 +64,12 @@
 			background-color:#3FC1C9;
 		}
 		
-		.panel-faq-container {
-			margin-bottom: -16px;
-		}
 		.panel-faq-title {
 			color: black;
 			text-align : left;
 			cursor: pointer;
 		}
 		.panel-faq-answer {
-			height: 0px;
 			overflow: hidden;
 			text-align:left;
 		  /* 변화가 시작되는 쪽에다가 transition 적용해준다 0 -> 300px 
