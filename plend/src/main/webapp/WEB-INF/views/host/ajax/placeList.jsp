@@ -25,7 +25,44 @@
 				<c:forEach var="pv" items="${list_p}" >
 					<tr>
 						<td class="col-md-1">${pv.rnum}</td>
-						<td class="col-md-1">${pv.category}</td>
+						<c:choose>
+				    		<c:when test="${pv.category == 'gallery'}">
+					    		<td class="col-md-1">갤러리</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'homeGym'}">
+					    		<td class="col-md-1">운동시설</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'meeting'}">
+					    		<td class="col-md-1">회의실</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'dancePractice'}">
+					    		<td class="col-md-1">댄스연습실</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'office'}">
+					    		<td class="col-md-1">오피스</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'shareOffice'}">
+					    		<td class="col-md-1">공유오피스</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'partyRoom'}">
+					    		<td class="col-md-1">파티룸</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'recording'}">
+					    		<td class="col-md-1">녹음실</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'shareKitchen'}">
+					    		<td class="col-md-1">공유주방</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'singPractice'}">
+					    		<td class="col-md-1">녹음실</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'studio'}">
+					    		<td class="col-md-1">스튜디오</td>
+				    		</c:when>
+				    		<c:when test="${pv.category == 'smallWedding'}">
+					    		<td class="col-md-1">스몰웨딩</td>
+				    		</c:when>
+				    	</c:choose>
 						<td class="col-md-2"><a href="<%=request.getContextPath()%>/host/view.do?pidx=${pv.pidx}">${pv.placeName}</a></td>
 						<td class="col-md-3" id="tag${pv.pidx}" style="text-align: left;"></td>
 						<script>
