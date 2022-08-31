@@ -43,8 +43,6 @@
 				$(obj).removeClass("btnDisabled");	 
 				$(obj).addClass("btnBig");
 			}
-			
-			
 			if($(obj).val() == 'place'){
 				$("#place").css("display","block");
 				$("#payment").css("display","none");
@@ -244,15 +242,10 @@
 				  </div>
 				</div>
 		</section>
-				
 				<!-- a 태그는 inline-block이라 text-align 안먹음 -->
 				<div style="text-align: center;" class="mt-5">
 					<a href="<%=request.getContextPath()%>/inquiry_dev/inquiry_dev.do" style="text-decoration: underline;">원하는 답변이 없어요. 운영자에게 질문하러 가기</a>
 				</div>
-				
-		
-		
-
 	</main>
 	<div style="margin:300px;"></div>
 	<footer id="footer"></footer>
