@@ -544,12 +544,28 @@
 				* 
 		FROM place
 		WHERE pidx= #{pidx}
-	
-		
-	
-	
 	</select>
-
+	
+	<insert id="insertIncome" parameterType="IncomeVO">
+		
+		<selectKey keyProperty="CNT,PRICE" resultType="BookVO" order="BEFORE">
+			SELECT 
+				 cntPeople as CNT
+				,totalPrice as PRICE
+			FROM book
+		</selectKey>
+		INSERT INTO income(
+			uidx, 
+			totalincome, 
+			totalpeople)
+		VALUES(
+			#{uidx}, 
+			#{CNT}, 
+			#{PRICE}) 
+		ON DUPLICATE KEY
+		UPDATE totalincome = #{CNT} + totalIncome,
+			   totalpeople = #{PRICE} + totalpeople
+	</insert>
 
 	
 	

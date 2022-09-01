@@ -143,11 +143,12 @@ public class PlaceServiceIml implements PlaceService{
 	public int[] RandomPlace(List<PlaceVO> methodList) {
 		int listSize = methodList.size();
 		int[] idx = new int[9];
+		int[] idx6 = new int[6];
 
 		if(listSize <6) {
-			return idx = removeSameItems(idx,listSize);
+			return idx = removeSameItems(idx6,listSize);
 		}else if(listSize<9) {
-			return idx = removeSameItems(idx,listSize);
+			return idx = removeSameItems(idx6,listSize);
 		}else if(listSize > 0) {
 			return idx = removeSameItems(idx,listSize);
 		}else {
