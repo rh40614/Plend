@@ -81,15 +81,23 @@
  				<h5 class="card-title title2-1" class=""><a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">${c.placeName}</a></h5>
  				<p class="card-text">${c.address}</p>
  				<span class="card-text title3"><fmt:formatNumber value="${c.price}" pattern="#,###"/></span><span>  원/시간</span>
- 				<i class="fa-regular fa-star" style="float:right">  ${c.avgRate}</i>
+ 				<i class="fa-regular fa-star" style="float:right;margin-top: 7px;">  ${c.avgRate}</i>
  				<!-- 찜하기 -->
 				 <c:choose>
 					<c:when test="${c.heart eq '0'}">
-						<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${c.pidx})" class="fa-regular fa-heart" style="color: red;"> ${c.cntHeart}</i></a>
+						<a class="me-2 ms-2" style="cursor: pointer;">
+							<i onclick="like(this, ${c.pidx})" class="fa-regular fa-heart" style="color: red;"></i>
+							<span class="cntHeartOff${c.pidx}" style="color:red"> ${c.cntHeart}</span>
+						</a>
 					</c:when>
-					<c:when test="${c.heart eq '1'}">
-						<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${c.pidx})" class="fa-solid fa-heart" style="color: red;" > ${c.cntHeart}</i></a>
-					</c:when>
+					<%-- <c:when test="${c.heart eq '1'}"> --%>
+					<c:otherwise>
+						<a class="me-2 ms-2" style="cursor: pointer;">
+							<i onclick="like(this, ${c.pidx})" class="fa-solid fa-heart" style="color: red;" ></i>
+							<span class="cntHeartOn${c.pidx}" style="color:red"> ${c.cntHeart}</span>
+						</a>
+					</c:otherwise>
+					<%-- </c:when> --%>
 				</c:choose> 
   			</div>
 			</div>
@@ -108,17 +116,59 @@
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-	<!-- 찜 -->
+	<!-- 찜하기 -->
 	<script>
-	function like (obj){
-		if($(obj).hasClass("fa-regular") == true){
-			$(obj).removeClass("fa-regular");
-			$(obj).addClass("fa-solid");
-		}else{
-			$(obj).removeClass("fa-solid");
-			$(obj).addClass("fa-regular");
+
+		function like (obj, idx){
+	
+			if(${login ne null}){
+				if($(obj).hasClass("fa-regular") == true){
+					$.ajax({
+						url: "<%=request.getContextPath()%>/place/heart.do?pidx="+idx+"&like=add",
+						success: function(data){
+							console.log(data);
+							if(data == 1){
+								$(obj).removeClass("fa-regular");
+								$(obj).addClass("fa-solid");
+								
+								var cntH = $(".cntHeartOff"+idx).text();
+								$(".cntHeartOff"+idx).text(' '+(parseInt(cntH)+1));
+								alert("찜목록에 등록되었습니다.");
+							}else{
+								alert("찜목록 등록에 실패했습니다.");
+							}
+						},
+						error: function(){
+							alert("찜목록 등록에 실패했습니다.");
+						}
+					});
+	
+				}else{
+					$.ajax({
+						url: "<%=request.getContextPath()%>/place/heart.do?pidx="+idx+"&like=delete",
+						success: function(data){
+							if(data == 1){
+								$(obj).removeClass("fa-solid");
+								$(obj).addClass("fa-regular");
+								
+								var cntH = $(".cntHeartOn"+idx).text();
+								$(".cntHeartOn"+idx).text(' '+(parseInt(cntH)-1));
+								alert("찜목록에서 삭제했습니다.");
+							}else{
+								alert("찜목록 삭제에 실패했습니다.");
+							}
+						},
+						error: function(){ 
+							alert("찜목록 삭제에 실패했습니다.");
+						}
+					});
+				}
+			}else{
+				alert("로그인을 해주세요.");
+			}
 		}
-	}
+
+	</script>
 
 	</script>
 	<!-- 마이페이지 클릭시 세션 값이 있는지 확인 -->

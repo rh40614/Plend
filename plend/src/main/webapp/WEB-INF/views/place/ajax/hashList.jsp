@@ -29,14 +29,20 @@
 						<h5 class="card-title title2-1" ><a href="<%=request.getContextPath()%>/place/view.do?pidx=${c.pidx}">${c.placeName}</a></h5>
 						<p class="card-text">${c.address}</p>
 						<span class="card-text title3"><fmt:formatNumber value="${c.price}" pattern="#,###"/></span><span>  원/시간</span>
-						<i class="fa-regular fa-star" style="float:right"> ${c.avgRate}</i>
+						<i class="fa-regular fa-star" style="float:right;margin-top: 7px;"> ${c.avgRate}</i>
 						<!-- 찜하기 -->
 					 <c:choose>
 						<c:when test="${c.heart eq '0'}">
-							<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${c.pidx})" class="fa-regular fa-heart" style="color: red;"> ${c.cntHeart}</i></a>
+							<a class="me-2 ms-2" style="cursor: pointer;">
+								<i onclick="like(this, ${c.pidx})" class="fa-regular fa-heart" style="color: red;"></i>
+								<span class="cntHeartOff${c.pidx}" style="color:red"> ${c.cntHeart}</span>
+							</a>
 						</c:when>
 						<c:when test="${c.heart eq '1'}">
-							<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${c.pidx})" class="fa-solid fa-heart" style="color: red;" > ${c.cntHeart}</i></a>
+							<a class="me-2 ms-2" style="cursor: pointer;">
+								<i onclick="like(this, ${c.pidx})" class="fa-solid fa-heart" style="color: red;" ></i>
+								<span class="cntHeartOn${c.pidx}" style="color:red"> ${c.cntHeart}</span>
+							</a>
 						</c:when>
 					</c:choose> 
 					</div>
@@ -45,6 +51,7 @@
 		</div>
 	</div>
 </c:if>
+<!-- 슬릭슬라이더 -->
 <script>
 	if(${hashList.size() > 3} == true){
 		$('#slider-div').slick({

@@ -11,6 +11,7 @@ import three.people.vo.BlockVO;
 import three.people.vo.BookVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
+import three.people.vo.IncomeVO;
 import three.people.vo.InquiryVO;
 import three.people.vo.NoticeVO;
 import three.people.vo.PlaceVO;
@@ -252,8 +253,8 @@ public class HostServiceImpl implements HostService {
 
 
 	@Override
-	public int insertIncome(BookVO bookVO) {
-		return hostDAO.insertIncome(bookVO);
+	public int insertIncome(IncomeVO incomeVO) {
+		return hostDAO.insertIncome(incomeVO);
 	}
 
 

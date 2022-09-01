@@ -85,10 +85,9 @@
 								$(obj).removeClass("fa-regular");
 								$(obj).addClass("fa-solid");
 								
-								var cntH = $("#cntHeartOff"+idx).text();
-								$("#cntHeartOff"+idx).text(' '+parseInt(cntH)+1);
+								var cntH = $(".cntHeartOff"+idx).text();
+								$(".cntHeartOff"+idx).text(' '+(parseInt(cntH)+1));
 								alert("찜목록에 등록되었습니다.");
-								
 							}else{
 								alert("찜목록 등록에 실패했습니다.");
 							}
@@ -106,8 +105,8 @@
 								$(obj).removeClass("fa-solid");
 								$(obj).addClass("fa-regular");
 								
-								var cntH = $("#cntHeartOn"+idx).text();
-								$("#cntHeartOn"+idx).text(' '+parseInt(cntH)-1);
+								var cntH = $(".cntHeartOn"+idx).text();
+								$(".cntHeartOn"+idx).text(' '+(parseInt(cntH)-1));
 								alert("찜목록에서 삭제했습니다.");
 							}else{
 								alert("찜목록 삭제에 실패했습니다.");

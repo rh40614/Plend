@@ -548,11 +548,12 @@
 	
 	<insert id="insertIncome" parameterType="IncomeVO">
 		
-		<selectKey keyProperty="CNT,PRICE" resultType="BookVO" order="BEFORE">
+		<selectKey keyProperty="cntPeople,totalPrice" resultType="BookVO"  order="BEFORE">
 			SELECT 
-				 cntPeople as CNT
-				,totalPrice as PRICE
+				 cntPeople as cntPeople
+				,totalPrice as totalPrice
 			FROM book
+		   WHERE bidx = #{bidx}
 		</selectKey>
 		INSERT INTO income(
 			uidx, 
@@ -560,11 +561,11 @@
 			totalpeople)
 		VALUES(
 			#{uidx}, 
-			#{CNT}, 
-			#{PRICE}) 
+			#{totalPrice}, 
+			#{cntPeople}) 
 		ON DUPLICATE KEY
-		UPDATE totalincome = #{CNT} + totalIncome,
-			   totalpeople = #{PRICE} + totalpeople
+		UPDATE totalincome = #{totalPrice} + totalIncome,
+			   totalpeople = #{cntPeople} + totalpeople
 	</insert>
 
 	

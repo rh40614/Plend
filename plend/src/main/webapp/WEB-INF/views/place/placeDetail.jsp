@@ -167,17 +167,23 @@
 				<div class="d-flex place_addr ms-5 me-5 mt-4 mb-1 fw-bold" style="border-bottom: 1px solid lightgray;">${placeOne.address}</div>
 				<div class="icon d-flex ms-5 mt-2 me-5 pb-1" style="border-bottom: 1px solid lightgray; justify-content: right;">
 					<!-- 클립보드 -->
-					<a class="me-2 ms-2" onclick="setClipboard()" style="cursor: pointer;"><i class="fa-solid fa-link"></i></a>
+					<a class="me-2 ms-2" onclick="setClipboard()" style="cursor: pointer; margin-top: 5px;"><i class="fa-solid fa-link"></i></a>
 					<!-- 찜하기 -->
 					<c:choose>
 						<c:when test="${empty heartList}">
-							<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this)" class="fa-regular fa-heart" style="color: red;"> ${placeOne.cntHeart}</i></a>
+							<a class="me-2 ms-2" style="cursor: pointer;">
+								<i onclick="like(this,${placeOne.pidx})" class="fa-regular fa-heart" style="color: red;"></i>
+								<span class="cntHeartOff${placeOne.pidx}" style="color:red">  ${placeOne.cntHeart}</span>
+							</a>
 						</c:when>
 						<c:when test="${not empty heartList}">
-							<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this)" class="fa-solid fa-heart" style="color: red;"> ${placeOne.cntHeart}</i></a>
+							<a class="me-2 ms-2" style="cursor: pointer;">
+								<i onclick="like(this,${placeOne.pidx})" class="fa-solid fa-heart" style="color: red;"></i>
+								<span class="cntHeartOn${placeOne.pidx}" style="color:red">  ${placeOne.cntHeart}</span>
+							</a>
 						</c:when>
 					</c:choose>
-					<i class="fa-regular fa-star me-2 ms-2" style="float:right"> ${placeOne.avgRate}</i>
+					<i class="fa-regular fa-star me-2 ms-2" style="float:right; margin-top: 5px;" > ${placeOne.avgRate}</i>
 				</div>
 				<div style="float: right;" class="me-5 mt-3">
 					<span class="card-text title3" ><fmt:formatNumber value="${placeOne.price}" pattern="#,###"/></span><span>  원/시간</span>
@@ -685,7 +691,7 @@
 </script>
 <!-- 좋아요 버튼 클릭시 찜목록에 들어감 -->
 <script>
-	function like(obj){
+	function like(obj,idx){
 		if(${login ne null}){
 			if($(obj).hasClass("fa-regular") == true){
 				$.ajax({
@@ -695,6 +701,9 @@
 						if(data == 1){
 							$(obj).removeClass("fa-regular");
 							$(obj).addClass("fa-solid");
+							
+							var cntH = $(".cntHeartOff"+idx).text();
+							$(".cntHeartOff"+idx).text(' '+(parseInt(cntH)+1));
 							alert("찜목록에 등록되었습니다.");
 						}else{
 							alert("찜목록 등록에 실패했습니다.");
@@ -712,6 +721,9 @@
 						if(data == 1){
 							$(obj).removeClass("fa-solid");
 							$(obj).addClass("fa-regular");
+							
+							var cntH = $(".cntHeartOn"+idx).text();
+							$(".cntHeartOn"+idx).text(' '+(parseInt(cntH)-1));
 							alert("찜목록에서 삭제했습니다.");
 						}else{
 							alert("찜목록 삭제에 실패했습니다.");

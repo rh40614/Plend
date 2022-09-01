@@ -37,19 +37,19 @@
 			</c:if>
 			<p class="card-text">${c.address}</p>
 			<span class="card-text title3"><fmt:formatNumber value="${c.price}" pattern="#,###"/></span><span>원/시간</span>
-			<i class="fa-regular fa-star" style="float:right"> ${c.avgRate}</i>
+			<i class="fa-regular fa-star" style="float:right; margin-top: 7px;"> ${c.avgRate}</i>
 			 <!-- 찜하기 -->
 			 <c:choose>
 				<c:when test="${c.heart eq '0'}">
 					<a class="me-2 ms-2" style="cursor: pointer;">
 						<i onclick="like(this, ${c.pidx})" class="fa-regular fa-heart" style="color: red;" ></i>
-						<span id="cntHeartOff${c.pidx}" style="color:red"> ${c.cntHeart}</span>
+						<span class="cntHeartOff${c.pidx}" style="color:red"> ${c.cntHeart}</span>
 					</a>
 				</c:when>
 				<c:when test="${c.heart eq '1'}">
 					<a class="me-2 ms-2" style="cursor: pointer;">
 						<i onclick="like(this, ${c.pidx})" class="fa-solid fa-heart" style="color: red;" ></i>
-						<span id="cntHeartOn${c.pidx}" style="color:red"> ${c.cntHeart}</span>
+						<span class="cntHeartOn${c.pidx}" style="color:red"> ${c.cntHeart}</span>
 					</a>
 				</c:when>
 			</c:choose> 

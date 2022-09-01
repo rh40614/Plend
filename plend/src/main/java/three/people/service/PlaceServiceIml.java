@@ -30,12 +30,11 @@ public class PlaceServiceIml implements PlaceService{
 	public List<PlaceVO> selectPlaceAll(HashMap<String, Object> page) {
 		List<PlaceVO> result = placeDAO.selectPlaceAll(page);
 		
-		//장소 소개 35자 이상 자르기
+		//장소 이름 자르기
 		for(PlaceVO place: result) {
-			if(place.getPlaceDetail().length() > 90) {
-				String pd =place.getPlaceDetail().substring(0, 90);
-				place.setPlaceDetail(pd);
-			}
+			String[] ad = place.getAddress().split("\\s");
+			String twoFromStart = ad[0] +" " +ad[1];
+			place.setAddress(twoFromStart);
 		}
 		return result;
 	}
