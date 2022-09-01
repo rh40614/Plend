@@ -33,6 +33,7 @@ import three.people.service.MyPageService;
 import three.people.service.ReviewService;
 import three.people.vo.BookVO;
 import three.people.vo.ImageVO;
+import three.people.vo.IncomeVO;
 import three.people.vo.PlaceVO;
 import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
@@ -206,6 +207,11 @@ public class MyPageController {
 		session = request.getSession();
 		UserVO login = new UserVO();
 		login = (UserVO)session.getAttribute("login");
+		
+		IncomeVO incomeVO = new IncomeVO();
+		incomeVO.setBidx(vo.getBidx());
+		bookService.minusIncome(incomeVO);
+		
 		//session에서 uidx를 받아옴
 		int uidx = login.getUidx();
 		int result = mypageService.cancelBook(bidx);	

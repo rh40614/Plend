@@ -26,23 +26,12 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public int updateSuccess() {
 		List<BookVO> bookList = useTimeEnd();
-		int result = 0;
-		calcIncome(bookList);
-		result = successBookUpdateY(bookList);
+		int result = successBookUpdateY(bookList);
 		return result;
 	}
 	
 	public List<BookVO> useTimeEnd(){
 		return bookDAO.usetimeEnd();
-	}
-	public void calcIncome(List<BookVO> bookList) {
-		IncomeVO incomeVO = new IncomeVO();
-		for(BookVO book : bookList) {
-			incomeVO.setTotalIncome(book.getTotalPrice());
-			incomeVO.setTotalPeople(book.getCntPeople());
-			incomeVO.setUidx(book.getUidx());
-			insertIncome(incomeVO);
-		}
 	}
 	@Override
 	public int insertIncome(IncomeVO incomeVO) {
@@ -89,6 +78,11 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public IncomeVO selectIncomeForOne(UserVO userVO) {
 		return bookDAO.selectIncomeForOne(userVO);
+	}
+
+	@Override
+	public int minusIncome(IncomeVO incomeVO) {
+		return bookDAO.minusIncome(incomeVO);
 	}
 
 

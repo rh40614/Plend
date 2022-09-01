@@ -15,17 +15,20 @@ public class Scheduler {
 	@Scheduled(cron = "0 0 0-23 * * *")
 	public void autoUpdate() {
 		bookService.updateSuccess();
+		System.out.println("autoUpdate");
 	}
 	
 	// 매일 12시 정각에 이벤트 확인해서 시작기간 지난 것 시작처리하기
 	@Scheduled(cron = "0 0 0 * * *")
 	public void eventAutoUpdate() {
 		adminService.checkEventStartDate();
+		System.out.println("eventAutoUpdate");
 	}
 	
 	@Scheduled(cron = "0 0 0 14 * *")
 	public void settleUpWithHost() {
 		bookService.settleUpWithHost();
+		System.out.println("setteUpWithHost");
 	}
 	
 }
