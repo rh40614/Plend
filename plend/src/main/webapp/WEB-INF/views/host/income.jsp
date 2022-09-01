@@ -57,29 +57,31 @@
 									<td class="col-md-4">기간</td>
 									<td class="col-md-1">인원</td>
 								</tr>
-							<thead>
+							</thead>
 							<tbody>
-								<c:if test="${bookList eq null}">	
-									<tr>
-										<td colspan="8">
-										PLEND를 이용하는 고객님들을 위해 공간을 등록해보아요!<br>
-										공간을 홍보해 볼까요?
-										</td>
-									</tr>
-								</c:if>
-								<c:if test="${bookList.size() > 0}">
-									<c:forEach var="pv" items="${bookList}" >
-										<c:if test="${pv.approvalYN eq 'Y'}">
-											<tr>
-												<td>${pv.rnum}</td>
-												<td>${pv.bidx}</td>
-												<td>${pv.placeName}</td>
-												<td>${pv.useTime}</td>
-												<td>${pv.cntPeople}</td>
-											</tr>
-										</c:if>
-									</c:forEach>
-								</c:if>
+								<c:choose>
+									<c:when test="${bookList.size() > 0}">	
+										<c:forEach var="pv" items="${bookList}" >
+											<c:if test="${pv.approvalYN eq 'Y'}">
+												<tr>
+													<td>${pv.rnum}</td>
+													<td>${pv.bidx}</td>
+													<td>${pv.placeName}</td>
+													<td>${pv.useTime}</td>
+													<td>${pv.cntPeople}</td>
+												</tr>
+											</c:if>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<tr>
+											<td colspan="5">
+											PLEND를 이용하는 고객님들을 위해 공간을 등록해보아요!<br>
+											공간을 홍보해 볼까요?
+											</td>
+										</tr>
+									</c:otherwise>
+								</c:choose>
 							</tbody>
 						</table>
 					</div>

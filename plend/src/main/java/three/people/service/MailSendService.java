@@ -63,7 +63,7 @@ public class MailSendService {
 				    "로그인 후 마이페이지에서 비밀번호를 변경해주세요."+
 				    "<br>"+
 				    "<div style='background-color: #7dbae5; border-radius: 15px; width: 250px; text-align: center;'>" + //이메일 내용 삽입
-				    "<a href='http://localhost:8080/controller/common/signIn.do' style='color: white;'>로그인 페이지로 이동하기</a>" +
+				    "<a href='http://jjezen.cafe24.com/plend/common/signIn.do' style='color: white;'>로그인 페이지로 이동하기</a>" +
 				    "</div>";
 			mailSend(setFrom, toMail, title, content);
 			return tempPassword;
