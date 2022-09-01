@@ -431,7 +431,6 @@
 			$('#summernote').summernote(
 				'pasteHTML', detail
 			);
- 			
 		}); 
 		
 	</script>

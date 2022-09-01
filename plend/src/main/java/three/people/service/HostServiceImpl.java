@@ -251,6 +251,12 @@ public class HostServiceImpl implements HostService {
 	}
 
 
+	@Override
+	public int insertIncome(BookVO bookVO) {
+		return hostDAO.insertIncome(bookVO);
+	}
+
+
 	
 	
 	

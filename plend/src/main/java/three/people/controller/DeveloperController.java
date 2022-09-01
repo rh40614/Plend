@@ -2,8 +2,10 @@ package three.people.controller;
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,14 +148,35 @@ public class DeveloperController {
 	//해당 업체 데이터도 넘겨주기
 	@RequestMapping(value="/enterModify.do", method=RequestMethod.GET)
 	public String enterModify(UserVO uservo, Model model) {
+		
 		model.addAttribute("enter", adminService.userOne(uservo));
 		model.addAttribute("placeList", adminService.enterPlace(uservo));
 		return "developer/enterModify";
 	}
 	//업체정보 수정하기
 	@RequestMapping(value="/enterModify.do", method=RequestMethod.POST)
-	public String enterModify(UserVO uservo) {
-		adminService.userInfo(uservo);
+	public String enterModify(UserVO uservo, HttpServletResponse response) throws IOException {
+		
+		String endcodedPassword = passwordEncoder.encode(uservo.getPassword());
+		uservo.setPassword(endcodedPassword);
+		
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = response.getWriter();
+	
+		int result = adminService.userInfo(uservo);
+		
+		if(result <= 0) { 
+			//등록이 제대로 이루어지지 않음
+			pw.append("<script>alert('수정이 정상적으로 등록되지 못했습니다. 다시 작성해주세요.');location.href = 'enterModify.do?uidx="+uservo.getUidx()+"'</script>");
+			
+			pw.flush();
+		} else {
+			//등록이 제대로 이루어짐
+			pw.append("<script>alert('수정이 완료되었습니다.');location.href = 'enterModify.do?uidx="+uservo.getUidx()+"'</script>");
+			
+			pw.flush();
+		}
+		
 		return "redirect:/developer/enterList.do";
 	}
 	//업체 삭제

@@ -11,7 +11,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<!-- <property name="url" value="jdbc:mysql://localhost:3306/mysql?characterEncoding=utf8&amp;serverTimezone=UTC" />
 		<property name="username" value="root" />
-		<property name="password" value="1234" />  -->
+		<property name="password" value="1234" /> -->
 		<property name="url" value="jdbc:mysql://jjezen.cafe24.com:3307/api_20220315_a_a?characterEncoding=utf8&amp;serverTimezone=UTC" />
 		<property name="username" value="api_20220315_a_a" />
 		<property name="password" value="user1234!!" />

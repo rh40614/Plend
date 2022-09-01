@@ -18,35 +18,34 @@
 	<thead>
 	<tbody>
 		<c:if test="${list_b.size() == 0}">	
-	<tr>
-		<td colspan="8">등록된 예약이 없습니다. </td>
-	</tr>
-	</c:if>
-	<!--  -->
-	<c:if test="${list_b.size() > 0}">
-	<c:forEach var="pv" items="${list_b}" >
-		<tr>
-			<td>${pv.rnum}</td>
-			<td>${pv.bidx}</td>
-			<td>${pv.placeName}</td>
-			<td>${pv.useTime}</td>
-			<td>${pv.cntPeople}</td>
-			<td>${pv.nickName}</td>
-			 <c:choose>
-				<c:when test="${pv.approvalYN eq 'N'}">
-					<td id="approvalN${pv.bidx}">승인 대기</td>
-				</c:when>
-				<c:when test="${pv.approvalYN eq 'Y'}"> 
-					<td id="approvalY${pv.bidx}">승인 완료</td>
-				</c:when>
-				<c:when test="${pv.approvalYN eq 'R'}"> 
-					<td id="approvalR${pv.bidx}">승인 거절</td>
-				</c:when>
-			</c:choose> 
-			<td id="canclebtn${pv.bidx}"><button class="btnDefault" type="button" onclick="approval(${pv.bidx})" id="approvalBtn${pv.bidx}">확인</button></td>
-		</tr>
-	</c:forEach>
-	</c:if>
+			<tr>
+				<td colspan="8">등록된 예약이 없습니다. </td>
+			</tr>
+		</c:if>
+			<c:if test="${list_b.size() > 0}">
+				<c:forEach var="pv" items="${list_b}" >
+					<tr>
+						<td>${pv.rnum}</td>
+						<td>${pv.bidx}</td>
+						<td>${pv.placeName}</td>
+						<td>${pv.useTime}</td>
+						<td>${pv.cntPeople}</td>
+						<td>${pv.nickName}</td>
+						 <c:choose>
+							<c:when test="${pv.approvalYN eq 'N'}">
+								<td id="approvalN${pv.bidx}">승인 대기</td>
+							</c:when>
+							<c:when test="${pv.approvalYN eq 'Y'}"> 
+								<td id="approvalY${pv.bidx}">승인 완료</td>
+							</c:when>
+							<c:when test="${pv.approvalYN eq 'R'}"> 
+								<td id="approvalR${pv.bidx}">승인 거절</td>
+							</c:when>
+						</c:choose> 
+						<td id="canclebtn${pv.bidx}"><button class="btnDefault" type="button" onclick="approval(${pv.bidx})" id="approvalBtn${pv.bidx}">확인</button></td>
+					</tr>
+				</c:forEach>
+			</c:if>
 		</tbody>
 	</table>
 	
