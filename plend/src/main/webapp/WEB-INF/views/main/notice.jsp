@@ -72,7 +72,7 @@
   	<c:forEach var = "vo" items = "${list}">
     <tr>
       <td scope="row">${vo.rnum}</td>
-      <td id = "title"><a href = "noticeView.do?nidx=${vo.nidx}">${vo.title}</a></td>
+      <td id = "title" style="text-align: left!important"><a href = "noticeView.do?nidx=${vo.nidx}">${vo.title}</a></td>
       <td id = "write">${vo.nickName}</td>
       <td id = "write">${vo.date.substring(0,10)}</td>
       <td id = "hit">${vo.hit}</td>

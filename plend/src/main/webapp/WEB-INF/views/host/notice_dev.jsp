@@ -133,7 +133,7 @@
 								<c:forEach var="n" items="${list}">
 									<tr >
 										<td class="col-md-1">${n.rnum}</td>
-										<td class="col-md-8" style="text-align: left;"><a href="<%=request.getContextPath()%>/host/noticeView.do?nidx=${n.nidx}&searchType=${pagination.searchType}&searchValue=${pagination.searchValue}&rnum=${n.rnum}">${n.title}</a></td>
+										<td class="col-md-8" style="text-align:left!important;"><a href="<%=request.getContextPath()%>/host/noticeView.do?nidx=${n.nidx}&searchType=${pagination.searchType}&searchValue=${pagination.searchValue}&rnum=${n.rnum}">${n.title}</a></td>
 										<td class="col-md-1">${n.hit}</td>
 										<td class="col-md-2">${n.date.substring(0,10)}</td>
 									</tr>
