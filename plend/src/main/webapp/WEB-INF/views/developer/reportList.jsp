@@ -54,7 +54,7 @@
 							<tr>
 						      <th scope="row">${report.rnum}</th>
 						      <td>${report.category.replace(",",'/')}</td>
-						      <td><a href="<%=request.getContextPath()%>/review/detail.do?rvidx=${report.rvidx}">${report.content}</a></td>
+						      <td style="text-align: initial;"><a href="<%=request.getContextPath()%>/review/detail.do?rvidx=${report.rvidx}">${report.content}</a></td>
 						      <td>${report.name}</td>
 						      <td>${report.date.substring(0,10)}</td>
 						      <c:choose>

@@ -314,7 +314,7 @@
 				   p.pidx
 		      FROM report r
 		      JOIN user_plend u
-		        ON r.respondent_uidx = u.uidx
+		        ON r.reporter_uidx = u.uidx
 	          JOIN review p
 	            ON r.rvidx = p.rvidx
 		        <if test="searchType != null">
