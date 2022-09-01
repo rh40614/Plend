@@ -151,4 +151,20 @@
 		  FROM income
 		 WHERE uidx = #{uidx}
 	</select>
+	<!-- 예약 취소시 매출에서 값 제거 -->
+	<update id="minusIncome" parameterType="IncomeVO">
+		<selectKey keyProperty="uidx,totalIncome,totalPeople" resultType="IncomeVO" order="BEFORE"> 
+			SELECT p.uidx, 
+				   b.totalPrice AS totalIncome, 
+				   b.cntPeople AS totalPeople
+			  FROM book b 
+			  JOIN place p 
+			    ON b.pidx = p.pidx 
+			 WHERE b.bidx = #{bidx}
+		</selectKey>
+		UPDATE income
+		   SET totalincome = totalincome - #{totalIncome},
+			   totalpeople = totalpeople - #{totalPeople}
+		 WHERE uidx = #{uidx} 
+	</update>
 </mapper>

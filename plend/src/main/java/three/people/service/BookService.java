@@ -20,4 +20,5 @@ public interface BookService {
 	int insertIncome(IncomeVO incomeVO);
 	int settleUpWithHost();
 	IncomeVO selectIncomeForOne(UserVO userVO);
+	int minusIncome(IncomeVO incomeVO);
 }

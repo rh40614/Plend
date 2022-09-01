@@ -54,5 +54,7 @@ public class BookDAO {
 	public IncomeVO selectIncomeForOne(UserVO userVO) {
 		return sqlSession.selectOne("three.people.mapper.bookMapper.selectIncomeForOne", userVO);
 	}
-	 
+	public int minusIncome(IncomeVO incomeVO) {
+		return sqlSession.update("three.people.mapper.bookMapper.minusIncome", incomeVO);
+	}
 }
