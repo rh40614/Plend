@@ -146,7 +146,7 @@
 			   		AND (u.nickname LIKE CONCAT('%',#{searchValue},'%'))
 			 	</if>
 			</if>
-	  ORDER BY p.pidx DESC) sub
+	  ORDER BY p.pidx ASC) sub
    	  ORDER BY rnum DESC
 		 LIMIT #{start}, #{cntPerPage}
 	</select>
@@ -325,7 +325,7 @@
 				   		WHERE (r.category LIKE CONCAT('%',#{searchValue},'%'))
 				 	</if>
 			    </if>
-	      ORDER BY rbidx DESC) sub
+	      ORDER BY rbidx ASC) sub
 	      ORDER BY rnum DESC
          LIMIT #{start}, #{cntPerPage}
 	</select>

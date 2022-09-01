@@ -26,11 +26,9 @@
 				 ,approvalYN
 				 ,availTimeValue
 				 ,intervalTime
-				 <if test="userVO != null">
-					 <if test="userVO.uidx != null">
-					 , (SELECT COUNT(*) FROM heart WHERE uidx=#{UserVO.uidx} AND pidx=a.pidx) AS heart
-					 </if>
-				</if>
+				 <if test="uidx != null">
+				 , (SELECT COUNT(*) FROM heart WHERE uidx=#{uidx} AND pidx=a.pidx) AS heart
+				 </if>
 			FROM place a , (SELECT @rownum:=0) rnum
 		   WHERE delYN ='N'
 		   	 AND uidx = #{placeVO.uidx}

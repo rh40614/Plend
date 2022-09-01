@@ -10,6 +10,7 @@ import three.people.vo.BlockVO;
 import three.people.vo.BookVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
+import three.people.vo.IncomeVO;
 import three.people.vo.InquiryVO;
 import three.people.vo.NoticeVO;
 import three.people.vo.PlaceVO;
@@ -66,6 +67,6 @@ public interface HostService {
 	public int approval(BookVO bookVO);
 	public int insertReject(BookVO bookVO);
 	public int reject(BookVO bookVO);
-	public int insertIncome(BookVO bookVO);
+	public int insertIncome(IncomeVO incomeVO);
 	
 }

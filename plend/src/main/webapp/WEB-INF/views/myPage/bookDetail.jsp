@@ -114,12 +114,12 @@
    		</table>
    		<br>
    		<div style = "text-align:center;">
-   			<c:if test = "${bv.successBook eq 'N' }">
-	   			<input type = "button" value = "예약 취소하기" id = "canBtn" onclick = "canChk();">
-   			</c:if>
-   			<c:if test = "${bv.successBook eq 'Y' }">
-	   			
-   			</c:if>
+	   		<c:choose>
+		   		<c:when test ="${bv.successBook eq 'Y'}"></c:when>
+		   		<c:otherwise>
+		   			<input type = "button" value = "예약 취소하기" id = "canBtn" onclick = "canChk();">
+		   		</c:otherwise>
+	   		</c:choose>
    		</div>
    </div>
    </div>

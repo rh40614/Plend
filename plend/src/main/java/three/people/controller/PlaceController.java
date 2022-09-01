@@ -379,7 +379,7 @@ public final class PlaceController {
 		//로그인 했을 때 
 		if(session.getAttribute("login") != null) {
 			UserVO login = (UserVO) session.getAttribute("login");
-			page.put("userVO", login);
+			page.put("uidx", login.getUidx());
 			
 			List<PlaceVO> list = placeService.selectPlaceAll(page);
 			
@@ -392,8 +392,8 @@ public final class PlaceController {
 				p.setAvgRate(avgRate);
 				//찜한 사람 수 
 				p.setCntHeart(placeService.countHeart(p));
+				System.out.println("heart?: "+p.getHeart());
 			}
-			
 			model.addAttribute("list", list);
 			
 		}else {

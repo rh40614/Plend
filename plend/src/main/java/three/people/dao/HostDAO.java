@@ -11,6 +11,7 @@ import three.people.vo.BlockVO;
 import three.people.vo.BookVO;
 import three.people.vo.EventVO;
 import three.people.vo.ImageVO;
+import three.people.vo.IncomeVO;
 import three.people.vo.InquiryVO;
 import three.people.vo.NoticeVO;
 import three.people.vo.PlaceVO;
@@ -169,8 +170,8 @@ public class HostDAO {
 	public int reject(BookVO bookVO) {
 		return sqlSession.update(namespace+".reject", bookVO);
 	}
-	public int insertIncome(BookVO bookVO) {
-		return sqlSession.insert(namespace+".insertIncome", bookVO);
+	public int insertIncome(IncomeVO incomeVO) {
+		return sqlSession.insert(namespace+".insertIncome", incomeVO);
 	}
 	
 	

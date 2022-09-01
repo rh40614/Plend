@@ -35,10 +35,16 @@
 			 <!-- 찜하기 -->
 			 <c:choose>
 				<c:when test="${e.heart eq '0'}">
-					<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${e.pidx})" class="fa-regular fa-heart" style="color: red;"> ${e.cntHeart}</i></a>
+					<a class="me-2 ms-2" style="cursor: pointer;">
+						<i onclick="like(this, ${e.pidx})" class="fa-regular fa-heart" style="color: red;"></i>
+						<span class="cntHeartOff${e.pidx}" style="color:red"> ${e.cntHeart}</span>
+					</a>
 				</c:when>
 				<c:when test="${e.heart eq '1'}">
-					<a class="me-2 ms-2" style="cursor: pointer;"><i onclick="like(this, ${e.pidx})" class="fa-solid fa-heart" style="color: red;" > ${e.cntHeart}</i></a>
+					<a class="me-2 ms-2" style="cursor: pointer;">
+						<i onclick="like(this, ${e.pidx})" class="fa-solid fa-heart" style="color: red;" ></i>
+						<span class="cntHeartOn${e.pidx}" style="color:red"> ${e.cntHeart}</span>
+					</a>
 				</c:when>
 			</c:choose> 
 		</div>

@@ -3,6 +3,7 @@ package three.people.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,6 +23,7 @@ import three.people.service.HostService;
 import three.people.vo.BlockVO;
 import three.people.vo.BookVO;
 import three.people.vo.ImageVO;
+import three.people.vo.IncomeVO;
 import three.people.vo.ReportVO;
 import three.people.vo.ReviewVO;
 import three.people.vo.SearchVO;
@@ -101,9 +103,19 @@ public class AjaxController {
 	//08.10 김연희 : 호스트 센터 에약 승인 
 	@ResponseBody
 	@RequestMapping(value="approval.do", method= RequestMethod.GET)
-	public int approval(BookVO bookVO) {
+	public int approval(BookVO bookVO, HttpServletRequest request, HttpSession session) {
+		session = request.getSession();
+		UserVO login = (UserVO)session.getAttribute("login");
+		
 		int result = hostService.approval(bookVO);
-		int incomeResult = hostService.insertIncome(bookVO);
+		System.out.println(bookVO.getBidx());
+		IncomeVO incomeVO = new IncomeVO();
+		incomeVO.setUidx(login.getUidx());
+		incomeVO.setBidx(bookVO.getBidx());
+		incomeVO.setCntPeople(bookVO.getCntPeople());
+		incomeVO.setTotalPrice(bookVO.getTotalPrice());
+		
+		int incomeResult = hostService.insertIncome(incomeVO);
 		System.out.println("incomeResult: "+incomeResult);
 		if(result == 1) {
 			System.out.println("수정완");

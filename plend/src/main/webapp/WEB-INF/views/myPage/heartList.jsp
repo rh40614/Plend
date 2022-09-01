@@ -61,10 +61,10 @@
 		</c:if>
 		<c:if test="${list.size() > 0 }">
 			<c:forEach var ="e" items="${list}" varStatus="status"> 
-				<div class="card " style="width: 16rem; margin-right: 20px;margin-top:20px;">
+				<div class="card " id="${e.pidx}" style="width: 16rem; margin-right: 20px;margin-top:20px;">
 					<!-- imageView 아주 잘 썼습니다. -->
 	  				<img  src="<%=request.getContextPath()%>/imageView.do?realFileName=${e.placeImg}" class="card-img-top" alt="..." style = "height:13rem;">
-	 			<div class="card-body">
+	 			<div class="card-body" >
 	 				<h5 class="card-title"><a href="<%=request.getContextPath()%>/place/view.do?pidx=${e.pidx}" class="">${e.placeName}</a></h5>
 	 				<p class="card-text">${e.address}</p>
 	 				<p class="card-text"><fmt:formatNumber value="${e.price}" pattern="#,###"/>원</p>
@@ -161,6 +161,7 @@
 								$(obj).removeClass("fa-solid");
 								$(obj).addClass("fa-regular");
 								alert("찜목록에서 삭제했습니다.");
+								$("#"+idx).css("display","none");
 							}else{
 								alert("찜목록 삭제에 실패했습니다.");
 							}
