@@ -103,6 +103,8 @@ public class AjaxController {
 	@RequestMapping(value="approval.do", method= RequestMethod.GET)
 	public int approval(BookVO bookVO) {
 		int result = hostService.approval(bookVO);
+		int incomeResult = hostService.insertIncome(bookVO);
+		System.out.println("incomeResult: "+incomeResult);
 		if(result == 1) {
 			System.out.println("수정완");
 		}else {
