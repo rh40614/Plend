@@ -61,7 +61,46 @@
 								<c:forEach var="q" items="${list}">
 									<tr >
 										<td>${q.rnum}</td>
-										<td>${q.category}</td>
+										<td>
+											<c:choose>
+									    		<c:when test="${q.category == 'gallery'}">
+									    			갤러리
+									    		</c:when>
+									    		<c:when test="${q.category == 'homeGym'}">
+									    			운동시설
+									    		</c:when>
+									    		<c:when test="${q.category == 'meeting'}">
+									    			회의실
+									    		</c:when>
+									    		<c:when test="${q.category == 'dancePractice'}">
+									    			춤연습실
+									    		</c:when>
+									    		<c:when test="${q.category == 'office'}">
+									    			독립오피스
+									    		</c:when>
+									    		<c:when test="${q.category == 'shareOffice'}">
+									    			공유 오피스
+									    		</c:when>
+									    		<c:when test="${q.category == 'partyRoom'}">
+									    			파티룸
+									    		</c:when>
+									    		<c:when test="${q.category == 'recording'}">
+									    			녹음실
+									    		</c:when>
+									    		<c:when test="${q.category == 'shareKitchen'}">
+									    			공유주방
+									    		</c:when>
+									    		<c:when test="${q.category == 'singPractice'}">
+									    			노래연습실
+									    		</c:when>
+									    		<c:when test="${q.category == 'studio'}">
+									    			스튜디오
+									    		</c:when>
+									    		<c:when test="${q.category == 'smallWedding'}">
+									    			스몰웨딩
+									    		</c:when>
+									    	</c:choose>
+										</td>
 										<td>${q.placeName}</td>
 										<td style="text-align: left;"><a href="<%=request.getContextPath()%>/place/view.do?pidx=${q.pidx}#QnA">${q.title}</a></td>
 										<td>${q.date}</td>

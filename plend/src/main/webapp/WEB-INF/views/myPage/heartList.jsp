@@ -137,7 +137,7 @@
 			if(${login ne null}){
 				if($(obj).hasClass("fa-regular") == true){
 					$.ajax({
-						url: "<%=request.getContextPath()%>/myPage/heart.do?pidx="+idx+"&like=add",
+						url: "<%=request.getContextPath()%>/place/heart.do?pidx="+idx+"&like=add",
 						success: function(data){
 							console.log(data);
 							if(data == 1){
@@ -155,7 +155,7 @@
 	
 				}else{
 					$.ajax({
-						url: "<%=request.getContextPath()%>/myPage/heart.do?pidx="+idx+"&like=delete",
+						url: "<%=request.getContextPath()%>/place/heart.do?pidx="+idx+"&like=delete",
 						success: function(data){
 							if(data == 1){
 								$(obj).removeClass("fa-solid");

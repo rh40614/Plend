@@ -89,7 +89,7 @@ public class AdminDAO {
 	}
 	// 07.19 김영민: 이벤트 삭제
 	public int deleteEvent(EventVO eventvo) {
-		return sqlSession.delete("three.people.mapper.adminMapper.deleteEvent", eventvo);
+		return sqlSession.update("three.people.mapper.adminMapper.deleteEvent", eventvo);
 	}
 // 07.25 김영민: 장소 eventyn N으로 설정
 	public int placeEventDone(EventVO eventvo) {

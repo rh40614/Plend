@@ -69,13 +69,15 @@
 								</c:if>
 								<c:if test="${bookList.size() > 0}">
 									<c:forEach var="pv" items="${bookList}" >
-										<tr>
-											<td>${pv.rnum}</td>
-											<td>${pv.bidx}</td>
-											<td>${pv.placeName}</td>
-											<td>${pv.useTime}</td>
-											<td>${pv.cntPeople}</td>
-										</tr>
+										<c:if test="${pv.approvalYN eq 'Y'}">
+											<tr>
+												<td>${pv.rnum}</td>
+												<td>${pv.bidx}</td>
+												<td>${pv.placeName}</td>
+												<td>${pv.useTime}</td>
+												<td>${pv.cntPeople}</td>
+											</tr>
+										</c:if>
 									</c:forEach>
 								</c:if>
 							</tbody>

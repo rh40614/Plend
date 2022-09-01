@@ -68,13 +68,13 @@
      		<h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: white; font-size:20px;"><strong>${login.nickName}</strong>님 환영합니다!</h5>
      		<br>
      		<c:if test = "${login.role == 1}">
-     		<button type="button" class="btn-primary btn-lg mb-4" style="background: #FC5185; color: white; border-radius: 50px; border: none;float :left; "onclick="location.href='<%=request.getContextPath()%>/developer/userList.do'">관리자 페이지</button>
+     		<button type="button" class="btn-primary btn-lg mb-4" style="background: #FC5185 !important; color: white; border-radius: 50px; border: none;float :left; "onclick="location.href='<%=request.getContextPath()%>/developer/userList.do'">관리자 페이지</button>
      		</c:if>
      		<c:if test = "${login.role == 2}">
-     		<button type="button" class="btn-primary btn-lg mb-4" style="background: #FC5185; color: white; border-radius: 50px; border: none;float :left; "onclick="location.href='<%=request.getContextPath()%>/myPage/myPageCheck.do?uidx=${login.uidx}' ">마이페이지</button>
+     		<button type="button" class="btn-primary btn-lg mb-4" style="background: #FC5185 !important; color: white; border-radius: 50px; border: none;float :left; "onclick="location.href='<%=request.getContextPath()%>/myPage/myPageCheck.do?uidx=${login.uidx}' ">마이페이지</button>
      		</c:if>
 			<c:if test = "${login.role == 3}">
-			<button type="button" class="btn-primary btn-lg mb-4" style="background: #FC5185; color: white; border-radius: 50px; border: none;float :left; "onclick="location.href='<%=request.getContextPath()%>/host/income.do?uidx=${login.uidx}' ">호스트 페이지</button>
+			<button type="button" class="btn-primary btn-lg mb-4" style="background: #FC5185 !important; color: white; border-radius: 50px; border: none;float :left; "onclick="location.href='<%=request.getContextPath()%>/host/income.do?uidx=${login.uidx}' ">호스트 페이지</button>
        		</c:if>
      	</c:if>
       </div>

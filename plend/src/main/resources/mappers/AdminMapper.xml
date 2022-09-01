@@ -220,7 +220,8 @@
 				   e.edate,
 				   e.startend,
 				   e.eventimg,
-				   e.category
+				   e.category,
+				   e.delyn
 			  FROM event e
 		  ORDER BY e.eidx ASC) sub
 		  ORDER BY rnum DESC
@@ -240,7 +241,8 @@
 			   edate,
 			   startend,
 			   eventimg,
-			   category
+			   category,
+			   delyn
 		  FROM event
 		 WHERE eidx = #{eidx}
 	</select>
@@ -275,10 +277,11 @@
 		 WHERE eidx = #{eidx}
 	</select>
 	<!-- 이벤트 삭제 -->
-	<delete id="deleteEvent" parameterType="EventVO">
-		DELETE FROM event
-		      WHERE eidx = #{eidx}
-	</delete>
+	<update id="deleteEvent" parameterType="EventVO">
+		UPDATE event
+		   SET delyn = 'Y'
+		 WHERE eidx = #{eidx}
+	</update>
 	<!-- 07.25 김영민: 이벤트 등록 후 장소에 이벤트 설정 뿌려주기 -->
 	<update id="placeEventUpdate" parameterType="EventVO">
 		UPDATE place
