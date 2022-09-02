@@ -134,7 +134,7 @@
 			    		</c:when>
 			    		<c:when test="${placeOne.category == 'studio'}">
 				    		<a href="<%=request.getContextPath()%>/place/placeList.do?category=${placeOne.category}" style="color: #7f8b93">
-								<i class="fa-solid fa-angles-right" > 갤러리</i>
+								<i class="fa-solid fa-angles-right" > 스튜디오</i>
 							</a>
 			    		</c:when>
 			    		<c:when test="${placeOne.category == 'smallWedding'}">

@@ -93,7 +93,7 @@
 					<p style="margin-top:25px;"><i class="fa-solid fa-user" style="color: #2F506D;"></i> 김연희</p>
 					<div class="ex">
 						<span style="font-weight: bold;">PM</span><br>
-						호스트 페이지 <br> 결제 API <br> 태그 장소추천
+						호스트 페이지 <br> 결제 API <br> 태그 장소추천   <br> 장소 리스트 
 					</div>
 					<p class="font-monospace" style="margin-top:15px;"><i class="fa-solid fa-envelope" style="color: #2F506D;"></i> rh40614@gmail.com</p>
 				</div>

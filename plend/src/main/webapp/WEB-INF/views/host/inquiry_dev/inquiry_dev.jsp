@@ -183,7 +183,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
  			$('#summernote').summernote({
- 				width: 1250,
+ 				width: 1000,
 	 			height: 400,		// 기본 높이값
 			    minHeight: 450,		// 최소 높이값(null은 제한 없음)
 			    maxHeight: null,  	// 최대 높이값(null은 제한 없음)
