@@ -42,7 +42,6 @@
 					      <th scope="col">장소명</th>
 					      <th scope="col">대표자명</th>
 					      <th scope="col">업체번호</th>
-					      <th scope="col">등록일</th>
 					      <th scope="col">승인/반려</th>
 					    </tr>
 					  </thead>
@@ -64,7 +63,6 @@
 								      <td><a href="<%=request.getContextPath()%>/place/view.do?pidx=${place.pidx}">${place.placeName}</a></td>
 								      <td>${place.name}</td>
 								      <td>${place.userPhone}</td>
-								      <td>2022-07-13</td>
 								      <td>
 								      	<a class="btn btn-primary btn-sm rounded-3 confirm" href="confirm.do?pidx=${place.pidx}&approvalYN=승인" role="button">승인</a>
 								      	<a class="btn btn-primary btn-sm rounded-3 reject" href="confirm.do?pidx=${place.pidx}&approvalYN=승인거절" role="button">반려</a>
@@ -79,7 +77,6 @@
 								      <td>${place.placeName}</td>
 								      <td>${place.name}</td>
 								      <td>${place.userPhone}</td>
-								      <td>2022-07-13</td>
 								      <td>
 								      	<a class="btn btn-primary btn-sm rounded-3" style="background-color: gray !important; border-color: gray !important;" >승인</a>
 								      	<a class="btn btn-primary btn-sm rounded-3" >반려</a>
@@ -94,7 +91,6 @@
 								      <td>${place.placeName}</td>
 								      <td>${place.name}</td>
 								      <td>${place.userPhone}</td>
-								      <td>2022-07-13</td>
 								      <td>
 								      	<a class="btn btn-primary btn-sm rounded-3">승인</a>
 								      	<a class="btn btn-primary btn-sm rounded-3" style="background-color: gray !important; border-color: gray !important;">반려</a>
