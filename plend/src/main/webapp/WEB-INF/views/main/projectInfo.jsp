@@ -22,10 +22,8 @@
 	<div id="wrap">
 		<header id="header"></header>
 		
-		<main class="d-flex" style="margin: 5% 19% 10% 19%; flex: 1; justify-content: space-between; background: ">
-			<div>
-				
-			</div>
+		<main class="d-flex" >
+			<img src="<%=request.getContextPath()%>/resources/image/projecttinfo.png" alt="프로젝트 소개">
 		</main>
 		<footer id="footer" class="mt-5"></footer>
 	</div>
