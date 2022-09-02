@@ -638,8 +638,9 @@
 <!-- 클립보드 복사 -->
 <script type="text/javascript">
 	async function setClipboard() {
+	  var Url = location; 
    	  try {
-   	    await navigator.clipboard.writeText(location.href);
+   	    await navigator.clipboard.writeText(Url);
    	 	alert("클립보드에 복사하였습니다.");
    	  } catch (err) {
    		alert("클립보드에 복사 실패했습니다.");
